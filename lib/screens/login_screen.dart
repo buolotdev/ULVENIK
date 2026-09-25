@@ -192,13 +192,13 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                   hintText: 'athlete@ulvenik.com',
                                   hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey.withOpacity(0.5)),
                                   filled: true,
-                                  fillColor: AppColors.surfaceCarbon,
+                                  fillColor: AppColors.cardsCarbon,
                                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                                  enabledBorder: OutlineBorder(
+                                  enabledBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(color: Colors.white12),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  focusedBorder: OutlineBorder(
+                                  focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(color: AppColors.primaryForestGreen),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
@@ -224,13 +224,13 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                   hintText: '••••••••',
                                   hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey.withOpacity(0.5)),
                                   filled: true,
-                                  fillColor: AppColors.surfaceCarbon,
+                                  fillColor: AppColors.cardsCarbon,
                                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                                  enabledBorder: OutlineBorder(
+                                  enabledBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(color: Colors.white12),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  focusedBorder: OutlineBorder(
+                                  focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(color: AppColors.primaryForestGreen),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
@@ -348,7 +348,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 icon: SvgPicture.asset('assets/icons/google_logo.svg', width: 20, height: 20),
                                 label: const Text('Continue with Google'),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.surfaceCarbon,
+                                  backgroundColor: AppColors.cardsCarbon,
                                   foregroundColor: AppColors.primaryTextOffWhite,
                                   padding: const EdgeInsets.symmetric(vertical: 16),
                                   shape: RoundedRectangleBorder(
@@ -373,54 +373,5 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         ],
       ),
     );
-  }
-}
-
-// Custom InputBorder subclass since OutlineInputBorder doesn't natively support white12 correctly sometimes in const.
-class OutlineBorder extends InputBorder {
-  final BorderSide borderSide;
-  final BorderRadius borderRadius;
-
-  const OutlineBorder({
-    this.borderSide = const BorderSide(),
-    this.borderRadius = const BorderRadius.all(Radius.circular(4.0)),
-  });
-
-  @override
-  bool get isOutline => true;
-
-  @override
-  InputBorder copyWith({BorderSide? borderSide}) {
-    return OutlineBorder(
-      borderSide: borderSide ?? this.borderSide,
-      borderRadius: borderRadius,
-    );
-  }
-
-  @override
-  EdgeInsetsGeometry get dimensions => EdgeInsets.all(borderSide.width);
-
-  @override
-  Path getInnerPath(Rect rect, {TextDirection? textDirection}) {
-    return Path()..addRRect(borderRadius.resolve(textDirection).toRRect(rect).deflate(borderSide.width));
-  }
-
-  @override
-  Path getOuterPath(Rect rect, {TextDirection? textDirection}) {
-    return Path()..addRRect(borderRadius.resolve(textDirection).toRRect(rect));
-  }
-
-  @override
-  void paint(
-    Canvas canvas,
-    Rect rect, {
-    double? gapStart,
-    double gapExtent = 0.0,
-    double gapPercentage = 0.0,
-    TextDirection? textDirection,
-  }) {
-    final Paint paint = borderSide.toPaint();
-    final RRect outer = borderRadius.resolve(textDirection).toRRect(rect);
-    canvas.drawRRect(outer, paint);
   }
 }
