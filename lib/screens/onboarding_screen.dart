@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import 'login_screen.dart';
 
 class OnboardingData {
   final String title;
@@ -377,7 +378,23 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                     curve: Curves.easeOutCubic,
                                   );
                                 } else {
-                                  // Finish onboarding
+                                  // Navigate to Login with a smooth SaaS fade
+                                  Navigator.of(context).pushReplacement(
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation, secondaryAnimation) => 
+                                          const LoginScreen(),
+                                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                        return FadeTransition(
+                                          opacity: CurvedAnimation(
+                                            parent: animation, 
+                                            curve: Curves.easeOut
+                                          ), 
+                                          child: child
+                                        );
+                                      },
+                                      transitionDuration: const Duration(milliseconds: 600),
+                                    ),
+                                  );
                                 }
                               },
                               style: ElevatedButton.styleFrom(
@@ -391,7 +408,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                 elevation: 0,
                               ),
                               child: Text(
-                                'Continue',
+                                _currentPageValue.round() == _pages.length - 1 
+                                    ? 'Get Started' 
+                                    : 'Continue',
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelLarge
