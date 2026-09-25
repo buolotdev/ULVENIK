@@ -35,10 +35,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           'Every dog is different. Every handler is different. That\'s why Ulvenik never forces predefined Skills, Exercises, Sports, Rewards or Equipment. Instead, you build your own training system, allowing Ulvenik to adapt to the way you already train.',
       bgImage: 'assets/bg-images/onboarding_2.png',
     ),
-    // Placeholder for Screen 3 later
     OnboardingData(
-      title: 'Track Your Progress',
-      body: 'Get insights into your dog\'s performance and adjust your training plan dynamically based on data-driven feedback.',
+      title: 'Every Session Builds Your Journey',
+      body: 'Record your Training, Strength & Conditioning and Competitions alongside videos, notes, rewards, equipment and progress. Ulvenik automatically connects everything together, building a complete history of your journey over time.',
       bgImage: 'assets/bg-images/onboarding_3.png',
     ),
   ];
