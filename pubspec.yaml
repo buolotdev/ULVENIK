@@ -47,21 +47,22 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   flutter_launcher_icons: ^0.14.3
+  image: ^4.10.1
 
 flutter_launcher_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/images/white_app_logo.png"
+  image_path: "assets/images/app_icon_solid.png"
   web:
     generate: true
-    image_path: "assets/images/white_app_logo.png"
+    image_path: "assets/images/app_icon_solid.png"
   windows:
     generate: true
-    image_path: "assets/images/white_app_logo.png"
+    image_path: "assets/images/app_icon_solid.png"
   macos:
     generate: true
-    image_path: "assets/images/white_app_logo.png"
+    image_path: "assets/images/app_icon_solid.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
