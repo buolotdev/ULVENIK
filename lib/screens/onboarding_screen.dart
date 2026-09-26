@@ -379,7 +379,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                   );
                                 } else {
                                   // Navigate to Login with a smooth SaaS fade
-                                  Navigator.of(context).pushReplacement(
+                                  Navigator.of(context).push(
                                     PageRouteBuilder(
                                       pageBuilder: (context, animation, secondaryAnimation) => 
                                           const LoginScreen(),

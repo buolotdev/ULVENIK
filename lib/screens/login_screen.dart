@@ -326,7 +326,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               // Apple
                               ElevatedButton.icon(
                                 onPressed: () {},
-                                icon: SvgPicture.asset('assets/icons/apple_logo.svg', width: 20, height: 20),
+                                icon: SvgPicture.asset(
+                                  'assets/icons/apple_logo.svg', 
+                                  width: 20, 
+                                  height: 20,
+                                  colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                                ),
                                 label: const Text('Continue with Apple'),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.black,
