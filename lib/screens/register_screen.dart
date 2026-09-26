@@ -267,66 +267,85 @@ class _RegisterScreenState extends State<RegisterScreen>
                           ),
                         ),
 
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 24),
 
                         // ── Terms checkbox ───────────────────────────────
                         _animated(
                           3,
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Checkbox(
-                                value: _termsAccepted,
-                                onChanged: (v) =>
-                                    setState(() => _termsAccepted = v ?? false),
-                                activeColor: AppColors.primaryForestGreen,
-                                checkColor: AppColors.primaryTextOffWhite,
-                                side: const BorderSide(color: Colors.white24),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                              ),
-                              Expanded(
-                                child: RichText(
-                                  text: TextSpan(
-                                    style: const TextStyle(
-                                      color: AppColors.secondaryTextStoneGrey,
-                                      fontSize: 13,
+                          GestureDetector(
+                            onTap: () => setState(() => _termsAccepted = !_termsAccepted),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Custom checkbox square
+                                Container(
+                                  width: 20,
+                                  height: 20,
+                                  margin: const EdgeInsets.only(top: 1, right: 12),
+                                  decoration: BoxDecoration(
+                                    color: _termsAccepted
+                                        ? AppColors.primaryForestGreen
+                                        : Colors.transparent,
+                                    border: Border.all(
+                                      color: _termsAccepted
+                                          ? AppColors.primaryForestGreen
+                                          : Colors.white24,
+                                      width: 1.5,
                                     ),
-                                    children: [
-                                      const TextSpan(text: 'I agree to the '),
-                                      WidgetSpan(
-                                        child: GestureDetector(
-                                          onTap: () {},
-                                          child: const Text(
-                                            'Terms & Conditions',
-                                            style: TextStyle(
-                                              color: AppColors.primaryForestGreen,
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: _termsAccepted
+                                      ? const Icon(Icons.check,
+                                          size: 14, color: Colors.white)
+                                      : null,
+                                ),
+                                Expanded(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: const TextStyle(
+                                        color: AppColors.secondaryTextStoneGrey,
+                                        fontSize: 13,
+                                        height: 1.5,
+                                      ),
+                                      children: [
+                                        const TextSpan(text: 'I agree to the '),
+                                        WidgetSpan(
+                                          baseline: TextBaseline.alphabetic,
+                                          alignment: PlaceholderAlignment.baseline,
+                                          child: GestureDetector(
+                                            onTap: () {},
+                                            child: const Text(
+                                              'Terms & Conditions',
+                                              style: TextStyle(
+                                                color: AppColors.primaryForestGreen,
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      const TextSpan(text: ' and '),
-                                      WidgetSpan(
-                                        child: GestureDetector(
-                                          onTap: () {},
-                                          child: const Text(
-                                            'Privacy Policy',
-                                            style: TextStyle(
-                                              color: AppColors.primaryForestGreen,
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
+                                        const TextSpan(text: ' and '),
+                                        WidgetSpan(
+                                          baseline: TextBaseline.alphabetic,
+                                          alignment: PlaceholderAlignment.baseline,
+                                          child: GestureDetector(
+                                            onTap: () {},
+                                            child: const Text(
+                                              'Privacy Policy',
+                                              style: TextStyle(
+                                                color: AppColors.primaryForestGreen,
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
 
