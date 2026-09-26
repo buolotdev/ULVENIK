@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_colors.dart';
+import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -336,7 +337,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.black,
                                   foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     side: const BorderSide(color: Colors.white12),
@@ -355,7 +356,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.cardsCarbon,
                                   foregroundColor: AppColors.primaryTextOffWhite,
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                  padding: const EdgeInsets.symmetric(vertical: 20),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     side: const BorderSide(color: Colors.white12),
@@ -364,7 +365,53 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 ),
                               ),
                               
-                              const SizedBox(height: 24), // Bottom padding
+                              const SizedBox(height: 32),
+
+                              // Sign up link
+                              Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Don't have an account? ",
+                                      style: TextStyle(
+                                        color: AppColors.secondaryTextStoneGrey,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation, secondaryAnimation) =>
+                                                const RegisterScreen(),
+                                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                              return FadeTransition(
+                                                opacity: CurvedAnimation(
+                                                  parent: animation,
+                                                  curve: Curves.easeOut,
+                                                ),
+                                                child: child,
+                                              );
+                                            },
+                                            transitionDuration: const Duration(milliseconds: 500),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text(
+                                        'Sign Up',
+                                        style: TextStyle(
+                                          color: AppColors.primaryForestGreen,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              const SizedBox(height: 24),
                             ],
                           ),
                         ),
