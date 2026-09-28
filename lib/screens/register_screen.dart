@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_colors.dart';
+import '../widgets/custom_snackbar.dart';
 import 'login_screen.dart';
 import 'email_verification_screen.dart';
 
@@ -17,6 +18,12 @@ class _RegisterScreenState extends State<RegisterScreen>
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _termsAccepted = false;
+
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
   late AnimationController _animController;
   late List<Animation<double>> _fadeAnims;
   late List<Animation<Offset>> _slideAnims;
@@ -52,9 +59,91 @@ class _RegisterScreenState extends State<RegisterScreen>
     _animController.forward();
   }
 
+  void _handleRegister() {
+    final name = _nameController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+    final confirmPassword = _confirmPasswordController.text;
+
+    if (name.isEmpty) {
+      AppSnackbar.show(context,
+          title: 'Name Required',
+          message: 'Please enter your full name to create your account.',
+          type: SnackbarType.error);
+      return;
+    }
+
+    if (email.isEmpty) {
+      AppSnackbar.show(context,
+          title: 'Email Required',
+          message: 'Please enter your email address.',
+          type: SnackbarType.error);
+      return;
+    }
+
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(email)) {
+      AppSnackbar.show(context,
+          title: 'Invalid Email',
+          message: 'Please enter a valid email address (e.g. you@example.com).',
+          type: SnackbarType.error);
+      return;
+    }
+
+    if (password.isEmpty) {
+      AppSnackbar.show(context,
+          title: 'Password Required',
+          message: 'Please create a password for your account.',
+          type: SnackbarType.error);
+      return;
+    }
+
+    if (password.length < 8) {
+      AppSnackbar.show(context,
+          title: 'Password Too Short',
+          message: 'Your password must be at least 8 characters long.',
+          type: SnackbarType.error);
+      return;
+    }
+
+    if (confirmPassword != password) {
+      AppSnackbar.show(context,
+          title: 'Passwords Do Not Match',
+          message: 'Double-check that both password fields are identical.',
+          type: SnackbarType.error);
+      return;
+    }
+
+    if (!_termsAccepted) {
+      AppSnackbar.show(context,
+          title: 'Terms Required',
+          message: 'You must agree to the Terms & Conditions to continue.',
+          type: SnackbarType.warning);
+      return;
+    }
+
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            EmailVerificationScreen(email: email),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+            child: child,
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
+    );
+  }
+
   @override
   void dispose() {
     _animController.dispose();
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -96,7 +185,7 @@ class _RegisterScreenState extends State<RegisterScreen>
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
-          // ── Oversized blurred watermark ────────────────────────────
+          // ── Blurred watermark ──────────────────────────────────────────
           Positioned.fill(
             child: Opacity(
               opacity: 0.05,
@@ -181,7 +270,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                               Text(
                                 'Start building your training journey.',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
                                   fontSize: 15,
                                 ),
@@ -200,6 +289,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                             children: [
                               // Full Name
                               TextFormField(
+                                controller: _nameController,
                                 style: const TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 15,
@@ -210,6 +300,7 @@ class _RegisterScreenState extends State<RegisterScreen>
 
                               // Email
                               TextFormField(
+                                controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 style: const TextStyle(
                                   color: AppColors.primaryTextOffWhite,
@@ -221,6 +312,7 @@ class _RegisterScreenState extends State<RegisterScreen>
 
                               // Password
                               TextFormField(
+                                controller: _passwordController,
                                 obscureText: _obscurePassword,
                                 style: const TextStyle(
                                   color: AppColors.primaryTextOffWhite,
@@ -244,6 +336,7 @@ class _RegisterScreenState extends State<RegisterScreen>
 
                               // Confirm Password
                               TextFormField(
+                                controller: _confirmPasswordController,
                                 obscureText: _obscureConfirmPassword,
                                 style: const TextStyle(
                                   color: AppColors.primaryTextOffWhite,
@@ -278,7 +371,6 @@ class _RegisterScreenState extends State<RegisterScreen>
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Custom checkbox square
                                 Container(
                                   width: 20,
                                   height: 20,
@@ -340,24 +432,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                         _animated(
                           3,
                           ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                PageRouteBuilder(
-                                  pageBuilder: (context, animation, secondaryAnimation) =>
-                                      const EmailVerificationScreen(),
-                                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                    return FadeTransition(
-                                      opacity: CurvedAnimation(
-                                        parent: animation,
-                                        curve: Curves.easeOut,
-                                      ),
-                                      child: child,
-                                    );
-                                  },
-                                  transitionDuration: const Duration(milliseconds: 500),
-                                ),
-                              );
-                            },
+                            onPressed: _handleRegister,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryForestGreen,
                               foregroundColor: AppColors.primaryTextOffWhite,

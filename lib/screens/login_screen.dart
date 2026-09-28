@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_colors.dart';
+import '../widgets/custom_snackbar.dart';
 import 'register_screen.dart';
 import 'forgot_password_screen.dart';
 
@@ -14,6 +15,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
   bool _obscurePassword = true;
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   late AnimationController _animController;
   late List<Animation<double>> _fadeAnimations;
   late List<Animation<Offset>> _slideAnimations;
@@ -50,9 +54,55 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     _animController.forward();
   }
 
+  void _handleLogin() {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    if (email.isEmpty) {
+      AppSnackbar.show(context,
+          title: 'Email Required',
+          message: 'Please enter your email address to continue.',
+          type: SnackbarType.error);
+      return;
+    }
+
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(email)) {
+      AppSnackbar.show(context,
+          title: 'Invalid Email',
+          message: 'Please enter a valid email address (e.g. you@example.com).',
+          type: SnackbarType.error);
+      return;
+    }
+
+    if (password.isEmpty) {
+      AppSnackbar.show(context,
+          title: 'Password Required',
+          message: 'Please enter your password to sign in.',
+          type: SnackbarType.error);
+      return;
+    }
+
+    if (password.length < 6) {
+      AppSnackbar.show(context,
+          title: 'Password Too Short',
+          message: 'Your password must be at least 6 characters long.',
+          type: SnackbarType.error);
+      return;
+    }
+
+    // TODO: Call auth service
+    AppSnackbar.show(context,
+        title: 'Signing In',
+        message: 'Authenticating your credentials...',
+        type: SnackbarType.info);
+  }
+
   @override
   void dispose() {
     _animController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -189,6 +239,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               ),
                               const SizedBox(height: 8),
                               TextFormField(
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
                                 style: const TextStyle(color: AppColors.primaryTextOffWhite),
                                 decoration: InputDecoration(
                                   hintText: 'athlete@ulvenik.com',
@@ -220,6 +272,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               ),
                               const SizedBox(height: 8),
                               TextFormField(
+                                controller: _passwordController,
                                 obscureText: _obscurePassword,
                                 style: const TextStyle(color: AppColors.primaryTextOffWhite),
                                 decoration: InputDecoration(
@@ -298,7 +351,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         _buildAnimatedWidget(
                           4,
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: _handleLogin,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryForestGreen,
                               foregroundColor: AppColors.primaryTextOffWhite,

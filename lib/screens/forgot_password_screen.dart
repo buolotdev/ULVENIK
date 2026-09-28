@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../widgets/custom_snackbar.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -11,6 +12,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
     with SingleTickerProviderStateMixin {
+  final _emailController = TextEditingController();
   late AnimationController _animController;
   late List<Animation<double>> _fadeAnims;
   late List<Animation<Offset>> _slideAnims;
@@ -46,9 +48,37 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
     _animController.forward();
   }
 
+  void _handleSendReset() {
+    final email = _emailController.text.trim();
+
+    if (email.isEmpty) {
+      AppSnackbar.show(context,
+          title: 'Email Required',
+          message: 'Please enter your email address to receive a reset link.',
+          type: SnackbarType.error);
+      return;
+    }
+
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (!emailRegex.hasMatch(email)) {
+      AppSnackbar.show(context,
+          title: 'Invalid Email',
+          message: 'Please enter a valid email address (e.g. you@example.com).',
+          type: SnackbarType.error);
+      return;
+    }
+
+    // TODO: Call password reset service
+    AppSnackbar.show(context,
+        title: 'Reset Link Sent',
+        message: 'Check your inbox — a reset link has been sent to $email.',
+        type: SnackbarType.success);
+  }
+
   @override
   void dispose() {
     _animController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -176,6 +206,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                             ),
                             const SizedBox(height: 8),
                             TextFormField(
+                              controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               style: const TextStyle(
                                 color: AppColors.primaryTextOffWhite,
@@ -204,7 +235,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                             const SizedBox(height: 24),
                             
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: _handleSendReset,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primaryForestGreen,
                                 foregroundColor: AppColors.primaryTextOffWhite,
