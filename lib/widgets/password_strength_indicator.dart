@@ -32,7 +32,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
 
   static String _label(PasswordStrength s) {
     switch (s) {
-      case PasswordStrength.empty:  return '';
+      case PasswordStrength.empty:  return 'Password Strength';
       case PasswordStrength.weak:   return 'Weak';
       case PasswordStrength.fair:   return 'Fair';
       case PasswordStrength.good:   return 'Good';
@@ -42,7 +42,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
 
   static Color _labelColor(PasswordStrength s) {
     switch (s) {
-      case PasswordStrength.empty:  return Colors.transparent;
+      case PasswordStrength.empty:  return AppColors.secondaryTextStoneGrey;
       case PasswordStrength.weak:   return const Color(0xFFFF5B5B);
       case PasswordStrength.fair:   return const Color(0xFFFFB347);
       case PasswordStrength.good:   return const Color(0xFF5D8FAF);
@@ -95,23 +95,30 @@ class PasswordStrengthIndicator extends StatelessWidget {
     final hasNumber  = RegExp(r'[0-9]').hasMatch(password);
     final hasSpecial = RegExp(r'[!@#\$%^&*(),.?":{}|<>_\-+=\[\]\\\/`~;]').hasMatch(password);
 
-    // Keep AnimatedSize in the tree permanently to allow smooth expansion
-    return AnimatedSize(
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeOutCubic,
-      alignment: Alignment.topCenter,
-      child: isEmpty
-          ? const SizedBox(width: double.infinity, height: 0)
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 12),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 12),
 
-                // ── Full-width gradient bar ──────────────────────────
+        // ── Full-width gradient bar ──────────────────────────
+        LayoutBuilder(
+          builder: (context, constraints) {
+            return Stack(
+              children: [
+                // Empty background track
+                Container(
+                  width: constraints.maxWidth,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: Colors.white10,
+                    borderRadius: BorderRadius.circular(99),
+                  ),
+                ),
+                // Colored fill (animates width from 0 to 100%)
                 AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 600),
                   curve: Curves.easeOutCubic,
-                  width: double.infinity,
+                  width: isEmpty ? 0 : constraints.maxWidth,
                   height: 5,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(99),
@@ -121,55 +128,58 @@ class PasswordStrengthIndicator extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 8),
-
-                // ── Label row ────────────────────────────────────────
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AnimatedDefaultTextStyle(
-                      duration: const Duration(milliseconds: 300),
-                      style: TextStyle(
-                        color: labelColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      child: Text(label),
-                    ),
-                    if (strength == PasswordStrength.strong)
-                      const Text(
-                        'All requirements met ✓',
-                        style: TextStyle(
-                          color: AppColors.primaryForestGreen,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                  ],
-                ),
-
-                const SizedBox(height: 16),
-
-                // ── Checklist ─────────────────────────────────────────
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _CheckItem(label: 'At least 8 characters', met: password.length >= 8),
-                    const SizedBox(height: 6),
-                    _CheckItem(label: 'Uppercase letter',       met: hasUpper),
-                    const SizedBox(height: 6),
-                    _CheckItem(label: 'Lowercase letter',       met: hasLower),
-                    const SizedBox(height: 6),
-                    _CheckItem(label: 'Number',                 met: hasNumber),
-                    const SizedBox(height: 6),
-                    _CheckItem(label: 'Special character',      met: hasSpecial),
-                  ],
-                ),
-
-                const SizedBox(height: 8),
               ],
+            );
+          },
+        ),
+
+        const SizedBox(height: 8),
+
+        // ── Label row ────────────────────────────────────────
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 300),
+              style: TextStyle(
+                color: labelColor,
+                fontSize: 12,
+                fontWeight: isEmpty ? FontWeight.w500 : FontWeight.w600,
+              ),
+              child: Text(label),
             ),
+            if (strength == PasswordStrength.strong)
+              const Text(
+                'All requirements met ✓',
+                style: TextStyle(
+                  color: AppColors.primaryForestGreen,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+          ],
+        ),
+
+        const SizedBox(height: 16),
+
+        // ── Checklist ─────────────────────────────────────────
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _CheckItem(label: 'At least 8 characters', met: password.length >= 8),
+            const SizedBox(height: 6),
+            _CheckItem(label: 'Uppercase letter',       met: hasUpper),
+            const SizedBox(height: 6),
+            _CheckItem(label: 'Lowercase letter',       met: hasLower),
+            const SizedBox(height: 6),
+            _CheckItem(label: 'Number',                 met: hasNumber),
+            const SizedBox(height: 6),
+            _CheckItem(label: 'Special character',      met: hasSpecial),
+          ],
+        ),
+
+        const SizedBox(height: 8),
+      ],
     );
   }
 }
