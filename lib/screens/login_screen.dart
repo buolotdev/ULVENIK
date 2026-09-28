@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 'Welcome Back',
                                 style: Theme.of(context).textTheme.displaySmall?.copyWith(
                                   color: AppColors.primaryTextOffWhite,
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 30,
                                   letterSpacing: -0.5,
                                 ),

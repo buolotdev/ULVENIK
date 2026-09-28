@@ -171,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.displaySmall?.copyWith(
                                   color: AppColors.primaryTextOffWhite,
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 28,
                                   letterSpacing: -0.5,
                                 ),

@@ -303,7 +303,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                         .displaySmall
                                         ?.copyWith(
                                           color: AppColors.primaryTextOffWhite,
-                                          fontWeight: FontWeight.w700,
+                                          fontWeight: FontWeight.w600,
                                           fontSize: 32,
                                           height: 1.25,
                                           letterSpacing: -0.5,
