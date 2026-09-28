@@ -1,0 +1,240 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
+
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
+
+  @override
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+}
+
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animController;
+  late List<Animation<double>> _fadeAnims;
+  late List<Animation<Offset>> _slideAnims;
+
+  @override
+  void initState() {
+    super.initState();
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+
+    final delays = [0.0, 0.1, 0.2, 0.3];
+
+    _fadeAnims = delays.map((d) {
+      return Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+          parent: _animController,
+          curve: Interval(d, d + 0.5, curve: Curves.easeOut),
+        ),
+      );
+    }).toList();
+
+    _slideAnims = delays.map((d) {
+      return Tween<Offset>(begin: const Offset(0, 0.15), end: Offset.zero).animate(
+        CurvedAnimation(
+          parent: _animController,
+          curve: Interval(d, d + 0.5, curve: Curves.easeOutCubic),
+        ),
+      );
+    }).toList();
+
+    _animController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animController.dispose();
+    super.dispose();
+  }
+
+  Widget _animated(int index, Widget child) {
+    return SlideTransition(
+      position: _slideAnims[index],
+      child: FadeTransition(
+        opacity: _fadeAnims[index],
+        child: child,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.backgroundObsidian,
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: Column(
+          children: [
+            // ── Back Button ────────────────────────────────────────
+            _animated(
+              0,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: AppColors.secondaryTextStoneGrey,
+                    ),
+                    padding: EdgeInsets.zero,
+                    alignment: Alignment.centerLeft,
+                  ),
+                ),
+              ),
+            ),
+            
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 48),
+                    
+                    // ── Circular Logo ─────────────────────────────────
+                    _animated(
+                      0,
+                      Container(
+                        width: 80,
+                        height: 80,
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white12, width: 1),
+                        ),
+                        child: Center(
+                          child: Image.asset(
+                            'assets/images/brand.png',
+                            color: Colors.white70,
+                            fit: BoxFit.contain,
+                            errorBuilder: (_, __, ___) => const SizedBox(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 32),
+                    
+                    // ── Headings ──────────────────────────────────────
+                    _animated(
+                      1,
+                      Column(
+                        children: [
+                          Text(
+                            'Forgot Your Password?',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                              color: AppColors.primaryTextOffWhite,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 28,
+                              letterSpacing: -0.5,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            "Enter the email address linked to your Ulvenik account and we'll send you a secure password reset link.",
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: AppColors.secondaryTextStoneGrey,
+                              fontSize: 15,
+                              height: 1.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 40),
+                    
+                    // ── Form Container ─────────────────────────────────
+                    _animated(
+                      2,
+                      Container(
+                        padding: const EdgeInsets.all(24),
+                        decoration: BoxDecoration(
+                          color: AppColors.surfaceCarbon,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: Colors.white12),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              'Email Address',
+                              style: TextStyle(
+                                color: AppColors.secondaryTextStoneGrey,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              keyboardType: TextInputType.emailAddress,
+                              style: const TextStyle(
+                                color: AppColors.primaryTextOffWhite,
+                                fontSize: 15,
+                              ),
+                              decoration: InputDecoration(
+                                hintText: 'Enter your email address',
+                                hintStyle: TextStyle(
+                                  color: AppColors.secondaryTextStoneGrey.withOpacity(0.5),
+                                  fontSize: 15,
+                                ),
+                                filled: true,
+                                fillColor: AppColors.backgroundObsidian,
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.white12),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                            ),
+                            
+                            const SizedBox(height: 24),
+                            
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.primaryForestGreen,
+                                foregroundColor: AppColors.primaryTextOffWhite,
+                                padding: const EdgeInsets.symmetric(vertical: 18),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                elevation: 0,
+                              ),
+                              child: const Text(
+                                'Send Reset Link',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 32),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
