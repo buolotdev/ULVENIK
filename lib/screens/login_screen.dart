@@ -157,14 +157,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                   0,
                   Padding(
                     padding: const EdgeInsets.all(24.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
+                    child: Align(                      child: IconButton(
                         onPressed: () => Navigator.of(context).pop(),
                         icon: const Icon(Icons.arrow_back, color: AppColors.secondaryTextStoneGrey),
-                        padding: EdgeInsets.zero,
-                        alignment: Alignment.centerLeft,
-                      ),
+                        padding: EdgeInsets.zero,                      ),
                     ),
                   ),
                 ),

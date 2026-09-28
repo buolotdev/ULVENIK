@@ -25,32 +25,13 @@ class PasswordStrengthIndicator extends StatelessWidget {
 
   static String _label(PasswordStrength s) {
     switch (s) {
-      case PasswordStrength.empty: return '';
-      case PasswordStrength.weak: return 'Weak';
-      case PasswordStrength.fair: return 'Fair';
-      case PasswordStrength.good: return 'Good';
+      case PasswordStrength.empty:  return '';
+      case PasswordStrength.weak:   return 'Weak';
+      case PasswordStrength.fair:   return 'Fair';
+      case PasswordStrength.good:   return 'Good';
       case PasswordStrength.strong: return 'Strong';
     }
   }
-
-  static double _fillFraction(PasswordStrength s) {
-    switch (s) {
-      case PasswordStrength.empty: return 0.0;
-      case PasswordStrength.weak:  return 0.2;
-      case PasswordStrength.fair:  return 0.45;
-      case PasswordStrength.good:  return 0.72;
-      case PasswordStrength.strong: return 1.0;
-    }
-  }
-
-  // Gradient goes from red → amber → blue → green
-  static const List<Color> _gradientColors = [
-    Color(0xFFFF5B5B),
-    Color(0xFFFFB347),
-    Color(0xFF5D8FAF),
-    Color(0xFF2F5D50),
-    AppColors.primaryForestGreen,
-  ];
 
   static Color _labelColor(PasswordStrength s) {
     switch (s) {
@@ -62,14 +43,34 @@ class PasswordStrengthIndicator extends StatelessWidget {
     }
   }
 
+  // Bar is ALWAYS 100% filled. The gradient colors expand as strength grows.
+  // Weak:   [red, red]
+  // Fair:   [red, yellow] — 50/50 blended at center
+  // Good:   [red, yellow, blue] — 33% each
+  // Strong: [red, yellow, blue, green] — 25% each
+  static List<Color> _gradientColors(PasswordStrength s) {
+    const red    = Color(0xFFFF5B5B);
+    const amber  = Color(0xFFFFB347);
+    const blue   = Color(0xFF5D8FAF);
+    const green  = AppColors.primaryForestGreen;
+
+    switch (s) {
+      case PasswordStrength.empty:  return [red, red];
+      case PasswordStrength.weak:   return [red, red];
+      case PasswordStrength.fair:   return [red, amber];
+      case PasswordStrength.good:   return [red, amber, blue];
+      case PasswordStrength.strong: return [red, amber, blue, green];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final strength = evaluate(password);
+    final strength  = evaluate(password);
     if (strength == PasswordStrength.empty) return const SizedBox.shrink();
 
-    final fraction   = _fillFraction(strength);
     final label      = _label(strength);
     final labelColor = _labelColor(strength);
+    final colors     = _gradientColors(strength);
 
     final hasUpper   = RegExp(r'[A-Z]').hasMatch(password);
     final hasLower   = RegExp(r'[a-z]').hasMatch(password);
@@ -84,39 +85,18 @@ class PasswordStrengthIndicator extends StatelessWidget {
         children: [
           const SizedBox(height: 12),
 
-          // ── Single gradient bar ──────────────────────────────
-          LayoutBuilder(
-            builder: (context, constraints) {
-              final totalWidth = constraints.maxWidth;
-              return SizedBox(
-                width: totalWidth,
+          // ── Full-width gradient bar ──────────────────────────
+          TweenAnimationBuilder<List<Color>>(
+            tween: _ColorListTween(end: colors),
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeInOutCubic,
+            builder: (context, animatedColors, _) {
+              return Container(
+                width: double.infinity,
                 height: 5,
-                child: Stack(
-                  children: [
-                    // Track
-                    Container(
-                      width: totalWidth,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        color: Colors.white10,
-                        borderRadius: BorderRadius.circular(99),
-                      ),
-                    ),
-                    // Animated filled portion
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeOutCubic,
-                      width: totalWidth * fraction,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(99),
-                        gradient: LinearGradient(
-                          colors: _gradientColors,
-                          stops: const [0.0, 0.33, 0.6, 0.85, 1.0],
-                        ),
-                      ),
-                    ),
-                  ],
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(99),
+                  gradient: LinearGradient(colors: animatedColors),
                 ),
               );
             },
@@ -174,6 +154,24 @@ class PasswordStrengthIndicator extends StatelessWidget {
   }
 }
 
+// Interpolates between two lists of Colors via lerp
+class _ColorListTween extends Tween<List<Color>> {
+  _ColorListTween({required List<Color> end}) : super(begin: end, end: end);
+
+  @override
+  List<Color> lerp(double t) {
+    final b = begin!;
+    final e = end!;
+    final maxLen = e.length > b.length ? e.length : b.length;
+
+    return List.generate(maxLen, (i) {
+      final cb = i < b.length ? b[i] : b.last;
+      final ce = i < e.length ? e[i] : e.last;
+      return Color.lerp(cb, ce, t)!;
+    });
+  }
+}
+
 class _CheckItem extends StatelessWidget {
   final String label;
   final bool met;
@@ -205,9 +203,7 @@ class _CheckItem extends StatelessWidget {
         AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 300),
           style: TextStyle(
-            color: met
-                ? AppColors.primaryTextOffWhite
-                : AppColors.secondaryTextStoneGrey,
+            color: met ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
             fontSize: 13,
             fontWeight: met ? FontWeight.w500 : FontWeight.w400,
           ),

@@ -226,17 +226,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                   0,
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
+                    child: Align(                      child: IconButton(
                         onPressed: () => Navigator.of(context).pop(),
                         icon: const Icon(
                           Icons.arrow_back,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
-                        padding: EdgeInsets.zero,
-                        alignment: Alignment.centerLeft,
-                      ),
+                        padding: EdgeInsets.zero,                      ),
                     ),
                   ),
                 ),
