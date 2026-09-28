@@ -20,11 +20,14 @@ class _RegisterScreenState extends State<RegisterScreen>
   bool _obscureConfirmPassword = true;
   bool _termsAccepted = false;
   String _passwordValue = '';
+  bool _isPasswordFocused = false;
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  
+  final _passwordFocus = FocusNode();
 
   late AnimationController _animController;
   late List<Animation<double>> _fadeAnims;
@@ -63,6 +66,16 @@ class _RegisterScreenState extends State<RegisterScreen>
     _passwordController.addListener(() {
       setState(() => _passwordValue = _passwordController.text);
     });
+
+    _passwordFocus.addListener(() {
+      setState(() => _isPasswordFocused = _passwordFocus.hasFocus);
+    });
+  }
+
+  @override
+  void dispose() {
+    _passwordFocus.dispose();
+    super.dispose();
   }
 
   void _handleRegister() {
@@ -337,6 +350,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                               // Password
                               TextFormField(
                                 controller: _passwordController,
+                                focusNode: _passwordFocus,
                                 obscureText: _obscurePassword,
                                 style: const TextStyle(
                                   color: AppColors.primaryTextOffWhite,
@@ -357,7 +371,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 ),
                               ),
                               // ── Strength indicator ──────────────────────
-                              PasswordStrengthIndicator(password: _passwordValue),
+                              PasswordStrengthIndicator(
+                                password: _passwordValue,
+                                isVisible: _isPasswordFocused || _passwordValue.isNotEmpty,
+                              ),
                               const SizedBox(height: 12),
 
                               // Confirm Password

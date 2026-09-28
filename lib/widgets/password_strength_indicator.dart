@@ -11,8 +11,13 @@ class GradientConfig {
 
 class PasswordStrengthIndicator extends StatelessWidget {
   final String password;
+  final bool isVisible;
 
-  const PasswordStrengthIndicator({super.key, required this.password});
+  const PasswordStrengthIndicator({
+    super.key, 
+    required this.password, 
+    required this.isVisible,
+  });
 
   static PasswordStrength evaluate(String password) {
     if (password.isEmpty) return PasswordStrength.empty;
@@ -95,91 +100,98 @@ class PasswordStrengthIndicator extends StatelessWidget {
     final hasNumber  = RegExp(r'[0-9]').hasMatch(password);
     final hasSpecial = RegExp(r'[!@#\$%^&*(),.?":{}|<>_\-+=\[\]\\\/`~;]').hasMatch(password);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 12),
-
-        // ── Full-width gradient bar ──────────────────────────
-        LayoutBuilder(
-          builder: (context, constraints) {
-            return Stack(
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOutCubic,
+      alignment: Alignment.topCenter,
+      child: !isVisible
+          ? const SizedBox(width: double.infinity, height: 0)
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Empty background track
-                Container(
-                  width: constraints.maxWidth,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    color: Colors.white10,
-                    borderRadius: BorderRadius.circular(99),
-                  ),
+                const SizedBox(height: 12),
+
+                // ── Full-width gradient bar ──────────────────────────
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Stack(
+                      children: [
+                        // Empty background track
+                        Container(
+                          width: constraints.maxWidth,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            color: Colors.white10,
+                            borderRadius: BorderRadius.circular(99),
+                          ),
+                        ),
+                        // Colored fill (animates width from 0 to 100%)
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 600),
+                          curve: Curves.easeOutCubic,
+                          width: isEmpty ? 0 : constraints.maxWidth,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(99),
+                            gradient: LinearGradient(
+                              colors: gradConfig.colors,
+                              stops: gradConfig.stops,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
-                // Colored fill (animates width from 0 to 100%)
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 600),
-                  curve: Curves.easeOutCubic,
-                  width: isEmpty ? 0 : constraints.maxWidth,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(99),
-                    gradient: LinearGradient(
-                      colors: gradConfig.colors,
-                      stops: gradConfig.stops,
+
+                const SizedBox(height: 8),
+
+                // ── Label row ────────────────────────────────────────
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AnimatedDefaultTextStyle(
+                      duration: const Duration(milliseconds: 300),
+                      style: TextStyle(
+                        color: labelColor,
+                        fontSize: 12,
+                        fontWeight: isEmpty ? FontWeight.w500 : FontWeight.w600,
+                      ),
+                      child: Text(label),
                     ),
-                  ),
+                    if (strength == PasswordStrength.strong)
+                      const Text(
+                        'All requirements met ✓',
+                        style: TextStyle(
+                          color: AppColors.primaryForestGreen,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                  ],
                 ),
+
+                const SizedBox(height: 16),
+
+                // ── Checklist ─────────────────────────────────────────
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _CheckItem(label: 'At least 8 characters', met: password.length >= 8),
+                    const SizedBox(height: 6),
+                    _CheckItem(label: 'Uppercase letter',       met: hasUpper),
+                    const SizedBox(height: 6),
+                    _CheckItem(label: 'Lowercase letter',       met: hasLower),
+                    const SizedBox(height: 6),
+                    _CheckItem(label: 'Number',                 met: hasNumber),
+                    const SizedBox(height: 6),
+                    _CheckItem(label: 'Special character',      met: hasSpecial),
+                  ],
+                ),
+
+                const SizedBox(height: 8),
               ],
-            );
-          },
-        ),
-
-        const SizedBox(height: 8),
-
-        // ── Label row ────────────────────────────────────────
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            AnimatedDefaultTextStyle(
-              duration: const Duration(milliseconds: 300),
-              style: TextStyle(
-                color: labelColor,
-                fontSize: 12,
-                fontWeight: isEmpty ? FontWeight.w500 : FontWeight.w600,
-              ),
-              child: Text(label),
             ),
-            if (strength == PasswordStrength.strong)
-              const Text(
-                'All requirements met ✓',
-                style: TextStyle(
-                  color: AppColors.primaryForestGreen,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-          ],
-        ),
-
-        const SizedBox(height: 16),
-
-        // ── Checklist ─────────────────────────────────────────
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _CheckItem(label: 'At least 8 characters', met: password.length >= 8),
-            const SizedBox(height: 6),
-            _CheckItem(label: 'Uppercase letter',       met: hasUpper),
-            const SizedBox(height: 6),
-            _CheckItem(label: 'Lowercase letter',       met: hasLower),
-            const SizedBox(height: 6),
-            _CheckItem(label: 'Number',                 met: hasNumber),
-            const SizedBox(height: 6),
-            _CheckItem(label: 'Special character',      met: hasSpecial),
-          ],
-        ),
-
-        const SizedBox(height: 8),
-      ],
     );
   }
 }
