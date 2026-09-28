@@ -301,43 +301,27 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 ),
                                 Expanded(
                                   child: RichText(
-                                    text: TextSpan(
-                                      style: const TextStyle(
+                                    text: const TextSpan(
+                                      style: TextStyle(
                                         color: AppColors.secondaryTextStoneGrey,
                                         fontSize: 13,
                                         height: 1.5,
                                       ),
                                       children: [
-                                        const TextSpan(text: 'I agree to the '),
-                                        WidgetSpan(
-                                          baseline: TextBaseline.alphabetic,
-                                          alignment: PlaceholderAlignment.baseline,
-                                          child: GestureDetector(
-                                            onTap: () {},
-                                            child: const Text(
-                                              'Terms & Conditions',
-                                              style: TextStyle(
-                                                color: AppColors.primaryForestGreen,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
+                                        TextSpan(text: 'I agree to the '),
+                                        TextSpan(
+                                          text: 'Terms & Conditions',
+                                          style: TextStyle(
+                                            color: AppColors.primaryForestGreen,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
-                                        const TextSpan(text: ' and '),
-                                        WidgetSpan(
-                                          baseline: TextBaseline.alphabetic,
-                                          alignment: PlaceholderAlignment.baseline,
-                                          child: GestureDetector(
-                                            onTap: () {},
-                                            child: const Text(
-                                              'Privacy Policy',
-                                              style: TextStyle(
-                                                color: AppColors.primaryForestGreen,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
+                                        TextSpan(text: ' and '),
+                                        TextSpan(
+                                          text: 'Privacy Policy',
+                                          style: TextStyle(
+                                            color: AppColors.primaryForestGreen,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                       ],
