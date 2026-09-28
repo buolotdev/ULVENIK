@@ -19,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   late AnimationController _sequenceController;
   late AnimationController _cometController;
+  late AnimationController _exitController;
 
   // Logo reveal
   late Animation<double> _logoBlur;
@@ -31,8 +32,13 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _textOpacity;
   late Animation<Offset> _textSlide;
 
-  // Comet in PIXELS: starts at -_cometWidth (fully off left), ends at _trackWidth (fully off right)
+  // Comet in PIXELS
   late Animation<double> _cometX;
+
+  // Exit animations (Zoom in effect)
+  late Animation<double> _logoExitScale;
+  late Animation<double> _logoExitOpacity;
+  late Animation<double> _uiExitOpacity;
 
   @override
   void initState() {
@@ -44,7 +50,6 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(milliseconds: 2800),
     );
 
-    // Logo blur: 24px → 0   (0% → 65% = 0–1820ms)  Slow & cinematic
     _logoBlur = Tween<double>(begin: 24.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _sequenceController,
@@ -52,7 +57,6 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // Logo scale: 0.84 → 1.0  (0% → 70%)
     _logoScale = Tween<double>(begin: 0.84, end: 1.0).animate(
       CurvedAnimation(
         parent: _sequenceController,
@@ -60,15 +64,13 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // Logo opacity: 0 → 0.9  (0% → 30% = 0–840ms) — fades in fast, reveal lingers
-    _logoOpacity = Tween<double>(begin: 0.0, end: 0.9).animate(
+    _logoOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _sequenceController,
         curve: const Interval(0.0, 0.30, curve: Curves.easeIn),
       ),
     );
 
-    // Bar: slides up + fades in  (55% → 72%)
     _barOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _sequenceController,
@@ -85,7 +87,6 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // Text: slides up + fades in a beat after bar  (67% → 84%)
     _textOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _sequenceController,
@@ -102,38 +103,70 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // ── Comet: exact pixel travel ─────────────────────────────────────────
-    // Starts at -_cometWidth → fully hidden off the LEFT edge
-    // Ends at   +_trackWidth → fully hidden off the RIGHT edge
     _cometController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1600),
     );
     _cometX = Tween<double>(
-      begin: -_cometWidth,   // -120px  → completely off left
-      end: _trackWidth,       // +200px  → completely off right
+      begin: -_cometWidth,
+      end: _trackWidth,
     ).animate(
       CurvedAnimation(parent: _cometController, curve: Curves.easeInOut),
     );
 
+    // ── Exit Sequence: Zoom in ─────────────────────────────────────────────
+    _exitController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 750),
+    );
+
+    _logoExitScale = Tween<double>(begin: 1.0, end: 50.0).animate(
+      CurvedAnimation(
+        parent: _exitController,
+        curve: Curves.easeInExpo, // accelerates rapidly
+      ),
+    );
+
+    _logoExitOpacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _exitController,
+        curve: const Interval(0.6, 1.0, curve: Curves.easeOut), 
+      ),
+    );
+
+    _uiExitOpacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _exitController,
+        curve: const Interval(0.0, 0.3, curve: Curves.easeOut), 
+      ),
+    );
+
     _sequenceController.forward();
-    // Navigate to onboarding once sequence is fully done
+
+    // Trigger exit animation
     _sequenceController.addStatusListener((status) {
       if (status == AnimationStatus.completed && mounted) {
-        Future.delayed(const Duration(milliseconds: 400), () {
+        Future.delayed(const Duration(milliseconds: 600), () {
           if (!mounted) return;
-          Navigator.of(context).pushReplacement(
-            PageRouteBuilder(
-              pageBuilder: (_, animation, __) => const OnboardingScreen(),
-              transitionsBuilder: (_, animation, __, child) =>
-                  FadeTransition(opacity: animation, child: child),
-              transitionDuration: const Duration(milliseconds: 600),
-            ),
-          );
+          _exitController.forward();
         });
       }
     });
-    // Start comet after bar animates in (~1540ms into sequence)
+
+    // Trigger navigation
+    _exitController.addStatusListener((status) {
+      if (status == AnimationStatus.completed && mounted) {
+        Navigator.of(context).pushReplacement(
+          PageRouteBuilder(
+            pageBuilder: (_, animation, __) => const OnboardingScreen(),
+            transitionsBuilder: (_, animation, __, child) =>
+                FadeTransition(opacity: animation, child: child),
+            transitionDuration: const Duration(milliseconds: 400),
+          ),
+        );
+      }
+    });
+
     Future.delayed(const Duration(milliseconds: 1600), () {
       if (mounted) _cometController.repeat();
     });
@@ -143,6 +176,7 @@ class _SplashScreenState extends State<SplashScreen>
   void dispose() {
     _sequenceController.dispose();
     _cometController.dispose();
+    _exitController.dispose();
     super.dispose();
   }
 
@@ -150,120 +184,126 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundObsidian,
-      body: Stack(
-        children: [
-          // ── 1. Logo ───────────────────────────────────────────────────
-          Center(
-            child: AnimatedBuilder(
-              animation: _sequenceController,
-              builder: (context, child) {
-                return Opacity(
-                  opacity: _logoOpacity.value,
+      body: AnimatedBuilder(
+        animation: Listenable.merge([_sequenceController, _exitController]),
+        builder: (context, child) {
+          final currentScale = _logoScale.value * _logoExitScale.value;
+          final currentOpacity = _logoOpacity.value * _logoExitOpacity.value;
+          final uiOpacity = _uiExitOpacity.value;
+
+          return Stack(
+            children: [
+              // ── 1. Logo ───────────────────────────────────────────────────
+              Center(
+                child: Opacity(
+                  opacity: currentOpacity,
                   child: Transform.scale(
-                    scale: _logoScale.value,
+                    scale: currentScale,
                     child: ImageFiltered(
                       imageFilter: ImageFilter.blur(
                         sigmaX: _logoBlur.value,
                         sigmaY: _logoBlur.value,
                       ),
-                      child: child,
-                    ),
-                  ),
-                );
-              },
-              child: Image.asset(
-                'assets/images/white_mountain_only.png',
-                width: 220,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
-
-          // ── 2. Bar + Text ─────────────────────────────────────────────
-          Positioned(
-            bottom: 90,
-            left: 0,
-            right: 0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Bar
-                SlideTransition(
-                  position: _barSlide,
-                  child: FadeTransition(
-                    opacity: _barOpacity,
-                    child: Center(
-                      child: SizedBox(
-                        width: _trackWidth,
-                        height: 4,
-                        child: ClipRect(
-                          child: Stack(
-                            clipBehavior: Clip.hardEdge,
-                            children: [
-                              // Track background
-                              Container(
-                                width: _trackWidth,
-                                height: 4,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF1C2220),
-                                  borderRadius: BorderRadius.circular(9999),
-                                ),
-                              ),
-                              // Comet — positioned in raw pixels, no fractions
-                              AnimatedBuilder(
-                                animation: _cometX,
-                                builder: (context, _) {
-                                  return Transform.translate(
-                                    offset: Offset(_cometX.value, 0),
-                                    child: Container(
-                                      width: _cometWidth,
-                                      height: 4,
-                                      decoration: const BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Colors.transparent,
-                                            Color(0xFF1A3D31),
-                                            Color(0xFF2E6B57),
-                                            Color(0xFF5DBFA0),
-                                            Color(0xFFD4F5E9),
-                                            Colors.white,
-                                          ],
-                                          stops: [0.0, 0.15, 0.45, 0.75, 0.90, 1.0],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
+                      child: Image.asset(
+                        'assets/images/white_mountain_only.png',
+                        width: 220,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
                 ),
+              ),
 
-                const SizedBox(height: 16),
-
-                // Text
-                SlideTransition(
-                  position: _textSlide,
-                  child: FadeTransition(
-                    opacity: _textOpacity,
-                    child: Text(
-                      'Preparing your training journey...',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.secondaryTextStoneGrey,
-                            fontSize: 13,
-                            letterSpacing: 0.1,
+              // ── 2. Bar + Text ─────────────────────────────────────────────
+              Positioned(
+                bottom: 90,
+                left: 0,
+                right: 0,
+                child: Opacity(
+                  opacity: uiOpacity,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Bar
+                      SlideTransition(
+                        position: _barSlide,
+                        child: FadeTransition(
+                          opacity: _barOpacity,
+                          child: Center(
+                            child: SizedBox(
+                              width: _trackWidth,
+                              height: 4,
+                              child: ClipRect(
+                                child: Stack(
+                                  clipBehavior: Clip.hardEdge,
+                                  children: [
+                                    // Track background
+                                    Container(
+                                      width: _trackWidth,
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF1C2220),
+                                        borderRadius: BorderRadius.circular(9999),
+                                      ),
+                                    ),
+                                    // Comet
+                                    AnimatedBuilder(
+                                      animation: _cometX,
+                                      builder: (context, _) {
+                                        return Transform.translate(
+                                          offset: Offset(_cometX.value, 0),
+                                          child: Container(
+                                            width: _cometWidth,
+                                            height: 4,
+                                            decoration: const BoxDecoration(
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Colors.transparent,
+                                                  Color(0xFF1A3D31),
+                                                  Color(0xFF2E6B57),
+                                                  Color(0xFF5DBFA0),
+                                                  Color(0xFFD4F5E9),
+                                                  Colors.white,
+                                                ],
+                                                stops: [0.0, 0.15, 0.45, 0.75, 0.90, 1.0],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
-                    ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      // Text
+                      SlideTransition(
+                        position: _textSlide,
+                        child: FadeTransition(
+                          opacity: _textOpacity,
+                          child: Text(
+                            'Preparing your training journey...',
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  color: AppColors.secondaryTextStoneGrey,
+                                  fontSize: 13,
+                                  letterSpacing: 0.1,
+                                ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }
