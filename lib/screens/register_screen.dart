@@ -72,11 +72,6 @@ class _RegisterScreenState extends State<RegisterScreen>
     });
   }
 
-  @override
-  void dispose() {
-    _passwordFocus.dispose();
-    super.dispose();
-  }
 
   void _handleRegister() {
     final name = _nameController.text.trim();
@@ -167,6 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen>
 
   @override
   void dispose() {
+    _passwordFocus.dispose();
     _animController.dispose();
     _nameController.dispose();
     _emailController.dispose();
