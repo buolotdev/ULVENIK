@@ -103,15 +103,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
             // ── Back Button ────────────────────────────────────────
             _animated(
               0,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: Align(                  child: IconButton(
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12, top: 8, bottom: 8),
+                  child: IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: AppColors.secondaryTextStoneGrey,
+                    icon: const Icon(Icons.arrow_back, color: AppColors.secondaryTextStoneGrey),
+                    style: IconButton.styleFrom(
+                      backgroundColor: const Color(0xFF1E2328),
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(10),
                     ),
-                    padding: EdgeInsets.zero,                  ),
+                  ),
                 ),
               ),
             ),

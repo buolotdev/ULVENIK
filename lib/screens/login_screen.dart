@@ -155,12 +155,19 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 // ── Header / Back Button ────────────────────────────────────
                 _buildAnimatedWidget(
                   0,
-                  Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Align(                      child: IconButton(
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 12, top: 8, bottom: 8),
+                      child: IconButton(
                         onPressed: () => Navigator.of(context).pop(),
                         icon: const Icon(Icons.arrow_back, color: AppColors.secondaryTextStoneGrey),
-                        padding: EdgeInsets.zero,                      ),
+                        style: IconButton.styleFrom(
+                          backgroundColor: const Color(0xFF1E2328),
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(10),
+                        ),
+                      ),
                     ),
                   ),
                 ),
