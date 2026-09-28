@@ -159,13 +159,22 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 12, top: 8, bottom: 8),
-                      child: IconButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        icon: const Icon(Icons.arrow_back, color: AppColors.secondaryTextStoneGrey),
-                        style: IconButton.styleFrom(
-                          backgroundColor: const Color(0xFF1E2328),
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(10),
+                      child: InkWell(
+                        onTap: () => Navigator.of(context).pop(),
+                        borderRadius: BorderRadius.circular(100),
+                        child: Container(
+                          width: 44,
+                          height: 44,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF1E2328),
+                            shape: BoxShape.circle,
+                          ),
+                          alignment: Alignment.center,
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: AppColors.secondaryTextStoneGrey,
+                            size: 20,
+                          ),
                         ),
                       ),
                     ),

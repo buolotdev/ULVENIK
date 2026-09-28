@@ -3,6 +3,12 @@ import '../theme/app_colors.dart';
 
 enum PasswordStrength { empty, weak, fair, good, strong }
 
+class GradientConfig {
+  final List<Color> colors;
+  final List<double> stops;
+  GradientConfig(this.colors, this.stops);
+}
+
 class PasswordStrengthIndicator extends StatelessWidget {
   final String password;
 
@@ -17,6 +23,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
     if (RegExp(r'[a-z]').hasMatch(password)) score++;
     if (RegExp(r'[0-9]').hasMatch(password)) score++;
     if (RegExp(r'[!@#\$%^&*(),.?":{}|<>_\-+=\[\]\\\/`~;]').hasMatch(password)) score++;
+    
     if (score <= 1) return PasswordStrength.weak;
     if (score == 2) return PasswordStrength.fair;
     if (score <= 4) return PasswordStrength.good;
@@ -43,132 +50,127 @@ class PasswordStrengthIndicator extends StatelessWidget {
     }
   }
 
-  // Bar is ALWAYS 100% filled. The gradient colors expand as strength grows.
-  // Weak:   [red, red]
-  // Fair:   [red, yellow] — 50/50 blended at center
-  // Good:   [red, yellow, blue] — 33% each
-  // Strong: [red, yellow, blue, green] — 25% each
-  static List<Color> _gradientColors(PasswordStrength s) {
+  static GradientConfig _getGradient(PasswordStrength s) {
     const red    = Color(0xFFFF5B5B);
     const amber  = Color(0xFFFFB347);
     const blue   = Color(0xFF5D8FAF);
     const green  = AppColors.primaryForestGreen;
 
     switch (s) {
-      case PasswordStrength.empty:  return [red, red];
-      case PasswordStrength.weak:   return [red, red];
-      case PasswordStrength.fair:   return [red, amber];
-      case PasswordStrength.good:   return [red, amber, blue];
-      case PasswordStrength.strong: return [red, amber, blue, green];
+      case PasswordStrength.empty:
+      case PasswordStrength.weak:
+        return GradientConfig(
+          [red, red, red, red, red, red, red, red],
+          [0.0, 0.2, 0.3, 0.45, 0.55, 0.7, 0.8, 1.0],
+        );
+      case PasswordStrength.fair:
+        return GradientConfig(
+          [red, red, red, red, amber, amber, amber, amber],
+          [0.0, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 1.0], 
+        );
+      case PasswordStrength.good:
+        return GradientConfig(
+          [red, red, amber, amber, amber, amber, blue, blue],
+          [0.0, 0.28, 0.38, 0.45, 0.55, 0.62, 0.72, 1.0], 
+        );
+      case PasswordStrength.strong:
+        return GradientConfig(
+          [red, red, amber, amber, blue, blue, green, green],
+          [0.0, 0.2, 0.3, 0.45, 0.55, 0.7, 0.8, 1.0], 
+        );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final strength  = evaluate(password);
-    if (strength == PasswordStrength.empty) return const SizedBox.shrink();
-
+    final strength = evaluate(password);
+    final isEmpty = strength == PasswordStrength.empty;
+    
     final label      = _label(strength);
     final labelColor = _labelColor(strength);
-    final colors     = _gradientColors(strength);
+    final gradConfig = _getGradient(strength);
 
     final hasUpper   = RegExp(r'[A-Z]').hasMatch(password);
     final hasLower   = RegExp(r'[a-z]').hasMatch(password);
     final hasNumber  = RegExp(r'[0-9]').hasMatch(password);
     final hasSpecial = RegExp(r'[!@#\$%^&*(),.?":{}|<>_\-+=\[\]\\\/`~;]').hasMatch(password);
 
+    // Keep AnimatedSize in the tree permanently to allow smooth expansion
     return AnimatedSize(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 400),
       curve: Curves.easeOutCubic,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 12),
+      alignment: Alignment.topCenter,
+      child: isEmpty
+          ? const SizedBox(width: double.infinity, height: 0)
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 12),
 
-          // ── Full-width gradient bar ──────────────────────────
-          TweenAnimationBuilder<List<Color>>(
-            tween: _ColorListTween(end: colors),
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.easeInOutCubic,
-            builder: (context, animatedColors, _) {
-              return Container(
-                width: double.infinity,
-                height: 5,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(99),
-                  gradient: LinearGradient(colors: animatedColors),
-                ),
-              );
-            },
-          ),
-
-          const SizedBox(height: 8),
-
-          // ── Label row ────────────────────────────────────────
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AnimatedDefaultTextStyle(
-                duration: const Duration(milliseconds: 300),
-                style: TextStyle(
-                  color: labelColor,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-                child: Text(label),
-              ),
-              if (strength == PasswordStrength.strong)
-                const Text(
-                  'All requirements met ✓',
-                  style: TextStyle(
-                    color: AppColors.primaryForestGreen,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                // ── Full-width gradient bar ──────────────────────────
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeOutCubic,
+                  width: double.infinity,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(99),
+                    gradient: LinearGradient(
+                      colors: gradConfig.colors,
+                      stops: gradConfig.stops,
+                    ),
                   ),
                 ),
-            ],
-          ),
 
-          const SizedBox(height: 16),
+                const SizedBox(height: 8),
 
-          // ── Checklist ─────────────────────────────────────────
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _CheckItem(label: 'At least 8 characters', met: password.length >= 8),
-              const SizedBox(height: 6),
-              _CheckItem(label: 'Uppercase letter',       met: hasUpper),
-              const SizedBox(height: 6),
-              _CheckItem(label: 'Lowercase letter',       met: hasLower),
-              const SizedBox(height: 6),
-              _CheckItem(label: 'Number',                 met: hasNumber),
-              const SizedBox(height: 6),
-              _CheckItem(label: 'Special character',      met: hasSpecial),
-            ],
-          ),
+                // ── Label row ────────────────────────────────────────
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AnimatedDefaultTextStyle(
+                      duration: const Duration(milliseconds: 300),
+                      style: TextStyle(
+                        color: labelColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      child: Text(label),
+                    ),
+                    if (strength == PasswordStrength.strong)
+                      const Text(
+                        'All requirements met ✓',
+                        style: TextStyle(
+                          color: AppColors.primaryForestGreen,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                  ],
+                ),
 
-          const SizedBox(height: 8),
-        ],
-      ),
+                const SizedBox(height: 16),
+
+                // ── Checklist ─────────────────────────────────────────
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _CheckItem(label: 'At least 8 characters', met: password.length >= 8),
+                    const SizedBox(height: 6),
+                    _CheckItem(label: 'Uppercase letter',       met: hasUpper),
+                    const SizedBox(height: 6),
+                    _CheckItem(label: 'Lowercase letter',       met: hasLower),
+                    const SizedBox(height: 6),
+                    _CheckItem(label: 'Number',                 met: hasNumber),
+                    const SizedBox(height: 6),
+                    _CheckItem(label: 'Special character',      met: hasSpecial),
+                  ],
+                ),
+
+                const SizedBox(height: 8),
+              ],
+            ),
     );
-  }
-}
-
-// Interpolates between two lists of Colors via lerp
-class _ColorListTween extends Tween<List<Color>> {
-  _ColorListTween({required List<Color> end}) : super(begin: end, end: end);
-
-  @override
-  List<Color> lerp(double t) {
-    final b = begin!;
-    final e = end!;
-    final maxLen = e.length > b.length ? e.length : b.length;
-
-    return List.generate(maxLen, (i) {
-      final cb = i < b.length ? b[i] : b.last;
-      final ce = i < e.length ? e[i] : e.last;
-      return Color.lerp(cb, ce, t)!;
-    });
   }
 }
 
