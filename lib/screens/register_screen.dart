@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
+import '../widgets/password_strength_indicator.dart';
 import 'login_screen.dart';
 import 'email_verification_screen.dart';
 
@@ -18,6 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen>
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _termsAccepted = false;
+  String _passwordValue = '';
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -57,6 +59,10 @@ class _RegisterScreenState extends State<RegisterScreen>
     }).toList();
 
     _animController.forward();
+
+    _passwordController.addListener(() {
+      setState(() => _passwordValue = _passwordController.text);
+    });
   }
 
   void _handleRegister() {
@@ -103,6 +109,15 @@ class _RegisterScreenState extends State<RegisterScreen>
           title: 'Password Too Short',
           message: 'Your password must be at least 8 characters long.',
           type: SnackbarType.error);
+      return;
+    }
+
+    final strength = PasswordStrengthIndicator.evaluate(password);
+    if (strength == PasswordStrength.weak || strength == PasswordStrength.fair) {
+      AppSnackbar.show(context,
+          title: 'Password Too Simple',
+          message: 'Use uppercase letters, numbers, and symbols to make it stronger.',
+          type: SnackbarType.warning);
       return;
     }
 
@@ -332,7 +347,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 16),
+                              // ── Strength indicator ──────────────────────
+                              PasswordStrengthIndicator(password: _passwordValue),
+                              const SizedBox(height: 12),
 
                               // Confirm Password
                               TextFormField(
