@@ -120,14 +120,14 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(milliseconds: 750),
     );
 
-    _logoExitScale = Tween<double>(begin: 1.0, end: 50.0).animate(
+    _logoExitScale = Tween<double>(begin: 1.0, end: 300.0).animate(
       CurvedAnimation(
         parent: _exitController,
         curve: Curves.easeInExpo, // accelerates rapidly
       ),
     );
 
-    _logoExitOpacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+    _logoExitOpacity = Tween<double>(begin: 1.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _exitController,
         curve: const Interval(0.6, 1.0, curve: Curves.easeOut), 
