@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
 
 enum SnackbarType { error, success, warning, info }
 
@@ -18,7 +17,6 @@ class AppSnackbar {
       type: type,
       duration: duration,
     );
-
     overlay.insert(entry.overlayEntry);
   }
 }
@@ -81,8 +79,9 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
       duration: const Duration(milliseconds: 400),
     );
 
+    // Drop down from top 
     _slideAnim = Tween<Offset>(
-      begin: const Offset(0, 1),
+      begin: const Offset(0, -1.2),
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _controller,
@@ -94,7 +93,6 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
     );
 
     _controller.forward();
-
     Future.delayed(widget.duration, _dismiss);
   }
 
@@ -110,29 +108,30 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
     super.dispose();
   }
 
-  Color get _accentColor {
+  Color get _bgColor {
     switch (widget.type) {
-      case SnackbarType.error:
-        return const Color(0xFFFF5B5B);
-      case SnackbarType.success:
-        return AppColors.primaryForestGreen;
-      case SnackbarType.warning:
-        return const Color(0xFFFFB347);
-      case SnackbarType.info:
-        return const Color(0xFF5D8FAF);
+      case SnackbarType.error:   return const Color(0xFFC72C41);
+      case SnackbarType.success: return const Color(0xFF2D6A4F);
+      case SnackbarType.warning: return const Color(0xFFFCA652);
+      case SnackbarType.info:    return const Color(0xFF3282B8);
+    }
+  }
+
+  Color get _darkColor {
+    switch (widget.type) {
+      case SnackbarType.error:   return const Color(0xFF801336);
+      case SnackbarType.success: return const Color(0xFF1B4332);
+      case SnackbarType.warning: return const Color(0xFFCC7A00);
+      case SnackbarType.info:    return const Color(0xFF0F4C75);
     }
   }
 
   IconData get _icon {
     switch (widget.type) {
-      case SnackbarType.error:
-        return Icons.error_outline_rounded;
-      case SnackbarType.success:
-        return Icons.check_circle_outline_rounded;
-      case SnackbarType.warning:
-        return Icons.warning_amber_rounded;
-      case SnackbarType.info:
-        return Icons.info_outline_rounded;
+      case SnackbarType.error:   return Icons.error_outline_rounded;
+      case SnackbarType.success: return Icons.check_rounded;
+      case SnackbarType.warning: return Icons.warning_amber_rounded;
+      case SnackbarType.info:    return Icons.question_mark_rounded;
     }
   }
 
@@ -141,9 +140,9 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
     final safePadding = MediaQuery.of(context).padding;
 
     return Positioned(
-      bottom: safePadding.bottom + 24,
-      left: 20,
-      right: 20,
+      top: safePadding.top + 16,
+      left: 16,
+      right: 16,
       child: SlideTransition(
         position: _slideAnim,
         child: FadeTransition(
@@ -152,88 +151,161 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
             color: Colors.transparent,
             child: GestureDetector(
               onTap: _dismiss,
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 16,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1E2328),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: _accentColor.withOpacity(0.3),
-                    width: 1,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.4),
-                      blurRadius: 24,
-                      offset: const Offset(0, 8),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  // Main Card
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(top: 16),
+                    decoration: BoxDecoration(
+                      color: _bgColor,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 16,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Icon
-                    Container(
-                      margin: const EdgeInsets.only(top: 1),
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: _accentColor.withOpacity(0.12),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Icon(
-                        _icon,
-                        color: _accentColor,
-                        size: 20,
-                      ),
-                    ),
-                    const SizedBox(width: 14),
-                    // Text
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Stack(
                         children: [
-                          if (widget.title != null) ...[
-                            Text(
-                              widget.title!,
-                              style: TextStyle(
-                                color: AppColors.primaryTextOffWhite,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                height: 1.3,
+                          // Background Blob 1
+                          Positioned(
+                            bottom: -20,
+                            left: -20,
+                            child: Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                color: _darkColor,
+                                shape: BoxShape.circle,
                               ),
                             ),
-                            const SizedBox(height: 3),
-                          ],
-                          Text(
-                            widget.message,
-                            style: const TextStyle(
-                              color: AppColors.secondaryTextStoneGrey,
-                              fontSize: 13,
-                              height: 1.45,
-                              fontWeight: FontWeight.w400,
+                          ),
+                          // Background Blob 2
+                          Positioned(
+                            bottom: 40,
+                            left: 20,
+                            child: Container(
+                              width: 24,
+                              height: 24,
+                              decoration: BoxDecoration(
+                                color: _darkColor,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                          // Background Blob 3
+                          Positioned(
+                            bottom: 10,
+                            left: 70,
+                            child: Container(
+                              width: 14,
+                              height: 14,
+                              decoration: BoxDecoration(
+                                color: _darkColor,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                          
+                          // Content
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(68, 16, 40, 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (widget.title != null) ...[
+                                  Text(
+                                    widget.title!,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: 0.2,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                ],
+                                Text(
+                                  widget.message,
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.9),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          
+                          // Close Icon
+                          Positioned(
+                            top: 16,
+                            right: 16,
+                            child: GestureDetector(
+                              onTap: _dismiss,
+                              child: Icon(
+                                Icons.close_rounded,
+                                color: Colors.white.withOpacity(0.6),
+                                size: 20,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(width: 8),
-                    // Dismiss
-                    GestureDetector(
-                      onTap: _dismiss,
-                      child: Icon(
-                        Icons.close_rounded,
-                        color: AppColors.secondaryTextStoneGrey.withOpacity(0.5),
-                        size: 18,
-                      ),
+                  ),
+                  
+                  // Floating Chat Bubble Icon
+                  Positioned(
+                    top: 0,
+                    left: 20,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        // Bubble tail (rotated square)
+                        Positioned(
+                          bottom: -4,
+                          left: 10,
+                          child: Transform.rotate(
+                            angle: 0.785, // roughly 45 degrees
+                            child: Container(
+                              width: 16,
+                              height: 16,
+                              decoration: BoxDecoration(
+                                color: _darkColor,
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Bubble body
+                        Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            color: _darkColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Icon(
+                              _icon,
+                              color: Colors.white,
+                              size: 26,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

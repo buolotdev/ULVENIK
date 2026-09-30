@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
+import 'create_password_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -71,8 +72,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
     // TODO: Call password reset service
     AppSnackbar.show(context,
         title: 'Reset Link Sent',
-        message: 'Check your inbox — a reset link has been sent to $email.',
+        message: 'Check your inbox for a reset link sent to $email.',
         type: SnackbarType.success);
+
+    Future.delayed(const Duration(milliseconds: 1200), () {
+      if (!mounted) return;
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const CreatePasswordScreen(),
+        ),
+      );
+    });
   }
 
   @override

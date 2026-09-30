@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
-import 'login_screen.dart';
+import 'welcome_screen.dart';
 
 class OnboardingData {
   final String title;
@@ -27,7 +27,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     OnboardingData(
       title: 'Welcome to Ulvenik',
       body:
-          'Your complete training journey for every dog. Build your own training system, record every session and watch your progress grow over time — all in one place.',
+          'Your complete training journey for every dog. Build your own training system, record every session and watch your progress grow over time. All in one place.',
       bgImage: 'assets/bg-images/onboarding_1.png',
     ),
     OnboardingData(
@@ -378,11 +378,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                     curve: Curves.easeOutCubic,
                                   );
                                 } else {
-                                  // Navigate to Login with a smooth SaaS fade
+                                  // Navigate to Welcome Screen with a smooth SaaS fade
                                   Navigator.of(context).push(
                                     PageRouteBuilder(
                                       pageBuilder: (context, animation, secondaryAnimation) => 
-                                          const LoginScreen(),
+                                          const WelcomeScreen(),
                                       transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                         return FadeTransition(
                                           opacity: CurvedAnimation(

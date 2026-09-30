@@ -12,13 +12,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  // Bar track width in px — fixed
-  static const double _trackWidth = 200.0;
-  // Comet width in px
-  static const double _cometWidth = 120.0;
-
   late AnimationController _sequenceController;
-  late AnimationController _cometController;
+  late AnimationController _fillController;
   late AnimationController _exitController;
 
   // Logo reveal
@@ -32,49 +27,49 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _textOpacity;
   late Animation<Offset> _textSlide;
 
-  // Comet in PIXELS
-  late Animation<double> _cometX;
+  // Bar fill progress (0.0 to 1.0)
+  late Animation<double> _fillProgress;
 
-  // Exit animations (Zoom in effect)
   late Animation<double> _logoExitScale;
   late Animation<double> _logoExitOpacity;
   late Animation<double> _uiExitOpacity;
+  late Animation<double> _exitBlur;
 
   @override
   void initState() {
     super.initState();
 
-    // ── Sequence: 2.8 seconds ─────────────────────────────────────────────
+    // ── Sequence: 2.4 seconds ─────────────────────────────────────────────
     _sequenceController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2800),
+      duration: const Duration(milliseconds: 2400),
     );
 
     _logoBlur = Tween<double>(begin: 24.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _sequenceController,
-        curve: const Interval(0.0, 0.65, curve: Curves.easeOutCubic),
+        curve: const Interval(0.0, 0.75, curve: Curves.easeInOut), // 0-1800ms
       ),
     );
 
     _logoScale = Tween<double>(begin: 0.84, end: 1.0).animate(
       CurvedAnimation(
         parent: _sequenceController,
-        curve: const Interval(0.0, 0.70, curve: Curves.elasticOut),
+        curve: const Interval(0.0, 0.80, curve: Curves.elasticOut), // 0-1920ms
       ),
     );
 
     _logoOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _sequenceController,
-        curve: const Interval(0.0, 0.30, curve: Curves.easeIn),
+        curve: const Interval(0.0, 0.35, curve: Curves.easeIn), // 0-840ms
       ),
     );
 
     _barOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _sequenceController,
-        curve: const Interval(0.55, 0.72, curve: Curves.easeOut),
+        curve: const Interval(0.65, 0.85, curve: Curves.easeOut), // 1560-2040ms
       ),
     );
     _barSlide = Tween<Offset>(
@@ -83,14 +78,14 @@ class _SplashScreenState extends State<SplashScreen>
     ).animate(
       CurvedAnimation(
         parent: _sequenceController,
-        curve: const Interval(0.55, 0.72, curve: Curves.easeOutCubic),
+        curve: const Interval(0.65, 0.85, curve: Curves.easeOutCubic),
       ),
     );
 
     _textOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _sequenceController,
-        curve: const Interval(0.67, 0.84, curve: Curves.easeOut),
+        curve: const Interval(0.80, 1.0, curve: Curves.easeOut), // 1920-2400ms
       ),
     );
     _textSlide = Tween<Offset>(
@@ -99,38 +94,42 @@ class _SplashScreenState extends State<SplashScreen>
     ).animate(
       CurvedAnimation(
         parent: _sequenceController,
-        curve: const Interval(0.67, 0.84, curve: Curves.easeOutCubic),
+        curve: const Interval(0.80, 1.0, curve: Curves.easeOutCubic),
       ),
     );
 
-    _cometController = AnimationController(
+    _fillController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1600),
+      duration: const Duration(milliseconds: 1200), // 1.2s to fill
     );
-    _cometX = Tween<double>(
-      begin: -_cometWidth,
-      end: _trackWidth,
-    ).animate(
-      CurvedAnimation(parent: _cometController, curve: Curves.easeInOut),
+    _fillProgress = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _fillController, curve: Curves.easeInOut),
     );
 
     // ── Exit Sequence: Zoom in ─────────────────────────────────────────────
     _exitController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 750),
+      duration: const Duration(milliseconds: 450),
     );
 
-    _logoExitScale = Tween<double>(begin: 1.0, end: 300.0).animate(
+    _logoExitScale = Tween<double>(begin: 1.0, end: 15.0).animate(
       CurvedAnimation(
         parent: _exitController,
         curve: Curves.easeInExpo, // accelerates rapidly
       ),
     );
 
-    _logoExitOpacity = Tween<double>(begin: 1.0, end: 1.0).animate(
+    _exitBlur = Tween<double>(begin: 0.0, end: 40.0).animate(
       CurvedAnimation(
         parent: _exitController,
-        curve: const Interval(0.6, 1.0, curve: Curves.easeOut), 
+        curve: Curves.easeIn, 
+      ),
+    );
+
+    _logoExitOpacity = Tween<double>(begin: 1.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _exitController,
+        curve: const Interval(0.5, 1.0, curve: Curves.easeOut), 
       ),
     );
 
@@ -143,10 +142,17 @@ class _SplashScreenState extends State<SplashScreen>
 
     _sequenceController.forward();
 
-    // Trigger exit animation
+    // Start filling when sequence completes
     _sequenceController.addStatusListener((status) {
       if (status == AnimationStatus.completed && mounted) {
-        Future.delayed(const Duration(milliseconds: 600), () {
+        _fillController.forward();
+      }
+    });
+
+    // Trigger exit animation when fill completes
+    _fillController.addStatusListener((status) {
+      if (status == AnimationStatus.completed && mounted) {
+        Future.delayed(const Duration(milliseconds: 100), () {
           if (!mounted) return;
           _exitController.forward();
         });
@@ -166,16 +172,12 @@ class _SplashScreenState extends State<SplashScreen>
         );
       }
     });
-
-    Future.delayed(const Duration(milliseconds: 1600), () {
-      if (mounted) _cometController.repeat();
-    });
   }
 
   @override
   void dispose() {
     _sequenceController.dispose();
-    _cometController.dispose();
+    _fillController.dispose();
     _exitController.dispose();
     super.dispose();
   }
@@ -185,11 +187,12 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       backgroundColor: AppColors.backgroundObsidian,
       body: AnimatedBuilder(
-        animation: Listenable.merge([_sequenceController, _exitController]),
+        animation: Listenable.merge([_sequenceController, _exitController, _fillController]),
         builder: (context, child) {
           final currentScale = _logoScale.value * _logoExitScale.value;
           final currentOpacity = _logoOpacity.value * _logoExitOpacity.value;
           final uiOpacity = _uiExitOpacity.value;
+          final currentBlur = _logoBlur.value + _exitBlur.value;
 
           return Stack(
             children: [
@@ -201,8 +204,8 @@ class _SplashScreenState extends State<SplashScreen>
                     scale: currentScale,
                     child: ImageFiltered(
                       imageFilter: ImageFilter.blur(
-                        sigmaX: _logoBlur.value,
-                        sigmaY: _logoBlur.value,
+                        sigmaX: currentBlur,
+                        sigmaY: currentBlur,
                       ),
                       child: Image.asset(
                         'assets/images/white_mountain_only.png',
@@ -229,50 +232,36 @@ class _SplashScreenState extends State<SplashScreen>
                         position: _barSlide,
                         child: FadeTransition(
                           opacity: _barOpacity,
-                          child: Center(
-                            child: SizedBox(
-                              width: _trackWidth,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 48), // Full width with padding
+                            child: Container(
                               height: 4,
-                              child: ClipRect(
-                                child: Stack(
-                                  clipBehavior: Clip.hardEdge,
-                                  children: [
-                                    // Track background
-                                    Container(
-                                      width: _trackWidth,
-                                      height: 4,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFF1C2220),
-                                        borderRadius: BorderRadius.circular(9999),
-                                      ),
-                                    ),
-                                    // Comet
-                                    AnimatedBuilder(
-                                      animation: _cometX,
-                                      builder: (context, _) {
-                                        return Transform.translate(
-                                          offset: Offset(_cometX.value, 0),
-                                          child: Container(
-                                            width: _cometWidth,
-                                            height: 4,
-                                            decoration: const BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Colors.transparent,
-                                                  Color(0xFF1A3D31),
-                                                  Color(0xFF2E6B57),
-                                                  Color(0xFF5DBFA0),
-                                                  Color(0xFFD4F5E9),
-                                                  Colors.white,
-                                                ],
-                                                stops: [0.0, 0.15, 0.45, 0.75, 0.90, 1.0],
-                                              ),
-                                            ),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF1C2220),
+                                borderRadius: BorderRadius.circular(9999),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(9999),
+                                child: AnimatedBuilder(
+                                  animation: _fillProgress,
+                                  builder: (context, _) {
+                                    return FractionallySizedBox(
+                                      alignment: Alignment.centerLeft,
+                                      widthFactor: _fillProgress.value,
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Color(0xFF2E6B57),
+                                              Color(0xFF5DBFA0),
+                                              Colors.white,
+                                            ],
                                           ),
-                                        );
-                                      },
-                                    ),
-                                  ],
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                             ),

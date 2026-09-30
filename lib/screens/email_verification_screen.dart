@@ -1,6 +1,8 @@
 import 'dart:ui';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import 'two_factor_setup_screen.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   final String email;
@@ -20,9 +22,14 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
   late AnimationController _pulseController;
   late Animation<double> _pulseAnimation;
 
+  Timer? _resendTimer;
+  int _countdown = 60;
+
   @override
   void initState() {
     super.initState();
+    _startTimer();
+    
     _pulseController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -36,8 +43,29 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
     );
   }
 
+  void _startTimer() {
+    setState(() {
+      _countdown = 60;
+    });
+    _resendTimer?.cancel();
+    _resendTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+      if (_countdown > 0) {
+        setState(() {
+          _countdown--;
+        });
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
   @override
   void dispose() {
+    _resendTimer?.cancel();
     _pulseController.dispose();
     super.dispose();
   }
@@ -64,10 +92,14 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
   }
 
   Widget _buildWaitingState() {
-    return Padding(
+    return CustomScrollView(
       key: const ValueKey('waiting_state'),
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 32),
@@ -192,6 +224,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
             ),
           ),
           
+          const SizedBox(height: 32),
           const Spacer(flex: 2),
           
           // Actions
@@ -234,21 +267,44 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
           // Bottom links
           Column(
             children: [
-              Text(
-                'Resend Verification Email',
-                style: TextStyle(
-                  color: AppColors.secondaryTextStoneGrey.withOpacity(0.5),
-                  fontSize: 13,
+              if (_countdown > 0) ...[
+                Text(
+                  'Resend Verification Email',
+                  style: TextStyle(
+                    color: AppColors.secondaryTextStoneGrey.withOpacity(0.5),
+                    fontSize: 13,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              const Text(
-                'Available in 60s',
-                style: TextStyle(
-                  color: AppColors.secondaryTextStoneGrey,
-                  fontSize: 13,
+                const SizedBox(height: 4),
+                Text(
+                  'Available in ${_countdown}s',
+                  style: const TextStyle(
+                    color: AppColors.secondaryTextStoneGrey,
+                    fontSize: 13,
+                  ),
                 ),
-              ),
+              ] else ...[
+                TextButton.icon(
+                  onPressed: _startTimer,
+                  icon: const Icon(Icons.refresh_rounded, size: 16),
+                  label: const Text(
+                    'Resend Verification Email',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                      letterSpacing: 0.2,
+                    ),
+                  ),
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.primaryTextOffWhite,
+                    backgroundColor: Colors.white.withOpacity(0.06),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                  ),
+                ),
+              ],
               const SizedBox(height: 16),
               GestureDetector(
                 onTap: () => Navigator.of(context).pop(),
@@ -266,14 +322,21 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
           const SizedBox(height: 32),
         ],
       ),
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildSuccessState() {
-    return Padding(
+    return CustomScrollView(
       key: const ValueKey('success_state'),
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 32),
@@ -384,12 +447,25 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
             ),
           ),
           
+          const SizedBox(height: 32),
           const Spacer(flex: 2),
           
           // Continue Button
           ElevatedButton(
             onPressed: () {
-              // TODO: Navigate to the Welcome screen
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) => 
+                      const TwoFactorSetupScreen(),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                      child: child,
+                    );
+                  },
+                  transitionDuration: const Duration(milliseconds: 400),
+                ),
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primaryForestGreen,
@@ -411,6 +487,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
           const SizedBox(height: 48), // Padding equivalent to bottom content in waiting state
         ],
       ),
+          ),
+        ),
+      ],
     );
   }
 }

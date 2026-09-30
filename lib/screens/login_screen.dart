@@ -5,6 +5,7 @@ import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'register_screen.dart';
 import 'forgot_password_screen.dart';
+import 'main_layout.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -83,10 +84,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       return;
     }
 
-    if (password.length < 6) {
+    if (password.length < 8) {
       AppSnackbar.show(context,
           title: 'Password Too Short',
-          message: 'Your password must be at least 6 characters long.',
+          message: 'Your password must be at least 8 characters long.',
           type: SnackbarType.error);
       return;
     }
@@ -96,6 +97,19 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         title: 'Signing In',
         message: 'Authenticating your credentials...',
         type: SnackbarType.info);
+        
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      if (!mounted) return;
+      Navigator.of(context).pushAndRemoveUntil(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => const MainLayout(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        ),
+        (route) => false,
+      );
+    });
   }
 
   @override
@@ -319,36 +333,34 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               const SizedBox(height: 8),
                               Align(
                                 alignment: Alignment.centerRight,
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      PageRouteBuilder(
-                                        pageBuilder: (context, animation, secondaryAnimation) =>
-                                            const ForgotPasswordScreen(),
-                                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                          return FadeTransition(
-                                            opacity: CurvedAnimation(
-                                              parent: animation,
-                                              curve: Curves.easeOut,
-                                            ),
-                                            child: child,
-                                          );
-                                        },
-                                        transitionDuration: const Duration(milliseconds: 500),
+                                child: MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                        PageRouteBuilder(
+                                          pageBuilder: (context, animation, secondaryAnimation) =>
+                                              const ForgotPasswordScreen(),
+                                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                            return FadeTransition(
+                                              opacity: CurvedAnimation(
+                                                parent: animation,
+                                                curve: Curves.easeOut,
+                                              ),
+                                              child: child,
+                                            );
+                                          },
+                                          transitionDuration: const Duration(milliseconds: 500),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      'Forgot Password?',
+                                      style: TextStyle(
+                                        color: AppColors.primaryForestGreen,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                    );
-                                  },
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    minimumSize: Size.zero,
-                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  ),
-                                  child: const Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
-                                      color: AppColors.primaryForestGreen,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
