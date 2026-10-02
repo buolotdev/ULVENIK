@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import 'dogs_all_workspaces_screen.dart';
+import 'dog_profile_screen.dart';
 import 'homepage_screen.dart';
 
 class MyDogsScreen extends StatefulWidget {
@@ -203,11 +205,26 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
               letterSpacing: -0.5,
             ),
           ),
-          if (_hasData)
-            const Icon(
-              Icons.notifications_outlined,
-              color: AppColors.primaryTextOffWhite,
-            ),
+          Row(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.grid_view_rounded, color: AppColors.primaryTextOffWhite),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DogsAllWorkspacesScreen(),
+                    ),
+                  );
+                },
+              ),
+              if (_hasData)
+                IconButton(
+                  icon: const Icon(Icons.notifications_outlined, color: AppColors.primaryTextOffWhite),
+                  onPressed: () {},
+                ),
+            ],
+          ),
         ],
       ),
     );
@@ -290,15 +307,22 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
     required String activity,
     String? imageUrl,
   }) {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white12),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Row(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const DogProfileScreen()),
+        );
+      },
+      child: Container(
+        height: 100,
+        decoration: BoxDecoration(
+          color: AppColors.cardsCarbon,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white12),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Row(
         children: [
           // Image / Placeholder
           SizedBox(
@@ -384,7 +408,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
           ),
         ],
       ),
-    );
+    ));
   }
 
   Widget _buildDogPlaceholder() {

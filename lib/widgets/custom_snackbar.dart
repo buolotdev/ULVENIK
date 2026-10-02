@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 
 enum SnackbarType { error, success, warning, info }
 
@@ -110,20 +111,15 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
 
   Color get _bgColor {
     switch (widget.type) {
-      case SnackbarType.error:   return const Color(0xFFC72C41);
-      case SnackbarType.success: return const Color(0xFF2D6A4F);
-      case SnackbarType.warning: return const Color(0xFFFCA652);
-      case SnackbarType.info:    return const Color(0xFF3282B8);
+      case SnackbarType.error:   return AppColors.errorDestructive;
+      case SnackbarType.success: return AppColors.primaryForestGreen;
+      case SnackbarType.warning: return AppColors.bronzeAccent;
+      case SnackbarType.info:    return AppColors.infoAlpineBlue;
     }
   }
 
   Color get _darkColor {
-    switch (widget.type) {
-      case SnackbarType.error:   return const Color(0xFF801336);
-      case SnackbarType.success: return const Color(0xFF1B4332);
-      case SnackbarType.warning: return const Color(0xFFCC7A00);
-      case SnackbarType.info:    return const Color(0xFF0F4C75);
-    }
+    return Colors.black.withOpacity(0.15); // Dynamically darkens any base color
   }
 
   IconData get _icon {
