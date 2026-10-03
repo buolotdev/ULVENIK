@@ -1,4 +1,4 @@
-import 'dart:ui';
+// dart:ui import removed — no longer needed after removing BackdropFilter
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
@@ -75,38 +75,28 @@ class _MainLayoutState extends State<MainLayout> {
             child: _screens[_currentIndex],
           ),
 
-          // ── Frosted glass status bar overlay ──────────────────────
-          // Blurs any content that scrolls behind the status bar,
-          // keeping time/battery/signal readable — like Instagram/Apple apps
-          // The blur is masked with a vertical gradient so it feathers out
-          // smoothly instead of ending in a hard edge.
+          // ── Status bar gradient scrim ──────────────────────────────
+          // A simple gradient from the background colour to transparent.
+          // BackdropFilter was removed because it creates a hard rectangular
+          // clip that cannot be feathered with ShaderMask — this gradient
+          // approach fades cleanly with no visible edge.
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            height: topPadding + 40,
+            height: topPadding + 32,
             child: IgnorePointer(
-              child: ShaderMask(
-                blendMode: BlendMode.dstIn,
-                shaderCallback: (rect) => const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.black, Colors.black, Colors.transparent],
-                  stops: [0.0, 0.5, 1.0],
-                ).createShader(rect),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          AppColors.backgroundObsidian.withOpacity(0.7),
-                          Colors.transparent,
-                        ],
-                      ),
-                    ),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      AppColors.backgroundObsidian,
+                      AppColors.backgroundObsidian.withOpacity(0.85),
+                      Colors.transparent,
+                    ],
+                    stops: const [0.0, 0.55, 1.0],
                   ),
                 ),
               ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
+import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -14,34 +14,18 @@ class SkillDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+    ));
+
     return Scaffold(
-      extendBodyBehindAppBar: true,
       backgroundColor: AppColors.backgroundObsidian,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(56),
-        child: ClipRRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-            child: AppBar(
-              backgroundColor: AppColors.backgroundObsidian.withOpacity(0.7),
-              elevation: 0,
-              centerTitle: true,
-              title: const Text(
-                'Skill Details',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite),
-              ),
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextOffWhite),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-          ),
-        ),
-      ),
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
-          _buildHeroSection(),
+          _buildHeroSection(context),
           const SizedBox(height: 24),
           _buildQuickActions(context),
           const SizedBox(height: 32),
@@ -62,17 +46,20 @@ class SkillDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeroSection() {
+  Widget _buildHeroSection(BuildContext context) {
+    final topSafe = MediaQuery.of(context).padding.top;
     return SizedBox(
-      height: 360,
+      height: 380 + topSafe,
       child: Stack(
         children: [
+          // Full bleed image
           Positioned.fill(
             child: Image.network(
               'https://lh3.googleusercontent.com/aida-public/AB6AXuDY3-D7uDa6UVSFWdzwIDiVgIXMfrPq8xUIF00RNYpeYcXHFhC4SIwPHWloidY-mly7XhrzMlw_zKvuxoL8dKgv5lgSNs6NzNoBS3gKFBJOk7eDPxyPazW65y37IPvR7GaJrb1ceoTA7VocVqJbNN_Gj1ovA89vv5JgFL6W3163VK2DHOqk9jLb1SBRLCYOk-z9QQupHmc0yYEvGZzG6vN3p2yszP28oURDUoFUFvvy55R49XWjzv0',
               fit: BoxFit.cover,
             ),
           ),
+          // Bottom-up gradient fading into app background
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -81,14 +68,24 @@ class SkillDetailsScreen extends StatelessWidget {
                   end: Alignment.topCenter,
                   colors: [
                     AppColors.backgroundObsidian,
-                    AppColors.backgroundObsidian.withOpacity(0.8),
+                    AppColors.backgroundObsidian.withOpacity(0.6),
                     Colors.transparent,
                   ],
-                  stops: const [0.0, 0.35, 1.0],
+                  stops: const [0.0, 0.3, 0.65],
                 ),
               ),
             ),
           ),
+          // Floating back button — no AppBar, no clip
+          Positioned(
+            top: topSafe + 4,
+            left: 4,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextOffWhite),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+          // Text content pinned to bottom
           Positioned(
             left: 20,
             right: 20,
