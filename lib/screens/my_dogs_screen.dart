@@ -321,92 +321,94 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.white12),
         ),
-        clipBehavior: Clip.antiAlias,
-        child: Row(
-        children: [
-          // Image / Placeholder
-          SizedBox(
-            width: 100,
-            height: double.infinity,
-            child: imageUrl != null
-                ? Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Image.network(
-                        imageUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _buildDogPlaceholder(),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [
-                              Colors.transparent,
-                              AppColors.cardsCarbon.withOpacity(0.8),
-                            ],
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Row(
+          children: [
+            // Image / Placeholder
+            SizedBox(
+              width: 100,
+              height: double.infinity,
+              child: imageUrl != null
+                  ? Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image.network(
+                          imageUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => _buildDogPlaceholder(),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Colors.transparent,
+                                AppColors.cardsCarbon.withOpacity(0.8),
+                              ],
+                            ),
                           ),
                         ),
+                      ],
+                    )
+                  : _buildDogPlaceholder(),
+            ),
+            
+            // Content
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        color: AppColors.primaryTextOffWhite,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
                       ),
-                    ],
-                  )
-                : _buildDogPlaceholder(),
-          ),
-          
-          // Content
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      color: AppColors.primaryTextOffWhite,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    details,
-                    style: const TextStyle(
-                      color: AppColors.secondaryTextStoneGrey,
-                      fontSize: 12,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.schedule,
+                    const SizedBox(height: 2),
+                    Text(
+                      details,
+                      style: const TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
-                        size: 14,
+                        fontSize: 12,
                       ),
-                      const SizedBox(width: 4),
-                      Text(
-                        activity,
-                        style: const TextStyle(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.schedule,
                           color: AppColors.secondaryTextStoneGrey,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 0.5,
+                          size: 14,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        const SizedBox(width: 4),
+                        Text(
+                          activity,
+                          style: const TextStyle(
+                            color: AppColors.secondaryTextStoneGrey,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ));
   }

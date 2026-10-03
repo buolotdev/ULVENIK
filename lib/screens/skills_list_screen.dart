@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'skill_details_screen.dart';
+import 'add_skill_screen.dart';
 
 // ─── Models ───────────────────────────────────────────────────────────────────
 
@@ -293,8 +294,12 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                   side: BorderSide(color: Colors.white12)),
               child: InkWell(
                 customBorder: const CircleBorder(),
-                onTap: () => _toast(
-                    'Add Skill form is coming up next', SnackbarType.info),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AddSkillScreen()),
+                  );
+                },
                 child: const SizedBox(
                   width: 56,
                   height: 56,
@@ -739,8 +744,12 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
               borderRadius: BorderRadius.circular(12),
               child: InkWell(
                 borderRadius: BorderRadius.circular(12),
-                onTap: () => _toast(
-                    'Add Skill form is coming up next', SnackbarType.info),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AddSkillScreen()),
+                  );
+                },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: Row(
