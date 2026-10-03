@@ -17,10 +17,25 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
+  // Training tab has its own navigator so pushed screens (e.g. Training
+  // Session) keep the bottom nav visible with Training active.
+  final GlobalKey<NavigatorState> _trainingNavKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> _dogsNavKey = GlobalKey<NavigatorState>();
+
+  late final List<Widget> _screens = [
     const HomepageScreen(key: ValueKey('home')),
-    const MyDogsScreen(key: ValueKey('dogs')),
-    const TrainingScreen(key: ValueKey('training')),
+    Navigator(
+      key: _dogsNavKey,
+      onGenerateRoute: (_) => MaterialPageRoute(
+        builder: (_) => const MyDogsScreen(key: ValueKey('dogs')),
+      ),
+    ),
+    Navigator(
+      key: _trainingNavKey,
+      onGenerateRoute: (_) => MaterialPageRoute(
+        builder: (_) => const TrainingScreen(key: ValueKey('training')),
+      ),
+    ),
     const Center(child: Text('Timeline', style: TextStyle(color: Colors.white))),
     const Center(child: Text('More', style: TextStyle(color: Colors.white))),
   ];
@@ -63,16 +78,36 @@ class _MainLayoutState extends State<MainLayout> {
           // ── Frosted glass status bar overlay ──────────────────────
           // Blurs any content that scrolls behind the status bar,
           // keeping time/battery/signal readable — like Instagram/Apple apps
+          // The blur is masked with a vertical gradient so it feathers out
+          // smoothly instead of ending in a hard edge.
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            height: topPadding,
-            child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
-                child: Container(
-                  color: AppColors.backgroundObsidian.withOpacity(0.55),
+            height: topPadding + 40,
+            child: IgnorePointer(
+              child: ShaderMask(
+                blendMode: BlendMode.dstIn,
+                shaderCallback: (rect) => const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.black, Colors.black, Colors.transparent],
+                  stops: [0.0, 0.5, 1.0],
+                ).createShader(rect),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          AppColors.backgroundObsidian.withOpacity(0.7),
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -115,6 +150,11 @@ class _MainLayoutState extends State<MainLayout> {
         onTap: () {
           if (_currentIndex != index) {
             setState(() => _currentIndex = index);
+          } else if (index == 2) {
+            // Re-tapping the active Training tab returns to its root
+            _trainingNavKey.currentState?.popUntil((r) => r.isFirst);
+          } else if (index == 1) {
+            _dogsNavKey.currentState?.popUntil((r) => r.isFirst);
           }
         },
         // Full-height container so the green bg fills the entire button

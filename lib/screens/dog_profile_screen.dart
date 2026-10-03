@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import 'skills_list_screen.dart';
 
 class DogProfileScreen extends StatefulWidget {
   const DogProfileScreen({super.key});
@@ -236,8 +237,70 @@ class _DogProfileScreenState extends State<DogProfileScreen>
     );
   }
 
+  Widget _buildSkillsTile() {
+    final name = _hasData ? 'Koda' : 'Nova';
+    final breed = _hasData ? 'Belgian Malinois' : 'German Shepherd';
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => SkillsListScreen(
+                dogName: name, breed: breed, hasData: _hasData),
+          ),
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.cardsCarbon,
+            border: Border.all(color: Colors.white12),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryForestGreen.withOpacity(0.18),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.layers_outlined,
+                    size: 20, color: AppColors.primaryForestGreen),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Skills and Exercises',
+                        style: TextStyle(
+                            color: AppColors.primaryTextOffWhite,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600)),
+                    const SizedBox(height: 2),
+                    Text(
+                        _hasData ? '6 skills · 21 exercises' : 'No skills yet',
+                        style: const TextStyle(
+                            color: AppColors.secondaryTextStoneGrey,
+                            fontSize: 12)),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right,
+                  color: AppColors.secondaryTextStoneGrey),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   List<Widget> _buildEmptyContent() {
     return [
+      _buildSkillsTile(),
+      const SizedBox(height: 12),
       _buildEmptyCard(
         icon: Icons.fitness_center,
         title: 'No Training Sessions Recorded',
@@ -340,6 +403,8 @@ class _DogProfileScreenState extends State<DogProfileScreen>
 
   List<Widget> _buildPopulatedContent() {
     return [
+      _buildSkillsTile(),
+      const SizedBox(height: 24),
       // TODAY'S FOCUS
       const Text(
         "TODAY'S FOCUS",

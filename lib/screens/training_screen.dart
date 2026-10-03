@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
+import 'training_session_screen.dart';
 
 // ─── Simple data models ───────────────────────────────────────────────────────
 
@@ -251,7 +252,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => Navigator.maybePop(context),
                     child: const Icon(Icons.arrow_back,
                         color: AppColors.primaryTextOffWhite, size: 28),
                   ),
@@ -678,14 +679,10 @@ class _TrainingScreenState extends State<TrainingScreen> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => AppSnackbar.show(
-          context,
-          message: session.status == SessionStatus.draft
-              ? 'Resuming: ${session.title}'
-              : 'Opening: ${session.title}',
-          type: session.status == SessionStatus.draft
-              ? SnackbarType.warning
-              : SnackbarType.info,
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => TrainingSessionScreen(session: session),
+          ),
         ),
         borderRadius: BorderRadius.circular(16),
         child: Container(

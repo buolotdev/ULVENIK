@@ -97,9 +97,13 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
     Future.delayed(widget.duration, _dismiss);
   }
 
+  bool _dismissed = false;
+
   void _dismiss() async {
-    if (!mounted) return;
-    await _controller.reverse();
+    if (!mounted || _dismissed) return;
+    _dismissed = true;
+    await _controller.animateBack(0,
+        duration: const Duration(milliseconds: 180), curve: Curves.easeIn);
     widget.onDismiss();
   }
 
@@ -114,7 +118,7 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
       case SnackbarType.error:   return AppColors.errorDestructive;
       case SnackbarType.success: return AppColors.primaryForestGreen;
       case SnackbarType.warning: return AppColors.bronzeAccent;
-      case SnackbarType.info:    return AppColors.infoAlpineBlue;
+      case SnackbarType.info:    return AppColors.secondarySage;
     }
   }
 
@@ -127,7 +131,7 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
       case SnackbarType.error:   return Icons.error_outline_rounded;
       case SnackbarType.success: return Icons.check_rounded;
       case SnackbarType.warning: return Icons.warning_amber_rounded;
-      case SnackbarType.info:    return Icons.question_mark_rounded;
+      case SnackbarType.info:    return Icons.info_outline_rounded;
     }
   }
 
@@ -146,7 +150,10 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
           child: Material(
             color: Colors.transparent,
             child: GestureDetector(
-              onTap: _dismiss,
+              // Swipe up only: quick dismiss
+              onVerticalDragUpdate: (d) {
+                if (d.delta.dy < -3) _dismiss();
+              },
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -211,7 +218,7 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
                           
                           // Content
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(68, 16, 40, 16),
+                            padding: const EdgeInsets.fromLTRB(68, 16, 20, 16),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
@@ -241,19 +248,6 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
                             ),
                           ),
                           
-                          // Close Icon
-                          Positioned(
-                            top: 16,
-                            right: 16,
-                            child: GestureDetector(
-                              onTap: _dismiss,
-                              child: Icon(
-                                Icons.close_rounded,
-                                color: Colors.white.withOpacity(0.6),
-                                size: 20,
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ),
