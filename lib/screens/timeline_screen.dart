@@ -155,7 +155,12 @@ class _TimelineScreenState extends State<TimelineScreen> {
                   _buildIconTextAction(Icons.swap_vert, 'Jump To'),
                 ],
               ),
-              const Text('Today', style: TextStyle(color: Color(0xFF95d3bb), fontSize: 13, fontWeight: FontWeight.w500)),
+              GestureDetector(
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Jumping to Today...'), duration: Duration(seconds: 1)));
+                },
+                child: const Text('Today', style: TextStyle(color: Color(0xFF95d3bb), fontSize: 13, fontWeight: FontWeight.w500)),
+              ),
             ],
           ),
           if (_activeFilters != null && _activeFilters!.isNotEmpty) ...[
@@ -174,12 +179,23 @@ class _TimelineScreenState extends State<TimelineScreen> {
   }
 
   Widget _buildIconTextAction(IconData icon, String label) {
-    return Row(
-      children: [
-        Icon(icon, size: 18, color: AppColors.secondaryTextStoneGrey),
-        if (label != 'Search') const SizedBox(width: 4),
-        if (label != 'Search') Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500)),
-      ],
+    return GestureDetector(
+      onTap: () {
+        if (label == 'Filter') {
+          _showFilterBottomSheet();
+        } else if (label == 'Jump To') {
+          _showJumpToBottomSheet();
+        } else if (label == 'Search') {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Search opened'), duration: Duration(seconds: 1)));
+        }
+      },
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: AppColors.secondaryTextStoneGrey),
+          if (label != 'Search') const SizedBox(width: 4),
+          if (label != 'Search') Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500)),
+        ],
+      ),
     );
   }
 
@@ -205,6 +221,93 @@ class _TimelineScreenState extends State<TimelineScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showFilterBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.backgroundObsidian,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Filter Timeline', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 24),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: ['Training', 'Health', 'Goals', 'Nutrition'].map((filter) {
+                  final isActive = _activeFilters?.contains(filter) ?? false;
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (isActive) {
+                          _activeFilters?.remove(filter);
+                        } else {
+                          _activeFilters ??= [];
+                          _activeFilters!.add(filter);
+                        }
+                      });
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: isActive ? const Color(0xFF2e6b57).withOpacity(0.2) : AppColors.cardsCarbon,
+                        border: Border.all(color: isActive ? const Color(0xFF95d3bb) : Colors.white12),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(filter, style: TextStyle(color: isActive ? const Color(0xFF95d3bb) : AppColors.secondaryTextStoneGrey)),
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 48), // Padding for bottom
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showJumpToBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.backgroundObsidian,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Jump To Year', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 24),
+              ...['2026', '2025', '2024', '2023'].map((year) => ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(year, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                trailing: const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+                onTap: () {
+                  setState(() {
+                    if (!(_activeFilters?.contains(year) ?? false)) {
+                      _activeFilters ??= [];
+                      _activeFilters!.add(year);
+                    }
+                  });
+                  Navigator.pop(context);
+                },
+              )),
+              const SizedBox(height: 24),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -493,7 +596,7 @@ class _StickyFiltersDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant _StickyFiltersDelegate oldDelegate) {
-    return oldDelegate.hasFilters != hasFilters;
+    return true; // Always rebuild to reflect state changes instantly
   }
 }
 
@@ -512,3 +615,4 @@ class _TimelineSpinePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
+
