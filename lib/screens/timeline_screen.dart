@@ -10,11 +10,18 @@ class TimelineScreen extends StatefulWidget {
 
 class _TimelineScreenState extends State<TimelineScreen> {
   List<String>? _activeFilters;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _activeFilters = ['Training', '2026'];
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -24,6 +31,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundObsidian,
       body: CustomScrollView(
+        controller: _scrollController,
         slivers: [
           _buildSliverAppBar(topPadding),
           SliverPersistentHeader(
@@ -157,7 +165,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Jumping to Today...'), duration: Duration(seconds: 1)));
+                  _scrollController.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
                 },
                 child: const Text('Today', style: TextStyle(color: Color(0xFF95d3bb), fontSize: 13, fontWeight: FontWeight.w500)),
               ),
@@ -186,7 +194,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
         } else if (label == 'Jump To') {
           _showJumpToBottomSheet();
         } else if (label == 'Search') {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Search opened'), duration: Duration(seconds: 1)));
+          _showSearchBottomSheet();
         }
       },
       child: Row(
@@ -231,6 +239,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (context) {
         return Container(
+          width: double.infinity,
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -282,6 +291,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (context) {
         return Container(
+          width: double.infinity,
           padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -305,6 +315,45 @@ class _TimelineScreenState extends State<TimelineScreen> {
               )),
               const SizedBox(height: 24),
             ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showSearchBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.backgroundObsidian,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Search Timeline', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 24),
+                TextField(
+                  autofocus: true,
+                  style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                  decoration: InputDecoration(
+                    hintText: 'Search sessions, health, goals...',
+                    hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                    prefixIcon: const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey),
+                    filled: true,
+                    fillColor: AppColors.cardsCarbon,
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
+            ),
           ),
         );
       },
