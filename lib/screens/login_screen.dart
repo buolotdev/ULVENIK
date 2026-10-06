@@ -421,7 +421,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               
                               // Apple
                               ElevatedButton.icon(
-                                onPressed: () {},
+                                onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
                                 icon: SvgPicture.asset(
                                   'assets/icons/apple_logo.svg', 
                                   width: 20, 
@@ -445,7 +445,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               
                               // Google
                               ElevatedButton.icon(
-                                onPressed: () {},
+                                onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
                                 icon: SvgPicture.asset('assets/icons/google_logo.svg', width: 20, height: 20),
                                 label: const Text('Continue with Google'),
                                 style: ElevatedButton.styleFrom(

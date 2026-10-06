@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import 'dog_profile_screen.dart';
+import '../widgets/custom_snackbar.dart';
 
 class DogsAllWorkspacesScreen extends StatefulWidget {
   const DogsAllWorkspacesScreen({super.key});
@@ -53,7 +54,7 @@ class _DogsAllWorkspacesScreenState extends State<DogsAllWorkspacesScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
         backgroundColor: AppColors.primaryForestGreen,
         child: const Icon(Icons.add, color: AppColors.primaryTextOffWhite),
       ),

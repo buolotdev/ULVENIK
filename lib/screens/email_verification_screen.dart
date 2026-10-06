@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import 'two_factor_setup_screen.dart';
+import '../widgets/custom_snackbar.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   final String email;
@@ -229,7 +230,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
           
           // Actions
           ElevatedButton.icon(
-            onPressed: () {},
+            onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
             icon: const Icon(Icons.mark_email_unread_outlined, size: 20),
             label: const Text('Open Email App'),
             style: ElevatedButton.styleFrom(

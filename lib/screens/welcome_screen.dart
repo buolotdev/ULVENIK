@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import 'login_screen.dart';
 import 'register_screen.dart';
+import '../widgets/custom_snackbar.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -146,7 +147,7 @@ class WelcomeScreen extends StatelessWidget {
                         child: _buildSocialButton(
                           icon: Icons.apple,
                           label: 'Apple',
-                          onTap: () {},
+                          onTap: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -155,7 +156,7 @@ class WelcomeScreen extends StatelessWidget {
                           // Using a generic 'G' or colorized icon for Google. We'll just use text 'G' as placeholder icon for now since standard material icons don't have a multi-colored Google logo.
                           isGoogle: true,
                           label: 'Google',
-                          onTap: () {},
+                          onTap: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
                         ),
                       ),
                     ],

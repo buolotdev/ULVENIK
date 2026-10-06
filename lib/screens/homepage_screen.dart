@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../widgets/custom_snackbar.dart';
 import 'my_dogs_screen.dart';
 
 class HomepageScreen extends StatefulWidget {
@@ -212,7 +213,9 @@ class _HomepageScreenState extends State<HomepageScreen> {
             subtitle: 'Log field work',
             icon: Icons.fitness_center,
             iconColor: AppColors.primaryForestGreen,
-            onTap: () {},
+            onTap: () {
+              AppSnackbar.show(context, message: 'Start Training coming soon', type: SnackbarType.info);
+            },
           ),
         ),
         const SizedBox(width: 16),
@@ -222,7 +225,9 @@ class _HomepageScreenState extends State<HomepageScreen> {
             subtitle: 'Log conditioning',
             icon: Icons.water,
             iconColor: const Color(0xFF5D8FAF), // Alpine blue
-            onTap: () {},
+            onTap: () {
+              AppSnackbar.show(context, message: 'Start S&C coming soon', type: SnackbarType.info);
+            },
           ),
         ),
       ],
@@ -289,7 +294,9 @@ class _HomepageScreenState extends State<HomepageScreen> {
           child: _buildEmptyActionCard(
             title: 'Start Session',
             icon: Icons.play_arrow_outlined,
-            onTap: () {},
+            onTap: () {
+              AppSnackbar.show(context, message: 'Start Session coming soon', type: SnackbarType.info);
+            },
           ),
         ),
         const SizedBox(width: 16),
@@ -297,7 +304,9 @@ class _HomepageScreenState extends State<HomepageScreen> {
           child: _buildEmptyActionCard(
             title: 'Log Activity',
             icon: Icons.add,
-            onTap: () {},
+            onTap: () {
+              AppSnackbar.show(context, message: 'Log Activity coming soon', type: SnackbarType.info);
+            },
           ),
         ),
       ],

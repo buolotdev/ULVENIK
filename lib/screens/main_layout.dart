@@ -1,11 +1,11 @@
-// dart:ui import removed — no longer needed after removing BackdropFilter
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import 'homepage_screen.dart';
 import 'my_dogs_screen.dart';
-import 'dogs_all_workspaces_screen.dart';
 import 'training_screen.dart';
+import 'timeline_screen.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -36,7 +36,7 @@ class _MainLayoutState extends State<MainLayout> {
         builder: (_) => const TrainingScreen(key: ValueKey('training')),
       ),
     ),
-    const Center(child: Text('Timeline', style: TextStyle(color: Colors.white))),
+    const TimelineScreen(key: ValueKey('timeline')),
     const Center(child: Text('More', style: TextStyle(color: Colors.white))),
   ];
 
@@ -75,28 +75,43 @@ class _MainLayoutState extends State<MainLayout> {
             child: _screens[_currentIndex],
           ),
 
-          // ── Status bar gradient scrim ──────────────────────────────
-          // A simple gradient from the background colour to transparent.
-          // BackdropFilter was removed because it creates a hard rectangular
-          // clip that cannot be feathered with ShaderMask — this gradient
-          // approach fades cleanly with no visible edge.
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            height: topPadding + 32,
+            height: topPadding + 48,
             child: IgnorePointer(
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
+              child: ShaderMask(
+                shaderCallback: (bounds) {
+                  return LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      AppColors.backgroundObsidian,
-                      AppColors.backgroundObsidian.withOpacity(0.85),
+                      Colors.black,
+                      Colors.black.withOpacity(0.8),
+                      Colors.black.withOpacity(0.3),
                       Colors.transparent,
                     ],
-                    stops: const [0.0, 0.55, 1.0],
+                    stops: const [0.0, 0.4, 0.7, 1.0],
+                  ).createShader(bounds);
+                },
+                blendMode: BlendMode.dstIn,
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 12.0, sigmaY: 12.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          AppColors.backgroundObsidian,
+                          AppColors.backgroundObsidian.withOpacity(0.8),
+                          AppColors.backgroundObsidian.withOpacity(0.3),
+                          AppColors.backgroundObsidian.withOpacity(0.0), // Fixes color banding
+                        ],
+                        stops: const [0.0, 0.4, 0.7, 1.0],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -163,13 +178,12 @@ class _MainLayoutState extends State<MainLayout> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AnimatedSwitcher(
+                AnimatedScale(
+                  scale: isActive ? 1.15 : 1.0,
                   duration: const Duration(milliseconds: 250),
-                  transitionBuilder: (child, anim) =>
-                      ScaleTransition(scale: anim, child: child),
+                  curve: Curves.easeOutBack,
                   child: Icon(
                     isActive ? activeIcon : inactiveIcon,
-                    key: ValueKey(isActive),
                     color: isActive
                         ? AppColors.primaryForestGreen
                         : AppColors.secondaryTextStoneGrey,

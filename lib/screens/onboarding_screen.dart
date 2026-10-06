@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import 'welcome_screen.dart';
+import '../widgets/custom_snackbar.dart';
 
 class OnboardingData {
   final String title;
@@ -253,7 +254,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                             ),
                             // Skip
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
                               style: TextButton.styleFrom(
                                 foregroundColor: AppColors.primaryTextOffWhite,
                                 padding: const EdgeInsets.symmetric(

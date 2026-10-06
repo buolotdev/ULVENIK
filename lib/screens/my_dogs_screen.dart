@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../widgets/custom_snackbar.dart';
 import 'dogs_all_workspaces_screen.dart';
 import 'dog_profile_screen.dart';
 import 'homepage_screen.dart';
@@ -61,9 +62,13 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                         children: [
                           Expanded(child: _buildSearchBar()),
                           const SizedBox(width: 12),
-                          _buildIconButton(Icons.tune),
+                          _buildIconButton(Icons.tune, onTap: () {
+                            AppSnackbar.show(context, message: 'Filter coming soon', type: SnackbarType.info);
+                          }),
                           const SizedBox(width: 12),
-                          _buildIconButton(Icons.add, isPrimary: true),
+                          _buildIconButton(Icons.add, isPrimary: true, onTap: () {
+                            AppSnackbar.show(context, message: 'Add dog coming soon', type: SnackbarType.info);
+                          }),
                         ],
                       ),
                       const SizedBox(height: 24),
@@ -153,7 +158,9 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                             ),
                             const SizedBox(height: 32),
                             ElevatedButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                AppSnackbar.show(context, message: 'Add dog coming soon', type: SnackbarType.info);
+                              },
                               icon: const Icon(Icons.add, size: 20),
                               label: const Text('Add Dog'),
                               style: ElevatedButton.styleFrom(
@@ -178,7 +185,9 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          AppSnackbar.show(context, message: 'Add dog coming soon', type: SnackbarType.info);
+        },
         backgroundColor: AppColors.primaryForestGreen,
         child: const Icon(Icons.add, color: AppColors.primaryTextOffWhite),
       ),
@@ -221,7 +230,9 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
               if (_hasData)
                 IconButton(
                   icon: const Icon(Icons.notifications_outlined, color: AppColors.primaryTextOffWhite),
-                  onPressed: () {},
+                  onPressed: () {
+                    AppSnackbar.show(context, message: 'Notifications coming soon', type: SnackbarType.info);
+                  },
                 ),
             ],
           ),
@@ -283,19 +294,22 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
     );
   }
 
-  Widget _buildIconButton(IconData icon, {bool isPrimary = false}) {
-    return Container(
-      height: 40,
-      width: 40,
-      decoration: BoxDecoration(
-        color: isPrimary ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: isPrimary ? AppColors.primaryForestGreen : Colors.white12),
-      ),
-      child: Icon(
-        icon,
-        color: isPrimary ? AppColors.primaryTextOffWhite : AppColors.primaryTextOffWhite,
-        size: 20,
+  Widget _buildIconButton(IconData icon, {bool isPrimary = false, VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 40,
+        width: 40,
+        decoration: BoxDecoration(
+          color: isPrimary ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: isPrimary ? AppColors.primaryForestGreen : Colors.white12),
+        ),
+        child: Icon(
+          icon,
+          color: isPrimary ? AppColors.primaryTextOffWhite : AppColors.primaryTextOffWhite,
+          size: 20,
+        ),
       ),
     );
   }

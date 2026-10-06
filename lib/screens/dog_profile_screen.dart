@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import 'skills_list_screen.dart';
+import 'goals_list_screen.dart';
+import 'statistics_tab.dart';
+import '../widgets/custom_snackbar.dart';
 
 class DogProfileScreen extends StatefulWidget {
   const DogProfileScreen({super.key});
@@ -15,7 +18,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
   late TabController _tabController;
 
   static const List<String> _tabs = [
-    'Overview', 'Training Log', 'Health', 'Sports', 'Media'
+    'Overview', 'Training Log', 'Statistics', 'Health', 'Awards'
   ];
 
   @override
@@ -54,12 +57,12 @@ class _DogProfileScreenState extends State<DogProfileScreen>
             ),
             // Training Log
             _buildComingSoonTab('Training Log', Icons.fitness_center_outlined),
+            // Statistics
+            StatisticsTab(hasData: _hasData),
             // Health
             _buildComingSoonTab('Health', Icons.monitor_heart_outlined),
-            // Sports
-            _buildComingSoonTab('Sports', Icons.emoji_events_outlined),
-            // Media
-            _buildComingSoonTab('Media', Icons.perm_media_outlined),
+            // Awards
+            _buildComingSoonTab('Awards', Icons.emoji_events_outlined),
           ],
         ),
       ),
@@ -177,7 +180,10 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                         const SizedBox(width: 8),
                         _buildStatBadge(Icons.timer_outlined, '42 HRS'),
                         const SizedBox(width: 8),
-                        _buildStatBadge(Icons.flag_outlined, '5 GOALS'),
+                        GestureDetector(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GoalsListScreen())),
+                          child: _buildClickableBadge(Icons.flag_outlined, '5 GOALS'),
+                        ),
                       ],
                     ),
                   ],
@@ -212,6 +218,35 @@ class _DogProfileScreenState extends State<DogProfileScreen>
               letterSpacing: 0.05,
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildClickableBadge(IconData icon, String text) {
+    return Container(
+      padding: const EdgeInsets.only(left: 8, right: 4, top: 4, bottom: 4),
+      decoration: BoxDecoration(
+        color: const Color(0xFF2e6b57).withOpacity(0.2), // primary-container / 20
+        border: Border.all(color: const Color(0xFF2e6b57)),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 12, color: const Color(0xFF95d3bb)),
+          const SizedBox(width: 4),
+          Text(
+            text,
+            style: const TextStyle(
+              color: Color(0xFF95d3bb),
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.05,
+            ),
+          ),
+          const SizedBox(width: 2),
+          const Icon(Icons.chevron_right, size: 14, color: Color(0xFF95d3bb)),
         ],
       ),
     );
@@ -356,7 +391,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryTextOffWhite,
                       side: const BorderSide(color: Colors.white12),
@@ -369,7 +404,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                 const SizedBox(width: 12),
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryTextOffWhite,
                       side: const BorderSide(color: Colors.white12),
@@ -385,7 +420,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryForestGreen,
                   foregroundColor: AppColors.primaryTextOffWhite,

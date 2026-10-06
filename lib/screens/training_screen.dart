@@ -249,13 +249,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
               left: 20,
               right: 20,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.maybePop(context),
-                    child: const Icon(Icons.arrow_back,
-                        color: AppColors.primaryTextOffWhite, size: 28),
-                  ),
                   Stack(
                     children: [
                       Container(

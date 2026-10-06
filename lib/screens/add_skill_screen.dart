@@ -166,17 +166,20 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
               height: 56,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: _handleCancel,
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: AppColors.primaryForestGreen,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: GestureDetector(
+                        onTap: _handleCancel,
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(
+                            color: AppColors.primaryForestGreen,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
@@ -188,16 +191,19 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: _canSave ? _handleSave : null,
-                      child: Text(
-                        'Save',
-                        style: TextStyle(
-                          color: _canSave
-                              ? AppColors.primaryTextOffWhite
-                              : AppColors.secondaryTextStoneGrey,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: _canSave ? _handleSave : null,
+                        child: Text(
+                          'Save',
+                          style: TextStyle(
+                            color: _canSave
+                                ? AppColors.primaryTextOffWhite
+                                : AppColors.secondaryTextStoneGrey,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
@@ -438,35 +444,59 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
   }
 
   Widget _buildTagInput() {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: AppColors.backgroundObsidian,
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: Colors.white12),
-      ),
-      child: Wrap(
-        spacing: 8,
-        runSpacing: 8,
-        children: [
-          ..._tags.map((tag) => _tagChip(tag)),
-          IntrinsicWidth(
-            child: TextField(
-              controller: _tagController,
-              cursorColor: AppColors.primaryForestGreen,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12),
-              decoration: const InputDecoration(
-                hintText: 'Add tag...',
-                hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
-                border: InputBorder.none,
-                isDense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+    const noBorder = InputBorder.none;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Full-width input row
+        Container(
+          height: 44,
+          padding: const EdgeInsets.only(left: 12, right: 4),
+          decoration: BoxDecoration(
+            color: AppColors.backgroundObsidian,
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(color: Colors.white12),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _tagController,
+                  cursorColor: AppColors.primaryForestGreen,
+                  textAlignVertical: TextAlignVertical.center,
+                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                  decoration: const InputDecoration(
+                    hintText: 'Add tag...',
+                    hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+                    border: noBorder,
+                    enabledBorder: noBorder,
+                    focusedBorder: noBorder,
+                    disabledBorder: noBorder,
+                    errorBorder: noBorder,
+                    focusedErrorBorder: noBorder,
+                    filled: false,
+                    isDense: true,
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                  onSubmitted: _addTag,
+                ),
               ),
-              onSubmitted: _addTag,
-            ),
+              IconButton(
+                icon: const Icon(Icons.add, color: AppColors.primaryForestGreen, size: 20),
+                onPressed: () => _addTag(_tagController.text),
+              ),
+            ],
+          ),
+        ),
+        if (_tags.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: _tags.map(_tagChip).toList(),
           ),
         ],
-      ),
+      ],
     );
   }
 

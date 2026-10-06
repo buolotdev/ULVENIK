@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
+import 'add_exercise_screen.dart';
+import 'exercise_details_screen.dart';
+import '../widgets/animated_progress_bar.dart';
 
 class SkillDetailsScreen extends StatelessWidget {
   final String skillName;
@@ -10,6 +13,13 @@ class SkillDetailsScreen extends StatelessWidget {
 
   void _toast(BuildContext context, String msg) {
     AppSnackbar.show(context, message: msg, type: SnackbarType.info);
+  }
+
+  void _openAddExercise(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => AddExerciseScreen(parentSkill: skillName)),
+    );
   }
 
   @override
@@ -160,7 +170,9 @@ class SkillDetailsScreen extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        onTap: () => _toast(context, '$label tapped'),
+        onTap: () => label == 'Exercise'
+            ? _openAddExercise(context)
+            : _toast(context, '$label tapped'),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
@@ -234,21 +246,13 @@ class SkillDetailsScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 16),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(2),
-                  child: const LinearProgressIndicator(
-                    value: 0.7,
-                    backgroundColor: Colors.white12,
-                    valueColor: AlwaysStoppedAnimation(AppColors.primaryForestGreen),
-                    minHeight: 4,
-                  ),
-                ),
+                const AnimatedProgressBar(value: 0.7),
                 const SizedBox(height: 8),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('PROGRESS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
-                    Text('70%', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.primaryForestGreen)),
+                    AnimatedPercentText(value: 0.7, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.primaryForestGreen)),
                   ],
                 ),
               ],
@@ -270,7 +274,7 @@ class SkillDetailsScreen extends StatelessWidget {
             children: [
               const Text('Exercises', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
               TextButton.icon(
-                onPressed: () => _toast(context, 'Add Exercise tapped'),
+                onPressed: () => _openAddExercise(context),
                 icon: const Icon(Icons.add, size: 16, color: AppColors.primaryForestGreen),
                 label: const Text('Add', style: TextStyle(color: AppColors.primaryForestGreen, fontSize: 13, fontWeight: FontWeight.w500)),
                 style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
@@ -292,7 +296,12 @@ class SkillDetailsScreen extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        onTap: () => _toast(context, '$title details'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ExerciseDetailsScreen()),
+          );
+        },
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(

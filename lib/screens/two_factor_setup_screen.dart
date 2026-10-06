@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
-import 'welcome_screen.dart'; // or whatever the next destination is
+import 'welcome_screen.dart';
+import '../widgets/custom_snackbar.dart'; // or whatever the next destination is
 
 class TwoFactorSetupScreen extends StatefulWidget {
   const TwoFactorSetupScreen({super.key});
@@ -282,7 +283,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                         shape: BoxShape.circle,
                       ),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
                         icon: const Icon(
                           Icons.copy_outlined,
                           size: 18,
@@ -467,7 +468,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                 ),
                 const SizedBox(height: 24),
                 OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
                   icon: const Icon(Icons.copy, size: 18),
                   label: const Text('Copy All Codes'),
                   style: OutlinedButton.styleFrom(
