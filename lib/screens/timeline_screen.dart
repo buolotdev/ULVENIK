@@ -62,7 +62,11 @@ class _TimelineScreenState extends State<TimelineScreen> {
         background: Stack(
           fit: StackFit.expand,
           children: [
-            Container(color: AppColors.cardsCarbon),
+            Image.network(
+              'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=2071&auto=format&fit=crop',
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Container(color: AppColors.cardsCarbon),
+            ),
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -205,54 +209,52 @@ class _TimelineScreenState extends State<TimelineScreen> {
   }
 
   Widget _buildTimelineContent() {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final nodeWidth = (screenWidth - 40 - 32 - 24) / 2; // screen - padding - center icon - margin
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
-      child: Column(
-        children: [
-          _buildSeasonDivider('SUMMER 2026'),
-          const SizedBox(height: 32),
-          _buildTimelineNodeLeft(
-            nodeWidth: nodeWidth,
-            icon: Icons.fitness_center,
-            iconColor: const Color(0xFF95d3bb),
-            date: '14 Aug 2026 · 1hr 45min',
-            title: 'Morning Obedience',
-            subtitle: 'Park Field',
-            tags: ['Heel Work', 'Recall'],
-          ),
-          const SizedBox(height: 32),
-          _buildTimelineNodeRight(
-            nodeWidth: nodeWidth,
-            icon: Icons.favorite,
-            iconColor: const Color(0xFF95d3bb),
-            date: '2 Jun 2026',
-            title: 'Annual Vaccination',
-            subtitle: 'Rabies, DHPP booster',
-          ),
-          const SizedBox(height: 48),
-          _buildTimelineNodeFull(
-            icon: Icons.emoji_events,
-            iconColor: const Color(0xFF9B6B3D),
-            date: 'GOAL ACHIEVED',
-            title: 'Sit Stay 5 Minutes',
-            subtitle: 'Achieved after 67 days · 42 Sessions',
-          ),
-          const SizedBox(height: 48),
-          _buildTimelineNodeLeft(
-            nodeWidth: nodeWidth,
-            icon: Icons.monitor_weight,
-            iconColor: const Color(0xFF95d3bb),
-            date: '28 May 2026',
-            title: 'Weight Check',
-            subtitle: '30.2 kg · ▲ 0.8 kg',
-          ),
-          const SizedBox(height: 48),
-          _buildYearDivider('2026'),
-          const SizedBox(height: 100), // padding for bottom nav
-        ],
+      child: CustomPaint(
+        painter: _TimelineSpinePainter(),
+        child: Column(
+          children: [
+            _buildSeasonDivider('SUMMER 2026'),
+            const SizedBox(height: 32),
+            _buildTimelineNodeLeft(
+              icon: Icons.fitness_center,
+              iconColor: const Color(0xFF95d3bb),
+              date: '14 Aug 2026 · 1hr 45min',
+              title: 'Morning Obedience',
+              subtitle: 'Park Field',
+              imagePath: 'https://images.unsplash.com/photo-1601633512349-2e1d09e51f89?q=80&w=2070&auto=format&fit=crop',
+              tags: ['Heel Work', 'Recall'],
+            ),
+            const SizedBox(height: 32),
+            _buildTimelineNodeRight(
+              icon: Icons.favorite,
+              iconColor: const Color(0xFF95d3bb),
+              date: '2 Jun 2026',
+              title: 'Annual Vaccination',
+              subtitle: 'Rabies, DHPP booster',
+            ),
+            const SizedBox(height: 48),
+            _buildTimelineNodeFull(
+              icon: Icons.emoji_events,
+              iconColor: const Color(0xFF9B6B3D),
+              date: 'GOAL ACHIEVED',
+              title: 'Sit Stay 5 Minutes',
+              subtitle: 'Achieved after 67 days · 42 Sessions',
+            ),
+            const SizedBox(height: 48),
+            _buildTimelineNodeLeft(
+              icon: Icons.monitor_weight,
+              iconColor: const Color(0xFF95d3bb),
+              date: '28 May 2026',
+              title: 'Weight Check',
+              subtitle: '30.2 kg · ▲ 0.8 kg',
+            ),
+            const SizedBox(height: 48),
+            _buildYearDivider('2026'),
+            const SizedBox(height: 100), // padding for bottom nav
+          ],
+        ),
       ),
     );
   }
@@ -284,7 +286,6 @@ class _TimelineScreenState extends State<TimelineScreen> {
   }
 
   Widget _buildTimelineNodeLeft({
-    required double nodeWidth,
     required IconData icon,
     required Color iconColor,
     required String date,
@@ -293,13 +294,15 @@ class _TimelineScreenState extends State<TimelineScreen> {
     String? imagePath,
     List<String>? tags,
   }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          width: nodeWidth,
-          margin: const EdgeInsets.only(right: 24),
-          decoration: BoxDecoration(
+    return SizedBox(
+      width: double.infinity,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(right: 24),
+              decoration: BoxDecoration(
               color: AppColors.cardsCarbon,
               border: Border.all(color: Colors.white12),
               borderRadius: BorderRadius.circular(12),
@@ -312,20 +315,20 @@ class _TimelineScreenState extends State<TimelineScreen> {
                   Container(
                     height: 100,
                     width: double.infinity,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Container(color: AppColors.cardsCarbon),
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [AppColors.cardsCarbon, Colors.transparent],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                            ),
-                          ),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(imagePath),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [AppColors.cardsCarbon, Colors.transparent],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 Padding(
@@ -360,32 +363,35 @@ class _TimelineScreenState extends State<TimelineScreen> {
                   ),
                 ),
               ],
+            ),
           ),
         ),
         _buildNodeCenter(icon, iconColor),
-        SizedBox(width: nodeWidth + 24), // Right side empty
+        Expanded(child: const SizedBox()), // Right side empty
       ],
+      ),
     );
   }
 
   Widget _buildTimelineNodeRight({
-    required double nodeWidth,
     required IconData icon,
     required Color iconColor,
     required String date,
     required String title,
     required String subtitle,
   }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(width: nodeWidth + 24), // Left side empty
-        _buildNodeCenter(icon, iconColor),
-        Container(
-          width: nodeWidth,
-          margin: const EdgeInsets.only(left: 24),
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
+    return SizedBox(
+      width: double.infinity,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(child: const SizedBox()), // Left side empty
+          _buildNodeCenter(icon, iconColor),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(left: 24),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
               color: AppColors.cardsCarbon,
               border: Border.all(color: Colors.white12),
               borderRadius: BorderRadius.circular(12),
@@ -401,7 +407,9 @@ class _TimelineScreenState extends State<TimelineScreen> {
               ],
             ),
           ),
+        ),
       ],
+      ),
     );
   }
 
@@ -487,4 +495,20 @@ class _StickyFiltersDelegate extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(covariant _StickyFiltersDelegate oldDelegate) {
     return oldDelegate.hasFilters != hasFilters;
   }
+}
+
+class _TimelineSpinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = const Color(0xFF95d3bb).withOpacity(0.3)
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke;
+
+    final x = size.width / 2;
+    canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
