@@ -66,7 +66,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
             colorScheme: const ColorScheme.dark(
               primary: Color(0xFF2e6b57),
               onPrimary: Colors.white,
-              surface: AppColors.surfaceCarbon,
+              surface: AppColors.cardsCarbon,
               onSurface: AppColors.primaryTextOffWhite,
             ),
           ),
@@ -91,7 +91,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
             colorScheme: const ColorScheme.dark(
               primary: Color(0xFF2e6b57),
               onPrimary: Colors.white,
-              surface: AppColors.surfaceCarbon,
+              surface: AppColors.cardsCarbon,
               onSurface: AppColors.primaryTextOffWhite,
             ),
           ),
@@ -409,9 +409,9 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
           Future.delayed(const Duration(seconds: 1), () => Navigator.of(context).pop());
         } : null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: _isFormValid ? const Color(0xFF2e6b57) : AppColors.surfaceCarbon,
+          backgroundColor: _isFormValid ? const Color(0xFF2e6b57) : AppColors.cardsCarbon,
           foregroundColor: _isFormValid ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
-          disabledBackgroundColor: AppColors.surfaceCarbon,
+          disabledBackgroundColor: AppColors.cardsCarbon,
           disabledForegroundColor: AppColors.secondaryTextStoneGrey.withOpacity(0.5),
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
@@ -501,7 +501,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
             child: DropdownButton<String>(
               value: value,
               isExpanded: true,
-              dropdownColor: AppColors.surfaceCarbon,
+              dropdownColor: AppColors.cardsCarbon,
               icon: const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
               style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
               items: items.map((String item) {
