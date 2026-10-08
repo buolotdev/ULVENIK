@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import 'health_records_screen.dart';
 
 class HealthScreen extends StatefulWidget {
   const HealthScreen({super.key});
@@ -305,25 +306,29 @@ class _HealthScreenState extends State<HealthScreen> {
           ],
         ),
         const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: AppColors.cardsCarbon,
-            border: Border.all(color: Colors.white12),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Row(
-            children: [
-              Icon(Icons.note_add_outlined, color: const Color(0xFF95d3bb), size: 20),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'Other Records',
-                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
+        InkWell(
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthRecordsScreen())),
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppColors.cardsCarbon,
+              border: Border.all(color: Colors.white12),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.note_add_outlined, color: const Color(0xFF95d3bb), size: 20),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    'Other Records',
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
+                  ),
                 ),
-              ),
-              Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
-            ],
+                Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
+              ],
+            ),
           ),
         ),
       ],
