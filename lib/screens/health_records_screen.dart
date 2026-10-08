@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'add_health_record_screen.dart';
+import 'health_record_details_screen.dart';
 
 class HealthRecordsScreen extends StatefulWidget {
   const HealthRecordsScreen({super.key});
@@ -426,7 +427,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () => AppSnackbar.show(context, message: 'View record details: $title', type: SnackbarType.info),
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthRecordDetailsScreen())),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
