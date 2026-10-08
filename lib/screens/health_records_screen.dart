@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
+import 'add_health_record_screen.dart';
 
 class HealthRecordsScreen extends StatefulWidget {
   const HealthRecordsScreen({super.key});
@@ -55,7 +56,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           ),
           IconButton(
             icon: const Icon(Icons.add, color: const Color(0xFF2e6b57)),
-            onPressed: () => AppSnackbar.show(context, message: 'Add Record form coming soon', type: SnackbarType.info),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddHealthRecordScreen())),
           ),
           IconButton(
             icon: const Icon(Icons.more_vert, color: AppColors.secondarySage),
@@ -97,7 +98,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
       floatingActionButton: _isEmpty
           ? null
           : FloatingActionButton(
-              onPressed: () => AppSnackbar.show(context, message: 'Add Record form coming soon', type: SnackbarType.info),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddHealthRecordScreen())),
               backgroundColor: const Color(0xFF2e6b57),
               foregroundColor: AppColors.primaryTextOffWhite,
               elevation: 0,
@@ -668,7 +669,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () => AppSnackbar.show(context, message: 'Add Record form coming soon', type: SnackbarType.info),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddHealthRecordScreen())),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF2e6b57),
               foregroundColor: AppColors.primaryTextOffWhite,
