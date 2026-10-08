@@ -47,15 +47,15 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: AppColors.secondarySage),
-            onPressed: () => CustomSnackbar.show(context, 'Search functionality coming soon'),
+            onPressed: () => AppSnackbar.show(context, message: 'Search functionality coming soon', type: SnackbarType.info),
           ),
           IconButton(
             icon: const Icon(Icons.tune, color: AppColors.secondarySage),
-            onPressed: () => CustomSnackbar.show(context, 'Filter options coming soon'),
+            onPressed: () => AppSnackbar.show(context, message: 'Filter options coming soon', type: SnackbarType.info),
           ),
           IconButton(
             icon: const Icon(Icons.add, color: const Color(0xFF2e6b57)),
-            onPressed: () => CustomSnackbar.show(context, 'Add Record form coming soon'),
+            onPressed: () => AppSnackbar.show(context, message: 'Add Record form coming soon', type: SnackbarType.info),
           ),
           IconButton(
             icon: const Icon(Icons.more_vert, color: AppColors.secondarySage),
@@ -97,7 +97,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
       floatingActionButton: _isEmpty
           ? null
           : FloatingActionButton(
-              onPressed: () => CustomSnackbar.show(context, 'Add Record form coming soon'),
+              onPressed: () => AppSnackbar.show(context, message: 'Add Record form coming soon', type: SnackbarType.info),
               backgroundColor: const Color(0xFF2e6b57),
               foregroundColor: AppColors.primaryTextOffWhite,
               elevation: 0,
@@ -425,7 +425,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () => CustomSnackbar.show(context, 'View record details: $title'),
+          onTap: () => AppSnackbar.show(context, message: 'View record details: $title', type: SnackbarType.info),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -668,7 +668,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () => CustomSnackbar.show(context, 'Add Record form coming soon'),
+            onPressed: () => AppSnackbar.show(context, message: 'Add Record form coming soon', type: SnackbarType.info),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF2e6b57),
               foregroundColor: AppColors.primaryTextOffWhite,
@@ -693,7 +693,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         ),
         const SizedBox(height: 24),
         TextButton(
-          onPressed: () => CustomSnackbar.show(context, 'Learn about Health Records coming soon'),
+          onPressed: () => AppSnackbar.show(context, message: 'Learn about Health Records coming soon', type: SnackbarType.info),
           child: const Text(
             'Learn about Health Records',
             style: TextStyle(

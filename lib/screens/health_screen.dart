@@ -361,7 +361,7 @@ class _HealthScreenState extends State<HealthScreen> {
 
   Widget _buildAddRecordCTA() {
     return ElevatedButton.icon(
-      onPressed: () => CustomSnackbar.show(context, 'Coming soon'),
+      onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF2e6b57),
         foregroundColor: AppColors.primaryTextOffWhite,
@@ -465,7 +465,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           const SizedBox(height: 24),
           ElevatedButton(
-            onPressed: () => CustomSnackbar.show(context, 'Coming soon'),
+            onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF2e6b57),
               foregroundColor: AppColors.primaryTextOffWhite,
