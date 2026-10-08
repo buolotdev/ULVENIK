@@ -3,6 +3,7 @@ import '../theme/app_colors.dart';
 import 'skills_list_screen.dart';
 import 'goals_list_screen.dart';
 import 'statistics_tab.dart';
+import 'health_screen.dart';
 import '../widgets/custom_snackbar.dart';
 
 class DogProfileScreen extends StatefulWidget {
@@ -60,7 +61,22 @@ class _DogProfileScreenState extends State<DogProfileScreen>
             // Statistics
             StatisticsTab(hasData: _hasData),
             // Health
-            _buildComingSoonTab('Health', Icons.monitor_heart_outlined),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.monitor_heart_outlined, size: 48, color: AppColors.primary),
+                  const SizedBox(height: 16),
+                  const Text('Health Overview', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthScreen())),
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2e6b57), foregroundColor: AppColors.primaryTextOffWhite),
+                    child: const Text('Open Health Dashboard'),
+                  ),
+                ],
+              ),
+            ),
             // Awards
             _buildComingSoonTab('Awards', Icons.emoji_events_outlined),
           ],
