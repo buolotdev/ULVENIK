@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../widgets/custom_snackbar.dart';
 
 class HealthRecordsScreen extends StatefulWidget {
   const HealthRecordsScreen({super.key});
@@ -11,6 +12,16 @@ class HealthRecordsScreen extends StatefulWidget {
 class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
   bool _isEmpty = false;
   bool _isListView = true;
+  String _selectedDog = 'Koda';
+  
+  final TextEditingController _searchController = TextEditingController();
+  final List<String> _activeFilters = ['Vet Visits', 'Current Year'];
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +47,15 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: AppColors.secondarySage),
-            onPressed: () {},
+            onPressed: () => CustomSnackbar.show(context, 'Search functionality coming soon'),
           ),
           IconButton(
             icon: const Icon(Icons.tune, color: AppColors.secondarySage),
-            onPressed: () {},
+            onPressed: () => CustomSnackbar.show(context, 'Filter options coming soon'),
           ),
           IconButton(
             icon: const Icon(Icons.add, color: const Color(0xFF2e6b57)),
-            onPressed: () {},
+            onPressed: () => CustomSnackbar.show(context, 'Add Record form coming soon'),
           ),
           IconButton(
             icon: const Icon(Icons.more_vert, color: AppColors.secondarySage),
@@ -86,7 +97,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
       floatingActionButton: _isEmpty
           ? null
           : FloatingActionButton(
-              onPressed: () {},
+              onPressed: () => CustomSnackbar.show(context, 'Add Record form coming soon'),
               backgroundColor: const Color(0xFF2e6b57),
               foregroundColor: AppColors.primaryTextOffWhite,
               elevation: 0,
@@ -143,55 +154,64 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
   // ==========================
 
   Widget _buildPopulatedDogSelector() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: const Color(0xFF2e6b57), width: 2),
-              image: const DecorationImage(
-                image: NetworkImage(
-                  'https://images.unsplash.com/photo-1601633512349-2e1d09e51f89?q=80&w=2070&auto=format&fit=crop',
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedDog = _selectedDog == 'Koda' ? 'Finn' : 'Koda';
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColors.cardsCarbon,
+          border: Border.all(color: Colors.white12),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: const Color(0xFF2e6b57), width: 2),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    _selectedDog == 'Koda' 
+                      ? 'https://images.unsplash.com/photo-1601633512349-2e1d09e51f89?q=80&w=2070&auto=format&fit=crop'
+                      : 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=600&auto=format&fit=crop',
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.cover,
               ),
             ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Koda',
-                  style: TextStyle(
-                    color: AppColors.primaryTextOffWhite,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _selectedDog,
+                    style: const TextStyle(
+                      color: AppColors.primaryTextOffWhite,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 2),
-                const Text(
-                  'Siberian Husky · 3y 2m',
-                  style: TextStyle(
-                    color: AppColors.secondaryTextStoneGrey,
-                    fontSize: 12,
+                  const SizedBox(height: 2),
+                  Text(
+                    _selectedDog == 'Koda' ? 'Siberian Husky · 3y 2m' : 'Belgian Malinois · 3 Years',
+                    style: const TextStyle(
+                      color: AppColors.secondaryTextStoneGrey,
+                      fontSize: 12,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
-        ],
+            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+          ],
+        ),
       ),
     );
   }
@@ -265,12 +285,22 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
 
   Widget _buildSearchBar() {
     return TextField(
+      controller: _searchController,
+      onChanged: (val) => setState(() {}),
       style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
       decoration: InputDecoration(
         hintText: 'Search records...',
         hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
         prefixIcon: const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey),
-        suffixIcon: const Icon(Icons.mic, color: AppColors.secondaryTextStoneGrey),
+        suffixIcon: _searchController.text.isNotEmpty 
+            ? IconButton(
+                icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                onPressed: () {
+                  _searchController.clear();
+                  setState(() {});
+                },
+              )
+            : const Icon(Icons.mic, color: AppColors.secondaryTextStoneGrey),
         filled: true,
         fillColor: AppColors.cardsCarbon,
         contentPadding: const EdgeInsets.symmetric(vertical: 10),
@@ -287,12 +317,15 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
   }
 
   Widget _buildFilterChips() {
+    if (_activeFilters.isEmpty) return const SizedBox.shrink();
+    
     return Row(
-      children: [
-        _buildFilterChip('Vet Visits'),
-        const SizedBox(width: 8),
-        _buildFilterChip('Current Year'),
-      ],
+      children: _activeFilters.map((filter) {
+        return Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: _buildFilterChip(filter),
+        );
+      }).toList(),
     );
   }
 
@@ -315,7 +348,14 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
             ),
           ),
           const SizedBox(width: 4),
-          const Icon(Icons.close, size: 16, color: AppColors.secondarySage),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _activeFilters.remove(label);
+              });
+            },
+            child: const Icon(Icons.close, size: 16, color: AppColors.secondarySage),
+          ),
         ],
       ),
     );
@@ -376,99 +416,108 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         border: Border.all(color: Colors.white12),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: AppColors.secondarySage, size: 24),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () => CustomSnackbar.show(context, 'View record details: $title'),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      category,
-                      style: const TextStyle(
-                        color: AppColors.secondaryTextStoneGrey,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: statusBgColor,
-                        border: statusBorderColor != null ? Border.all(color: statusBorderColor) : null,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        status.toUpperCase(),
-                        style: TextStyle(
-                          color: statusColor,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: AppColors.primaryTextOffWhite,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                if (subtitle != null) ...[
-                  const SizedBox(height: 2),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(
-                      color: AppColors.secondaryTextStoneGrey,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-                if (attachments > 0) ...[
-                  const SizedBox(height: 8),
-                  Row(
+                Icon(icon, color: AppColors.secondarySage, size: 24),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.attachment, size: 14, color: AppColors.secondaryTextStoneGrey),
-                      const SizedBox(width: 4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            category,
+                            style: const TextStyle(
+                              color: AppColors.secondaryTextStoneGrey,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: statusBgColor,
+                              border: statusBorderColor != null ? Border.all(color: statusBorderColor) : null,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              status.toUpperCase(),
+                              style: TextStyle(
+                                color: statusColor,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
                       Text(
-                        '$attachments attachments',
+                        title,
                         style: const TextStyle(
-                          color: AppColors.secondaryTextStoneGrey,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
+                          color: AppColors.primaryTextOffWhite,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
+                      if (subtitle != null) ...[
+                        const SizedBox(height: 2),
+                        Text(
+                          subtitle,
+                          style: const TextStyle(
+                            color: AppColors.secondaryTextStoneGrey,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                      if (attachments > 0) ...[
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const Icon(Icons.attachment, size: 14, color: AppColors.secondaryTextStoneGrey),
+                            const SizedBox(width: 4),
+                            Text(
+                              '$attachments attachments',
+                              style: const TextStyle(
+                                color: AppColors.secondaryTextStoneGrey,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ],
                   ),
-                ],
+                ),
+                const SizedBox(width: 12),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+                  ),
+                ),
               ],
             ),
           ),
-          const SizedBox(width: 12),
-          const Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.only(top: 16),
-              child: Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -480,9 +529,15 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
   Widget _buildEmptyDogSelector() {
     return Row(
       children: [
-        _buildAvatarCircle('Koda', 'https://images.unsplash.com/photo-1601633512349-2e1d09e51f89?q=80&w=2070&auto=format&fit=crop', true),
+        GestureDetector(
+          onTap: () => setState(() => _selectedDog = 'Koda'),
+          child: _buildAvatarCircle('Koda', 'https://images.unsplash.com/photo-1601633512349-2e1d09e51f89?q=80&w=2070&auto=format&fit=crop', _selectedDog == 'Koda'),
+        ),
         const SizedBox(width: 16),
-        _buildAvatarCircle('Finn', 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=600&auto=format&fit=crop', false),
+        GestureDetector(
+          onTap: () => setState(() => _selectedDog = 'Finn'),
+          child: _buildAvatarCircle('Finn', 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=600&auto=format&fit=crop', _selectedDog == 'Finn'),
+        ),
       ],
     );
   }
@@ -613,11 +668,11 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () => CustomSnackbar.show(context, 'Add Record form coming soon'),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF2e6b57),
               foregroundColor: AppColors.primaryTextOffWhite,
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               elevation: 0,
             ),
@@ -638,7 +693,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         ),
         const SizedBox(height: 24),
         TextButton(
-          onPressed: () {},
+          onPressed: () => CustomSnackbar.show(context, 'Learn about Health Records coming soon'),
           child: const Text(
             'Learn about Health Records',
             style: TextStyle(
@@ -652,3 +707,4 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
     );
   }
 }
+

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/custom_snackbar.dart';
 import '../theme/app_colors.dart';
 import 'health_records_screen.dart';
 
@@ -360,7 +361,7 @@ class _HealthScreenState extends State<HealthScreen> {
 
   Widget _buildAddRecordCTA() {
     return ElevatedButton.icon(
-      onPressed: () {},
+      onPressed: () => CustomSnackbar.show(context, 'Coming soon'),
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF2e6b57),
         foregroundColor: AppColors.primaryTextOffWhite,
@@ -464,7 +465,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           const SizedBox(height: 24),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () => CustomSnackbar.show(context, 'Coming soon'),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF2e6b57),
               foregroundColor: AppColors.primaryTextOffWhite,
