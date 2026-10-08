@@ -32,7 +32,12 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
         ),
         centerTitle: true,
-        // Removed search and more_vert as requested
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert, color: AppColors.primaryTextOffWhite),
+            onPressed: () => setState(() => _isEmpty = !_isEmpty),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -58,21 +63,6 @@ class _HealthScreenState extends State<HealthScreen> {
                 _buildAddRecordCTA(),
               ],
               const SizedBox(height: 48),
-              Center(
-                child: TextButton.icon(
-                  icon: const Icon(Icons.developer_mode, color: AppColors.secondaryTextStoneGrey, size: 16),
-                  label: Text(
-                    _isEmpty ? 'Dev: Show Populated State' : 'Dev: Show Empty State',
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isEmpty = !_isEmpty;
-                    });
-                  },
-                ),
-              ),
-              const SizedBox(height: 40),
             ],
           ),
         ),
