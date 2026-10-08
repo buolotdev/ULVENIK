@@ -65,7 +65,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.monitor_heart_outlined, size: 48, color: AppColors.primary),
+                  const Icon(Icons.monitor_heart_outlined, size: 48, color: const Color(0xFF95d3bb)),
                   const SizedBox(height: 16),
                   const Text('Health Overview', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 16),

@@ -16,7 +16,7 @@ class _HealthScreenState extends State<HealthScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundObsidian,
       appBar: AppBar(
-        backgroundColor: AppColors.surfaceCarbon,
+        backgroundColor: AppColors.cardsCarbon,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextOffWhite),
@@ -84,7 +84,7 @@ class _HealthScreenState extends State<HealthScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.surfaceCarbon,
+        color: AppColors.cardsCarbon,
         border: Border.all(color: Colors.white12),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -95,7 +95,7 @@ class _HealthScreenState extends State<HealthScreen> {
             height: 40,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: AppColors.primary),
+              border: Border.all(color: const Color(0xFF95d3bb)),
               image: const DecorationImage(
                 image: NetworkImage(
                   'https://images.unsplash.com/photo-1601633512349-2e1d09e51f89?q=80&w=2070&auto=format&fit=crop',
@@ -165,7 +165,7 @@ class _HealthScreenState extends State<HealthScreen> {
         _buildBentoCard(Icons.medication_outlined, 'MEDICATIONS', '2 Active'),
         _buildBentoCard(Icons.vaccines_outlined, 'NEXT VAX', '18 Sep 2026', true),
         _buildBentoCard(Icons.local_hospital_outlined, 'NEXT VET', 'Tomorrow 10:30', true),
-        _buildBentoCard(Icons.physical_therapy_outlined, 'REHAB', '1 Active'),
+        _buildBentoCard(Icons.accessibility_new_outlined, 'REHAB', '1 Active'),
         _buildBentoCard(Icons.update_outlined, 'LAST RECORD', '12 Jul 2026', true),
       ],
     );
@@ -175,7 +175,7 @@ class _HealthScreenState extends State<HealthScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.surfaceCarbon,
+        color: AppColors.cardsCarbon,
         border: Border.all(color: Colors.white12),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -185,12 +185,12 @@ class _HealthScreenState extends State<HealthScreen> {
         children: [
           Row(
             children: [
-              Icon(icon, size: 18, color: AppColors.primary),
+              Icon(icon, size: 18, color: const Color(0xFF95d3bb)),
               const SizedBox(width: 8),
               Text(
                 title,
                 style: const TextStyle(
-                  color: AppColors.primary,
+                  color: const Color(0xFF95d3bb),
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.5,
@@ -239,7 +239,7 @@ class _HealthScreenState extends State<HealthScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.surfaceCarbon,
+        color: AppColors.cardsCarbon,
         border: Border.all(color: Colors.white12),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -253,7 +253,7 @@ class _HealthScreenState extends State<HealthScreen> {
               border: Border.all(color: Colors.white12),
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: AppColors.primary, size: 20),
+            child: Icon(icon, color: const Color(0xFF95d3bb), size: 20),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -274,7 +274,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           Icon(
             isAlert ? Icons.notifications_active_outlined : Icons.notifications_outlined,
-            color: isAlert ? AppColors.primary : AppColors.secondaryTextStoneGrey,
+            color: isAlert ? const Color(0xFF95d3bb) : AppColors.secondaryTextStoneGrey,
             size: 20,
           ),
         ],
@@ -309,7 +309,7 @@ class _HealthScreenState extends State<HealthScreen> {
             _buildCategoryItem(Icons.vaccines_outlined, 'Vaccinations'),
             _buildCategoryItem(Icons.local_hospital_outlined, 'Vet Visits'),
             _buildCategoryItem(Icons.healing_outlined, 'Injuries'),
-            _buildCategoryItem(Icons.physical_therapy_outlined, 'Rehabilitation'),
+            _buildCategoryItem(Icons.accessibility_new_outlined, 'Rehabilitation'),
             _buildCategoryItem(Icons.medication_liquid_outlined, 'Supplements'),
             _buildCategoryItem(Icons.folder_outlined, 'Documents'),
           ],
@@ -318,13 +318,13 @@ class _HealthScreenState extends State<HealthScreen> {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppColors.surfaceCarbon,
+            color: AppColors.cardsCarbon,
             border: Border.all(color: Colors.white12),
             borderRadius: BorderRadius.circular(8),
           ),
           child: const Row(
             children: [
-              Icon(Icons.note_add_outlined, color: AppColors.primary, size: 20),
+              Icon(Icons.note_add_outlined, color: const Color(0xFF95d3bb), size: 20),
               SizedBox(width: 12),
               Expanded(
                 child: Text(
@@ -344,7 +344,7 @@ class _HealthScreenState extends State<HealthScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.surfaceCarbon,
+        color: AppColors.cardsCarbon,
         border: Border.all(color: Colors.white12),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -352,7 +352,7 @@ class _HealthScreenState extends State<HealthScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: AppColors.primary, size: 20),
+          Icon(icon, color: const Color(0xFF95d3bb), size: 20),
           const Spacer(),
           Text(
             label,
@@ -407,7 +407,7 @@ class _HealthScreenState extends State<HealthScreen> {
   Widget _buildEmptyMetricBox(String label) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surfaceCarbon,
+        color: AppColors.cardsCarbon,
         border: Border.all(color: Colors.white12),
         borderRadius: BorderRadius.circular(4),
       ),
@@ -434,7 +434,7 @@ class _HealthScreenState extends State<HealthScreen> {
     return Container(
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-        color: AppColors.surfaceCarbon,
+        color: AppColors.cardsCarbon,
         border: Border.all(color: Colors.white12),
         borderRadius: BorderRadius.circular(12),
       ),
@@ -443,10 +443,10 @@ class _HealthScreenState extends State<HealthScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: 0.2),
+              color: const Color(0xFF95d3bb).withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(Icons.medical_services_outlined, color: AppColors.primary, size: 32),
+            child: const Icon(Icons.medical_services_outlined, color: const Color(0xFF95d3bb), size: 32),
           ),
           const SizedBox(height: 24),
           const Text(
@@ -512,7 +512,7 @@ class _HealthScreenState extends State<HealthScreen> {
   Widget _buildEmptyCategoryIcon(IconData icon) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surfaceCarbon,
+        color: AppColors.cardsCarbon,
         border: Border.all(color: Colors.white12),
         borderRadius: BorderRadius.circular(8),
       ),
