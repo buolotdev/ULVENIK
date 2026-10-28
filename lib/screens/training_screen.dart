@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'training_session_screen.dart';
+import 'strength_conditioning_dashboard_screen.dart';
+import 'activity_library_screen.dart';
+import 'record_session_screen.dart';
+import 'export_screen.dart';
+import 'rewards_management_screen.dart';
 
 // ─── Simple data models ───────────────────────────────────────────────────────
 
@@ -251,6 +256,28 @@ class _TrainingScreenState extends State<TrainingScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const ExportScreen(),
+                        ),
+                      );
+                    },
+                    borderRadius: BorderRadius.circular(9999),
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: AppColors.cardsCarbon,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white12),
+                      ),
+                      child: const Icon(Icons.ios_share,
+                          color: AppColors.primaryTextOffWhite, size: 18),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
                   Stack(
                     children: [
                       Container(
@@ -375,51 +402,96 @@ class _TrainingScreenState extends State<TrainingScreen> {
   // ── Quick actions ─────────────────────────────────────────────────────────
 
   Widget _buildQuickActions() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      clipBehavior: Clip.none,
-      child: Row(
-        children: [
-          _buildQuickAction(
-            label: 'New Session',
-            icon: Icons.add,
-            isPrimary: true,
-            onTap: _showNewSessionSheet,
-          ),
-          const SizedBox(width: 12),
-          if (_hasData)
-            _buildQuickAction(
-              label: 'Continue Draft',
-              icon: Icons.edit_outlined,
-              hasDot: true,
-              onTap: () => AppSnackbar.show(context,
-                  message: 'Resuming draft: Tracking Session, Woodland Trail',
-                  type: SnackbarType.info),
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: _buildQuickAction(
+                label: 'New Session',
+                icon: Icons.add,
+                isPrimary: true,
+                onTap: _showNewSessionSheet,
+              ),
             ),
-          if (_hasData) const SizedBox(width: 12),
-          _buildQuickAction(
-            label: 'Recent Sessions',
-            icon: Icons.schedule_outlined,
-            onTap: () {
-              setState(() {
-                _sortNewest = true;
-                _searchController.clear();
-              });
-              AppSnackbar.show(context,
-                  message: 'Showing most recent sessions',
-                  type: SnackbarType.info);
-            },
-          ),
-          if (_hasData) ...[
-            const SizedBox(width: 12),
-            _buildQuickAction(
-              label: 'All Dogs',
-              icon: Icons.pets_outlined,
-              onTap: () => setState(() => _activeFilter = 0),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _buildQuickAction(
+                label: 'Strength & Conditioning',
+                icon: Icons.fitness_center,
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const StrengthConditioningDashboardScreen(),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
-        ],
-      ),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Expanded(
+              child: _buildQuickAction(
+                label: 'Activity Library',
+                icon: Icons.list_alt,
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const ActivityLibraryScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _buildQuickAction(
+                label: _hasData ? 'Continue Draft' : 'Recent Sessions',
+                icon: _hasData ? Icons.edit_outlined : Icons.schedule_outlined,
+                hasDot: _hasData,
+                onTap: () {
+                  if (_hasData) {
+                    AppSnackbar.show(context,
+                        message:
+                            'Resuming draft: Tracking Session, Woodland Trail',
+                        type: SnackbarType.info);
+                  } else {
+                    setState(() {
+                      _sortNewest = true;
+                      _searchController.clear();
+                    });
+                    AppSnackbar.show(context,
+                        message: 'Showing most recent sessions',
+                        type: SnackbarType.info);
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Expanded(
+              child: _buildQuickAction(
+                label: 'Rewards & Reinforcers',
+                icon: Icons.sports_baseball_outlined,
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const RewardsManagementScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -439,8 +511,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
             onTap: onTap,
             borderRadius: BorderRadius.circular(8),
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              height: 44,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 color: isPrimary
                     ? AppColors.primaryForestGreen
@@ -452,20 +524,25 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         : Colors.white12),
               ),
               child: Row(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Icon(icon,
                       size: 18,
                       color: isPrimary
                           ? AppColors.primaryTextOffWhite
                           : AppColors.secondaryTextStoneGrey),
-                  const SizedBox(width: 8),
-                  Text(
-                    label,
-                    style: const TextStyle(
-                      color: AppColors.primaryTextOffWhite,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
+                  const SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      label,
+                      style: const TextStyle(
+                        color: AppColors.primaryTextOffWhite,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
@@ -1136,11 +1213,10 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                       ? null
                       : () {
                           Navigator.pop(context);
-                          AppSnackbar.show(
-                            context,
-                            message:
-                                'Starting session for $_selectedDog. Training Session screen coming soon!',
-                            type: SnackbarType.success,
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => const RecordSessionScreen(),
+                            ),
                           );
                         },
                   style: ElevatedButton.styleFrom(

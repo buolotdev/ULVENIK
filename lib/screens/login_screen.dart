@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_colors.dart';
-import '../widgets/custom_snackbar.dart';
 import 'register_screen.dart';
 import 'forgot_password_screen.dart';
 import 'main_layout.dart';
@@ -16,7 +15,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
   bool _obscurePassword = true;
-  final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
+  String? _emailError;
+  String? _passwordError;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   late AnimationController _animController;
@@ -56,49 +57,42 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   }
 
   void _handleLogin() {
+    if (_isLoading) return;
+
     final email = _emailController.text.trim();
     final password = _passwordController.text;
 
-    if (email.isEmpty) {
-      AppSnackbar.show(context,
-          title: 'Email Required',
-          message: 'Please enter your email address to continue.',
-          type: SnackbarType.error);
-      return;
-    }
+    setState(() {
+      _emailError = null;
+      _passwordError = null;
+    });
 
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    if (!emailRegex.hasMatch(email)) {
-      AppSnackbar.show(context,
-          title: 'Invalid Email',
-          message: 'Please enter a valid email address (e.g. you@example.com).',
-          type: SnackbarType.error);
-      return;
+    bool hasError = false;
+    if (email.isEmpty) {
+      setState(() => _emailError = 'Please enter your email address');
+      hasError = true;
+    } else {
+      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+      if (!emailRegex.hasMatch(email)) {
+        setState(() => _emailError = 'Please enter a valid email address');
+        hasError = true;
+      }
     }
 
     if (password.isEmpty) {
-      AppSnackbar.show(context,
-          title: 'Password Required',
-          message: 'Please enter your password to sign in.',
-          type: SnackbarType.error);
-      return;
+      setState(() => _passwordError = 'Please enter your password');
+      hasError = true;
+    } else if (password.length < 8) {
+      setState(() => _passwordError = 'Password must be at least 8 characters');
+      hasError = true;
     }
 
-    if (password.length < 8) {
-      AppSnackbar.show(context,
-          title: 'Password Too Short',
-          message: 'Your password must be at least 8 characters long.',
-          type: SnackbarType.error);
-      return;
-    }
+    if (hasError) return;
 
-    // TODO: Call auth service
-    AppSnackbar.show(context,
-        title: 'Signing In',
-        message: 'Authenticating your credentials...',
-        type: SnackbarType.info);
-        
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    // Trigger loader animation on login button — NO SNACKBAR
+    setState(() => _isLoading = true);
+
+    Future.delayed(const Duration(milliseconds: 900), () {
       if (!mounted) return;
       Navigator.of(context).pushAndRemoveUntil(
         PageRouteBuilder(
@@ -106,6 +100,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },
+          transitionDuration: const Duration(milliseconds: 400),
         ),
         (route) => false,
       );
@@ -268,9 +263,13 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                                onChanged: (val) {
+                                  if (_emailError != null) setState(() => _emailError = null);
+                                },
                                 decoration: InputDecoration(
                                   hintText: 'athlete@ulvenik.com',
-                                  hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey.withOpacity(0.5)),
+                                  hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5)),
+                                  errorText: _emailError,
                                   filled: true,
                                   fillColor: AppColors.cardsCarbon,
                                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -301,9 +300,13 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 controller: _passwordController,
                                 obscureText: _obscurePassword,
                                 style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                                onChanged: (val) {
+                                  if (_passwordError != null) setState(() => _passwordError = null);
+                                },
                                 decoration: InputDecoration(
                                   hintText: '••••••••',
-                                  hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey.withOpacity(0.5)),
+                                  hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5)),
+                                  errorText: _passwordError,
                                   filled: true,
                                   fillColor: AppColors.cardsCarbon,
                                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -375,23 +378,33 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         _buildAnimatedWidget(
                           4,
                           ElevatedButton(
-                            onPressed: _handleLogin,
+                            onPressed: _isLoading ? null : _handleLogin,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryForestGreen,
                               foregroundColor: AppColors.primaryTextOffWhite,
+                              disabledBackgroundColor: AppColors.primaryForestGreen.withValues(alpha: 0.7),
                               padding: const EdgeInsets.symmetric(vertical: 18),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               elevation: 0,
                             ),
-                            child: const Text(
-                              'Log In',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                            child: _isLoading
+                                ? const SizedBox(
+                                    width: 22,
+                                    height: 22,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2.5,
+                                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryTextOffWhite),
+                                    ),
+                                  )
+                                : const Text(
+                                    'Log In',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                           ),
                         ),
                         
@@ -421,7 +434,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               
                               // Apple
                               ElevatedButton.icon(
-                                onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
+                                onPressed: () {},
                                 icon: SvgPicture.asset(
                                   'assets/icons/apple_logo.svg', 
                                   width: 20, 
@@ -445,7 +458,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               
                               // Google
                               ElevatedButton.icon(
-                                onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
+                                onPressed: () {},
                                 icon: SvgPicture.asset('assets/icons/google_logo.svg', width: 20, height: 20),
                                 label: const Text('Continue with Google'),
                                 style: ElevatedButton.styleFrom(

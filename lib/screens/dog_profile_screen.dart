@@ -4,6 +4,9 @@ import 'skills_list_screen.dart';
 import 'goals_list_screen.dart';
 import 'statistics_tab.dart';
 import 'health_screen.dart';
+import 'health_statistics_screen.dart';
+import 'health_dashboard_screen.dart';
+import 'strength_conditioning_dashboard_screen.dart';
 import '../widgets/custom_snackbar.dart';
 
 class DogProfileScreen extends StatefulWidget {
@@ -57,7 +60,32 @@ class _DogProfileScreenState extends State<DogProfileScreen>
               _hasData ? _buildPopulatedContent() : _buildEmptyContent(),
             ),
             // Training Log
-            _buildComingSoonTab('Training Log', Icons.fitness_center_outlined),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.fitness_center_outlined, size: 48, color: Color(0xFF95D3BB)),
+                    const SizedBox(height: 16),
+                    const Text('Training & Conditioning', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                    const SizedBox(height: 8),
+                    const Text('Track physical load, intensity, and activities', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                    const SizedBox(height: 20),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.fitness_center, size: 18),
+                      label: const Text('Open S&C Dashboard'),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StrengthConditioningDashboardScreen())),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF2E6B57),
+                        foregroundColor: AppColors.primaryTextOffWhite,
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             // Statistics
             StatisticsTab(hasData: _hasData),
             // Health
@@ -65,14 +93,33 @@ class _DogProfileScreenState extends State<DogProfileScreen>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.monitor_heart_outlined, size: 48, color: const Color(0xFF95d3bb)),
+                  const Icon(Icons.monitor_heart_outlined, size: 48, color: Color(0xFF95d3bb)),
                   const SizedBox(height: 16),
                   const Text('Health Overview', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthScreen())),
-                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2e6b57), foregroundColor: AppColors.primaryTextOffWhite),
-                    child: const Text('Open Health Dashboard'),
+                  Wrap(
+                    spacing: 12,
+                    runSpacing: 8,
+                    alignment: WrapAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthDashboardScreen())),
+                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2e6b57), foregroundColor: AppColors.primaryTextOffWhite),
+                        child: const Text('Open Health Dashboard'),
+                      ),
+                      OutlinedButton.icon(
+                        icon: const Icon(Icons.medical_services_outlined, size: 18, color: Color(0xFF95D3BB)),
+                        label: const Text('Health Categories', style: TextStyle(color: Color(0xFF95D3BB))),
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthScreen())),
+                        style: OutlinedButton.styleFrom(side: const BorderSide(color: Color(0xFF95D3BB))),
+                      ),
+                      OutlinedButton.icon(
+                        icon: const Icon(Icons.analytics_outlined, size: 18, color: Color(0xFF95D3BB)),
+                        label: const Text('Health Stats', style: TextStyle(color: Color(0xFF95D3BB))),
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthStatisticsScreen())),
+                        style: OutlinedButton.styleFrom(side: const BorderSide(color: Color(0xFF95D3BB))),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -156,7 +203,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   end: Alignment.topCenter,
                   colors: [
                     AppColors.backgroundObsidian,
-                    AppColors.backgroundObsidian.withOpacity(0.6),
+                    AppColors.backgroundObsidian.withValues(alpha: 0.6),
                     Colors.transparent,
                   ],
                   stops: const [0.0, 0.4, 1.0],
@@ -243,7 +290,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
     return Container(
       padding: const EdgeInsets.only(left: 8, right: 4, top: 4, bottom: 4),
       decoration: BoxDecoration(
-        color: const Color(0xFF2e6b57).withOpacity(0.2), // primary-container / 20
+        color: const Color(0xFF2e6b57).withValues(alpha: 0.2), // primary-container / 20
         border: Border.all(color: const Color(0xFF2e6b57)),
         borderRadius: BorderRadius.circular(16),
       ),
@@ -314,7 +361,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: AppColors.primaryForestGreen.withOpacity(0.18),
+                  color: AppColors.primaryForestGreen.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Icon(Icons.layers_outlined,

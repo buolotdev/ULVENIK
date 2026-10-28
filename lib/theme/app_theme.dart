@@ -32,15 +32,12 @@ class AppTheme {
         ),
       ),
       inputDecorationTheme: const InputDecorationTheme(
-        border: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.secondaryTextStoneGrey, width: 1),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.secondaryTextStoneGrey, width: 1),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.primaryForestGreen, width: 1),
-        ),
+        border: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        disabledBorder: InputBorder.none,
+        errorBorder: InputBorder.none,
+        focusedErrorBorder: InputBorder.none,
         filled: false,
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(

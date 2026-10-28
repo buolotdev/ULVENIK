@@ -6,6 +6,7 @@ import 'homepage_screen.dart';
 import 'my_dogs_screen.dart';
 import 'training_screen.dart';
 import 'timeline_screen.dart';
+import 'more_page_screen.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -37,7 +38,7 @@ class _MainLayoutState extends State<MainLayout> {
       ),
     ),
     const TimelineScreen(key: ValueKey('timeline')),
-    const Center(child: Text('More', style: TextStyle(color: Colors.white))),
+    const MorePageScreen(key: ValueKey('more')),
   ];
 
   @override

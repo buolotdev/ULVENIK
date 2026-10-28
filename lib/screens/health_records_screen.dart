@@ -3,6 +3,8 @@ import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'add_health_record_screen.dart';
 import 'health_record_details_screen.dart';
+import 'health_reminders_screen.dart';
+import 'health_archive_screen.dart';
 
 class HealthRecordsScreen extends StatefulWidget {
   const HealthRecordsScreen({super.key});
@@ -56,8 +58,13 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
             onPressed: () => AppSnackbar.show(context, message: 'Filter options coming soon', type: SnackbarType.info),
           ),
           IconButton(
-            icon: const Icon(Icons.add, color: const Color(0xFF2e6b57)),
+            icon: const Icon(Icons.add, color: Color(0xFF2e6b57)),
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddHealthRecordScreen())),
+          ),
+          IconButton(
+            tooltip: 'Health Archive',
+            icon: const Icon(Icons.inventory_2_outlined, color: AppColors.secondarySage),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthArchiveScreen())),
           ),
           IconButton(
             icon: const Icon(Icons.more_vert, color: AppColors.secondarySage),
@@ -239,14 +246,22 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           _buildStatCell(Icons.calendar_month_outlined, 'Vet Visit', '14 Mar'),
           _buildStatCell(Icons.vaccines_outlined, 'Vaccinations', 'Up to Date'),
           _buildStatCell(Icons.medication_outlined, 'Medications', '2 Active'),
-          _buildStatCell(Icons.notifications_outlined, 'Reminders', '3 Due'),
+          _buildStatCell(
+            Icons.notifications_outlined,
+            'Reminders',
+            '3 Due',
+            () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthRemindersScreen())),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildStatCell(IconData icon, String label, String value) {
-    return Row(
+  Widget _buildStatCell(IconData icon, String label, String value, [VoidCallback? onTap]) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(6),
+      child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(icon, color: AppColors.secondarySage, size: 20),
@@ -282,7 +297,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           ),
         ),
       ],
-    );
+    ));
   }
 
   Widget _buildSearchBar() {
@@ -564,7 +579,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
               image: DecorationImage(
                 image: NetworkImage(imgUrl),
                 fit: BoxFit.cover,
-                colorFilter: isSelected ? null : ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.darken),
+                colorFilter: isSelected ? null : ColorFilter.mode(Colors.black.withValues(alpha: 0.5), BlendMode.darken),
               ),
             ),
           ),
