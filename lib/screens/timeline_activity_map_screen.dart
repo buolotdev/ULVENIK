@@ -18,29 +18,45 @@ const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _gold = Color(0xFFECC94B);
 
-// Category Colors
-const Color _catTraining = Color(0xFF5D8FAF);
-const Color _catSC = Color(0xFFDD6B20);
+// Figma Exact Category Colors
+const Color _catTraining = Color(0xFF5D8FAF); // Blue
+const Color _catSC = Color(0xFFB4823C);       // Bronze / Orange
+const Color _catHealth = Color(0xFF8B3A3A);   // Red
+const Color _catGoals = Color(0xFFB8920A);    // Yellow / Gold
+const Color _catComp = Color(0xFF2E6B57);     // Forest Green
 
-class MapHotspot {
+enum ActivityMapDisplayMode {
+  defaultMode,
+  markerSelectedMode,
+  emptyMode,
+}
+
+class MapLocation {
   final String id;
   final String name;
+  final String subtitle;
   final String category;
   final Color color;
-  final int sessions;
+  final int count;
+  final int visits;
+  final String firstVisit;
+  final String lastVisit;
   final double distanceKm;
   final int elevationM;
-  final Offset relativePos; // (0.0 to 1.0)
+  final Offset relativePos;
   final String description;
 
-  const MapHotspot({
+  const MapLocation({
     required this.id,
     required this.name,
+    required this.subtitle,
     required this.category,
     required this.color,
-    required this.sessions,
+    required this.count,
+    required this.visits,
+    required this.firstVisit,
+    required this.lastVisit,
     required this.distanceKm,
     required this.elevationM,
     required this.relativePos,
@@ -55,7 +71,7 @@ class TimelineActivityMapScreen extends StatefulWidget {
   const TimelineActivityMapScreen({
     super.key,
     this.initialEmpty = false,
-    this.initialDog = 'Koda',
+    this.initialDog = 'Murphy',
   });
 
   @override
@@ -65,59 +81,76 @@ class TimelineActivityMapScreen extends StatefulWidget {
 
 class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
     with SingleTickerProviderStateMixin {
-  late bool _isEmptyState;
+  late ActivityMapDisplayMode _displayMode;
   late String _selectedDog;
   String _selectedCategory = 'All';
-  MapHotspot? _selectedHotspot;
+  late MapLocation _selectedLocation;
   bool _showHeatmap = false;
+  bool _splitRoutes = false;
   double _zoomLevel = 1.0;
 
   late AnimationController _animController;
-  late Animation<double> _fadeAnimation;
+  late Animation<double> _pulseAnimation;
 
-  final List<MapHotspot> _allHotspots = const [
-    MapHotspot(
-      id: 'spot_1',
-      name: 'Riverside Trail & Valley',
+  final List<MapLocation> _locations = const [
+    MapLocation(
+      id: 'loc_riverside',
+      name: 'Riverside Trail Loop',
+      subtitle: '4.8 km Track • Mixed Forest & Riverbank',
       category: 'Training',
       color: _catTraining,
-      sessions: 14,
-      distanceKm: 38.4,
+      count: 18,
+      visits: 34,
+      firstVisit: 'Jan 2022',
+      lastVisit: '3 Sep 2026',
+      distanceKm: 4.8,
       elevationM: 320,
-      relativePos: Offset(0.32, 0.45),
+      relativePos: Offset(0.38, 0.42),
       description: 'Primary endurance track with aged tracking scent lines along the river bank.',
     ),
-    MapHotspot(
-      id: 'spot_2',
+    MapLocation(
+      id: 'loc_alpine',
       name: 'Alpine Ridge Summit',
+      subtitle: '6.2 km Incline • Rocky Terrain & Sprints',
       category: 'S&C',
       color: _catSC,
-      sessions: 8,
-      distanceKm: 24.6,
+      count: 7,
+      visits: 19,
+      firstVisit: 'May 2023',
+      lastVisit: '18 Aug 2026',
+      distanceKm: 6.2,
       elevationM: 1420,
-      relativePos: Offset(0.68, 0.28),
+      relativePos: Offset(0.72, 0.28),
       description: 'High elevation hill sprints and rocky incline agility testing.',
     ),
-    MapHotspot(
-      id: 'spot_3',
+    MapLocation(
+      id: 'loc_bavarian',
       name: 'Bavarian Forest Grid',
-      category: 'Tracking',
-      color: _gold,
-      sessions: 22,
-      distanceKm: 55.8,
+      subtitle: '3.1 km Dense Pines • Tracking Zone',
+      category: 'Goals',
+      color: _catGoals,
+      count: 9,
+      visits: 26,
+      firstVisit: 'Oct 2022',
+      lastVisit: '22 Aug 2026',
+      distanceKm: 3.1,
       elevationM: 480,
-      relativePos: Offset(0.52, 0.62),
+      relativePos: Offset(0.55, 0.65),
       description: 'Dense woodland scent preservation zone with varied vegetation.',
     ),
-    MapHotspot(
-      id: 'spot_4',
+    MapLocation(
+      id: 'loc_meadow',
       name: 'Meadow Agility Arena',
-      category: 'Training',
-      color: _mint,
-      sessions: 11,
-      distanceKm: 18.2,
+      subtitle: '2.0 km Flat Grass • Agility & Focus',
+      category: 'Competition',
+      color: _catComp,
+      count: 4,
+      visits: 12,
+      firstVisit: 'Mar 2024',
+      lastVisit: '29 Jul 2026',
+      distanceKm: 2.0,
       elevationM: 190,
-      relativePos: Offset(0.24, 0.72),
+      relativePos: Offset(0.22, 0.74),
       description: 'Open flat ground agility obstacles and high speed recall sequences.',
     ),
   ];
@@ -125,18 +158,20 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
   @override
   void initState() {
     super.initState();
-    _isEmptyState = widget.initialEmpty;
+    _displayMode = widget.initialEmpty
+        ? ActivityMapDisplayMode.emptyMode
+        : ActivityMapDisplayMode.defaultMode;
     _selectedDog = widget.initialDog;
+    _selectedLocation = _locations.first;
 
     _animController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 1400),
+    )..repeat(reverse: true);
+
+    _pulseAnimation = Tween<double>(begin: 0.95, end: 1.15).animate(
+      CurvedAnimation(parent: _animController, curve: Curves.easeInOut),
     );
-    _fadeAnimation = CurvedAnimation(
-      parent: _animController,
-      curve: Curves.easeOutCubic,
-    );
-    _animController.forward();
   }
 
   @override
@@ -145,83 +180,16 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
     super.dispose();
   }
 
-  List<MapHotspot> get _filteredHotspots {
-    if (_selectedCategory == 'All') return _allHotspots;
-    return _allHotspots
-        .where((h) => h.category.toLowerCase() == _selectedCategory.toLowerCase())
-        .toList();
-  }
-
-  void _showEducationalModal() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Row(
-                children: [
-                  Icon(Icons.map_outlined, color: _mint, size: 24),
-                  SizedBox(width: 10),
-                  Text(
-                    'About Activity Map',
-                    style: TextStyle(
-                      color: _offWhite,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 14),
-              const Text(
-                'Activity Map plots your outdoor GPS routes, high-frequency training grounds, and elevation profiles automatically when GPS is logged in Timeline events.',
-                style: TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 13,
-                  height: 1.5,
-                  fontFamily: 'Inter',
-                ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _forest,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  onPressed: () => Navigator.pop(ctx),
-                  child: const Text('Got it', style: TextStyle(color: _offWhite)),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  void _cycleDisplayState() {
+    setState(() {
+      if (_displayMode == ActivityMapDisplayMode.defaultMode) {
+        _displayMode = ActivityMapDisplayMode.markerSelectedMode;
+      } else if (_displayMode == ActivityMapDisplayMode.markerSelectedMode) {
+        _displayMode = ActivityMapDisplayMode.emptyMode;
+      } else {
+        _displayMode = ActivityMapDisplayMode.defaultMode;
+      }
+    });
   }
 
   @override
@@ -229,10 +197,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
     return Scaffold(
       backgroundColor: _obsidian,
       appBar: _buildAppBar(),
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: _isEmptyState ? _buildEmptyState() : _buildMapState(),
-      ),
+      body: _buildBodyForCurrentState(),
       bottomNavigationBar: _buildBottomNav(),
     );
   }
@@ -255,29 +220,43 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
           }
         },
       ),
-      title: const Text(
-        'Timeline Activity Map',
-        style: TextStyle(
-          color: _offWhite,
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          fontFamily: 'Inter',
-        ),
+      title: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'Timeline Activity Map',
+            style: TextStyle(
+              color: _offWhite,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Inter',
+            ),
+          ),
+          Text(
+            _selectedDog,
+            style: const TextStyle(
+              color: _mint,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Inter',
+            ),
+          ),
+        ],
       ),
       actions: [
+        // Quick State Switcher Tooltip button
         IconButton(
-          tooltip: 'Toggle Empty/Populated State',
+          tooltip: 'Switch State (Default / Selected / Empty)',
           icon: Icon(
-            _isEmptyState ? Icons.visibility : Icons.visibility_off_outlined,
+            _displayMode == ActivityMapDisplayMode.emptyMode
+                ? Icons.visibility_off_outlined
+                : _displayMode == ActivityMapDisplayMode.markerSelectedMode
+                    ? Icons.pin_drop
+                    : Icons.map_outlined,
             color: _mint,
             size: 20,
           ),
-          onPressed: () {
-            setState(() {
-              _isEmptyState = !_isEmptyState;
-              if (_isEmptyState) _selectedHotspot = null;
-            });
-          },
+          onPressed: _cycleDisplayState,
         ),
         PopupMenuButton<String>(
           icon: const Icon(Icons.more_vert, color: _stoneGrey),
@@ -287,17 +266,14 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
             side: const BorderSide(color: Color(0xFF272B29)),
           ),
           onSelected: (val) {
-            if (val == 'toggle') {
-              setState(() {
-                _isEmptyState = !_isEmptyState;
-                if (_isEmptyState) _selectedHotspot = null;
-              });
+            if (val == 'default_state') {
+              setState(() => _displayMode = ActivityMapDisplayMode.defaultMode);
+            } else if (val == 'marker_selected') {
+              setState(() => _displayMode = ActivityMapDisplayMode.markerSelectedMode);
+            } else if (val == 'empty_state') {
+              setState(() => _displayMode = ActivityMapDisplayMode.emptyMode);
             } else if (val == 'heatmap') {
               setState(() => _showHeatmap = !_showHeatmap);
-            } else if (val == 'dog') {
-              setState(() {
-                _selectedDog = _selectedDog == 'Koda' ? 'Murphy' : 'Koda';
-              });
             } else if (val == 'memories') {
               Navigator.push(
                 context,
@@ -326,47 +302,44 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
             }
           },
           itemBuilder: (ctx) => [
-            PopupMenuItem(
-              value: 'toggle',
+            const PopupMenuItem(
+              value: 'default_state',
               child: Row(
                 children: [
-                  Icon(
-                    _isEmptyState ? Icons.check_circle_outline : Icons.highlight_off,
-                    color: _mint,
-                    size: 18,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    _isEmptyState ? 'Switch to Map View' : 'Switch to Empty State',
-                    style: const TextStyle(color: _offWhite, fontSize: 13),
-                  ),
+                  Icon(Icons.map, color: _mint, size: 18),
+                  SizedBox(width: 10),
+                  Text('State 1: Default State', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
               ),
             ),
+            const PopupMenuItem(
+              value: 'marker_selected',
+              child: Row(
+                children: [
+                  Icon(Icons.location_on, color: _mint, size: 18),
+                  SizedBox(width: 10),
+                  Text('State 2: Marker Selected', style: TextStyle(color: _offWhite, fontSize: 13)),
+                ],
+              ),
+            ),
+            const PopupMenuItem(
+              value: 'empty_state',
+              child: Row(
+                children: [
+                  Icon(Icons.location_off, color: _mint, size: 18),
+                  SizedBox(width: 10),
+                  Text('State 3: Empty State', style: TextStyle(color: _offWhite, fontSize: 13)),
+                ],
+              ),
+            ),
+            const PopupMenuDivider(height: 1),
             PopupMenuItem(
               value: 'heatmap',
               child: Row(
                 children: [
-                  Icon(
-                    _showHeatmap ? Icons.layers_clear : Icons.layers,
-                    color: _mint,
-                    size: 18,
-                  ),
+                  Icon(_showHeatmap ? Icons.layers_clear : Icons.layers, color: _mint, size: 18),
                   const SizedBox(width: 10),
-                  Text(
-                    _showHeatmap ? 'Disable Heatmap' : 'Enable Heatmap Overlay',
-                    style: const TextStyle(color: _offWhite, fontSize: 13),
-                  ),
-                ],
-              ),
-            ),
-            PopupMenuItem(
-              value: 'dog',
-              child: Row(
-                children: [
-                  const Icon(Icons.pets, color: _mint, size: 18),
-                  const SizedBox(width: 10),
-                  Text('Switch Dog ($_selectedDog)',
+                  Text(_showHeatmap ? 'Disable Heatmap' : 'Enable Heatmap Overlay',
                       style: const TextStyle(color: _offWhite, fontSize: 13)),
                 ],
               ),
@@ -408,63 +381,787 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
     );
   }
 
-  Widget _buildEmptyState() {
-    return Column(
+  Widget _buildBodyForCurrentState() {
+    switch (_displayMode) {
+      case ActivityMapDisplayMode.emptyMode:
+        return _buildEmptyState();
+      case ActivityMapDisplayMode.markerSelectedMode:
+        return _buildMarkerSelectedState();
+      case ActivityMapDisplayMode.defaultMode:
+        return _buildDefaultState();
+    }
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // STATE 1: DEFAULT STATE (Matching Figma 'Timeline Activity Map - Default State.svg')
+  // ════════════════════════════════════════════════════════════════════════════
+  Widget _buildDefaultState() {
+    return Stack(
       children: [
-        Expanded(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
+        // 1. Dark Vector Map Canvas Background
+        Positioned.fill(
+          child: GestureDetector(
+            onTap: () {
+              // Tapping canvas does not deselect in default mode
+            },
+            child: _buildVectorMapCanvas(isMarkerSelected: false),
+          ),
+        ),
+
+        // 2. Top Metrics Carousel (23 Locations, Riverside Trail Most Visited, 147 Mapped Events)
+        Positioned(
+          top: 12,
+          left: 16,
+          right: 16,
+          child: _buildTopMetricsCarousel(),
+        ),
+
+        // 3. Floating Map Controls (Right side: Layers, Split route, Recenter)
+        Positioned(
+          right: 16,
+          bottom: 156,
+          child: _buildFloatingControls(),
+        ),
+
+        // 4. Bottom Selected Preview Card & Category Legend
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Riverside Trail Preview Card
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: _buildDefaultLocationCard(),
+              ),
+              const SizedBox(height: 10),
+
+              // Bottom Category Legend (Training, S&C, Health, Goals, Competition)
+              _buildCategoryLegendBar(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTopMetricsCarousel() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
+      child: Row(
+        children: [
+          _buildMetricBentoCard(
+            title: '23 Locations',
+            subtitle: 'ALL RECORDED',
+            icon: Icons.place_outlined,
+            accentColor: _catTraining,
+          ),
+          const SizedBox(width: 10),
+          _buildMetricBentoCard(
+            title: 'Riverside Trail',
+            subtitle: 'MOST VISITED • 34 SESSIONS',
+            icon: Icons.star_outline,
+            accentColor: _mint,
+          ),
+          const SizedBox(width: 10),
+          _buildMetricBentoCard(
+            title: '147 Events',
+            subtitle: 'GPS MAPPED SESSIONS',
+            icon: Icons.verified_outlined,
+            accentColor: _catSC,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMetricBentoCard({
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Color accentColor,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xE61A1F22),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: _cardBorder),
+        boxShadow: const [
+          BoxShadow(color: Colors.black45, blurRadius: 8, offset: Offset(0, 2)),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: accentColor.withValues(alpha: 0.15),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: accentColor, size: 14),
+          ),
+          const SizedBox(width: 10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  color: _offWhite,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Inter',
+                ),
+              ),
+              const SizedBox(height: 1),
+              Text(
+                subtitle,
+                style: const TextStyle(
+                  color: _stoneGrey,
+                  fontSize: 9,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.5,
+                  fontFamily: 'Inter',
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDefaultLocationCard() {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedLocation = _locations.first;
+          _displayMode = ActivityMapDisplayMode.markerSelectedMode;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: const Color(0xF21A1F22),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: _cardBorder),
+          boxShadow: const [
+            BoxShadow(color: Colors.black54, blurRadius: 14, offset: Offset(0, 4)),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: _forest.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: _forest.withValues(alpha: 0.5)),
+              ),
+              child: const Center(
+                child: Icon(Icons.navigation_outlined, color: _mint, size: 22),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    width: 96,
-                    height: 96,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _carbon,
-                      border: Border.all(color: _cardBorder),
+                  Row(
+                    children: [
+                      Text(
+                        _selectedLocation.name,
+                        style: const TextStyle(
+                          color: _offWhite,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                        decoration: BoxDecoration(
+                          color: _forest.withValues(alpha: 0.3),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          '${_selectedLocation.distanceKm} km',
+                          style: const TextStyle(color: _mint, fontSize: 10, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    '${_selectedLocation.visits} Sessions Recorded • Jan 2022 - Sep 2026',
+                    style: const TextStyle(color: _stoneGrey, fontSize: 11),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios, color: _stoneGrey, size: 14),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryLegendBar() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: const BoxDecoration(
+        color: _obsidian,
+        border: Border(top: BorderSide(color: Color(0x14FFFFFF), width: 1)),
+      ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            _buildLegendItem('Training', _catTraining),
+            const SizedBox(width: 16),
+            _buildLegendItem('S&C', _catSC),
+            const SizedBox(width: 16),
+            _buildLegendItem('Health', _catHealth),
+            const SizedBox(width: 16),
+            _buildLegendItem('Goals', _catGoals),
+            const SizedBox(width: 16),
+            _buildLegendItem('Competition', _catComp),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLegendItem(String label, Color color) {
+    final isSelected = _selectedCategory == label;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedCategory = _selectedCategory == label ? 'All' : label;
+        });
+      },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 8,
+            height: 8,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+              border: isSelected ? Border.all(color: _offWhite, width: 1.5) : null,
+            ),
+          ),
+          const SizedBox(width: 6),
+          Text(
+            label.toUpperCase(),
+            style: TextStyle(
+              color: isSelected ? _offWhite : _stoneGrey,
+              fontSize: 10,
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+              letterSpacing: 0.6,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // STATE 2: MARKER SELECTED STATE (Matching Figma 'Timeline Activity Map - Marker Selected.svg')
+  // ════════════════════════════════════════════════════════════════════════════
+  Widget _buildMarkerSelectedState() {
+    return Stack(
+      children: [
+        // 1. Dark Vector Map Canvas Background
+        Positioned.fill(
+          child: GestureDetector(
+            onTap: () {
+              setState(() => _displayMode = ActivityMapDisplayMode.defaultMode);
+            },
+            child: _buildVectorMapCanvas(isMarkerSelected: true),
+          ),
+        ),
+
+        // 2. Top GPS Coordinate Pill (51.236° N • 0.570° W)
+        Positioned(
+          top: 14,
+          left: 0,
+          right: 0,
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+              decoration: BoxDecoration(
+                color: const Color(0xE6101214),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: _forest),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black54, blurRadius: 10, offset: Offset(0, 2)),
+                ],
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.gps_fixed, color: _mint, size: 14),
+                  SizedBox(width: 6),
+                  Text(
+                    '51.236° N • 0.570° W',
+                    style: TextStyle(
+                      color: _offWhite,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                      letterSpacing: 0.5,
                     ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.location_off_outlined,
-                        size: 44,
-                        color: _stoneGrey,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        // 3. Floating Map Controls (Right side)
+        Positioned(
+          right: 16,
+          bottom: 350,
+          child: _buildFloatingControls(),
+        ),
+
+        // 4. Expanded Bottom Sheet Panel
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: _buildMarkerSelectedBottomSheet(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMarkerSelectedBottomSheet() {
+    return Container(
+      decoration: const BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
+        border: Border(
+          top: BorderSide(color: Color(0x24FFFFFF), width: 1.2),
+          left: BorderSide(color: Color(0x14FFFFFF), width: 1),
+          right: BorderSide(color: Color(0x14FFFFFF), width: 1),
+        ),
+        boxShadow: [
+          BoxShadow(color: Colors.black87, blurRadius: 24, offset: Offset(0, -6)),
+        ],
+      ),
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+      child: SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Grab handle
+            Center(
+              child: Container(
+                width: 36,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.white24,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 14),
+
+            // Title + Close Icon
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _selectedLocation.name,
+                        style: const TextStyle(
+                          color: _offWhite,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        _selectedLocation.subtitle,
+                        style: const TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                  icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
+                  onPressed: () {
+                    setState(() => _displayMode = ActivityMapDisplayMode.defaultMode);
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // 3 Stat Columns (34 Visits, Jan 2022 First Visit, 3 Sep 2026 Last Visit)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: _obsidian,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildStatColumn('${_selectedLocation.visits} Visits', 'TOTAL SESSIONS'),
+                  Container(width: 1, height: 26, color: const Color(0x14FFFFFF)),
+                  _buildStatColumn(_selectedLocation.firstVisit, 'FIRST VISIT'),
+                  Container(width: 1, height: 26, color: const Color(0x14FFFFFF)),
+                  _buildStatColumn(_selectedLocation.lastVisit, 'LAST VISIT'),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Section Header: RECENT FIELD SESSIONS
+            const Text(
+              'RECENT FIELD SESSIONS',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.8,
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            // List of Recent Sessions
+            _buildSessionListItem(
+              title: 'Recall & Retrieval Drills',
+              time: '3 Sep 2026 • 08:30 • 48 min',
+              tag: 'Training',
+              tagColor: _catTraining,
+            ),
+            const SizedBox(height: 8),
+            _buildSessionListItem(
+              title: 'Morning Heelwork Session',
+              time: '28 Aug 2026 • 09:15 • 35 min',
+              tag: 'S&C',
+              tagColor: _catSC,
+            ),
+            const SizedBox(height: 16),
+
+            // Dual CTA Buttons: View All Events Here / Open in Timeline
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Color(0x33FFFFFF)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 13),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const TimelineScreen()),
+                      );
+                    },
+                    child: const Text(
+                      'View All Events Here',
+                      style: TextStyle(
+                        color: _offWhite,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Inter',
                       ),
                     ),
                   ),
-                  const SizedBox(height: 28),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _forest,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 13),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const TimelineScreen()),
+                      );
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Open in Timeline',
+                          style: TextStyle(
+                            color: _offWhite,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                        SizedBox(width: 6),
+                        Icon(Icons.arrow_forward, color: _offWhite, size: 14),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatColumn(String value, String label) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          value,
+          style: const TextStyle(
+            color: _offWhite,
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'Inter',
+          ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          label,
+          style: const TextStyle(
+            color: _stoneGrey,
+            fontSize: 9,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSessionListItem({
+    required String title,
+    required String time,
+    required String tag,
+    required Color tagColor,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: _obsidian,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: _cardBorder),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: tagColor.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(Icons.route, color: tagColor, size: 18),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: _offWhite,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+                const SizedBox(height: 1),
+                Text(
+                  time,
+                  style: const TextStyle(color: _stoneGrey, fontSize: 11),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(
+              color: tagColor.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              tag,
+              style: TextStyle(color: tagColor, fontSize: 10, fontWeight: FontWeight.w700),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // STATE 3: EMPTY STATE (Matching Figma 'Timeline Activity Map - Empty State.svg')
+  // ════════════════════════════════════════════════════════════════════════════
+  Widget _buildEmptyState() {
+    return Stack(
+      children: [
+        // 1. Dark Vector Map Grid with faint lines
+        Positioned.fill(
+          child: _buildVectorMapCanvas(isEmpty: true),
+        ),
+
+        // 2. Top GPS Status Pills (GPS ACTIVE • OFFLINE READY | 390m • SE 142°)
+        Positioned(
+          top: 14,
+          left: 16,
+          right: 16,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: const Color(0xE61A1F22),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: _cardBorder),
+                ),
+                child: const Row(
+                  children: [
+                    Icon(Icons.gps_fixed, color: _mint, size: 12),
+                    SizedBox(width: 6),
+                    Text(
+                      'GPS ACTIVE • OFFLINE READY',
+                      style: TextStyle(
+                        color: _offWhite,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: const Color(0xE61A1F22),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: _cardBorder),
+                ),
+                child: const Text(
+                  '390m • SE 142°',
+                  style: TextStyle(
+                    color: _stoneGrey,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // 3. Centered Empty Card
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: const Color(0xF21A1F22),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: _cardBorder),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black87, blurRadius: 20, offset: Offset(0, 8)),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Icon with ripple circle
+                  Container(
+                    width: 72,
+                    height: 72,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _obsidian,
+                      border: Border.all(color: _cardBorder, width: 2),
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.pin_drop_outlined,
+                        color: _stoneGrey,
+                        size: 34,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
                   const Text(
-                    'No Location History',
+                    'No Recorded Locations',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: _offWhite,
-                      fontSize: 22,
+                      fontSize: 18,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'Inter',
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
+
                   const Text(
-                    'Enable GPS tagging when recording outdoor training, scent work, or conditioning sessions to plot heatmaps and route traces.',
+                    'Record a GPS track or tag locations during training sessions to build your dog\'s activity map.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: _stoneGrey,
-                      fontSize: 14,
+                      fontSize: 13,
                       height: 1.5,
                       fontFamily: 'Inter',
                     ),
                   ),
-                  const SizedBox(height: 36),
+                  const SizedBox(height: 22),
+
                   SizedBox(
                     width: double.infinity,
-                    height: 52,
+                    height: 48,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: _forest,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                         elevation: 0,
                       ),
@@ -485,26 +1182,14 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                             'Go to Timeline',
                             style: TextStyle(
                               color: _offWhite,
-                              fontSize: 15,
+                              fontSize: 14,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Inter',
                             ),
                           ),
                           SizedBox(width: 8),
-                          Icon(Icons.arrow_forward, color: _offWhite, size: 18),
+                          Icon(Icons.arrow_forward, color: _offWhite, size: 16),
                         ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 18),
-                  TextButton(
-                    onPressed: _showEducationalModal,
-                    child: const Text(
-                      'Learn about Activity Map',
-                      style: TextStyle(
-                        color: _mint,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -514,143 +1199,167 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
           ),
         ),
 
-        // Bottom Action Bar for Empty State
-        Container(
-          decoration: const BoxDecoration(
-            color: _obsidian,
-            border: Border(top: BorderSide(color: Color(0x1AFFFFFF), width: 1)),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 8),
+        // 4. Bottom Scale Bar & Nordic Grid
+        Positioned(
+          left: 16,
+          right: 16,
+          bottom: 50,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              // Scale Bar
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      Icon(Icons.filter_list, color: _stoneGrey.withValues(alpha: 0.5), size: 16),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Filter',
-                        style: TextStyle(
-                          color: _stoneGrey.withValues(alpha: 0.5),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      Container(width: 1, height: 6, color: _stoneGrey),
+                      Container(width: 60, height: 1, color: _stoneGrey),
+                      Container(width: 1, height: 6, color: _stoneGrey),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 2),
+                  const Text('500 m', style: TextStyle(color: _stoneGrey, fontSize: 10)),
+                ],
               ),
-              Container(width: 1, height: 20, color: const Color(0x1AFFFFFF)),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.file_upload_outlined, color: _stoneGrey.withValues(alpha: 0.5), size: 16),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Export GPX',
-                        style: TextStyle(
-                          color: _stoneGrey.withValues(alpha: 0.5),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
+              const Text(
+                'WGS 84 • NORDIC SPORT GRID',
+                style: TextStyle(
+                  color: _stoneGrey,
+                  fontSize: 9,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.8,
                 ),
               ),
             ],
+          ),
+        ),
+
+        // 5. Bottom Action Bar for Empty State
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: Container(
+            decoration: const BoxDecoration(
+              color: _obsidian,
+              border: Border(top: BorderSide(color: Color(0x1AFFFFFF), width: 1)),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.filter_list, color: _stoneGrey.withValues(alpha: 0.5), size: 16),
+                        const SizedBox(width: 6),
+                        Text(
+                          'Filter',
+                          style: TextStyle(
+                            color: _stoneGrey.withValues(alpha: 0.5),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(width: 1, height: 20, color: const Color(0x1AFFFFFF)),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.file_upload_outlined, color: _stoneGrey.withValues(alpha: 0.5), size: 16),
+                        const SizedBox(width: 6),
+                        Text(
+                          'Export GPX',
+                          style: TextStyle(
+                            color: _stoneGrey.withValues(alpha: 0.5),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildMapState() {
-    return Stack(
+  // ════════════════════════════════════════════════════════════════════════════
+  // COMMON MAP COMPONENTS & CONTROLS
+  // ════════════════════════════════════════════════════════════════════════════
+  Widget _buildFloatingControls() {
+    return Column(
       children: [
-        // 1. Dark Vector Map Canvas Background
-        Positioned.fill(
-          child: GestureDetector(
-            onTap: () {
-              if (_selectedHotspot != null) {
-                setState(() => _selectedHotspot = null);
-              }
-            },
-            child: _buildVectorMapCanvas(),
-          ),
+        _buildMapControlBtn(
+          icon: Icons.layers_outlined,
+          isActive: _showHeatmap,
+          tooltip: 'Toggle Heatmap',
+          onTap: () => setState(() => _showHeatmap = !_showHeatmap),
         ),
-
-        // 2. Top Floating Filters & Dog Badge
-        Positioned(
-          top: 12,
-          left: 16,
-          right: 16,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildTopPillsRow(),
-            ],
-          ),
+        const SizedBox(height: 8),
+        _buildMapControlBtn(
+          icon: Icons.alt_route,
+          isActive: _splitRoutes,
+          tooltip: 'Toggle Split Routes',
+          onTap: () => setState(() => _splitRoutes = !_splitRoutes),
         ),
-
-        // 3. Floating Right Map Controls (Zoom +, Zoom -, Recenter, Heatmap)
-        Positioned(
-          right: 16,
-          bottom: _selectedHotspot != null ? 240 : 150,
-          child: Column(
-            children: [
-              _buildMapControlBtn(
-                icon: Icons.add,
-                onTap: () => setState(() => _zoomLevel = (_zoomLevel + 0.2).clamp(0.8, 2.0)),
-              ),
-              const SizedBox(height: 8),
-              _buildMapControlBtn(
-                icon: Icons.remove,
-                onTap: () => setState(() => _zoomLevel = (_zoomLevel - 0.2).clamp(0.8, 2.0)),
-              ),
-              const SizedBox(height: 8),
-              _buildMapControlBtn(
-                icon: Icons.my_location,
-                onTap: () {
-                  setState(() {
-                    _zoomLevel = 1.0;
-                    _selectedHotspot = null;
-                  });
-                },
-              ),
-              const SizedBox(height: 8),
-              _buildMapControlBtn(
-                icon: _showHeatmap ? Icons.whatshot : Icons.whatshot_outlined,
-                isActive: _showHeatmap,
-                onTap: () => setState(() => _showHeatmap = !_showHeatmap),
-              ),
-            ],
-          ),
-        ),
-
-        // 4. Bottom Sliding Inspection Card / Default Stats Sheet
-        Positioned(
-          bottom: 12,
-          left: 16,
-          right: 16,
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 280),
-            child: _selectedHotspot != null
-                ? _buildMarkerDetailCard(_selectedHotspot!)
-                : _buildDefaultMetricsCard(),
-          ),
+        const SizedBox(height: 8),
+        _buildMapControlBtn(
+          icon: Icons.my_location,
+          tooltip: 'Recenter',
+          onTap: () {
+            setState(() {
+              _zoomLevel = 1.0;
+              _selectedLocation = _locations.first;
+            });
+          },
         ),
       ],
     );
   }
 
-  Widget _buildVectorMapCanvas() {
+  Widget _buildMapControlBtn({
+    required IconData icon,
+    required VoidCallback onTap,
+    bool isActive = false,
+    String? tooltip,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          color: isActive ? _forest : const Color(0xCC1A1F22),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: isActive ? _mint : _cardBorder),
+          boxShadow: const [
+            BoxShadow(color: Colors.black45, blurRadius: 6, offset: Offset(0, 2)),
+          ],
+        ),
+        child: Icon(
+          icon,
+          color: isActive ? _mint : _offWhite,
+          size: 19,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildVectorMapCanvas({bool isMarkerSelected = false, bool isEmpty = false}) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final w = constraints.maxWidth;
@@ -658,78 +1367,113 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
 
         return Stack(
           children: [
-            // Dark map texture with terrain contours
+            // Dark map terrain painter with waterways, contours, and tracks
             CustomPaint(
               size: Size(w, h),
-              painter: _TerrainContourPainter(
+              painter: _FigmaTerrainPainter(
                 zoom: _zoomLevel,
                 showHeatmap: _showHeatmap,
+                isEmpty: isEmpty,
               ),
             ),
 
-            // Hotspot Pins
-            ..._filteredHotspots.map((spot) {
-              final isSelected = _selectedHotspot?.id == spot.id;
-              final pinX = spot.relativePos.dx * w;
-              final pinY = spot.relativePos.dy * h;
+            // If empty mode, don't show location markers
+            if (!isEmpty) ...[
+              // Numbered Cluster & Pin Markers from Figma
+              ..._locations.map((loc) {
+                final isSelectedLoc = isMarkerSelected && loc.id == _selectedLocation.id;
+                final pinX = loc.relativePos.dx * w;
+                final pinY = loc.relativePos.dy * h;
 
-              return Positioned(
-                left: pinX - 22,
-                top: pinY - 22,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() => _selectedHotspot = spot);
-                  },
-                  child: AnimatedScale(
-                    scale: isSelected ? 1.25 : 1.0,
-                    duration: const Duration(milliseconds: 200),
+                return Positioned(
+                  left: pinX - 24,
+                  top: pinY - 24,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedLocation = loc;
+                        _displayMode = ActivityMapDisplayMode.markerSelectedMode;
+                      });
+                    },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // Pin Circle
-                        Container(
-                          width: 44,
-                          height: 44,
+                        // Selected Badge floating directly above
+                        if (isSelectedLoc)
+                          ScaleTransition(
+                            scale: _pulseAnimation,
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 4),
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: _forest,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(color: _mint, width: 1.2),
+                                boxShadow: const [
+                                  BoxShadow(color: Colors.black54, blurRadius: 6),
+                                ],
+                              ),
+                              child: const Text(
+                                '• SELECTED',
+                                style: TextStyle(
+                                  color: _offWhite,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w800,
+                                  letterSpacing: 0.6,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                        // Hotspot Ring / Circle
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 250),
+                          width: isSelectedLoc ? 48 : 40,
+                          height: isSelectedLoc ? 48 : 40,
                           decoration: BoxDecoration(
                             color: _carbon,
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: isSelected ? _mint : spot.color,
-                              width: isSelected ? 3 : 2,
+                              color: isSelectedLoc ? _mint : loc.color,
+                              width: isSelectedLoc ? 3.0 : 2.0,
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: (isSelected ? _mint : spot.color).withValues(alpha: 0.4),
-                                blurRadius: isSelected ? 16 : 8,
-                                spreadRadius: isSelected ? 4 : 1,
+                                color: (isSelectedLoc ? _mint : loc.color).withValues(alpha: isSelectedLoc ? 0.6 : 0.3),
+                                blurRadius: isSelectedLoc ? 18 : 8,
+                                spreadRadius: isSelectedLoc ? 4 : 1,
                               ),
                             ],
                           ),
                           child: Center(
-                            child: Icon(
-                              Icons.location_on,
-                              color: isSelected ? _mint : spot.color,
-                              size: 22,
+                            child: Text(
+                              '${loc.count}',
+                              style: TextStyle(
+                                color: isSelectedLoc ? _mint : _offWhite,
+                                fontSize: isSelectedLoc ? 15 : 13,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: 'Inter',
+                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 3),
 
-                        // Title Chip
+                        // Label
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                           decoration: BoxDecoration(
                             color: Colors.black.withValues(alpha: 0.85),
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(4),
                             border: Border.all(
-                              color: isSelected ? _mint : _cardBorder,
+                              color: isSelectedLoc ? _mint : _cardBorder,
                               width: 0.8,
                             ),
                           ),
                           child: Text(
-                            spot.name.split(' ').first,
+                            loc.name.split(' ').first,
                             style: TextStyle(
-                              color: isSelected ? _mint : _offWhite,
+                              color: isSelectedLoc ? _mint : _offWhite,
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
                             ),
@@ -738,335 +1482,12 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                       ],
                     ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+            ],
           ],
         );
       },
-    );
-  }
-
-  Widget _buildTopPillsRow() {
-    final categories = ['All', 'Training', 'S&C', 'Tracking'];
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-            decoration: BoxDecoration(
-              color: Colors.black.withValues(alpha: 0.8),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: _mint.withValues(alpha: 0.5)),
-            ),
-            child: Row(
-              children: [
-                const Icon(Icons.pets, color: _mint, size: 14),
-                const SizedBox(width: 6),
-                Text(
-                  _selectedDog,
-                  style: const TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w700),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 8),
-          ...categories.map((cat) {
-            final isSelected = _selectedCategory == cat;
-            return Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: GestureDetector(
-                onTap: () => setState(() => _selectedCategory = cat),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                  decoration: BoxDecoration(
-                    color: isSelected ? _forest : Colors.black.withValues(alpha: 0.75),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: isSelected ? _mint : _cardBorder,
-                    ),
-                  ),
-                  child: Text(
-                    cat,
-                    style: TextStyle(
-                      color: isSelected ? _offWhite : _stoneGrey,
-                      fontSize: 12,
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMapControlBtn({
-    required IconData icon,
-    required VoidCallback onTap,
-    bool isActive = false,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 42,
-        height: 42,
-        decoration: BoxDecoration(
-          color: isActive ? _forest : const Color(0xCC1A1F22),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: isActive ? _mint : _cardBorder),
-          boxShadow: const [
-            BoxShadow(color: Colors.black45, blurRadius: 8, offset: Offset(0, 2)),
-          ],
-        ),
-        child: Icon(
-          icon,
-          color: isActive ? _mint : _offWhite,
-          size: 20,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDefaultMetricsCard() {
-    return Container(
-      key: const ValueKey('default_metrics'),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: _carbon.withValues(alpha: 0.95),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: _cardBorder),
-        boxShadow: const [
-          BoxShadow(color: Colors.black54, blurRadius: 16, offset: Offset(0, 4)),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildMetricStat('HOTSPOTS', '${_filteredHotspots.length} Logged'),
-              _buildMetricStat('TOTAL DIST', '55.8 km'),
-              _buildMetricStat('MAX ELEV', '1,420 m'),
-            ],
-          ),
-          const SizedBox(height: 12),
-          const Divider(color: Color(0x14FFFFFF), height: 1),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Row(
-                children: [
-                  Icon(Icons.touch_app_outlined, color: _mint, size: 14),
-                  SizedBox(width: 6),
-                  Text(
-                    'Tap any pin on map to inspect terrain details',
-                    style: TextStyle(color: _stoneGrey, fontSize: 11),
-                  ),
-                ],
-              ),
-              Text(
-                '$_selectedDog GPS',
-                style: const TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMarkerDetailCard(MapHotspot spot) {
-    return Container(
-      key: ValueKey(spot.id),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: spot.color.withValues(alpha: 0.6)),
-        boxShadow: [
-          BoxShadow(
-            color: spot.color.withValues(alpha: 0.25),
-            blurRadius: 18,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header with close button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 10,
-                    height: 10,
-                    decoration: BoxDecoration(color: spot.color, shape: BoxShape.circle),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    spot.category.toUpperCase(),
-                    style: TextStyle(
-                      color: spot.color,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.8,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    '• ${spot.sessions} Sessions',
-                    style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                  ),
-                ],
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(),
-                icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
-                onPressed: () => setState(() => _selectedHotspot = null),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-
-          Text(
-            spot.name,
-            style: const TextStyle(
-              color: _offWhite,
-              fontSize: 17,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'Inter',
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            spot.description,
-            style: const TextStyle(color: _stoneGrey, fontSize: 12, height: 1.4),
-          ),
-          const SizedBox(height: 14),
-
-          // 3 Metric Badges
-          Row(
-            children: [
-              _buildPinPill(Icons.straighten, '${spot.distanceKm} km', 'Distance'),
-              const SizedBox(width: 8),
-              _buildPinPill(Icons.terrain, '${spot.elevationM} m', 'Elevation'),
-              const SizedBox(width: 8),
-              _buildPinPill(Icons.history, '${spot.sessions} Logs', 'Frequency'),
-            ],
-          ),
-          const SizedBox(height: 14),
-
-          // View in Timeline CTA
-          SizedBox(
-            width: double.infinity,
-            height: 44,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _forest,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                elevation: 0,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'View ${spot.sessions} Sessions in Timeline',
-                    style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(width: 6),
-                  const Icon(Icons.arrow_forward, color: _offWhite, size: 16),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMetricStat(String label, String value) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          value,
-          style: const TextStyle(
-            color: _offWhite,
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            fontFamily: 'Inter',
-          ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          label,
-          style: const TextStyle(
-            color: _stoneGrey,
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPinPill(IconData icon, String title, String subtitle) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        decoration: BoxDecoration(
-          color: const Color(0xFF121517),
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: _cardBorder),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, color: _mint, size: 16),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: _offWhite,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(color: _stoneGrey, fontSize: 9),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -1150,24 +1571,30 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
   }
 }
 
-/// Custom Vector Terrain Contour Painter for Activity Map
-class _TerrainContourPainter extends CustomPainter {
+/// Custom Canvas Painter that recreates the Figma dark map layout (Waterways, Trail lines, Grid)
+class _FigmaTerrainPainter extends CustomPainter {
   final double zoom;
   final bool showHeatmap;
+  final bool isEmpty;
 
-  _TerrainContourPainter({required this.zoom, required this.showHeatmap});
+  _FigmaTerrainPainter({
+    required this.zoom,
+    required this.showHeatmap,
+    required this.isEmpty,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final bgPaint = Paint()..color = const Color(0xFF121517);
+    // 1. Dark obsidian background
+    final bgPaint = Paint()..color = const Color(0xFF101315);
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), bgPaint);
 
-    // Grid lines
+    // 2. Faint Nordic Sport Grid lines
     final gridPaint = Paint()
-      ..color = const Color(0x0AFFFFFF)
+      ..color = const Color(0x08FFFFFF)
       ..strokeWidth = 1.0;
 
-    const step = 40.0;
+    const step = 48.0;
     for (double x = 0; x < size.width; x += step) {
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), gridPaint);
     }
@@ -1175,49 +1602,91 @@ class _TerrainContourPainter extends CustomPainter {
       canvas.drawLine(Offset(0, y), Offset(size.width, y), gridPaint);
     }
 
-    // Elevation contour lines
+    // 3. Contour curves (White 3% opacity like Figma)
     final contourPaint = Paint()
-      ..color = const Color(0x14FFFFFF)
+      ..color = const Color(0x0AFFFFFF)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.2;
+      ..strokeWidth = 1.5;
 
-    final path1 = Path();
-    path1.moveTo(0, size.height * 0.35);
-    path1.cubicTo(size.width * 0.3, size.height * 0.25, size.width * 0.6, size.height * 0.45, size.width, size.height * 0.3);
-    canvas.drawPath(path1, contourPaint);
+    final p1 = Path()
+      ..moveTo(-40, size.height * 0.25)
+      ..cubicTo(size.width * 0.25, size.height * 0.2, size.width * 0.5, size.height * 0.3, size.width * 1.1, size.height * 0.22);
+    canvas.drawPath(p1, contourPaint);
 
-    final path2 = Path();
-    path2.moveTo(0, size.height * 0.55);
-    path2.cubicTo(size.width * 0.35, size.height * 0.65, size.width * 0.7, size.height * 0.48, size.width, size.height * 0.6);
-    canvas.drawPath(path2, contourPaint);
+    final p2 = Path()
+      ..moveTo(-30, size.height * 0.45)
+      ..cubicTo(size.width * 0.3, size.height * 0.4, size.width * 0.6, size.height * 0.52, size.width * 1.1, size.height * 0.42);
+    canvas.drawPath(p2, contourPaint);
 
-    // River / trail path
-    final trailPaint = Paint()
-      ..color = const Color(0x335D8FAF)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.5;
+    final p3 = Path()
+      ..moveTo(-20, size.height * 0.7)
+      ..cubicTo(size.width * 0.25, size.height * 0.65, size.width * 0.65, size.height * 0.78, size.width * 1.1, size.height * 0.68);
+    canvas.drawPath(p3, contourPaint);
 
-    final riverPath = Path();
-    riverPath.moveTo(size.width * 0.2, 0);
-    riverPath.cubicTo(size.width * 0.28, size.height * 0.4, size.width * 0.42, size.height * 0.55, size.width * 0.65, size.height);
-    canvas.drawPath(riverPath, trailPaint);
+    if (!isEmpty) {
+      // 4. River / Waterway (Dark blue vector ribbon stroke 24px)
+      final riverWaterPaint = Paint()
+        ..color = const Color(0xFF131D27)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 24.0
+        ..strokeCap = StrokeCap.round;
 
-    // Heatmap circles if enabled
-    if (showHeatmap) {
-      final heatPaint = Paint()
-        ..shader = RadialGradient(
-          colors: [
-            const Color(0x80ECC94B),
-            const Color(0x40E53E3E),
-            Colors.transparent,
-          ],
-        ).createShader(Rect.fromCircle(center: Offset(size.width * 0.45, size.height * 0.5), radius: 120 * zoom));
-      canvas.drawCircle(Offset(size.width * 0.45, size.height * 0.5), 120 * zoom, heatPaint);
+      final riverPath = Path()
+        ..moveTo(size.width * 0.45, 0)
+        ..cubicTo(size.width * 0.48, size.height * 0.2, size.width * 0.28, size.height * 0.4, size.width * 0.55, size.height * 0.7)
+        ..cubicTo(size.width * 0.65, size.height * 0.85, size.width * 0.42, size.height * 0.95, size.width * 0.44, size.height);
+      canvas.drawPath(riverPath, riverWaterPaint);
+
+      // River Center Flow Line
+      final riverCenterPaint = Paint()
+        ..color = const Color(0x335D8FAF)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.0;
+      canvas.drawPath(riverPath, riverCenterPaint);
+
+      // 5. Active Trail Curves (Riverside Trail Loop green/sage dashed trace)
+      final trailPaint = Paint()
+        ..color = const Color(0x737A8F7A)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3.0
+        ..strokeCap = StrokeCap.round;
+
+      final trailLoop = Path()
+        ..moveTo(size.width * 0.32, size.height * 0.26)
+        ..cubicTo(size.width * 0.55, size.height * 0.28, size.width * 0.85, size.height * 0.32, size.width * 0.88, size.height * 0.35);
+      canvas.drawPath(trailLoop, trailPaint);
+
+      // Training Track (Blue line)
+      final trackPaint = Paint()
+        ..color = const Color(0x665D8FAF)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.5;
+
+      final trackPath = Path()
+        ..moveTo(size.width * 0.2, size.height * 0.62)
+        ..cubicTo(size.width * 0.5, size.height * 0.64, size.width * 0.65, size.height * 0.62, size.width * 0.85, size.height * 0.72);
+      canvas.drawPath(trackPath, trackPaint);
+
+      // 6. Heatmap Gradient if active
+      if (showHeatmap) {
+        final heatCenter = Offset(size.width * 0.38, size.height * 0.42);
+        final heatPaint = Paint()
+          ..shader = RadialGradient(
+            colors: [
+              const Color(0x99ECC94B),
+              const Color(0x55E53E3E),
+              Colors.transparent,
+            ],
+          ).createShader(Rect.fromCircle(center: heatCenter, radius: 100 * zoom));
+        canvas.drawCircle(heatCenter, 100 * zoom, heatPaint);
+      }
     }
   }
 
   @override
-  bool shouldRepaint(covariant _TerrainContourPainter oldDelegate) {
-    return oldDelegate.zoom != zoom || oldDelegate.showHeatmap != showHeatmap;
+  bool shouldRepaint(covariant _FigmaTerrainPainter oldDelegate) {
+    return oldDelegate.zoom != zoom ||
+        oldDelegate.showHeatmap != showHeatmap ||
+        oldDelegate.isEmpty != isEmpty;
   }
 }

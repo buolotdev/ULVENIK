@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
 import 'clients_page_screen.dart';
 import 'add_client_screen.dart';
 import 'client_homework_screen.dart';
 import 'trainer_reports_screen.dart';
 import 'trainer_workspace_settings_screen.dart';
 import 'trainer_profile_screen.dart';
+import 'global_calendar_screen.dart';
+import 'record_session_screen.dart';
+import 'create_goal_screen.dart';
+import 'trainer_notifications_screen.dart';
+import 'homework_training_plans_screen.dart';
+import 'trainer_notes_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
 const Color _obsidian = Color(0xFF101214);
 const Color _carbon = Color(0xFF1A1F22);
 const Color _cardBorder = Color(0x14FFFFFF);
-const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _gold = Color(0xFFECC94B);
-const Color _blue = Color(0xFF5D8FAF);
 
 class TrainerDashboardScreen extends StatefulWidget {
   const TrainerDashboardScreen({super.key});
@@ -31,6 +29,32 @@ class TrainerDashboardScreen extends StatefulWidget {
 }
 
 class _TrainerDashboardScreenState extends State<TrainerDashboardScreen> {
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _openAnalytics() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: _obsidian,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (ctx) => DraggableScrollableSheet(
+        initialChildSize: 0.9,
+        minChildSize: 0.5,
+        maxChildSize: 0.95,
+        expand: false,
+        builder: (context, scrollController) => _buildAnalyticsSheet(scrollController),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,166 +62,935 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen> {
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Trainer Hub',
+          'Trainer Dashboard',
           style: TextStyle(
             color: _offWhite,
             fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
             fontFamily: 'Inter',
           ),
         ),
         actions: [
           IconButton(
-            tooltip: 'Trainer Business Profile',
-            icon: const Icon(Icons.badge_outlined, color: _mint),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const TrainerProfileScreen(),
-                ),
-              );
-            },
+            icon: const Icon(Icons.insights, color: _mint, size: 22),
+            onPressed: _openAnalytics,
           ),
           IconButton(
-            tooltip: 'Workspace Settings',
-            icon: const Icon(Icons.settings_outlined, color: _offWhite),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const TrainerWorkspaceSettingsScreen(),
+            icon: const Icon(Icons.search, color: _offWhite, size: 22),
+            onPressed: () {},
+          ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.notifications_none, color: _offWhite, size: 22),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const TrainerNotificationsScreen()),
                 ),
-              );
-            },
+              ),
+              Positioned(
+                top: 14,
+                right: 14,
+                child: Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFEF4444),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        children: [
-          // 1. BUSINESS HERO CARD
-          Container(
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: _mint.withValues(alpha: 0.3)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: _forest,
-                        borderRadius: BorderRadius.circular(6),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          children: [
+            // Hero Card
+            Container(
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const TrainerProfileScreen()),
+                        ),
+                        child: Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF14241E),
+                            shape: BoxShape.circle,
+                            border: Border.all(color: const Color(0x3334D399)),
+                          ),
+                          child: const Icon(Icons.person_outline, color: _mint, size: 22),
+                        ),
                       ),
-                      child: const Text(
-                        'CERTIFIED PRO TRAINER',
-                        style: TextStyle(color: _mint, fontSize: 10, fontWeight: FontWeight.w800),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Take the Lead Essex',
+                              style: TextStyle(
+                                color: _offWhite,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            const Text(
+                              'Liv Old',
+                              style: TextStyle(
+                                color: _stoneGrey,
+                                fontSize: 13,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: const Color(0x1A34D399),
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: const Color(0x4D34D399)),
+                              ),
+                              child: const Text(
+                                'TRAINER PACK',
+                                style: TextStyle(
+                                  color: Color(0xFF34D399),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w800,
+                                  letterSpacing: 0.8,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+                      IconButton(
+                        icon: const Icon(Icons.settings_outlined, color: _stoneGrey, size: 20),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const TrainerWorkspaceSettingsScreen(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 18),
+                  const Text(
+                    'Good morning, Liv',
+                    style: TextStyle(
+                      color: _offWhite,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.5,
                     ),
-                    const Row(
+                  ),
+                  const SizedBox(height: 16),
+
+                  // 2x2 Bento inside Hero
+                  Container(
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF14171A),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
                       children: [
-                        Icon(Icons.star, color: _gold, size: 14),
-                        SizedBox(width: 4),
-                        Text('4.9 (48 Reviews)', style: TextStyle(color: _stoneGrey, fontSize: 11)),
+                        Row(
+                          children: [
+                            _buildHeroStat('4', 'LESSONS TODAY'),
+                            Container(width: 1, height: 36, color: _cardBorder),
+                            _buildHeroStat('12', 'ACTIVE CLIENTS'),
+                          ],
+                        ),
+                        const Divider(color: _cardBorder, height: 20),
+                        Row(
+                          children: [
+                            _buildHeroStat('21', 'CLIENT DOGS'),
+                            Container(width: 1, height: 36, color: _cardBorder),
+                            _buildHeroStat('3', 'REVIEWS PENDING'),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // Search Bar
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: TextField(
+                controller: _searchController,
+                style: const TextStyle(color: _offWhite, fontSize: 14),
+                decoration: const InputDecoration(
+                  hintText: 'Search clients, dogs, records...',
+                  hintStyle: TextStyle(color: _stoneGrey, fontSize: 13),
+                  prefixIcon: Icon(Icons.search, color: _stoneGrey, size: 20),
+                  border: InputBorder.none,
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(vertical: 12),
                 ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Vanguard Working K9 Academy',
-                  style: TextStyle(
-                    color: _offWhite,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'Inter',
+              ),
+            ),
+
+            const SizedBox(height: 24),
+            const Text(
+              'ATTENTION REQUIRED',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Attention Required Card
+            Container(
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                children: [
+                  _buildAttentionRow(
+                    icon: Icons.assignment_outlined,
+                    title: '3 Homework Assignments Pending',
+                    subtitle: 'Murphy • Emma Johnson',
+                    time: '2 hours ago',
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const HomeworkTrainingPlansScreen(),
+                      ),
+                    ),
+                  ),
+                  const Divider(color: _cardBorder, height: 1),
+                  _buildAttentionRow(
+                    icon: Icons.person_outline,
+                    title: 'Incomplete client profile',
+                    subtitle: 'James Harlow',
+                    time: 'Yesterday',
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ClientsPageScreen()),
+                    ),
+                  ),
+                  const Divider(color: _cardBorder, height: 1),
+                  _buildAttentionRow(
+                    icon: Icons.check_circle_outline,
+                    title: 'New client invitation accepted',
+                    subtitle: 'Sarah & Bella',
+                    time: '1 hour ago',
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ClientsPageScreen()),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+            const Text(
+              "TODAY'S SCHEDULE",
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Today's Schedule Card
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '09:00',
+                        style: TextStyle(
+                          color: _offWhite,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Emma • Murphy',
+                              style: TextStyle(
+                                color: _offWhite,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            const Text(
+                              'Obedience Session',
+                              style: TextStyle(color: _stoneGrey, fontSize: 13),
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: const [
+                                Icon(Icons.place_outlined, color: _stoneGrey, size: 13),
+                                SizedBox(width: 4),
+                                Text(
+                                  'Chelmsford Training Ground',
+                                  style: TextStyle(color: _stoneGrey, fontSize: 11),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: const Color(0x1F34D399),
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(color: const Color(0x4D34D399)),
+                        ),
+                        child: const Text(
+                          'CONFIRMED',
+                          style: TextStyle(
+                            color: Color(0xFF34D399),
+                            fontSize: 10,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(color: _cardBorder, height: 28),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '11:30',
+                        style: TextStyle(
+                          color: _offWhite,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'James • Bella',
+                              style: TextStyle(
+                                color: _offWhite,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(height: 2),
+                            Text(
+                              'Recall Lesson',
+                              style: TextStyle(color: _stoneGrey, fontSize: 13),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'Private Session',
+                              style: TextStyle(color: _stoneGrey, fontSize: 11),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF262C30),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: const Text(
+                          'UPCOMING',
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(color: _cardBorder, height: 28),
+                  InkWell(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const GlobalCalendarScreen()),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          'View Full Calendar',
+                          style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(width: 6),
+                        Icon(Icons.arrow_forward, color: _mint, size: 14),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+            const Text(
+              'QUICK ACTIONS',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            // 6 Quick Action Grid Tiles
+            GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 3,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              childAspectRatio: 1.05,
+              children: [
+                _buildActionTile(
+                  icon: Icons.person_add_outlined,
+                  label: 'Add Client',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AddClientScreen()),
                   ),
                 ),
-                const SizedBox(height: 2),
-                const Text(
-                  'Head Instructor: Alex Rivers • License #USCA-TR-842',
-                  style: TextStyle(color: _stoneGrey, fontSize: 12),
+                _buildActionTile(
+                  icon: Icons.play_circle_outline,
+                  label: 'Start Lesson',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const RecordSessionScreen()),
+                  ),
                 ),
-                const SizedBox(height: 16),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                _buildActionTile(
+                  icon: Icons.assignment_outlined,
+                  label: 'Assign Task',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ClientHomeworkScreen(clientName: 'Emma Johnson'),
+                    ),
+                  ),
+                ),
+                _buildActionTile(
+                  icon: Icons.note_alt_outlined,
+                  label: 'Trainer\nNotes',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const TrainerNotesScreen()),
+                  ),
+                ),
+                _buildActionTile(
+                  icon: Icons.flag_outlined,
+                  label: 'Create Goal',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const CreateGoalScreen()),
+                  ),
+                ),
+                _buildActionTile(
+                  icon: Icons.calendar_today_outlined,
+                  label: 'Open\nCalendar',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const GlobalCalendarScreen()),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+            const Text(
+              'RECENT ACTIVITY',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Recent Activity Card
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                children: [
+                  _buildActivityItem('Emma completed Recall Homework', 'Murphy', '1h ago'),
+                  const Divider(color: _cardBorder, height: 20),
+                  _buildActivityItem('James uploaded a training video', 'Bella', '3h ago'),
+                  const Divider(color: _cardBorder, height: 20),
+                  _buildActivityItem(
+                    'Murphy achieved a Personal Best',
+                    'Murphy',
+                    'Yesterday',
+                    hasStar: true,
+                  ),
+                  const Divider(color: _cardBorder, height: 20),
+                  InkWell(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const TrainerReportsScreen()),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          'View All Activity',
+                          style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(width: 6),
+                        Icon(Icons.arrow_forward, color: _mint, size: 14),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+            const Text(
+              'BUSINESS SNAPSHOT',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Business Snapshot Card
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      _buildSnapCol('12', 'Active Clients'),
+                      _buildSnapCol('21', 'Client Dogs'),
+                      _buildSnapCol('8', 'Lessons Week'),
+                    ],
+                  ),
+                  const Divider(color: _cardBorder, height: 24),
+                  Row(
+                    children: [
+                      _buildSnapCol('14', 'HW Assigned'),
+                      _buildSnapCol('31', 'Active Goals'),
+                      _buildSnapCol('47', 'Recorded'),
+                    ],
+                  ),
+                  const Divider(color: _cardBorder, height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        'Weekly Lesson Volume',
+                        style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        'Current Week: 8',
+                        style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  // Lesson volume bar row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildDayBar('M', 16, false),
+                      _buildDayBar('T', 28, false),
+                      _buildDayBar('W', 18, false),
+                      _buildDayBar('T', 40, true),
+                      _buildDayBar('F', 32, false),
+                      _buildDayBar('S', 12, false),
+                      _buildDayBar('S', 6, false),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 36),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeroStat(String val, String label) {
+    return Expanded(
+      child: Column(
+        children: [
+          Text(
+            val,
+            style: const TextStyle(
+              color: _offWhite,
+              fontSize: 22,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            label,
+            style: const TextStyle(
+              color: _stoneGrey,
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.8,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAttentionRow({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required String time,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        child: Row(
+          children: [
+            const Icon(Icons.circle, color: Color(0xFF34D399), size: 8),
+            const SizedBox(width: 10),
+            Icon(icon, color: _stoneGrey, size: 20),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: _offWhite,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(color: _stoneGrey, fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              time,
+              style: const TextStyle(color: _stoneGrey, fontSize: 11),
+            ),
+            const SizedBox(width: 4),
+            const Icon(Icons.arrow_forward_ios, color: _stoneGrey, size: 12),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionTile({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(14),
+      child: Container(
+        decoration: BoxDecoration(
+          color: _carbon,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: _cardBorder),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: _offWhite, size: 24),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActivityItem(
+    String action,
+    String dog,
+    String time, {
+    bool hasStar = false,
+  }) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            action,
+            style: const TextStyle(color: _offWhite, fontSize: 13),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          decoration: BoxDecoration(
+            color: const Color(0xFF262C30),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+            dog,
+            style: const TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.w600),
+          ),
+        ),
+        if (hasStar) ...[
+          const SizedBox(width: 6),
+          const Icon(Icons.star_border, color: Color(0xFFECC94B), size: 14),
+        ],
+        const SizedBox(width: 8),
+        Text(time, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+      ],
+    );
+  }
+
+  Widget _buildSnapCol(String val, String label) {
+    return Expanded(
+      child: Column(
+        children: [
+          Text(
+            val,
+            style: const TextStyle(
+              color: _offWhite,
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: _stoneGrey,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDayBar(String day, double height, bool isPeak) {
+    return Column(
+      children: [
+        Container(
+          width: 32,
+          height: 48,
+          alignment: Alignment.bottomCenter,
+          decoration: BoxDecoration(
+            color: const Color(0xFF14171A),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Container(
+            width: 32,
+            height: height,
+            decoration: BoxDecoration(
+              color: isPeak ? const Color(0xFF5D8FAF) : const Color(0xFF2A3A44),
+              borderRadius: BorderRadius.circular(6),
+            ),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          day,
+          style: TextStyle(
+            color: isPeak ? _offWhite : _stoneGrey,
+            fontSize: 11,
+            fontWeight: isPeak ? FontWeight.w800 : FontWeight.w500,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAnalyticsSheet(ScrollController scrollController) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListView(
+        controller: scrollController,
+        children: [
+          const SizedBox(height: 12),
+          Center(
+            child: Container(
+              width: 38,
+              height: 4,
+              decoration: BoxDecoration(
+                color: _stoneGrey,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Text(
+                'Analytics',
+                style: TextStyle(
+                  color: _offWhite,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              Icon(Icons.tune, color: _stoneGrey, size: 20),
+            ],
+          ),
+          const SizedBox(height: 14),
+
+          // Timeframe Pills
+          Row(
+            children: [
+              _buildFilterPill('THIS WEEK', true),
+              const SizedBox(width: 8),
+              _buildFilterPill('THIS MONTH', false),
+              const SizedBox(width: 8),
+              _buildFilterPill('LAST 90 DAYS', false),
+            ],
+          ),
+          const SizedBox(height: 16),
+
+          // 6-metric card
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                Row(
                   children: [
-                    _MetricItem('28', 'Active Clients'),
-                    _MetricItem('14', 'Lessons This Week'),
-                    _MetricItem('96%', 'Homework Return'),
+                    _buildHeroStat('12', 'ACTIVE CLIENTS'),
+                    Container(width: 1, height: 36, color: _cardBorder),
+                    _buildHeroStat('21', 'CLIENT DOGS'),
+                  ],
+                ),
+                const Divider(color: _cardBorder, height: 24),
+                Row(
+                  children: [
+                    _buildHeroStat('8', 'LESSONS THIS WEEK'),
+                    Container(width: 1, height: 36, color: _cardBorder),
+                    _buildHeroStat('31', 'ACTIVE GOALS'),
+                  ],
+                ),
+                const Divider(color: _cardBorder, height: 24),
+                Row(
+                  children: [
+                    _buildHeroStat('82%', 'HOMEWORK COMPLETION'),
+                    Container(width: 1, height: 36, color: _cardBorder),
+                    _buildHeroStat('14', 'SESSIONS RECORDED'),
                   ],
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
 
-          // 2. QUICK ACTIONS GRID
-          Row(
-            children: [
-              Expanded(
-                child: _buildActionTile(
-                  icon: Icons.people_alt_outlined,
-                  title: 'Clients Page',
-                  subtitle: 'Roster & dog files',
-                  color: _mint,
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ClientsPageScreen())),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildActionTile(
-                  icon: Icons.person_add_alt_1_outlined,
-                  title: 'Add Client',
-                  subtitle: 'Onboard new team',
-                  color: _gold,
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddClientScreen())),
-                ),
-              ),
-            ],
+          const Text(
+            'LESSON ACTIVITY',
+            style: TextStyle(
+              color: _stoneGrey,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 1.2,
+            ),
           ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: _buildActionTile(
-                  icon: Icons.assignment_outlined,
-                  title: 'Client Homework',
-                  subtitle: 'Assigned drills',
-                  color: _blue,
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ClientHomeworkScreen())),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildActionTile(
-                  icon: Icons.analytics_outlined,
-                  title: 'Trainer Reports',
-                  subtitle: 'Retention & graphs',
-                  color: _forest,
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TrainerReportsScreen())),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-
-          // 3. WEEKLY CLIENT LESSON VOLUME (Interactive Chart)
-          _buildSectionHeader('WEEKLY LESSON ENGAGEMENT (HOURS)'),
           const SizedBox(height: 8),
+
+          // Interactive fl_chart BarChart for Lesson Activity
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -208,310 +1001,219 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Total Training Hours: 26.5 hrs', style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w700)),
-                    Text('+18% vs last week', style: TextStyle(color: _gold, fontSize: 11, fontWeight: FontWeight.w700)),
+                  children: const [
+                    Text(
+                      '32 Lessons',
+                      style: TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.w800),
+                    ),
+                    Text(
+                      '↑ +12% vs last mo',
+                      style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w600),
+                    ),
                   ],
                 ),
+                const Text('THIS MONTH', style: TextStyle(color: _stoneGrey, fontSize: 10)),
                 const SizedBox(height: 16),
                 SizedBox(
-                  height: 130,
+                  height: 120,
                   child: BarChart(
                     BarChartData(
-                      maxY: 8,
-                      barGroups: [
-                        _makeBar(0, 4.5, _mint),
-                        _makeBar(1, 5.0, _mint),
-                        _makeBar(2, 6.5, _gold),
-                        _makeBar(3, 4.0, _mint),
-                        _makeBar(4, 5.5, _mint),
-                        _makeBar(5, 7.2, _forest),
-                        _makeBar(6, 3.8, _stoneGrey),
-                      ],
+                      alignment: BarChartAlignment.spaceAround,
+                      maxY: 10,
+                      barTouchData: BarTouchData(enabled: true),
                       titlesData: FlTitlesData(
+                        show: true,
                         topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                        leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
                         rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                        leftTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            reservedSize: 24,
-                            getTitlesWidget: (v, _) => Text('${v.toInt()}h', style: const TextStyle(color: _stoneGrey, fontSize: 9)),
-                          ),
-                        ),
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-                            getTitlesWidget: (v, _) {
-                              const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-                              return Text(days[v.toInt()], style: const TextStyle(color: _stoneGrey, fontSize: 9));
+                            getTitlesWidget: (v, m) {
+                              const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+                              if (v.toInt() >= 0 && v.toInt() < 7) {
+                                return Text(
+                                  days[v.toInt()],
+                                  style: TextStyle(
+                                    color: v.toInt() == 2 ? _mint : _stoneGrey,
+                                    fontSize: 10,
+                                    fontWeight: v.toInt() == 2 ? FontWeight.w800 : FontWeight.w400,
+                                  ),
+                                );
+                              }
+                              return const SizedBox.shrink();
                             },
                           ),
                         ),
                       ),
-                      borderData: FlBorderData(show: false),
                       gridData: FlGridData(
                         show: true,
                         drawVerticalLine: false,
-                        getDrawingHorizontalLine: (_) => const FlLine(color: Color(0x14FFFFFF), strokeWidth: 1),
+                        horizontalInterval: 3,
+                        getDrawingHorizontalLine: (v) => const FlLine(color: Color(0x1AFFFFFF), strokeWidth: 1),
                       ),
+                      borderData: FlBorderData(show: false),
+                      barGroups: [
+                        _buildGroup(0, 3, false),
+                        _buildGroup(1, 4.5, false),
+                        _buildGroup(2, 8, true),
+                        _buildGroup(3, 5.5, false),
+                        _buildGroup(4, 7, false),
+                        _buildGroup(5, 3, false),
+                        _buildGroup(6, 2, false),
+                      ],
                     ),
                   ),
+                ),
+                const Divider(color: _cardBorder, height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Average 1.6 lessons/day', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF262C30),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: const Text(
+                        'PEAK: WED',
+                        style: TextStyle(color: _offWhite, fontSize: 10, fontWeight: FontWeight.w800),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
-
-          // 4. TODAY'S CLIENT SCHEDULE
-          _buildSectionHeader('TODAY\'S LESSONS & EVALUATIONS'),
-          const SizedBox(height: 8),
-          _buildLessonCard(
-            time: '09:00 AM',
-            client: 'Sarah Jenkins • Baron (GSD)',
-            drill: 'Phase B Focused Heeling & 1m Hurdle',
-            status: 'Confirmed',
-            statusColor: _mint,
-          ),
-          _buildLessonCard(
-            time: '11:30 AM',
-            client: 'David Miller • Luna (Dutch Shepherd)',
-            drill: 'Scent Article Indication & Blind Search',
-            status: 'Confirmed',
-            statusColor: _mint,
-          ),
-          _buildLessonCard(
-            time: '02:00 PM',
-            client: 'Elena Rostova • Thor (Doberman)',
-            drill: 'Puppy Drive Building & Rag Tug Engagement',
-            status: 'Pending',
-            statusColor: _gold,
-          ),
-
           const SizedBox(height: 24),
+
+          // Homework Completion Rate
+          const Text(
+            'HOMEWORK',
+            style: TextStyle(
+              color: _stoneGrey,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 1.2,
+            ),
+          ),
+          const SizedBox(height: 8),
+
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text('Completion Rate', style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.w700)),
+                    Text('82%', style: TextStyle(color: _mint, fontSize: 18, fontWeight: FontWeight.w800)),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: LinearProgressIndicator(
+                    value: 0.82,
+                    backgroundColor: const Color(0xFF262C30),
+                    valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF34D399)),
+                    minHeight: 8,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Row(
+                  children: const [
+                    Icon(Icons.circle, color: Color(0xFF34D399), size: 8),
+                    SizedBox(width: 6),
+                    Text('11 completed', style: TextStyle(color: _stoneGrey, fontSize: 11)),
+                    Spacer(),
+                    Icon(Icons.circle, color: Color(0xFF5D8FAF), size: 8),
+                    SizedBox(width: 6),
+                    Text('2 awaiting review', style: TextStyle(color: _stoneGrey, fontSize: 11)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: const [
+                    Icon(Icons.circle, color: Color(0xFFEF4444), size: 8),
+                    SizedBox(width: 6),
+                    Text('1 overdue', style: TextStyle(color: _stoneGrey, fontSize: 11)),
+                    Spacer(),
+                    Icon(Icons.circle, color: _stoneGrey, size: 8),
+                    SizedBox(width: 6),
+                    Text('14 total assigned', style: TextStyle(color: _stoneGrey, fontSize: 11)),
+                  ],
+                ),
+                const Divider(color: _cardBorder, height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Avg completion pace', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF14241E),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: const [
+                          Icon(Icons.timer_outlined, color: _mint, size: 12),
+                          SizedBox(width: 4),
+                          Text(
+                            '4.2 days',
+                            style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 32),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  BarChartGroupData _makeBar(int x, double y, Color color) {
+  Widget _buildFilterPill(String title, bool isSel) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      decoration: BoxDecoration(
+        color: isSel ? const Color(0xFF14241E) : _carbon,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: isSel ? const Color(0xFF34D399) : _cardBorder),
+      ),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: isSel ? const Color(0xFF34D399) : _stoneGrey,
+          fontSize: 11,
+          fontWeight: isSel ? FontWeight.w700 : FontWeight.w500,
+        ),
+      ),
+    );
+  }
+
+  BarChartGroupData _buildGroup(int x, double y, bool isHighlight) {
     return BarChartGroupData(
       x: x,
       barRods: [
         BarChartRodData(
           toY: y,
-          color: color,
-          width: 20,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(5)),
+          color: isHighlight ? _mint : const Color(0xFF34D399).withValues(alpha: 0.6),
+          width: 8,
+          borderRadius: BorderRadius.circular(4),
         ),
-      ],
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _stoneGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
-      ),
-    );
-  }
-
-  Widget _buildActionTile({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: _carbon,
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: _cardBorder),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, color: color, size: 20),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              title,
-              style: const TextStyle(
-                color: _offWhite,
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 2),
-            Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLessonCard({
-    required String time,
-    required String client,
-    required String drill,
-    required String status,
-    required Color statusColor,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: const Color(0xFF131718),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(time, style: TextStyle(color: statusColor, fontSize: 11, fontWeight: FontWeight.w800)),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(client, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w700)),
-                const SizedBox(height: 2),
-                Text(drill, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            decoration: BoxDecoration(
-              color: statusColor.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Text(status, style: TextStyle(color: statusColor, fontSize: 9, fontWeight: FontWeight.w800)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MetricItem extends StatelessWidget {
-  final String val;
-  final String label;
-
-  const _MetricItem(this.val, this.label);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(val, style: const TextStyle(color: _mint, fontSize: 16, fontWeight: FontWeight.w800)),
-        const SizedBox(height: 2),
-        Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 10)),
       ],
     );
   }

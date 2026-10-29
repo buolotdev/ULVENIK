@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
-const Color _pureBlack = Color(0xFF000000);
+const Color _obsidian = Color(0xFF101214);
 const Color _carbon = Color(0xFF1A1F22);
-const Color _forest = Color(0xFF2E6B57);
+const Color _cardBorder = Color(0x14FFFFFF);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
@@ -15,9 +15,9 @@ class VideoViewerScreen extends StatefulWidget {
 
   const VideoViewerScreen({
     super.key,
-    this.title = 'Bite Phase C — Escape & Full Grip (4K 60fps)',
-    this.dogName = 'Koda • Belgian Malinois',
-    this.duration = '03:45',
+    this.title = 'Tracking Exercise — Session 14',
+    this.dogName = 'Koda',
+    this.duration = '1:34',
   });
 
   @override
@@ -26,268 +26,354 @@ class VideoViewerScreen extends StatefulWidget {
 
 class _VideoViewerScreenState extends State<VideoViewerScreen> {
   bool _isPlaying = false;
-  double _position = 0.38; // 38% played
-  double _playbackSpeed = 1.0;
-  bool _showControls = true;
-  bool _isBookmarked = true;
-
-  void _togglePlayPause() {
-    setState(() => _isPlaying = !_isPlaying);
-  }
-
-  void _skip(double delta) {
-    setState(() {
-      _position = (_position + delta).clamp(0.0, 1.0);
-    });
-  }
+  double _progress = 0.12;
+  bool _isFavorite = true;
+  double _speed = 1.0;
 
   @override
   Widget build(BuildContext context) {
-    final currentSeconds = (_position * 225).toInt();
-    final mins = currentSeconds ~/ 60;
-    final secs = (currentSeconds % 60).toString().padLeft(2, '0');
-    final formattedTime = '0$mins:$secs';
-
     return Scaffold(
-      backgroundColor: _pureBlack,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => setState(() => _showControls = !_showControls),
-          behavior: HitTestBehavior.opaque,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              // 1. VIDEO VIEWPORT CANVAS
-              Center(
-                child: AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF131718),
-                      border: Border.symmetric(
-                        horizontal: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+      backgroundColor: _obsidian,
+      appBar: AppBar(
+        backgroundColor: _obsidian,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert, color: _offWhite),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: ListView(
+        children: [
+          // VIDEO VIEWPORT
+          Container(
+            height: 240,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF152220), Color(0xFF0F1414)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Stack(
+              children: [
+                Center(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _isPlaying = !_isPlaying),
+                    child: Container(
+                      width: 56,
+                      height: 56,
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.5),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: _cardBorder),
                       ),
-                    ),
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Center(
-                          child: Icon(
-                            Icons.videocam_outlined,
-                            size: 80,
-                            color: _mint.withValues(alpha: 0.25),
-                          ),
-                        ),
-                        // Real-time telemetry HUD overlay on video
-                        Positioned(
-                          top: 14,
-                          left: 14,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: Colors.black.withValues(alpha: 0.7),
-                              borderRadius: BorderRadius.circular(6),
-                              border: Border.all(color: _mint.withValues(alpha: 0.4)),
-                            ),
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.favorite, color: Colors.redAccent, size: 14),
-                                SizedBox(width: 6),
-                                Text(
-                                  '168 BPM • 24.2 KM/H',
-                                  style: TextStyle(
-                                    color: _mint,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w800,
-                                    letterSpacing: 0.6,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                      child: Icon(
+                        _isPlaying ? Icons.pause : Icons.play_arrow,
+                        color: _offWhite,
+                        size: 32,
+                      ),
                     ),
                   ),
                 ),
-              ),
+                // Scrub bar & times
+                Positioned(
+                  bottom: 40,
+                  left: 16,
+                  right: 16,
+                  child: Row(
+                    children: [
+                      const Text('0:12', style: TextStyle(color: _offWhite, fontSize: 11, fontWeight: FontWeight.bold)),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: SliderTheme(
+                          data: SliderThemeData(
+                            thumbColor: _mint,
+                            activeTrackColor: _mint,
+                            inactiveTrackColor: const Color(0xFF323B3E),
+                            trackHeight: 3,
+                            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
+                          ),
+                          child: Slider(
+                            value: _progress,
+                            onChanged: (v) => setState(() => _progress = v),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text('1:34', style: TextStyle(color: _stoneGrey, fontSize: 11)),
+                    ],
+                  ),
+                ),
+                // Bottom control icons
+                Positioned(
+                  bottom: 8,
+                  left: 16,
+                  right: 16,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Icon(Icons.volume_up_outlined, color: _offWhite, size: 20),
+                      const SizedBox(width: 16),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (_speed == 1.0) {
+                              _speed = 1.5;
+                            } else if (_speed == 1.5) {
+                              _speed = 2.0;
+                            } else {
+                              _speed = 1.0;
+                            }
+                          });
+                        },
+                        child: Text('${_speed == 1.0 ? '1' : _speed}x', style: const TextStyle(color: _offWhite, fontSize: 12, fontWeight: FontWeight.bold)),
+                      ),
+                      const SizedBox(width: 16),
+                      const Icon(Icons.fullscreen, color: _offWhite, size: 22),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
 
-              // 2. OVERLAY CONTROLS (Fades in/out on tap)
-              AnimatedOpacity(
-                duration: const Duration(milliseconds: 200),
-                opacity: _showControls ? 1.0 : 0.0,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Top App Bar
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Row(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // METADATA CARD
+                Container(
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.title,
+                        style: const TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
                         children: [
-                          IconButton(
-                            icon: const Icon(Icons.arrow_back, color: _offWhite),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                          const SizedBox(width: 6),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.title,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    color: _offWhite,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'Inter',
-                                  ),
-                                ),
-                                Text(
-                                  widget.dogName,
-                                  style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              _isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-                              color: _isBookmarked ? _mint : _offWhite,
-                            ),
-                            onPressed: () => setState(() => _isBookmarked = !_isBookmarked),
-                          ),
+                          Expanded(child: _buildMetaCol('DATE', '12 Jul 2026')),
+                          Expanded(child: _buildMetaCol('DOG', widget.dogName)),
                         ],
                       ),
-                    ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(child: _buildMetaCol('DURATION', widget.duration)),
+                          Expanded(child: _buildMetaCol('ACTIVITY', 'Tracking')),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      const Divider(color: _cardBorder),
+                      const SizedBox(height: 8),
+                      const Text(
+                        '1080p • 47.2 MB',
+                        style: TextStyle(color: _stoneGrey, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 14),
 
-                    // Center Play / Pause & Skip Buttons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.replay_10, color: _offWhite, size: 36),
-                          onPressed: () => _skip(-0.05),
-                        ),
-                        const SizedBox(width: 24),
-                        GestureDetector(
-                          onTap: _togglePlayPause,
-                          child: Container(
-                            width: 64,
-                            height: 64,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _forest,
-                              border: Border.all(color: _mint, width: 2),
-                            ),
-                            child: Icon(
-                              _isPlaying ? Icons.pause : Icons.play_arrow,
-                              color: _offWhite,
-                              size: 34,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 24),
-                        IconButton(
-                          icon: const Icon(Icons.forward_10, color: _offWhite, size: 36),
-                          onPressed: () => _skip(0.05),
-                        ),
-                      ],
-                    ),
+                // ACTION BUTTONS BAR
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildActionBtn(
+                        icon: _isFavorite ? Icons.favorite : Icons.favorite_border,
+                        label: 'Favourite',
+                        color: _isFavorite ? const Color(0xFFECC94B) : _stoneGrey,
+                        onTap: () => setState(() => _isFavorite = !_isFavorite),
+                      ),
+                      _buildActionBtn(icon: Icons.share_outlined, label: 'Share', color: _stoneGrey, onTap: () {}),
+                      _buildActionBtn(icon: Icons.download_outlined, label: 'Download', color: _stoneGrey, onTap: () {}),
+                      _buildActionBtn(icon: Icons.open_in_new, label: 'Open', color: _stoneGrey, onTap: () {}),
+                      _buildActionBtn(icon: Icons.delete_outline, label: 'Delete', color: _stoneGrey, onTap: () {}),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
 
-                    // Bottom Scrubber & Toolbar
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            Colors.black.withValues(alpha: 0.95),
-                            Colors.transparent,
+                // LINKED RECORD
+                const Text(
+                  'LINKED RECORD',
+                  style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.description_outlined, color: _stoneGrey, size: 22),
+                      const SizedBox(width: 14),
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Training Session — 12 Jul 2026',
+                              style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 2),
+                            Text('Tracking • 45 min • Koda', style: TextStyle(color: _stoneGrey, fontSize: 12)),
                           ],
                         ),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          // Scrubber Bar
-                          Row(
-                            children: [
-                              Text(formattedTime, style: const TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w700)),
-                              Expanded(
-                                child: Slider(
-                                  value: _position,
-                                  activeColor: _mint,
-                                  inactiveColor: const Color(0xFF2E3236),
-                                  onChanged: (val) => setState(() => _position = val),
-                                ),
-                              ),
-                              Text(widget.duration, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-
-                          // Speed multipliers & actions
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [0.25, 0.5, 1.0, 1.5].map((speed) {
-                                  final isSel = _playbackSpeed == speed;
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 6),
-                                    child: GestureDetector(
-                                      onTap: () => setState(() => _playbackSpeed = speed),
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                        decoration: BoxDecoration(
-                                          color: isSel ? _forest : _carbon,
-                                          borderRadius: BorderRadius.circular(6),
-                                          border: Border.all(color: isSel ? _mint : Colors.transparent),
-                                        ),
-                                        child: Text(
-                                          '${speed}x',
-                                          style: TextStyle(
-                                            color: isSel ? _offWhite : _stoneGrey,
-                                            fontSize: 11,
-                                            fontWeight: isSel ? FontWeight.w800 : FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                              Row(
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.share_outlined, color: _offWhite, size: 20),
-                                    onPressed: () {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(content: Text('Video link shared via system sheet.'), backgroundColor: _forest),
-                                      );
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.fullscreen, color: _offWhite, size: 22),
-                                    onPressed: () {},
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                      const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 24),
+
+                // NOTES
+                const Text(
+                  'NOTES',
+                  style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: const Text(
+                    'Koda showed strong focus today during the tracking sequence. Extended the search distance to 40m with consistent performance. No distractions from environmental stimuli.',
+                    style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // TAGS
+                const Text(
+                  'TAGS',
+                  style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 8,
+                  children: ['Tracking', 'Outdoor', 'Distance Work', 'Session'].map((tag) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: _carbon,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: _cardBorder),
+                      ),
+                      child: Text(tag, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 24),
+
+                // RELATED VIDEOS
+                const Text(
+                  'RELATED VIDEOS',
+                  style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+                ),
+                const SizedBox(height: 10),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      _buildVideoThumb('0:52', '10 Jul'),
+                      const SizedBox(width: 8),
+                      _buildVideoThumb('1:14', '8 Jul'),
+                      const SizedBox(width: 8),
+                      _buildVideoThumb('2:05', '5 Jul'),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 40),
+              ],
+            ),
           ),
-        ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMetaCol(String label, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.1)),
+        const SizedBox(height: 4),
+        Text(value, style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600)),
+      ],
+    );
+  }
+
+  Widget _buildActionBtn({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Icon(icon, color: color, size: 20),
+          const SizedBox(height: 4),
+          Text(label, style: TextStyle(color: color, fontSize: 10)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVideoThumb(String dur, String date) {
+    return Container(
+      width: 100,
+      height: 72,
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: _cardBorder),
+      ),
+      padding: const EdgeInsets.all(6),
+      child: Stack(
+        children: [
+          const Center(child: Icon(Icons.play_arrow_outlined, color: _stoneGrey, size: 24)),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Text(dur, style: const TextStyle(color: _offWhite, fontSize: 9, fontWeight: FontWeight.bold)),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Text(date, style: const TextStyle(color: _stoneGrey, fontSize: 9)),
+          ),
+        ],
       ),
     );
   }

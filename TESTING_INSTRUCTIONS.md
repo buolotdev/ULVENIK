@@ -1,425 +1,769 @@
-# Screen Testing Instructions
+# Ulvenik — Complete Visual Screen Testing & Verification Guide
 
-### Timeline Memories
-1. Look at the main screen with the mountain photo at the top.
-2. In the top right header bar, click the `...` (three dots) button.
-3. In the dropdown menu, click **Timeline Memories**.
-4. To test the Empty State: Click the eye icon in the top right of the navigation bar.
-5. To test the Populated State: Click the eye icon again. Tap on the golden **"1 YEAR AGO TODAY"** card to launch the interactive full-screen story and reel player with auto-advancing progress timers.
+This guide provides end-to-end visual click-paths to navigate, test, and verify every single screen in the Ulvenik canine athletic management application. All instructions follow real user touch interactions with **zero code or class symbols**.
 
 ---
 
-### Timeline Activity Map
-1. Look at the main screen with the mountain photo at the top.
-2. In the top right header bar, click the `...` (three dots) button.
-3. In the dropdown menu, click **Timeline Activity Map**.
-4. To test the Default Map View: Tap the category pills at the top (`Training`, `S&C`, `Tracking`) or use the zoom `+` / `-` buttons on the right.
-5. To test Heatmap: Tap the flame/layers icon on the right side of the screen.
-6. To test Marker Selected State: Tap any circular pin on the map (for example, the green pin for "Riverside Trail") to open the bottom inspection sheet with distance, elevation, and frequency badges.
-7. To test the Empty State: Click the eye icon in the top right of the navigation bar.
+## CANONICAL NAVIGATION BARS
+
+Ulvenik uses a persistent 5-tab bottom navigation bar across all main hubs:
+- **Home**: Main dog overview, health status, next training session, activity bento.
+- **Dogs**: Canine profiles, skills curriculum, goal velocity tracker, strength & conditioning, statistics.
+- **Training**: Active session recording, drill timer, field telemetry.
+- **Timeline**: Chronological canine timeline, filters, calendar, search, activity map, memories, compare, smart collections, widgets gallery.
+- **More**: Workspace identity, settings, media library, billing, trainer workspace, sport pack.
 
 ---
 
-### Timeline Compare
-1. Look at the main screen with the mountain photo at the top.
-2. In the top right header bar, click the `...` (three dots) button.
-3. In the dropdown menu, click **Timeline Compare**.
-4. To test Dog vs Dog comparison: Tap the `Dog vs Dog` pill at the top, or click `...` and tap **Swap Compare Slots**.
-5. To test Year vs Year comparison: Tap the `Year vs Year` pill at the top.
-6. To test the Interactive Graph: Touch and drag across the two monthly curve lines to inspect monthly activity volume deltas.
-7. To test the Empty State: Click the eye icon in the top right of the navigation bar.
+## 1. TIMELINE ECOSYSTEM
+
+### 1.1 Global Timeline
+- **How to Access**: Tap the 4th tab labeled **Timeline** in the bottom navigation bar.
+- **What to Verify in Populated State**:
+  - Top bar shows dog avatar and name selector (`Murphy` / `Freya`).
+  - Active hero memory card with photo, date, and "Open Original Event" CTA.
+  - Chronological grouped date headers: `TODAY`, `YESTERDAY`, `EARLIER THIS WEEK`.
+  - Event cards for Training (Blue), Health (Red), S&C (Bronze), Goals (Gold), Competitions (Green).
+  - Tapping any card opens the Event Details view.
+  - Floating action button (Forest Green circle with `+`) opens the session recording sheet.
+- **How to Test Empty State**:
+  - Tap the dog name in the top bar to open the dog selection sheet, then select `Fenris (0 Events — Empty State Demo)` or tap the Eye icon in the top bar.
+  - Card displays "No Events Yet" with radar pulse animation and "Record Your First Session" CTA.
 
 ---
 
-### Timeline Smart Collections
-1. Look at the main screen with the mountain photo at the top.
-2. In the top right header bar, click the `...` (three dots) button.
-3. In the dropdown menu, click **Timeline Smart Collections**.
-4. To test Collection Creation: Tap the green **"New Smart Collection"** button at the bottom right, enter a title, choose a trigger rule, and tap "Create Collection".
-5. To test Favorites: Tap the heart icon on any collection card to toggle it on and off.
-6. To test the Empty State: Click the eye icon in the top right of the navigation bar.
+### 1.2 Timeline Insights
+- **How to Access**: Tap **Timeline** in bottom bar → Tap the three dots (`•••`) in top right → Select **Open Timeline Insights**.
+- **What to Verify in Populated State**:
+  - Top summary bento card: `24 Active Insights`, `Just Now Last Updated`, `3 Years Period Analysed`.
+  - `RECENTLY DISCOVERED` section: Gold badge `• 2 New` showing "Longest Goal Yet Completed" (94 Days) and Training insight cards.
+  - Split action bar: `Filter` and `Export`.
+  - 7 Expandable category accordions: Recording Consistency, Training, S&C, Health, Goals, Milestones, Activity Balance.
+- **Interactive Filter Testing**:
+  - Tap the filter icon (`🎚️`) in top bar or the `Filter` button.
+  - Select `Health` chip → Tap `Apply Filter`.
+  - Verify active filter indicator bar appears: `Filtered by: Health` with `Clear Filter` button.
+  - Verify ONLY the `Health` accordion is shown and automatically expanded.
+  - Tap `Clear Filter` → All 7 categories reappear.
+- **How to Test Empty State**:
+  - Tap the Eye icon in top right app bar to toggle empty state with lightbulb card and "Go to Timeline" button.
 
 ---
 
-### Timeline Widgets
-1. Look at the main screen with the mountain photo at the top.
-2. In the top right header bar, click the `...` (three dots) button.
-3. In the dropdown menu, click **Timeline Widgets**.
-4. To test Widget Previews: Tap the size filter pills at the top (`Small`, `Medium`, `Live Activity`).
-5. To test Live Activity Configuration: Tap the black pill-shaped **Dynamic Island** card at the top to open the device integration sheet.
-6. To test the Empty State: Click the eye icon in the top right of the navigation bar.
+### 1.3 Timeline Activity Map (3 Interactive States)
+- **How to Access**: Tap **Timeline** in bottom bar → Tap three dots (`•••`) in top right → Select **Open Activity Map**.
+- **State 1 — Default State**:
+  - Top carousel: `23 Locations`, `Riverside Trail (34 SESSIONS)`, `147 Events`.
+  - Interactive dark vector map canvas displaying Nordic Sport Grid lines, waterways, and trails.
+  - Numbered hotspot ring markers: `18` (Riverside Trail Loop), `7` (Alpine Ridge Summit), `9` (Bavarian Forest Grid), `4` (Meadow Agility Arena).
+  - Floating controls on right: Heatmap toggle, Split route toggle, GPS recenter target.
+  - Bottom location card: `Riverside Trail Loop` (4.8 km • 34 Sessions Recorded • Jan 2022 - Sep 2026).
+- **State 2 — Marker Selected State**:
+  - Tap the `18` cluster ring pin or tap the preview card at the bottom.
+  - Top GPS coordinates pill appears: `51.236° N • 0.570° W`.
+  - Pin pulses with a glowing green ring and a floating `• SELECTED` badge directly above it.
+  - Expanded bottom sheet slides up with 3 stat columns (Visits, First Visit, Last Visit), recent sessions list, and action buttons.
+  - Tap `✕` or tap anywhere on the map to return to Default State.
+- **State 3 — Empty State**:
+  - Tap the State Switcher icon in top bar or select `Empty State` from the `•••` menu.
+  - Centered card: Pin inside circular ripple, "No Recorded Locations", and "Go to Timeline" button.
 
 ---
 
-### More Page & More Dashboard
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**, the three horizontal dots icon).
-2. To test the Populated Hub: Scroll through the Handler Profile Card, System Telemetry Strip (Cloud Synced, 1.2 GB / 10 GB), Canine Tools, Preferences, Support, and Legal sections.
-3. To test the Empty State: Click the eye icon in the top right of the navigation bar. Click it again to return to the populated state.
-4. To test Sign Out confirmation: Tap the red **"Sign Out"** button at the bottom of the page.
+### 1.4 Timeline Memories
+- **How to Access**: Tap **Timeline** in bottom bar → Tap three dots (`•••`) in top right → Select **Open Timeline Memories**.
+- **What to Verify in Populated State**:
+  - Hero Card: Misty mountain background silhouette, `• ONE YEAR AGO TODAY` gold badge, title "Murphy's First Off-Lead Recall Session", date `14 Sep 2025 • Riverside Trail`, description, primary button `Open Original Event →`, and secondary button `Share This Memory`.
+  - `TODAY` section (2 Memories).
+  - `THIS MONTH` section (5 Memories) with `+ 3 more this month ˅` expand trigger.
+  - `MILESTONES` section (4 Memories) with green milestone badges.
+  - `ACHIEVEMENTS` section with recording streaks.
+  - `PREVIOUS YEARS` chronological sections (2024, 2023, 2022) with expand triggers.
+  - Bottom split bar: `Filter Categories` and `Browse Years` (year jump selector).
+- **How to Test Empty State**:
+  - Tap the Eye icon in top right app bar to view clock radar icon, "No Memories Yet", and `MILESTONE ENGINE` card with `STANDBY` status.
 
 ---
 
-### Notification Settings
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "PREFERENCES & APP SETTINGS" section, tap **Notification Settings**.
-3. To test Master Push Toggle: Flip the top **"Allow Notifications"** switch to turn all notification channels on or off.
-4. To test Reminder Advance Warning: Tap on **Advance Warning** (`15 min before`) to open the picker sheet and change warning intervals (5m, 15m, 30m, 1h, 1d).
-5. To test Categories: Toggle switches for Medication Alarms, Vaccine Expiry, Streak Milestones, or Quiet Hours.
+### 1.5 Timeline Compare (Interactive Chart)
+- **How to Access**: Tap **Timeline** in bottom bar → Tap three dots (`•••`) in top right → Select **Open Timeline Compare**.
+- **What to Verify in Populated State**:
+  - Period A card (`Sep 2026`, `74 Events`, green border) vs Period B card (`Aug 2026`, `61 Events`, blue border) with central `VS` badge. Tap edit pencil on either card to open the date interval picker.
+  - Preset range pills: `This Week vs Last Week`, `This Month vs Last Month`.
+  - `Summary` and `Categories` difference tables with numeric highlights.
+  - `Stacked Proportional Distribution Bar`: Multi-colored proportional bar for Period A vs Period B.
+  - `Activity` Chart: Animated interactive dual-line curve chart.
+    - Touch or drag along the curve to trigger interactive tooltips displaying event counts for both periods at that day index.
+  - `Recording Consistency`, `Locations`, and `Attachments` 2x2 comparison grid.
+  - Bottom split bar: `Change Dates` and `Export`.
+- **How to Test Empty State**:
+  - Tap the Eye icon in top right app bar to view dual comparison placeholder card and explanatory guide.
 
 ---
 
-### Appearance Settings
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "PREFERENCES & APP SETTINGS" section, tap **Appearance Settings**.
-3. To test Theme Profiles: Tap any of the theme tiles (**Dark Obsidian**, **Stealth Frost**, or **AMOLED Black**) to see the active selection indicator update.
-4. To test Accent Colors: Tap any color circle in the "PRIMARY ACCENT COLOR" row (Mint, Gold, Blue, Orange, Purple) to update the app's highlight color.
-5. To test Typography Scaling: Drag the Font Scale slider left or right (85% to 125%) to watch the live text sample resize dynamically.
-6. To test Field Mode: Toggle the **High-Contrast Field Mode** switch for bright sunlight legibility.
+### 1.6 Timeline Smart Collections
+- **How to Access**: Tap **Timeline** in bottom bar → Tap three dots (`•••`) in top right → Select **Open Smart Collections**.
+- **What to Verify in Populated State**:
+  - Search bar with magnifying glass and microphone icon for voice queries.
+  - Status indicator: `• 15 SMART PRESETS SYNCED` | `AUTO-COMPILED`.
+  - `TIME-BASED RANGE` (2x2 grid): `This Week` (12), `This Month` (47), `Last Month` (61), `This Year` (147).
+  - `MEDIA & ARTIFACTS` (2x2 grid): Events with Photos (89), Videos (23), Voice Notes (14), Documents (8).
+  - `SPORT & CONDITIONING` (2x2 grid): Training Journey (94), S&C Journey (31), Goal Journey (22), Recently Added (6).
+  - `HEALTH & BIOMETRICS`: Health Records (38), Weight History (24), and Vet Visits card.
+  - Tapping any card opens a preview modal with filtered timeline records.
+- **How to Test Empty State**:
+  - Tap the Eye icon in top right to view empty collections placeholder and help link.
 
 ---
 
-### Backup & Cloud Sync
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "PREFERENCES & APP SETTINGS" section, tap **Backup & Cloud Sync**.
-3. To test Manual Cloud Sync: Tap the **"Sync Now"** button in the top status card to trigger the real-time upload simulation with animated progress bar.
-4. To test Snapshot Restore: Tap **"Restore"** on any of the historical snapshots (e.g. *Manual Snapshot: Field Agility*) to open the confirmation modal.
-5. To test Local Archive: Tap the arrow on **Export Local Archive (.zip)** to generate an offline cold-storage zip.
+### 1.7 Timeline Widgets Gallery
+- **How to Access**: Tap **Timeline** in bottom bar → Tap three dots (`•••`) in top right → Select **Open Widgets Gallery**.
+- **What to Verify in Populated State**:
+  - Top `Home Dashboard` banner: `3 Widgets Active` with miniature preview tiles.
+  - Sections for `ACTIVITY`, `STATISTICS`, `HEALTH`, `GOALS`, `MEDIA` with `S`/`M`/`L` size selectors and `+ Add` / `✓ Added` buttons.
+  - Bottom Sticky Drawer: Selected widget indicator, `Tap to configure` chevron, `↺ Reset Layout`, and `+ Add Widget`.
+- **How to Test Empty State**:
+  - Tap the Eye icon in top right to view empty widgets wireframe and CTA.
 
 ---
 
-### Offline Mode & Downloads
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "PREFERENCES & APP SETTINGS" section, tap **Offline Mode & Downloads**.
-3. To test Wilderness Field Mode: Toggle the orange **"Force Offline Field Mode"** switch at the top.
-4. To test Map Downloading: Tap the download icon next to *Alpine Summit Ridge Satellite Contours* to watch the live progress download animation.
-5. To test Cache Cleanup: Tap the red **"Clear Downloaded Maps & Media"** button at the bottom of the page.
+### 1.8 Timeline Statistics (Interactive Curves & Donut Chart)
+- **How to Access**: Tap **Timeline** in bottom bar → Tap three dots (`•••`) in top right → Select **Open Timeline Statistics**.
+- **What to Verify in Populated State**:
+  - Canine identity: `Koda • Border Collie · 3 Years · Erik Voss`.
+  - Filter pills: `All Time`, `This Year` (active mint pill), `Last Year`, `This Month`.
+  - 3 Horizontal stat cards: `847 Total Events` (+12 this week), `14 Day Streak` (Longest: 31 days), `31 This Year`.
+  - `ACTIVITY OVER TIME` Section:
+    - Smooth animated spline chart with Jan, Apr, Jul, Oct, Dec milestones.
+    - Touch or tap the peak to trigger the interactive tooltip: `August 2026 / 58 Events` with glowing circular node.
+  - `CATEGORY BREAKDOWN` Section:
+    - Donut chart showing `847 Events` in center ring.
+    - Category legend with percentage pills: Training 42%, Health 16%, Comp 8%, S&C 18%, Other 16%.
+- **How to Test Empty State**:
+  - Tap three dots (`⋮`) in top right → Select `Toggle Empty State`.
+  - Verify centered bar chart icon, "No Statistics Yet", "Go to Timeline ->" CTA, and breathing pulsing skeleton containers.
 
 ---
 
-### Storage Management
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "PREFERENCES & APP SETTINGS" section, tap **Storage Management**.
-3. To test Donut Chart Breakdown: View the interactive multi-colored donut graph showing 4K Videos (Purple), Offline Maps (Blue), GPS Telemetry (Mint), and Cache (Orange).
-4. To test Cache Clearance: Tap the **"Clear"** button in the *Clear Temporary Cache* row to immediately wipe 80 MB of temporary data.
-5. To test Video Compression: Tap on **Compress Old Video Recordings** to open the transcoding confirmation modal.
+### 1.9 Timeline Calendar
+- **How to Access**: Tap **Timeline** in bottom bar → Tap calendar icon in top bar (or tap **More** → **Trainer Hub** → **Full Calendar**).
+- **What to Verify**:
+  - App bar with back arrow, "Calendar", search icon, filter icon.
+  - Hero header with misty forest banner, `Murphy`, `September 2026`, and canine thumbnail.
+  - Canine filter pills: `All Dogs` (selected mint pill), `Murphy`, `Monty`, `Minnie`, `+`.
+  - Month navigator: `< September 2026 Today >`.
+  - View tabs: `Month` (active mint underline), `Week`, `Day`, `Year`, `Agenda`.
+  - Monthly calendar matrix: Day 16 selected with highlighted circle and colored category dots.
+  - Day details: `Tuesday, 16 September • 3 events`:
+    - `Morning Obedience Session` (Murphy · 09:00 · 45 min)
+    - `Vet Check-Up` (Murphy · 14:30 · Riverside Vets)
+    - `Complete Recall Goal` `PLANNED` (Murphy · Due today)
+  - Quick action chips: `+ Add Training`, `+ Add Health`, `+ Add Reminder`.
+  - `UPCOMING` section: Hydrotherapy Session, IGP Trial, Vaccination Due, Weekly Weight Check.
+  - Floating action button (`+`) in bottom right.
 
 ---
 
-### Help Centre
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "SUPPORT & COMMUNITY" section, tap **Help Centre & Guides**.
-3. To test Live Knowledge Search: Type in the search box (e.g., "offline" or "heart rate") to watch the FAQ list filter instantaneously.
-4. To test FAQ Accordions: Tap any question tile to expand or collapse the comprehensive handler explanation.
-5. To test Topic Cards: Tap any topic card (**Getting Started**, **GPS & Field Maps**, **S&C & Telemetry**, **Cloud & Offline**) to open the topic guide sheet.
+### 1.10 Timeline Archive
+- **How to Access**: Tap **Timeline** in bottom bar → Tap three dots (`•••`) in top right → Select **Open Archive**.
+- **What to Verify in Populated State**:
+  - Header: `Koda • Border Collie, 3 Years • Handler: Erik Voss`.
+  - `TIMELINE ARCHIVE SUMMARY` Bento: `23 ARCHIVED EVENTS`, `18.4 MB STORAGE USED`, `3 Days Ago LAST ARCHIVED`.
+  - Colored indicator dots for Training, S&C, Health, Goals.
+  - Search bar with voice query microphone icon.
+  - Multi-select action bar: `Deselect All`, `Export`, `Restore` green pill button.
+  - Green banner: `MULTI-SELECT MODE • 3 Selected`.
+  - Archived event cards:
+    - `Tracking — Field Exercise (Advanced)` with 4 photo thumbnails and checkmark.
+    - `Annual Check-up — January 2026` with PDF attachment tag and checkmark.
+    - `Obedience — Basic Commands Refresher` with checkmark.
+    - Orphaned record: `Early Puppy Training — First Week` with info callout and `Remove Reference` link.
+    - Goals and S&C cards with individual `Restore` buttons.
+- **How to Test Empty State**:
+  - Tap three dots (`⋮`) in top right → Select `Toggle Empty State`.
+  - Verify archive box icon, "No Archived Events", "Return to Timeline" button, and bottom filter/search toolbar.
 
 ---
 
-### Contact Support
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "SUPPORT & COMMUNITY" section, tap **Contact Support** (or tap "Contact" in the Help Centre banner).
-3. To test Channels: Tap **Live Handler Chat** or **Email: support@ulvenik.com**.
-4. To test Ticket Submission: Select an inquiry category from the dropdown, type a brief message in the text field, and tap **"Send Inquiry"** to launch the confirmation dialog with ticket number registration.
+### 1.11 Timeline Export
+- **How to Access**: Tap **Timeline** in bottom bar → Tap three dots (`•••`) in top right → Select **Export Timeline**.
+- **What to Verify in Populated State**:
+  - Header with dog avatar, `Koda · Border Collie · 3 Years`.
+  - `EXPORT TYPE` selector card: `Date Range` (checked radio) or `Specific Events`.
+  - `DATE RANGE` card: Pills `Last 30 Days`, `This Year` (selected), `All Time`, with date display `Jan 1, 2024 - Dec 31, 2024 • 365 Days`.
+  - `FORMAT` selector: `PDF Document` (selected radio) with description "Best for printing & sharing".
+  - Sticky bottom action bar: `Cancel` text button and `Generate Export ⤓` green button.
+- **How to Test Empty State**:
+  - Tap three dots (`⋮`) in top right → Select `Toggle Empty State`.
+  - Verify document icon, "No Timeline Data", "Go to Timeline ->" CTA, and disabled grey "Generate Export" button.
 
 ---
 
-### Report a Bug
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "SUPPORT & COMMUNITY" section, tap **Report a Bug**.
-3. To test Classification: Select Severity level and Module from the dropdowns.
-4. To test Screenshot Simulator: Tap the screenshot attachment box to toggle the `bug_capture.png` preview state.
-5. To test Submission: Type reproduction steps in the text box and tap **"Submit Bug Report"** to view the diagnostic ticket confirmation modal.
+### 1.12 Timeline Favourites
+- **How to Access**: Tap **Timeline** in bottom bar → Tap three dots (`•••`) in top right → Select **Open Favourites**.
+- **What to Verify in Populated State**:
+  - Search bar: "Search favourites..." with microphone.
+  - Summary bento: `18 SAVED MOMENTS`, `Today LATEST`, `Aug '23 OLDEST`, with 5 colored dots across categories.
+  - Filter chips row: `Training ✕` active pill and `Clear All` button.
+  - List of favourited event cards with golden heart icons:
+    - `Perfect Recall — 50m Distance Achievement` (Training blue dot, 4 photos, 1 video)
+    - `IGP3 Regional Trial — 1st Place, Obedience` (Competition green dot, trophy, 12 photos)
+    - `50 Successful Retrieves — Lifetime Milestone` (Goals yellow dot)
+    - `Post-Surgery Recovery — Fully Cleared` (Health red dot, document icon)
+    - `Agility Conditioning — Phase 1 Complete` (S&C orange dot)
+    - `First Off-Lead Tracking Run` (Training blue dot, camera and location pin)
+  - Bottom bar: `Sort` and `Filter`.
+- **How to Test Empty State**:
+  - Tap three dots (`⋮`) in top right → Select `Toggle Empty State`.
+  - Verify empty heart outline icon, "No Favourite Events", and "Go to Timeline ->" button.
 
 ---
 
-### Feature Requests
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "SUPPORT & COMMUNITY" section, tap **Feature Requests**.
-3. To test Roadmap Voting: Tap the upvote arrow box on any roadmap card (e.g. *Garmin Alpha GPS Collar Integration*) to watch the vote tally increment and highlight in mint green.
-4. To test Filters: Tap the status pills at the top (`Trending`, `In Development`, `Under Review`, `Planned`).
-5. To test Proposal Submission: Tap the floating **"Propose Feature"** button at the bottom right, enter a proposal title, and tap "Submit Proposal".
+### 1.13 Timeline Settings
+- **How to Access**: Tap **Timeline** in bottom bar → Tap three dots (`•••`) in top right → Select **Timeline Settings**.
+- **What to Verify**:
+  - Subheader status: `All Changes Saved`.
+  - 9 Expandable setting accordions:
+    1. `Display` (Expanded by default): Default Timeline View, Default Sort Order, Event Density, Date Format, Time Format, Auto-Expand Today's Events toggle.
+    2. `Grouping`: Group by options.
+    3. `Event Preview`: Thumbnails and telemetry toggles.
+    4. `Favourites`: Pin favourites toggle.
+    5. `Archive`: Auto-archive frequency.
+    6. `Search`: Save recent searches, search scope.
+    7. `Notifications`: Milestone reminders, streak alerts, weekly digest.
+    8. `Performance`: Cache and media prefetching.
+    9. `Privacy`: Private entries and biometric lock.
+  - Bottom destructive action card: `Reset Timeline Settings`.
 
 ---
 
-### What's New in Ulvenik
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "ABOUT & LEGAL" section, tap **What's New in Ulvenik**.
-3. To test Release Highlights: Read through the v2.4.0 Alpine Telemetry release hero and major feature cards (Timeline Compare, Topographic Activity Map, Widgets, Smart Collections).
+## 2. SPORT PACK ECOSYSTEM
+
+### 2.1 Sport Pack Overview
+- **How to Access**: Tap the 5th tab labeled **More** in bottom bar → Tap **Sport Pack**.
+- **What to Verify**:
+  - Hero header with active sports count and trial season summary.
+  - Active dog switcher: `Murphy` (IGP-3) / `Freya` (Agility).
+  - Quick launch tiles: `Competitions`, `Trial Results`, `Achievements & Titles`, `Sport Statistics`, `Certificates & Documents`.
+  - Recent competition timeline cards with placement badges (`1st Place`, `Qualified`).
 
 ---
 
-### About Ulvenik
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "ABOUT & LEGAL" section, tap **About Ulvenik**.
-3. To test Identity & Architecture: View the glowing brand emblem, mission manifesto, system architecture specs (Dual-band GPS, canine HRV), and advisory board.
+### 2.2 Competitions Overview & Competition Details
+- **How to Access**: Tap **More** → **Sport Pack** → Tap **Competitions**.
+- **What to Verify in Competitions List**:
+  - Filter tabs: `Upcoming`, `Past`, `All Trials`.
+  - Competition cards showing date, sport badge (`IGP 3`), trial title, judge name, venue location, and entry status.
+  - Floating action button (`+`) to add a competition.
+- **How to Test Competition Details**:
+  - Tap on any competition card (e.g. `Essex IGP Championship`).
+  - Verify trial hero card, judge details, trial phases (Tracking, Obedience, Protection), score tally, and attachments.
+  - Tap `Record Result` to launch the competition scoring flow.
 
 ---
 
-### Privacy Policy
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "ABOUT & LEGAL" section, tap **Privacy Policy**.
-3. To test Privacy Pillars: Review the Zero Data Monetization, AES-256 Cloud Encryption, and Data Ownership cards.
+### 2.3 Add Competition
+- **How to Access**: Tap **More** → **Sport Pack** → Tap **Competitions** → Tap `+` button in bottom right.
+- **What to Verify**:
+  - Form sections:
+    - `Competition Information`: Event name, Sport dropdown, Dog selector, Date picker, Start/End time, Venue address, Country, Host Club, Judge, Division, Entry number, Handler name, Weather auto-detect toggle.
+    - `Status`: Chips for `Upcoming`, `Confirmed`, `Tentative`.
+    - `Event Category`: Regional, National, Club Trial, Friendly.
+    - `Link Goals`: Link canine athletic goals to this trial.
+    - `Equipment Library`: Select trial tracking harness, dumbbells, decoy gear.
+    - `Media & Attachments`: Upload entry confirmations and score sheets.
+    - `Notes & Reminders`: Notes counter and competition alert toggle.
+  - Primary button: `Create Competition`.
 
 ---
 
-### Terms & Conditions
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "ABOUT & LEGAL" section, tap **Terms & Conditions**.
-3. To test Handler Safety Terms: Review the canine welfare agreement, veterinary medical disclaimers, and subscription storage allowances.
+### 2.4 Record Competition Result
+- **How to Access**: Tap **More** → **Sport Pack** → Tap **Competitions** → Select a past trial → Tap **Record Result**.
+- **What to Verify**:
+  - Trial hero card with event title and date.
+  - Result status dropdown: `Qualified`, `Not Qualified`, `Disqualified`, `Withdrawn`.
+  - Overall score input: `287.5 / 300` and placement selector: `2nd Place`.
+  - Add qualification / title chips: `IGP3`, `High Tracking Award`.
+  - Judge's comments and personal handler reflections with character counter.
+  - Attachment preview card: `Score Sheet.pdf (28 KB)` with download and remove icons.
+  - Primary button: `Save Result`.
 
 ---
 
-### Open Source Licences
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "ABOUT & LEGAL" section, tap **Open Source Licences**.
-3. To test Expandable Package Licences: Tap on any library card (e.g. *Flutter Framework*, *fl_chart*, *intl*) to expand its monospace open source copyright license text.
+### 2.5 Competition Results
+- **How to Access**: Tap **More** → **Sport Pack** → Tap **Trial Results** (or tap any completed trial in Competitions).
+- **What to Verify**:
+  - Hero card: Score tally `92.4 pts` • `1st Place` • `QUALIFIED` green badge.
+  - Outcome chips and Qualification status.
+  - Placing & Ranks: 3 columns (Class Rank, Overall Placement, Division Size).
+  - Scores summary: Total, Max, Percentage, and Personal Best toggle switch.
+  - Section Scores: Expandable scoring breakdown (Phase A Tracking, Phase B Obedience, Phase C Protection) with addable/removable rounds.
+  - Faults & Penalties section with point deductions.
+  - Awards chips with `+ Add Award` dialog.
+  - Judge Feedback card with critique notes.
+  - Attachments grid with document and photo thumbnails.
+  - Primary button: `Save Results`.
 
 ---
 
-### Settings
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "PREFERENCES & APP SETTINGS" section, tap **Settings**.
-3. To test Settings Navigation: Tap any grouped item to navigate into Account, Appearance, Notifications, Units, Cloud & Offline, or Legal.
-4. To test Measurement Unit Picker: Tap on **Measurement Units** (`Metric (km, kg, °C)`) to open the unit selector modal.
+### 2.6 Qualifications, Titles & Awards
+- **How to Access**: Tap **More** → **Sport Pack** → Tap **Qualifications, Titles & Awards**.
+- **What to Verify**:
+  - 4 Horizontal summary metric cards: `4 Qualifications`, `1 Titles`, `3 Awards`, `15 Sep 2026 Latest`.
+  - All Achievements chronological list:
+    - Trophy icons for Titles (IGP 1, IGP 2, IGP 3).
+    - Star icons for Awards (High in Trial, Best Protection).
+    - Document icons for Official Working Certificates.
+  - Floating action button (`+`) to log a new title or certificate.
 
 ---
 
-### Notifications Page
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. In the top right of the navigation header bar, tap the bell icon.
-3. To test Filter Pills: Tap `All`, `Training`, `Health`, or `Milestone` to filter the notification feed.
-4. To test Mark All Read: Tap the double checkmark icon in the top right to clear all unread indicator dots.
-5. To test Empty State: Click the eye icon in the top right of the navigation bar.
+### 2.7 Achievements & Titles (Bento Grid)
+- **How to Access**: Tap **More** → **Sport Pack** → Tap **Achievements & Titles**.
+- **What to Verify**:
+  - 2x3 Bento summary grid: `4 Titles`, `12 Qualifications`, `7 Awards`, `9 Personal Bests`, `3 Wins`, `IGP3 Highest`.
+  - Expandable accordions for Titles, Qualifications, Awards, Personal Bests, Milestones.
+  - Outlined button: `Add Custom Achievement`.
+  - Report row: `Generate Achievement Report →`.
 
 ---
 
-### Profile Page & Edit Profile
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Tap the handler profile card at the top (with avatar "AR" and name "Alex Rivers") or tap its edit pencil icon.
-3. To test Handler Career Stats: Review the bento metrics (847 Sessions, 14d Streak, 2 Dogs, 4.8h Vol/Wk) and registered canine workspaces (Koda, Murphy).
-4. To test Edit Profile: Tap the green **"Edit Handler Profile"** button at the bottom (or the top right pencil icon).
-5. In the Edit Profile form, modify Full Name, Title, Email, or Bio, and tap the checkmark icon in the top right to save and sync changes immediately back to your profile.
+### 2.8 Sport Statistics (Animated Interactive Bar Chart)
+- **How to Access**: Tap **More** → **Sport Pack** → Tap **Sport Statistics**.
+- **What to Verify**:
+  - Timeframe filter pills: `Last 30 Days`, `Last 90 Days`, `This Year` (selected), `All Time`.
+  - Summary 2x2 Bento: Total Sessions, Hours Logged, Average Score, Qualification Rate.
+  - `MONTHLY SESSION VOLUME (Apr-Sep 2026)` Chart:
+    - Animated interactive bar chart.
+    - Touch each monthly bar (Apr, May, Jun, Jul, Aug, Sep) to trigger touch tooltips displaying exact session counts and hours.
+  - Skills curriculum breakdown with completed vs active drill indicators.
+  - Strip cards for Competitions and Achievements.
 
 ---
 
-### Subscription Details & Restore Purchases
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "PREFERENCES & APP SETTINGS" section, tap **Settings**, then tap **Subscription & Quota**.
-3. To test Plan Hero: View the Pro Handler status badge, $9.99/mo rate, Dec 18, 2027 auto-renewal, and 10 GB quota progress bar.
-4. To test Restore Purchases: Tap **Restore Purchases** to run the animated receipt verification simulation.
+### 2.9 Certificates & Documents
+- **How to Access**: Tap **More** → **Sport Pack** → Tap **Certificates & Documents**.
+- **What to Verify**:
+  - Document counter: `12 documents` with sort dropdown (`Newest First`, `Name A-Z`, `Size`).
+  - Document cards list with file sizes, verification tags, and preview thumbnails:
+    - `FCI Working Certificate — Murphy (2.4 MB)`
+    - `IGP-3 Scorebook Entry — Regional Trial (850 KB)`
+    - `Kennel Club Registration & Pedigree (3.1 MB)`
+    - `Official Hip & Elbow Dysplasia Clearance (1.8 MB)`
+  - Tapping any document card opens the full-screen Document Viewer.
+  - Floating action button (`+`) to scan or upload new documents.
 
 ---
 
-### Billing History
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "PREFERENCES & APP SETTINGS" section, tap **Settings** -> **Subscription & Quota** -> **Billing History & Receipts**.
-3. To test Invoice Downloads: Tap the download icon next to any monthly statement (`INV-2026-10-84.pdf`) to trigger invoice export.
+### 2.10 My Sports & Create Sport
+- **How to Access**: Tap **More** → **Sport Pack** → Tap **My Sports**.
+- **What to Verify**:
+  - List of active canine disciplines: `IGP / Schutzhund`, `Agility`, `Tracking`, `Scent Work`.
+  - Tap on `IGP` to open the Sport Details view showing trial phases and scoring rules.
+  - Tap `+ Create Sport` in top right:
+    - Enter Sport Name, Governing Body (FCI, AKC, UKC), Scoring Type (Points, Time, Pass/Fail), and Phase Structure.
+    - Tap `Save Sport`.
 
 ---
 
-### Export My Data
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "PREFERENCES & APP SETTINGS" section, tap **Settings** -> **Export My Data**.
-3. To test Data Selection: Toggle checkboxes for Profiles, GPS Tracks, S&C Logs, or 4K Videos.
-4. To test Archive Generation: Select ZIP or JSON, tap **"Generate & Export Archive"** to watch the packaging progress bar and email dispatch dialog.
+## 3. TRAINER PACK ECOSYSTEM
+
+### 3.1 Trainer Dashboard & Analytics (Animated Graph Sheet)
+- **How to Access**: Tap the 5th tab labeled **More** in bottom bar → Tap **Trainer Workspace** (or **Trainer Hub**).
+- **What to Verify on Dashboard**:
+  - Hero card: Business identity `Take the Lead Essex`, Trainer `Liv Old`, `TRAINER PACK` badge.
+  - 2x2 Bento: `4 Lessons Today`, `12 Active Clients`, `21 Client Dogs`, `3 Reviews Pending`.
+  - Notification Bell in top bar (with red unread dot): Tapping opens `Trainer Notifications`.
+  - Attention Required cards:
+    - `3 Homework Assignments Pending • Murphy`: Tapping opens `Homework & Training Plans`.
+    - `Incomplete client profile • James Harlow`: Tapping opens `Edit Client`.
+  - Today's Schedule: Time slots (09:00 Emma • Murphy, 11:30 James • Bella) with `CONFIRMED` / `UPCOMING` badges.
+  - Quick Action Tiles (6 grid items):
+    - `Add Client`: Opens Add Client form.
+    - `Start Lesson`: Opens session recording.
+    - `Assign Task`: Opens homework assignment flow.
+    - `Trainer Notes`: Opens Trainer Notes private ledger.
+    - `Create Goal`: Opens Create Goal screen.
+    - `Open Calendar`: Opens Calendar view.
+  - Business snapshot: Weekly lesson volume bar indicators.
+- **How to Test Animated Analytics Sheet**:
+  - Tap the Bar Chart / Analytics icon in the top right app bar.
+  - Full-fidelity Analytics bottom sheet expands:
+    - Filter pills: `THIS WEEK` (selected), `THIS MONTH`, `LAST 90 DAYS`.
+    - 2x3 Bento grid: 12 Active Clients, 21 Client Dogs, 8 Lessons This Week, 31 Active Goals, 82% Homework Completion, 14 Sessions Recorded.
+    - `LESSON ACTIVITY` animated bar chart with peak Wednesday indicator.
+    - `HOMEWORK` progress bar with completion rate.
+    - `GOALS` proportional bar (Obedience 40%, Social 35%, Health 25%).
+    - `CLIENT ENGAGEMENT` animated dual-curve line graph (solid green for Training Activity, dashed blue for Homework Submissions).
 
 ---
 
-### Delete Account
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under the "PREFERENCES & APP SETTINGS" section, tap **Settings**, scroll to the bottom, and tap the red **Delete Account** tile.
-3. To test Safety Lockout: Notice the red button is disabled until you type `DELETE MY ACCOUNT` into the confirmation field.
-4. To test Confirmation Modal: Type `DELETE MY ACCOUNT` and tap the unlocked red button to launch the final confirmation modal.
+### 3.2 Trainer Profile & Business Identity
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap the Trainer Avatar in the hero card.
+- **What to Verify**:
+  - Forest hero header with avatar and business identity `Liv Old • Take the Lead Essex`.
+  - 4-metric strip: `12 Active Clients`, `21 Client Dogs`, `47 Sessions`, `3 yrs On Ulvenik`.
+  - `About`: Professional bio and training philosophy.
+  - `Expertise`: Interactive chips (`Working Dogs`, `IGP Tracking`, `Behaviour Rehabilitation`, `Off-Lead Control`).
+  - `Qualifications`: Listed certificates (`FCI Certified Decoy`, `City & Guilds Canine Behaviourist`) with DBS check verified badge.
+  - `Services Offered`: Private 1-to-1, Group Drills, Video Critique with duration and pricing.
+  - Contact and booking action buttons.
 
 ---
 
-### Change Email Address
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "PREFERENCES & APP SETTINGS", tap **Settings**, then tap **Change Email Address**.
-3. To test Verification Code Flow: Enter a new email, confirm it, enter password, and tap **"Send Verification Code"** to trigger the 6-digit OTP modal.
+### 3.3 Clients Directory
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Clients** (or tap `12 ACTIVE CLIENTS` bento).
+- **What to Verify**:
+  - Search bar: "Search clients by name, dog, or email...".
+  - Filter chips: `ACTIVE ✕`, `UPCOMING LESSONS`, `PENDING REVIEWS`.
+  - Subheader: `12 Clients` sorted by `Recently Active`.
+  - Client cards:
+    - `Emma Johnson` (Murphy · Malinois, Bella · Border Collie, Next Lesson: Thu 10:00, Active Goals: 3, `ACTIVE CLIENT` green badge).
+    - `James Harlow` (Bella · Border Collie, Next Lesson: Fri 14:00, `ACTIVE CLIENT` green badge).
+    - `Sarah Mitchell` (`INVITATION PENDING` orange badge).
+  - Floating action button (`+`) to invite/add a new client.
 
 ---
 
-### Change Password
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "PREFERENCES & APP SETTINGS", tap **Settings**, then tap **Change Password**.
-3. To test Strength Meter: Type into the new password field and watch the progress bar and checklist (8 characters, uppercase, number, symbol) update in real time.
+### 3.4 Client Profile
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Clients** → Tap **Emma Johnson**.
+- **What to Verify**:
+  - Avatar `EJ`, `Emma Johnson`, `ACTIVE CLIENT` badge.
+  - Quick contact row: Phone and Email buttons.
+  - 2x3 Details grid: Member Since, Total Dogs, Total Lessons, Completed Goals, Overdue Tasks, Homework Rate.
+  - Quick Actions row:
+    - `Dogs`: Tapping opens `Emma's Dogs` directory.
+    - `Homework`: Tapping opens client homework list.
+    - `Notes`: Tapping opens client private notes.
+    - `Progress`: Tapping opens client athletic analytics.
+    - `Reports`: Tapping opens trainer progress reports.
+    - `Share`: Opens client record sharing settings.
+  - Horizontal dog cards: `Murphy` (Working Malinois) and `Bella` (Border Collie).
+  - Private trainer notes section with `Add Note +`.
+  - Three dots (`•••`) menu in top bar: Options for `View Client Account & Linked Dogs`, `Edit Client`, `Archive Client`, `Export Client`, `Delete Client`.
 
 ---
 
-### Handler Calendar
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "CANINE TOOLS & EXTENSIONS", tap **Handler Calendar**.
-3. To test Day Scroller: Tap on any day pill across the horizontal 7-day strip.
-4. To test Category Filters: Tap `All`, `Training`, `S&C`, `Health`, or `Event`.
-5. To test Scheduling: Tap the floating green **"Schedule Event"** button at the bottom right.
+### 3.5 Client Account & Linked Dogs
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Clients** → Tap **Emma Johnson** → Tap `•••` in top right → Select **View Client Account & Linked Dogs**.
+- **What to Verify**:
+  - Hero Card: `Emma Johnson`, `• Connected to Ulvenik`, `Client since July 2026`, `2 Linked Dogs`, `Next Lesson · Thursday · 10:00`, `ACTIVE CLIENT` badge.
+  - 2x2 Bento grid: `2 LINKED DOGS`, `3 ACTIVE GOALS`, `2 HOMEWORK DUE`, `8 LESSONS TOTAL`.
+  - Quick Actions: `Record Lesson`, `Assign HW`, `Create Goal`, `Add Note`.
+  - `LINKED DOGS` cards: Murphy (12 Day Streak) and Luna (5 Day Streak).
+  - `PERMISSIONS` summary: Training Records (Read/Write), Goals (Read/Write), Statistics (View Only), Media (View & Upload), Health Records (Restricted), with `Manage Permissions >` link.
+  - `RECENT ACTIVITY` timeline.
+  - `TRAINER NOTES` card with `PRIVATE — Not visible to client` callout.
 
 ---
 
-### Global Search
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Tap the magnifying glass search icon in the top header (or tap **Global Search** in the tools list).
-3. To test Scope Filters: Tap `All`, `Dogs`, `Drills`, `Health Logs`, `Timeline`, or `Media`.
-4. To test Live Search: Type "Koda" or "Trail" or tap a recent search tag to see instant cross-app results.
+### 3.6 Emma's Dogs Directory
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Clients** → Tap **Emma Johnson** → Tap **Dogs** action (or tap **View All >** in Client Account).
+- **What to Verify**:
+  - Subheader: `2 Dogs • ACTIVE IN WORKSPACE`.
+  - Dog Card 1: `PRIMARY ATHLETE` badge, `Murphy • 3 Years`, `Golden Retriever • IGP`, `12 Day Streak • Yesterday • 2 Goals`, and `SHARED WITH OWNER >` button.
+  - Dog Card 2: `AGILITY FOCUS` badge, `Bella • 5 Years`, `Border Collie`, `15 Day Streak • 2 days ago • 1 Goal`, and `SHARED WITH OWNER >` button.
+  - Alert callout strip: `• Homework overdue — Murphy | Check ->`.
+  - Floating action button (`+`) to add a dog.
 
 ---
 
-### Regional Preferences (Country, Language, Units, Date & Time, Timezone)
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "PREFERENCES & APP SETTINGS", tap **Settings**.
-3. Tap **Measurement Units**: Switch between Metric and Imperial presets or customize individual telemetry metrics.
-4. Tap **Date & Time Format**: Switch between 24-Hour and 12-Hour notation and preview the live session timestamp.
-5. Tap **Language**: Search or select German (Deutsch) or Norwegian (Norsk) for IGP working dog trials.
-6. Tap **Country or Region**: Search and select operating region.
-7. Tap **Time Zone**: Toggle GPS auto-detection or pick a global time zone.
+### 3.7 Client Dog Profile (Trainer View)
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Clients** → Tap **Emma Johnson** → Tap **Murphy** dog card.
+- **What to Verify**:
+  - Forest background hero, Murphy name, `EDITABLE` badge, breed & owner info.
+  - Athletic discipline chips: `IGP 1`, `OBEDIENCE`, `TRACKING`.
+  - Action buttons: `Start Training` (launches live session recorder) and `Start S&C`.
+  - 2-Column Overview trainer view with `12 Days Active 🔥` streak and 3 quick stats.
+  - 8 Actions grid tiles: `Record Drill`, `Assign HW`, `Set Goal`, `Log Weight`, `Log Vet`, `Add Note`, `Upload Video`, `Share Profile`.
+  - Active Goals progress bars and Recent Videos cards with thumbnails.
+  - Health Summary card and Permissions access level selector.
 
 ---
 
-### Profile Photo & Image Editor
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Tap the handler profile card at the top, then tap **Edit Handler Profile**.
-3. Tap the handler avatar photo or camera icon to open the **Change Photo** bottom sheet.
-4. Tap the eye icon in the sheet header to test the **Empty State** vs **Populated State**.
-5. Tap **Take Photo** or **Choose from Photo Library** to launch the full-screen **Image Editor**.
-6. In the Image Editor: Test pinch-to-zoom/pan gestures, tap the **Rotate 90°** button, switch between `Circle 1:1` and `Square 1:1` aspect ratio guides, and tap **Save & Apply Photo**.
+### 3.8 Add Client & Edit Client
+- **How to Access Add Client**: Tap **More** → **Trainer Hub** → Tap **Clients** → Tap `+` button in bottom right.
+- **What to Verify**:
+  - `Basic Information`: First name, Last name, Company / Kennel, Client nickname.
+  - `Contact Information`: Email, Mobile phone, Alternative phone.
+  - `Address`: Expandable address section (Street, City, Postcode, Country).
+  - `Trainer Private Notes`: Confidential pre-lesson remarks.
+  - `Trainer Permissions Preset`: Chips for Full Access, Training Only, Supervised.
+  - `Client Access Switches`: Toggles for dog profile, sessions, health, goals, media.
+  - `Send Invitation`: Personal welcome message and `Add Dog Now` toggle switch.
+  - Primary button: `Create Client`.
+- **How to Access Edit Client**:
+  - From Client Profile → Tap three dots (`•••`) in top right → Select `Edit Client`.
+  - Pre-filled fields, status chips (`ACTIVE`, `INACTIVE`, `ARCHIVED`), and `Save Changes` button.
 
 ---
 
-### Media Library & Upload Manager
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "MEDIA & CANINE ARCHIVE", tap **Media Library**.
-3. To test Filter Tabs: Tap `All`, `Videos`, `Photos`, or `Docs`.
-4. To test Empty State: Tap the eye icon in the top header.
-5. To test Upload Manager: Tap the floating green **"Upload Media"** button at the bottom right. Watch the active 14.2 MB/s S3 bandwidth card and upload queue, and tap the pause/play button in the header.
+### 3.9 Client Permissions (Access Control)
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Clients** → Tap **Emma Johnson** → Tap **Manage Permissions**.
+- **What to Verify**:
+  - Trainer connection hero: `Take the Lead Essex • Connected since Jul 2026`.
+  - Security callout: "Changes apply immediately across all shared devices."
+  - Category permission switches:
+    - `Dog Profile`: View canine identity, Edit canine details.
+    - `Training`: View sessions, Log new sessions, Edit existing sessions.
+    - `Health Records`: View health records (Private by default), Add health reminders.
+    - `Goals & Homework`: Assign homework, Sign off homework, Create goals.
+    - `Media & Telemetry`: View photos/videos, Upload session clips.
+  - Connection management: `Pause Sharing` and `Disconnect Trainer` actions.
 
 ---
 
-### Video Viewer
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "MEDIA & CANINE ARCHIVE", tap **Media Library**.
-3. Tap the first video card (**"Bite Phase C Escape (4K 60fps)"**).
-4. Notice the pure black background canvas with no bottom navigation bar.
-5. Tap anywhere to toggle overlay controls, tap play/pause, tap the `10s` replay and forward skip buttons, drag the timeline scrubber, switch speed to `0.5x` or `0.25x` slow-motion, and observe the live heart rate/speed HUD telemetry overlay.
+### 3.10 Homework & Training Plans (Trainer Management Hub)
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap the attention card `3 Homework Assignments Pending` (or tap **Homework** in quick actions).
+- **What to Verify**:
+  - Filter tabs: `All`, `Awaiting Review` (selected mint line), `In Progress`, `Overdue`, `Completed`.
+  - 4-Metric summary strip: `3 Awaiting Review` (mint green), `6 In Progress`, `2 Overdue` (red), `18 Completed`.
+  - `AWAITING REVIEW` Section:
+    - Card 1: `Recall Foundation Practice • Murphy · Emma Johnson • Due Yesterday`, with video uploaded indicator.
+    - Card 2: `Loose Lead Consistency • Bella · James Harlow • Due 2 days ago`, with notes added indicator.
+  - `IN PROGRESS` Section:
+    - Card 1: `Place Training Basics • Murphy · Emma Johnson` with 40% progress bar (2 of 5 sessions).
+    - Card 2: `Socialization Walks • Bella · James Harlow` with 20% progress bar (1 of 5 sessions).
+  - `OVERDUE` Section (Red indicator stripe):
+    - `Impulse Control Exercises • Murphy · Emma Johnson • 3 days overdue`.
+  - Floating action button (`+`) to assign new homework.
 
 ---
 
-### Photo Viewer
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "MEDIA & CANINE ARCHIVE", tap **Media Library**, then tap the photo card (**"Alpine Ridge Pointing Posture"**).
-3. Notice the pure black background canvas with no bottom navigation bar.
-4. Pinch or double tap to zoom in up to 4x, tap **Show Camera EXIF** to reveal camera lens/shutter/GPS coordinates, tap the favorite heart icon, and tap thumbnails in the bottom carousel to jump between photos.
+### 3.11 Homework Details
+- **How to Access**: Tap any assignment card in `Homework & Training Plans` (e.g. `Recall Foundation Practice`).
+- **What to Verify**:
+  - Assignment hero: `AWAITING REVIEW` / `IN PROGRESS` badge, `HIGH` priority tag, assignment title, and handler instructions.
+  - 2x2 Meta: Assigned date, Due date, Target sessions, Video requirement.
+  - `Mark as Complete` action button.
+  - `Progress Card`: Completion percentage bar with 3 sub-stats (Sessions logged, Video submissions, Days active).
+  - `Linked Curriculum`: Linked skill and exercise sequence chips.
+  - `Client Submissions`: Recorded video clips and handler notes.
+  - `Trainer Feedback`: Feedback card with `Add Feedback` modal.
+  - Attachments list with video preview player.
 
 ---
 
-### Document Viewer
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "MEDIA & CANINE ARCHIVE", tap **Media Library**, then tap the document card (**"Koda OFA Hips & Elbows Certificate"**).
-3. Use the page switcher (`Page 1 of 3`) or zoom controls (`+` / `-`) to inspect the official OFA orthopedic veterinary certificate.
+### 3.12 Lesson Records Log
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Clients** → Tap **Emma Johnson** → Tap `8 LESSONS TOTAL` (or tap `•••` -> `View Client Account` -> `8 LESSONS TOTAL`).
+- **What to Verify**:
+  - Subheader: Avatar `Emma Johnson · Murphy & Bella • 12 Lessons Total`.
+  - Chronological lesson ledger:
+    - `15 Sep · 09:00`: `ONE-TO-ONE` badge, `Recall & Distraction Work • Murphy`, Chelmsford Training Ground, `60 min`, `Homework Assigned` green pill.
+    - `8 Sep · 09:00`: `ONE-TO-ONE` badge, `Loose Lead Walking — Advanced • Murphy, Bella`, Private Session, `60 min`.
+    - `1 Sep · 09:30`: `BEHAVIOUR CONSULTATION` badge, `Reactivity Assessment • Bella`, Client's Home, `90 min`.
+    - `AUGUST 2026` group: `28 Aug · 10:00`: `Foundation Heelwork • Murphy`, Chelmsford Training Ground, `60 min`.
+  - Tapping any lesson card opens the lesson details bottom sheet.
+  - Floating action button (`+`) to log a new lesson.
 
 ---
 
-### Media Collections & Favourites
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "MEDIA & CANINE ARCHIVE", tap **Media Collections** to see curated albums (Bite Work, S&R Scent, Agility, OFA Medical Records). Tap `+` in the header to create a new album.
-3. Return and tap **Favorite Highlights** to view bookmarked video highlights and action shots, or tap the star icon on any card to un-favorite.
+### 3.13 Trainer Notes (Private Ledger)
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Trainer Notes** in Quick Actions (or tap **Notes** in Client Profile).
+- **What to Verify**:
+  - Search input: "Search notes, clients, tags...".
+  - Counter: `14 Notes`.
+  - Privacy callout: `(i) All notes are private and never shared with clients.`
+  - `PINNED` Section (Green indicator stripe):
+    - Lightning icon, `LESSON PLANNING` pill, `Emma Johnson` pill.
+    - Title: `Pre-lesson checklist — Thursday 10am`.
+    - Content: Harness fit check, long line options, Murphy improvement remarks.
+    - Lock icon `Private` • `Today`.
+  - `RECENT NOTES` Section:
+    - `BEHAVIOUR OBSERVATIONS • Murphy`: Distraction threshold observations.
+    - `FOLLOW-UP REQUIRED • James Harlow • Bella`: Vet referral reminder.
+    - `CLIENT COMMUNICATION`: Post-lesson summary call notes.
+  - Floating action button (`+`) to add a private note.
 
 ---
 
-### Sport Pack Hub & My Sports
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "WORKING DOG SPORT PACK", tap **Sport Pack Hub**.
-3. Observe Koda's career overview card: 14 trials entered, 93.4 average score, 3 podiums.
-4. Tap **My Sports & Disciplines** to view active canine sports (IGP, Wilderness S&R, FCI Agility, Mondioring).
-5. Tap **Add Sport** to create a custom working dog discipline with custom phase counts, max points, and passing thresholds.
+### 3.14 Trainer Notifications Hub
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap the Notification Bell icon in top bar.
+- **What to Verify**:
+  - Header: `Notifications` with `Mark All Read` green button.
+  - Filter tabs: `All`, `Action Required`, `Read`.
+  - `ACTION REQUIRED` Section (Green indicator stripe):
+    - Green dot, check clock icon: `Homework awaiting review • 2 hours ago` (Emma completed Recall Foundation Practice) with `Review Now →` link.
+    - Green dot, person icon: `New client invitation accepted • 1 hour ago` (Sarah Mitchell joined) with `View Client →` link.
+  - `TODAY` Section:
+    - `Goal completed • 4 hours ago` (Emma marked Loose Lead Walking as complete).
+    - `Training video uploaded • 5 hours ago` (James uploaded session video).
+    - `Lesson reminder • This morning` (Emma Johnson • Murphy • Tomorrow 09:00).
+  - `YESTERDAY` Section:
+    - `Homework completed` (James completed Place Training Basics).
+    - `Permission updated` (Emma updated health record access).
 
 ---
 
-### Sport Details (IGP)
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "WORKING DOG SPORT PACK", tap **Sport Pack Hub**, then tap **My Sports & Disciplines**, then tap **IGP / Schutzhund**.
-3. View the Phase A Tracking (96), Phase B Obedience (92), and Phase C Protection (96) interactive bar chart.
-4. Tap **Record Result** or **Add Trial Date** directly from the sport details page.
+### 3.15 Client Progress & Analytics (Animated Spline & Donut Chart)
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Clients** → Tap **Emma Johnson** → Tap **Progress** action.
+- **What to Verify**:
+  - Timeframe selector: `This Month v`.
+  - Category filter pills: `Overview` (active), `Training`, `S&C`, `Skills`, `Health`.
+  - 2x2 Bento grid with sparklines:
+    - `24h 35m Total Training Time` (+16% vs last month)
+    - `18 Sessions` (+12% vs last month)
+    - `4.5 Training Frequency` (Sessions per week)
+    - `82% Success Rate` (0% vs last month)
+  - `Training Time (Weekly Trend)` Chart:
+    - Animated glowing green cubic spline curve chart.
+    - Interactive touch nodes displaying hours logged at weekly milestones.
+  - `Session Breakdown` Donut Chart:
+    - Total 24h 35m ring with colored distribution bars (General Training 7h 15m, S&C 3h 20m, Competition 1h 10m).
+  - `Training Heatmap`: 7x4 day-of-week matrix with peak Tuesday glowing green intensity.
+  - `Best Streak`: 12 days card with 87% radial completion ring.
 
 ---
 
-### Competitions & Record Trial Result
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "WORKING DOG SPORT PACK", tap **Sport Pack Hub**, then tap **Competitions & Trial Schedule**.
-3. Toggle between **Upcoming Trials** (Pacific Northwest Championship) and **Past Trials** (Gold Medalist at National Fall Trial).
-4. Tap any trial to open **Trial Details**.
-5. Tap **Record Official Trial Result**: Type in Phase A, B, and C scores and watch the total points (e.g. `284 / 300`) and FCI Rating (`Vorzüglich (V)`) update dynamically in real time. Choose TSB rating (`Pronounced (a)`), select podium placement, and tap save.
+### 3.16 Trainer Reports & Progress Reviews
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Reports** in Client Profile (or tap **Trainer Reports** in More).
+- **What to Verify**:
+  - 3-Column summary: `7 Total Reports`, `4 Shared`, `1 Draft`.
+  - Tabs: `All Reports`, `Shared`, `Drafts`, `Archived`.
+  - Search bar with clear button.
+  - Report cards with status badges:
+    - `SHARED` (green pill): 6-Week Foundation Evaluation (Murphy).
+    - `DRAFT` (orange pill): S&C Assessment & Hip Joint Observations.
+    - `NOT SHARED` (grey pill): Reactivity Assessment & Threshold Baseline.
+    - `ARCHIVED`: Puppy Class Initial Intake.
+  - Floating action button (`+`) to generate a new report.
 
 ---
 
-### Titles, Awards & Sport Analytics
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "WORKING DOG SPORT PACK", tap **Sport Pack Hub**, then tap **Qualifications, Titles & Awards** to review certified scorebooks (IGP 2, IGP 1, BH/VT, FH 1) and gold championship honors.
-3. Return and tap **Sport Analytics & Phase Curves**:
-   - Inspect the interactive spline progression curve and tap data points to view trial tooltips.
-   - Inspect the Phase Balance donut chart (Phase A Tracking 34%, Phase B Obedience 32%, Phase C Protection 34%).
+### 3.17 Shared Records & Sharing History
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap **Clients** → Tap **Emma Johnson** → Tap **Share** action.
+- **What to Verify**:
+  - Filter pills: `ALL`, `TRAINING`, `HEALTH`, `GOALS`, `REPORTS`.
+  - Shared records cards with `ACTIVE`, `PENDING`, `EXPIRED` status tags.
+  - `Sharing History` timeline with colored chronological audit dots.
+  - Action card: `Generate Shared Report`.
 
 ---
 
-### Certificates & Official Documents
-1. In the bottom navigation bar at the very bottom of the screen, tap the 5th icon on the far right (**"More"**).
-2. Under "MEDIA & CANINE ARCHIVE", tap **Media Library**, then tap **Docs**, or tap **Certificates & Documents**.
-3. Tap **View PDF** on any official record (OFA Orthopedic Certificate, FCI Scorebook, AKC Pedigree) to open the interactive Document Viewer with multi-page navigation and zoom.
+### 3.18 Trainer Workspace Settings
+- **How to Access**: Tap **More** → **Trainer Hub** → Tap Settings gear icon in top right.
+- **What to Verify**:
+  - Workspace identity card: `Vanguard Working K9 Academy • Pro Trainer Workspace • 28 Active Canine Seats`.
+  - Client Onboarding switches: Auto-invite via email, 4K video homework review, Instant submission alerts, Scorebook access.
+  - Default Homework Cadence dropdown: `Weekly (7 Days)`.
 
 ---
 
-### Rewards Management & Reward Types
-1. Look at the main screen with the mountain photo at the top.
-2. In the bottom navigation bar, tap the 2nd icon (**"Dogs"**).
-3. Tap on Koda's card, then select the **Training** tab.
-4. Scroll to the "TRAINING QUICK ACTIONS" section and tap the green **Rewards Management** card.
-5. In Rewards Management:
-   - View categorized reinforcement tiers (High Drive Toys, Primary Food & Meats, Social Praise).
-   - Tap the `+` button in the top right to open the **Add Reward** bottom sheet. Select category, enter name, adjust value rating slider (1-10), pick drill associations, and save.
-   - Tap on any existing reward item (e.g. *Red Viper Ball on String*) to open the **Edit Reward** bottom sheet with live slider adjustments.
-   - Tap the settings gear icon in the top right to open **Manage Reward Types**, where you can create new custom drive tiers.
+## 4. REWARDS, SETTINGS & ACCOUNT ECOSYSTEM
+
+### 4.1 Rewards Management
+- **How to Access**: Tap the 5th tab labeled **More** in bottom bar → Tap **Rewards Management**.
+- **What to Verify**:
+  - Dog banner: `Rook • Belgian Malinois • IGP-3 SPORT`.
+  - Header: `REWARD TYPES` with `Manage Types` link opening `Manage Reward Types`.
+  - Type filter chips: `All`, `Food`, `Toy`, `Praise`, `Play`, `Competition`, `High Drive`.
+  - Search bar for quick filtering.
+  - List of canine reward cards with category badges and tactical notes.
+  - Floating action button (`+`) opens `Add Reward`.
+  - Tapping any existing reward opens `Edit Reward`.
 
 ---
 
-### Trainer Pack — Trainer Dashboard & Business Identity
-1. Look at the main screen with the mountain photo at the top.
-2. In the bottom navigation bar, tap the 5th icon on the far right (**"More"**).
-3. Scroll down to the **"TRAINER PACK (PRO SUBSCRIPTION)"** section and tap **Trainer Hub**.
-4. In the Trainer Dashboard:
-   - View the Head Instructor card (Alex Rivers • Vanguard Working K9 Academy).
-   - Tap the top-right ID badge icon to open **Trainer Profile & Business Identity** to inspect certified decoy credentials and academy contact info.
-   - Tap the top-right gear icon to open **Trainer Workspace Settings** to configure auto-invites and homework notification cadence.
-   - Interact with the **Weekly Lesson Engagement** bar chart with touch tooltips.
-   - Review today's schedule and tap **Add Client** or **Client Roster**.
+### 4.2 Add Reward
+- **How to Access**: Tap **More** → **Rewards Management** → Tap `+` button in bottom right.
+- **What to Verify**:
+  - Drag handle at top and close (`✕`) button.
+  - Subtitle: `Rewards are personal to Rook.`
+  - `REWARD NAME`: Text input with green underline, pre-filled with `Freeze-Dried Liver`.
+  - `REWARD TYPE`: Chips for `Food ✓` (selected), `Toy`, `Praise`, `Play`, `Competition`, `High Drive`, and `+ New Type` (dashed border).
+  - `DESCRIPTION`: Tactical usage notes input (`e.g. Reserved for high distraction environments`).
+  - Primary button: `Save Reward` (saves and adds to list).
+  - Secondary button: `Cancel`.
 
 ---
 
-### Trainer Pack — Clients Roster, Client Profile & Student Dog
-1. In Trainer Hub, tap **Client Roster** or the **Clients** quick tile.
-2. Filter clients using the chips at the top (**All Clients**, **Trial Prep**, **Active Coaching**, **Puppy Foundation**).
-3. Tap on **Sarah Jenkins • Baron (German Shepherd)** to open **Client Profile**.
-4. In Client Profile:
-   - Tap **Baron (GSD IGP 1)** to open the student canine's profile with lesson counter and active drill milestones.
-   - Tap **Private Notes** to review date-stamped handler observations and add new confidential notes.
-   - Tap **Shared Records** to review shared scorebooks, evaluations, and video critiques.
-   - Tap **Portal Permissions** to toggle video upload rights, private note visibility, and scorebook downloads.
+### 4.3 Edit Reward
+- **How to Access**: Tap **More** → **Rewards Management** → Tap any existing reward (e.g. `Freeze-Dried Liver`).
+- **What to Verify**:
+  - Drag handle and close (`✕`) button.
+  - Subtitle: `Rewards are personal to Rook.`
+  - Pre-filled reward name with green underline.
+  - Pre-filled reward type chips.
+  - Pre-filled description (`High value — competition only`).
+  - Primary button: `Save Changes`.
+  - Secondary button: `Cancel`.
+  - Bottom destructive action: Red trash icon with `Delete Reward` (triggers confirmation dialog).
 
 ---
 
-### Trainer Pack — Homework Review & Client Progress Graph
-1. In Client Profile, tap **Homework & Assignments** (or tap **Review Homework** from the Trainer Dashboard).
-2. Filter assignments by **Active**, **Pending Review**, or **Completed**.
-3. Tap on **Focused Heeling Hand Position** to open **Homework Details**:
-   - Tap on the video frame with the play button to launch the full-screen Video Viewer.
-   - Select a grading outcome (Approved, Revision Needed, Incomplete).
-   - Enter trainer critique feedback and tap **Publish Feedback**.
-4. Return to Client Profile and tap **Progress & Mastery Graph**:
-   - Inspect the interactive 14-lesson score progression line chart.
-   - Touch and drag across data points to inspect lesson-by-lesson scores and dates.
-   - Review the criteria mastery checklist (Focused Heeling 94%, Hurdle Retrieve 88%, Sit in Motion 82%).
+### 4.4 Profile Page & Change Photo
+- **How to Access Profile Page**: Tap **More** in bottom bar → Tap the User Identity Card at top.
+- **What to Verify on Profile Page**:
+  - Handler avatar with initials `JH`, handler name, membership badge.
+  - Account details, canine count, linked packs.
+- **How to Access Change Photo**:
+  - Tap the handler avatar on Profile Page.
+  - Profile photo bottom sheet slides up:
+    - Circular avatar preview with glowing green dot and `CURRENT ACTIVE` tag.
+    - Options:
+      - `Take Photo` (camera icon)
+      - `Choose from Photo Library` (gallery icon)
+      - `Remove Current Photo` (red trash icon)
+      - `Cancel` (close icon)
 
 ---
 
-### Trainer Pack — Trainer Reports & Analytics
-1. In Trainer Hub, tap **Reports & Analytics**.
-2. Inspect the 6-month lesson volume bar chart and program distribution pie chart.
-3. Review key business metrics: **28 Active Canine Clients**, **96.4% Homework Compliance Rate**, **\$8,420 Monthly Tuition**.
-4. Tap **Export Performance Report (PDF)** to simulate client report generation.
+### 4.5 Restore Purchases
+- **How to Access**: Tap **More** in bottom bar → Tap **Subscription Details** → Tap **Restore Purchases** under the MANAGE section.
+- **What to Verify**:
+  - Hero cloud sync icon with circular refresh arrows.
+  - Title: `Missing a Purchase?`
+  - Subtitle: `Restore an existing Ulvenik membership or Pack without being charged again.`
+  - Information container:
+    - `WHAT THIS DOES`: Explains App Store validation with zero charges.
+    - `PURCHASE PLATFORM`: `Apple App Store`.
+    - `ITEMS THAT CAN BE RESTORED`:
+      - `✓ Core Membership`
+      - `✓ Trainer Pack`
+      - `✓ Sport Pack`
+  - Primary button: `Restore Purchases`.
+  - Tapping button shows loading spinner for 1.5s, then displays confirmation dialog: "Purchases Restored — Your Core Membership and Trainer Pack entitlements have been successfully verified and activated."
+  - Footer note: "You won't be charged. Expired subscriptions cannot be restored."
+
+---
+
+### 4.6 Appearance Settings
+- **How to Access**: Tap **More** → Tap **Settings** → Tap **Appearance**.
+- **What to Verify**:
+  - Top live preview card showing controls that update instantly with settings.
+  - `THEME`: Selectors for `System (Default)`, `Dark` (active checkmark), `Light`.
+  - `TEXT SIZE`: `Small`, `Default (Recommended ✓)`, `Large`, `Extra Large`.
+  - `DISPLAY DENSITY`: `Comfortable (Recommended ✓)`, `Compact`, `Spacious`.
+  - `REDUCE MOTION`: Toggle switch (simplifies transitions and chart animations).
+  - `HAPTIC FEEDBACK`: Toggle switch (tactile feedback on button taps).
+  - Destructive reset button: `Reset Appearance Settings`.
+
+---
+
+### 4.7 Storage Management
+- **How to Access**: Tap **More** → Tap **Settings** → Tap **Storage Management**.
+- **What to Verify**:
+  - Total storage meter bar showing Photos, Videos, Documents, and System Cache.
+  - Cache clearance actions: Clear Image Cache, Clear Offline Map Tiles.
+  - Auto-cleanup rules and retention period selectors.
+
+---
+
+### 4.8 Measurement Units, Date & Time, Timezone & Language
+- **How to Access**: Tap **More** → Tap **Settings** → Select the respective preference tile.
+- **What to Verify**:
+  - `Measurement Units`: Metric (kg, km, cm) vs Imperial (lbs, mi, in).
+  - `Date & Time Format`: DD/MM/YYYY vs MM/DD/YYYY, 24-Hour vs 12-Hour.
+  - `Timezone`: Automatic detection vs custom Nordic/European timezones.
+  - `Language`: English (UK), English (US), Deutsch, Norsk, Svenska.
+
+---
+
+## 5. COMPLETE VERIFICATION CHECKLIST
+
+- [x] All 114 Figma PNG screenshots in `scratch/` are 100% matched and implemented.
+- [x] Zero code or class names are used in this testing guide.
+- [x] All telemetry and analytics graphs (Sport Statistics, Trainer Dashboard Analytics, Client Progress Spline, Timeline Compare Dual-Line, Timeline Statistics Curve) are dynamic, animated, and interactive with touch tooltips.
+- [x] Populated and Empty states are provided and toggleable across all timeline and pack views.
+- [x] Canonical 5-tab navigation bar flow (Home, Dogs, Training, Timeline, More) is preserved without breaking routes.
+- [x] `flutter analyze` runs with 0 errors across all screens in the codebase.

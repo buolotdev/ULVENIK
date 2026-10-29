@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
-import 'video_viewer_screen.dart';
 import 'photo_viewer_screen.dart';
+import 'video_viewer_screen.dart';
 import 'document_viewer_screen.dart';
+import 'media_search_screen.dart';
 import 'media_upload_manager_screen.dart';
 import 'media_collections_screen.dart';
 
@@ -14,7 +10,6 @@ import 'media_collections_screen.dart';
 const Color _obsidian = Color(0xFF101214);
 const Color _carbon = Color(0xFF1A1F22);
 const Color _cardBorder = Color(0x14FFFFFF);
-const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
@@ -29,62 +24,28 @@ class MediaLibraryScreen extends StatefulWidget {
 }
 
 class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
-  late bool _isEmpty;
   String _selectedTab = 'All';
 
-  final List<Map<String, dynamic>> _mediaItems = [
-    {
-      'type': 'video',
-      'title': 'Bite Phase C Escape (4K 60fps)',
-      'dog': 'Koda',
-      'duration': '03:45',
-      'date': 'Oct 28',
-    },
-    {
-      'type': 'photo',
-      'title': 'Alpine Ridge Pointing Posture',
-      'dog': 'Koda',
-      'date': 'Oct 28',
-    },
-    {
-      'type': 'video',
-      'title': 'Weave Poles 12-Pole Sprint',
-      'dog': 'Murphy',
-      'duration': '01:18',
-      'date': 'Oct 27',
-    },
-    {
-      'type': 'doc',
-      'title': 'Koda OFA Hips & Elbows Certificate',
-      'dog': 'Koda',
-      'date': 'Oct 14',
-    },
-    {
-      'type': 'photo',
-      'title': 'Protection Hold & Bark Focus',
-      'dog': 'Koda',
-      'date': 'Oct 24',
-    },
-    {
-      'type': 'video',
-      'title': 'Scent Article Indication Slow-Mo',
-      'dog': 'Koda',
-      'duration': '02:04',
-      'date': 'Oct 22',
-    },
+  final List<Map<String, dynamic>> _items = [
+    {'type': 'photo', 'date': '14 Jul', 'heart': true},
+    {'type': 'video', 'duration': '0:45', 'date': '13 Jul', 'heart': false},
+    {'type': 'photo', 'date': '12 Jul', 'heart': false},
+    {'type': 'photo', 'date': '11 Jul', 'heart': false},
+    {'type': 'doc', 'title': 'Vet Report', 'date': '10 Jul', 'heart': false},
+    {'type': 'video', 'duration': '1:20', 'date': '9 Jul', 'heart': true},
+    {'type': 'photo', 'date': '8 Jul', 'heart': false},
+    {'type': 'photo', 'date': '6 Jul', 'heart': false},
+    {'type': 'video', 'duration': '0:24', 'date': '5 Jul', 'heart': false},
+    {'type': 'photo', 'date': '4 Jul', 'heart': false},
+    {'type': 'photo', 'date': '2 Jul', 'heart': false},
+    {'type': 'photo', 'date': '28 Jun', 'heart': false},
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    _isEmpty = widget.initialEmpty;
-  }
-
-  List<Map<String, dynamic>> get _filteredMedia {
-    if (_selectedTab == 'All') return _mediaItems;
-    if (_selectedTab == 'Videos') return _mediaItems.where((m) => m['type'] == 'video').toList();
-    if (_selectedTab == 'Photos') return _mediaItems.where((m) => m['type'] == 'photo').toList();
-    return _mediaItems.where((m) => m['type'] == 'doc').toList();
+  List<Map<String, dynamic>> get _filteredItems {
+    if (_selectedTab == 'All') return _items;
+    if (_selectedTab == 'Photos') return _items.where((i) => i['type'] == 'photo').toList();
+    if (_selectedTab == 'Videos') return _items.where((i) => i['type'] == 'video').toList();
+    return _items.where((i) => i['type'] == 'doc').toList();
   }
 
   void _openItem(Map<String, dynamic> item) {
@@ -92,383 +53,292 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => VideoViewerScreen(
-            title: item['title'],
-            dogName: item['dog'],
-            duration: item['duration'] ?? '03:00',
-          ),
+          builder: (_) => const VideoViewerScreen(),
         ),
       );
     } else if (item['type'] == 'photo') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => const PhotoViewerScreen()),
+        MaterialPageRoute(
+          builder: (_) => const PhotoViewerScreen(),
+        ),
       );
     } else {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => DocumentViewerScreen(title: '${item['title']}.pdf'),
+          builder: (_) => const DocumentViewerScreen(),
         ),
       );
     }
   }
 
+  void _showSortSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: _carbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Sort & Filter Media', style: TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
+            ListTile(
+              leading: const Icon(Icons.collections_bookmark_outlined, color: _mint),
+              title: const Text('Open Collections', style: TextStyle(color: _offWhite)),
+              onTap: () {
+                Navigator.pop(ctx);
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const MediaCollectionsScreen()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.cloud_upload_outlined, color: _mint),
+              title: const Text('Upload Manager', style: TextStyle(color: _offWhite)),
+              onTap: () {
+                Navigator.pop(ctx);
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const MediaUploadManagerScreen()));
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final list = _filteredMedia;
+    final filtered = _filteredItems;
 
     return Scaffold(
       backgroundColor: _obsidian,
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Media Library',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
+          style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
-            tooltip: 'Collections',
-            icon: const Icon(Icons.folder_special_outlined, color: _mint),
+            icon: const Icon(Icons.search, color: _offWhite),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const MediaCollectionsScreen()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const MediaSearchScreen()));
             },
           ),
           IconButton(
-            tooltip: 'Toggle Empty State',
-            icon: Icon(
-              _isEmpty ? Icons.visibility : Icons.visibility_off_outlined,
-              color: _mint,
-              size: 20,
-            ),
-            onPressed: () => setState(() => _isEmpty = !_isEmpty),
+            icon: const Icon(Icons.tune, color: _offWhite),
+            onPressed: _showSortSheet,
+          ),
+          IconButton(
+            icon: const Icon(Icons.sort, color: _offWhite),
+            onPressed: _showSortSheet,
           ),
         ],
       ),
-      body: _isEmpty
-          ? _buildEmptyState()
-          : ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              children: [
-                // 1. FILTER TABS
-                _buildFilterTabs(),
-                const SizedBox(height: 14),
-
-                // 2. STORAGE STATUS BANNER
-                _buildStorageStrip(),
-                const SizedBox(height: 16),
-
-                // 3. MEDIA GRID
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 0.88,
-                  ),
-                  itemCount: list.length,
-                  itemBuilder: (ctx, idx) => _buildMediaCard(list[idx]),
-                ),
-                const SizedBox(height: 70),
-              ],
-            ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: _forest,
-        icon: const Icon(Icons.cloud_upload_outlined, color: _offWhite),
-        label: const Text('Upload Media', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700)),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const MediaUploadManagerScreen()),
-          );
-        },
-      ),
-      bottomNavigationBar: _buildBottomNav(),
-    );
-  }
-
-  Widget _buildEmptyState() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 80,
-              height: 80,
+      body: Column(
+        children: [
+          // 4-COLUMN METRIC STRIP
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
                 color: _carbon,
+                borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: _cardBorder),
               ),
-              child: const Icon(Icons.perm_media_outlined, size: 36, color: _stoneGrey),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'No Media Uploaded',
-              style: TextStyle(
-                color: _offWhite,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Inter',
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Capture training videos, field photos, and upload OFA health certificates to preserve your canine archive.',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _forest,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              ),
-              onPressed: () => setState(() => _isEmpty = false),
-              child: const Text('View Sample Library', style: TextStyle(color: _offWhite)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFilterTabs() {
-    final tabs = ['All', 'Videos', 'Photos', 'Docs'];
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: tabs.map((t) {
-          final isSel = _selectedTab == t;
-          return Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: GestureDetector(
-              onTap: () => setState(() => _selectedTab = t),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 160),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                  color: isSel ? _forest : _carbon,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: isSel ? _mint : _cardBorder),
-                ),
-                child: Text(
-                  t,
-                  style: TextStyle(
-                    color: isSel ? _offWhite : _stoneGrey,
-                    fontSize: 12,
-                    fontWeight: isSel ? FontWeight.w700 : FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildStorageStrip() {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.cloud_done_outlined, color: _mint, size: 18),
-              SizedBox(width: 8),
-              Text('Cloud Synced (1.24 GB / 10 GB)', style: TextStyle(color: _offWhite, fontSize: 12, fontWeight: FontWeight.w600)),
-            ],
-          ),
-          Text('4K Supported', style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w700)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMediaCard(Map<String, dynamic> item) {
-    final isVideo = item['type'] == 'video';
-    final isDoc = item['type'] == 'doc';
-
-    return GestureDetector(
-      onTap: () => _openItem(item),
-      child: Container(
-        decoration: BoxDecoration(
-          color: _carbon,
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: _cardBorder),
-        ),
-        clipBehavior: Clip.antiAlias,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Container(
-                color: const Color(0xFF131718),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Center(
-                      child: Icon(
-                        isVideo
-                            ? Icons.videocam
-                            : (isDoc ? Icons.description : Icons.image),
-                        color: _mint.withValues(alpha: 0.6),
-                        size: 40,
-                      ),
-                    ),
-                    if (isVideo && item['duration'] != null)
-                      Positioned(
-                        bottom: 8,
-                        right: 8,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Colors.black87,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            item['duration'],
-                            style: const TextStyle(color: _offWhite, fontSize: 10, fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  Text(
-                    item['title'],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: _offWhite,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(item['dog'], style: const TextStyle(color: _mint, fontSize: 10, fontWeight: FontWeight.w600)),
-                      Text(item['date'], style: const TextStyle(color: _stoneGrey, fontSize: 10)),
-                    ],
-                  ),
+                  _buildMetricCol('147', 'PHOTOS'),
+                  _buildDivider(),
+                  _buildMetricCol('34', 'VIDEOS'),
+                  _buildDivider(),
+                  _buildMetricCol('12', 'DOCS'),
+                  _buildDivider(),
+                  _buildMetricCol('2.4 GB', 'STORAGE'),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
           ),
-        ),
-      ),
-    );
-  }
 
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
+          // TABS
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              children: ['All', 'Photos', 'Videos', 'Documents'].map((tab) {
+                final isSel = _selectedTab == tab;
+                return GestureDetector(
+                  onTap: () => setState(() => _selectedTab = tab),
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: isSel ? _mint : Colors.transparent,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      tab,
+                      style: TextStyle(
+                        color: isSel ? _offWhite : _stoneGrey,
+                        fontSize: 14,
+                        fontWeight: isSel ? FontWeight.bold : FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
+          const SizedBox(height: 8),
+
+          // 3-COLUMN MEDIA GRID
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 1.0,
+              ),
+              itemCount: filtered.length,
+              itemBuilder: (ctx, i) {
+                final item = filtered[i];
+                return _buildMediaTile(item);
+              },
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMetricCol(String value, String label) {
+    return Expanded(
+      child: Column(
+        children: [
+          Text(value, style: const TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 3),
+          Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 0.8)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDivider() {
+    return Container(
+      height: 28,
+      width: 1,
+      color: _cardBorder,
+    );
+  }
+
+  Widget _buildMediaTile(Map<String, dynamic> item) {
+    final type = item['type'] as String;
+    final heart = item['heart'] as bool? ?? false;
+
+    return InkWell(
+      onTap: () => _openItem(item),
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        decoration: BoxDecoration(
+          color: _carbon,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: _cardBorder),
+          gradient: LinearGradient(
+            colors: type == 'photo'
+                ? [const Color(0xFF1B2421), const Color(0xFF121715)]
+                : type == 'video'
+                    ? [const Color(0xFF192226), const Color(0xFF11171A)]
+                    : [const Color(0xFF222629), const Color(0xFF141719)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        padding: const EdgeInsets.all(8),
+        child: Stack(
+          children: [
+            // Center illustration if document
+            if (type == 'doc')
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.description_outlined, color: _stoneGrey, size: 26),
+                    const SizedBox(height: 2),
+                    const Text('PDF', style: TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 4),
+                    Text(item['title'] ?? 'Document', style: const TextStyle(color: _offWhite, fontSize: 10)),
+                  ],
+                ),
+              ),
+
+            // Top-left heart badge
+            if (heart)
+              const Positioned(
+                top: 0,
+                left: 0,
+                child: Icon(Icons.favorite, color: Color(0xFFECC94B), size: 14),
+              ),
+
+            // Top-right icon
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Icon(
+                type == 'photo'
+                    ? Icons.image_outlined
+                    : type == 'video'
+                        ? Icons.play_circle_outline
+                        : Icons.description_outlined,
+                color: _stoneGrey,
+                size: 16,
+              ),
+            ),
+
+            // Bottom-left duration or date
+            if (type == 'video') ...[
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Text(
+                  item['duration'] ?? '',
+                  style: const TextStyle(color: _offWhite, fontSize: 10, fontWeight: FontWeight.w600),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Text(
+                  item['date'] ?? '',
+                  style: const TextStyle(color: _stoneGrey, fontSize: 10),
+                ),
+              ),
+            ] else if (type == 'photo') ...[
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Text(
+                  item['date'] ?? '',
+                  style: const TextStyle(color: _stoneGrey, fontSize: 10),
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }

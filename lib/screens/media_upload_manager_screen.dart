@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
 const Color _obsidian = Color(0xFF101214);
@@ -13,6 +8,7 @@ const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
+const Color _crimson = Color(0xFFE5484D);
 
 class MediaUploadManagerScreen extends StatefulWidget {
   const MediaUploadManagerScreen({super.key});
@@ -23,52 +19,20 @@ class MediaUploadManagerScreen extends StatefulWidget {
 }
 
 class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen> {
-  bool _isUploading = true;
-  final double _activeProgress = 0.78;
+  bool _isPaused = false;
+  bool _failedRetried = false;
 
-  final List<Map<String, dynamic>> _queue = [
-    {
-      'name': 'koda_bite_phase_c_4k.mp4',
-      'size': '340 MB',
-      'status': 'uploading',
-      'progress': 0.78,
-      'speed': '14.2 MB/s',
-      'icon': Icons.videocam,
-    },
-    {
-      'name': 'koda_ofa_certificate.pdf',
-      'size': '4.2 MB',
-      'status': 'completed',
-      'progress': 1.0,
-      'speed': 'Done',
-      'icon': Icons.description,
-    },
-    {
-      'name': 'murphy_tracking_gpx_trace.gpx',
-      'size': '1.8 MB',
-      'status': 'completed',
-      'progress': 1.0,
-      'speed': 'Done',
-      'icon': Icons.timeline,
-    },
-    {
-      'name': 'alpine_ridge_point.heic',
-      'size': '18.4 MB',
-      'status': 'queued',
-      'progress': 0.0,
-      'speed': 'Queued',
-      'icon': Icons.image,
-    },
-  ];
-
-  void _pauseOrResume() {
-    setState(() => _isUploading = !_isUploading);
+  void _retryFailed() {
+    setState(() => _failedRetried = true);
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(_isUploading ? 'Resumed all uploads.' : 'Upload queue paused.'),
-        backgroundColor: _forest,
-        duration: const Duration(seconds: 1),
-      ),
+      const SnackBar(content: Text('Retrying failed upload...'), backgroundColor: _forest),
+    );
+  }
+
+  void _togglePauseAll() {
+    setState(() => _isPaused = !_isPaused);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(_isPaused ? 'All uploads paused.' : 'Uploads resumed.'), backgroundColor: _forest),
     );
   }
 
@@ -79,241 +43,482 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen> {
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Upload Manager',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
+          'Media Uploads',
+          style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         actions: [
-          IconButton(
-            tooltip: _isUploading ? 'Pause Uploads' : 'Resume Uploads',
-            icon: Icon(_isUploading ? Icons.pause_circle_outline : Icons.play_circle_outline, color: _mint),
-            onPressed: _pauseOrResume,
+          TextButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Edit upload queue'), backgroundColor: _forest),
+              );
+            },
+            child: const Text('Edit', style: TextStyle(color: _stoneGrey, fontSize: 14)),
+          ),
+          TextButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Cleared completed uploads.'), backgroundColor: _forest),
+              );
+            },
+            child: const Text('Clear Completed', style: TextStyle(color: _mint, fontSize: 14, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
-          // 1. LIVE BANDWIDTH TELEMETRY CARD
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: const Color(0xFF131718),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: _mint.withValues(alpha: 0.3)),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: _forest,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Icon(Icons.cloud_upload, color: _mint, size: 24),
-                ),
-                const SizedBox(width: 14),
-                const Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '14.2 MB/s • Wi-Fi 6 Connected',
-                        style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w700),
-                      ),
-                      SizedBox(height: 2),
-                      Text('Uploading to AWS S3 • 1 Item Active, 1 Queued', style: TextStyle(color: _stoneGrey, fontSize: 11)),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: _forest,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: const Text('ACTIVE', style: TextStyle(color: _mint, fontSize: 9, fontWeight: FontWeight.w800)),
-                ),
-              ],
-            ),
+          // UPLOAD STATUS
+          const Text(
+            'UPLOAD STATUS',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
           ),
-          const SizedBox(height: 20),
-
-          // 2. ACTIVE UPLOADS LIST
-          _buildSectionHeader('UPLOAD QUEUE (4 ITEMS)'),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Container(
+            padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
               color: _carbon,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
             child: Column(
-              children: _queue.asMap().entries.map((entry) {
-                final idx = entry.key;
-                final item = entry.value;
-                final isLast = idx == _queue.length - 1;
-                final isCompleted = item['status'] == 'completed';
-                final isUploading = item['status'] == 'uploading';
-
-                return Column(
+              children: [
+                Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(14),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(item['icon'], color: isCompleted ? _mint : _stoneGrey, size: 20),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: Text(
-                                  item['name'],
-                                  style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              if (isCompleted)
-                                const Row(
-                                  children: [
-                                    Icon(Icons.check_circle, color: _mint, size: 16),
-                                    SizedBox(width: 4),
-                                    Text('Uploaded', style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w700)),
-                                  ],
-                                )
-                              else
-                                Text(
-                                  '${item['size']} • ${item['speed']}',
-                                  style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                                ),
-                            ],
-                          ),
-                          if (isUploading) ...[
-                            const SizedBox(height: 10),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(3),
-                              child: LinearProgressIndicator(
-                                value: _activeProgress,
-                                backgroundColor: const Color(0xFF131718),
-                                valueColor: const AlwaysStoppedAnimation(_mint),
-                                minHeight: 4,
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                    if (!isLast) const Divider(color: Color(0x0FFFFFFF), height: 1),
+                    _buildStatusCol('3', 'UPLOADING', _mint),
+                    _buildDivider(),
+                    _buildStatusCol('5', 'WAITING', _stoneGrey),
+                    _buildDivider(),
+                    _buildStatusCol(_failedRetried ? '0' : '1', 'FAILED', _crimson),
+                    _buildDivider(),
+                    _buildStatusCol('14', 'COMPLETED', _offWhite),
                   ],
-                );
-              }).toList(),
+                ),
+                const SizedBox(height: 16),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('12.4 MB uploading now', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                    Row(
+                      children: [
+                        Container(width: 6, height: 6, decoration: const BoxDecoration(color: _mint, shape: BoxShape.circle)),
+                        const SizedBox(width: 6),
+                        const Text('Sync active', style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 24),
-        ],
-      ),
-      bottomNavigationBar: _buildBottomNav(),
-    );
-  }
+          const SizedBox(height: 14),
 
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _stoneGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
-      ),
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
+          // ACTIONS STRIP
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
+              InkWell(
+                onTap: _retryFailed,
+                child: const Text('Retry All Failed', style: TextStyle(color: _crimson, fontSize: 12, fontWeight: FontWeight.bold)),
+              ),
+              InkWell(
+                onTap: _togglePauseAll,
+                child: Text(_isPaused ? 'Paused' : 'Pause All', style: const TextStyle(color: _stoneGrey, fontSize: 12, fontWeight: FontWeight.bold)),
+              ),
+              InkWell(
+                onTap: _togglePauseAll,
+                child: const Text('Resume All', style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.bold)),
+              ),
+              InkWell(
+                onTap: () {},
+                child: const Text('Cancel All', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+              ),
             ],
           ),
-        ),
+          const SizedBox(height: 28),
+
+          // SECTION UPLOADING
+          const Text(
+            'UPLOADING',
+            style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
+          _buildUploadingCard(
+            icon: Icons.image_outlined,
+            title: 'Koda_Training_Session_14.jpg',
+            subtitle: 'Training Session • 12 Jul 2026',
+            size: '3.2 MB',
+            progress: 0.68,
+            eta: '68% • 12 sec remaining',
+          ),
+          const SizedBox(height: 10),
+          _buildUploadingCard(
+            icon: Icons.image_outlined,
+            title: 'Koda_Outdoor_Run.jpg',
+            subtitle: 'Training Session • 12 Jul 2026',
+            size: '1.9 MB',
+            progress: 0.34,
+            eta: '34% • 28 sec remaining',
+          ),
+          const SizedBox(height: 10),
+          _buildUploadingCard(
+            icon: Icons.play_arrow_outlined,
+            title: 'Session14_Recall.mp4',
+            subtitle: 'Training Session • 12 Jul 2026',
+            size: '47.2 MB',
+            progress: 0.12,
+            eta: '12% • 1 min remaining',
+          ),
+          const SizedBox(height: 28),
+
+          // SECTION WAITING
+          const Text(
+            'WAITING',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
+          _buildWaitingCard(
+            icon: Icons.description_outlined,
+            title: 'Koda_Competition_Score.pdf',
+            subtitle: 'Competition • 10 Jul 2026',
+            size: '1.8 MB',
+          ),
+          const SizedBox(height: 10),
+          _buildWaitingCard(
+            icon: Icons.description_outlined,
+            title: 'Vet_Assessment_Jul26.pdf',
+            subtitle: 'Health Record • 10 Jul 2026',
+            size: '2.4 MB',
+          ),
+          const SizedBox(height: 28),
+
+          // SECTION FAILED
+          if (!_failedRetried) ...[
+            const Text(
+              'FAILED',
+              style: TextStyle(color: _crimson, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+            ),
+            const SizedBox(height: 12),
+            _buildFailedCard(
+              icon: Icons.play_arrow_outlined,
+              title: 'Koda_Training_Video_Recall.mp4',
+              subtitle: 'Training Session • 8 Jul 2026',
+              size: '47.2 MB',
+              progress: 0.45,
+              onRetry: _retryFailed,
+            ),
+            const SizedBox(height: 28),
+          ],
+
+          // SECTION COMPLETED TODAY
+          const Text(
+            'COMPLETED TODAY',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
+          _buildCompletedCard(
+            icon: Icons.image_outlined,
+            title: 'Koda_Agility_Run.jpg',
+            subtitle: 'Training Session • Completed 14:32',
+          ),
+          const SizedBox(height: 10),
+          _buildCompletedCard(
+            icon: Icons.description_outlined,
+            title: 'Training_Notes_Jul12.pdf',
+            subtitle: 'Training Session • Completed 14:28',
+          ),
+          const SizedBox(height: 10),
+          _buildCompletedCard(
+            icon: Icons.image_outlined,
+            title: 'Koda_Session14_Overview.jpg',
+            subtitle: 'Training Session • Completed 14:21',
+          ),
+          const SizedBox(height: 40),
+        ],
       ),
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
+  Widget _buildStatusCol(String val, String label, Color color) {
+    return Expanded(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
+          Text(val, style: TextStyle(color: color, fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 3),
+          Text(label, style: TextStyle(color: color, fontSize: 9, fontWeight: FontWeight.bold, letterSpacing: 0.6)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDivider() {
+    return Container(height: 24, width: 1, color: _cardBorder);
+  }
+
+  Widget _buildUploadingCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required String size,
+    required double progress,
+    required String eta,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _cardBorder),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF242A2E),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(icon, color: _stoneGrey, size: 20),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 2),
+                    Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: _forest.withValues(alpha: 0.3),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: const Text('UPLOADING', style: TextStyle(color: _mint, fontSize: 9, fontWeight: FontWeight.bold)),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(size, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.pause, color: _stoneGrey, size: 18),
+              const SizedBox(width: 10),
+              const Icon(Icons.close, color: _stoneGrey, size: 18),
+            ],
           ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(2),
+            child: LinearProgressIndicator(
+              value: progress,
+              backgroundColor: const Color(0xFF242A2E),
+              valueColor: const AlwaysStoppedAnimation<Color>(_mint),
+              minHeight: 3,
             ),
           ),
+          const SizedBox(height: 6),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(eta, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWaitingCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required String size,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _cardBorder),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
+              color: const Color(0xFF242A2E),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, color: _stoneGrey, size: 20),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 2),
+                Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF242A2E),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Text('WAITING', style: TextStyle(color: _stoneGrey, fontSize: 9, fontWeight: FontWeight.bold)),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(size, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const Icon(Icons.close, color: _stoneGrey, size: 18),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFailedCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required String size,
+    required double progress,
+    required VoidCallback onRetry,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _cardBorder),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF242A2E),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(icon, color: _crimson, size: 20),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 2),
+                    Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: _crimson.withValues(alpha: 0.3),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: const Text('FAILED', style: TextStyle(color: _crimson, fontSize: 9, fontWeight: FontWeight.bold)),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(size, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.refresh, color: _crimson, size: 20),
+                onPressed: onRetry,
+              ),
+              const Icon(Icons.close, color: _stoneGrey, size: 18),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(2),
+            child: LinearProgressIndicator(
+              value: progress,
+              backgroundColor: const Color(0xFF242A2E),
+              valueColor: const AlwaysStoppedAnimation<Color>(_crimson),
+              minHeight: 3,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: onRetry,
+                child: const Text('Upload interrupted — tap Retry', style: TextStyle(color: _crimson, fontSize: 11)),
+              ),
+              Text('${(progress * 100).toInt()}%', style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCompletedCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _cardBorder),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
+              color: const Color(0xFF242A2E),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, color: _stoneGrey, size: 20),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 2),
+                Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+              ],
+            ),
+          ),
+          const Icon(Icons.check_circle_outline, color: _mint, size: 20),
         ],
       ),
     );

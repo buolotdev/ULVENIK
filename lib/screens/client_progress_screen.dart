@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
 const Color _obsidian = Color(0xFF101214);
 const Color _carbon = Color(0xFF1A1F22);
 const Color _cardBorder = Color(0x14FFFFFF);
-const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _gold = Color(0xFFECC94B);
 
 class ClientProgressScreen extends StatefulWidget {
   final String dogName;
 
   const ClientProgressScreen({
     super.key,
-    this.dogName = 'Baron',
+    this.dogName = 'Murphy',
   });
 
   @override
@@ -29,7 +22,9 @@ class ClientProgressScreen extends StatefulWidget {
 }
 
 class _ClientProgressScreenState extends State<ClientProgressScreen> {
-  String _timeframe = 'All Sessions (14)';
+  String _activeCategory = 'Overview';
+  String _selectedMonth = 'This Month';
+  int? _touchedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -38,247 +33,521 @@ class _ClientProgressScreenState extends State<ClientProgressScreen> {
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          'Progress: ${widget.dogName}',
-          style: const TextStyle(
+        title: const Text(
+          'Analytics',
+          style: TextStyle(
             color: _offWhite,
             fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
             fontFamily: 'Inter',
           ),
         ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        children: [
-          // 1. TIMEFRAME PILLS
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: ['All Sessions (14)', 'Last 30 Days', 'Phase B Focus', 'Phase C Bite'].map((tf) {
-                final isSel = _timeframe == tf;
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: GestureDetector(
-                    onTap: () => setState(() => _timeframe = tf),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 160),
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                      decoration: BoxDecoration(
-                        color: isSel ? _forest : _carbon,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: isSel ? _mint : _cardBorder),
-                      ),
-                      child: Text(
-                        tf,
-                        style: TextStyle(
-                          color: isSel ? _offWhite : _stoneGrey,
-                          fontSize: 12,
-                          fontWeight: isSel ? FontWeight.w700 : FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          // 2. METRIC BENTO CARD
+        actions: [
           Container(
-            padding: const EdgeInsets.all(16),
+            margin: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: _carbon,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
-            child: const Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _MetricItem('88%', 'Overall Mastery (+14%)'),
-                    _MetricItem('18.5h', 'Total Lesson Hours'),
-                    _MetricItem('100%', 'Homework Return (6/6)'),
-                  ],
-                ),
-                SizedBox(height: 12),
-                Divider(color: Color(0x0FFFFFFF), height: 1),
-                SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _MetricItem('Phase B', 'Primary Focus Area'),
-                    _MetricItem('Decoy Vance', 'Trial Helper Assessor'),
-                    _MetricItem('Ready', 'IGP 1 Trial Candidate'),
-                  ],
-                ),
-              ],
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: _selectedMonth,
+                dropdownColor: _carbon,
+                icon: const Icon(Icons.keyboard_arrow_down, color: _stoneGrey, size: 16),
+                style: const TextStyle(color: _offWhite, fontSize: 12, fontWeight: FontWeight.w600),
+                items: const [
+                  DropdownMenuItem(value: 'This Month', child: Text('This Month')),
+                  DropdownMenuItem(value: 'Last Month', child: Text('Last Month')),
+                  DropdownMenuItem(value: 'Last 90 Days', child: Text('Last 90 Days')),
+                ],
+                onChanged: (v) {
+                  if (v != null) setState(() => _selectedMonth = v);
+                },
+              ),
             ),
           ),
-          const SizedBox(height: 20),
-
-          // 3. ANIMATED PROGRESS SPLINE CURVE (Interactive fl_chart)
-          _buildSectionHeader('MASTERY SCORE PROGRESSION (14 LESSONS)'),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: _cardBorder),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Trajectory: +23% Gain since Intake', style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w700)),
-                    Text('Target: 90%', style: TextStyle(color: _stoneGrey, fontSize: 11)),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  height: 160,
-                  child: LineChart(
-                    LineChartData(
-                      minY: 60,
-                      maxY: 100,
-                      lineTouchData: LineTouchData(
-                        touchTooltipData: LineTouchTooltipData(
-                          getTooltipColor: (_) => _forest,
-                          tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                          getTooltipItems: (touchedSpots) => touchedSpots.map((spot) {
-                            return LineTooltipItem(
-                              'Lesson ${spot.x.toInt() + 1}: ${spot.y.toInt()}% Score',
-                              const TextStyle(color: _offWhite, fontWeight: FontWeight.w800, fontSize: 11),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                      gridData: FlGridData(
-                        show: true,
-                        drawVerticalLine: false,
-                        getDrawingHorizontalLine: (_) => const FlLine(color: Color(0x14FFFFFF), strokeWidth: 1),
-                      ),
-                      titlesData: FlTitlesData(
-                        topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                        rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                        leftTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            reservedSize: 28,
-                            getTitlesWidget: (val, _) => Text(
-                              '${val.toInt()}%',
-                              style: const TextStyle(color: _stoneGrey, fontSize: 9),
-                            ),
-                          ),
-                        ),
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            getTitlesWidget: (val, _) => Text(
-                              'L${val.toInt() + 1}',
-                              style: const TextStyle(color: _stoneGrey, fontSize: 9),
-                            ),
-                          ),
-                        ),
-                      ),
-                      borderData: FlBorderData(show: false),
-                      lineBarsData: [
-                        LineChartBarData(
-                          isCurved: true,
-                          curveSmoothness: 0.35,
-                          color: _mint,
-                          barWidth: 3,
-                          isStrokeCapRound: true,
-                          dotData: const FlDotData(show: true),
-                          belowBarData: BarAreaData(
-                            show: true,
-                            color: _mint.withValues(alpha: 0.12),
-                          ),
-                          spots: const [
-                            FlSpot(0, 65),
-                            FlSpot(1, 68),
-                            FlSpot(2, 72),
-                            FlSpot(3, 70),
-                            FlSpot(4, 75),
-                            FlSpot(5, 78),
-                            FlSpot(6, 82),
-                            FlSpot(7, 85),
-                            FlSpot(8, 88),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // 4. CRITERIA ACCURACY BARS
-          _buildSectionHeader('DRILL CRITERIA ACCURACY'),
-          const SizedBox(height: 8),
-          _buildCriteriaBar('Focused Heeling Eye Contact', 0.90, '90%', _mint),
-          _buildCriteriaBar('Down on the Move Execution', 0.86, '86%', _mint),
-          _buildCriteriaBar('1m Hurdle Clean Clearance', 0.82, '82%', _gold),
-          _buildCriteriaBar('Clean Out on Decoy Sleeve', 0.88, '88%', _mint),
-
-          const SizedBox(height: 24),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(),
-    );
-  }
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          children: [
+            // Category Tabs
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: ['Overview', 'Training', 'S&C', 'Skills', 'Health'].map((cat) {
+                  final isSel = _activeCategory == cat;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: InkWell(
+                      onTap: () => setState(() => _activeCategory = cat),
+                      borderRadius: BorderRadius.circular(16),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: isSel ? const Color(0xFF14241E) : const Color(0xFF14171A),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: isSel ? const Color(0xFF34D399) : _cardBorder,
+                          ),
+                        ),
+                        child: Text(
+                          cat,
+                          style: TextStyle(
+                            color: isSel ? const Color(0xFF34D399) : _stoneGrey,
+                            fontSize: 12,
+                            fontWeight: isSel ? FontWeight.w700 : FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
 
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _stoneGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
+            const SizedBox(height: 18),
+
+            // 2x2 Bento Metric Grid
+            Row(
+              children: [
+                Expanded(
+                  child: _buildBentoCard(
+                    title: 'Total Training Time',
+                    value: '24h 35m',
+                    delta: '+16% vs last month',
+                    isSparkline: true,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildBentoCard(
+                    title: 'Sessions',
+                    value: '18',
+                    delta: '+12% vs last month',
+                    isSparkline: true,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildFreqCard(),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildSuccessRateCard(),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            // Training Time (Weekly Trend) with Interactive Animated LineChart
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        'Training Time',
+                        style: TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.w700),
+                      ),
+                      Text('Weekly trend', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    height: 160,
+                    child: LineChart(
+                      LineChartData(
+                        minY: 0,
+                        maxY: 3.5,
+                        lineTouchData: LineTouchData(
+                          touchTooltipData: LineTouchTooltipData(
+                            getTooltipItems: (touchedSpots) {
+                              return touchedSpots.map((spot) {
+                                return LineTooltipItem(
+                                  '${spot.y.toStringAsFixed(1)} hours\n',
+                                  const TextStyle(color: _mint, fontWeight: FontWeight.bold),
+                                );
+                              }).toList();
+                            },
+                          ),
+                          touchCallback: (event, response) {
+                            setState(() {
+                              if (response != null && response.lineBarSpots != null && event is! FlTapUpEvent) {
+                                _touchedIndex = response.lineBarSpots!.first.spotIndex;
+                              } else {
+                                _touchedIndex = null;
+                              }
+                            });
+                          },
+                        ),
+                        gridData: FlGridData(
+                          show: true,
+                          drawVerticalLine: false,
+                          horizontalInterval: 1,
+                          getDrawingHorizontalLine: (v) => const FlLine(color: Color(0x14FFFFFF), strokeWidth: 1),
+                        ),
+                        titlesData: FlTitlesData(
+                          show: true,
+                          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                          leftTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              reservedSize: 28,
+                              interval: 1,
+                              getTitlesWidget: (val, meta) {
+                                if (val == 0) return const SizedBox.shrink();
+                                return Text(
+                                  '${val.toInt()}h',
+                                  style: const TextStyle(color: _stoneGrey, fontSize: 10),
+                                );
+                              },
+                            ),
+                          ),
+                          bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              getTitlesWidget: (val, meta) {
+                                const weeks = ['6 Apr', '13 Apr', '20 Apr', '27 Apr', '4 May'];
+                                if (val.toInt() >= 0 && val.toInt() < weeks.length) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: Text(
+                                      weeks[val.toInt()],
+                                      style: TextStyle(
+                                        color: _touchedIndex == val.toInt() ? _mint : _stoneGrey,
+                                        fontSize: 10,
+                                        fontWeight: _touchedIndex == val.toInt() ? FontWeight.w700 : FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                return const SizedBox.shrink();
+                              },
+                            ),
+                          ),
+                        ),
+                        borderData: FlBorderData(show: false),
+                        lineBarsData: [
+                          LineChartBarData(
+                            spots: const [
+                              FlSpot(0, 0.9),
+                              FlSpot(1, 1.8),
+                              FlSpot(2, 1.2),
+                              FlSpot(3, 2.2),
+                              FlSpot(4, 1.6),
+                              FlSpot(5, 2.7),
+                              FlSpot(6, 1.9),
+                            ],
+                            isCurved: true,
+                            curveSmoothness: 0.35,
+                            color: const Color(0xFF34D399),
+                            barWidth: 3,
+                            dotData: FlDotData(
+                              show: true,
+                              getDotPainter: (spot, percent, barData, index) {
+                                return FlDotCirclePainter(
+                                  radius: 4,
+                                  color: const Color(0xFF34D399),
+                                  strokeWidth: 2,
+                                  strokeColor: _obsidian,
+                                );
+                              },
+                            ),
+                            belowBarData: BarAreaData(
+                              show: true,
+                              gradient: LinearGradient(
+                                colors: [
+                                  const Color(0xFF34D399).withValues(alpha: 0.25),
+                                  Colors.transparent,
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      duration: const Duration(milliseconds: 400),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Top Skills Donut Chart Card
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text('Top Skills', style: TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.w700)),
+                      Text('By time spent', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      // Donut Circle
+                      SizedBox(
+                        width: 110,
+                        height: 110,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            PieChart(
+                              PieChartData(
+                                sectionsSpace: 3,
+                                centerSpaceRadius: 36,
+                                sections: [
+                                  PieChartSectionData(color: const Color(0xFF34D399), value: 45, radius: 14, showTitle: false),
+                                  PieChartSectionData(color: const Color(0xFF5D8FAF), value: 25, radius: 14, showTitle: false),
+                                  PieChartSectionData(color: const Color(0xFF9F7AEA), value: 18, radius: 14, showTitle: false),
+                                  PieChartSectionData(color: const Color(0xFF4A5568), value: 12, radius: 14, showTitle: false),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Text('45%', style: TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.w800)),
+                                Text('TOP', style: TextStyle(color: _stoneGrey, fontSize: 9, fontWeight: FontWeight.w700)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      // Skill rows
+                      Expanded(
+                        child: Column(
+                          children: [
+                            _buildSkillBreakdown(const Color(0xFF34D399), 'Focus & Drive', '45%'),
+                            const SizedBox(height: 8),
+                            _buildSkillBreakdown(const Color(0xFF5D8FAF), 'Agility & S&C', '25%'),
+                            const SizedBox(height: 8),
+                            _buildSkillBreakdown(const Color(0xFF9F7AEA), 'Heelwork', '18%'),
+                            const SizedBox(height: 8),
+                            _buildSkillBreakdown(const Color(0xFF4A5568), 'Other Modules', '12%'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Your Consistency Card (with Heatmap)
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Your Consistency', style: TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.w700)),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: const Color(0x1F34D399),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Text('Top 15%', style: TextStyle(color: Color(0xFF34D399), fontSize: 10, fontWeight: FontWeight.w800)),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  const Text("You're in the top 15% of active working dog teams this month.", style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  const SizedBox(height: 16),
+
+                  // Heatmap Grid: 7 cols x 4 rows
+                  Column(
+                    children: List.generate(4, (row) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: List.generate(7, (col) {
+                            final alphaIndex = (row * 7 + col) % 5;
+                            final colors = [
+                              const Color(0xFF14191E),
+                              const Color(0xFF1E3A2E),
+                              const Color(0xFF265842),
+                              const Color(0xFF34D399),
+                              const Color(0xFF14191E),
+                            ];
+                            return Container(
+                              width: 38,
+                              height: 24,
+                              decoration: BoxDecoration(
+                                color: colors[alphaIndex],
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            );
+                          }),
+                        ),
+                      );
+                    }),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      const Text('Less active', style: TextStyle(color: _stoneGrey, fontSize: 10)),
+                      const Spacer(),
+                      Row(
+                        children: [
+                          Container(width: 8, height: 8, decoration: BoxDecoration(color: const Color(0xFF1E3A2E), borderRadius: BorderRadius.circular(2))),
+                          const SizedBox(width: 4),
+                          Container(width: 8, height: 8, decoration: BoxDecoration(color: const Color(0xFF265842), borderRadius: BorderRadius.circular(2))),
+                          const SizedBox(width: 4),
+                          Container(width: 8, height: 8, decoration: BoxDecoration(color: const Color(0xFF34D399), borderRadius: BorderRadius.circular(2))),
+                        ],
+                      ),
+                      const Spacer(),
+                      const Text('More active', style: TextStyle(color: _stoneGrey, fontSize: 10)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 36),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildCriteriaBar(String title, double val, String pct, Color color) {
+  Widget _buildBentoCard({
+    required String title,
+    required String value,
+    required String delta,
+    required bool isSparkline,
+  }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: _carbon,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: _cardBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(title, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+          const SizedBox(height: 4),
+          Text(value, style: const TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.w800)),
+          const SizedBox(height: 2),
+          Text(delta, style: const TextStyle(color: Color(0xFF34D399), fontSize: 10, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 10),
+          Container(
+            height: 24,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF34D399).withValues(alpha: 0.1),
+                  const Color(0xFF34D399).withValues(alpha: 0.3),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFreqCard() {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _cardBorder),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Training Frequency', style: TextStyle(color: _stoneGrey, fontSize: 11)),
+          const SizedBox(height: 4),
+          const Text('4.5', style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.w800)),
+          const SizedBox(height: 2),
+          const Text('Sessions per week', style: TextStyle(color: _stoneGrey, fontSize: 10)),
+          const SizedBox(height: 10),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(title, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600)),
-              Text(pct, style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w800)),
+            children: const [
+              Icon(Icons.circle, color: Color(0xFF34D399), size: 7),
+              SizedBox(width: 5),
+              Text('Consistent pace', style: TextStyle(color: Color(0xFF34D399), fontSize: 10, fontWeight: FontWeight.w600)),
             ],
           ),
-          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSuccessRateCard() {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _cardBorder),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Success Rate', style: TextStyle(color: _stoneGrey, fontSize: 11)),
+          const SizedBox(height: 4),
+          const Text('82%', style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.w800)),
+          const SizedBox(height: 2),
+          const Text('+6% vs last month', style: TextStyle(color: _stoneGrey, fontSize: 10)),
+          const SizedBox(height: 10),
           ClipRRect(
-            borderRadius: BorderRadius.circular(3),
-            child: LinearProgressIndicator(
-              value: val,
-              backgroundColor: const Color(0xFF131718),
-              valueColor: AlwaysStoppedAnimation(color),
+            borderRadius: BorderRadius.circular(2),
+            child: const LinearProgressIndicator(
+              value: 0.82,
+              backgroundColor: Color(0xFF262C30),
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF34D399)),
               minHeight: 5,
             ),
           ),
@@ -287,102 +556,14 @@ class _ClientProgressScreenState extends State<ClientProgressScreen> {
     );
   }
 
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MetricItem extends StatelessWidget {
-  final String val;
-  final String label;
-
-  const _MetricItem(this.val, this.label);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildSkillBreakdown(Color color, String name, String pct) {
+    return Row(
       children: [
-        Text(val, style: const TextStyle(color: _mint, fontSize: 16, fontWeight: FontWeight.w800)),
-        const SizedBox(height: 2),
-        Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 10)),
+        Icon(Icons.circle, color: color, size: 8),
+        const SizedBox(width: 8),
+        Expanded(child: Text(name, style: const TextStyle(color: _offWhite, fontSize: 12))),
+        Text(pct, style: const TextStyle(color: _offWhite, fontSize: 12, fontWeight: FontWeight.w700)),
       ],
     );
   }
 }
-

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
 const Color _obsidian = Color(0xFF101214);
 const Color _carbon = Color(0xFF1A1F22);
 const Color _cardBorder = Color(0x14FFFFFF);
+const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
@@ -21,16 +17,24 @@ class DateTimeFormatScreen extends StatefulWidget {
 }
 
 class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
-  bool _use24Hour = true;
-  String _dateFormat = 'DD/MM/YYYY (28/10/2026)';
-  String _startOfWeek = 'Monday';
+  bool _useRegionalFormat = false;
+  String _selectedDateFormat = '29 July 2026';
+  String _selectedTimeFormat = '24-Hour';
+  String _selectedFirstDay = 'Monday';
 
-  String get _sampleTime => _use24Hour ? '14:30:00' : '2:30:00 PM';
+  final List<Map<String, String>> _dateFormats = [
+    {'title': '29 July 2026', 'example': ''},
+    {'title': 'DD/MM/YYYY', 'example': '29/07/2026'},
+    {'title': 'MM/DD/YYYY', 'example': '07/29/2026'},
+    {'title': 'YYYY-MM-DD', 'example': '2026-07-29'},
+    {'title': '29 Jul 2026', 'example': '29 Jul 2026'},
+  ];
 
-  String get _sampleDate {
-    if (_dateFormat.startsWith('DD')) return '28/10/2026';
-    if (_dateFormat.startsWith('MM')) return '10/28/2026';
-    return '2026-10-28';
+  void _save() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Date & time format saved!'), backgroundColor: _forest),
+    );
+    Navigator.pop(context);
   }
 
   @override
@@ -40,119 +44,110 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Date & Time Format',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
+          style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          TextButton(
+            onPressed: _save,
+            child: const Text('Save', style: TextStyle(color: _forest, fontSize: 15, fontWeight: FontWeight.bold)),
+          ),
+        ],
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
-          // 1. LIVE FORMAT PREVIEW
+          // CURRENT FORMAT
+          const Text(
+            'CURRENT FORMAT',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
           Container(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFF131718),
+              color: _carbon,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: _mint.withValues(alpha: 0.3)),
+              border: Border.all(color: _cardBorder),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                const Text(
-                  'ACTIVE FORMAT PREVIEW',
-                  style: TextStyle(
-                    color: _mint,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.8,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                const Icon(Icons.calendar_today_outlined, color: _stoneGrey, size: 24),
+                const SizedBox(width: 14),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          _sampleTime,
-                          style: const TextStyle(
-                            color: _offWhite,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: 'Inter',
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        const Text('Session Telemetry Timestamp', style: TextStyle(color: _stoneGrey, fontSize: 11)),
-                      ],
+                    Text(
+                      _selectedDateFormat == '29 July 2026' ? '29 July 2026' : _selectedDateFormat,
+                      style: const TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          _sampleDate,
-                          style: const TextStyle(
-                            color: _mint,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'Inter',
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        const Text('Training Calendar Date', style: TextStyle(color: _stoneGrey, fontSize: 11)),
-                      ],
+                    const SizedBox(height: 2),
+                    Text(
+                      _selectedTimeFormat == '24-Hour' ? '14:35' : '2:35 PM',
+                      style: const TextStyle(color: _stoneGrey, fontSize: 13),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Week starts $_selectedFirstDay',
+                      style: const TextStyle(color: _stoneGrey, fontSize: 11),
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
 
-          // 2. TIME NOTATION SELECTION
-          _buildSectionHeader('TIME NOTATION'),
-          const SizedBox(height: 8),
+          // USE REGIONAL FORMAT TOGGLE
           Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: _carbon,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
-            child: Column(
+            child: Row(
               children: [
-                _buildRadioTile(
-                  title: '24-Hour Time (14:30)',
-                  subtitle: 'Recommended for IGP trials, tracking lines & GPS logs',
-                  selected: _use24Hour,
-                  onTap: () => setState(() => _use24Hour = true),
+                const Icon(Icons.language, color: _stoneGrey, size: 20),
+                const SizedBox(width: 14),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Use Regional Format',
+                        style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        'Follows date and time conventions for your selected country',
+                        style: TextStyle(color: _stoneGrey, fontSize: 12),
+                      ),
+                    ],
+                  ),
                 ),
-                const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 16, endIndent: 16),
-                _buildRadioTile(
-                  title: '12-Hour Time (2:30 PM)',
-                  subtitle: 'Standard civilian 12-hour format with AM/PM indicators',
-                  selected: !_use24Hour,
-                  onTap: () => setState(() => _use24Hour = false),
+                Switch(
+                  value: _useRegionalFormat,
+                  activeThumbColor: _mint,
+                  activeTrackColor: _forest,
+                  onChanged: (v) => setState(() => _useRegionalFormat = v),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 28),
 
-          // 3. DATE NOTATION SELECTION
-          _buildSectionHeader('DATE ORDER NOTATION'),
-          const SizedBox(height: 8),
+          // DATE FORMAT
+          const Text(
+            'DATE FORMAT',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
           Container(
             decoration: BoxDecoration(
               color: _carbon,
@@ -161,34 +156,59 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
             ),
             child: Column(
               children: [
-                _buildRadioTile(
-                  title: 'DD/MM/YYYY (28/10/2026)',
-                  subtitle: 'Day / Month / Year • European & International standard',
-                  selected: _dateFormat.startsWith('DD'),
-                  onTap: () => setState(() => _dateFormat = 'DD/MM/YYYY (28/10/2026)'),
+                for (int i = 0; i < _dateFormats.length; i++) ...[
+                  _buildSelectableTile(
+                    title: _dateFormats[i]['title']!,
+                    trailing: _dateFormats[i]['example']!,
+                    isSelected: _selectedDateFormat == _dateFormats[i]['title'],
+                    onTap: () => setState(() => _selectedDateFormat = _dateFormats[i]['title']!),
+                  ),
+                  if (i < _dateFormats.length - 1)
+                    const Divider(color: _cardBorder, height: 1),
+                ],
+              ],
+            ),
+          ),
+          const SizedBox(height: 28),
+
+          // TIME FORMAT
+          const Text(
+            'TIME FORMAT',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
+          Container(
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                _buildSelectableTile(
+                  title: '24-Hour',
+                  trailing: '14:35',
+                  isSelected: _selectedTimeFormat == '24-Hour',
+                  onTap: () => setState(() => _selectedTimeFormat = '24-Hour'),
                 ),
-                const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 16, endIndent: 16),
-                _buildRadioTile(
-                  title: 'MM/DD/YYYY (10/28/2026)',
-                  subtitle: 'Month / Day / Year • US standard',
-                  selected: _dateFormat.startsWith('MM'),
-                  onTap: () => setState(() => _dateFormat = 'MM/DD/YYYY (10/28/2026)'),
-                ),
-                const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 16, endIndent: 16),
-                _buildRadioTile(
-                  title: 'YYYY-MM-DD (2026-10-28)',
-                  subtitle: 'Year-Month-Day • ISO 8601 database export format',
-                  selected: _dateFormat.startsWith('YYYY'),
-                  onTap: () => setState(() => _dateFormat = 'YYYY-MM-DD (2026-10-28)'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildSelectableTile(
+                  title: '12-Hour',
+                  trailing: '2:35 PM',
+                  isSelected: _selectedTimeFormat == '12-Hour',
+                  onTap: () => setState(() => _selectedTimeFormat = '12-Hour'),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 28),
 
-          // 4. WEEK START DAY
-          _buildSectionHeader('FIRST DAY OF THE WEEK'),
-          const SizedBox(height: 8),
+          // FIRST DAY OF WEEK
+          const Text(
+            'FIRST DAY OF WEEK',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
           Container(
             decoration: BoxDecoration(
               color: _carbon,
@@ -197,176 +217,134 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
             ),
             child: Column(
               children: [
-                _buildRadioTile(
+                _buildSelectableTile(
                   title: 'Monday',
-                  subtitle: 'Starts handler training cycle on Monday morning',
-                  selected: _startOfWeek == 'Monday',
-                  onTap: () => setState(() => _startOfWeek = 'Monday'),
+                  trailing: 'Mon • Tue • Wed...',
+                  isSelected: _selectedFirstDay == 'Monday',
+                  onTap: () => setState(() => _selectedFirstDay = 'Monday'),
                 ),
-                const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 16, endIndent: 16),
-                _buildRadioTile(
+                const Divider(color: _cardBorder, height: 1),
+                _buildSelectableTile(
                   title: 'Sunday',
-                  subtitle: 'Starts calendar cycle on Sunday',
-                  selected: _startOfWeek == 'Sunday',
-                  onTap: () => setState(() => _startOfWeek = 'Sunday'),
+                  trailing: 'Sun • Mon • Tue...',
+                  isSelected: _selectedFirstDay == 'Sunday',
+                  onTap: () => setState(() => _selectedFirstDay = 'Sunday'),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 28),
+
+          // PREVIEW
+          const Text(
+            'PREVIEW',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('TRAINING SESSION', style: TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.1)),
+                const SizedBox(height: 4),
+                const Text('Wednesday 29 July 2026', style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 2),
+                Text(
+                  _selectedTimeFormat == '24-Hour' ? '14:35 – 15:20' : '2:35 PM – 3:20 PM',
+                  style: const TextStyle(color: _stoneGrey, fontSize: 13),
+                ),
+                const SizedBox(height: 16),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 12),
+                const Text('REMINDER', style: TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.1)),
+                const SizedBox(height: 4),
+                const Text('Thursday 30 July 2026', style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 2),
+                Text(
+                  _selectedTimeFormat == '24-Hour' ? '09:00' : '9:00 AM',
+                  style: const TextStyle(color: _stoneGrey, fontSize: 13),
+                ),
+                const SizedBox(height: 16),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 12),
+                const Text('CALENDAR WEEK', style: TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.1)),
+                const SizedBox(height: 4),
+                Text('Week begins $_selectedFirstDay', style: const TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 2),
+                Text(
+                  _selectedFirstDay == 'Monday'
+                      ? 'Mon • Tue • Wed • Thu • Fri • Sat • Sun'
+                      : 'Sun • Mon • Tue • Wed • Thu • Fri • Sat',
+                  style: const TextStyle(color: _stoneGrey, fontSize: 12),
+                ),
+                const SizedBox(height: 16),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 12),
+                const Text(
+                  'Historical records remain unchanged. Only how they are displayed will change.',
+                  style: TextStyle(color: _stoneGrey, fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 28),
+
+          // SAVE BUTTON
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _forest,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              onPressed: _save,
+              child: const Text('Save Date & Time Format', style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.bold)),
+            ),
+          ),
+          const SizedBox(height: 40),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _stoneGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
-      ),
-    );
-  }
-
-  Widget _buildRadioTile({
+  Widget _buildSelectableTile({
     required String title,
-    required String subtitle,
-    required bool selected,
+    required String trailing,
+    required bool isSelected,
     required VoidCallback onTap,
   }) {
     return InkWell(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        decoration: BoxDecoration(
+          border: isSelected
+              ? const Border(left: BorderSide(color: _mint, width: 3))
+              : null,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         child: Row(
           children: [
-            Container(
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: selected ? _mint : _stoneGrey,
-                  width: 2,
-                ),
-              ),
-              child: selected
-                  ? Center(
-                      child: Container(
-                        width: 10,
-                        height: 10,
-                        decoration: const BoxDecoration(
-                          color: _mint,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    )
-                  : null,
-            ),
-            const SizedBox(width: 14),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: selected ? _mint : _offWhite,
-                      fontSize: 14,
-                      fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
-                ],
+              child: Text(
+                title,
+                style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ),
+            if (trailing.isNotEmpty) ...[
+              Text(trailing, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
+              const SizedBox(width: 8),
+            ],
+            if (isSelected) const Icon(Icons.check, color: _mint, size: 18),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
-            ),
-          ),
-        ],
       ),
     );
   }

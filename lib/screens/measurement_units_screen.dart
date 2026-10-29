@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
 const Color _obsidian = Color(0xFF101214);
@@ -22,98 +17,40 @@ class MeasurementUnitsScreen extends StatefulWidget {
 }
 
 class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
-  String _distanceUnit = 'Kilometers (km)';
-  String _weightUnit = 'Kilograms (kg)';
-  String _tempUnit = 'Celsius (°C)';
-  String _elevationUnit = 'Meters (m)';
-  String _speedUnit = 'km/h';
+  String _selectedSystem = 'Metric';
 
-  bool get _isMetricPreset =>
-      _distanceUnit == 'Kilometers (km)' &&
-      _weightUnit == 'Kilograms (kg)' &&
-      _tempUnit == 'Celsius (°C)';
-
-  void _applyMetricPreset() {
-    setState(() {
-      _distanceUnit = 'Kilometers (km)';
-      _weightUnit = 'Kilograms (kg)';
-      _tempUnit = 'Celsius (°C)';
-      _elevationUnit = 'Meters (m)';
-      _speedUnit = 'km/h';
-    });
+  void _save() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Measurement units updated!'), backgroundColor: _forest),
+    );
+    Navigator.pop(context);
   }
 
-  void _applyImperialPreset() {
-    setState(() {
-      _distanceUnit = 'Miles (mi)';
-      _weightUnit = 'Pounds (lbs)';
-      _tempUnit = 'Fahrenheit (°F)';
-      _elevationUnit = 'Feet (ft)';
-      _speedUnit = 'mph';
-    });
-  }
-
-  void _showUnitPickerModal(
-    String title,
-    List<String> options,
-    String current,
-    ValueChanged<String> onSelected,
-  ) {
+  void _showUnitPicker(String title, List<String> options) {
     showModalBottomSheet(
       context: context,
       backgroundColor: _carbon,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                title,
-                style: const TextStyle(
-                  color: _offWhite,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Inter',
-                ),
-              ),
-              const SizedBox(height: 12),
-              ...options.map((opt) {
-                final isSelected = opt == current;
-                return ListTile(
+      builder: (ctx) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: const TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
+            ...options.map((opt) => ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    opt,
-                    style: TextStyle(
-                      color: isSelected ? _mint : _offWhite,
-                      fontSize: 14,
-                      fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                    ),
-                  ),
-                  trailing: isSelected ? const Icon(Icons.check, color: _mint, size: 20) : null,
+                  title: Text(opt, style: const TextStyle(color: _offWhite)),
+                  trailing: const Icon(Icons.check, color: _mint),
                   onTap: () {
-                    onSelected(opt);
                     Navigator.pop(ctx);
+                    setState(() {});
                   },
-                );
-              }),
-            ],
-          ),
+                )),
+          ],
         ),
       ),
     );
@@ -121,128 +58,99 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isMetric = _selectedSystem == 'Metric';
+
     return Scaffold(
       backgroundColor: _obsidian,
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Measurement Units',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
+          style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          TextButton(
+            onPressed: _save,
+            child: const Text('Save', style: TextStyle(color: _forest, fontSize: 15, fontWeight: FontWeight.bold)),
+          ),
+        ],
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
-          // 1. SYSTEM PRESET SWITCHER
+          // CURRENT SYSTEM
+          const Text(
+            'CURRENT SYSTEM',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
           Container(
-            padding: const EdgeInsets.all(4),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: _carbon,
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
             child: Row(
               children: [
+                const Icon(Icons.scale_outlined, color: _stoneGrey, size: 24),
+                const SizedBox(width: 14),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: _applyMetricPreset,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 160),
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        color: _isMetricPreset ? _forest : Colors.transparent,
-                        borderRadius: BorderRadius.circular(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _selectedSystem,
+                        style: const TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      child: Center(
-                        child: Text(
-                          'Metric (km, kg, °C)',
-                          style: TextStyle(
-                            color: _isMetricPreset ? _offWhite : _stoneGrey,
-                            fontSize: 13,
-                            fontWeight: _isMetricPreset ? FontWeight.w700 : FontWeight.w500,
-                          ),
-                        ),
+                      const SizedBox(height: 2),
+                      Text(
+                        isMetric ? 'kg • km • cm • °C' : 'lb • mi • in • °F',
+                        style: const TextStyle(color: _stoneGrey, fontSize: 12),
                       ),
-                    ),
+                    ],
                   ),
                 ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: _applyImperialPreset,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 160),
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        color: !_isMetricPreset ? _forest : Colors.transparent,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Imperial (mi, lbs, °F)',
-                          style: TextStyle(
-                            color: !_isMetricPreset ? _offWhite : _stoneGrey,
-                            fontSize: 13,
-                            fontWeight: !_isMetricPreset ? FontWeight.w700 : FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF242A2E),
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Text(
+                    _selectedSystem.toUpperCase(),
+                    style: const TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
 
-          // 2. LIVE TELEMETRY PREVIEW CARD
-          _buildSectionHeader('LIVE TELEMETRY PREVIEW'),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: const Color(0xFF131718),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: _mint.withValues(alpha: 0.3)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Koda • Alpine Scent Run', style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w700)),
-                    Text('Active Session', style: TextStyle(color: _mint, fontSize: 10, fontWeight: FontWeight.w800)),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _buildPreviewStat('Weight', _weightUnit == 'Kilograms (kg)' ? '32.4 kg' : '71.4 lbs'),
-                    _buildPreviewStat('Distance', _distanceUnit == 'Kilometers (km)' ? '8.4 km' : '5.2 mi'),
-                    _buildPreviewStat('Peak Speed', _speedUnit == 'km/h' ? '28.5 km/h' : '17.7 mph'),
-                    _buildPreviewStat('Ambient Temp', _tempUnit == 'Celsius (°C)' ? '18°C' : '64°F'),
-                  ],
-                ),
-              ],
-            ),
+          // 3 SYSTEM CARDS
+          Row(
+            children: [
+              _buildSystemCard('Metric', 'kg • km • °C', _selectedSystem == 'Metric'),
+              const SizedBox(width: 10),
+              _buildSystemCard('Imperial', 'lb • mi • °F', _selectedSystem == 'Imperial'),
+              const SizedBox(width: 10),
+              _buildSystemCard('Custom', 'Mix & match', _selectedSystem == 'Custom'),
+            ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 28),
 
-          // 3. INDIVIDUAL UNIT PREFERENCES
-          _buildSectionHeader('GRANULAR CONFIGURATION'),
-          const SizedBox(height: 8),
+          // MEASUREMENT CATEGORIES
+          const Text(
+            'MEASUREMENT CATEGORIES',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
           Container(
             decoration: BoxDecoration(
               color: _carbon,
@@ -250,175 +158,151 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
               border: Border.all(color: _cardBorder),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildUnitRow(
-                  icon: Icons.straighten,
-                  title: 'Distance & Tracking',
-                  value: _distanceUnit,
-                  onTap: () => _showUnitPickerModal(
-                    'Distance Unit',
-                    ['Kilometers (km)', 'Miles (mi)', 'Meters (m)'],
-                    _distanceUnit,
-                    (val) => setState(() => _distanceUnit = val),
-                  ),
+                _buildSubheader('BODY'),
+                _buildCategoryTile(
+                  icon: Icons.scale_outlined,
+                  title: 'Dog Weight',
+                  value: isMetric ? 'Kilograms' : 'Pounds',
+                  example: isMetric ? '32.4 kg' : '71.4 lb',
+                  onTap: () => _showUnitPicker('Dog Weight Unit', ['Kilograms (kg)', 'Pounds (lb)']),
                 ),
-                const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 56),
-                _buildUnitRow(
-                  icon: Icons.monitor_weight_outlined,
-                  title: 'Canine Body Weight',
-                  value: _weightUnit,
-                  onTap: () => _showUnitPickerModal(
-                    'Weight Unit',
-                    ['Kilograms (kg)', 'Pounds (lbs)'],
-                    _weightUnit,
-                    (val) => setState(() => _weightUnit = val),
-                  ),
+                const Divider(color: _cardBorder, height: 1),
+                _buildCategoryTile(
+                  icon: Icons.straighten_outlined,
+                  title: 'Height & Body',
+                  value: isMetric ? 'Centimetres' : 'Inches',
+                  example: isMetric ? '68 cm' : '26.8 in',
+                  onTap: () => _showUnitPicker('Height & Body Unit', ['Centimetres (cm)', 'Inches (in)']),
                 ),
-                const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 56),
-                _buildUnitRow(
+                _buildSubheader('ACTIVITY'),
+                _buildCategoryTile(
+                  icon: Icons.route_outlined,
+                  title: 'Distance',
+                  value: isMetric ? 'Kilometres' : 'Miles',
+                  example: isMetric ? '4.8 km' : '3.0 mi',
+                  onTap: () => _showUnitPicker('Distance Unit', ['Kilometres (km)', 'Miles (mi)']),
+                ),
+                const Divider(color: _cardBorder, height: 1),
+                _buildCategoryTile(
+                  icon: Icons.near_me_outlined,
+                  title: 'Short Distance',
+                  value: isMetric ? 'Metres' : 'Yards',
+                  example: isMetric ? '15 m' : '16 yd',
+                  onTap: () => _showUnitPicker('Short Distance Unit', ['Metres (m)', 'Yards (yd)', 'Feet (ft)']),
+                ),
+                const Divider(color: _cardBorder, height: 1),
+                _buildCategoryTile(
+                  icon: Icons.access_time_outlined,
+                  title: 'Duration',
+                  value: 'Hours & Minutes',
+                  example: '1 hr 30 min',
+                  onTap: () => _showUnitPicker('Duration Unit', ['Hours & Minutes', 'Minutes Only']),
+                ),
+                _buildSubheader('ENVIRONMENT'),
+                _buildCategoryTile(
                   icon: Icons.thermostat_outlined,
-                  title: 'Track Temperature',
-                  value: _tempUnit,
-                  onTap: () => _showUnitPickerModal(
-                    'Temperature Unit',
-                    ['Celsius (°C)', 'Fahrenheit (°F)'],
-                    _tempUnit,
-                    (val) => setState(() => _tempUnit = val),
-                  ),
+                  title: 'Temperature',
+                  value: isMetric ? 'Celsius' : 'Fahrenheit',
+                  example: isMetric ? '14°C' : '57°F',
+                  onTap: () => _showUnitPicker('Temperature Unit', ['Celsius (°C)', 'Fahrenheit (°F)']),
                 ),
-                const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 56),
-                _buildUnitRow(
-                  icon: Icons.terrain_outlined,
-                  title: 'Elevation Contours',
-                  value: _elevationUnit,
-                  onTap: () => _showUnitPickerModal(
-                    'Elevation Unit',
-                    ['Meters (m)', 'Feet (ft)'],
-                    _elevationUnit,
-                    (val) => setState(() => _elevationUnit = val),
-                  ),
-                ),
-                const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 56),
-                _buildUnitRow(
-                  icon: Icons.speed,
-                  title: 'Canine Sprint Speed',
-                  value: _speedUnit,
-                  onTap: () => _showUnitPickerModal(
-                    'Speed Unit',
-                    ['km/h', 'mph', 'm/s'],
-                    _speedUnit,
-                    (val) => setState(() => _speedUnit = val),
-                  ),
+                const Divider(color: _cardBorder, height: 1),
+                _buildCategoryTile(
+                  icon: Icons.water_drop_outlined,
+                  title: 'Liquid Volume',
+                  value: isMetric ? 'Millilitres / Litres' : 'Fluid Ounces',
+                  example: isMetric ? '250 ml' : '8.5 fl oz',
+                  onTap: () => _showUnitPicker('Liquid Volume Unit', ['Millilitres / Litres', 'Fluid Ounces / Pints']),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 28),
+
+          // PREVIEW
+          const Text(
+            'PREVIEW',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(child: _buildPreviewItem('DOG WEIGHT', isMetric ? '32.4 kg' : '71.4 lb')),
+                    const SizedBox(width: 12),
+                    Expanded(child: _buildPreviewItem('DISTANCE', isMetric ? '4.8 km' : '3.0 mi')),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(child: _buildPreviewItem('JUMP HEIGHT', isMetric ? '60 cm' : '24 in')),
+                    const SizedBox(width: 12),
+                    Expanded(child: _buildPreviewItem('TEMPERATURE', isMetric ? '14°C' : '57°F')),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                const Text(
+                  'Values shown using your current unit preferences.',
+                  style: TextStyle(color: _stoneGrey, fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 28),
+
+          // SAVE BUTTON
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _forest,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              onPressed: _save,
+              child: const Text('Save Measurement Units', style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.bold)),
+            ),
+          ),
+          const SizedBox(height: 40),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _stoneGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
-      ),
-    );
-  }
-
-  Widget _buildPreviewStat(String label, String value) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(value, style: const TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w700)),
-        const SizedBox(height: 2),
-        Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 10)),
-      ],
-    );
-  }
-
-  Widget _buildUnitRow({
-    required IconData icon,
-    required String title,
-    required String value,
-    required VoidCallback onTap,
-  }) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      leading: Container(
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          color: _mint.withValues(alpha: 0.12),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Icon(icon, color: _mint, size: 18),
-      ),
-      title: Text(title, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600)),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(value, style: const TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w700)),
-          const SizedBox(width: 6),
-          const Icon(Icons.chevron_right, color: _stoneGrey, size: 16),
-        ],
-      ),
-      onTap: onTap,
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+  Widget _buildSystemCard(String name, String sub, bool isSelected) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => setState(() => _selectedSystem = name),
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: _carbon,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: isSelected ? _forest : _cardBorder, width: isSelected ? 1.5 : 1),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(name, style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold)),
+                  if (isSelected) const Icon(Icons.check, color: _mint, size: 16),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text(sub, style: TextStyle(color: _stoneGrey, fontSize: 11, fontStyle: name == 'Custom' ? FontStyle.italic : FontStyle.normal)),
             ],
           ),
         ),
@@ -426,28 +310,63 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
+  Widget _buildSubheader(String text) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      color: const Color(0xFF14191C),
+      child: Text(text, style: const TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.1)),
+    );
+  }
+
+  Widget _buildCategoryTile({
+    required IconData icon,
+    required String title,
+    required String value,
+    required String example,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
       onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            Icon(icon, color: _stoneGrey, size: 20),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Text(title, style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold)),
             ),
-          ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(value, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600)),
+                const SizedBox(height: 2),
+                Text(example, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+              ],
+            ),
+            const SizedBox(width: 6),
+            const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPreviewItem(String label, String value) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: const Color(0xFF14191C),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _cardBorder),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.1)),
+          const SizedBox(height: 6),
+          Text(value, style: const TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.bold)),
         ],
       ),
     );

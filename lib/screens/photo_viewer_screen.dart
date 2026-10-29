@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
-const Color _pureBlack = Color(0xFF000000);
+const Color _obsidian = Color(0xFF101214);
 const Color _carbon = Color(0xFF1A1F22);
-const Color _forest = Color(0xFF2E6B57);
+const Color _cardBorder = Color(0x14FFFFFF);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
@@ -13,7 +13,7 @@ class PhotoViewerScreen extends StatefulWidget {
 
   const PhotoViewerScreen({
     super.key,
-    this.initialIndex = 0,
+    this.initialIndex = 2,
   });
 
   @override
@@ -22,35 +22,7 @@ class PhotoViewerScreen extends StatefulWidget {
 
 class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
   late int _currentIndex;
-  bool _isFavorite = false;
-  bool _showExif = false;
-
-  final List<Map<String, String>> _photos = [
-    {
-      'title': 'Koda Mountain Ridge Point',
-      'date': 'Oct 28, 2026 • 08:15 AM',
-      'exif': '85mm • f/1.4 • 1/2000s • ISO 200',
-      'location': 'Riverside Alpine Pass',
-    },
-    {
-      'title': 'Protection Escape Phase C Hit',
-      'date': 'Oct 27, 2026 • 03:45 PM',
-      'exif': '70mm • f/2.8 • 1/3200s • ISO 400',
-      'location': 'Club Field #2',
-    },
-    {
-      'title': 'Agility Weave Poles Full Extension',
-      'date': 'Oct 25, 2026 • 10:20 AM',
-      'exif': '50mm • f/1.8 • 1/1600s • ISO 100',
-      'location': 'Training Grounds',
-    },
-    {
-      'title': 'Scent Article Indication Posture',
-      'date': 'Oct 23, 2026 • 07:10 AM',
-      'exif': '35mm • f/2.0 • 1/800s • ISO 320',
-      'location': 'Highland Pine Grid',
-    },
-  ];
+  bool _isFavorite = true;
 
   @override
   void initState() {
@@ -60,188 +32,311 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final photo = _photos[_currentIndex];
-
     return Scaffold(
-      backgroundColor: _pureBlack,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // 1. TOP HEADER APP BAR
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: _offWhite),
-                    onPressed: () => Navigator.pop(context),
+      backgroundColor: _obsidian,
+      appBar: AppBar(
+        backgroundColor: _obsidian,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          'Koda Training Session',
+          style: TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert, color: _offWhite),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: ListView(
+        children: [
+          // PHOTO VIEWPORT WITH CONTROLS
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                height: 260,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF1E2822), Color(0xFF101513)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        '${_currentIndex + 1} of ${_photos.length}',
-                        style: const TextStyle(
-                          color: _mint,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Inter',
-                        ),
-                      ),
-                      Text(
-                        photo['date']!,
-                        style: const TextStyle(color: _stoneGrey, fontSize: 10),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          _isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: _isFavorite ? Colors.redAccent : _offWhite,
-                        ),
-                        onPressed: () => setState(() => _isFavorite = !_isFavorite),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.share_outlined, color: _offWhite),
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Photo export prepared.'), backgroundColor: _forest),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                ),
+                child: const Center(
+                  child: Icon(Icons.pets, color: _mint, size: 72),
+                ),
               ),
-            ),
-
-            // 2. PINCH-TO-ZOOM IMAGE VIEWPORT
-            Expanded(
-              child: Center(
-                child: InteractiveViewer(
-                  minScale: 0.8,
-                  maxScale: 4.0,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.white12),
-                    ),
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(Icons.pets, size: 90, color: _mint),
-                              const SizedBox(height: 12),
-                              Text(
-                                photo['title']!,
-                                style: const TextStyle(
-                                  color: _offWhite,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                photo['location']!,
-                                style: const TextStyle(color: _stoneGrey, fontSize: 12),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        // EXIF Overlay
-                        if (_showExif)
-                          Positioned(
-                            bottom: 14,
-                            left: 14,
-                            right: 14,
-                            child: Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withValues(alpha: 0.8),
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: _mint.withValues(alpha: 0.4)),
-                              ),
-                              child: Text(
-                                'EXIF: ${photo['exif']} • GPS: 47.6062° N, 122.3321° W',
-                                style: const TextStyle(color: _mint, fontSize: 11, fontFamily: 'monospace'),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
+              Positioned(
+                left: 12,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios, color: Colors.white70, size: 22),
+                  onPressed: () {
+                    if (_currentIndex > 0) setState(() => _currentIndex--);
+                  },
+                ),
+              ),
+              Positioned(
+                right: 12,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_forward_ios, color: Colors.white70, size: 22),
+                  onPressed: () {
+                    if (_currentIndex < 11) setState(() => _currentIndex++);
+                  },
+                ),
+              ),
+              Positioned(
+                bottom: 12,
+                right: 16,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.6),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '${_currentIndex + 1} of 12',
+                    style: const TextStyle(color: _offWhite, fontSize: 11, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
-            ),
+            ],
+          ),
+          const SizedBox(height: 12),
 
-            // 3. EXIF INFO TOGGLE BUTTON
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton.icon(
-                    icon: Icon(_showExif ? Icons.info : Icons.info_outline, color: _mint, size: 16),
-                    label: Text(
-                      _showExif ? 'Hide Metadata' : 'Show Camera EXIF',
-                      style: const TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w600),
-                    ),
-                    onPressed: () => setState(() => _showExif = !_showExif),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // METADATA CARD
+                Container(
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
                   ),
-                  Text(
-                    photo['exif']!,
-                    style: const TextStyle(color: _stoneGrey, fontSize: 11),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Tracking — Outdoor Session',
+                        style: TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(child: _buildMetaCol('DATE', '12 Jul 2026')),
+                          Expanded(child: _buildMetaCol('DOG', 'Koda')),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(child: _buildMetaCol('TIME', '10:24 AM')),
+                          Expanded(child: _buildMetaCol('ACTIVITY', 'Tracking')),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      const Divider(color: _cardBorder),
+                      const SizedBox(height: 8),
+                      const Text(
+                        '4032 × 3024 • 3.8 MB',
+                        style: TextStyle(color: _stoneGrey, fontSize: 12),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+                const SizedBox(height: 14),
 
-            // 4. BOTTOM THUMBNAIL CAROUSEL
-            Container(
-              height: 70,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: _photos.length,
-                itemBuilder: (ctx, idx) {
-                  final isSelected = idx == _currentIndex;
+                // ACTION BUTTONS BAR
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildActionBtn(
+                        icon: _isFavorite ? Icons.favorite : Icons.favorite_border,
+                        label: 'Favourite',
+                        color: _isFavorite ? const Color(0xFFECC94B) : _stoneGrey,
+                        onTap: () => setState(() => _isFavorite = !_isFavorite),
+                      ),
+                      _buildActionBtn(icon: Icons.share_outlined, label: 'Share', color: _stoneGrey, onTap: () {}),
+                      _buildActionBtn(icon: Icons.download_outlined, label: 'Download', color: _stoneGrey, onTap: () {}),
+                      _buildActionBtn(icon: Icons.open_in_new, label: 'Open Record', color: _stoneGrey, onTap: () {}),
+                      _buildActionBtn(icon: Icons.delete_outline, label: 'Delete', color: _stoneGrey, onTap: () {}),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
 
-                  return GestureDetector(
-                    onTap: () => setState(() => _currentIndex = idx),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 180),
-                      width: 54,
-                      margin: const EdgeInsets.only(right: 10),
+                // LINKED RECORD
+                const Text(
+                  'LINKED RECORD',
+                  style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.description_outlined, color: _stoneGrey, size: 22),
+                      const SizedBox(width: 14),
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Training Session — 12 Jul 2026',
+                              style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 2),
+                            Text('Tracking • 45 min • Koda', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                          ],
+                        ),
+                      ),
+                      const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // NOTES
+                const Text(
+                  'NOTES',
+                  style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: const Text(
+                    'Strong focus maintained throughout the tracking sequence. Extended search distance to 40m. Photo taken at peak engagement — Koda locked onto the scent track with no environmental distraction.',
+                    style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // TAGS
+                const Text(
+                  'TAGS',
+                  style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+                ),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 8,
+                  children: ['Tracking', 'Outdoor', 'Distance Work', 'Competition'].map((tag) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                       decoration: BoxDecoration(
                         color: _carbon,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: isSelected ? _mint : Colors.white12,
-                          width: isSelected ? 2.5 : 1,
-                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: _cardBorder),
                       ),
-                      child: Center(
-                        child: Icon(
-                          Icons.image,
-                          color: isSelected ? _mint : _stoneGrey,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+                      child: Text(tag, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 24),
+
+                // RELATED PHOTOS
+                const Text(
+                  'RELATED PHOTOS',
+                  style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+                ),
+                const SizedBox(height: 10),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      _buildThumb('12 Jul', false),
+                      const SizedBox(width: 8),
+                      _buildThumb('10 Jul', false),
+                      const SizedBox(width: 8),
+                      _buildThumb('8 Jul', true),
+                      const SizedBox(width: 8),
+                      _buildThumb('5 Jul', false),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 40),
+              ],
             ),
-            const SizedBox(height: 12),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMetaCol(String label, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.1)),
+        const SizedBox(height: 4),
+        Text(value, style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600)),
+      ],
+    );
+  }
+
+  Widget _buildActionBtn({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Icon(icon, color: color, size: 20),
+          const SizedBox(height: 4),
+          Text(label, style: TextStyle(color: color, fontSize: 10)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildThumb(String date, bool isSelected) {
+    return Container(
+      width: 72,
+      height: 72,
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: isSelected ? _mint : _cardBorder, width: isSelected ? 2 : 1),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF222B27), Color(0xFF131A16)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      padding: const EdgeInsets.all(6),
+      child: Align(
+        alignment: Alignment.bottomLeft,
+        child: Text(
+          date,
+          style: const TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold),
         ),
       ),
     );

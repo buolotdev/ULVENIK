@@ -372,73 +372,104 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'FILTER INSIGHT CATEGORIES',
-                style: TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 1.0,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Wrap(
-                spacing: 8,
-                runSpacing: 10,
-                children: [
-                  _buildFilterChip('All Insights', null, null),
-                  _buildFilterChip('Consistency', 'Consistency', _catConsistency),
-                  _buildFilterChip('Training', 'Training', _catTraining),
-                  _buildFilterChip('S&C', 'S&C', _catSC),
-                  _buildFilterChip('Health', 'Health', _catHealth),
-                  _buildFilterChip('Goals', 'Goals', _catGoals),
-                  _buildFilterChip('Milestones', 'Milestones', _catMilestone),
-                ],
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _forest,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+      builder: (ctx) {
+        String? tempFilter = _selectedCategoryFilter;
+        return StatefulBuilder(
+          builder: (modalCtx, setModalState) {
+            return SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 40,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: Colors.white24,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
                     ),
-                  ),
-                  onPressed: () => Navigator.pop(ctx),
-                  child: const Text('Apply Filter', style: TextStyle(color: _offWhite)),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'FILTER INSIGHT CATEGORIES',
+                      style: TextStyle(
+                        color: _stoneGrey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 10,
+                      children: [
+                        _buildFilterModalChip('All Insights', null, null, tempFilter, (c) => setModalState(() => tempFilter = c)),
+                        _buildFilterModalChip('Consistency', 'Consistency', _catConsistency, tempFilter, (c) => setModalState(() => tempFilter = c)),
+                        _buildFilterModalChip('Training', 'Training', _catTraining, tempFilter, (c) => setModalState(() => tempFilter = c)),
+                        _buildFilterModalChip('S&C', 'S&C', _catSC, tempFilter, (c) => setModalState(() => tempFilter = c)),
+                        _buildFilterModalChip('Health', 'Health', _catHealth, tempFilter, (c) => setModalState(() => tempFilter = c)),
+                        _buildFilterModalChip('Goals', 'Goals', _catGoals, tempFilter, (c) => setModalState(() => tempFilter = c)),
+                        _buildFilterModalChip('Milestones', 'Milestones', _catMilestone, tempFilter, (c) => setModalState(() => tempFilter = c)),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: _forest,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _selectedCategoryFilter = tempFilter;
+                            if (tempFilter != null) {
+                              final catMap = {
+                                'Consistency': 'Recording Consistency',
+                                'Training': 'Training',
+                                'S&C': 'Strength & Conditioning',
+                                'Health': 'Health',
+                                'Goals': 'Goals',
+                                'Milestones': 'Milestones',
+                              };
+                              if (catMap.containsKey(tempFilter)) {
+                                _expandedCategories[catMap[tempFilter]!] = true;
+                              }
+                            }
+                          });
+                          Navigator.pop(ctx);
+                        },
+                        child: const Text('Apply Filter', style: TextStyle(color: _offWhite)),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            );
+          },
+        );
+      },
     );
   }
 
-  Widget _buildFilterChip(String label, String? cat, Color? color) {
-    final bool isSelected = _selectedCategoryFilter == cat;
+  Widget _buildFilterModalChip(
+    String label,
+    String? cat,
+    Color? color,
+    String? currentFilter,
+    ValueChanged<String?> onSelect,
+  ) {
+    final bool isSelected = currentFilter == cat;
     return GestureDetector(
-      onTap: () => setState(() => _selectedCategoryFilter = cat),
+      onTap: () => onSelect(cat),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 180),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
@@ -509,10 +540,32 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
         ),
       ),
       actions: [
-        IconButton(
-          tooltip: 'Filter Insights',
-          icon: const Icon(Icons.filter_alt_outlined, color: _stoneGrey, size: 20),
-          onPressed: _showFilterModal,
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            IconButton(
+              tooltip: 'Filter Insights',
+              icon: Icon(
+                _selectedCategoryFilter != null ? Icons.filter_alt : Icons.filter_alt_outlined,
+                color: _selectedCategoryFilter != null ? _mint : _stoneGrey,
+                size: 20,
+              ),
+              onPressed: _showFilterModal,
+            ),
+            if (_selectedCategoryFilter != null)
+              Positioned(
+                top: 12,
+                right: 12,
+                child: Container(
+                  width: 7,
+                  height: 7,
+                  decoration: const BoxDecoration(
+                    color: _mint,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+          ],
         ),
         IconButton(
           tooltip: 'Toggle Empty/Populated State',
@@ -804,7 +857,13 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
       children: [
         // 1. TOP SUMMARY BENTO CARD
         _buildTopSummaryCard(),
-        const SizedBox(height: 20),
+        const SizedBox(height: 16),
+
+        // Active Filter indicator pill (if filtered)
+        if (_selectedCategoryFilter != null) ...[
+          _buildActiveFilterBar(),
+          const SizedBox(height: 12),
+        ],
 
         // 2. RECENTLY DISCOVERED Header & Cards
         _buildRecentlyDiscoveredSection(),
@@ -818,6 +877,42 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
         _buildInsightCategoriesSection(),
         const SizedBox(height: 24),
       ],
+    );
+  }
+
+  Widget _buildActiveFilterBar() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _mint.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.filter_alt, color: _mint, size: 16),
+              const SizedBox(width: 8),
+              Text(
+                'Filtered by: $_selectedCategoryFilter',
+                style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+          InkWell(
+            onTap: () => setState(() => _selectedCategoryFilter = null),
+            child: const Row(
+              children: [
+                Text('Clear Filter', style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w600)),
+                SizedBox(width: 4),
+                Icon(Icons.close, color: _mint, size: 14),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -972,6 +1067,15 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
   }
 
   Widget _buildRecentlyDiscoveredSection() {
+    final showGoals = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Goals';
+    final showTraining = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Training';
+
+    if (!showGoals && !showTraining) {
+      return const SizedBox.shrink();
+    }
+
+    final newCount = (showGoals ? 1 : 0) + (showTraining ? 1 : 0);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -995,9 +1099,9 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: _catGoals.withValues(alpha: 0.4)),
               ),
-              child: const Text(
-                '• 2 New',
-                style: TextStyle(color: _catGoals, fontSize: 11, fontWeight: FontWeight.w600),
+              child: Text(
+                '• $newCount New',
+                style: const TextStyle(color: _catGoals, fontSize: 11, fontWeight: FontWeight.w600),
               ),
             ),
           ],
@@ -1005,39 +1109,42 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
         const SizedBox(height: 12),
 
         // Card 1: Goals
-        _buildHighlightCard(
-          category: 'GOALS',
-          categoryColor: _catGoals,
-          title: 'Longest Goal Yet\nCompleted',
-          metricVal: '94 Days',
-          metricLabel: 'duration',
-          detailText: 'Heel Work Perfection — your longest goal to date, c...',
-          onTap: () => _showInsightDetailModal(
-            title: 'Longest Goal Yet Completed',
-            subtitle: 'Heel Work Perfection achieved in 94 consecutive days',
-            value: '94 Days',
-            category: 'Goals',
-            color: _catGoals,
+        if (showGoals) ...[
+          _buildHighlightCard(
+            category: 'GOALS',
+            categoryColor: _catGoals,
+            title: 'Longest Goal Yet\nCompleted',
+            metricVal: '94 Days',
+            metricLabel: 'duration',
+            detailText: 'Heel Work Perfection — your longest goal to date, c...',
+            onTap: () => _showInsightDetailModal(
+              title: 'Longest Goal Yet Completed',
+              subtitle: 'Heel Work Perfection achieved in 94 consecutive days',
+              value: '94 Days',
+              category: 'Goals',
+              color: _catGoals,
+            ),
           ),
-        ),
-        const SizedBox(height: 12),
+          if (showTraining) const SizedBox(height: 12),
+        ],
 
         // Card 2: Training
-        _buildHighlightCard(
-          category: 'TRAINING',
-          categoryColor: _catTraining,
-          title: 'New Favourite\nLocation Emerging',
-          metricVal: '14 Sessions',
-          metricLabel: 'this month',
-          detailText: 'Riverside Trail has become your most visited training...',
-          onTap: () => _showInsightDetailModal(
-            title: 'New Favourite Location Emerging',
-            subtitle: 'Riverside Trail logged 14 times this month',
-            value: '14 Sessions',
-            category: 'Training',
-            color: _catTraining,
+        if (showTraining)
+          _buildHighlightCard(
+            category: 'TRAINING',
+            categoryColor: _catTraining,
+            title: 'New Favourite\nLocation Emerging',
+            metricVal: '14 Sessions',
+            metricLabel: 'this month',
+            detailText: 'Riverside Trail has become your most visited training...',
+            onTap: () => _showInsightDetailModal(
+              title: 'New Favourite Location Emerging',
+              subtitle: 'Riverside Trail logged 14 times this month',
+              value: '14 Sessions',
+              category: 'Training',
+              color: _catTraining,
+            ),
           ),
-        ),
       ],
     );
   }
@@ -1233,6 +1340,14 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
   }
 
   Widget _buildInsightCategoriesSection() {
+    final showConsistency = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Consistency';
+    final showTraining = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Training';
+    final showSC = _selectedCategoryFilter == null || _selectedCategoryFilter == 'S&C';
+    final showHealth = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Health';
+    final showGoals = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Goals';
+    final showMilestones = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Milestones';
+    final showActivityBalance = _selectedCategoryFilter == null;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1248,199 +1363,213 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
         const SizedBox(height: 12),
 
         // 1. Recording Consistency (4 insights)
-        _buildCategoryAccordion(
-          title: 'Recording Consistency',
-          icon: Icons.local_fire_department_outlined,
-          color: _catConsistency,
-          insightCount: 4,
-          isExpanded: _expandedCategories['Recording Consistency'] ?? false,
-          onHeaderTap: () => _toggleCategory('Recording Consistency'),
-          items: [
-            _buildInsightItem(
-              icon: Icons.local_fire_department_outlined,
-              title: 'Current Streak',
-              subtitle: '12 consecutive recording days',
-              value: '12 Days',
-              color: _catConsistency,
-            ),
-            _buildInsightItem(
-              icon: Icons.emoji_events_outlined,
-              title: 'Longest Streak',
-              subtitle: 'Achieved in March 2025',
-              value: '31 Days',
-              color: _catConsistency,
-            ),
-            _buildInsightItem(
-              icon: Icons.calendar_today_outlined,
-              title: 'Most Consistent Month',
-              subtitle: 'Most entries ever recorded',
-              value: 'March 2025',
-              color: _catConsistency,
-            ),
-            _buildInsightItem(
-              icon: Icons.access_time,
-              title: 'Average Days Between Entries',
-              subtitle: 'Across the full Timeline history',
-              value: '1.4 Days',
-              color: _catConsistency,
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
+        if (showConsistency) ...[
+          _buildCategoryAccordion(
+            title: 'Recording Consistency',
+            icon: Icons.local_fire_department_outlined,
+            color: _catConsistency,
+            insightCount: 4,
+            isExpanded: _selectedCategoryFilter == 'Consistency' || (_expandedCategories['Recording Consistency'] ?? false),
+            onHeaderTap: () => _toggleCategory('Recording Consistency'),
+            items: [
+              _buildInsightItem(
+                icon: Icons.local_fire_department_outlined,
+                title: 'Current Streak',
+                subtitle: '12 consecutive recording days',
+                value: '12 Days',
+                color: _catConsistency,
+              ),
+              _buildInsightItem(
+                icon: Icons.emoji_events_outlined,
+                title: 'Longest Streak',
+                subtitle: 'Achieved in March 2025',
+                value: '31 Days',
+                color: _catConsistency,
+              ),
+              _buildInsightItem(
+                icon: Icons.calendar_today_outlined,
+                title: 'Most Consistent Month',
+                subtitle: 'Most entries ever recorded',
+                value: 'March 2025',
+                color: _catConsistency,
+              ),
+              _buildInsightItem(
+                icon: Icons.access_time,
+                title: 'Average Days Between Entries',
+                subtitle: 'Across the full Timeline history',
+                value: '1.4 Days',
+                color: _catConsistency,
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+        ],
 
         // 2. Training (5 insights)
-        _buildCategoryAccordion(
-          title: 'Training',
-          icon: Icons.explore_outlined,
-          color: _catTraining,
-          insightCount: 5,
-          isExpanded: _expandedCategories['Training'] ?? false,
-          onHeaderTap: () => _toggleCategory('Training'),
-          items: [
-            _buildInsightItem(
-              icon: Icons.fitness_center_outlined,
-              title: 'Most Trained Skill',
-              subtitle: 'Field Tracking & Retrieval',
-              value: '42 Sessions',
-              color: _catTraining,
-            ),
-            _buildInsightItem(
-              icon: Icons.timer_outlined,
-              title: 'Average Session Duration',
-              subtitle: 'Consistently sustained focus',
-              value: '48 Mins',
-              color: _catTraining,
-            ),
-            _buildInsightItem(
-              icon: Icons.wb_sunny_outlined,
-              title: 'Peak Training Window',
-              subtitle: 'Saturday Mornings 08:00',
-              value: 'Optimal',
-              color: _catTraining,
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
+        if (showTraining) ...[
+          _buildCategoryAccordion(
+            title: 'Training',
+            icon: Icons.explore_outlined,
+            color: _catTraining,
+            insightCount: 5,
+            isExpanded: _selectedCategoryFilter == 'Training' || (_expandedCategories['Training'] ?? false),
+            onHeaderTap: () => _toggleCategory('Training'),
+            items: [
+              _buildInsightItem(
+                icon: Icons.fitness_center_outlined,
+                title: 'Most Trained Skill',
+                subtitle: 'Field Tracking & Retrieval',
+                value: '42 Sessions',
+                color: _catTraining,
+              ),
+              _buildInsightItem(
+                icon: Icons.timer_outlined,
+                title: 'Average Session Duration',
+                subtitle: 'Consistently sustained focus',
+                value: '48 Mins',
+                color: _catTraining,
+              ),
+              _buildInsightItem(
+                icon: Icons.wb_sunny_outlined,
+                title: 'Peak Training Window',
+                subtitle: 'Saturday Mornings 08:00',
+                value: 'Optimal',
+                color: _catTraining,
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+        ],
 
         // 3. Strength & Conditioning (3 insights)
-        _buildCategoryAccordion(
-          title: 'Strength & Conditioning',
-          icon: Icons.bolt_outlined,
-          color: _catSC,
-          insightCount: 3,
-          isExpanded: _expandedCategories['Strength & Conditioning'] ?? false,
-          onHeaderTap: () => _toggleCategory('Strength & Conditioning'),
-          items: [
-            _buildInsightItem(
-              icon: Icons.speed_outlined,
-              title: 'Weekly S&C Volume',
-              subtitle: 'Sprint work, hills & core',
-              value: '3.5 Hours',
-              color: _catSC,
-            ),
-            _buildInsightItem(
-              icon: Icons.replay_outlined,
-              title: 'Recovery Compliance',
-              subtitle: 'Required 24h rest adhered',
-              value: '96% Rate',
-              color: _catSC,
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
+        if (showSC) ...[
+          _buildCategoryAccordion(
+            title: 'Strength & Conditioning',
+            icon: Icons.bolt_outlined,
+            color: _catSC,
+            insightCount: 3,
+            isExpanded: _selectedCategoryFilter == 'S&C' || (_expandedCategories['Strength & Conditioning'] ?? false),
+            onHeaderTap: () => _toggleCategory('Strength & Conditioning'),
+            items: [
+              _buildInsightItem(
+                icon: Icons.speed_outlined,
+                title: 'Weekly S&C Volume',
+                subtitle: 'Sprint work, hills & core',
+                value: '3.5 Hours',
+                color: _catSC,
+              ),
+              _buildInsightItem(
+                icon: Icons.replay_outlined,
+                title: 'Recovery Compliance',
+                subtitle: 'Required 24h rest adhered',
+                value: '96% Rate',
+                color: _catSC,
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+        ],
 
         // 4. Health (4 insights)
-        _buildCategoryAccordion(
-          title: 'Health',
-          icon: Icons.monitor_heart_outlined,
-          color: _catHealth,
-          insightCount: 4,
-          isExpanded: _expandedCategories['Health'] ?? false,
-          onHeaderTap: () => _toggleCategory('Health'),
-          items: [
-            _buildInsightItem(
-              icon: Icons.scale_outlined,
-              title: 'Weight Stability',
-              subtitle: 'Average 28.4 kg across year',
-              value: 'Optimal',
-              color: _catHealth,
-            ),
-            _buildInsightItem(
-              icon: Icons.vaccines_outlined,
-              title: 'Preventative Care',
-              subtitle: 'Vaccines & check-ups current',
-              value: 'Up to Date',
-              color: _catHealth,
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
+        if (showHealth) ...[
+          _buildCategoryAccordion(
+            title: 'Health',
+            icon: Icons.monitor_heart_outlined,
+            color: _catHealth,
+            insightCount: 4,
+            isExpanded: _selectedCategoryFilter == 'Health' || (_expandedCategories['Health'] ?? false),
+            onHeaderTap: () => _toggleCategory('Health'),
+            items: [
+              _buildInsightItem(
+                icon: Icons.scale_outlined,
+                title: 'Weight Stability',
+                subtitle: 'Average 28.4 kg across year',
+                value: 'Optimal',
+                color: _catHealth,
+              ),
+              _buildInsightItem(
+                icon: Icons.vaccines_outlined,
+                title: 'Preventative Care',
+                subtitle: 'Vaccines & check-ups current',
+                value: 'Up to Date',
+                color: _catHealth,
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+        ],
 
         // 5. Goals (4 insights)
-        _buildCategoryAccordion(
-          title: 'Goals',
-          icon: Icons.flag_outlined,
-          color: _catGoals,
-          insightCount: 4,
-          isExpanded: _expandedCategories['Goals'] ?? false,
-          onHeaderTap: () => _toggleCategory('Goals'),
-          items: [
-            _buildInsightItem(
-              icon: Icons.task_alt,
-              title: 'Goals Completed',
-              subtitle: 'Across all canine programs',
-              value: '18 Total',
-              color: _catGoals,
-            ),
-            _buildInsightItem(
-              icon: Icons.trending_up,
-              title: 'Average Completion Velocity',
-              subtitle: 'Days from creation to mastery',
-              value: '32 Days',
-              color: _catGoals,
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
+        if (showGoals) ...[
+          _buildCategoryAccordion(
+            title: 'Goals',
+            icon: Icons.flag_outlined,
+            color: _catGoals,
+            insightCount: 4,
+            isExpanded: _selectedCategoryFilter == 'Goals' || (_expandedCategories['Goals'] ?? false),
+            onHeaderTap: () => _toggleCategory('Goals'),
+            items: [
+              _buildInsightItem(
+                icon: Icons.task_alt,
+                title: 'Goals Completed',
+                subtitle: 'Across all canine programs',
+                value: '18 Total',
+                color: _catGoals,
+              ),
+              _buildInsightItem(
+                icon: Icons.trending_up,
+                title: 'Average Completion Velocity',
+                subtitle: 'Days from creation to mastery',
+                value: '32 Days',
+                color: _catGoals,
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+        ],
 
         // 6. Milestones (5 insights)
-        _buildCategoryAccordion(
-          title: 'Milestones',
-          icon: Icons.emoji_events_outlined,
-          color: _catMilestone,
-          insightCount: 5,
-          isExpanded: _expandedCategories['Milestones'] ?? false,
-          onHeaderTap: () => _toggleCategory('Milestones'),
-          items: [
-            _buildInsightItem(
-              icon: Icons.workspace_premium_outlined,
-              title: 'Major Milestones Logged',
-              subtitle: 'Puppy foundation to trial ready',
-              value: '12 Badges',
-              color: _catMilestone,
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
+        if (showMilestones) ...[
+          _buildCategoryAccordion(
+            title: 'Milestones',
+            icon: Icons.emoji_events_outlined,
+            color: _catMilestone,
+            insightCount: 5,
+            isExpanded: _selectedCategoryFilter == 'Milestones' || (_expandedCategories['Milestones'] ?? false),
+            onHeaderTap: () => _toggleCategory('Milestones'),
+            items: [
+              _buildInsightItem(
+                icon: Icons.workspace_premium_outlined,
+                title: 'Major Milestones Logged',
+                subtitle: 'Puppy foundation to trial ready',
+                value: '12 Badges',
+                color: _catMilestone,
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+        ],
 
         // 7. Activity Balance (1 insight)
-        _buildCategoryAccordion(
-          title: 'Activity Balance',
-          icon: Icons.pie_chart_outline,
-          color: _offWhite,
-          insightCount: 1,
-          isExpanded: _expandedCategories['Activity Balance'] ?? false,
-          onHeaderTap: () => _toggleCategory('Activity Balance'),
-          items: [
-            _buildInsightItem(
-              icon: Icons.donut_large_outlined,
-              title: 'Training vs Rest Ratio',
-              subtitle: '60% Training, 30% S&C, 10% Other',
-              value: 'Balanced',
-              color: _offWhite,
-            ),
-          ],
-        ),
+        if (showActivityBalance) ...[
+          _buildCategoryAccordion(
+            title: 'Activity Balance',
+            icon: Icons.pie_chart_outline,
+            color: _offWhite,
+            insightCount: 1,
+            isExpanded: _expandedCategories['Activity Balance'] ?? false,
+            onHeaderTap: () => _toggleCategory('Activity Balance'),
+            items: [
+              _buildInsightItem(
+                icon: Icons.donut_large_outlined,
+                title: 'Training vs Rest Ratio',
+                subtitle: '60% Training, 30% S&C, 10% Other',
+                value: 'Balanced',
+                color: _offWhite,
+              ),
+            ],
+          ),
+        ],
       ],
     );
   }

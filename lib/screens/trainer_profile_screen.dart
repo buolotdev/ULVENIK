@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
 const Color _obsidian = Color(0xFF101214);
@@ -19,14 +14,23 @@ class TrainerProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const expertiseList = [
+      'GUNDOGS',
+      'RECALL',
+      'LOOSE LEAD',
+      'REACTIVITY',
+      'PUPPY TRAINING',
+      'BEHAVIOUR MODIFICATION',
+      'IGP',
+    ];
+
     return Scaffold(
       backgroundColor: _obsidian,
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
@@ -34,260 +38,467 @@ class TrainerProfileScreen extends StatelessWidget {
           style: TextStyle(
             color: _offWhite,
             fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
             fontFamily: 'Inter',
           ),
         ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        children: [
-          // 1. BUSINESS IDENTITY CARD
-          Center(
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      width: 88,
-                      height: 88,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _forest,
-                        border: Border.all(color: _mint, width: 2),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'VK',
-                          style: TextStyle(
-                            color: _offWhite,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: 'Inter',
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                          color: _mint,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(Icons.verified, color: Colors.black, size: 18),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Alex Rivers',
-                  style: TextStyle(
-                    color: _offWhite,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                const SizedBox(height: 2),
-                const Text(
-                  'Head Instructor • Vanguard Working K9 Academy',
-                  style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Seattle, WA • FCI Decoy & Working Dog Specialist',
-                  style: TextStyle(color: _stoneGrey, fontSize: 12),
-                ),
-              ],
-            ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit_outlined, color: _offWhite, size: 20),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Edit Profile opened.'), backgroundColor: _forest),
+              );
+            },
           ),
-          const SizedBox(height: 24),
-
-          // 2. CREDENTIALS & LICENSES
-          _buildSectionHeader('PROFESSIONAL CREDENTIALS'),
-          const SizedBox(height: 8),
-          _buildInfoTile('FCI Protection Decoy', 'Certified Level III Decoy • USCA Reg #DEC-9821', Icons.shield_outlined),
-          _buildInfoTile('Master Working Dog Instructor', 'American Working Dog Federation • Certified 2021', Icons.school_outlined),
-          _buildInfoTile('Canine Conditioning Specialist', 'CPN K9 S&C Certification • Biomechanics Focus', Icons.fitness_center),
-          const SizedBox(height: 20),
-
-          // 3. BUSINESS CONTACT & PUBLIC IDENTITY
-          _buildSectionHeader('BUSINESS INFORMATION'),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: _cardBorder),
-            ),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _ContactRow(Icons.email_outlined, 'info@vanguardk9academy.com'),
-                SizedBox(height: 10),
-                _ContactRow(Icons.phone_outlined, '+1 (206) 555-0194'),
-                SizedBox(height: 10),
-                _ContactRow(Icons.location_on_outlined, 'Highland Pass Grounds, Seattle WA'),
-                SizedBox(height: 10),
-                _ContactRow(Icons.language_outlined, 'vanguardk9academy.com'),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(context),
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _stoneGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
-      ),
-    );
-  }
-
-  Widget _buildInfoTile(String title, String desc, IconData icon) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              color: _forest,
-              borderRadius: BorderRadius.circular(10),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          children: [
+            // Hero Banner Card with Forest Background
+            Container(
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 120,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF1B2A22), Color(0xFF0F1A14)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          right: 12,
+                          top: 12,
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: const Color(0x66000000),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(Icons.landscape_outlined, color: _stoneGrey, size: 20),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: const Color(0xFF14241E),
+                            border: Border.all(color: const Color(0xFF34D399), width: 2),
+                          ),
+                          child: const Icon(Icons.person, color: _mint, size: 32),
+                        ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Take the Lead Essex',
+                                style: TextStyle(
+                                  color: _offWhite,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Liv Old',
+                                    style: TextStyle(
+                                      color: _stoneGrey,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0x1F34D399),
+                                      borderRadius: BorderRadius.circular(6),
+                                      border: Border.all(color: const Color(0x4D34D399)),
+                                    ),
+                                    child: const Text(
+                                      'TRAINER PACK',
+                                      style: TextStyle(
+                                        color: Color(0xFF34D399),
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.w800,
+                                        letterSpacing: 0.6,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            child: Icon(icon, color: _mint, size: 20),
+
+            const SizedBox(height: 12),
+
+            // Metrics Strip Card
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Row(
+                children: [
+                  _buildMetric('12', 'Active Clients'),
+                  _buildDivider(),
+                  _buildMetric('21', 'Client Dogs'),
+                  _buildDivider(),
+                  _buildMetric('47', 'Sessions'),
+                  _buildDivider(),
+                  _buildMetric('3 yrs', 'On Ulvenik'),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+            const Text(
+              'ABOUT',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // About Card
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: const Text(
+                'Professional dog trainer specialising in gundogs, recall and behaviour modification. Based in Essex, working with dogs of all breeds and abilities since 2021. Committed to force-free, relationship-based training methods that build confidence and reliability in both dog and handler.',
+                style: TextStyle(
+                  color: _offWhite,
+                  fontSize: 14,
+                  height: 1.5,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+            const Text(
+              'EXPERTISE',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Expertise Chips Card
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: expertiseList.map((tag) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF14171A),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Text(
+                      tag,
+                      style: const TextStyle(
+                        color: _stoneGrey,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.6,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+            const Text(
+              'QUALIFICATIONS',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Qualifications Card
+            Container(
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                children: [
+                  _buildQualRow(
+                    icon: Icons.military_tech_outlined,
+                    title: 'IMDT Member',
+                    subtitle: 'Institute of Modern Dog Trainers\nSince 2022',
+                    hasCert: true,
+                  ),
+                  const Divider(color: _cardBorder, height: 1),
+                  _buildQualRow(
+                    icon: Icons.show_chart,
+                    title: 'Canine First Aid',
+                    subtitle: 'Canine First Aid UK\nExpires Dec 2025',
+                    hasCert: true,
+                  ),
+                  const Divider(color: _cardBorder, height: 1),
+                  _buildQualRow(
+                    icon: Icons.shield_outlined,
+                    title: 'DBS Checked',
+                    subtitle: 'UK Government\n2024',
+                    hasCheck: true,
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+            const Text(
+              'SERVICES',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Services Card
+            Container(
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                children: [
+                  _buildServiceRow('One-to-One Lessons', 'Tailored to your dog and goals', '60 min'),
+                  const Divider(color: _cardBorder, height: 1),
+                  _buildServiceRow('Behaviour Consultations', 'In-depth assessment and plan', '90 min'),
+                  const Divider(color: _cardBorder, height: 1),
+                  _buildServiceRow('Puppy Packages', 'Foundation skills for new puppies', '4 sessions'),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+            const Text(
+              'CONTACT',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Contact Card
+            Container(
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                children: [
+                  _buildContactRow(
+                    Icons.email_outlined,
+                    'liv@taketheleadessex.co.uk',
+                    false,
+                  ),
+                  const Divider(color: _cardBorder, height: 1),
+                  _buildContactRow(
+                    Icons.language_outlined,
+                    'taketheleadessex.co.uk',
+                    true,
+                  ),
+                  const Divider(color: _cardBorder, height: 1),
+                  _buildContactRow(
+                    Icons.camera_alt_outlined,
+                    '@taketheleadessex',
+                    false,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 36),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMetric(String val, String label) {
+    return Expanded(
+      child: Column(
+        children: [
+          Text(
+            val,
+            style: const TextStyle(
+              color: _offWhite,
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+            ),
           ),
+          const SizedBox(height: 2),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: _stoneGrey,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDivider() {
+    return Container(width: 1, height: 28, color: _cardBorder);
+  }
+
+  Widget _buildQualRow({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    bool hasCert = false,
+    bool hasCheck = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(14),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: _stoneGrey, size: 20),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w700)),
+                Text(title, style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 2),
-                Text(desc, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+                Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 12, height: 1.3)),
               ],
             ),
           ),
+          if (hasCert)
+            Row(
+              children: const [
+                Icon(Icons.description_outlined, color: _mint, size: 13),
+                SizedBox(width: 4),
+                Text(
+                  'Certificate',
+                  style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          if (hasCheck)
+            const Icon(Icons.check_circle_outline, color: _mint, size: 18),
         ],
       ),
     );
   }
 
-  Widget _buildBottomNav(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+  Widget _buildServiceRow(String title, String desc, String duration) {
+    return Padding(
+      padding: const EdgeInsets.all(14),
+      child: Row(
         children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600)),
+                const SizedBox(height: 2),
+                Text(desc, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
+              ],
             ),
           ),
+          Text(duration, style: const TextStyle(color: _stoneGrey, fontSize: 12, fontWeight: FontWeight.w500)),
         ],
       ),
     );
   }
-}
 
-class _ContactRow extends StatelessWidget {
-  final IconData icon;
-  final String text;
-
-  const _ContactRow(this.icon, this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, color: _mint, size: 16),
-        const SizedBox(width: 10),
-        Text(text, style: const TextStyle(color: _offWhite, fontSize: 12)),
-      ],
+  Widget _buildContactRow(IconData icon, String text, bool isMint) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Row(
+        children: [
+          Icon(icon, color: _stoneGrey, size: 20),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: isMint ? _mint : _offWhite,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          const Icon(Icons.arrow_forward_ios, color: _stoneGrey, size: 13),
+        ],
+      ),
     );
   }
 }

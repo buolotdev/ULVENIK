@@ -4,6 +4,7 @@ import 'my_dogs_screen.dart';
 import 'training_screen.dart';
 import 'timeline_screen.dart';
 import 'more_page_screen.dart';
+import 'notification_settings_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
 const Color _obsidian = Color(0xFF101214);
@@ -13,9 +14,9 @@ const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _gold = Color(0xFFECC94B);
-const Color _orange = Color(0xFFDD6B20);
-const Color _blue = Color(0xFF5D8FAF);
+const Color _mutedGrey = Color(0xFF718096);
+const Color _syncGreen = Color(0xFF4ADE80);
+const Color _dangerRed = Color(0xFFE53E3E);
 
 class NotificationsPageScreen extends StatefulWidget {
   final bool initialEmpty;
@@ -28,372 +29,530 @@ class NotificationsPageScreen extends StatefulWidget {
 }
 
 class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
-  late bool _isEmptyState;
-  String _selectedFilter = 'All';
+  // Notification unread states
+  bool _notif1Unread = true;
+  bool _notif2Unread = true;
+  bool _notif3Unread = false;
+  bool _notif4Unread = false;
+  bool _notif5Unread = false;
 
-  final List<Map<String, dynamic>> _notifications = [
-    {
-      'id': '1',
-      'title': 'Medication Due: NexGard Chewable',
-      'body': 'Scheduled preventative treatment for Koda due with morning meal.',
-      'time': '2h ago',
-      'unread': true,
-      'category': 'Health',
-      'icon': Icons.medication_outlined,
-      'color': _orange,
-    },
-    {
-      'id': '2',
-      'title': '14-Day Conditioning Streak Unlocked!',
-      'body': 'Congratulations! Koda completed 14 consecutive training days.',
-      'time': '5h ago',
-      'unread': true,
-      'category': 'Milestone',
-      'icon': Icons.local_fire_department,
-      'color': _gold,
-    },
-    {
-      'id': '3',
-      'title': 'Upcoming Drill: Trail Agility & Scent',
-      'body': 'Tomorrow at 07:30 AM at Riverside Valley Course.',
-      'time': 'Yesterday',
-      'unread': false,
-      'category': 'Training',
-      'icon': Icons.fitness_center_outlined,
-      'color': _mint,
-    },
-    {
-      'id': '4',
-      'title': 'Automated Cloud Backup Completed',
-      'body': '428 MB of telemetry, GPS contours and logs synced to AWS S3.',
-      'time': '2d ago',
-      'unread': false,
-      'category': 'System',
-      'icon': Icons.cloud_done_outlined,
-      'color': _blue,
-    },
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _isEmptyState = widget.initialEmpty;
-  }
+  int get _unreadCount =>
+      (_notif1Unread ? 1 : 0) +
+      (_notif2Unread ? 1 : 0) +
+      (_notif3Unread ? 1 : 0) +
+      (_notif4Unread ? 1 : 0) +
+      (_notif5Unread ? 1 : 0);
 
   void _markAllAsRead() {
     setState(() {
-      for (var n in _notifications) {
-        n['unread'] = false;
-      }
+      _notif1Unread = false;
+      _notif2Unread = false;
+      _notif3Unread = false;
+      _notif4Unread = false;
+      _notif5Unread = false;
     });
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('All notifications marked as read.'),
-        backgroundColor: _forest,
         duration: Duration(seconds: 1),
       ),
     );
   }
 
-  List<Map<String, dynamic>> get _filteredList {
-    if (_selectedFilter == 'All') return _notifications;
-    return _notifications.where((n) => n['category'] == _selectedFilter).toList();
+  void _onBottomNavTapped(int index) {
+    if (index == 4) {
+      Navigator.pop(context);
+      return;
+    }
+    Widget target;
+    switch (index) {
+      case 0:
+        target = const HomepageScreen();
+        break;
+      case 1:
+        target = const MyDogsScreen();
+        break;
+      case 2:
+        target = const TrainingScreen();
+        break;
+      case 3:
+        target = const TimelineScreen();
+        break;
+      case 4:
+        target = const MorePageScreen();
+        break;
+      default:
+        return;
+    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => target),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final list = _filteredList;
-
     return Scaffold(
       backgroundColor: _obsidian,
-      appBar: AppBar(
-        backgroundColor: _obsidian,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Notifications',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
-        ),
-        actions: [
-          IconButton(
-            tooltip: 'Toggle Empty State',
-            icon: Icon(
-              _isEmptyState ? Icons.visibility : Icons.visibility_off_outlined,
-              color: _mint,
-              size: 20,
-            ),
-            onPressed: () => setState(() => _isEmptyState = !_isEmptyState),
-          ),
-          if (!_isEmptyState)
-            IconButton(
-              tooltip: 'Mark All Read',
-              icon: const Icon(Icons.done_all, color: _stoneGrey, size: 20),
-              onPressed: _markAllAsRead,
-            ),
-        ],
-      ),
-      body: _isEmptyState ? _buildEmptyState() : _buildPopulatedState(list),
-      bottomNavigationBar: _buildBottomNav(),
-    );
-  }
-
-  Widget _buildEmptyState() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
+      body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _carbon,
-                border: Border.all(color: _cardBorder),
-              ),
-              child: const Icon(Icons.notifications_none, size: 38, color: _stoneGrey),
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              'All Caught Up!',
-              style: TextStyle(
-                color: _offWhite,
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Inter',
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'You have no unread notifications, drill reminders, or medical alarms at this time.',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.5),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _forest,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              ),
-              onPressed: () => setState(() => _isEmptyState = false),
-              child: const Text('Show Feed', style: TextStyle(color: _offWhite)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPopulatedState(List<Map<String, dynamic>> list) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      children: [
-        // 1. FILTER PILLS
-        _buildFilterPills(),
-        const SizedBox(height: 16),
-
-        // 2. NOTIFICATION FEED
-        ...list.map((item) => _buildNotificationTile(item)),
-        const SizedBox(height: 24),
-      ],
-    );
-  }
-
-  Widget _buildFilterPills() {
-    final filters = ['All', 'Training', 'Health', 'Milestone'];
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: filters.map((f) {
-          final isSelected = _selectedFilter == f;
-          return Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: GestureDetector(
-              onTap: () => setState(() => _selectedFilter = f),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 180),
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                decoration: BoxDecoration(
-                  color: isSelected ? _forest : _carbon,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: isSelected ? _mint : _cardBorder,
-                  ),
-                ),
-                child: Text(
-                  f,
-                  style: TextStyle(
-                    color: isSelected ? _offWhite : _stoneGrey,
-                    fontSize: 12,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                  ),
-                ),
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildNotificationTile(Map<String, dynamic> item) {
-    final bool isUnread = item['unread'] ?? false;
-    final Color color = item['color'];
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: isUnread ? _mint.withValues(alpha: 0.3) : _cardBorder),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(item['icon'], color: color, size: 20),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        item['title'],
-                        style: TextStyle(
-                          color: _offWhite,
-                          fontSize: 14,
-                          fontWeight: isUnread ? FontWeight.w700 : FontWeight.w500,
-                          fontFamily: 'Inter',
-                        ),
+            // ─── Header: Notifications | Search & Filter ───────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    borderRadius: BorderRadius.circular(8),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.chevron_left, color: _offWhite, size: 22),
+                          SizedBox(width: 4),
+                          Text(
+                            'Notifications',
+                            style: TextStyle(
+                              color: _offWhite,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Text(
-                      item['time'],
-                      style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  item['body'],
-                  style: const TextStyle(color: _stoneGrey, fontSize: 12, height: 1.4),
-                ),
-              ],
+                  ),
+                  const Spacer(),
+                  const Icon(Icons.search, color: _offWhite, size: 20),
+                  const SizedBox(width: 14),
+                  const Icon(Icons.tune, color: _offWhite, size: 20),
+                ],
+              ),
             ),
-          ),
-          if (isUnread) ...[
-            const SizedBox(width: 8),
-            Container(
-              width: 8,
-              height: 8,
-              decoration: const BoxDecoration(
-                color: _mint,
-                shape: BoxShape.circle,
+
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                children: [
+                  // ─── 4-Column Metric Strip ─────────────────────────────
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    child: Row(
+                      children: [
+                        _buildMetricCol('$_unreadCount', 'UNREAD'),
+                        _buildDividerCol(),
+                        _buildMetricCol('5', 'TODAY'),
+                        _buildDividerCol(),
+                        _buildMetricCol('2', 'UPCOMING'),
+                        _buildDividerCol(),
+                        _buildMetricCol('1', 'OVERDUE', isOverdue: true),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  // ─── 2 Action Pills: Mark All Read & Settings ───────────
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: _markAllAsRead,
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF14241E),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: _forest.withValues(alpha: 0.8),
+                              width: 1,
+                            ),
+                          ),
+                          child: const Row(
+                            children: [
+                              Icon(Icons.done_all, color: _mint, size: 16),
+                              SizedBox(width: 6),
+                              Text(
+                                'Mark All Read',
+                                style: TextStyle(
+                                  color: _mint,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const NotificationSettingsScreen(),
+                          ),
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: _carbon,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: _cardBorder),
+                          ),
+                          child: const Row(
+                            children: [
+                              Icon(Icons.tune, color: _stoneGrey, size: 16),
+                              SizedBox(width: 6),
+                              Text(
+                                'Settings',
+                                style: TextStyle(
+                                  color: _stoneGrey,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── TODAY Section ─────────────────────────────────────
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildSectionHeader('TODAY'),
+                      const Text(
+                        '3 Events',
+                        style: TextStyle(
+                          color: _mutedGrey,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  Container(
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        // Medication Reminder
+                        _buildNotifRow(
+                          icon: Icons.medical_services_outlined,
+                          title: 'Medication Reminder',
+                          time: '5:45 PM',
+                          body: 'Carprofen is scheduled for 6:00 PM.',
+                          isUnread: _notif1Unread,
+                          onTap: () => setState(() => _notif1Unread = false),
+                        ),
+                        _buildDivider(),
+                        // Veterinary Appointment
+                        _buildNotifRow(
+                          icon: Icons.calendar_today_outlined,
+                          title: 'Veterinary Appointment',
+                          time: '9:00 AM',
+                          body: 'Eye examination tomorrow at 10:30 AM.',
+                          isUnread: _notif2Unread,
+                          onTap: () => setState(() => _notif2Unread = false),
+                        ),
+                        _buildDivider(),
+                        // Goal Completed
+                        _buildNotifRow(
+                          icon: Icons.check_circle_outline,
+                          title: 'Goal Completed',
+                          time: '7:32 AM',
+                          body: 'Complete 20 Recall Sessions has been achieved.',
+                          isUnread: _notif3Unread,
+                          onTap: () => setState(() => _notif3Unread = false),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── EARLIER Section ───────────────────────────────────
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildSectionHeader('EARLIER'),
+                      InkWell(
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Viewing notification archive.')),
+                          );
+                        },
+                        child: const Text(
+                          'Archive',
+                          style: TextStyle(
+                            color: _mutedGrey,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  Container(
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        // Training Reminder
+                        _buildNotifRow(
+                          icon: Icons.fitness_center,
+                          title: 'Training Reminder',
+                          time: 'Yesterday',
+                          body: 'Agility session with Murphy starts in 30 minutes.',
+                          isUnread: _notif4Unread,
+                          onTap: () => setState(() => _notif4Unread = false),
+                        ),
+                        _buildDivider(),
+                        // Backup Complete
+                        _buildNotifRow(
+                          icon: Icons.cloud_done_outlined,
+                          title: 'Backup Complete',
+                          time: '2d ago',
+                          body: 'Your telemetry data has been backed up successfully.',
+                          isUnread: _notif5Unread,
+                          onTap: () => setState(() => _notif5Unread = false),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 28),
+
+                  // ─── Telemetry Sync Status Strip ───────────────────────
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.sensors, color: _syncGreen, size: 16),
+                          SizedBox(width: 6),
+                          Text(
+                            'Telemetry Sync: Online',
+                            style: TextStyle(
+                              color: _stoneGrey,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'GPS Collar #4',
+                        style: TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 32),
+                ],
               ),
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 4, // More tab active
+        onTap: _onBottomNavTapped,
+        backgroundColor: _obsidian,
+        selectedItemColor: _mint,
+        unselectedItemColor: _stoneGrey,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pets_outlined),
+            activeIcon: Icon(Icons.pets),
+            label: 'Dogs',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center),
+            label: 'Training',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history_outlined),
+            activeIcon: Icon(Icons.history),
+            label: 'Timeline',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: 'More',
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
+  Widget _buildSectionHeader(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        color: _mutedGrey,
+        fontSize: 11,
+        fontWeight: FontWeight.w700,
+        letterSpacing: 1.0,
       ),
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
+  Widget _buildDivider() {
+    return const Divider(
+      height: 1,
+      thickness: 1,
+      color: Color(0x0FFFFFFF),
+      indent: 64,
+    );
+  }
+
+  Widget _buildMetricCol(String value, String label, {bool isOverdue = false}) {
+    return Expanded(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
+          Text(
+            value,
+            style: TextStyle(
+              color: isOverdue ? _dangerRed : _offWhite,
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
+            style: const TextStyle(
+              color: _stoneGrey,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.5,
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildDividerCol() {
+    return Container(
+      width: 1,
+      height: 24,
+      color: const Color(0x14FFFFFF),
+    );
+  }
+
+  Widget _buildNotifRow({
+    required IconData icon,
+    required String title,
+    required String time,
+    required String body,
+    required bool isUnread,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF14191C),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Center(
+                    child: Icon(icon, color: _stoneGrey, size: 18),
+                  ),
+                ),
+                if (isUnread)
+                  Positioned(
+                    left: -2,
+                    top: 12,
+                    child: Container(
+                      width: 6,
+                      height: 6,
+                      decoration: const BoxDecoration(
+                        color: _syncGreen,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: _offWhite,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        time,
+                        style: const TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    body,
+                    style: const TextStyle(
+                      color: _stoneGrey,
+                      fontSize: 13,
+                      height: 1.35,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 6),
+            const Icon(Icons.chevron_right, color: _stoneGrey, size: 16),
+          ],
+        ),
       ),
     );
   }

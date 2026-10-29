@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
 import 'sport_details_igp_screen.dart';
 import 'create_sport_screen.dart';
 
@@ -12,12 +7,8 @@ const Color _obsidian = Color(0xFF101214);
 const Color _carbon = Color(0xFF1A1F22);
 const Color _cardBorder = Color(0x14FFFFFF);
 const Color _forest = Color(0xFF2E6B57);
-const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _gold = Color(0xFFECC94B);
-const Color _blue = Color(0xFF5D8FAF);
-const Color _purple = Color(0xFF9F7AEA);
 
 class MySportsScreen extends StatefulWidget {
   const MySportsScreen({super.key});
@@ -27,49 +18,6 @@ class MySportsScreen extends StatefulWidget {
 }
 
 class _MySportsScreenState extends State<MySportsScreen> {
-  final List<Map<String, dynamic>> _sports = [
-    {
-      'name': 'IGP / Schutzhund',
-      'fullTitle': 'Internationale Gebrauchshunde Prüfungsordnung',
-      'dog': 'Koda • IGP III Candidate',
-      'status': 'Active Primary',
-      'phases': 'Phase A (Track) • Phase B (Obedience) • Phase C (Bite)',
-      'sessions': '142 Recorded Drills',
-      'color': _mint,
-      'icon': Icons.sports_kabaddi,
-    },
-    {
-      'name': 'Wilderness Search & Rescue',
-      'fullTitle': 'Air Scent Area Search & High-Drive Grid',
-      'dog': 'Koda & Murphy',
-      'status': 'Mission Ready',
-      'phases': 'Scent Indication • Sector Coverage • GPS Tracing',
-      'sessions': '64 Recorded Drills',
-      'color': _blue,
-      'icon': Icons.terrain,
-    },
-    {
-      'name': 'FCI Agility Masters',
-      'fullTitle': 'High-Speed Obstacle & Tunnel Navigation',
-      'dog': 'Murphy • Grade 2',
-      'status': 'Active Trialing',
-      'phases': 'Weave Poles • A-Frame • Hurdles • Dog Walk',
-      'sessions': '88 Recorded Drills',
-      'color': _gold,
-      'icon': Icons.fitness_center,
-    },
-    {
-      'name': 'Mondioring',
-      'fullTitle': 'Decoy Complex Protection & Handler Defense',
-      'dog': 'Koda',
-      'status': 'Off-Season Training',
-      'phases': 'Jumping • Obedience • Decoy Defense Scenarios',
-      'sessions': '32 Recorded Drills',
-      'color': _purple,
-      'icon': Icons.security,
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,98 +25,173 @@ class _MySportsScreenState extends State<MySportsScreen> {
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'My Sports',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
+          style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add, color: _mint),
+            icon: const Icon(Icons.search, color: _offWhite),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.view_agenda_outlined, color: _offWhite),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.add, color: _offWhite),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const CreateSportScreen()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const CreateSportScreen()));
             },
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: _forest,
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => const CreateSportScreen()));
+        },
+        child: const Icon(Icons.add, color: _offWhite, size: 28),
+      ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
-          // 1. INFO HEADER
+          // SPORT SUMMARY
+          const Text(
+            'SPORT SUMMARY',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
-              color: const Color(0xFF131718),
+              color: _carbon,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
-            child: Row(
+            child: Column(
               children: [
-                const Icon(Icons.emoji_events_outlined, color: _mint, size: 28),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${_sports.length} Active Canine Disciplines',
-                        style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w700),
-                      ),
-                      const SizedBox(height: 2),
-                      const Text('Track trials, phase rules, and titles across canine sports', style: TextStyle(color: _stoneGrey, fontSize: 11)),
-                    ],
-                  ),
+                Row(
+                  children: [
+                    _buildSummaryMetric('3', 'Total Sports'),
+                    _buildSummaryMetric('3', 'Active Sports'),
+                    _buildSummaryMetric('0', 'Archived Sports'),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    _buildSummaryMetric('38', 'Total Skills'),
+                    _buildSummaryMetric('486', 'Total Sessions'),
+                    _buildSummaryMetric('11', 'Total Competitions'),
+                  ],
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
 
-          // 2. SPORTS LIST
-          ..._sports.map((s) => _buildSportCard(s)),
+          // MY SPORTS
+          const Text(
+            'MY SPORTS',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
 
-          const SizedBox(height: 70),
+          // 1. IGP
+          _buildSportDetailedCard(
+            letter: 'I',
+            name: 'IGP',
+            badge: 'IGP',
+            org: 'Organisation: SV',
+            level: 'Level: IGP 2',
+            skills: '18',
+            exercises: '54',
+            sessions: '286',
+            competitions: '7',
+            lastActive: 'Yesterday',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const SportDetailsIgpScreen()));
+            },
+          ),
+          const SizedBox(height: 14),
+
+          // 2. Agility
+          _buildSportDetailedCard(
+            letter: 'A',
+            name: 'Agility',
+            badge: 'AGILITY',
+            org: 'No organisation',
+            level: 'Level: Foundation',
+            skills: '12',
+            exercises: '28',
+            sessions: '146',
+            competitions: '4',
+            lastActive: '3 days ago',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const SportDetailsIgpScreen()));
+            },
+          ),
+          const SizedBox(height: 14),
+
+          // 3. PSA
+          _buildSportDetailedCard(
+            letter: 'P',
+            name: 'PSA',
+            badge: 'PSA',
+            org: 'Organisation: PSA UK',
+            level: 'Level: No level',
+            skills: '8',
+            exercises: '22',
+            sessions: '54',
+            competitions: '0',
+            lastActive: '2 weeks ago',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const SportDetailsIgpScreen()));
+            },
+          ),
+          const SizedBox(height: 80),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: _forest,
-        icon: const Icon(Icons.add, color: _offWhite),
-        label: const Text('Add Sport', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700)),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const CreateSportScreen()),
-          );
-        },
-      ),
-      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  Widget _buildSportCard(Map<String, dynamic> sport) {
-    final Color color = sport['color'];
+  Widget _buildSummaryMetric(String val, String label) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(val, style: const TextStyle(color: _offWhite, fontSize: 22, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 4),
+          Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+        ],
+      ),
+    );
+  }
 
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const SportDetailsIgpScreen()),
-        );
-      },
+  Widget _buildSportDetailedCard({
+    required String letter,
+    required String name,
+    required String badge,
+    required String org,
+    required String level,
+    required String skills,
+    required String exercises,
+    required String sessions,
+    required String competitions,
+    required String lastActive,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
       child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: _carbon,
@@ -183,73 +206,61 @@ class _MySportsScreenState extends State<MySportsScreen> {
                 Container(
                   width: 44,
                   height: 44,
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(12),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF242A2E),
+                    shape: BoxShape.circle,
                   ),
-                  child: Icon(sport['icon'], color: color, size: 22),
+                  child: Center(
+                    child: Text(
+                      letter,
+                      style: const TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 14),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            sport['name'],
-                            style: const TextStyle(
-                              color: _offWhite,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Inter',
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: color.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              sport['status'],
-                              style: TextStyle(color: color, fontSize: 9, fontWeight: FontWeight.w800),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 2),
-                      Text(sport['dog'], style: const TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w600)),
-                    ],
+                  child: Text(
+                    name,
+                    style: const TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.bold),
                   ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF242A2E),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(badge, style: const TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
             const SizedBox(height: 12),
-            Text(sport['fullTitle'], style: const TextStyle(color: _stoneGrey, fontSize: 11)),
-            const SizedBox(height: 6),
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: const Color(0xFF131718),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      sport['phases'],
-                      style: const TextStyle(color: _stoneGrey, fontSize: 10, fontFamily: 'monospace'),
-                    ),
-                  ),
-                  Text(
-                    sport['sessions'],
-                    style: const TextStyle(color: _offWhite, fontSize: 10, fontWeight: FontWeight.w700),
-                  ),
-                ],
-              ),
+            Text(org, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
+            const SizedBox(height: 4),
+            Text(level, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
+            const SizedBox(height: 16),
+            const Divider(color: _cardBorder),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                _buildSubCol(skills, 'Skills'),
+                _buildSubCol(exercises, 'Exercises'),
+                _buildSubCol(sessions, 'Sessions'),
+                _buildSubCol(competitions, 'Competitions'),
+              ],
+            ),
+            const SizedBox(height: 14),
+            const Divider(color: _cardBorder),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                const Icon(Icons.access_time, color: _stoneGrey, size: 14),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text('Last active: $lastActive', style: const TextStyle(color: _stoneGrey, fontSize: 12)),
+                ),
+                const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
+              ],
             ),
           ],
         ),
@@ -257,80 +268,13 @@ class _MySportsScreenState extends State<MySportsScreen> {
     );
   }
 
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
+  Widget _buildSubCol(String val, String label) {
+    return Expanded(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
-            ),
-          ),
+          Text(val, style: const TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 2),
+          Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 10)),
         ],
       ),
     );

@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
 import 'record_competition_result_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
@@ -17,14 +12,10 @@ const Color _stoneGrey = Color(0xFFA7B0AB);
 
 class CompetitionDetailsScreen extends StatelessWidget {
   final String title;
-  final String date;
-  final String judge;
 
   const CompetitionDetailsScreen({
     super.key,
-    this.title = 'Pacific Northwest IGP Championship',
-    this.date = 'November 14, 2026 • 08:00 AM',
-    this.judge = 'Dieter Müller (FCI International Judge)',
+    this.title = 'Essex Working Dog Trial',
   });
 
   @override
@@ -34,272 +25,297 @@ class CompetitionDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Trial Details',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
+          'Competition Details',
+          style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.share_outlined, color: _mint),
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Trial entry details shared.'), backgroundColor: _forest),
-              );
-            },
+            icon: const Icon(Icons.more_vert, color: _offWhite),
+            onPressed: () {},
           ),
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
-          // 1. TRIAL HERO BANNER
+          // HERO CARD
           Container(
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: _mint.withValues(alpha: 0.3)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: _forest,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: const Text('IGP III CHAMPIONSHIP', style: TextStyle(color: _mint, fontSize: 10, fontWeight: FontWeight.w800)),
-                    ),
-                    const Text('ENTRY #14', style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w800)),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: _offWhite,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(date, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    const Icon(Icons.gavel, color: _mint, size: 14),
-                    const SizedBox(width: 6),
-                    Text(judge, style: const TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // 2. CANINE ENTRY CARD
-          _buildSectionHeader('REGISTERED CANINE CANDIDATE'),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: _carbon,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
-            child: const Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 22,
-                  backgroundColor: _forest,
-                  child: Icon(Icons.pets, color: _mint, size: 22),
+                Text(
+                  title,
+                  style: const TextStyle(color: _offWhite, fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Koda vom Alpenhof', style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w700)),
-                      SizedBox(height: 2),
-                      Text('Handler: Alex Rivers • Scorebook #USCA-98421', style: TextStyle(color: _stoneGrey, fontSize: 11)),
-                    ],
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF242A2E),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Text('IGP', style: TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.bold)),
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('• 18 September 2026', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: _forest.withValues(alpha: 0.25),
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: _forest.withValues(alpha: 0.5)),
+                  ),
+                  child: const Text('Upcoming', style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.bold)),
+                ),
+                const SizedBox(height: 14),
+                Row(
+                  children: const [
+                    Icon(Icons.location_on_outlined, color: _stoneGrey, size: 16),
+                    SizedBox(width: 6),
+                    Text('Essex, UK', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // COMPETITION INFORMATION
+          const Text(
+            'COMPETITION INFORMATION',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                _buildInfoRow('Date', '18 September 2026'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildInfoRow('Start Time', '09:00'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildInfoRow('Organisation', 'SV'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildInfoRow('Judge', 'Hans Müller'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildInfoRow('Club', 'South Essex Working Dog Club'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildInfoRow('Venue', 'Barleyfields Training Ground'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildInfoRow('Entry Number', '47'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildInfoRow('Entry Class', 'IGP 2'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildInfoRow('Handler', 'James Walker'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // RESULT
+          const Text(
+            'RESULT',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                const Icon(Icons.workspace_premium_outlined, color: _stoneGrey, size: 40),
+                const SizedBox(height: 10),
+                const Text('No Result Recorded', style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _forest,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => const RecordCompetitionResultScreen()));
+                    },
+                    child: const Text('Record Result', style: TextStyle(color: _offWhite, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
-
-          // 3. TRIAL PHASES TIMETABLE
-          _buildSectionHeader('TRIAL SCHEDULE & PHASE TARGETS'),
-          const SizedBox(height: 8),
-          _buildPhaseRow('08:30 AM', 'Phase A: Tracking', '100 Pts Max • Natural scent line, 3 articles', _mint),
-          _buildPhaseRow('11:15 AM', 'Phase B: Obedience', '100 Pts Max • Full heeling & retrieve dumbbell', _mint),
-          _buildPhaseRow('02:45 PM', 'Phase C: Protection', '100 Pts Max • Decoy Vance • Long bite courage test', _mint),
           const SizedBox(height: 24),
 
-          // 4. ACTION BUTTON
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _forest,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          // QUALIFICATIONS & AWARDS
+          const Text(
+            'QUALIFICATIONS & AWARDS',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: const Center(
+              child: Text(
+                'No qualifications or awards linked to this competition.',
+                style: TextStyle(color: _stoneGrey, fontSize: 13),
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const RecordCompetitionResultScreen()),
-                );
-              },
-              child: const Text('Record Official Trial Result', style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w700)),
             ),
           ),
           const SizedBox(height: 24),
+
+          // NOTES
+          const Text(
+            'NOTES',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Entry confirmation received 2 Aug. Travel to Essex the evening before. Take tracking leads and dumbbells. Check tracking field conditions in advance.',
+                  style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
+                ),
+                const SizedBox(height: 12),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
+                    onTap: () {},
+                    child: const Text('Edit Notes', style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.bold)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // ATTACHMENTS
+          const Text(
+            'ATTACHMENTS',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                _buildAttachmentTile('Entry Confirmation.pdf', 'Uploaded 2 Aug 2026'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildAttachmentTile('Running Order.pdf', 'Uploaded 14 Sep 2026'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 32),
+
+          // BOTTOM BUTTONS
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: _cardBorder),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                  onPressed: () {},
+                  child: const Text('Edit Competition', style: TextStyle(color: _offWhite, fontWeight: FontWeight.bold)),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _forest,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const RecordCompetitionResultScreen()));
+                  },
+                  child: const Text('Record Result', style: TextStyle(color: _offWhite, fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 40),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(context),
     );
   }
 
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _stoneGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
-      ),
-    );
-  }
-
-  Widget _buildPhaseRow(String time, String phase, String desc, Color color) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: _cardBorder),
-      ),
+  Widget _buildInfoRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: const Color(0xFF131718),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(time, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w700)),
-          ),
-          const SizedBox(width: 12),
+          Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 13)),
+          Text(value, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAttachmentTile(String name, String uploaded) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Row(
+        children: [
+          const Icon(Icons.description_outlined, color: _stoneGrey, size: 20),
+          const SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(phase, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w700)),
+                Text(name, style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 2),
-                Text(desc, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+                Text(uploaded, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
               ],
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNav(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
-            ),
+          InkWell(
+            onTap: () {},
+            child: const Text('Open', style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.bold)),
           ),
         ],
       ),

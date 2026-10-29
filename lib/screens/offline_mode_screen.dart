@@ -13,9 +13,9 @@ const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _orange = Color(0xFFDD6B20);
-const Color _blue = Color(0xFF5D8FAF);
-const Color _red = Color(0xFFE53E3E);
+const Color _mutedGrey = Color(0xFF718096);
+const Color _syncGreen = Color(0xFF4ADE80);
+const Color _dangerRed = Color(0xFFE53E3E);
 
 class OfflineModeScreen extends StatefulWidget {
   const OfflineModeScreen({super.key});
@@ -25,67 +25,80 @@ class OfflineModeScreen extends StatefulWidget {
 }
 
 class _OfflineModeScreenState extends State<OfflineModeScreen> {
-  bool _forceOffline = false;
-  bool _autoCacheDrills = true;
-  bool _cacheVideos = true;
+  bool _offlineEnabled = true;
+  String _selectedQuality = 'Balanced';
+  bool _isDownloading = false;
 
-  final List<Map<String, dynamic>> _mapPacks = [
-    {
-      'title': 'Riverside Valley Topographic (1:24k)',
-      'region': 'Pacific Northwest • 240 MB',
-      'downloaded': true,
-      'progress': 1.0,
-    },
-    {
-      'title': 'Blackwood Forest Scent Trail Grid',
-      'region': 'Dense Woodland • 115 MB',
-      'downloaded': true,
-      'progress': 1.0,
-    },
-    {
-      'title': 'Alpine Summit Ridge Satellite Contours',
-      'region': 'High Elevation • 380 MB',
-      'downloaded': false,
-      'progress': 0.0,
-    },
-  ];
+  // Available offline toggles matching Figma
+  final Map<String, bool> _offlineItems = {
+    'Dog Profiles': true,
+    'Training Records': true,
+    'S&C Records': true,
+    'Health Records': true,
+    'Goals': true,
+    'Timeline': true,
+    'Statistics': true,
+    'Videos': true,
+    'Photos': true,
+    'Documents & Attachments': false,
+  };
 
-  void _downloadMap(int index) async {
-    setState(() {
-      _mapPacks[index]['downloading'] = true;
-      _mapPacks[index]['progress'] = 0.1;
-    });
-
-    for (int i = 1; i <= 10; i++) {
-      await Future.delayed(const Duration(milliseconds: 140));
-      if (!mounted) return;
-      setState(() => _mapPacks[index]['progress'] = i / 10.0);
+  void _onBottomNavTapped(int index) {
+    if (index == 4) {
+      Navigator.pop(context);
+      return;
     }
+    Widget target;
+    switch (index) {
+      case 0:
+        target = const HomepageScreen();
+        break;
+      case 1:
+        target = const MyDogsScreen();
+        break;
+      case 2:
+        target = const TrainingScreen();
+        break;
+      case 3:
+        target = const TimelineScreen();
+        break;
+      case 4:
+        target = const MorePageScreen();
+        break;
+      default:
+        return;
+    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => target),
+    );
+  }
 
+  void _triggerDownload() async {
+    setState(() => _isDownloading = true);
+    await Future.delayed(const Duration(milliseconds: 1200));
     if (!mounted) return;
-    setState(() {
-      _mapPacks[index]['downloading'] = false;
-      _mapPacks[index]['downloaded'] = true;
-    });
-
+    setState(() => _isDownloading = false);
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Downloaded ${_mapPacks[index]['title']} for offline backcountry use.'),
-        backgroundColor: _forest,
-        duration: const Duration(seconds: 2),
+      const SnackBar(
+        content: Text('Offline data successfully updated and verified.'),
+        duration: Duration(seconds: 2),
       ),
     );
   }
 
-  void _showClearCacheDialog() {
+  void _confirmRemoveContent() {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Clear Offline Maps & Media?', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700)),
+        title: const Text(
+          'Remove Downloaded Content',
+          style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700),
+        ),
         content: const Text(
-          'This will delete 735 MB of offline topographic maps and cached drill videos. Your cloud telemetry remains unaffected.',
+          'This will free up 3.2 GB of device storage by removing cached media and offline copies. Cloud data remains safe.',
           style: TextStyle(color: _stoneGrey, fontSize: 13),
         ),
         actions: [
@@ -95,25 +108,19 @@ class _OfflineModeScreenState extends State<OfflineModeScreen> {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: _red,
+              backgroundColor: _dangerRed,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
             onPressed: () {
               Navigator.pop(ctx);
-              setState(() {
-                for (var map in _mapPacks) {
-                  map['downloaded'] = false;
-                  map['progress'] = 0.0;
-                }
-              });
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Offline map cache cleared.'),
-                  backgroundColor: _forest,
+                  content: Text('Downloaded content removed.'),
+                  duration: Duration(seconds: 2),
                 ),
               );
             },
-            child: const Text('Clear All', style: TextStyle(color: _offWhite)),
+            child: const Text('Remove', style: TextStyle(color: _offWhite)),
           ),
         ],
       ),
@@ -124,79 +131,563 @@ class _OfflineModeScreenState extends State<OfflineModeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _obsidian,
-      appBar: AppBar(
-        backgroundColor: _obsidian,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Offline Mode & Downloads',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
-        ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        children: [
-          // 1. MASTER OFFLINE MODE CARD
-          _buildOfflineToggleCard(),
-          const SizedBox(height: 20),
-
-          // 2. OFFLINE MAP PACKS
-          _buildSectionHeader('OFFLINE TOPOGRAPHIC MAP PACKS'),
-          const SizedBox(height: 8),
-          ..._mapPacks.asMap().entries.map((entry) => _buildMapPackTile(entry.key, entry.value)),
-          const SizedBox(height: 20),
-
-          // 3. DRILL MEDIA & CACHE SETTINGS
-          _buildSectionHeader('DRILL MEDIA CACHING'),
-          const SizedBox(height: 8),
-          _buildMediaCacheCard(),
-          const SizedBox(height: 20),
-
-          // 4. STORAGE CLEAR BUTTON
-          Container(
-            width: double.infinity,
-            height: 48,
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: _red.withValues(alpha: 0.3)),
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(14),
-                onTap: _showClearCacheDialog,
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.delete_outline, color: _red, size: 18),
-                    SizedBox(width: 8),
-                    Text(
-                      'Clear Downloaded Maps & Media',
-                      style: TextStyle(
-                        color: _red,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+      body: SafeArea(
+        child: Column(
+          children: [
+            // ─── Header: < Offline Mode & Downloads | Saved ───────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    borderRadius: BorderRadius.circular(8),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.chevron_left, color: _offWhite, size: 22),
+                          SizedBox(width: 4),
+                          Text(
+                            'Offline Mode & Downloads',
+                            style: TextStyle(
+                              color: _offWhite,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  const Text(
+                    'Saved',
+                    style: TextStyle(
+                      color: _mutedGrey,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
               ),
             ),
+
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                children: [
+                  // ─── OVERVIEW ──────────────────────────────────────────
+                  _buildSectionHeader('OVERVIEW'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 6,
+                                        height: 6,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: _offlineEnabled
+                                              ? _syncGreen
+                                              : _mutedGrey,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 6),
+                                      Text(
+                                        _offlineEnabled ? 'Enabled' : 'Disabled',
+                                        style: const TextStyle(
+                                          color: _offWhite,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 3),
+                                  const Text(
+                                    'Offline Mode',
+                                    style: TextStyle(
+                                      color: _stoneGrey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    '3.2 GB',
+                                    style: TextStyle(
+                                      color: _offWhite,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  const Text(
+                                    'Downloaded',
+                                    style: TextStyle(
+                                      color: _stoneGrey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        const Divider(height: 1, color: Color(0x0FFFFFFF)),
+                        const SizedBox(height: 16),
+                        const Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Today • 08:14',
+                                    style: TextStyle(
+                                      color: _offWhite,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(height: 3),
+                                  Text(
+                                    'Last Updated',
+                                    style: TextStyle(
+                                      color: _stoneGrey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '12.4 GB free',
+                                    style: TextStyle(
+                                      color: _offWhite,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(height: 3),
+                                  Text(
+                                    'Device Storage',
+                                    style: TextStyle(
+                                      color: _stoneGrey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── OFFLINE MODE ──────────────────────────────────────
+                  _buildSectionHeader('OFFLINE MODE'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.wifi_off_outlined,
+                          color: _stoneGrey,
+                          size: 22,
+                        ),
+                        const SizedBox(width: 14),
+                        const Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Enable Offline Mode',
+                                style: TextStyle(
+                                  color: _offWhite,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(height: 3),
+                              Text(
+                                'Store essential content locally for access without an internet connection',
+                                style: TextStyle(
+                                  color: _stoneGrey,
+                                  fontSize: 12,
+                                  height: 1.3,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Switch(
+                          value: _offlineEnabled,
+                          activeThumbColor: _forest,
+                          activeTrackColor: _syncGreen.withValues(alpha: 0.6),
+                          inactiveThumbColor: _stoneGrey,
+                          inactiveTrackColor: _obsidian,
+                          onChanged: (val) {
+                            setState(() => _offlineEnabled = val);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── AVAILABLE OFFLINE ─────────────────────────────────
+                  _buildSectionHeader('AVAILABLE OFFLINE'),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildSwitchRow(
+                          icon: Icons.person_outline,
+                          title: 'Dog Profiles',
+                          keyName: 'Dog Profiles',
+                        ),
+                        _buildDivider(),
+                        _buildSwitchRow(
+                          icon: Icons.view_timeline_outlined,
+                          title: 'Training Records',
+                          keyName: 'Training Records',
+                        ),
+                        _buildDivider(),
+                        _buildSwitchRow(
+                          icon: Icons.show_chart,
+                          title: 'S&C Records',
+                          keyName: 'S&C Records',
+                        ),
+                        _buildDivider(),
+                        _buildSwitchRow(
+                          icon: Icons.favorite_border,
+                          title: 'Health Records',
+                          keyName: 'Health Records',
+                        ),
+                        _buildDivider(),
+                        _buildSwitchRow(
+                          icon: Icons.track_changes,
+                          title: 'Goals',
+                          keyName: 'Goals',
+                        ),
+                        _buildDivider(),
+                        _buildSwitchRow(
+                          icon: Icons.timeline,
+                          title: 'Timeline',
+                          keyName: 'Timeline',
+                        ),
+                        _buildDivider(),
+                        _buildSwitchRow(
+                          icon: Icons.bar_chart,
+                          title: 'Statistics',
+                          keyName: 'Statistics',
+                        ),
+                        _buildDivider(),
+                        _buildSwitchRow(
+                          icon: Icons.videocam_outlined,
+                          title: 'Videos',
+                          keyName: 'Videos',
+                        ),
+                        _buildDivider(),
+                        _buildSwitchRow(
+                          icon: Icons.photo_outlined,
+                          title: 'Photos',
+                          keyName: 'Photos',
+                        ),
+                        _buildDivider(),
+                        _buildSwitchRow(
+                          icon: Icons.description_outlined,
+                          title: 'Documents & Attachments',
+                          keyName: 'Documents & Attachments',
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── DOWNLOAD QUALITY ──────────────────────────────────
+                  _buildSectionHeader('DOWNLOAD QUALITY'),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildQualityRow(
+                          title: 'High Quality',
+                          subtitle: 'Larger files, best detail',
+                        ),
+                        _buildDivider(),
+                        _buildQualityRow(
+                          title: 'Balanced',
+                          subtitle: 'Recommended for most users',
+                        ),
+                        _buildDivider(),
+                        _buildQualityRow(
+                          title: 'Data Saver',
+                          subtitle: 'Smaller files, reduced quality',
+                        ),
+                        _buildDivider(),
+                        const Padding(
+                          padding: EdgeInsets.all(14),
+                          child: Text(
+                            'Applies to newly downloaded media only. Previously downloaded files are unchanged.',
+                            style: TextStyle(
+                              color: _mutedGrey,
+                              fontSize: 12,
+                              height: 1.35,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── DOWNLOAD CTA BUTTON ───────────────────────────────
+                  _buildSectionHeader('DOWNLOAD'),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _forest,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: _isDownloading ? null : _triggerDownload,
+                      child: _isDownloading
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: _offWhite,
+                              ),
+                            )
+                          : const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.file_download_outlined,
+                                    color: _offWhite, size: 20),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Download Latest Data',
+                                  style: TextStyle(
+                                    color: _offWhite,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const Center(
+                    child: Text(
+                      'Downloads all selected content to your device',
+                      style: TextStyle(
+                        color: _mutedGrey,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── STORAGE BREAKDOWN ─────────────────────────────────
+                  _buildSectionHeader('STORAGE'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildStorageRow(
+                          icon: Icons.videocam_outlined,
+                          title: 'Videos',
+                          size: '2.4 GB',
+                        ),
+                        const SizedBox(height: 12),
+                        _buildStorageRow(
+                          icon: Icons.photo_outlined,
+                          title: 'Photos',
+                          size: '480 MB',
+                        ),
+                        const SizedBox(height: 12),
+                        _buildStorageRow(
+                          icon: Icons.view_timeline_outlined,
+                          title: 'Training Data',
+                          size: '180 MB',
+                        ),
+                        const SizedBox(height: 12),
+                        _buildStorageRow(
+                          icon: Icons.favorite_border,
+                          title: 'Health Data',
+                          size: '96 MB',
+                        ),
+                        const SizedBox(height: 12),
+                        _buildStorageRow(
+                          icon: Icons.description_outlined,
+                          title: 'Documents',
+                          size: '64 MB',
+                        ),
+                        const SizedBox(height: 14),
+                        const Divider(height: 1, color: Color(0x0FFFFFFF)),
+                        const SizedBox(height: 14),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Total Offline Storage Used',
+                              style: TextStyle(
+                                color: _stoneGrey,
+                                fontSize: 13,
+                              ),
+                            ),
+                            Text(
+                              '3.2 GB',
+                              style: TextStyle(
+                                color: _offWhite,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── REMOVE ────────────────────────────────────────────
+                  _buildSectionHeader('REMOVE'),
+                  const SizedBox(height: 8),
+                  InkWell(
+                    onTap: _confirmRemoveContent,
+                    borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        color: _carbon,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: _cardBorder),
+                      ),
+                      child: const Row(
+                        children: [
+                          Icon(Icons.delete_outline, color: _dangerRed, size: 20),
+                          SizedBox(width: 12),
+                          Text(
+                            'Remove Downloaded Content',
+                            style: TextStyle(
+                              color: _dangerRed,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 32),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 4, // More tab active
+        onTap: _onBottomNavTapped,
+        backgroundColor: _obsidian,
+        selectedItemColor: _mint,
+        unselectedItemColor: _stoneGrey,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
           ),
-          const SizedBox(height: 24),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pets_outlined),
+            activeIcon: Icon(Icons.pets),
+            label: 'Dogs',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center),
+            label: 'Training',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history_outlined),
+            activeIcon: Icon(Icons.history),
+            label: 'Timeline',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: 'More',
+          ),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
@@ -204,309 +695,133 @@ class _OfflineModeScreenState extends State<OfflineModeScreen> {
     return Text(
       title,
       style: const TextStyle(
-        color: _stoneGrey,
+        color: _mutedGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
+        letterSpacing: 1.0,
       ),
     );
   }
 
-  Widget _buildOfflineToggleCard() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _forceOffline ? _orange.withValues(alpha: 0.4) : _cardBorder),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              color: _forceOffline ? const Color(0xFF261D15) : const Color(0xFF131718),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(
-              Icons.cloud_off,
-              color: _forceOffline ? _orange : _stoneGrey,
-              size: 22,
-            ),
-          ),
-          const SizedBox(width: 14),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Force Offline Field Mode',
-                  style: TextStyle(
-                    color: _offWhite,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                SizedBox(height: 2),
-                Text(
-                  'Operate entirely from local storage during remote wilderness sessions',
-                  style: TextStyle(color: _stoneGrey, fontSize: 11),
-                ),
-              ],
-            ),
-          ),
-          Switch(
-            value: _forceOffline,
-            activeThumbColor: _orange,
-            activeTrackColor: const Color(0xFF261D15),
-            inactiveTrackColor: const Color(0xFF131718),
-            onChanged: (val) => setState(() => _forceOffline = val),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMapPackTile(int index, Map<String, dynamic> pack) {
-    final bool isDownloaded = pack['downloaded'] ?? false;
-    final bool isDownloading = pack['downloading'] ?? false;
-    final double progress = pack['progress'] ?? 0.0;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: isDownloaded ? _mint.withValues(alpha: 0.15) : _blue.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  isDownloaded ? Icons.check_circle_outline : Icons.map_outlined,
-                  color: isDownloaded ? _mint : _blue,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      pack['title'],
-                      style: const TextStyle(
-                        color: _offWhite,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Inter',
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      pack['region'],
-                      style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                    ),
-                  ],
-                ),
-              ),
-              if (isDownloaded)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF131718),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: const Text('Saved', style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w700)),
-                )
-              else if (isDownloading)
-                const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(strokeWidth: 2, color: _mint),
-                )
-              else
-                IconButton(
-                  icon: const Icon(Icons.download, color: _mint, size: 20),
-                  onPressed: () => _downloadMap(index),
-                ),
-            ],
-          ),
-          if (isDownloading) ...[
-            const SizedBox(height: 10),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: LinearProgressIndicator(
-                value: progress,
-                backgroundColor: const Color(0xFF131718),
-                valueColor: const AlwaysStoppedAnimation(_mint),
-                minHeight: 4,
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMediaCacheCard() {
-    return Container(
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Column(
-        children: [
-          _buildSwitchRow(
-            title: 'Auto-Cache Active Drills',
-            subtitle: 'Preload exercises scheduled for this week',
-            value: _autoCacheDrills,
-            onChanged: (val) => setState(() => _autoCacheDrills = val),
-          ),
-          const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 16, endIndent: 16),
-          _buildSwitchRow(
-            title: 'Cache Video Demonstrations',
-            subtitle: 'Keep technique videos available without cell reception',
-            value: _cacheVideos,
-            onChanged: (val) => setState(() => _cacheVideos = val),
-          ),
-        ],
-      ),
+  Widget _buildDivider() {
+    return const Divider(
+      height: 1,
+      thickness: 1,
+      color: Color(0x0FFFFFFF),
+      indent: 50,
     );
   }
 
   Widget _buildSwitchRow({
+    required IconData icon,
     required String title,
-    required String subtitle,
-    required bool value,
-    required ValueChanged<bool> onChanged,
+    required String keyName,
   }) {
+    final isChecked = _offlineItems[keyName] ?? false;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Row(
         children: [
+          Icon(icon, color: _offWhite, size: 20),
+          const SizedBox(width: 14),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: _offWhite,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                ),
-              ],
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: _offWhite,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           Switch(
-            value: value,
-            activeThumbColor: _mint,
-            activeTrackColor: _forest,
-            inactiveTrackColor: const Color(0xFF131718),
-            onChanged: onChanged,
+            value: isChecked,
+            activeThumbColor: _forest,
+            activeTrackColor: _syncGreen.withValues(alpha: 0.6),
+            inactiveThumbColor: _stoneGrey,
+            inactiveTrackColor: _obsidian,
+            onChanged: (val) {
+              setState(() => _offlineItems[keyName] = val);
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
+  Widget _buildQualityRow({
+    required String title,
+    required String subtitle,
+  }) {
+    final isSelected = _selectedQuality == title;
+    return InkWell(
+      onTap: () => setState(() => _selectedQuality = title),
+      borderRadius: BorderRadius.circular(12),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: _offWhite,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      color: _stoneGrey,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (isSelected)
+              const Icon(
+                Icons.check,
+                color: _syncGreen,
+                size: 20,
+              ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
+  Widget _buildStorageRow({
+    required IconData icon,
+    required String title,
+    required String size,
+  }) {
+    return Row(
+      children: [
+        Icon(icon, color: _stoneGrey, size: 18),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _offWhite,
+              fontSize: 14,
             ),
           ),
-        ],
-      ),
+        ),
+        Text(
+          size,
+          style: const TextStyle(
+            color: _stoneGrey,
+            fontSize: 13,
+          ),
+        ),
+      ],
     );
   }
 }

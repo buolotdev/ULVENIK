@@ -13,9 +13,9 @@ const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _gold = Color(0xFFECC94B);
-const Color _blue = Color(0xFF5D8FAF);
-const Color _orange = Color(0xFFDD6B20);
+const Color _mutedGrey = Color(0xFF718096);
+const Color _syncGreen = Color(0xFF4ADE80);
+const Color _dangerRed = Color(0xFFE53E3E);
 
 class AppearanceSettingsScreen extends StatefulWidget {
   const AppearanceSettingsScreen({super.key});
@@ -26,96 +26,714 @@ class AppearanceSettingsScreen extends StatefulWidget {
 }
 
 class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
-  String _selectedTheme = 'Dark Obsidian';
-  Color _selectedAccent = _mint;
-  double _fontScale = 1.0;
-  bool _highContrast = false;
-  bool _chartAnimations = true;
-  bool _compactCards = false;
+  String _selectedTheme = 'Dark';
+  String _selectedTextSize = 'Default';
+  String _selectedDensity = 'Comfortable';
+  bool _reduceMotion = false;
+  bool _hapticFeedback = true;
 
-  final List<Map<String, dynamic>> _themeOptions = [
-    {
-      'title': 'Dark Obsidian',
-      'subtitle': 'Pitch black #101214 with rich carbon cards',
-      'bgColor': _obsidian,
-      'cardColor': _carbon,
-      'accent': _mint,
-    },
-    {
-      'title': 'Stealth Frost',
-      'subtitle': 'Deep slate graphite with muted cool tones',
-      'bgColor': Color(0xFF161A1D),
-      'cardColor': Color(0xFF20262B),
-      'accent': _blue,
-    },
-    {
-      'title': 'AMOLED Black',
-      'subtitle': 'Pure #000000 black for outdoor battery life',
-      'bgColor': Colors.black,
-      'cardColor': Color(0xFF141414),
-      'accent': _mint,
-    },
-  ];
+  // Interactive preview state
+  bool _previewToggle = true;
 
-  final List<Color> _accentColors = [
-    _mint,
-    _gold,
-    _blue,
-    _orange,
-    const Color(0xFF9F7AEA), // Purple
-  ];
+  void _onBottomNavTapped(int index) {
+    if (index == 4) {
+      Navigator.pop(context);
+      return;
+    }
+    Widget target;
+    switch (index) {
+      case 0:
+        target = const HomepageScreen();
+        break;
+      case 1:
+        target = const MyDogsScreen();
+        break;
+      case 2:
+        target = const TrainingScreen();
+        break;
+      case 3:
+        target = const TimelineScreen();
+        break;
+      case 4:
+        target = const MorePageScreen();
+        break;
+      default:
+        return;
+    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => target),
+    );
+  }
+
+  void _resetAppearance() {
+    setState(() {
+      _selectedTheme = 'Dark';
+      _selectedTextSize = 'Default';
+      _selectedDensity = 'Comfortable';
+      _reduceMotion = false;
+      _hapticFeedback = true;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Appearance settings reset to default.'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _obsidian,
-      appBar: AppBar(
-        backgroundColor: _obsidian,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Appearance Settings',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // ─── Header: < Appearance | Saved ───────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    borderRadius: BorderRadius.circular(8),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.chevron_left, color: _offWhite, size: 22),
+                          SizedBox(width: 4),
+                          Text(
+                            'Appearance',
+                            style: TextStyle(
+                              color: _offWhite,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    'Saved',
+                    style: TextStyle(
+                      color: _mutedGrey,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                children: [
+                  // ─── PREVIEW CARD ──────────────────────────────────────
+                  _buildSectionHeader('PREVIEW'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        // Inner preview frame
+                        Container(
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: _obsidian,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: const Color(0x1AFFFFFF)),
+                          ),
+                          child: Column(
+                            children: [
+                              // Preview row 1: Pill & Radio
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF181C1E),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 80,
+                                      height: 10,
+                                      decoration: BoxDecoration(
+                                        color: _offWhite.withValues(alpha: 0.8),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Container(
+                                      width: 14,
+                                      height: 14,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(color: _mutedGrey, width: 1.5),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+
+                              // Preview row 2: Double line & Checkbox
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF181C1E),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: 90,
+                                          height: 10,
+                                          decoration: BoxDecoration(
+                                            color: _offWhite.withValues(alpha: 0.8),
+                                            borderRadius: BorderRadius.circular(5),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Container(
+                                          width: 50,
+                                          height: 8,
+                                          decoration: BoxDecoration(
+                                            color: _stoneGrey.withValues(alpha: 0.5),
+                                            borderRadius: BorderRadius.circular(4),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Container(
+                                      width: 14,
+                                      height: 14,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(3),
+                                        color: _mutedGrey.withValues(alpha: 0.3),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+
+                              // Preview row 3: Slider & Switch
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF181C1E),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 110,
+                                      height: 10,
+                                      decoration: BoxDecoration(
+                                        color: _offWhite.withValues(alpha: 0.8),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    GestureDetector(
+                                      onTap: () => setState(() => _previewToggle = !_previewToggle),
+                                      child: Container(
+                                        width: 32,
+                                        height: 18,
+                                        padding: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(9),
+                                          color: _previewToggle ? _forest : _carbon,
+                                        ),
+                                        alignment: _previewToggle ? Alignment.centerRight : Alignment.centerLeft,
+                                        child: Container(
+                                          width: 14,
+                                          height: 14,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: _offWhite,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+
+                              // Preview row 4: Dot pagination
+                              Container(
+                                padding: const EdgeInsets.symmetric(vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF181C1E),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    _buildPreviewDot(false),
+                                    _buildPreviewDot(false),
+                                    _buildPreviewDot(false),
+                                    _buildPreviewDot(false),
+                                    _buildPreviewDot(true),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          'Updates instantly as you change settings',
+                          style: TextStyle(
+                            color: _mutedGrey,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── THEME ─────────────────────────────────────────────
+                  _buildSectionHeader('THEME'),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      // System
+                      Expanded(
+                        child: _buildThemeTile(
+                          id: 'System',
+                          label: 'System',
+                          sublabel: 'Default',
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: CustomPaint(
+                              painter: _DiagonalSplitPainter(),
+                              child: const SizedBox(height: 60, width: double.infinity),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      // Dark
+                      Expanded(
+                        child: _buildThemeTile(
+                          id: 'Dark',
+                          label: 'Dark',
+                          sublabel: null,
+                          child: Container(
+                            height: 60,
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF14191C),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Stack(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 28,
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        color: _mutedGrey,
+                                        borderRadius: BorderRadius.circular(2),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Container(
+                                      width: 44,
+                                      height: 6,
+                                      decoration: BoxDecoration(
+                                        color: _stoneGrey,
+                                        borderRadius: BorderRadius.circular(3),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Icon(Icons.check_circle, color: _syncGreen, size: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      // Light
+                      Expanded(
+                        child: _buildThemeTile(
+                          id: 'Light',
+                          label: 'Light',
+                          sublabel: null,
+                          child: Container(
+                            height: 60,
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF7F7F4),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 28,
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF888888),
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Container(
+                                  width: 44,
+                                  height: 6,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFCCCCCC),
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── TEXT SIZE ─────────────────────────────────────────
+                  _buildSectionHeader('TEXT SIZE'),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildRadioRow(
+                          icon: Icons.title,
+                          title: 'Small',
+                          isSelected: _selectedTextSize == 'Small',
+                          onTap: () => setState(() => _selectedTextSize = 'Small'),
+                        ),
+                        _buildDivider(),
+                        _buildRadioRow(
+                          icon: Icons.title,
+                          title: 'Default',
+                          subtitle: 'Recommended',
+                          isSelected: _selectedTextSize == 'Default',
+                          onTap: () => setState(() => _selectedTextSize = 'Default'),
+                        ),
+                        _buildDivider(),
+                        _buildRadioRow(
+                          icon: Icons.title,
+                          title: 'Large',
+                          isSelected: _selectedTextSize == 'Large',
+                          onTap: () => setState(() => _selectedTextSize = 'Large'),
+                        ),
+                        _buildDivider(),
+                        _buildRadioRow(
+                          icon: Icons.title,
+                          title: 'Extra Large',
+                          isSelected: _selectedTextSize == 'Extra Large',
+                          onTap: () => setState(() => _selectedTextSize = 'Extra Large'),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── DISPLAY DENSITY ───────────────────────────────────
+                  _buildSectionHeader('DISPLAY DENSITY'),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildRadioRow(
+                          icon: Icons.dashboard_outlined,
+                          title: 'Comfortable',
+                          subtitle: 'Recommended',
+                          isSelected: _selectedDensity == 'Comfortable',
+                          onTap: () => setState(() => _selectedDensity = 'Comfortable'),
+                        ),
+                        _buildDivider(),
+                        _buildRadioRow(
+                          icon: Icons.view_headline_outlined,
+                          title: 'Compact',
+                          subtitle: 'More content on screen',
+                          isSelected: _selectedDensity == 'Compact',
+                          onTap: () => setState(() => _selectedDensity = 'Compact'),
+                        ),
+                        _buildDivider(),
+                        _buildRadioRow(
+                          icon: Icons.view_agenda_outlined,
+                          title: 'Spacious',
+                          subtitle: 'More breathing room',
+                          isSelected: _selectedDensity == 'Spacious',
+                          onTap: () => setState(() => _selectedDensity = 'Spacious'),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── REDUCE MOTION ─────────────────────────────────────
+                  _buildSectionHeader('REDUCE MOTION'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.star_border, color: _stoneGrey, size: 20),
+                        const SizedBox(width: 14),
+                        const Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Reduce Motion',
+                                style: TextStyle(
+                                  color: _offWhite,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              SizedBox(height: 2),
+                              Text(
+                                'Simplifies transitions and animations',
+                                style: TextStyle(
+                                  color: _stoneGrey,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Switch(
+                          value: _reduceMotion,
+                          activeThumbColor: _forest,
+                          activeTrackColor: _syncGreen.withValues(alpha: 0.6),
+                          inactiveThumbColor: _stoneGrey,
+                          inactiveTrackColor: _obsidian,
+                          onChanged: (v) => setState(() => _reduceMotion = v),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── HAPTIC FEEDBACK ───────────────────────────────────
+                  _buildSectionHeader('HAPTIC FEEDBACK'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.pan_tool_outlined, color: _stoneGrey, size: 20),
+                        const SizedBox(width: 14),
+                        const Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Haptic Feedback',
+                                style: TextStyle(
+                                  color: _offWhite,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              SizedBox(height: 2),
+                              Text(
+                                'Vibration response on interactions',
+                                style: TextStyle(
+                                  color: _stoneGrey,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Switch(
+                          value: _hapticFeedback,
+                          activeThumbColor: _forest,
+                          activeTrackColor: _syncGreen.withValues(alpha: 0.6),
+                          inactiveThumbColor: _stoneGrey,
+                          inactiveTrackColor: _obsidian,
+                          onChanged: (v) => setState(() => _hapticFeedback = v),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── RESET ─────────────────────────────────────────────
+                  _buildSectionHeader('RESET'),
+                  const SizedBox(height: 8),
+                  InkWell(
+                    onTap: _resetAppearance,
+                    borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      decoration: BoxDecoration(
+                        color: _carbon,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: _cardBorder),
+                      ),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.refresh, color: _dangerRed, size: 18),
+                          SizedBox(width: 8),
+                          Text(
+                            'Reset Appearance Settings',
+                            style: TextStyle(
+                              color: _dangerRed,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 32),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        children: [
-          // 1. THEME SELECTION TILES
-          _buildSectionHeader('THEME PROFILE'),
-          const SizedBox(height: 8),
-          ..._themeOptions.map((opt) => _buildThemeOption(opt)),
-          const SizedBox(height: 20),
-
-          // 2. ACCENT COLOR PICKER
-          _buildSectionHeader('PRIMARY ACCENT COLOR'),
-          const SizedBox(height: 8),
-          _buildAccentPicker(),
-          const SizedBox(height: 20),
-
-          // 3. TYPOGRAPHY SCALING & LIVE PREVIEW
-          _buildSectionHeader('TYPOGRAPHY SCALING'),
-          const SizedBox(height: 8),
-          _buildTypographySlider(),
-          const SizedBox(height: 20),
-
-          // 4. DISPLAY & FIELD ADAPTABILITY
-          _buildSectionHeader('FIELD & PERFORMANCE DISPLAY'),
-          const SizedBox(height: 8),
-          _buildDisplayToggles(),
-          const SizedBox(height: 24),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 4, // More tab active
+        onTap: _onBottomNavTapped,
+        backgroundColor: _obsidian,
+        selectedItemColor: _mint,
+        unselectedItemColor: _stoneGrey,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pets_outlined),
+            activeIcon: Icon(Icons.pets),
+            label: 'Dogs',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center),
+            label: 'Training',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history_outlined),
+            activeIcon: Icon(Icons.history),
+            label: 'Timeline',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: 'More',
+          ),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(),
+    );
+  }
+
+  Widget _buildPreviewDot(bool isActive) {
+    return Container(
+      width: 6,
+      height: 6,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: isActive ? _syncGreen : _mutedGrey.withValues(alpha: 0.5),
+      ),
+    );
+  }
+
+  Widget _buildThemeTile({
+    required String id,
+    required String label,
+    String? sublabel,
+    required Widget child,
+  }) {
+    final isSelected = _selectedTheme == id;
+    return GestureDetector(
+      onTap: () => setState(() => _selectedTheme = id),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: isSelected ? _syncGreen : _cardBorder,
+                width: isSelected ? 1.5 : 1,
+              ),
+            ),
+            child: child,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            label,
+            style: TextStyle(
+              color: isSelected ? _offWhite : _stoneGrey,
+              fontSize: 13,
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+            ),
+          ),
+          if (sublabel != null) ...[
+            const SizedBox(height: 2),
+            Text(
+              sublabel,
+              style: const TextStyle(
+                color: _mutedGrey,
+                fontSize: 11,
+              ),
+            ),
+          ],
+        ],
+      ),
     );
   }
 
@@ -123,390 +741,93 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
     return Text(
       title,
       style: const TextStyle(
-        color: _stoneGrey,
+        color: _mutedGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
+        letterSpacing: 1.0,
       ),
     );
   }
 
-  Widget _buildThemeOption(Map<String, dynamic> opt) {
-    final isSelected = _selectedTheme == opt['title'];
-    final Color bgColor = opt['bgColor'];
-    final Color cardColor = opt['cardColor'];
-    final Color accent = opt['accent'];
+  Widget _buildDivider() {
+    return const Divider(
+      height: 1,
+      thickness: 1,
+      color: Color(0x0FFFFFFF),
+      indent: 50,
+    );
+  }
 
-    return GestureDetector(
-      onTap: () => setState(() => _selectedTheme = opt['title']),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: _carbon,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected ? _selectedAccent : _cardBorder,
-            width: isSelected ? 1.8 : 1,
-          ),
-        ),
+  Widget _buildRadioRow({
+    required IconData icon,
+    required String title,
+    String? subtitle,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         child: Row(
           children: [
-            // Mini Theme Preview Block
-            Container(
-              width: 52,
-              height: 44,
-              decoration: BoxDecoration(
-                color: bgColor,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.white24),
-              ),
-              padding: const EdgeInsets.all(6),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 24,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: accent,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    width: double.infinity,
-                    height: 12,
-                    decoration: BoxDecoration(
-                      color: cardColor,
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            Icon(icon, color: _stoneGrey, size: 20),
             const SizedBox(width: 14),
-
-            // Description
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    opt['title'],
+                    title,
                     style: const TextStyle(
                       color: _offWhite,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Inter',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 2),
-                  Text(
-                    opt['subtitle'],
-                    style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                  ),
+                  if (subtitle != null) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        color: _stoneGrey,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
-
-            // Radio Indicator
-            Container(
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isSelected ? _selectedAccent : _stoneGrey,
-                  width: 2,
-                ),
-              ),
-              child: isSelected
-                  ? Center(
-                      child: Container(
-                        width: 10,
-                        height: 10,
-                        decoration: BoxDecoration(
-                          color: _selectedAccent,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    )
-                  : null,
-            ),
+            if (isSelected)
+              const Icon(Icons.check, color: _syncGreen, size: 20),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _buildAccentPicker() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: _accentColors.map((color) {
-          final isSelected = _selectedAccent == color;
-          return GestureDetector(
-            onTap: () => setState(() => _selectedAccent = color),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 180),
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isSelected ? Colors.white : Colors.transparent,
-                  width: 3,
-                ),
-                boxShadow: isSelected
-                    ? [
-                        BoxShadow(
-                          color: color.withValues(alpha: 0.5),
-                          blurRadius: 10,
-                          spreadRadius: 2,
-                        ),
-                      ]
-                    : null,
-              ),
-              child: isSelected
-                  ? const Icon(Icons.check, color: Colors.black, size: 22)
-                  : null,
-            ),
-          );
-        }).toList(),
-      ),
-    );
+class _DiagonalSplitPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final darkPaint = Paint()..color = const Color(0xFF14191C);
+    final lightPaint = Paint()..color = const Color(0xFFF7F7F4);
+
+    final path1 = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width, 0)
+      ..lineTo(0, size.height)
+      ..close();
+    canvas.drawPath(path1, darkPaint);
+
+    final path2 = Path()
+      ..moveTo(size.width, 0)
+      ..lineTo(size.width, size.height)
+      ..lineTo(0, size.height)
+      ..close();
+    canvas.drawPath(path2, lightPaint);
   }
 
-  Widget _buildTypographySlider() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Font Scale Factor', style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600)),
-              Text('${(_fontScale * 100).toInt()}%', style: TextStyle(color: _selectedAccent, fontSize: 13, fontWeight: FontWeight.w700)),
-            ],
-          ),
-          SliderTheme(
-            data: SliderTheme.of(context).copyWith(
-              activeTrackColor: _selectedAccent,
-              inactiveTrackColor: const Color(0xFF131718),
-              thumbColor: _selectedAccent,
-              trackHeight: 4,
-            ),
-            child: Slider(
-              value: _fontScale,
-              min: 0.85,
-              max: 1.25,
-              divisions: 4,
-              onChanged: (val) => setState(() => _fontScale = val),
-            ),
-          ),
-          const SizedBox(height: 10),
-
-          // Live Text Preview Card
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color(0xFF131718),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: _cardBorder),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Preview:',
-                  style: TextStyle(color: _stoneGrey, fontSize: 10 * _fontScale, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Koda completed 45m S&C drill at Riverside Valley.',
-                  style: TextStyle(
-                    color: _offWhite,
-                    fontSize: 13 * _fontScale,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDisplayToggles() {
-    return Container(
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Column(
-        children: [
-          _buildSwitchRow(
-            title: 'High-Contrast Field Mode',
-            subtitle: 'Enhance borders and text clarity in direct sunlight',
-            value: _highContrast,
-            onChanged: (val) => setState(() => _highContrast = val),
-          ),
-          const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 16, endIndent: 16),
-          _buildSwitchRow(
-            title: 'Chart Fluid Animations',
-            subtitle: 'Smooth spline curves and telemetry entrance effects',
-            value: _chartAnimations,
-            onChanged: (val) => setState(() => _chartAnimations = val),
-          ),
-          const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 16, endIndent: 16),
-          _buildSwitchRow(
-            title: 'Compact Cards',
-            subtitle: 'Reduce vertical padding to fit more timeline rows',
-            value: _compactCards,
-            onChanged: (val) => setState(() => _compactCards = val),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSwitchRow({
-    required String title,
-    required String subtitle,
-    required bool value,
-    required ValueChanged<bool> onChanged,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: _offWhite,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                ),
-              ],
-            ),
-          ),
-          Switch(
-            value: value,
-            activeThumbColor: _selectedAccent,
-            activeTrackColor: _forest,
-            inactiveTrackColor: const Color(0xFF131718),
-            onChanged: onChanged,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

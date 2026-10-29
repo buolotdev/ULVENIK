@@ -13,8 +13,8 @@ const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _orange = Color(0xFFDD6B20);
-const Color _red = Color(0xFFE53E3E);
+const Color _mutedGrey = Color(0xFF718096);
+const Color _syncGreen = Color(0xFF4ADE80);
 
 class ReportBugScreen extends StatefulWidget {
   const ReportBugScreen({super.key});
@@ -24,35 +24,71 @@ class ReportBugScreen extends StatefulWidget {
 }
 
 class _ReportBugScreenState extends State<ReportBugScreen> {
+  final _titleController = TextEditingController();
+  final _descController = TextEditingController();
   final _stepsController = TextEditingController();
-  final _expectedController = TextEditingController();
-  String _selectedSeverity = 'Medium — Visual or Non-blocking Glitch';
-  String _selectedArea = 'Activity Map & GPS Contours';
+
+  String? _selectedCategory;
   bool _includeDiagnostics = true;
-  bool _hasAttachedScreenshot = false;
+  bool _hasAttachment = true;
+  String _attachmentName = 'bug_screenshot.png';
+  String _attachmentSize = '2.1 MB';
 
-  final List<String> _severities = [
-    'Critical — App Crash or Data Loss',
-    'High — Session or Drill Failed to Record',
-    'Medium — Visual or Non-blocking Glitch',
-    'Low — Typo or Cosmetic Inconsistency',
+  final List<String> _categories = [
+    'Training & Sessions',
+    'Health & Medication',
+    'Offline Sync & Storage',
+    'GPS & Activity Maps',
+    'User Interface & Layout',
+    'Performance & Freezes',
+    'Other / Unspecified',
   ];
 
-  final List<String> _areas = [
-    'Activity Map & GPS Contours',
-    'Timeline & Smart Collections',
-    'Training Session Live Telemetry',
-    'Health Records & Medication',
-    'Widgets & Live Activities',
-    'Cloud Sync & Offline Mode',
-  ];
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descController.dispose();
+    _stepsController.dispose();
+    super.dispose();
+  }
 
-  void _submitBug() {
-    if (_stepsController.text.trim().isEmpty) {
+  void _onBottomNavTapped(int index) {
+    if (index == 4) {
+      Navigator.pop(context);
+      return;
+    }
+    Widget target;
+    switch (index) {
+      case 0:
+        target = const HomepageScreen();
+        break;
+      case 1:
+        target = const MyDogsScreen();
+        break;
+      case 2:
+        target = const TrainingScreen();
+        break;
+      case 3:
+        target = const TimelineScreen();
+        break;
+      case 4:
+        target = const MorePageScreen();
+        break;
+      default:
+        return;
+    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => target),
+    );
+  }
+
+  void _submitReport() {
+    if (_titleController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please describe the steps to reproduce the bug.'),
-          backgroundColor: _red,
+          content: Text('Please provide a brief bug title.'),
+          duration: Duration(seconds: 2),
         ),
       );
       return;
@@ -63,24 +99,43 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
       builder: (ctx) => AlertDialog(
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Bug Report Submitted', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700)),
+        title: const Text(
+          'Bug Report Submitted',
+          style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700),
+        ),
         content: const Text(
-          'Issue #BUG-3091 registered with Ulvenik Core Engineering. Diagnostic stack trace and device telemetry have been safely packaged for inspection.',
-          style: TextStyle(color: _stoneGrey, fontSize: 13),
+          'Thank you for reporting this issue. Our team has received your logs and telemetry and will investigate shortly.',
+          style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
         ),
         actions: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: _forest,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
             onPressed: () {
               Navigator.pop(ctx);
               Navigator.pop(context);
             },
-            child: const Text('Close', style: TextStyle(color: _offWhite)),
+            child: const Text('Done', style: TextStyle(color: _offWhite)),
           ),
         ],
+      ),
+    );
+  }
+
+  void _addAttachment() {
+    setState(() {
+      _hasAttachment = true;
+      _attachmentName = 'bug_screenshot.png';
+      _attachmentSize = '2.1 MB';
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Attachment added: bug_screenshot.png'),
+        duration: Duration(seconds: 2),
       ),
     );
   }
@@ -89,216 +144,566 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _obsidian,
-      appBar: AppBar(
-        backgroundColor: _obsidian,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Report a Bug',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
-        ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        children: [
-          // 1. CLASSIFICATION CARD
-          _buildSectionHeader('BUG CLASSIFICATION'),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: _cardBorder),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Severity Level', style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 6),
-                _buildDropdown(_selectedSeverity, _severities, (val) {
-                  if (val != null) setState(() => _selectedSeverity = val);
-                }),
-                const SizedBox(height: 14),
-
-                const Text('Feature Module Affected', style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 6),
-                _buildDropdown(_selectedArea, _areas, (val) {
-                  if (val != null) setState(() => _selectedArea = val);
-                }),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // 2. REPRODUCTION STEPS & DETAILS
-          _buildSectionHeader('REPRODUCTION DETAILS'),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: _cardBorder),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Steps to Reproduce', style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 6),
-                TextField(
-                  controller: _stepsController,
-                  maxLines: 3,
-                  style: const TextStyle(color: _offWhite, fontSize: 13),
-                  decoration: InputDecoration(
-                    hintText: '1. Started Scent Tracking session\n2. Tapped zoom button on map\n3. Observed screen freeze...',
-                    hintStyle: const TextStyle(color: _stoneGrey, fontSize: 12),
-                    filled: true,
-                    fillColor: const Color(0xFF131718),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: _cardBorder),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // ─── Header: < Report a Bug ─────────────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    borderRadius: BorderRadius.circular(8),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.chevron_left, color: _offWhite, size: 22),
+                          SizedBox(width: 4),
+                          Text(
+                            'Report a Bug',
+                            style: TextStyle(
+                              color: _offWhite,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 14),
+                ],
+              ),
+            ),
 
-                const Text('Expected vs Observed Result', style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 6),
-                TextField(
-                  controller: _expectedController,
-                  maxLines: 2,
-                  style: const TextStyle(color: _offWhite, fontSize: 13),
-                  decoration: InputDecoration(
-                    hintText: 'Expected map to recenter smoothly without memory stutter.',
-                    hintStyle: const TextStyle(color: _stoneGrey, fontSize: 12),
-                    filled: true,
-                    fillColor: const Color(0xFF131718),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: _cardBorder),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                // Screenshot Attachment Container
-                GestureDetector(
-                  onTap: () {
-                    setState(() => _hasAttachedScreenshot = !_hasAttachedScreenshot);
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(14),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                children: [
+                  // ─── BUG REPORT Banner ─────────────────────────────────
+                  _buildSectionHeader('BUG REPORT'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF131718),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: _hasAttachedScreenshot ? _mint : Colors.white12),
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          _hasAttachedScreenshot ? Icons.check_circle : Icons.add_photo_alternate_outlined,
-                          color: _hasAttachedScreenshot ? _mint : _stoneGrey,
-                          size: 20,
+                        Row(
+                          children: [
+                            Icon(Icons.lightbulb_outline,
+                                color: _stoneGrey, size: 18),
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                'Found something that isn\'t working?',
+                                style: TextStyle(
+                                  color: _offWhite,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 8),
+                        SizedBox(height: 10),
                         Text(
-                          _hasAttachedScreenshot ? 'Screenshot Attached (bug_capture.png)' : 'Attach Screenshot or Video Clip',
+                          'Help us improve Ulvenik by reporting the issue below. The more detail you provide, the faster we can investigate.',
                           style: TextStyle(
-                            color: _hasAttachedScreenshot ? _mint : _offWhite,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
+                            color: _stoneGrey,
+                            fontSize: 13,
+                            height: 1.4,
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
 
-          // 3. SYSTEM TELEMETRY ENVELOPE
-          _buildSectionHeader('DIAGNOSTIC ENVELOPE (AUTO-COLLECTED)'),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: const Color(0xFF131718),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: _cardBorder),
-            ),
-            child: Column(
-              children: [
-                _buildDiagRow('App Build', 'v2.4.0 (Build 412) • Production'),
-                _buildDiagRow('Device Hardware', 'Garmin / Apple Watch Dual Sensor Active'),
-                _buildDiagRow('Memory & Storage', '412 MB RAM • 8.2 GB Free'),
-                const Divider(color: Color(0x0FFFFFFF), height: 16),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: Checkbox(
-                        value: _includeDiagnostics,
-                        activeColor: _mint,
-                        checkColor: Colors.black,
-                        onChanged: (val) => setState(() => _includeDiagnostics = val ?? true),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    const Expanded(
-                      child: Text(
-                        'Include diagnostic logs & stack trace with report',
-                        style: TextStyle(color: _stoneGrey, fontSize: 11),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
+                  const SizedBox(height: 20),
 
-          // 4. SUBMIT BUTTON
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _orange,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-              ),
-              onPressed: _submitBug,
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.bug_report, color: _offWhite, size: 18),
-                  SizedBox(width: 8),
-                  Text(
-                    'Submit Bug Report',
-                    style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.w700),
+                  // ─── CATEGORY ──────────────────────────────────────────
+                  _buildSectionHeader('CATEGORY'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Bug Category',
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 11,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            value: _selectedCategory,
+                            isExpanded: true,
+                            dropdownColor: _carbon,
+                            hint: const Text(
+                              'Select a category',
+                              style: TextStyle(
+                                color: _stoneGrey,
+                                fontSize: 14,
+                              ),
+                            ),
+                            icon: const Icon(Icons.keyboard_arrow_down,
+                                color: _stoneGrey),
+                            items: _categories.map((c) {
+                              return DropdownMenuItem<String>(
+                                value: c,
+                                child: Text(
+                                  c,
+                                  style: const TextStyle(
+                                    color: _offWhite,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (val) {
+                              setState(() => _selectedCategory = val);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+
+                  const SizedBox(height: 20),
+
+                  // ─── TITLE ─────────────────────────────────────────────
+                  _buildSectionHeader('TITLE'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Bug Title',
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 11,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        TextField(
+                          controller: _titleController,
+                          maxLength: 100,
+                          onChanged: (_) => setState(() {}),
+                          style: const TextStyle(color: _offWhite, fontSize: 14),
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            hintText: 'Briefly describe the issue',
+                            hintStyle: const TextStyle(
+                              color: _mutedGrey,
+                              fontSize: 14,
+                            ),
+                            border: InputBorder.none,
+                            counterText:
+                                '${_titleController.text.length} / 100',
+                            counterStyle: const TextStyle(
+                              color: _mutedGrey,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // ─── DESCRIPTION ───────────────────────────────────────
+                  _buildSectionHeader('DESCRIPTION'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'What happened?',
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        TextField(
+                          controller: _descController,
+                          maxLines: 4,
+                          maxLength: 5000,
+                          onChanged: (_) => setState(() {}),
+                          style: const TextStyle(color: _offWhite, fontSize: 14),
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            hintText:
+                                'Tell us exactly what happened. Include what you expected and what actually occurred.',
+                            hintStyle: const TextStyle(
+                              color: _mutedGrey,
+                              fontSize: 13,
+                              height: 1.4,
+                            ),
+                            border: InputBorder.none,
+                            counterText:
+                                '${_descController.text.length} / 5,000',
+                            counterStyle: const TextStyle(
+                              color: _mutedGrey,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // ─── STEPS TO REPRODUCE ─────────────────────────────────
+                  _buildSectionHeader('STEPS TO REPRODUCE'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Steps to Reproduce • Optional',
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        TextField(
+                          controller: _stepsController,
+                          maxLines: 4,
+                          maxLength: 2000,
+                          onChanged: (_) => setState(() {}),
+                          style: const TextStyle(
+                            color: _offWhite,
+                            fontFamily: 'monospace',
+                            fontSize: 13,
+                          ),
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.zero,
+                            hintText:
+                                '1. Open Dog Profile\n2. Tap Training\n3. Add Session\n4. App closes',
+                            hintStyle: TextStyle(
+                              color: _mutedGrey.withValues(alpha: 0.8),
+                              fontFamily: 'monospace',
+                              fontSize: 13,
+                              height: 1.4,
+                            ),
+                            border: InputBorder.none,
+                            counterText:
+                                '${_stepsController.text.length} / 2,000',
+                            counterStyle: const TextStyle(
+                              color: _mutedGrey,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // ─── ATTACHMENTS ───────────────────────────────────────
+                  _buildSectionHeader('ATTACHMENTS'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        // Dashed button
+                        InkWell(
+                          onTap: _addAttachment,
+                          borderRadius: BorderRadius.circular(12),
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF14191C),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: _stoneGrey.withValues(alpha: 0.3),
+                                width: 1.2,
+                              ),
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.attach_file,
+                                    color: _stoneGrey, size: 18),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Add Attachment',
+                                  style: TextStyle(
+                                    color: _stoneGrey,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Screenshots, recordings or documents',
+                          style: TextStyle(
+                            color: _mutedGrey,
+                            fontSize: 12,
+                          ),
+                        ),
+                        if (_hasAttachment) ...[
+                          const SizedBox(height: 14),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF14181B),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: _cardBorder,
+                                width: 1,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.image_outlined,
+                                    color: _stoneGrey, size: 18),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    _attachmentName,
+                                    style: const TextStyle(
+                                      color: _offWhite,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  _attachmentSize,
+                                  style: const TextStyle(
+                                    color: _mutedGrey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() => _hasAttachment = false);
+                                  },
+                                  child: const Icon(Icons.close,
+                                      color: _stoneGrey, size: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // ─── DIAGNOSTICS ───────────────────────────────────────
+                  _buildSectionHeader('DIAGNOSTICS'),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.shield_outlined,
+                                  color: _stoneGrey, size: 20),
+                              const SizedBox(width: 12),
+                              const Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Include Diagnostic Information',
+                                      style: TextStyle(
+                                        color: _offWhite,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    SizedBox(height: 2),
+                                    Text(
+                                      'Helps the team investigate and reproduce the issue',
+                                      style: TextStyle(
+                                        color: _stoneGrey,
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Switch(
+                                value: _includeDiagnostics,
+                                activeThumbColor: _forest,
+                                activeTrackColor:
+                                    _syncGreen.withValues(alpha: 0.6),
+                                inactiveThumbColor: _stoneGrey,
+                                inactiveTrackColor: _obsidian,
+                                onChanged: (val) {
+                                  setState(() => _includeDiagnostics = val);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (_includeDiagnostics) ...[
+                          const Divider(height: 1, color: Color(0x0FFFFFFF)),
+                          _buildDiagnosticRow('App Version', '2.4.1'),
+                          _buildDivider(),
+                          _buildDiagnosticRow('Build Number', '241'),
+                          _buildDivider(),
+                          _buildDiagnosticRow('Device', 'iPhone 15 Pro'),
+                          _buildDivider(),
+                          _buildDiagnosticRow('OS Version', 'iOS 17.4'),
+                          _buildDivider(),
+                          _buildDiagnosticRow(
+                              'Screen Resolution', '2556 × 1179'),
+                          _buildDivider(),
+                          _buildDiagnosticRow('Language', 'English (UK)'),
+                          _buildDivider(),
+                          _buildDiagnosticRow(
+                              'Subscription', 'Dog Owner Plan'),
+                        ],
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── SUBMIT BUTTON ─────────────────────────────────────
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _forest,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: _submitReport,
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.play_arrow_outlined,
+                              color: _offWhite, size: 20),
+                          SizedBox(width: 8),
+                          Text(
+                            'Submit Bug Report',
+                            style: TextStyle(
+                              color: _offWhite,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 32),
                 ],
               ),
             ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 4, // More tab active
+        onTap: _onBottomNavTapped,
+        backgroundColor: _obsidian,
+        selectedItemColor: _mint,
+        unselectedItemColor: _stoneGrey,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
           ),
-          const SizedBox(height: 24),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pets_outlined),
+            activeIcon: Icon(Icons.pets),
+            label: 'Dogs',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center),
+            label: 'Training',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history_outlined),
+            activeIcon: Icon(Icons.history),
+            label: 'Timeline',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: 'More',
+          ),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
@@ -306,124 +711,43 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
     return Text(
       title,
       style: const TextStyle(
-        color: _stoneGrey,
+        color: _mutedGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
+        letterSpacing: 1.0,
       ),
     );
   }
 
-  Widget _buildDropdown(String value, List<String> items, ValueChanged<String?> onChanged) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        color: const Color(0xFF131718),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: DropdownButton<String>(
-        value: value,
-        dropdownColor: _carbon,
-        underline: const SizedBox.shrink(),
-        isExpanded: true,
-        items: items.map((i) {
-          return DropdownMenuItem(
-            value: i,
-            child: Text(i, style: const TextStyle(color: _offWhite, fontSize: 13)),
-          );
-        }).toList(),
-        onChanged: onChanged,
-      ),
+  Widget _buildDivider() {
+    return const Divider(
+      height: 1,
+      thickness: 1,
+      color: Color(0x0FFFFFFF),
+      indent: 16,
+      endIndent: 16,
     );
   }
 
-  Widget _buildDiagRow(String label, String value) {
+  Widget _buildDiagnosticRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
-          Text(value, style: const TextStyle(color: _offWhite, fontSize: 11, fontWeight: FontWeight.w600)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
+            style: const TextStyle(
+              color: _stoneGrey,
+              fontSize: 13,
+            ),
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              color: _offWhite,
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],

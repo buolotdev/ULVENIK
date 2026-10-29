@@ -13,7 +13,9 @@ const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _blue = Color(0xFF5D8FAF);
+const Color _mutedGrey = Color(0xFF718096);
+const Color _syncGreen = Color(0xFF4ADE80);
+const Color _dangerRed = Color(0xFFE53E3E);
 
 class BackupSyncScreen extends StatefulWidget {
   const BackupSyncScreen({super.key});
@@ -24,49 +26,90 @@ class BackupSyncScreen extends StatefulWidget {
 
 class _BackupSyncScreenState extends State<BackupSyncScreen> {
   bool _autoSync = true;
-  bool _wifiOnly = true;
-  bool _includeVideos = false;
+  bool _syncMobileData = true;
   bool _isSyncing = false;
-  double _syncProgress = 0.0;
-  String _lastSyncText = 'Synced 2 minutes ago';
+  String _lastSyncTime = 'Today • 14:37';
+
+  final List<Map<String, dynamic>> _devices = [
+    {
+      'name': 'iPhone 16 Pro',
+      'lastActive': 'Last Active: Just Now',
+      'isCurrent': true,
+      'icon': Icons.phone_iphone,
+    },
+    {
+      'name': 'MacBook Pro',
+      'lastActive': 'Last Active: 2 hours ago',
+      'isCurrent': false,
+      'icon': Icons.laptop_mac,
+    },
+  ];
+
+  void _onBottomNavTapped(int index) {
+    if (index == 4) {
+      Navigator.pop(context);
+      return;
+    }
+    Widget target;
+    switch (index) {
+      case 0:
+        target = const HomepageScreen();
+        break;
+      case 1:
+        target = const MyDogsScreen();
+        break;
+      case 2:
+        target = const TrainingScreen();
+        break;
+      case 3:
+        target = const TimelineScreen();
+        break;
+      case 4:
+        target = const MorePageScreen();
+        break;
+      default:
+        return;
+    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => target),
+    );
+  }
 
   void _triggerManualSync() async {
     if (_isSyncing) return;
-    setState(() {
-      _isSyncing = true;
-      _syncProgress = 0.1;
-    });
+    setState(() => _isSyncing = true);
 
-    for (int i = 1; i <= 10; i++) {
-      await Future.delayed(const Duration(milliseconds: 120));
-      if (!mounted) return;
-      setState(() => _syncProgress = i / 10.0);
-    }
-
+    await Future.delayed(const Duration(milliseconds: 1400));
     if (!mounted) return;
+
+    final now = TimeOfDay.now();
+    final hour = now.hour.toString().padLeft(2, '0');
+    final minute = now.minute.toString().padLeft(2, '0');
+
     setState(() {
       _isSyncing = false;
-      _lastSyncText = 'Just now';
+      _lastSyncTime = 'Today • $hour:$minute';
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Cloud sync complete. All local records are backed up.'),
-        backgroundColor: _forest,
+        content: Text('All data successfully synchronized with Ulvenik Cloud.'),
         duration: Duration(seconds: 2),
       ),
     );
   }
 
-  void _showRestoreDialog(String name, String date, String size) {
+  void _removeDevice(int index) {
+    final dev = _devices[index];
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Restore Cloud Backup?', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700)),
+        title: const Text('Unlink Device', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700)),
         content: Text(
-          'Are you sure you want to restore from "$name" ($date • $size)? Your device will synchronize to this exact snapshot.',
+          'Are you sure you want to unlink ${dev['name']}? It will no longer synchronize background telemetry.',
           style: const TextStyle(color: _stoneGrey, fontSize: 13),
         ),
         actions: [
@@ -76,14 +119,14 @@ class _BackupSyncScreenState extends State<BackupSyncScreen> {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: _forest,
+              backgroundColor: _dangerRed,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
             onPressed: () {
+              setState(() => _devices.removeAt(index));
               Navigator.pop(ctx);
-              _triggerManualSync();
             },
-            child: const Text('Restore', style: TextStyle(color: _offWhite)),
+            child: const Text('Unlink', style: TextStyle(color: _offWhite)),
           ),
         ],
       ),
@@ -94,49 +137,515 @@ class _BackupSyncScreenState extends State<BackupSyncScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _obsidian,
-      appBar: AppBar(
-        backgroundColor: _obsidian,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Backup & Cloud Sync',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // ─── Header: < Backup & Sync | • SAVED ───────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    borderRadius: BorderRadius.circular(8),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.chevron_left, color: _offWhite, size: 22),
+                          SizedBox(width: 4),
+                          Text(
+                            'Backup & Sync',
+                            style: TextStyle(
+                              color: _offWhite,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _syncGreen,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      const Text(
+                        'SAVED',
+                        style: TextStyle(
+                          color: _mutedGrey,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.8,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                children: [
+                  // ─── SYNC STATUS ───────────────────────────────────────
+                  _buildSectionHeader('SYNC STATUS'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 6,
+                                        height: 6,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: _syncGreen,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 6),
+                                      const Text(
+                                        'Synced',
+                                        style: TextStyle(
+                                          color: _offWhite,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 4),
+                                  const Text(
+                                    'Status',
+                                    style: TextStyle(
+                                      color: _stoneGrey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _lastSyncTime,
+                                    style: const TextStyle(
+                                      color: _offWhite,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  const Text(
+                                    'Last Sync',
+                                    style: TextStyle(
+                                      color: _stoneGrey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${_devices.length} Active',
+                                    style: const TextStyle(
+                                      color: _offWhite,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  const Text(
+                                    'Devices',
+                                    style: TextStyle(
+                                      color: _stoneGrey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        const Divider(height: 1, color: Color(0x0FFFFFFF)),
+                        const SizedBox(height: 16),
+                        const Row(
+                          children: [
+                            Icon(Icons.cloud_outlined, color: _stoneGrey, size: 18),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                'Cloud Storage: 1.2 GB used',
+                                style: TextStyle(
+                                  color: _stoneGrey,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'of 5 GB',
+                              style: TextStyle(
+                                color: _stoneGrey,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── AUTOMATIC SYNC ────────────────────────────────────
+                  _buildSectionHeader('AUTOMATIC SYNC'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.sync, color: _stoneGrey, size: 22),
+                        const SizedBox(width: 14),
+                        const Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Automatic Cloud Sync',
+                                style: TextStyle(
+                                  color: _offWhite,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(height: 3),
+                              Text(
+                                'Training, health and media sync in the background',
+                                style: TextStyle(
+                                  color: _stoneGrey,
+                                  fontSize: 12,
+                                  height: 1.3,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Switch(
+                          value: _autoSync,
+                          activeThumbColor: _forest,
+                          activeTrackColor: _syncGreen.withValues(alpha: 0.6),
+                          inactiveThumbColor: _stoneGrey,
+                          inactiveTrackColor: _obsidian,
+                          onChanged: (v) => setState(() => _autoSync = v),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── MOBILE DATA ───────────────────────────────────────
+                  _buildSectionHeader('MOBILE DATA'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.signal_cellular_alt, color: _stoneGrey, size: 22),
+                        const SizedBox(width: 14),
+                        const Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Sync Using Mobile Data',
+                                style: TextStyle(
+                                  color: _offWhite,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(height: 3),
+                              Text(
+                                'When off, Ulvenik only syncs on Wi-Fi',
+                                style: TextStyle(
+                                  color: _stoneGrey,
+                                  fontSize: 12,
+                                  height: 1.3,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Switch(
+                          value: _syncMobileData,
+                          activeThumbColor: _forest,
+                          activeTrackColor: _syncGreen.withValues(alpha: 0.6),
+                          inactiveThumbColor: _stoneGrey,
+                          inactiveTrackColor: _obsidian,
+                          onChanged: (v) => setState(() => _syncMobileData = v),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── MANUAL SYNC ───────────────────────────────────────
+                  _buildSectionHeader('MANUAL SYNC'),
+                  const SizedBox(height: 8),
+                  InkWell(
+                    onTap: _isSyncing ? null : _triggerManualSync,
+                    borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: _carbon,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: _cardBorder),
+                      ),
+                      child: Row(
+                        children: [
+                          _isSyncing
+                              ? const SizedBox(
+                                  width: 22,
+                                  height: 22,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: _mint,
+                                  ),
+                                )
+                              : const Icon(Icons.sync, color: _mint, size: 22),
+                          const SizedBox(width: 14),
+                          const Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Sync Now',
+                                  style: TextStyle(
+                                    color: _mint,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(height: 3),
+                                Text(
+                                  'Immediately sync all outstanding data',
+                                  style: TextStyle(
+                                    color: _stoneGrey,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── CONNECTED DEVICES ─────────────────────────────────
+                  _buildSectionHeader('CONNECTED DEVICES'),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: _devices.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final dev = entry.value;
+                        final isLast = index == _devices.length - 1;
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 14,
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(dev['icon'] as IconData,
+                                      color: _stoneGrey, size: 22),
+                                  const SizedBox(width: 14),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          dev['name'] as String,
+                                          style: const TextStyle(
+                                            color: _offWhite,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          dev['lastActive'] as String,
+                                          style: const TextStyle(
+                                            color: _stoneGrey,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  if (dev['isCurrent'] == true) ...[
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 3,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF162E25),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      child: const Text(
+                                        'THIS DEVICE',
+                                        style: TextStyle(
+                                          color: _mint,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w700,
+                                          letterSpacing: 0.5,
+                                        ),
+                                      ),
+                                    ),
+                                  ] else ...[
+                                    IconButton(
+                                      icon: const Icon(Icons.delete_outline,
+                                          color: _stoneGrey, size: 20),
+                                      onPressed: () => _removeDevice(index),
+                                    ),
+                                  ],
+                                ],
+                              ),
+                            ),
+                            if (!isLast)
+                              const Divider(
+                                height: 1,
+                                color: Color(0x0FFFFFFF),
+                                indent: 52,
+                              ),
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── BACKUP INFORMATION ────────────────────────────────
+                  _buildSectionHeader('BACKUP INFORMATION'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildInfoRow('Last Backup', _lastSyncTime),
+                        const SizedBox(height: 14),
+                        const Divider(height: 1, color: Color(0x0FFFFFFF)),
+                        const SizedBox(height: 14),
+                        _buildInfoRow('Backup Size', '842 MB'),
+                        const SizedBox(height: 14),
+                        const Divider(height: 1, color: Color(0x0FFFFFFF)),
+                        const SizedBox(height: 14),
+                        _buildInfoRow('Cloud Storage Used', '1.2 GB of 5 GB'),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 32),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        children: [
-          // 1. CLOUD STATUS HERO CARD
-          _buildCloudStatusCard(),
-          const SizedBox(height: 20),
-
-          // 2. AUTOMATION & NETWORK SETTINGS
-          _buildSectionHeader('SYNC PARAMETERS'),
-          const SizedBox(height: 8),
-          _buildSyncOptions(),
-          const SizedBox(height: 20),
-
-          // 3. BACKUP SNAPSHOTS HISTORY
-          _buildSectionHeader('HISTORICAL CLOUD SNAPSHOTS'),
-          const SizedBox(height: 8),
-          _buildBackupHistory(),
-          const SizedBox(height: 20),
-
-          // 4. MANUAL EXPORT CARD
-          _buildExportCard(),
-          const SizedBox(height: 24),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 4, // More tab active
+        onTap: _onBottomNavTapped,
+        backgroundColor: _obsidian,
+        selectedItemColor: _mint,
+        unselectedItemColor: _stoneGrey,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pets_outlined),
+            activeIcon: Icon(Icons.pets),
+            label: 'Dogs',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center),
+            label: 'Training',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history_outlined),
+            activeIcon: Icon(Icons.history),
+            label: 'Timeline',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: 'More',
+          ),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
@@ -144,371 +653,36 @@ class _BackupSyncScreenState extends State<BackupSyncScreen> {
     return Text(
       title,
       style: const TextStyle(
-        color: _stoneGrey,
+        color: _mutedGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
+        letterSpacing: 1.0,
       ),
     );
   }
 
-  Widget _buildCloudStatusCard() {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: _mint.withValues(alpha: 0.3)),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: _forest,
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: const Icon(Icons.cloud_done, color: _mint, size: 26),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Ulvenik Cloud Storage',
-                      style: TextStyle(
-                        color: _offWhite,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Inter',
-                      ),
-                    ),
-                    const SizedBox(height: 3),
-                    Text(
-                      _lastSyncText,
-                      style: const TextStyle(color: _stoneGrey, fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _isSyncing ? const Color(0xFF131718) : _forest,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                ),
-                onPressed: _isSyncing ? null : _triggerManualSync,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (_isSyncing)
-                      const SizedBox(
-                        width: 14,
-                        height: 14,
-                        child: CircularProgressIndicator(strokeWidth: 2, color: _mint),
-                      )
-                    else
-                      const Icon(Icons.sync, color: _mint, size: 16),
-                    const SizedBox(width: 6),
-                    Text(
-                      _isSyncing ? 'Syncing...' : 'Sync Now',
-                      style: const TextStyle(color: _offWhite, fontSize: 12, fontWeight: FontWeight.w700),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          if (_isSyncing) ...[
-            const SizedBox(height: 16),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: LinearProgressIndicator(
-                value: _syncProgress,
-                backgroundColor: const Color(0xFF131718),
-                valueColor: const AlwaysStoppedAnimation(_mint),
-                minHeight: 6,
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSyncOptions() {
-    return Container(
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Column(
-        children: [
-          _buildSwitchRow(
-            title: 'Automatic Daily Backup',
-            subtitle: 'Upload updated logs, telemetry & GPS tracks nightly',
-            value: _autoSync,
-            onChanged: (val) => setState(() => _autoSync = val),
-          ),
-          const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 16, endIndent: 16),
-          _buildSwitchRow(
-            title: 'Sync Over Wi-Fi Only',
-            subtitle: 'Prevent cloud synchronization over mobile cellular data',
-            value: _wifiOnly,
-            onChanged: (val) => setState(() => _wifiOnly = val),
-          ),
-          const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 16, endIndent: 16),
-          _buildSwitchRow(
-            title: 'Include High-Res Videos',
-            subtitle: 'Backup raw 4K training session footage to cloud',
-            value: _includeVideos,
-            onChanged: (val) => setState(() => _includeVideos = val),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBackupHistory() {
-    final snapshots = [
-      {'name': 'Automated Nightly Backup', 'date': 'Today • 02:00 AM', 'size': '428 MB'},
-      {'name': 'Manual Snapshot: Field Agility', 'date': 'Oct 25 • 06:14 PM', 'size': '412 MB'},
-      {'name': 'System Milestone v2.4.0', 'date': 'Oct 21 • 11:30 AM', 'size': '390 MB'},
-    ];
-
-    return Container(
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Column(
-        children: snapshots.asMap().entries.map((entry) {
-          final idx = entry.key;
-          final item = entry.value;
-          final isLast = idx == snapshots.length - 1;
-
-          return Column(
-            children: [
-              ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                leading: Container(
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    color: _blue.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(Icons.history, color: _blue, size: 20),
-                ),
-                title: Text(
-                  item['name']!,
-                  style: const TextStyle(
-                    color: _offWhite,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                subtitle: Text(
-                  '${item['date']} • ${item['size']}',
-                  style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                ),
-                trailing: TextButton(
-                  onPressed: () => _showRestoreDialog(item['name']!, item['date']!, item['size']!),
-                  child: const Text('Restore', style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w700)),
-                ),
-              ),
-              if (!isLast) const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 68),
-            ],
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildExportCard() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: const Color(0xFF131718),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(Icons.download_for_offline, color: _mint, size: 22),
-          ),
-          const SizedBox(width: 14),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Export Local Archive (.zip)',
-                  style: TextStyle(
-                    color: _offWhite,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                SizedBox(height: 2),
-                Text(
-                  'Save complete handler database to external drive',
-                  style: TextStyle(color: _stoneGrey, fontSize: 11),
-                ),
-              ],
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.arrow_forward_ios, color: _stoneGrey, size: 14),
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Archive created: ulvenik_backup_20261028.zip'),
-                  backgroundColor: _forest,
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSwitchRow({
-    required String title,
-    required String subtitle,
-    required bool value,
-    required ValueChanged<bool> onChanged,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: _offWhite,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                ),
-              ],
-            ),
-          ),
-          Switch(
-            value: value,
-            activeThumbColor: _mint,
-            activeTrackColor: _forest,
-            inactiveTrackColor: const Color(0xFF131718),
-            onChanged: onChanged,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
+  Widget _buildInfoRow(String label, String value) {
+    return Row(
+      children: [
+        const Icon(Icons.storage_outlined, color: _stoneGrey, size: 18),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
             label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
+            style: const TextStyle(
+              color: _offWhite,
+              fontSize: 14,
             ),
           ),
-        ],
-      ),
+        ),
+        Text(
+          value,
+          style: const TextStyle(
+            color: _stoneGrey,
+            fontSize: 13,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
-import 'forgot_password_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
 const Color _obsidian = Color(0xFF101214);
@@ -14,8 +8,6 @@ const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _gold = Color(0xFFECC94B);
-const Color _red = Color(0xFFE53E3E);
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -25,13 +17,15 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  final _currentPasswordController = TextEditingController();
-  final _newPasswordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final TextEditingController _currentPasswordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController(text: 'VardøNord2024!');
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   bool _obscureCurrent = true;
-  bool _obscureNew = true;
+  bool _obscureNew = false;
   bool _obscureConfirm = true;
+  bool _signOutOthers = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -47,61 +41,37 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     super.dispose();
   }
 
-  // Password Strength Calculations
   bool get _hasMinLength => _newPasswordController.text.length >= 8;
   bool get _hasUppercase => _newPasswordController.text.contains(RegExp(r'[A-Z]'));
+  bool get _hasLowercase => _newPasswordController.text.contains(RegExp(r'[a-z]'));
   bool get _hasNumber => _newPasswordController.text.contains(RegExp(r'[0-9]'));
   bool get _hasSpecial => _newPasswordController.text.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
 
-  double get _strengthScore {
-    int score = 0;
-    if (_hasMinLength) score++;
-    if (_hasUppercase) score++;
-    if (_hasNumber) score++;
-    if (_hasSpecial) score++;
-    return score / 4.0;
+  int get _score {
+    int count = 0;
+    if (_hasMinLength) count++;
+    if (_hasUppercase) count++;
+    if (_hasLowercase) count++;
+    if (_hasNumber) count++;
+    if (_hasSpecial) count++;
+    return count;
   }
 
-  String get _strengthLabel {
-    if (_newPasswordController.text.isEmpty) return 'Enter a password';
-    if (_strengthScore <= 0.25) return 'Weak';
-    if (_strengthScore <= 0.75) return 'Moderate';
-    return 'Strong & Secure';
-  }
-
-  Color get _strengthColor {
-    if (_strengthScore <= 0.25) return _red;
-    if (_strengthScore <= 0.75) return _gold;
-    return _mint;
-  }
-
-  void _submitUpdate() {
-    final current = _currentPasswordController.text.trim();
-    final newPass = _newPasswordController.text.trim();
-    final confirm = _confirmPasswordController.text.trim();
-
-    if (current.isEmpty) {
-      _showToast('Please enter your current password.');
-      return;
-    }
-    if (_strengthScore < 0.75) {
-      _showToast('Please satisfy at least 3 of the password requirements.');
-      return;
-    }
-    if (newPass != confirm) {
-      _showToast('New passwords do not match.');
-      return;
-    }
+  void _submit() async {
+    setState(() => _isLoading = true);
+    await Future.delayed(const Duration(milliseconds: 900));
+    if (!mounted) return;
+    setState(() => _isLoading = false);
 
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Password Updated', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700)),
+        title: const Text('Password Updated', style: TextStyle(color: _offWhite, fontWeight: FontWeight.bold)),
         content: const Text(
-          'Your account password has been changed successfully. Your canine workspaces and device pairing remain secure.',
-          style: TextStyle(color: _stoneGrey, fontSize: 13),
+          'Your account password has been updated successfully. Please use your new credentials on your next login.',
+          style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
         ),
         actions: [
           ElevatedButton(
@@ -120,328 +90,268 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 
-  void _showToast(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(msg),
-        backgroundColor: _red,
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final score = _score;
+    String strengthLabel = 'Weak';
+    if (score >= 4) {
+      strengthLabel = 'Strong';
+    } else if (score >= 2) {
+      strengthLabel = 'Medium';
+    }
+
     return Scaffold(
       backgroundColor: _obsidian,
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Change Password',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
+          style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         children: [
-          // 1. INFO CARD
+          const SizedBox(height: 12),
+          // SHIELD ICON
+          Center(
+            child: Container(
+              width: 52,
+              height: 52,
+              decoration: const BoxDecoration(
+                color: Color(0xFF1B2321),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.shield_outlined, color: _mint, size: 26),
+            ),
+          ),
+          const SizedBox(height: 18),
+          const Text(
+            'Keep Your Account Secure',
+            style: TextStyle(color: _offWhite, fontSize: 22, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            "Choose a strong password that you don't\nuse anywhere else.",
+            style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 28),
+
+          // SECTION CHANGE PASSWORD
+          const Text(
+            'CHANGE PASSWORD',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 12),
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: _carbon,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
-            child: const Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.shield_outlined, color: _mint, size: 24),
-                SizedBox(width: 14),
+                // Current Password
+                const Text('Current Password', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                TextField(
+                  controller: _currentPasswordController,
+                  obscureText: _obscureCurrent,
+                  style: const TextStyle(color: _offWhite, fontSize: 15),
+                  decoration: InputDecoration(
+                    hintText: 'Enter your current password',
+                    hintStyle: TextStyle(color: _stoneGrey.withValues(alpha: 0.5), fontSize: 14),
+                    suffixIcon: IconButton(
+                      icon: Icon(_obscureCurrent ? Icons.visibility_outlined : Icons.visibility_off_outlined, color: _stoneGrey, size: 20),
+                      onPressed: () => setState(() => _obscureCurrent = !_obscureCurrent),
+                    ),
+                    enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: _cardBorder)),
+                    focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: _mint)),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                // New Password
+                const Text('New Password', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                TextField(
+                  controller: _newPasswordController,
+                  obscureText: _obscureNew,
+                  style: const TextStyle(color: _offWhite, fontSize: 15),
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(_obscureNew ? Icons.visibility_outlined : Icons.visibility_off_outlined, color: _stoneGrey, size: 20),
+                      onPressed: () => setState(() => _obscureNew = !_obscureNew),
+                    ),
+                    enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: _cardBorder)),
+                    focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: _mint)),
+                  ),
+                ),
+                const SizedBox(height: 14),
+
+                // Strength bar (5 segments)
+                Row(
+                  children: List.generate(5, (index) {
+                    final filled = index < score;
+                    return Expanded(
+                      child: Container(
+                        height: 3,
+                        margin: EdgeInsets.only(right: index < 4 ? 6 : 0),
+                        decoration: BoxDecoration(
+                          color: filled ? _forest : const Color(0xFF2C3236),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+                const SizedBox(height: 6),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    strengthLabel,
+                    style: const TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 14),
+
+                // Checklist
+                _buildCheckItem('Minimum 8 characters', _hasMinLength),
+                const SizedBox(height: 8),
+                _buildCheckItem('At least one uppercase letter', _hasUppercase),
+                const SizedBox(height: 8),
+                _buildCheckItem('At least one lowercase letter', _hasLowercase),
+                const SizedBox(height: 8),
+                _buildCheckItem('At least one number', _hasNumber),
+                const SizedBox(height: 8),
+                _buildCheckItem('At least one special character', _hasSpecial),
+                const SizedBox(height: 20),
+
+                // Confirm Password
+                const Text('Confirm New Password', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                TextField(
+                  controller: _confirmPasswordController,
+                  obscureText: _obscureConfirm,
+                  style: const TextStyle(color: _offWhite, fontSize: 15),
+                  decoration: InputDecoration(
+                    hintText: 'Re-enter your new password',
+                    hintStyle: TextStyle(color: _stoneGrey.withValues(alpha: 0.5), fontSize: 14),
+                    suffixIcon: IconButton(
+                      icon: Icon(_obscureConfirm ? Icons.visibility_outlined : Icons.visibility_off_outlined, color: _stoneGrey, size: 20),
+                      onPressed: () => setState(() => _obscureConfirm = !_obscureConfirm),
+                    ),
+                    enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: _cardBorder)),
+                    focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: _mint)),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 12),
+
+                // Sign out of all other devices
+                Row(
+                  children: [
+                    const Icon(Icons.phone_iphone, color: _stoneGrey, size: 20),
+                    const SizedBox(width: 14),
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Sign out of all other devices', style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold)),
+                          SizedBox(height: 2),
+                          Text("You'll need to sign in again on your other devices.", style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                        ],
+                      ),
+                    ),
+                    Switch(
+                      value: _signOutOthers,
+                      activeThumbColor: _mint,
+                      activeTrackColor: _forest,
+                      onChanged: (v) => setState(() => _signOutOthers = v),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // INFO CALLOUT
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: const Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.info_outline, color: _stoneGrey, size: 18),
+                SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Ensure your new password is at least 8 characters long and contains a mix of letters, numbers, and symbols.',
+                    'Changing your password does not affect your dogs, training records or subscriptions.',
                     style: TextStyle(color: _stoneGrey, fontSize: 12, height: 1.4),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
-
-          // 2. CURRENT PASSWORD
-          _buildFieldHeader('CURRENT PASSWORD'),
-          const SizedBox(height: 6),
-          _buildPasswordField(
-            controller: _currentPasswordController,
-            obscure: _obscureCurrent,
-            hint: 'Enter your existing password',
-            onToggle: () => setState(() => _obscureCurrent = !_obscureCurrent),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
-                );
-              },
-              child: const Text(
-                'Forgot Password?',
-                style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
-
-          // 3. NEW PASSWORD
-          _buildFieldHeader('NEW PASSWORD'),
-          const SizedBox(height: 6),
-          _buildPasswordField(
-            controller: _newPasswordController,
-            obscure: _obscureNew,
-            hint: 'Create new password',
-            onToggle: () => setState(() => _obscureNew = !_obscureNew),
-          ),
-          const SizedBox(height: 12),
-
-          // Strength Indicator Bar
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Password Strength: $_strengthLabel',
-                style: TextStyle(color: _strengthColor, fontSize: 11, fontWeight: FontWeight.w600),
-              ),
-              Text(
-                '${(_strengthScore * 100).toInt()}%',
-                style: TextStyle(color: _strengthColor, fontSize: 11, fontWeight: FontWeight.w700),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: _strengthScore,
-              backgroundColor: const Color(0xFF131718),
-              valueColor: AlwaysStoppedAnimation(_strengthColor),
-              minHeight: 4,
-            ),
-          ),
-          const SizedBox(height: 14),
-
-          // Checklist
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color(0xFF131718),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: _cardBorder),
-            ),
-            child: Column(
-              children: [
-                _buildChecklistItem('At least 8 characters', _hasMinLength),
-                const SizedBox(height: 6),
-                _buildChecklistItem('At least 1 uppercase letter (A-Z)', _hasUppercase),
-                const SizedBox(height: 6),
-                _buildChecklistItem('At least 1 numeric digit (0-9)', _hasNumber),
-                const SizedBox(height: 6),
-                _buildChecklistItem('At least 1 special symbol (!@#\$%)', _hasSpecial),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          // 4. CONFIRM NEW PASSWORD
-          _buildFieldHeader('CONFIRM NEW PASSWORD'),
-          const SizedBox(height: 6),
-          _buildPasswordField(
-            controller: _confirmPasswordController,
-            obscure: _obscureConfirm,
-            hint: 'Re-enter new password',
-            onToggle: () => setState(() => _obscureConfirm = !_obscureConfirm),
-          ),
           const SizedBox(height: 28),
 
-          // 5. UPDATE BUTTON
+          // BUTTONS
           SizedBox(
             width: double.infinity,
-            height: 50,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: _forest,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              onPressed: _submitUpdate,
-              child: const Text(
-                'Update Password',
-                style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w700),
-              ),
+              onPressed: _isLoading ? null : _submit,
+              child: _isLoading
+                  ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: _offWhite, strokeWidth: 2))
+                  : const Text('Update Password', style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.bold)),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 12),
+          Center(
+            child: TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel', style: TextStyle(color: _offWhite, fontSize: 14)),
+            ),
+          ),
+          const SizedBox(height: 32),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  Widget _buildFieldHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _stoneGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
-      ),
-    );
-  }
-
-  Widget _buildPasswordField({
-    required TextEditingController controller,
-    required bool obscure,
-    required String hint,
-    required VoidCallback onToggle,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: TextField(
-        controller: controller,
-        obscureText: obscure,
-        style: const TextStyle(color: _offWhite, fontSize: 14),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: const Icon(Icons.lock_outline, color: _stoneGrey, size: 20),
-          suffixIcon: IconButton(
-            icon: Icon(
-              obscure ? Icons.visibility_off : Icons.visibility,
-              color: _stoneGrey,
-              size: 20,
-            ),
-            onPressed: onToggle,
-          ),
-          hintText: hint,
-          hintStyle: const TextStyle(color: _stoneGrey, fontSize: 13),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildChecklistItem(String label, bool passed) {
+  Widget _buildCheckItem(String label, bool satisfied) {
     return Row(
       children: [
         Icon(
-          passed ? Icons.check_circle : Icons.circle_outlined,
-          color: passed ? _mint : _stoneGrey.withValues(alpha: 0.5),
+          satisfied ? Icons.check_circle_outline : Icons.radio_button_unchecked,
+          color: satisfied ? _mint : _stoneGrey,
           size: 16,
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 10),
         Text(
           label,
           style: TextStyle(
-            color: passed ? _offWhite : _stoneGrey,
+            color: satisfied ? _mint : _stoneGrey,
             fontSize: 12,
-            fontWeight: passed ? FontWeight.w600 : FontWeight.w400,
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

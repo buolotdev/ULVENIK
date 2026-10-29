@@ -13,6 +13,7 @@ const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
+const Color _mutedGrey = Color(0xFF718096);
 
 class OpenSourceLicencesScreen extends StatefulWidget {
   const OpenSourceLicencesScreen({super.key});
@@ -23,262 +24,508 @@ class OpenSourceLicencesScreen extends StatefulWidget {
 }
 
 class _OpenSourceLicencesScreenState extends State<OpenSourceLicencesScreen> {
-  final Set<int> _expandedIndices = {};
+  final _searchController = TextEditingController();
+  String _searchQuery = '';
 
-  final List<Map<String, String>> _packages = [
+  final List<Map<String, dynamic>> _libraries = [
     {
-      'name': 'Flutter Framework',
-      'license': 'BSD-3-Clause',
-      'author': 'Google LLC',
+      'name': 'Flutter',
+      'version': 'Version 3.24.0',
+      'license': 'BSD 3-CLAUSE',
+      'icon': Icons.code,
       'text': 'Copyright 2014 The Flutter Authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.',
     },
     {
-      'name': 'fl_chart',
-      'license': 'MIT License',
-      'author': 'Iman Khoshabi',
-      'text': 'Copyright (c) 2019 Iman Khoshabi\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.',
-    },
-    {
-      'name': 'intl',
-      'license': 'BSD-3-Clause',
-      'author': 'Dart Project Authors',
-      'text': 'Copyright 2013, the Dart project authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that conditions are met.',
-    },
-    {
-      'name': 'google_fonts',
-      'license': 'Apache License 2.0',
-      'author': 'Google LLC',
+      'name': 'Firebase',
+      'version': 'Version 10.x.x',
+      'license': 'APACHE 2.0',
+      'icon': Icons.storage_outlined,
       'text': 'Copyright 2020 Google LLC\n\nLicensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.',
     },
     {
-      'name': 'path_provider',
-      'license': 'BSD-3-Clause',
-      'author': 'Flutter Authors',
-      'text': 'Copyright 2013 The Flutter Authors. All rights reserved.\n\nRedistribution and use in source and binary forms are permitted provided conditions are met.',
+      'name': 'provider',
+      'version': 'Version 6.1.2',
+      'license': 'MIT',
+      'icon': Icons.sync_alt,
+      'text': 'MIT License\n\nCopyright (c) 2019 Remi Rousselet\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction.',
+    },
+    {
+      'name': 'go_router',
+      'version': 'Version 13.x.x',
+      'license': 'BSD 3-CLAUSE',
+      'icon': Icons.alt_route,
+      'text': 'Copyright 2013 The Flutter Authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted.',
+    },
+    {
+      'name': 'image_picker',
+      'version': 'Version 1.x.x',
+      'license': 'APACHE 2.0',
+      'icon': Icons.photo_outlined,
+      'text': 'Copyright 2013 The Flutter Authors. All rights reserved.\n\nLicensed under the Apache License, Version 2.0.',
+    },
+    {
+      'name': 'shared_preferences',
+      'version': 'Version 2.x.x',
+      'license': 'BSD 3-CLAUSE',
+      'icon': Icons.tune,
+      'text': 'Copyright 2013 The Flutter Authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted.',
+    },
+    {
+      'name': 'fl_chart',
+      'version': 'Version 0.68.x',
+      'license': 'MIT',
+      'icon': Icons.show_chart,
+      'text': 'MIT License\n\nCopyright (c) 2019 Iman Khoshabi\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software.',
+    },
+    {
+      'name': 'intl',
+      'version': 'Version 0.19.x',
+      'license': 'BSD 3-CLAUSE',
+      'icon': Icons.language,
+      'text': 'Copyright 2013, the Dart project authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted.',
     },
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _obsidian,
-      appBar: AppBar(
-        backgroundColor: _obsidian,
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'Open Source Licences',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
-        ),
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _onBottomNavTapped(int index) {
+    if (index == 4) {
+      Navigator.pop(context);
+      return;
+    }
+    Widget target;
+    switch (index) {
+      case 0:
+        target = const HomepageScreen();
+        break;
+      case 1:
+        target = const MyDogsScreen();
+        break;
+      case 2:
+        target = const TrainingScreen();
+        break;
+      case 3:
+        target = const TimelineScreen();
+        break;
+      case 4:
+        target = const MorePageScreen();
+        break;
+      default:
+        return;
+    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => target),
+    );
+  }
+
+  void _showLicenseModal(Map<String, dynamic> lib) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: _carbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        children: [
-          // 1. ACKNOWLEDGMENT HEADER
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: _cardBorder),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: _forest,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(Icons.code, color: _mint, size: 20),
+      builder: (ctx) => Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: _mutedGrey.withValues(alpha: 0.4),
+                  borderRadius: BorderRadius.circular(2),
                 ),
-                const SizedBox(width: 14),
-                const Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Open Source Acknowledgments',
-                        style: TextStyle(
-                          color: _offWhite,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Inter',
-                        ),
-                      ),
-                      SizedBox(height: 2),
-                      Text(
-                        'Third-party software libraries powering Ulvenik',
-                        style: TextStyle(color: _stoneGrey, fontSize: 11),
-                      ),
-                    ],
+              ),
+            ),
+            const SizedBox(height: 18),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  lib['name'] as String,
+                  style: const TextStyle(
+                    color: _offWhite,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF14191C),
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Text(
+                    lib['license'] as String,
+                    style: const TextStyle(
+                      color: _stoneGrey,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 20),
-
-          // 2. PACKAGES LIST
-          ..._packages.asMap().entries.map((entry) {
-            final idx = entry.key;
-            final pkg = entry.value;
-            final isExpanded = _expandedIndices.contains(idx);
-
-            return Container(
-              margin: const EdgeInsets.only(bottom: 10),
+            const SizedBox(height: 4),
+            Text(
+              lib['version'] as String,
+              style: const TextStyle(color: _stoneGrey, fontSize: 13),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: _carbon,
-                borderRadius: BorderRadius.circular(14),
+                color: _obsidian,
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: _cardBorder),
               ),
-              child: Column(
+              child: Text(
+                lib['text'] as String,
+                style: const TextStyle(
+                  color: _stoneGrey,
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  height: 1.45,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _forest,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text('Close', style: TextStyle(color: _offWhite)),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final filtered = _libraries.where((l) {
+      if (_searchQuery.isEmpty) return true;
+      final n = (l['name'] as String).toLowerCase();
+      final lic = (l['license'] as String).toLowerCase();
+      return n.contains(_searchQuery) || lic.contains(_searchQuery);
+    }).toList();
+
+    return Scaffold(
+      backgroundColor: _obsidian,
+      body: SafeArea(
+        child: Column(
+          children: [
+            // ─── Header: < Open Source Licences ────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
                 children: [
-                  ListTile(
-                    onTap: () {
-                      setState(() {
-                        if (isExpanded) {
-                          _expandedIndices.remove(idx);
-                        } else {
-                          _expandedIndices.add(idx);
-                        }
-                      });
-                    },
-                    title: Text(
-                      pkg['name']!,
-                      style: const TextStyle(
-                        color: _offWhite,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Inter',
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    borderRadius: BorderRadius.circular(8),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.chevron_left, color: _offWhite, size: 22),
+                          SizedBox(width: 4),
+                          Text(
+                            'Open Source Licences',
+                            style: TextStyle(
+                              color: _offWhite,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    subtitle: Text(
-                      '${pkg['license']} • ${pkg['author']}',
-                      style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                    ),
-                    trailing: Icon(
-                      isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
-                      color: isExpanded ? _mint : _stoneGrey,
-                      size: 20,
-                    ),
                   ),
-                  if (isExpanded)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                      child: Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF131718),
-                          borderRadius: BorderRadius.circular(8),
+                ],
+              ),
+            ),
+
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                children: [
+                  // ─── OPEN SOURCE Card ──────────────────────────────────
+                  _buildSectionHeader('OPEN SOURCE'),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.code, color: _stoneGrey, size: 18),
+                            SizedBox(width: 8),
+                            Text(
+                              'Open Source Software',
+                              style: TextStyle(
+                                color: _offWhite,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
-                        child: Text(
-                          pkg['text']!,
-                          style: const TextStyle(
+                        SizedBox(height: 8),
+                        Text(
+                          'Ulvenik is built using a number of trusted open-source libraries and frameworks. We gratefully acknowledge the developers and communities who maintain these projects.',
+                          style: TextStyle(
                             color: _stoneGrey,
-                            fontSize: 10,
-                            fontFamily: 'monospace',
+                            fontSize: 13,
                             height: 1.4,
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // ─── Search Bar ────────────────────────────────────────
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: TextField(
+                      controller: _searchController,
+                      style: const TextStyle(color: _offWhite, fontSize: 14),
+                      onChanged: (val) => setState(() => _searchQuery = val.trim().toLowerCase()),
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.search, color: _stoneGrey, size: 20),
+                        hintText: 'Search Libraries',
+                        hintStyle: TextStyle(color: _mutedGrey, fontSize: 14),
+                        border: InputBorder.none,
                       ),
                     ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // ─── LIBRARIES ─────────────────────────────────────────
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildSectionHeader('LIBRARIES'),
+                      Text(
+                        '${_libraries.length} Total',
+                        style: const TextStyle(
+                          color: _mutedGrey,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  Container(
+                    decoration: BoxDecoration(
+                      color: _carbon,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: _cardBorder),
+                    ),
+                    child: Column(
+                      children: filtered.asMap().entries.map((entry) {
+                        final idx = entry.key;
+                        final lib = entry.value;
+                        final isLast = idx == filtered.length - 1;
+
+                        return Column(
+                          children: [
+                            InkWell(
+                              onTap: () => _showLicenseModal(lib),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 14,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(lib['icon'] as IconData,
+                                        color: _stoneGrey, size: 20),
+                                    const SizedBox(width: 14),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            lib['name'] as String,
+                                            style: const TextStyle(
+                                              color: _offWhite,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 2),
+                                          Text(
+                                            lib['version'] as String,
+                                            style: const TextStyle(
+                                              color: _stoneGrey,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 3,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF14191C),
+                                        borderRadius: BorderRadius.circular(6),
+                                        border: Border.all(color: _cardBorder),
+                                      ),
+                                      child: Text(
+                                        lib['license'] as String,
+                                        style: const TextStyle(
+                                          color: _stoneGrey,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    const Icon(Icons.chevron_right,
+                                        color: _stoneGrey, size: 16),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            if (!isLast)
+                              const Divider(
+                                height: 1,
+                                color: Color(0x0FFFFFFF),
+                                indent: 50,
+                              ),
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  ),
+
+                  const SizedBox(height: 28),
+
+                  // ─── Footer: ULVENIK CORE ENGINE ───────────────────────
+                  const Center(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.verified_user_outlined,
+                                color: _stoneGrey, size: 16),
+                            SizedBox(width: 6),
+                            Text(
+                              'ULVENIK CORE ENGINE',
+                              style: TextStyle(
+                                color: _mutedGrey,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 0.8,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'Version 2.4.1 (Build 4092)',
+                          style: TextStyle(
+                            color: _mutedGrey,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 32),
                 ],
               ),
-            );
-          }),
-          const SizedBox(height: 24),
-        ],
-      ),
-      bottomNavigationBar: _buildBottomNav(),
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
             ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 4, // More tab active
+        onTap: _onBottomNavTapped,
+        backgroundColor: _obsidian,
+        selectedItemColor: _mint,
+        unselectedItemColor: _stoneGrey,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pets_outlined),
+            activeIcon: Icon(Icons.pets),
+            label: 'Dogs',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center),
+            label: 'Training',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history_outlined),
+            activeIcon: Icon(Icons.history),
+            label: 'Timeline',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: 'More',
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        color: _mutedGrey,
+        fontSize: 11,
+        fontWeight: FontWeight.w700,
+        letterSpacing: 1.0,
       ),
     );
   }

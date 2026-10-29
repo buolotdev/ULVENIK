@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
-import 'record_competition_result_screen.dart';
+import 'competition_details_screen.dart';
 import 'add_competition_screen.dart';
+import 'qualifications_titles_awards_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
 const Color _obsidian = Color(0xFF101214);
@@ -16,7 +11,7 @@ const Color _forest = Color(0xFF2E6B57);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _gold = Color(0xFFECC94B);
+const Color _crimson = Color(0xFFE5484D);
 
 class SportDetailsIgpScreen extends StatelessWidget {
   const SportDetailsIgpScreen({super.key});
@@ -28,70 +23,264 @@ class SportDetailsIgpScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'IGP Details',
-          style: TextStyle(
-            color: _offWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Inter',
-          ),
+          'Sport Details',
+          style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert, color: _offWhite),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
-          // 1. DISCIPLINE HERO BANNER
+          // HERO CARD
           Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
               color: _carbon,
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: _mint.withValues(alpha: 0.3)),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: _forest,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: const Text('FCI RECOGNIZED', style: TextStyle(color: _mint, fontSize: 10, fontWeight: FontWeight.w800)),
-                    ),
-                    const Text('300 PTS TOTAL', style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Internationale Gebrauchshunde',
-                  style: TextStyle(
-                    color: _offWhite,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'Inter',
+                Container(
+                  width: 52,
+                  height: 52,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF242A2E),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Center(
+                    child: Text('IGP', style: TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.bold)),
                   ),
                 ),
-                const Text('Prüfungsordnung (IGP)', style: TextStyle(color: _mint, fontSize: 16, fontWeight: FontWeight.w700)),
-                const SizedBox(height: 6),
-                const Text('Dog: Koda vom Alpenhof • Current Title: IGP 2 • Target: IGP 3', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text('IGP', style: TextStyle(color: _offWhite, fontSize: 20, fontWeight: FontWeight.bold)),
+                      SizedBox(height: 2),
+                      Text('SV • IGP 2', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _forest.withValues(alpha: 0.25),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: _forest.withValues(alpha: 0.5)),
+                  ),
+                  child: const Text('Active', style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.bold)),
+                ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
 
-          // 2. ANIMATED PHASE SCORES BAR CHART
-          _buildSectionHeader('PHASE PERFORMANCE (KODA AVERAGE)'),
+          // OVERVIEW
+          const Text(
+            'OVERVIEW',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text('Created', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                    Text('March 2024', style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    _buildOverviewCol('18', 'Skills'),
+                    _buildOverviewCol('54', 'Exercises'),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    _buildOverviewCol('286', 'Sessions'),
+                    _buildOverviewCol('7', 'Competitions'),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    _buildOverviewCol('4', 'Qualifications'),
+                    _buildOverviewCol('2', 'Awards'),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 14),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text('Last Activity', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                    Text('Yesterday', style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // SKILLS
+          const Text(
+            'SKILLS',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                _buildSkillRow('Heelwork', '8 Exercises • 46 Sessions • Last: 2 days ago'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildSkillRow('Retrieve', '6 Exercises • 38 Sessions • Last: Yesterday'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildSkillRow('Tracking', '12 Exercises • 64 Sessions • Last: 3 days ago'),
+              ],
+            ),
+          ),
           const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {},
+              child: const Text('View All 18 Skills →', style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.bold)),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // COMPETITIONS
+          const Text(
+            'COMPETITIONS',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          _buildCompItem(
+            stripeColor: _forest,
+            title: 'Essex Working Dog Trial',
+            status: 'Upcoming',
+            details: '18 Sep 2026 • Essex',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const CompetitionDetailsScreen()));
+            },
+          ),
+          const SizedBox(height: 10),
+          _buildCompItem(
+            stripeColor: const Color(0xFF384347),
+            title: 'Club Trial — Spring 2026',
+            status: 'Completed',
+            details: '15 Apr 2026 • Norwich',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const CompetitionDetailsScreen()));
+            },
+          ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {},
+              child: const Text('View All 7 Competitions →', style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.bold)),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // QUALIFICATIONS & AWARDS
+          const Text(
+            'QUALIFICATIONS & AWARDS',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                _buildAwardTile('IGP 1', 'IGP', '15 Sep 2026'),
+                const Divider(color: _cardBorder, height: 1),
+                _buildAwardTile('Best Protection', 'IGP', '15 Sep 2026'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // STATISTICS
+          const Text(
+            'STATISTICS',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    _buildStatBento('286', 'Training Sessions'),
+                    _buildStatBento('142h', 'Training Hours'),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                const Divider(color: _cardBorder),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    _buildStatBento('7', 'Competitions'),
+                    _buildStatBento('4', 'Qualifications'),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // NOTES
+          const Text(
+            'NOTES',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -99,257 +288,236 @@ class SportDetailsIgpScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
+            child: const Text(
+              'Tracking phase begins October. Need to source new tracking articles. Judge feedback from Sep trial: strong heelwork, loose tracking start.',
+              style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // QUICK ACTIONS
+          const Text(
+            'QUICK ACTIONS',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Average Score: 284 / 300 pts (Vorzüglich)', style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w700)),
-                    Text('Passing: 210 pts', style: TextStyle(color: _stoneGrey, fontSize: 11)),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  height: 140,
-                  child: BarChart(
-                    BarChartData(
-                      maxY: 100,
-                      barGroups: [
-                        _makeBarGroup(0, 96, _mint),
-                        _makeBarGroup(1, 92, _gold),
-                        _makeBarGroup(2, 96, _mint),
-                      ],
-                      titlesData: FlTitlesData(
-                        show: true,
-                        topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                        rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                        leftTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            reservedSize: 28,
-                            getTitlesWidget: (val, _) => Text(
-                              '${val.toInt()}',
-                              style: const TextStyle(color: _stoneGrey, fontSize: 9),
+                _buildActionRow(Icons.near_me_outlined, 'Create Skill', () {}),
+                const Divider(color: _cardBorder, height: 1),
+                _buildActionRow(Icons.calendar_today_outlined, 'Record Training Session', () {}),
+                const Divider(color: _cardBorder, height: 1),
+                _buildActionRow(Icons.emoji_events_outlined, 'Add Competition', () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const AddCompetitionScreen()));
+                }),
+                const Divider(color: _cardBorder, height: 1),
+                _buildActionRow(Icons.star_outline, 'Add Qualification or Award', () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const QualificationsTitlesAwardsScreen()));
+                }),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // MORE OPTIONS
+          const Text(
+            'MORE OPTIONS',
+            style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                _buildOptionRow('Edit Sport', _offWhite, () {}),
+                const Divider(color: _cardBorder, height: 1),
+                _buildOptionRow('Archive Sport', _offWhite, () {}),
+                const Divider(color: _cardBorder, height: 1),
+                _buildOptionRow('Delete Sport', _crimson, () {}),
+              ],
+            ),
+          ),
+          const SizedBox(height: 40),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOverviewCol(String val, String label) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(val, style: const TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 2),
+          Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSkillRow(String title, String subtitle) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 2),
+              Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+            ],
+          ),
+          const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCompItem({
+    required Color stripeColor,
+    required String title,
+    required String status,
+    required String details,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        decoration: BoxDecoration(
+          color: _carbon,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: _cardBorder),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: IntrinsicHeight(
+            child: Row(
+              children: [
+                Container(width: 4, color: stripeColor),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(child: Text(title, style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold))),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF242A2E),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(status, style: const TextStyle(color: _stoneGrey, fontSize: 9, fontWeight: FontWeight.bold)),
                             ),
-                          ),
+                          ],
                         ),
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            getTitlesWidget: (val, _) {
-                              switch (val.toInt()) {
-                                case 0:
-                                  return const Text('Phase A (Track)', style: TextStyle(color: _offWhite, fontSize: 10, fontWeight: FontWeight.w600));
-                                case 1:
-                                  return const Text('Phase B (Obed)', style: TextStyle(color: _offWhite, fontSize: 10, fontWeight: FontWeight.w600));
-                                case 2:
-                                  return const Text('Phase C (Bite)', style: TextStyle(color: _offWhite, fontSize: 10, fontWeight: FontWeight.w600));
-                              }
-                              return const SizedBox();
-                            },
-                          ),
-                        ),
-                      ),
-                      borderData: FlBorderData(show: false),
-                      gridData: FlGridData(
-                        show: true,
-                        drawVerticalLine: false,
-                        getDrawingHorizontalLine: (_) => const FlLine(color: Color(0x14FFFFFF), strokeWidth: 1),
-                      ),
+                        const SizedBox(height: 4),
+                        Text(details, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+                      ],
                     ),
                   ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+        ),
+      ),
+    );
+  }
 
-          // 3. PHASE DETAILS CARDS
-          _buildSectionHeader('IGP THREE PHASES'),
-          const SizedBox(height: 8),
-          _buildPhaseCard('PHASE A — TRACKING (FÄHRTE)', '100 Pts Max • 70 Min', '600 paces, 3 articles, 50 min old scent trail. Koda holds a 96 pt average with intense methodical deep-nose indication.', _mint),
-          _buildPhaseCard('PHASE B — OBEDIENCE (UNTERORDNUNG)', '100 Pts Max • 70 Min', 'Heeling through group, sit/down on the move, 1m hurdle retrieve, climbing retrieve, send-out and down.', _gold),
-          _buildPhaseCard('PHASE C — PROTECTION (SCHUTZDIENST)', '100 Pts Max • 70 Min', 'Search for decoy, hold & bark, escape prevention, defense against attack, long bite, courage test. TSB: Pronounced.', _mint),
-          const SizedBox(height: 20),
-
-          // 4. ACTION BUTTONS
-          Row(
-            children: [
-              Expanded(
-                child: SizedBox(
-                  height: 48,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _forest,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const RecordCompetitionResultScreen()),
-                      );
-                    },
-                    child: const Text('Record Result', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700)),
+  Widget _buildAwardTile(String title, String tag, String date) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Row(
+        children: [
+          const Icon(Icons.emoji_events_outlined, color: _stoneGrey, size: 20),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Row(
+              children: [
+                Text(title, style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.bold)),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF242A2E),
+                    borderRadius: BorderRadius.circular(4),
                   ),
+                  child: Text(tag, style: const TextStyle(color: _stoneGrey, fontSize: 9, fontWeight: FontWeight.bold)),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: SizedBox(
-                  height: 48,
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: _mint),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const AddCompetitionScreen()),
-                      );
-                    },
-                    child: const Text('Add Trial Date', style: TextStyle(color: _mint, fontWeight: FontWeight.w700)),
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const SizedBox(height: 24),
+          Text(date, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
+          const SizedBox(width: 8),
+          const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
         ],
       ),
-      bottomNavigationBar: _buildBottomNav(context),
     );
   }
 
-  BarChartGroupData _makeBarGroup(int x, double y, Color color) {
-    return BarChartGroupData(
-      x: x,
-      barRods: [
-        BarChartRodData(
-          toY: y,
-          color: color,
-          width: 28,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _stoneGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.8,
-        fontFamily: 'Inter',
-      ),
-    );
-  }
-
-  Widget _buildPhaseCard(String title, String pts, String desc, Color color) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: _cardBorder),
-      ),
+  Widget _buildStatBento(String val, String label) {
+    return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(title, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w800)),
-              Text(pts, style: const TextStyle(color: _stoneGrey, fontSize: 10, fontWeight: FontWeight.w700)),
-            ],
-          ),
-          const SizedBox(height: 6),
-          Text(desc, style: const TextStyle(color: _offWhite, fontSize: 12, height: 1.4)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNav(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
+          Text(val, style: const TextStyle(color: _offWhite, fontSize: 24, fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
-            ),
-          ),
+          Text(label, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
         ],
+      ),
+    );
+  }
+
+  Widget _buildActionRow(IconData icon, String title, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            Icon(icon, color: _stoneGrey, size: 20),
+            const SizedBox(width: 14),
+            Expanded(child: Text(title, style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600))),
+            const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOptionRow(String title, Color color, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            Expanded(child: Text(title, style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.w600))),
+            const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
+          ],
+        ),
       ),
     );
   }

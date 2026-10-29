@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
 import 'client_profile_screen.dart';
 import 'add_client_screen.dart';
 
@@ -12,10 +7,26 @@ const Color _obsidian = Color(0xFF101214);
 const Color _carbon = Color(0xFF1A1F22);
 const Color _cardBorder = Color(0x14FFFFFF);
 const Color _forest = Color(0xFF2E6B57);
-const Color _mint = Color(0xFFAAE9D0);
 const Color _offWhite = Color(0xFFF5F6F2);
 const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _gold = Color(0xFFECC94B);
+
+class ClientItem {
+  final String name;
+  final String dogs;
+  final String nextLesson;
+  final String lastActive;
+  final String status; // 'ACTIVE CLIENT', 'INVITATION PENDING'
+  final int activeGoals;
+
+  ClientItem({
+    required this.name,
+    required this.dogs,
+    required this.nextLesson,
+    required this.lastActive,
+    required this.status,
+    required this.activeGoals,
+  });
+}
 
 class ClientsPageScreen extends StatefulWidget {
   const ClientsPageScreen({super.key});
@@ -25,55 +36,42 @@ class ClientsPageScreen extends StatefulWidget {
 }
 
 class _ClientsPageScreenState extends State<ClientsPageScreen> {
-  final _searchController = TextEditingController();
-  String _query = '';
-  String _filter = 'All';
+  final TextEditingController _searchController = TextEditingController();
+  String _activeFilter = 'ACTIVE';
 
-  final List<Map<String, dynamic>> _clients = [
-    {
-      'name': 'Sarah Jenkins',
-      'email': 'sarah.j@gmail.com',
-      'dog': 'Baron',
-      'breed': 'German Shepherd (2 yrs)',
-      'tier': 'Trial Prep',
-      'status': 'Active',
-      'lastSession': 'Yesterday',
-      'homework': 'Video Submitted',
-      'avatar': 'SJ',
-    },
-    {
-      'name': 'David Miller',
-      'email': 'david.miller@outlook.com',
-      'dog': 'Luna',
-      'breed': 'Dutch Shepherd (1 yr)',
-      'tier': 'Active',
-      'status': 'Active',
-      'lastSession': '3 days ago',
-      'homework': 'On Track',
-      'avatar': 'DM',
-    },
-    {
-      'name': 'Elena Rostova',
-      'email': 'elena.rostova@icloud.com',
-      'dog': 'Thor',
-      'breed': 'Doberman Pinscher (6 mos)',
-      'tier': 'Puppy Foundation',
-      'status': 'Active',
-      'lastSession': '5 days ago',
-      'homework': 'Pending Assignment',
-      'avatar': 'ER',
-    },
-    {
-      'name': 'Marcus Vance',
-      'email': 'm.vance@yahoo.com',
-      'dog': 'Ares',
-      'breed': 'Belgian Malinois (3 yrs)',
-      'tier': 'Trial Prep',
-      'status': 'Active',
-      'lastSession': '1 week ago',
-      'homework': 'Reviewed',
-      'avatar': 'MV',
-    },
+  final List<ClientItem> _clients = [
+    ClientItem(
+      name: 'Emma Johnson',
+      dogs: '2 Dogs (Murphy, Luna)',
+      nextLesson: 'Next Lesson • Thursday 10:00',
+      lastActive: 'Last Active • Yesterday',
+      status: 'ACTIVE CLIENT',
+      activeGoals: 3,
+    ),
+    ClientItem(
+      name: 'James Harlow',
+      dogs: '1 Dog (Bella)',
+      nextLesson: 'Next Lesson • Friday 14:00',
+      lastActive: 'Last Active • 2 days ago',
+      status: 'ACTIVE CLIENT',
+      activeGoals: 2,
+    ),
+    ClientItem(
+      name: 'Sarah Mitchell',
+      dogs: '0 Dogs',
+      nextLesson: 'No upcoming lesson',
+      lastActive: 'Last Active • 1 week ago',
+      status: 'INVITATION PENDING',
+      activeGoals: 0,
+    ),
+    ClientItem(
+      name: 'Marcus Vance',
+      dogs: '1 Dog (Thor)',
+      nextLesson: 'Next Lesson • Monday 09:30',
+      lastActive: 'Last Active • Today',
+      status: 'ACTIVE CLIENT',
+      activeGoals: 4,
+    ),
   ];
 
   @override
@@ -82,319 +80,317 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
     super.dispose();
   }
 
-  List<Map<String, dynamic>> get _filteredClients {
-    return _clients.where((c) {
-      final matchesQuery = _query.isEmpty ||
-          c['name'].toLowerCase().contains(_query.toLowerCase()) ||
-          c['dog'].toLowerCase().contains(_query.toLowerCase());
-      final matchesFilter = _filter == 'All' || c['tier'] == _filter;
-      return matchesQuery && matchesFilter;
-    }).toList();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final list = _filteredClients;
+    final filteredClients = _clients.where((c) {
+      if (_activeFilter == 'ACTIVE' && c.status != 'ACTIVE CLIENT') return false;
+      if (_activeFilter == 'UPCOMING LESSONS' && c.nextLesson.contains('No upcoming')) return false;
+      if (_activeFilter == 'PENDING REVIEWS' && c.status != 'INVITATION PENDING') return false;
+      if (_searchController.text.trim().isNotEmpty) {
+        final q = _searchController.text.toLowerCase();
+        return c.name.toLowerCase().contains(q) ||
+            c.dogs.toLowerCase().contains(q);
+      }
+      return true;
+    }).toList();
 
     return Scaffold(
       backgroundColor: _obsidian,
       appBar: AppBar(
         backgroundColor: _obsidian,
         elevation: 0,
-        centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const Icon(Icons.arrow_back_ios_new, color: _offWhite, size: 18),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Client Roster',
+          'Clients',
           style: TextStyle(
             color: _offWhite,
             fontSize: 18,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
             fontFamily: 'Inter',
           ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.person_add_alt_1, color: _mint),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const AddClientScreen()),
-              );
-            },
+            icon: const Icon(Icons.swap_vert, color: _offWhite, size: 22),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.tune, color: _offWhite, size: 22),
+            onPressed: () {},
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        children: [
-          // 1. SEARCH BAR
-          Container(
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: _cardBorder),
-            ),
-            child: TextField(
-              controller: _searchController,
-              style: const TextStyle(color: _offWhite, fontSize: 14),
-              decoration: InputDecoration(
-                hintText: 'Search client handler or canine...',
-                hintStyle: const TextStyle(color: _stoneGrey, fontSize: 13),
-                prefixIcon: const Icon(Icons.search, color: _mint, size: 20),
-                suffixIcon: _query.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(Icons.clear, color: _stoneGrey, size: 18),
-                        onPressed: () {
-                          _searchController.clear();
-                          setState(() => _query = '');
-                        },
-                      )
-                    : null,
-                border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(vertical: 14),
-              ),
-              onChanged: (val) => setState(() => _query = val),
-            ),
-          ),
-          const SizedBox(height: 14),
-
-          // 2. FILTER PILLS
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: ['All', 'Trial Prep', 'Active', 'Puppy Foundation'].map((f) {
-                final isSel = _filter == f;
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: GestureDetector(
-                    onTap: () => setState(() => _filter = f),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 160),
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                      decoration: BoxDecoration(
-                        color: isSel ? _forest : _carbon,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: isSel ? _mint : _cardBorder),
-                      ),
-                      child: Text(
-                        f,
-                        style: TextStyle(
-                          color: isSel ? _offWhite : _stoneGrey,
-                          fontSize: 12,
-                          fontWeight: isSel ? FontWeight.w700 : FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-          const SizedBox(height: 18),
-
-          // 3. CLIENT LIST
-          Text(
-            'ACTIVE HANDLERS (${list.length})',
-            style: const TextStyle(
-              color: _stoneGrey,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.8,
-            ),
-          ),
-          const SizedBox(height: 8),
-
-          ...list.map((c) => _buildClientCard(c)),
-
-          const SizedBox(height: 70),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         backgroundColor: _forest,
-        icon: const Icon(Icons.add, color: _offWhite),
-        label: const Text('Add Client', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700)),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final res = await Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => const AddClientScreen()),
           );
+          if (res == true) {
+            setState(() {
+              _clients.insert(
+                0,
+                ClientItem(
+                  name: 'New Client',
+                  dogs: '1 Dog (Ranger)',
+                  nextLesson: 'Next Lesson • Saturday 11:00',
+                  lastActive: 'Just now',
+                  status: 'ACTIVE CLIENT',
+                  activeGoals: 1,
+                ),
+              );
+            });
+          }
         },
+        child: const Icon(Icons.add, color: _offWhite, size: 28),
       ),
-      bottomNavigationBar: _buildBottomNav(),
-    );
-  }
-
-  Widget _buildClientCard(Map<String, dynamic> c) {
-    final hasVideo = c['homework'] == 'Video Submitted';
-
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => ClientProfileScreen(
-              clientName: c['name'],
-              dogName: c['dog'],
-              breed: c['breed'],
-            ),
-          ),
-        );
-      },
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: _carbon,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: _cardBorder),
-        ),
-        child: Column(
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           children: [
+            // Search Bar
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: TextField(
+                controller: _searchController,
+                style: const TextStyle(color: _offWhite, fontSize: 14),
+                onChanged: (_) => setState(() {}),
+                decoration: const InputDecoration(
+                  hintText: 'Search clients, dogs, notes...',
+                  hintStyle: TextStyle(color: _stoneGrey, fontSize: 13),
+                  prefixIcon: Icon(Icons.search, color: _stoneGrey, size: 20),
+                  border: InputBorder.none,
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(vertical: 12),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 14),
+
+            // Filter Chips
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _buildFilterChip('ACTIVE', hasClose: true),
+                  const SizedBox(width: 8),
+                  _buildFilterChip('UPCOMING LESSONS'),
+                  const SizedBox(width: 8),
+                  _buildFilterChip('PENDING REVIEWS'),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 18),
+
+            // Count & Sort row
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircleAvatar(
-                  radius: 22,
-                  backgroundColor: _forest,
-                  child: Text(
-                    c['avatar'],
-                    style: const TextStyle(color: _offWhite, fontWeight: FontWeight.w700, fontSize: 14),
+                Text(
+                  '${_clients.length + 8} Clients',
+                  style: const TextStyle(
+                    color: _stoneGrey,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            c['name'],
-                            style: const TextStyle(
-                              color: _offWhite,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Inter',
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: hasVideo ? _gold.withValues(alpha: 0.15) : _forest,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              c['homework'],
-                              style: TextStyle(
-                                color: hasVideo ? _gold : _mint,
-                                fontSize: 9,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        'Dog: ${c['dog']} • ${c['breed']}',
-                        style: const TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        'Last Session: ${c['lastSession']}',
-                        style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                      ),
-                    ],
+                const Text(
+                  'Sorted by: Recently Active',
+                  style: TextStyle(
+                    color: _stoneGrey,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
+
+            const SizedBox(height: 12),
+
+            // Client Cards List
+            ...filteredClients.map((client) {
+              final isPending = client.status == 'INVITATION PENDING';
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ClientProfileScreen(clientName: client.name),
+                    ),
+                  );
+                },
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 46,
+                            height: 46,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: const Color(0xFF14171A),
+                              border: Border.all(color: _cardBorder),
+                            ),
+                            child: const Icon(Icons.person, color: _stoneGrey, size: 24),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  client.name,
+                                  style: const TextStyle(
+                                    color: _offWhite,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                if (client.dogs != '0 Dogs') ...[
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.pets, color: _stoneGrey, size: 14),
+                                      const SizedBox(width: 6),
+                                      Text(
+                                        client.dogs,
+                                        style: const TextStyle(color: _stoneGrey, fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                                const SizedBox(height: 4),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.calendar_today_outlined, color: _stoneGrey, size: 13),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      client.nextLesson,
+                                      style: const TextStyle(color: _stoneGrey, fontSize: 13),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.access_time, color: _stoneGrey, size: 13),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      client.lastActive,
+                                      style: const TextStyle(color: _stoneGrey, fontSize: 13),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Icon(Icons.arrow_forward_ios, color: _stoneGrey, size: 14),
+                        ],
+                      ),
+                      const Divider(color: _cardBorder, height: 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: isPending ? const Color(0xFF172535) : const Color(0x1F34D399),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              client.status,
+                              style: TextStyle(
+                                color: isPending ? const Color(0xFF93C5FD) : const Color(0xFF34D399),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 0.6,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            '${client.activeGoals} Active Goals',
+                            style: const TextStyle(
+                              color: _offWhite,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+            const SizedBox(height: 80),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note_outlined, 'Timeline', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz, 'More', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MorePageScreen()),
-                );
-              }),
-            ],
+  Widget _buildFilterChip(String label, {bool hasClose = false}) {
+    final isSel = _activeFilter == label;
+    return InkWell(
+      onTap: () {
+        setState(() {
+          if (isSel && hasClose) {
+            _activeFilter = 'ALL';
+          } else {
+            _activeFilter = label;
+          }
+        });
+      },
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+        decoration: BoxDecoration(
+          color: isSel ? const Color(0xFF14241E) : const Color(0xFF14171A),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSel ? const Color(0xFF34D399) : _cardBorder,
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                color: isSel ? const Color(0xFF34D399) : _stoneGrey,
+                fontSize: 11,
+                fontWeight: isSel ? FontWeight.w700 : FontWeight.w500,
+                letterSpacing: 0.6,
+              ),
             ),
-          ),
-        ],
+            if (hasClose && isSel) ...[
+              const SizedBox(width: 6),
+              const Icon(Icons.close, color: Color(0xFF34D399), size: 14),
+            ],
+          ],
+        ),
       ),
     );
   }
 }
-
