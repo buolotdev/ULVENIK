@@ -403,13 +403,13 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
           const SizedBox(height: 14),
           Row(
             children: [
-              Expanded(child: _buildEmptyStatBox('0', 'Active')),
+              Expanded(child: _buildEmptyStatBox('0', 'Active Medications')),
               const SizedBox(width: 8),
-              Expanded(child: _buildEmptyStatBox('0', 'Upcoming')),
+              Expanded(child: _buildEmptyStatBox('0', 'Upcoming Doses')),
               const SizedBox(width: 8),
-              Expanded(child: _buildEmptyStatBox('0', 'Missed')),
+              Expanded(child: _buildEmptyStatBox('0', 'Missed Doses')),
               const SizedBox(width: 8),
-              Expanded(child: _buildEmptyStatBox('0', 'Completed')),
+              Expanded(child: _buildEmptyStatBox('0', 'Completed Medications')),
             ],
           ),
         ],
@@ -419,7 +419,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
 
   Widget _buildEmptyStatBox(String count, String label) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
       decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
@@ -438,9 +438,11 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
           const SizedBox(height: 4),
           Text(
             label,
+            textAlign: TextAlign.center,
+            maxLines: 2,
             style: const TextStyle(
               color: AppColors.secondaryTextStoneGrey,
-              fontSize: 11,
+              fontSize: 9.5,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -521,20 +523,6 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 SizedBox(width: 6),
                 Icon(Icons.arrow_forward, color: Colors.white, size: 16),
               ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 18),
-        GestureDetector(
-          onTap: _showLearnModal,
-          child: const Text(
-            'Learn about Medication Manager',
-            style: TextStyle(
-              color: Color(0xFF95D3BB),
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              decoration: TextDecoration.underline,
-              decorationColor: Color(0xFF95D3BB),
             ),
           ),
         ),
@@ -639,7 +627,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 child: _buildOverviewMetricItem(
                   icon: Icons.medication_outlined,
                   count: '$_activeCount',
-                  label: 'ACTIVE',
+                  label: 'ACTIVE MEDICATIONS',
                 ),
               ),
               Container(width: 1, height: 48, color: Colors.white.withValues(alpha: 0.08)),
@@ -647,7 +635,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 child: _buildOverviewMetricItem(
                   icon: Icons.schedule_outlined,
                   count: '$_upcomingCount',
-                  label: 'UPCOMING',
+                  label: 'UPCOMING DOSES',
                 ),
               ),
               Container(width: 1, height: 48, color: Colors.white.withValues(alpha: 0.08)),
@@ -655,7 +643,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 child: _buildOverviewMetricItem(
                   icon: Icons.warning_amber_rounded,
                   count: '$_missedCount',
-                  label: 'MISSED',
+                  label: 'MISSED DOSES',
                   countColor: const Color(0xFFFFB4AB),
                   labelColor: const Color(0xFFFFB4AB),
                   iconColor: const Color(0xFFFFB4AB),
@@ -666,7 +654,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 child: _buildOverviewMetricItem(
                   icon: Icons.check_circle_outline,
                   count: '$_completedCount',
-                  label: 'COMPLETED',
+                  label: 'COMPLETED MEDICATIONS',
                 ),
               ),
             ],
@@ -697,13 +685,18 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
           ),
         ),
         const SizedBox(height: 2),
-        Text(
-          label,
-          style: TextStyle(
-            color: labelColor ?? AppColors.secondaryTextStoneGrey,
-            fontSize: 9,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.5,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2),
+          child: Text(
+            label,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            style: TextStyle(
+              color: labelColor ?? AppColors.secondaryTextStoneGrey,
+              fontSize: 8,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.3,
+            ),
           ),
         ),
       ],
@@ -1152,12 +1145,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 ),
                 const SizedBox(width: 24),
                 InkWell(
-                  onTap: () {
-                    setState(() {
-                      med.status = MedicationStatus.completed;
-                      med.nextDoseDisplay = 'Discontinued';
-                    });
-                  },
+                  onTap: () => _confirmStopMedication(med),
                   child: Row(
                     children: const [
                       Icon(Icons.stop, color: AppColors.secondaryTextStoneGrey, size: 15),
@@ -1518,11 +1506,43 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          med.nextDoseDisplay = 'Tomorrow, 08:00 AM';
-                        });
-                        Navigator.pop(ctx);
+                      onPressed: () async {
+                        final confirmed = await showDialog<bool>(
+                          context: context,
+                          builder: (confirmCtx) => AlertDialog(
+                            backgroundColor: AppColors.cardsCarbon,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                            title: const Text(
+                              'Skip Dose?',
+                              style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w700),
+                            ),
+                            content: Text(
+                              'Are you sure you want to record this dose of ${med.name} as skipped ($selectedReason)?',
+                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(confirmCtx, false),
+                                child: const Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pop(confirmCtx, true),
+                                child: const Text(
+                                  'Skip Dose',
+                                  style: TextStyle(color: Color(0xFFFFB4AB), fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                        if (confirmed == true && mounted) {
+                          setState(() {
+                            med.nextDoseDisplay = 'Tomorrow, 08:00 AM';
+                          });
+                          if (ctx.mounted) {
+                            Navigator.pop(ctx);
+                          }
+                        }
                       },
                       child: const Text('Confirm Skip', style: TextStyle(color: Colors.white, fontSize: 14)),
                     ),
@@ -2054,105 +2074,42 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
     );
   }
 
-  /// Educational Guide Modal (Learn about Medication Manager)
-  void _showLearnModal() {
-    showModalBottomSheet(
+  /// Stop Medication Confirmation Dialog
+  Future<void> _confirmStopMedication(MedicationItem med) async {
+    final confirmed = await showDialog<bool>(
       context: context,
-      backgroundColor: AppColors.backgroundObsidian,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Medication Tracking Best Practices',
-                      style: TextStyle(
-                        color: AppColors.primaryTextOffWhite,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
-                      onPressed: () => Navigator.pop(ctx),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                _buildGuideSection(
-                  '1. Consistency in Timing',
-                  'Administer daily doses at consistent hours to maintain effective therapeutic plasma concentrations. Pair routines with feeding times whenever indicated.',
-                ),
-                const SizedBox(height: 12),
-                _buildGuideSection(
-                  '2. Food & GI Safety',
-                  'NSAIDs (like Metacam) and certain antibiotics should always be given with or immediately following food to protect the gastrointestinal lining.',
-                ),
-                const SizedBox(height: 12),
-                _buildGuideSection(
-                  '3. Missed Dose Protocol',
-                  'If a dose is missed by more than a few hours, do not double-up on the subsequent dose. Record the missed instance and resume the regular schedule.',
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2E6B57),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                    onPressed: () => Navigator.pop(ctx),
-                    child: const Text('Got It', style: TextStyle(color: Colors.white)),
-                  ),
-                ),
-              ],
-            ),
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.cardsCarbon,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        title: const Text(
+          'Stop Medication?',
+          style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w700),
+        ),
+        content: Text(
+          'Are you sure you want to stop ${med.name}? This will mark its status as discontinued and remove it from upcoming doses.',
+          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
           ),
-        );
-      },
-    );
-  }
-
-  Widget _buildGuideSection(String title, String body) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Color(0xFF95D3BB),
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            body,
-            style: const TextStyle(
-              color: AppColors.secondaryTextStoneGrey,
-              fontSize: 13,
-              height: 1.4,
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text(
+              'Stop Medication',
+              style: TextStyle(color: Color(0xFFFFB4AB), fontWeight: FontWeight.w600),
             ),
           ),
         ],
       ),
     );
+
+    if (confirmed == true && mounted) {
+      setState(() {
+        med.status = MedicationStatus.completed;
+        med.nextDoseDisplay = 'Discontinued';
+      });
+    }
   }
 }

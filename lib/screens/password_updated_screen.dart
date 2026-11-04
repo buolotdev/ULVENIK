@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import 'login_screen.dart';
-import '../widgets/custom_snackbar.dart';
 
 class PasswordUpdatedScreen extends StatefulWidget {
   const PasswordUpdatedScreen({super.key});
@@ -75,7 +74,7 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                     'assets/images/brand.png',
                     width: 72,
                     height: 72,
-                    errorBuilder: (_, __, ___) => const SizedBox(height: 72),
+                    errorBuilder: (_, error, stackTrace) => const SizedBox(height: 72),
                   ),
                 ),
               ),
@@ -174,7 +173,7 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                           child: Divider(color: Colors.white12, height: 1),
                         ),
                         const Text(
-                          'Your previous password has been invalidated. All active sessions using the old password have been signed out.',
+                          'Your previous password is no longer active and any other sessions have been signed out.',
                           style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 14,
@@ -233,25 +232,7 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                           ),
                         ),
                       ),
-                      const SizedBox(height: 12),
-                      TextButton(
-                        onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
-                        style: TextButton.styleFrom(
-                          foregroundColor: AppColors.secondaryTextStoneGrey,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          minimumSize: const Size(double.infinity, 52),
-                        ),
-                        child: const Text(
-                          'Sign out of all other devices',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
+
                     ],
                   ),
                 ),

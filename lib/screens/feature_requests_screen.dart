@@ -1,20 +1,32 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
+import '../widgets/custom_snackbar.dart';
+import '../widgets/ulvenik_bottom_nav.dart';
 
-// ─── Design Tokens ──────────────────────────────────────────────────────────
-const Color _obsidian = Color(0xFF101214);
-const Color _carbon = Color(0xFF1A1F22);
-const Color _cardBorder = Color(0x14FFFFFF);
-const Color _forest = Color(0xFF2E6B57);
-const Color _mint = Color(0xFFAAE9D0);
-const Color _offWhite = Color(0xFFF5F6F2);
-const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _mutedGrey = Color(0xFF718096);
-const Color _syncGreen = Color(0xFF4ADE80);
+class _FeatureRequestItem {
+  final String id;
+  final String title;
+  final String description;
+  final String category;
+  final String status; // 'Planned', 'Under Review', 'In Development'
+  final String submittedDate;
+  final bool isMine;
+  final bool isPopular;
+  int votes;
+  bool hasVoted;
+
+  _FeatureRequestItem({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.category,
+    required this.status,
+    required this.submittedDate,
+    this.isMine = false,
+    this.isPopular = false,
+    required this.votes,
+    required this.hasVoted,
+  });
+}
 
 class FeatureRequestsScreen extends StatefulWidget {
   const FeatureRequestsScreen({super.key});
@@ -24,655 +36,1138 @@ class FeatureRequestsScreen extends StatefulWidget {
 }
 
 class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
-  final _searchController = TextEditingController();
+  static const Color _obsidian = Color(0xFF101214);
+  static const Color _carbon = Color(0xFF1A1F22);
+  static const Color _forest = Color(0xFF2E6B57);
+  static const Color _votedGreen = Color(0xFF3A876E);
+  static const Color _mint = Color(0xFF95D3BB);
+  static const Color _plannedBlue = Color(0xFF5D8FAF);
+  static const Color _reviewAmber = Color(0xFFB4823C);
+  static const Color _inDevPurple = Color(0xFF6E50A0);
+  static const Color _offWhite = Color(0xFFF5F6F2);
+  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static const Color _cardBorder = Color(0x14FFFFFF);
+
+  static const List<String> _filterOptions = [
+    'All',
+    'Popular',
+    'Under Review',
+    'Planned',
+    'In Development',
+  ];
+
+  static const List<String> _requestCategories = [
+    'Training',
+    'Health',
+    'Strength & Conditioning',
+    'Timeline',
+    'Dogs & Profiles',
+    'Export & Sync',
+  ];
+
+  final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
+  String _selectedFilter = 'All';
 
-  // Feature votes state matching Figma
-  final Set<String> _votedIds = {'feat_templates'};
+  late final List<_FeatureRequestItem> _requests = [
+    // POPULAR
+    _FeatureRequestItem(
+      id: 'pop_1',
+      title: 'Training Templates',
+      description: 'Save and reuse your favourite training session layouts.',
+      category: 'Training',
+      status: 'Planned',
+      submittedDate: '12 Jul',
+      isPopular: true,
+      votes: 1248,
+      hasVoted: true,
+    ),
+    _FeatureRequestItem(
+      id: 'pop_2',
+      title: 'Smart Health Insights',
+      description:
+          'AI-powered suggestions based on your dog\'s health history.',
+      category: 'Health',
+      status: 'Under Review',
+      submittedDate: '3 Aug',
+      isPopular: true,
+      votes: 847,
+      hasVoted: false,
+    ),
+    _FeatureRequestItem(
+      id: 'pop_3',
+      title: 'Multi-Dog Training Session',
+      description: 'Log a single session across multiple dogs at once.',
+      category: 'Dogs & Profiles',
+      status: 'In Development',
+      submittedDate: '19 Jun',
+      isPopular: true,
+      votes: 612,
+      hasVoted: false,
+    ),
 
-  void _onBottomNavTapped(int index) {
-    if (index == 4) {
-      Navigator.pop(context);
-      return;
+    // MY REQUESTS
+    _FeatureRequestItem(
+      id: 'my_1',
+      title: 'Offline Goal Tracking',
+      description:
+          'Update goal milestone percentages directly while logging sessions offline in remote field venues.',
+      category: 'Training',
+      status: 'Under Review',
+      submittedDate: '2 Sep',
+      isMine: true,
+      votes: 18,
+      hasVoted: true,
+    ),
+    _FeatureRequestItem(
+      id: 'my_2',
+      title: 'Custom Reward Icons',
+      description:
+          'Assign specific toy, tug, scatter, or food reward icons to individual skill drills.',
+      category: 'Training',
+      status: 'Under Review',
+      submittedDate: '28 Aug',
+      isMine: true,
+      votes: 9,
+      hasVoted: true,
+    ),
+    _FeatureRequestItem(
+      id: 'my_3',
+      title: 'Export to PDF',
+      description:
+          'Generate clean printable PDF summaries of health records and training logs for vets and coaches.',
+      category: 'Export & Sync',
+      status: 'Planned',
+      submittedDate: '15 Aug',
+      isMine: true,
+      votes: 42,
+      hasVoted: true,
+    ),
+  ];
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  String _formatVotes(int count) {
+    final s = count.toString();
+    final buf = StringBuffer();
+    for (int i = 0; i < s.length; i++) {
+      final posFromEnd = s.length - i;
+      buf.write(s[i]);
+      if (posFromEnd > 1 && posFromEnd % 3 == 1) {
+        buf.write(',');
+      }
     }
-    Widget target;
-    switch (index) {
-      case 0:
-        target = const HomepageScreen();
-        break;
-      case 1:
-        target = const MyDogsScreen();
-        break;
-      case 2:
-        target = const TrainingScreen();
-        break;
-      case 3:
-        target = const TimelineScreen();
-        break;
-      case 4:
-        target = const MorePageScreen();
-        break;
+    return '${buf.toString()} ${count == 1 ? 'vote' : 'votes'}';
+  }
+
+  Color _statusBadgeColor(String status) {
+    switch (status) {
+      case 'Planned':
+        return _plannedBlue;
+      case 'In Development':
+        return _inDevPurple;
+      case 'Under Review':
       default:
-        return;
+        return _reviewAmber;
     }
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => target),
+  }
+
+  bool _matchesQueryAndFilter(_FeatureRequestItem item) {
+    final q = _searchQuery.trim().toLowerCase();
+    if (_selectedFilter == 'Popular' && !item.isPopular) return false;
+    if (_selectedFilter != 'All' &&
+        _selectedFilter != 'Popular' &&
+        item.status != _selectedFilter) {
+      return false;
+    }
+    if (q.isEmpty) return true;
+    return item.title.toLowerCase().contains(q) ||
+        item.description.toLowerCase().contains(q) ||
+        item.category.toLowerCase().contains(q) ||
+        item.status.toLowerCase().contains(q);
+  }
+
+  void _toggleVote(_FeatureRequestItem item) {
+    setState(() {
+      if (item.hasVoted) {
+        item.hasVoted = false;
+        if (item.votes > 0) item.votes -= 1;
+      } else {
+        item.hasVoted = true;
+        item.votes += 1;
+      }
+    });
+  }
+
+  void _openSubmitFeatureSheet() {
+    final titleCtrl = TextEditingController();
+    final descCtrl = TextEditingController();
+    String selectedCat = _requestCategories.first;
+    bool showError = false;
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        return StatefulBuilder(
+          builder: (ctx, setModalState) {
+            final bottomInset = MediaQuery.of(ctx).viewInsets.bottom;
+            return Padding(
+              padding: EdgeInsets.only(bottom: bottomInset),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: _obsidian,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                  border: Border(top: BorderSide(color: _cardBorder)),
+                ),
+                child: SafeArea(
+                  top: false,
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Container(
+                            width: 36,
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: _stoneGrey.withValues(alpha: 0.35),
+                              borderRadius: BorderRadius.circular(999),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.lightbulb_outline_rounded,
+                              color: _mint,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 10),
+                            const Expanded(
+                              child: Text(
+                                'Submit New Feature',
+                                style: TextStyle(
+                                  color: _offWhite,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Inter',
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => Navigator.of(ctx).pop(),
+                              icon: const Icon(
+                                Icons.close_rounded,
+                                color: _stoneGrey,
+                                size: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Text(
+                          'Share how this feature would help you and your dog.',
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 13,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                        const SizedBox(height: 18),
+                        const Text(
+                          'AREA',
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.1,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: _requestCategories.map((cat) {
+                            final active = selectedCat == cat;
+                            return GestureDetector(
+                              onTap: () =>
+                                  setModalState(() => selectedCat = cat),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 7,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: active ? _forest : _carbon,
+                                  borderRadius: BorderRadius.circular(999),
+                                  border: Border.all(
+                                    color: active
+                                        ? _mint.withValues(alpha: 0.45)
+                                        : _cardBorder,
+                                  ),
+                                ),
+                                child: Text(
+                                  cat,
+                                  style: TextStyle(
+                                    color: active ? _offWhite : _stoneGrey,
+                                    fontSize: 12.5,
+                                    fontWeight: active
+                                        ? FontWeight.w600
+                                        : FontWeight.w500,
+                                    fontFamily: 'Inter',
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                        const SizedBox(height: 18),
+                        const Text(
+                          'FEATURE TITLE',
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.1,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                          decoration: BoxDecoration(
+                            color: _carbon,
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: showError && titleCtrl.text.trim().isEmpty
+                                  ? const Color(0xFF8B3A3A)
+                                  : _cardBorder,
+                            ),
+                          ),
+                          child: TextField(
+                            controller: titleCtrl,
+                            maxLength: 80,
+                            onChanged: (_) => setModalState(() {}),
+                            cursorColor: _mint,
+                            style: const TextStyle(
+                              color: _offWhite,
+                              fontSize: 14.5,
+                              fontFamily: 'Inter',
+                            ),
+                            decoration: InputDecoration(
+                              isDense: true,
+                              counterText: '',
+                              hintText: 'e.g. Custom Split Lap Timer',
+                              hintStyle: TextStyle(
+                                color: _stoneGrey.withValues(alpha: 0.55),
+                                fontSize: 14.5,
+                                fontFamily: 'Inter',
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: _stoneGrey.withValues(alpha: 0.22),
+                                ),
+                              ),
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: _forest,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'DETAILS & USE CASE',
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.1,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                          decoration: BoxDecoration(
+                            color: _carbon,
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: showError && descCtrl.text.trim().isEmpty
+                                  ? const Color(0xFF8B3A3A)
+                                  : _cardBorder,
+                            ),
+                          ),
+                          child: TextField(
+                            controller: descCtrl,
+                            minLines: 3,
+                            maxLines: 5,
+                            maxLength: 1000,
+                            onChanged: (_) => setModalState(() {}),
+                            cursorColor: _mint,
+                            style: const TextStyle(
+                              color: _offWhite,
+                              fontSize: 14,
+                              height: 1.45,
+                              fontFamily: 'Inter',
+                            ),
+                            decoration: InputDecoration(
+                              isDense: true,
+                              counterText: '',
+                              hintText:
+                                  'Explain what problem this solves during training or care...',
+                              hintStyle: TextStyle(
+                                color: _stoneGrey.withValues(alpha: 0.55),
+                                fontSize: 14,
+                                fontFamily: 'Inter',
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: _stoneGrey.withValues(alpha: 0.22),
+                                ),
+                              ),
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: _forest,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 48,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (titleCtrl.text.trim().isEmpty ||
+                                  descCtrl.text.trim().isEmpty) {
+                                setModalState(() => showError = true);
+                                return;
+                              }
+                              final newItem = _FeatureRequestItem(
+                                id: 'custom_${DateTime.now().millisecondsSinceEpoch}',
+                                title: titleCtrl.text.trim(),
+                                description: descCtrl.text.trim(),
+                                category: selectedCat,
+                                status: 'Under Review',
+                                submittedDate: 'Just now',
+                                isMine: true,
+                                isPopular: false,
+                                votes: 1,
+                                hasVoted: true,
+                              );
+                              setState(() {
+                                _requests.insert(3, newItem);
+                                _selectedFilter = 'All';
+                              });
+                              Navigator.of(ctx).pop();
+                              AppSnackbar.show(
+                                context,
+                                title: 'Feature Idea Submitted',
+                                message:
+                                    '"${newItem.title}" added to My Requests for product review.',
+                                type: SnackbarType.success,
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: _forest,
+                              foregroundColor: _offWhite,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: const Text(
+                              'Submit Feature Request',
+                              style: TextStyle(
+                                fontSize: 14.5,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Inter',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
-  void _showSubmitFeatureModal() {
-    final titleCtrl = TextEditingController();
-    final descCtrl = TextEditingController();
-
-    showModalBottomSheet(
+  void _openRequestDetailSheet(_FeatureRequestItem item) {
+    showModalBottomSheet<void>(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => Padding(
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-          top: 20,
-          bottom: MediaQuery.of(ctx).viewInsets.bottom + 24,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: _mutedGrey.withValues(alpha: 0.4),
-                  borderRadius: BorderRadius.circular(2),
-                ),
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        return StatefulBuilder(
+          builder: (ctx, setModalState) {
+            return Container(
+              decoration: const BoxDecoration(
+                color: _obsidian,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                border: Border(top: BorderSide(color: _cardBorder)),
               ),
-            ),
-            const SizedBox(height: 18),
-            const Text(
-              'Submit New Feature',
-              style: TextStyle(
-                color: _offWhite,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'FEATURE TITLE',
-              style: TextStyle(
-                color: _mutedGrey,
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 0.8,
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: titleCtrl,
-              style: const TextStyle(color: _offWhite, fontSize: 14),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: _obsidian,
-                hintText: 'e.g. Garmin Collar Ingestion',
-                hintStyle: const TextStyle(color: _mutedGrey, fontSize: 13),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'DESCRIPTION & USE CASE',
-              style: TextStyle(
-                color: _mutedGrey,
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 0.8,
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: descCtrl,
-              maxLines: 3,
-              style: const TextStyle(color: _offWhite, fontSize: 14),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: _obsidian,
-                hintText: 'Describe how this helps your training workflow...',
-                hintStyle: const TextStyle(color: _mutedGrey, fontSize: 13),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: _cardBorder),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    onPressed: () => Navigator.pop(ctx),
-                    child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _forest,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.pop(ctx);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Feature submitted for review.'),
-                          duration: Duration(seconds: 2),
+              child: SafeArea(
+                top: false,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 36,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: _stoneGrey.withValues(alpha: 0.35),
+                            borderRadius: BorderRadius.circular(999),
+                          ),
                         ),
-                      );
-                    },
-                    child: const Text(
-                      'Submit',
-                      style: TextStyle(
-                        color: _offWhite,
-                        fontWeight: FontWeight.w600,
                       ),
-                    ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          _buildStatusPill(item.status),
+                          const SizedBox(width: 10),
+                          Text(
+                            '${item.category} · Submitted ${item.submittedDate}',
+                            style: const TextStyle(
+                              color: _stoneGrey,
+                              fontSize: 12.5,
+                              fontFamily: 'Inter',
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        item.title,
+                        style: const TextStyle(
+                          color: _offWhite,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        item.description,
+                        style: const TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 14,
+                          height: 1.5,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                _toggleVote(item);
+                                setModalState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    item.hasVoted ? _forest : _carbon,
+                                foregroundColor: _offWhite,
+                                elevation: 0,
+                                side: const BorderSide(color: _cardBorder),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              icon: Icon(
+                                Icons.thumb_up_outlined,
+                                size: 17,
+                                color: item.hasVoted ? _mint : _stoneGrey,
+                              ),
+                              label: Text(
+                                item.hasVoted
+                                    ? 'Voted · ${_formatVotes(item.votes)}'
+                                    : 'Upvote · ${_formatVotes(item.votes)}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Inter',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
-      ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final popularList = _requests
+        .where((r) => r.isPopular && _matchesQueryAndFilter(r))
+        .toList();
+    final myRequestsList = _requests
+        .where((r) => r.isMine && _matchesQueryAndFilter(r))
+        .toList();
+
     return Scaffold(
       backgroundColor: _obsidian,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // ─── Header: < Feature Requests ─────────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56),
+        child: Container(
+          decoration: const BoxDecoration(
+            color: _obsidian,
+            border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
+          ),
+          child: SafeArea(
+            bottom: false,
+            child: SizedBox(
+              height: 56,
               child: Row(
                 children: [
-                  InkWell(
-                    onTap: () => Navigator.pop(context),
-                    borderRadius: BorderRadius.circular(8),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.chevron_left, color: _offWhite, size: 22),
-                          SizedBox(width: 4),
-                          Text(
-                            'Feature Requests',
-                            style: TextStyle(
-                              color: _offWhite,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
+                  const SizedBox(width: 4),
+                  IconButton(
+                    onPressed: () => Navigator.of(context).maybePop(),
+                    icon: const Icon(
+                      Icons.chevron_left,
+                      color: _stoneGrey,
+                      size: 26,
+                    ),
+                    splashRadius: 20,
+                  ),
+                  const Text(
+                    'Feature Requests',
+                    style: TextStyle(
+                      color: _offWhite,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.3,
+                      fontFamily: 'Inter',
                     ),
                   ),
                 ],
               ),
             ),
-
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                children: [
-                  // ─── FEATURE REQUESTS Banner ───────────────────────────
-                  _buildSectionHeader('FEATURE REQUESTS'),
-                  const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.lightbulb_outline,
-                                color: _stoneGrey, size: 18),
-                            SizedBox(width: 8),
-                            Text(
-                              'Have an idea for Ulvenik?',
-                              style: TextStyle(
-                                color: _offWhite,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'We\'re always looking for ways to improve. Share your ideas and help shape future updates.',
-                          style: TextStyle(
-                            color: _stoneGrey,
-                            fontSize: 13,
-                            height: 1.4,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // ─── Search Bar ────────────────────────────────────────
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: TextField(
-                      controller: _searchController,
-                      style: const TextStyle(color: _offWhite, fontSize: 14),
-                      onChanged: (val) => setState(() => _searchQuery = val.trim().toLowerCase()),
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.search, color: _stoneGrey, size: 20),
-                        hintText: 'Search Feature Requests',
-                        hintStyle: TextStyle(color: _mutedGrey, fontSize: 14),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // ─── POPULAR ───────────────────────────────────────────
-                  _buildSectionHeader('POPULAR'),
-                  const SizedBox(height: 8),
-
-                  // Card 1: Training Templates (Planned)
-                  _buildPopularFeatureCard(
-                    id: 'feat_templates',
-                    title: 'Training Templates',
-                    desc: 'Save and reuse your favourite training session layouts.',
-                    badge: 'Planned',
-                    badgeBg: const Color(0xFF1E3A5F),
-                    badgeText: const Color(0xFF90CDF4),
-                    baseVotes: 1247,
-                  ),
-                  const SizedBox(height: 12),
-
-                  // Card 2: Smart Health Insights (Under Review)
-                  _buildPopularFeatureCard(
-                    id: 'feat_health',
-                    title: 'Smart Health Insights',
-                    desc: 'AI-powered suggestions based on your dog\'s health history.',
-                    badge: 'Under Review',
-                    badgeBg: const Color(0xFF3D2E14),
-                    badgeText: const Color(0xFFECC94B),
-                    baseVotes: 847,
-                  ),
-                  const SizedBox(height: 12),
-
-                  // Card 3: Multi-Dog Training Session (In Development)
-                  _buildPopularFeatureCard(
-                    id: 'feat_multidog',
-                    title: 'Multi-Dog Training Session',
-                    desc: 'Log a single session across multiple dogs at once.',
-                    badge: 'In Development',
-                    badgeBg: const Color(0xFF321E4B),
-                    badgeText: const Color(0xFFD6BCFA),
-                    baseVotes: 612,
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // ─── SUBMIT ────────────────────────────────────────────
-                  _buildSectionHeader('SUBMIT'),
-                  const SizedBox(height: 8),
-                  InkWell(
-                    onTap: _showSubmitFeatureModal,
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: _forest,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.lightbulb_outline,
-                              color: _offWhite, size: 18),
-                          SizedBox(width: 8),
-                          Text(
-                            'Submit New Feature',
-                            style: TextStyle(
-                              color: _offWhite,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Center(
-                    child: Text(
-                      'Ideas are reviewed before becoming publicly visible.',
-                      style: TextStyle(
-                        color: _mutedGrey,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // ─── MY REQUESTS ───────────────────────────────────────
-                  _buildSectionHeader('MY REQUESTS'),
-                  const SizedBox(height: 8),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: Column(
-                      children: [
-                        _buildMyRequestRow(
-                          title: 'Offline Goal Tracking',
-                          meta: 'Submitted 2 Sep • 18 votes',
-                          badge: 'Under Review',
-                          badgeBg: const Color(0xFF3D2E14),
-                          badgeText: const Color(0xFFECC94B),
-                        ),
-                        _buildDivider(),
-                        _buildMyRequestRow(
-                          title: 'Custom Reward Icons',
-                          meta: 'Submitted 28 Aug • 9 votes',
-                          badge: 'Under Review',
-                          badgeBg: const Color(0xFF3D2E14),
-                          badgeText: const Color(0xFFECC94B),
-                        ),
-                        _buildDivider(),
-                        _buildMyRequestRow(
-                          title: 'Export to PDF',
-                          meta: 'Submitted 15 Aug • 32 votes',
-                          badge: 'Planned',
-                          badgeBg: const Color(0xFF1E3A5F),
-                          badgeText: const Color(0xFF90CDF4),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 32),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 4, // More tab active
-        onTap: _onBottomNavTapped,
-        backgroundColor: _obsidian,
-        selectedItemColor: _mint,
-        unselectedItemColor: _stoneGrey,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.pets_outlined),
-            activeIcon: Icon(Icons.pets),
-            label: 'Dogs',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            label: 'Training',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history_outlined),
-            activeIcon: Icon(Icons.history),
-            label: 'Timeline',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            label: 'More',
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _mutedGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 1.0,
-      ),
-    );
-  }
-
-  Widget _buildDivider() {
-    return const Divider(
-      height: 1,
-      thickness: 1,
-      color: Color(0x0FFFFFFF),
-      indent: 52,
-    );
-  }
-
-  Widget _buildPopularFeatureCard({
-    required String id,
-    required String title,
-    required String desc,
-    required String badge,
-    required Color badgeBg,
-    required Color badgeText,
-    required int baseVotes,
-  }) {
-    if (_searchQuery.isNotEmpty &&
-        !title.toLowerCase().contains(_searchQuery) &&
-        !desc.toLowerCase().contains(_searchQuery)) {
-      return const SizedBox.shrink();
-    }
-
-    final isVoted = _votedIds.contains(id);
-    final totalVotes = isVoted ? baseVotes + 1 : baseVotes;
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(16, 18, 16, 36),
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    color: _offWhite,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                decoration: BoxDecoration(
-                  color: badgeBg,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(
-                  badge,
-                  style: TextStyle(
-                    color: badgeText,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            desc,
-            style: const TextStyle(
-              color: _stoneGrey,
-              fontSize: 13,
-              height: 1.35,
+          _buildSectionHeader('FEATURE REQUESTS'),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
             ),
-          ),
-          const SizedBox(height: 14),
-          const Divider(height: 1, color: Color(0x0FFFFFFF)),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    if (isVoted) {
-                      _votedIds.remove(id);
-                    } else {
-                      _votedIds.add(id);
-                    }
-                  });
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      isVoted ? Icons.thumb_up : Icons.thumb_up_alt_outlined,
-                      color: isVoted ? _syncGreen : _stoneGrey,
-                      size: 16,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      isVoted ? 'Voted' : 'Vote',
-                      style: TextStyle(
-                        color: isVoted ? _syncGreen : _stoneGrey,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text(
-                '${totalVotes.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')} votes',
-                style: const TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 13,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMyRequestRow({
-    required String title,
-    required String meta,
-    required String badge,
-    required Color badgeBg,
-    required Color badgeText,
-  }) {
-    if (_searchQuery.isNotEmpty && !title.toLowerCase().contains(_searchQuery)) {
-      return const SizedBox.shrink();
-    }
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      child: Row(
-        children: [
-          const Icon(Icons.description_outlined, color: _stoneGrey, size: 20),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Icon(
+                  Icons.lightbulb_outline_rounded,
+                  color: _stoneGrey,
+                  size: 21,
+                ),
+                SizedBox(height: 14),
                 Text(
-                  title,
-                  style: const TextStyle(
+                  'Have an idea for Ulvenik?',
+                  style: TextStyle(
                     color: _offWhite,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Inter',
                   ),
                 ),
-                const SizedBox(height: 2),
+                SizedBox(height: 8),
                 Text(
-                  meta,
-                  style: const TextStyle(
+                  'We\'re always looking for ways to improve. Share your ideas and help shape future updates.',
+                  style: TextStyle(
                     color: _stoneGrey,
-                    fontSize: 12,
+                    fontSize: 13.5,
+                    height: 1.5,
+                    fontFamily: 'Inter',
                   ),
                 ),
               ],
             ),
           ),
+
+          const SizedBox(height: 16),
+          // Search Bar
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            height: 46,
             decoration: BoxDecoration(
-              color: badgeBg,
-              borderRadius: BorderRadius.circular(6),
+              color: _carbon,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: _cardBorder),
             ),
-            child: Text(
-              badge,
-              style: TextStyle(
-                color: badgeText,
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
+            child: TextField(
+              controller: _searchController,
+              onChanged: (v) => setState(() => _searchQuery = v),
+              cursorColor: _mint,
+              style: const TextStyle(
+                color: _offWhite,
+                fontSize: 14,
+                fontFamily: 'Inter',
+              ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: _stoneGrey,
+                  size: 19,
+                ),
+                suffixIcon: _searchQuery.isNotEmpty
+                    ? IconButton(
+                        onPressed: () {
+                          _searchController.clear();
+                          setState(() => _searchQuery = '');
+                        },
+                        icon: const Icon(
+                          Icons.close_rounded,
+                          color: _stoneGrey,
+                          size: 18,
+                        ),
+                      )
+                    : null,
+                hintText: 'Search Feature Requests',
+                hintStyle: const TextStyle(
+                  color: _stoneGrey,
+                  fontSize: 14,
+                  fontFamily: 'Inter',
+                ),
               ),
             ),
           ),
-          const SizedBox(width: 6),
-          const Icon(Icons.chevron_right, color: _stoneGrey, size: 16),
+
+          // Status Filter Pills
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 32,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: _filterOptions.length,
+              separatorBuilder: (_, _) => const SizedBox(width: 8),
+              itemBuilder: (_, idx) {
+                final pill = _filterOptions[idx];
+                final active = _selectedFilter == pill;
+                return GestureDetector(
+                  onTap: () => setState(() => _selectedFilter = pill),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: active ? _forest : _carbon,
+                      borderRadius: BorderRadius.circular(999),
+                      border: Border.all(
+                        color: active
+                            ? _mint.withValues(alpha: 0.45)
+                            : _cardBorder,
+                      ),
+                    ),
+                    child: Text(
+                      pill,
+                      style: TextStyle(
+                        color: active ? _offWhite : _stoneGrey,
+                        fontSize: 12,
+                        fontWeight: active ? FontWeight.w600 : FontWeight.w500,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+
+          // POPULAR
+          if (popularList.isNotEmpty) ...[
+            const SizedBox(height: 22),
+            _buildSectionHeader('POPULAR'),
+            const SizedBox(height: 10),
+            ...List.generate(popularList.length, (i) {
+              final item = popularList[i];
+              return Padding(
+                padding: EdgeInsets.only(
+                  bottom: i == popularList.length - 1 ? 0 : 12,
+                ),
+                child: _buildPopularCard(item),
+              );
+            }),
+          ],
+
+          // SUBMIT
+          const SizedBox(height: 24),
+          _buildSectionHeader('SUBMIT'),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _openSubmitFeatureSheet,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _forest,
+                      foregroundColor: _offWhite,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.lightbulb_outline_rounded,
+                          color: _offWhite,
+                          size: 19,
+                        ),
+                        SizedBox(width: 9),
+                        Text(
+                          'Submit New Feature',
+                          style: TextStyle(
+                            color: _offWhite,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'Ideas are reviewed before becoming publicly visible.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: _stoneGrey,
+                    fontSize: 12.5,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // MY REQUESTS
+          if (myRequestsList.isNotEmpty) ...[
+            const SizedBox(height: 24),
+            _buildSectionHeader('MY REQUESTS'),
+            const SizedBox(height: 10),
+            Container(
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                children: List.generate(myRequestsList.length, (i) {
+                  final item = myRequestsList[i];
+                  final isLast = i == myRequestsList.length - 1;
+                  return Column(
+                    children: [
+                      InkWell(
+                        borderRadius: BorderRadius.vertical(
+                          top: i == 0 ? const Radius.circular(16) : Radius.zero,
+                          bottom: isLast
+                              ? const Radius.circular(16)
+                              : Radius.zero,
+                        ),
+                        onTap: () => _openRequestDetailSheet(item),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 16,
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.assignment_outlined,
+                                color: _stoneGrey,
+                                size: 19,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.title,
+                                      style: const TextStyle(
+                                        color: _offWhite,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Inter',
+                                      ),
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Text(
+                                      'Submitted ${item.submittedDate} · ${_formatVotes(item.votes)}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        color: _stoneGrey,
+                                        fontSize: 12.5,
+                                        fontFamily: 'Inter',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              _buildStatusPill(item.status),
+                              const SizedBox(width: 8),
+                              const Icon(
+                                Icons.chevron_right,
+                                color: _stoneGrey,
+                                size: 18,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      if (!isLast)
+                        const Divider(
+                          height: 1,
+                          thickness: 1,
+                          color: _cardBorder,
+                        ),
+                    ],
+                  );
+                }),
+              ),
+            ),
+          ],
+
+          if (popularList.isEmpty && myRequestsList.isEmpty) ...[
+            const SizedBox(height: 24),
+            Container(
+              padding: const EdgeInsets.all(22),
+              decoration: BoxDecoration(
+                color: _carbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _cardBorder),
+              ),
+              child: Column(
+                children: [
+                  const Icon(
+                    Icons.search_off_rounded,
+                    color: _stoneGrey,
+                    size: 28,
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'No matching feature requests found',
+                    style: TextStyle(
+                      color: _offWhite,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  OutlinedButton(
+                    onPressed: () {
+                      _searchController.clear();
+                      setState(() {
+                        _searchQuery = '';
+                        _selectedFilter = 'All';
+                      });
+                    },
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: _offWhite,
+                      side: const BorderSide(color: _cardBorder),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text('Clear Filters'),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ],
+      ),
+      bottomNavigationBar: const UlvenikBottomNav(
+        activeTab: UlvenikNavTab.more,
+      ),
+    );
+  }
+
+  Widget _buildPopularCard(_FeatureRequestItem item) {
+    return Container(
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _cardBorder),
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => _openRequestDetailSheet(item),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(18, 18, 18, 14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      item.title,
+                      style: const TextStyle(
+                        color: _offWhite,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  _buildStatusPill(item.status),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                item.description,
+                style: const TextStyle(
+                  color: _stoneGrey,
+                  fontSize: 13.5,
+                  height: 1.45,
+                  fontFamily: 'Inter',
+                ),
+              ),
+              const SizedBox(height: 14),
+              const Divider(height: 1, thickness: 1, color: _cardBorder),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () => _toggleVote(item),
+                    behavior: HitTestBehavior.opaque,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.thumb_up_outlined,
+                            size: 16,
+                            color: item.hasVoted ? _votedGreen : _stoneGrey,
+                          ),
+                          const SizedBox(width: 7),
+                          Text(
+                            item.hasVoted ? 'Voted' : 'Vote',
+                            style: TextStyle(
+                              color: item.hasVoted ? _votedGreen : _stoneGrey,
+                              fontSize: 13.5,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Inter',
+                            ),
+                          ),
+                          if (item.hasVoted) ...[
+                            const SizedBox(width: 6),
+                            const Icon(
+                              Icons.check_rounded,
+                              size: 15,
+                              color: _votedGreen,
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ),
+                  Text(
+                    _formatVotes(item.votes),
+                    style: const TextStyle(
+                      color: _stoneGrey,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatusPill(String status) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: _statusBadgeColor(status),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        status,
+        style: const TextStyle(
+          color: _offWhite,
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          fontFamily: 'Inter',
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        color: _stoneGrey,
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 1.2,
+        fontFamily: 'Inter',
       ),
     );
   }

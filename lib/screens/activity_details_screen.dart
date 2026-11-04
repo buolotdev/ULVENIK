@@ -167,6 +167,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
           initialCategory: _act.category,
           initialIcon: _act.icon,
           startWithActivity: true,
+          initialCustomMetrics: _act.customMetrics,
         ),
       ),
     );
@@ -355,6 +356,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                     builder: (_) => ActivityStatisticsScreen(
                       activityName: _act.name,
                       initialEmpty: _isEmpty,
+                      customMetrics: _act.customMetrics,
                     ),
                   ),
                 );
@@ -577,40 +579,15 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
           Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
           const SizedBox(height: 14),
 
-          // Sub-meta indicators (Wrapped to prevent any overflow)
+          // Sub-meta indicators
           if (_isEmpty)
-            Wrap(
-              spacing: 12,
-              runSpacing: 6,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: const [
-                Text(
-                  '0 Sessions',
-                  style: TextStyle(
-                    color: _muted,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text('•', style: TextStyle(color: _muted)),
-                Text(
-                  'No Streak',
-                  style: TextStyle(
-                    color: _muted,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text('•', style: TextStyle(color: _muted)),
-                Text(
-                  'Never Completed',
-                  style: TextStyle(
-                    color: _muted,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
+            const Text(
+              '0 Sessions',
+              style: TextStyle(
+                color: _muted,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
             )
           else
             Wrap(
@@ -625,26 +602,6 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                   ),
-                ),
-                const Text('•', style: TextStyle(color: _muted)),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      Icons.local_fire_department,
-                      color: _mint,
-                      size: 15,
-                    ),
-                    const SizedBox(width: 3),
-                    Text(
-                      '${_act.streakDays ?? 12} Day Streak',
-                      style: const TextStyle(
-                        color: _mint,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
                 ),
                 const Text('•', style: TextStyle(color: _muted)),
                 Text(
@@ -697,19 +654,12 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
               Row(
                 children: [
                   Expanded(child: _buildStatItem('Avg Duration', '1h 17m')),
-                  Expanded(child: _buildStatItem('Longest Session', '2h 40m')),
+                  Expanded(child: _buildStatItem('Sessions This Month', '14')),
                 ],
               ),
               const SizedBox(height: 16),
               Row(
                 children: [
-                  Expanded(
-                    child: _buildStatItem(
-                      'Current Streak',
-                      '${_act.streakDays ?? 12} Days',
-                      isHighlight: true,
-                    ),
-                  ),
                   Expanded(child: _buildStatItem('Last Completed', _act.lastTrained)),
                 ],
               ),
@@ -1180,7 +1130,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
           ),
           const SizedBox(height: 10),
           const Text(
-            "This activity hasn't been used yet. Record your first session to begin tracking your dog's progress.",
+            "This activity hasn’t been used yet. Record your first session to start building its training history.",
             style: TextStyle(
               color: _muted,
               fontSize: 14,
@@ -1203,7 +1153,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
               ),
               icon: const Icon(Icons.play_arrow, size: 20),
               label: const Text(
-                'Start First Session',
+                'Record First Session',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
               ),
             ),

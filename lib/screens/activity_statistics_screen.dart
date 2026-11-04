@@ -1,3 +1,4 @@
+import 'activity_library_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../widgets/custom_snackbar.dart';
@@ -13,11 +14,13 @@ import 'activity_insights_screen.dart';
 class ActivityStatisticsScreen extends StatefulWidget {
   final String activityName;
   final bool initialEmpty;
+  final List<CustomActivityMetric>? customMetrics;
 
   const ActivityStatisticsScreen({
     super.key,
     this.activityName = 'Swimming Fitness',
     this.initialEmpty = false,
+    this.customMetrics,
   });
 
   @override
@@ -42,6 +45,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
       Border.all(color: Colors.white.withValues(alpha: 0.08));
 
   late bool _isEmpty;
+  late List<CustomActivityMetric> _customMetrics;
   late AnimationController _chartAnimController;
   late Animation<double> _chartProgress;
 
@@ -51,6 +55,9 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
   // Selected Graph Interval (D, W, M, Y)
   String _selectedInterval = 'W';
 
+  // Selected Trend Metric (Default to session frequency over time)
+  String _selectedTrendMetric = 'Sessions';
+
   // Interactive selected point index on graph (-1 means default W3 / index 2)
   int _selectedSpotIndex = 2;
 
@@ -58,6 +65,25 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
   void initState() {
     super.initState();
     _isEmpty = widget.initialEmpty;
+    if (widget.customMetrics != null) {
+      _customMetrics = widget.customMetrics!;
+    } else if (widget.activityName == 'Swimming Fitness') {
+      _customMetrics = const [
+        CustomActivityMetric(id: 'm1', name: 'Distance', unit: 'metres'),
+      ];
+    } else if (widget.activityName == 'Treadmill Intervals') {
+      _customMetrics = const [
+        CustomActivityMetric(id: 'm2', name: 'Speed', unit: 'mph'),
+        CustomActivityMetric(id: 'm3', name: 'Incline', unit: '%'),
+      ];
+    } else if (widget.activityName == 'Weighted Carries') {
+      _customMetrics = const [
+        CustomActivityMetric(id: 'm4', name: 'Load', unit: 'kg'),
+        CustomActivityMetric(id: 'm5', name: 'Repetitions', unit: 'reps'),
+      ];
+    } else {
+      _customMetrics = const [];
+    }
 
     _chartAnimController = AnimationController(
       vsync: this,
@@ -91,40 +117,78 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
   // ===========================================================================
 
   List<FlSpot> _getChartPoints() {
-    switch (_selectedInterval) {
-      case 'D':
-        return const [
-          FlSpot(0, 4.0),
-          FlSpot(1, 12.0),
-          FlSpot(2, 28.0),
-          FlSpot(3, 34.0),
-          FlSpot(4, 22.0),
-          FlSpot(5, 38.0),
-          FlSpot(6, 18.0),
-        ];
-      case 'M':
-        return const [
-          FlSpot(0, 18.0),
-          FlSpot(1, 26.0),
-          FlSpot(2, 36.0),
-          FlSpot(3, 32.0),
-        ];
-      case 'Y':
-        return const [
-          FlSpot(0, 14.0),
-          FlSpot(1, 28.0),
-          FlSpot(2, 42.0),
-          FlSpot(3, 38.0),
-        ];
-      case 'W':
-      default:
-        // Matches Figma curve: starts at ~8h at W1, rises to ~32.25h at W3, dips to 22h, rises to ~34h at W4
-        return const [
-          FlSpot(0, 8.5),
-          FlSpot(1, 21.0),
-          FlSpot(2, 32.25),
-          FlSpot(3, 31.0),
-        ];
+    if (_selectedTrendMetric == 'Sessions') {
+      // Standard session frequency over time
+      switch (_selectedInterval) {
+        case 'D':
+          return const [
+            FlSpot(0, 1.0),
+            FlSpot(1, 2.0),
+            FlSpot(2, 3.0),
+            FlSpot(3, 2.0),
+            FlSpot(4, 3.0),
+            FlSpot(5, 4.0),
+            FlSpot(6, 2.0),
+          ];
+        case 'M':
+          return const [
+            FlSpot(0, 8.0),
+            FlSpot(1, 10.0),
+            FlSpot(2, 14.0),
+            FlSpot(3, 12.0),
+          ];
+        case 'Y':
+          return const [
+            FlSpot(0, 24.0),
+            FlSpot(1, 38.0),
+            FlSpot(2, 48.0),
+            FlSpot(3, 42.0),
+          ];
+        case 'W':
+        default:
+          return const [
+            FlSpot(0, 3.0),
+            FlSpot(1, 8.0),
+            FlSpot(2, 12.0),
+            FlSpot(3, 11.0),
+          ];
+      }
+    } else {
+      // Trend based on custom numerical metric (e.g. Distance / Load)
+      switch (_selectedInterval) {
+        case 'D':
+          return const [
+            FlSpot(0, 500),
+            FlSpot(1, 1200),
+            FlSpot(2, 1800),
+            FlSpot(3, 1600),
+            FlSpot(4, 1400),
+            FlSpot(5, 2000),
+            FlSpot(6, 1500),
+          ];
+        case 'M':
+          return const [
+            FlSpot(0, 4200),
+            FlSpot(1, 6800),
+            FlSpot(2, 8500),
+            FlSpot(3, 7900),
+          ];
+        case 'Y':
+          return const [
+            FlSpot(0, 15000),
+            FlSpot(1, 24000),
+            FlSpot(2, 32000),
+            FlSpot(3, 28000),
+          ];
+        case 'W':
+        default:
+          return const [
+            FlSpot(0, 600),
+            FlSpot(1, 1400),
+            FlSpot(2, 1850),
+            FlSpot(3, 1700),
+          ];
+      }
     }
   }
 
@@ -143,20 +207,39 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
   }
 
   String _getTooltipValue(int spotIndex) {
-    switch (_selectedInterval) {
-      case 'D':
-        final vals = ['4h 10m', '12h 00m', '28h 15m', '34h 45m', '22h 30m', '38h 10m', '18h 00m'];
-        return spotIndex < vals.length ? vals[spotIndex] : '24h 00m';
-      case 'M':
-        final vals = ['18h 30m', '26h 15m', '36h 40m', '32h 15m'];
-        return spotIndex < vals.length ? vals[spotIndex] : '30h 00m';
-      case 'Y':
-        final vals = ['142h', '210h', '320h', '248h'];
-        return spotIndex < vals.length ? vals[spotIndex] : '200h';
-      case 'W':
-      default:
-        final vals = ['8h 30m', '21h 00m', '32h 15m', '31h 00m'];
-        return spotIndex < vals.length ? vals[spotIndex] : '32h 15m';
+    if (_selectedTrendMetric == 'Sessions') {
+      switch (_selectedInterval) {
+        case 'D':
+          final vals = ['1 Session', '2 Sessions', '3 Sessions', '2 Sessions', '3 Sessions', '4 Sessions', '2 Sessions'];
+          return spotIndex < vals.length ? vals[spotIndex] : '2 Sessions';
+        case 'M':
+          final vals = ['8 Sessions', '10 Sessions', '14 Sessions', '12 Sessions'];
+          return spotIndex < vals.length ? vals[spotIndex] : '10 Sessions';
+        case 'Y':
+          final vals = ['24 Sessions', '38 Sessions', '48 Sessions', '42 Sessions'];
+          return spotIndex < vals.length ? vals[spotIndex] : '40 Sessions';
+        case 'W':
+        default:
+          final vals = ['3 Sessions', '8 Sessions', '12 Sessions', '11 Sessions'];
+          return spotIndex < vals.length ? vals[spotIndex] : '12 Sessions';
+      }
+    } else {
+      final unit = _customMetrics.isNotEmpty ? _customMetrics.first.unit : '';
+      switch (_selectedInterval) {
+        case 'D':
+          final vals = ['500 $unit', '1,200 $unit', '1,800 $unit', '1,600 $unit', '1,400 $unit', '2,000 $unit', '1,500 $unit'];
+          return spotIndex < vals.length ? vals[spotIndex] : '1,500 $unit';
+        case 'M':
+          final vals = ['4,200 $unit', '6,800 $unit', '8,500 $unit', '7,900 $unit'];
+          return spotIndex < vals.length ? vals[spotIndex] : '7,000 $unit';
+        case 'Y':
+          final vals = ['15k $unit', '24k $unit', '32k $unit', '28k $unit'];
+          return spotIndex < vals.length ? vals[spotIndex] : '25k $unit';
+        case 'W':
+        default:
+          final vals = ['600 $unit', '1,400 $unit', '1,850 $unit', '1,700 $unit'];
+          return spotIndex < vals.length ? vals[spotIndex] : '1,850 $unit';
+      }
     }
   }
 
@@ -256,6 +339,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
         builder: (_) => RecordSessionScreen(
           initialActivityName: widget.activityName,
           startWithActivity: true,
+          initialCustomMetrics: _customMetrics,
         ),
       ),
     );
@@ -459,7 +543,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
 
         // 2. Date Range Filter Pills (Horizontal Scrolling)
         _buildDateRangePills(
-          pills: const ['Last 7 Days', 'Last 30 Days', 'This Year', 'All Time'],
+          pills: const ['Last 7 Days', 'Last 30 Days', 'This Year'],
         ),
         const SizedBox(height: 24),
 
@@ -541,18 +625,18 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
             ),
           ),
           const SizedBox(height: 18),
-          // Row 1: Sessions & Total Duration
+          // Standard Statistics: Total Sessions & Total Duration
           Row(
             children: [
               Expanded(
                 child: _buildOverviewMetricItem(
-                  title: 'Sessions',
+                  title: 'Total Sessions',
                   value: '48',
                   valueSize: 24,
                   onTap: () => _showMetricBreakdown(
-                    'Sessions',
+                    'Total Sessions',
                     '48 completed',
-                    'Recorded across 6 active conditioning weeks.',
+                    'Recorded across active conditioning weeks.',
                   ),
                 ),
               ),
@@ -573,7 +657,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
           ),
           const SizedBox(height: 20),
 
-          // Row 2: Avg Duration & Longest Session
+          // Row 2: Avg Duration & Custom Metric Statistic
           Row(
             children: [
               Expanded(
@@ -584,58 +668,59 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                   onTap: () => _showMetricBreakdown(
                     'Avg Duration',
                     '1h 17m',
-                    'Average active swimming duration per workout session.',
+                    'Average active duration per workout session.',
                   ),
                 ),
               ),
               const SizedBox(width: 16),
-              Expanded(
-                child: _buildOverviewMetricItem(
-                  title: 'Longest Session',
-                  value: '2h 40m',
-                  valueSize: 20,
-                  onTap: () => _showMetricBreakdown(
-                    'Longest Session',
-                    '2h 40m',
-                    'Recorded on 10 Aug 2026 at Nordic fjord open water course.',
+              if (_customMetrics.isNotEmpty)
+                Expanded(
+                  child: _buildOverviewMetricItem(
+                    title: 'Avg ${_customMetrics.first.name}',
+                    value: _customMetrics.first.name.toLowerCase().contains('distance')
+                        ? '1,850 m'
+                        : _customMetrics.first.name.toLowerCase().contains('speed')
+                            ? '18.4 mph'
+                            : _customMetrics.first.name.toLowerCase().contains('load')
+                                ? '16.5 kg'
+                                : '10 ${_customMetrics.first.unit}',
+                    valueSize: 20,
+                    onTap: () => _showMetricBreakdown(
+                      'Avg ${_customMetrics.first.name}',
+                      'Recorded custom performance metric.',
+                      'Calculated average across all completed sessions.',
+                    ),
                   ),
-                ),
-              ),
+                )
+              else
+                const Expanded(child: SizedBox.shrink()),
             ],
           ),
-          const SizedBox(height: 20),
-
-          // Row 3: Current Streak & Longest Streak
-          Row(
-            children: [
-              Expanded(
-                child: _buildOverviewMetricItem(
-                  title: 'Current Streak',
-                  value: '12 Days',
-                  valueColor: _mint,
-                  valueSize: 22,
-                  onTap: () => _showMetricBreakdown(
-                    'Current Streak',
-                    '12 Consecutive Days',
-                    'Target weekly frequency maintained without skipped sessions.',
+          if (_customMetrics.length > 1) ...[
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildOverviewMetricItem(
+                    title: 'Max ${_customMetrics[1].name}',
+                    value: _customMetrics[1].name.toLowerCase().contains('incline')
+                        ? '8%'
+                        : _customMetrics[1].name.toLowerCase().contains('reps')
+                            ? '15 reps'
+                            : '20 ${_customMetrics[1].unit}',
+                    valueSize: 20,
+                    onTap: () => _showMetricBreakdown(
+                      'Max ${_customMetrics[1].name}',
+                      'Peak performance value',
+                      'Highest recorded ${_customMetrics[1].name} for this activity.',
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: _buildOverviewMetricItem(
-                  title: 'Longest Streak',
-                  value: '31 Days',
-                  valueSize: 22,
-                  onTap: () => _showMetricBreakdown(
-                    'Longest Streak',
-                    '31 Consecutive Days',
-                    'Peak training consistency reached in June 2026.',
-                  ),
-                ),
-              ),
-            ],
-          ),
+                const SizedBox(width: 16),
+                const Expanded(child: SizedBox.shrink()),
+              ],
+            ),
+          ],
         ],
       ),
     );
@@ -699,14 +784,89 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'ACTIVITY TREND',
-                style: TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.05,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'ACTIVITY TREND',
+                    style: TextStyle(
+                      color: _stoneGrey,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.05,
+                    ),
+                  ),
+                  if (_customMetrics.isNotEmpty) ...[
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            if (_selectedTrendMetric != 'Sessions') {
+                              setState(() {
+                                _selectedTrendMetric = 'Sessions';
+                                _chartAnimController.reset();
+                                _chartAnimController.forward();
+                              });
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: _selectedTrendMetric == 'Sessions'
+                                  ? _forest
+                                  : _surfaceHigh,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              'Sessions',
+                              style: TextStyle(
+                                color: _selectedTrendMetric == 'Sessions'
+                                    ? _offWhite
+                                    : _stoneGrey,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        GestureDetector(
+                          onTap: () {
+                            if (_selectedTrendMetric != _customMetrics.first.name) {
+                              setState(() {
+                                _selectedTrendMetric = _customMetrics.first.name;
+                                _chartAnimController.reset();
+                                _chartAnimController.forward();
+                              });
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: _selectedTrendMetric == _customMetrics.first.name
+                                  ? _forest
+                                  : _surfaceHigh,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              _customMetrics.first.name,
+                              style: TextStyle(
+                                color: _selectedTrendMetric == _customMetrics.first.name
+                                    ? _offWhite
+                                    : _stoneGrey,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
               ),
               // Interval selector pill (D, W, M, Y)
               Container(
@@ -770,7 +930,9 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                     minX: 0,
                     maxX: (points.length - 1).toDouble(),
                     minY: 0,
-                    maxY: 45,
+                    maxY: _selectedTrendMetric == 'Sessions'
+                        ? (_selectedInterval == 'Y' ? 55 : 16)
+                        : (_selectedInterval == 'Y' ? 35000 : 2200),
                     lineTouchData: LineTouchData(
                       enabled: true,
                       handleBuiltInTouches: true,
@@ -822,23 +984,41 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                       leftTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
-                          reservedSize: 28,
-                          interval: 20,
+                          reservedSize: 32,
+                          interval: _selectedTrendMetric == 'Sessions'
+                              ? (_selectedInterval == 'Y' ? 20 : 5)
+                              : (_selectedInterval == 'Y' ? 10000 : 1000),
                           getTitlesWidget: (val, meta) {
-                            if (val == 0) {
-                              return const Text('0h',
-                                  style:
-                                      TextStyle(color: _stoneGrey, fontSize: 10));
-                            }
-                            if (val == 20) {
-                              return const Text('20h',
-                                  style:
-                                      TextStyle(color: _stoneGrey, fontSize: 10));
-                            }
-                            if (val == 40) {
-                              return const Text('40h',
-                                  style:
-                                      TextStyle(color: _stoneGrey, fontSize: 10));
+                            if (_selectedTrendMetric == 'Sessions') {
+                              if (_selectedInterval == 'Y') {
+                                if (val == 0 || val == 20 || val == 40) {
+                                  return Text('${val.toInt()}',
+                                      style: const TextStyle(
+                                          color: _stoneGrey, fontSize: 10));
+                                }
+                              } else {
+                                if (val == 0 || val == 5 || val == 10 || val == 15) {
+                                  return Text('${val.toInt()}',
+                                      style: const TextStyle(
+                                          color: _stoneGrey, fontSize: 10));
+                                }
+                              }
+                            } else {
+                              if (val == 0) {
+                                return const Text('0',
+                                    style: TextStyle(
+                                        color: _stoneGrey, fontSize: 10));
+                              }
+                              if (val == 1000 || val == 10000) {
+                                return const Text('1k',
+                                    style: TextStyle(
+                                        color: _stoneGrey, fontSize: 10));
+                              }
+                              if (val == 2000 || val == 20000) {
+                                return const Text('2k',
+                                    style: TextStyle(
+                                        color: _stoneGrey, fontSize: 10));
+                              }
                             }
                             return const SizedBox.shrink();
                           },
@@ -931,7 +1111,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
         ),
         const SizedBox(height: 24),
 
-        // 2. Metrics Placeholder Card (6 empty items with dashes)
+        // 2. Metrics Placeholder Card (Aligned with custom S&C metrics)
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
@@ -942,10 +1122,22 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
           child: Column(
             children: [
               _buildEmptyMetricRow('Total Sessions', 'Total Duration'),
-              const SizedBox(height: 24),
-              _buildEmptyMetricRow('Avg. Pace', 'Max Distance'),
-              const SizedBox(height: 24),
-              _buildEmptyMetricRow('Calories', 'Avg. Heart Rate'),
+              if (_customMetrics.isNotEmpty) ...[
+                const SizedBox(height: 24),
+                for (int i = 0; i < _customMetrics.length; i += 2) ...[
+                  if (i > 0) const SizedBox(height: 24),
+                  if (i + 1 < _customMetrics.length)
+                    _buildEmptyMetricRow(
+                      'Avg ${_customMetrics[i].name}',
+                      'Max ${_customMetrics[i + 1].name}',
+                    )
+                  else
+                    _buildEmptyMetricRow(
+                      'Avg ${_customMetrics[i].name}',
+                      'Max ${_customMetrics[i].name}',
+                    ),
+                ],
+              ],
             ],
           ),
         ),

@@ -54,7 +54,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
     
     final bool allReqsMet = hasLength && hasUpper && hasLower && hasNumber && hasSpecial;
     
-    return isNotEmpty && allReqsMet && passwordsMatch;
+    return isNotEmpty && strongEnough && allReqsMet && passwordsMatch;
   }
 
   void _handleUpdatePassword() {
@@ -91,7 +91,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     'assets/images/brand.png',
                     width: 80,
                     height: 80,
-                    errorBuilder: (_, __, ___) => const SizedBox(height: 80),
+                    errorBuilder: (_, error, stackTrace) => const SizedBox(height: 80),
                   ),
                 ),
               ),
@@ -150,10 +150,10 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                         fontSize: 15,
                       ),
                       decoration: InputDecoration(
-                        hintText: 'Enter your new password',
+                        hintText: 'Enter new password',
                         hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
-                        fillColor: Colors.white.withOpacity(0.04),
+                        fillColor: Colors.white.withValues(alpha: 0.04),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -216,7 +216,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                         hintText: 'Confirm your new password',
                         hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
-                        fillColor: Colors.white.withOpacity(0.04),
+                        fillColor: Colors.white.withValues(alpha: 0.04),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -254,8 +254,8 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryForestGreen,
                         foregroundColor: AppColors.primaryTextOffWhite,
-                        disabledBackgroundColor: AppColors.primaryForestGreen.withOpacity(0.3),
-                        disabledForegroundColor: AppColors.primaryTextOffWhite.withOpacity(0.4),
+                        disabledBackgroundColor: AppColors.primaryForestGreen.withValues(alpha: 0.3),
+                        disabledForegroundColor: AppColors.primaryTextOffWhite.withValues(alpha: 0.4),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),

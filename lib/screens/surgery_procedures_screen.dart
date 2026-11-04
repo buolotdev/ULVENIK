@@ -158,7 +158,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
 
   // Chart state
   int _selectedChartWeekIndex = 4; // defaults to week 8 (65%)
-  bool _showChart = true;
+  bool _showChart = false;
 
   int _dogIndex = 0;
   final List<DogProfile> _dogs = const [
@@ -1568,78 +1568,71 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
   // Recovery Progress Bar
   // ------------------------------------------
   Widget _buildProgressBar(ProcedureRecord p) {
-    final pctInt = (p.recoveryProgress * 100).toInt();
+    if (p.status == ProcedureStatus.fullyRecovered) {
+      return const SizedBox.shrink();
+    }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'RECOVERY PROGRESS',
+    String timeText;
+    if (p.title.contains('TPLO')) {
+      timeText = 'Recovery: Week 6';
+    } else if (p.title.contains('GDV') || p.title.contains('Gastric')) {
+      timeText = '45 days since procedure';
+    } else {
+      final now = DateTime.now();
+      final diff = now.isAfter(p.date) ? now.difference(p.date) : const Duration(days: 42);
+      final days = diff.inDays == 0 ? 1 : diff.inDays;
+      if (days >= 28) {
+        timeText = 'Recovery: Week ${(days / 7).round()}';
+      } else {
+        timeText = '$days days since procedure';
+      }
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1D201F),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.schedule, size: 14, color: _mint),
+              const SizedBox(width: 8),
+              Text(
+                timeText,
+                style: const TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primaryTextOffWhite,
+                ),
+              ),
+            ],
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            decoration: BoxDecoration(
+              color: p.status.color.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: p.status.color.withValues(alpha: 0.3)),
+            ),
+            child: Text(
+              p.status.label.toUpperCase(),
               style: TextStyle(
                 fontFamily: 'Inter',
-                fontSize: 11,
+                fontSize: 10,
                 fontWeight: FontWeight.w700,
-                letterSpacing: 0.55,
-                color: AppColors.secondaryTextStoneGrey,
+                color: p.status.color,
+                letterSpacing: 0.4,
               ),
             ),
-            Row(
-              children: [
-                Text(
-                  '$pctInt%',
-                  style: const TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: _forest,
-                  ),
-                ),
-                if (p.progressNote != null) ...[
-                  const SizedBox(width: 8),
-                  Text(
-                    p.progressNote!,
-                    style: const TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: _forest,
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        Container(
-          height: 4,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: const Color(0xFF1D201F),
-            borderRadius: BorderRadius.circular(4),
           ),
-          alignment: Alignment.centerLeft,
-          child: AnimatedBuilder(
-            animation: _anim,
-            builder: (context, child) {
-              final progress = (p.recoveryProgress * Curves.easeOutCubic.transform(_anim.value)).clamp(0.0, 1.0);
-              return FractionallySizedBox(
-                widthFactor: progress,
-                child: Container(
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: _forest,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -1955,7 +1948,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Keep a permanent record of every surgical procedure and hospital visit.',
+              'Keep a permanent record of your dog’s surgeries, procedures, implants and related information.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -1994,23 +1987,6 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                   SizedBox(width: 4),
                   Icon(Icons.arrow_forward, color: AppColors.primaryTextOffWhite, size: 18),
                 ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          // Learn text link
-          Center(
-            child: TextButton(
-              onPressed: _showLearnSheet,
-              child: const Text(
-                'Learn about Surgery & Procedures',
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: _mint,
-                ),
               ),
             ),
           ),
@@ -2490,6 +2466,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
     DateTime selectedDate = DateTime.now();
     bool isMajor = true;
     double progress = 0.50;
+    ProcedureStatus selectedStatus = ProcedureStatus.recovering;
 
     _showSheet((ctx) => StatefulBuilder(
           builder: (modalCtx, setModalState) {
@@ -2603,14 +2580,36 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                       ),
                       const SizedBox(height: 14),
                       _buildFormField(
-                        label: 'RECOVERY PROGRESS (${(progress * 100).toInt()}%)',
-                        child: Slider(
-                          value: progress,
-                          min: 0.0,
-                          max: 1.0,
-                          activeColor: _mint,
-                          inactiveColor: Colors.white10,
-                          onChanged: (v) => setModalState(() => progress = v),
+                        label: 'RECOVERY STAGE / STATUS',
+                        child: Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [
+                            ChoiceChip(
+                              label: const Text('Recovering'),
+                              selected: selectedStatus == ProcedureStatus.recovering,
+                              selectedColor: _forest,
+                              onSelected: (v) => setModalState(() => selectedStatus = ProcedureStatus.recovering),
+                            ),
+                            ChoiceChip(
+                              label: const Text('Rehabilitation'),
+                              selected: selectedStatus == ProcedureStatus.rehabilitation,
+                              selectedColor: _forest,
+                              onSelected: (v) => setModalState(() => selectedStatus = ProcedureStatus.rehabilitation),
+                            ),
+                            ChoiceChip(
+                              label: const Text('Fully Recovered'),
+                              selected: selectedStatus == ProcedureStatus.fullyRecovered,
+                              selectedColor: _forest,
+                              onSelected: (v) => setModalState(() => selectedStatus = ProcedureStatus.fullyRecovered),
+                            ),
+                            ChoiceChip(
+                              label: const Text('Scheduled'),
+                              selected: selectedStatus == ProcedureStatus.scheduled,
+                              selectedColor: _forest,
+                              onSelected: (v) => setModalState(() => selectedStatus = ProcedureStatus.scheduled),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 14),
@@ -2631,11 +2630,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                             id: 'p_${DateTime.now().millisecondsSinceEpoch}',
                             title: titleCtrl.text.trim(),
                             category: isMajor ? 'ORTHOPAEDIC SURGERY' : 'MINOR PROCEDURE',
-                            status: progress >= 1.0
-                                ? ProcedureStatus.fullyRecovered
-                                : (progress > 0.7
-                                    ? ProcedureStatus.rehabilitation
-                                    : ProcedureStatus.recovering),
+                            status: selectedStatus,
                             date: selectedDate,
                             practice: practiceCtrl.text.trim().isEmpty
                                 ? 'Nordic Veterinary Specialists'
@@ -2736,46 +2731,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
     );
   }
 
-  // ------------------------------------------
-  // Educational Sheet (Learn about procedures)
-  // ------------------------------------------
-  void _showLearnSheet() {
-    _showSheet((ctx) => SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildSheetHeader(ctx, 'Surgery & Procedures in Ulvenik'),
-                const SizedBox(height: 12),
-                const Text(
-                  'Keep a complete permanent surgical ledger for your dog:\n\n'
-                  '• Track anesthesia notes, recovery timelines, and surgical implants.\n'
-                  '• Follow milestone protocols like 12-week TPLO recovery curves.\n'
-                  '• Link surgeries directly to active injuries or physiotherapy plans.\n'
-                  '• Export verifiable hospital records directly to veterinarians or insurance.',
-                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.55),
-                ),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pop(ctx),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _forest,
-                      foregroundColor: AppColors.primaryTextOffWhite,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                    child: const Text('Got It', style: TextStyle(fontWeight: FontWeight.w600)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ));
-  }
+
 
   void _showFollowUpDetail(ProcedureRecord p) {
     _showSheet((ctx) => SafeArea(

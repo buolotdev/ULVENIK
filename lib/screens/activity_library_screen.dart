@@ -5,6 +5,31 @@ import 'activity_details_screen.dart';
 import 'create_activity_screen.dart';
 import '../widgets/custom_snackbar.dart';
 
+class CustomActivityMetric {
+  final String id;
+  final String name;
+  final String unit;
+
+  const CustomActivityMetric({
+    required this.id,
+    required this.name,
+    required this.unit,
+  });
+
+  Map<String, dynamic> toMap() => {
+        'id': id,
+        'name': name,
+        'unit': unit,
+      };
+
+  factory CustomActivityMetric.fromMap(Map<String, dynamic> map) =>
+      CustomActivityMetric(
+        id: map['id'] ?? '',
+        name: map['name'] ?? '',
+        unit: map['unit'] ?? '',
+      );
+}
+
 class LibraryActivityItem {
   final String id;
   String name;
@@ -18,6 +43,7 @@ class LibraryActivityItem {
   String equipment;
   int defaultDurationMinutes;
   Color color;
+  final List<CustomActivityMetric> customMetrics;
 
   LibraryActivityItem({
     required this.id,
@@ -32,6 +58,7 @@ class LibraryActivityItem {
     required this.equipment,
     this.defaultDurationMinutes = 25,
     this.color = const Color(0xFF2E6B57),
+    this.customMetrics = const [],
   });
 
   LibraryActivityItem copyWith({
@@ -46,6 +73,7 @@ class LibraryActivityItem {
     String? equipment,
     int? defaultDurationMinutes,
     Color? color,
+    List<CustomActivityMetric>? customMetrics,
   }) {
     return LibraryActivityItem(
       id: id,
@@ -61,6 +89,7 @@ class LibraryActivityItem {
       defaultDurationMinutes:
           defaultDurationMinutes ?? this.defaultDurationMinutes,
       color: color ?? this.color,
+      customMetrics: customMetrics ?? this.customMetrics,
     );
   }
 }
@@ -86,8 +115,6 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
   static const _muted = Color(0xFFA7B0AB);
   static const _textVariant = Color(0xFFBFC9C3);
 
-  static final _hairlineSide =
-      BorderSide(color: Colors.white.withValues(alpha: 0.08));
   static final _hairlineBorder =
       Border.all(color: Colors.white.withValues(alpha: 0.08));
 
@@ -149,6 +176,9 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
         category: 'Water Work',
         equipment: 'Canine Floatation Vest & Line',
         defaultDurationMinutes: 30,
+        customMetrics: const [
+          CustomActivityMetric(id: 'm-swim-1', name: 'Distance', unit: 'metres'),
+        ],
       ),
       LibraryActivityItem(
         id: 'act-2',
@@ -162,6 +192,10 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
         category: 'Running',
         equipment: 'Dog Slatmill / Motorized Treadmill',
         defaultDurationMinutes: 20,
+        customMetrics: const [
+          CustomActivityMetric(id: 'm-tread-1', name: 'Speed', unit: 'mph'),
+          CustomActivityMetric(id: 'm-tread-2', name: 'Incline', unit: '%'),
+        ],
       ),
       LibraryActivityItem(
         id: 'act-3',
@@ -175,6 +209,10 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
         category: 'Strength',
         equipment: 'Weighted Saddlebags (2.5kg)',
         defaultDurationMinutes: 35,
+        customMetrics: const [
+          CustomActivityMetric(id: 'm-wc-1', name: 'Load', unit: 'kg'),
+          CustomActivityMetric(id: 'm-wc-2', name: 'Repetitions', unit: 'reps'),
+        ],
       ),
       LibraryActivityItem(
         id: 'act-4',
@@ -293,9 +331,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
       case 'Most Sessions':
         list.sort((a, b) => b.sessionCount.compareTo(a.sessionCount));
         break;
-      case 'Highest Streak':
-        list.sort((a, b) => (b.streakDays ?? 0).compareTo(a.streakDays ?? 0));
-        break;
+
       case 'Recently Used':
       default:
         // Keep initial mock order
@@ -419,30 +455,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
     );
   }
 
-  void _showLearnDialog() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: _carbon,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
-          side: _hairlineSide,
-        ),
-        title: const Text('Activity Library',
-            style: TextStyle(color: _offWhite, fontSize: 18)),
-        content: const Text(
-          'The Activity Library contains predefined and customized strength, power, sprint, and conditioning exercises.\n\nEach activity tracks completed sessions, streaks, and load volume to help ensure safe progressive overload for your dog.',
-          style: TextStyle(color: _muted, fontSize: 13, height: 1.5),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Got it', style: TextStyle(color: _mint)),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -545,7 +558,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
             ),
             const SizedBox(height: 12),
             const Text(
-              "Create your first Strength & Conditioning activity to begin building your dog's personalised conditioning programme.",
+              "Create your first Strength & Conditioning activity to start building your dog’s personalised activity library.",
               style: TextStyle(
                 color: _muted,
                 fontSize: 14,
@@ -585,29 +598,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            InkWell(
-              onTap: _showLearnDialog,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Learn about the Activity Library',
-                      style: TextStyle(
-                        color: _mint,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(width: 4),
-                    Icon(Icons.arrow_forward, size: 16, color: _mint),
-                  ],
-                ),
-              ),
-            ),
+
           ],
         ),
       ),
@@ -696,7 +687,6 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
       'Recently Used',
       'Alphabetical',
       'Most Sessions',
-      'Highest Streak',
     ];
 
     return SingleChildScrollView(
@@ -1086,26 +1076,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                                 fontSize: 12,
                               ),
                             ),
-                            if (act.streakDays != null)
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.local_fire_department,
-                                    color: _mint,
-                                    size: 14,
-                                  ),
-                                  const SizedBox(width: 2),
-                                  Text(
-                                    '${act.streakDays} Day Streak',
-                                    style: const TextStyle(
-                                      color: _mint,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
+
                           ],
                         ),
                       ],
@@ -1230,26 +1201,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                                 fontSize: 12,
                               ),
                             ),
-                            if (act.streakDays != null)
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    Icons.local_fire_department,
-                                    color: _mint,
-                                    size: 14,
-                                  ),
-                                  const SizedBox(width: 2),
-                                  Text(
-                                    '${act.streakDays} Day Streak',
-                                    style: const TextStyle(
-                                      color: _mint,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
+
                           ],
                         ),
                       ],

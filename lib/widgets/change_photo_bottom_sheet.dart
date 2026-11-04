@@ -1,260 +1,322 @@
 import 'package:flutter/material.dart';
 import '../screens/image_editor_screen.dart';
+import '../theme/app_colors.dart';
 
-// ─── Design Tokens ──────────────────────────────────────────────────────────
-const Color _carbon = Color(0xFF1A1F22);
-const Color _cardBorder = Color(0x14FFFFFF);
-const Color _forest = Color(0xFF2E6B57);
-const Color _mint = Color(0xFFAAE9D0);
-const Color _offWhite = Color(0xFFF5F6F2);
-const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _red = Color(0xFFE53E3E);
+enum ChangePhotoSheetAction {
+  takePhoto,
+  chooseFromLibrary,
+  removePhoto,
+  cancel,
+}
 
-class ChangePhotoBottomSheet extends StatefulWidget {
-  final bool initialEmpty;
-  final String title;
+class ChangePhotoSheetResult {
+  final ChangePhotoSheetAction action;
+  final ImageEditorResult? editorResult;
+
+  const ChangePhotoSheetResult({
+    required this.action,
+    this.editorResult,
+  });
+}
+
+class ChangePhotoBottomSheet extends StatelessWidget {
+  final String currentAssetPath;
+  final bool hasActivePhoto;
+  final String initials;
+  final int quarterTurns;
+  final double zoom;
+  final VoidCallback onTakePhoto;
+  final VoidCallback onChooseFromLibrary;
+  final VoidCallback? onRemovePhoto;
+  final VoidCallback onCancel;
 
   const ChangePhotoBottomSheet({
     super.key,
-    this.initialEmpty = false,
-    this.title = 'Change Profile Photo',
+    this.currentAssetPath = 'assets/images/handler_profile_photo.jpg',
+    this.hasActivePhoto = true,
+    this.initials = 'AK',
+    this.quarterTurns = 0,
+    this.zoom = 1.0,
+    required this.onTakePhoto,
+    required this.onChooseFromLibrary,
+    this.onRemovePhoto,
+    required this.onCancel,
   });
 
-  static Future<bool?> show(
+  /// Shows the modal Change Photo bottom sheet on the root navigator and
+  /// returns the selected [ChangePhotoSheetResult] (including any cropped
+  /// [ImageEditorResult] returned from [ImageEditorScreen]).
+  static Future<ChangePhotoSheetResult?> show(
     BuildContext context, {
-    bool initialEmpty = false,
-    String title = 'Change Profile Photo',
-  }) {
-    return showModalBottomSheet<bool>(
+    String currentAssetPath = 'assets/images/handler_profile_photo.jpg',
+    bool hasActivePhoto = true,
+    String initials = 'AK',
+    int quarterTurns = 0,
+    double zoom = 1.0,
+  }) async {
+    final rootNav = Navigator.of(context, rootNavigator: true);
+
+    final pickedAction = await showModalBottomSheet<ChangePhotoSheetAction>(
       context: context,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (_) => ChangePhotoBottomSheet(
-        initialEmpty: initialEmpty,
-        title: title,
-      ),
+      useRootNavigator: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      barrierColor: Colors.black.withValues(alpha: 0.64),
+      builder: (sheetCtx) {
+        return ChangePhotoBottomSheet(
+          currentAssetPath: currentAssetPath,
+          hasActivePhoto: hasActivePhoto,
+          initials: initials,
+          quarterTurns: quarterTurns,
+          zoom: zoom,
+          onTakePhoto: () =>
+              Navigator.of(sheetCtx).pop(ChangePhotoSheetAction.takePhoto),
+          onChooseFromLibrary: () => Navigator.of(sheetCtx).pop(
+            ChangePhotoSheetAction.chooseFromLibrary,
+          ),
+          onRemovePhoto: hasActivePhoto
+              ? () => Navigator.of(sheetCtx).pop(
+                    ChangePhotoSheetAction.removePhoto,
+                  )
+              : null,
+          onCancel: () =>
+              Navigator.of(sheetCtx).pop(ChangePhotoSheetAction.cancel),
+        );
+      },
     );
-  }
 
-  @override
-  State<ChangePhotoBottomSheet> createState() => _ChangePhotoBottomSheetState();
-}
-
-class _ChangePhotoBottomSheetState extends State<ChangePhotoBottomSheet> {
-  late bool _isEmpty;
-
-  @override
-  void initState() {
-    super.initState();
-    _isEmpty = widget.initialEmpty;
-  }
-
-  void _openImageEditor() async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const ImageEditorScreen()),
-    );
-    if (!mounted) return;
-    if (result == true) {
-      Navigator.pop(context, true);
+    if (pickedAction == null || pickedAction == ChangePhotoSheetAction.cancel) {
+      return const ChangePhotoSheetResult(
+        action: ChangePhotoSheetAction.cancel,
+      );
     }
+
+    if (pickedAction == ChangePhotoSheetAction.removePhoto) {
+      return const ChangePhotoSheetResult(
+        action: ChangePhotoSheetAction.removePhoto,
+      );
+    }
+
+    final targetAsset = pickedAction == ChangePhotoSheetAction.takePhoto
+        ? 'assets/images/photo_viewer_1.jpg'
+        : (hasActivePhoto
+            ? currentAssetPath
+            : 'assets/images/handler_profile_photo.jpg');
+
+    final edited = await rootNav.push<ImageEditorResult>(
+      MaterialPageRoute(
+        builder: (_) => ImageEditorScreen(
+          initialAssetPath: targetAsset,
+          initialQuarterTurns:
+              pickedAction == ChangePhotoSheetAction.takePhoto
+                  ? 0
+                  : quarterTurns,
+          initialZoom:
+              pickedAction == ChangePhotoSheetAction.takePhoto ? 1.0 : zoom,
+        ),
+      ),
+    );
+
+    if (edited == null) {
+      return const ChangePhotoSheetResult(
+        action: ChangePhotoSheetAction.cancel,
+      );
+    }
+
+    return ChangePhotoSheetResult(
+      action: pickedAction,
+      editorResult: edited,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Handle bar
-            Center(
-              child: Container(
+    return Container(
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        color: AppColors.cardsCarbon,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        border: Border(
+          top: BorderSide(color: AppColors.cardBorder, width: 1),
+        ),
+      ),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 12, 24, 18),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
-                  borderRadius: BorderRadius.circular(2),
+                  color: AppColors.secondaryTextStoneGrey.withValues(
+                    alpha: 0.32,
+                  ),
+                  borderRadius: BorderRadius.circular(999),
                 ),
               ),
-            ),
-            const SizedBox(height: 18),
-
-            // Header & Empty State Toggle
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  widget.title,
-                  style: const TextStyle(
-                    color: _offWhite,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Inter',
-                  ),
+              const SizedBox(height: 18),
+              const Text(
+                'Profile Photo',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 18.5,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.primaryTextOffWhite,
                 ),
-                IconButton(
-                  tooltip: 'Toggle Empty / Existing Photo State',
-                  icon: Icon(
-                    _isEmpty ? Icons.visibility : Icons.visibility_off_outlined,
-                    color: _mint,
-                    size: 20,
-                  ),
-                  onPressed: () => setState(() => _isEmpty = !_isEmpty),
+              ),
+              const SizedBox(height: 18),
+              _buildAvatarPreview(),
+              const SizedBox(height: 12),
+              Text(
+                hasActivePhoto ? 'CURRENT ACTIVE' : 'NO PHOTO SET',
+                style: const TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.2,
+                  color: AppColors.secondaryTextStoneGrey,
+                ),
+              ),
+              const SizedBox(height: 20),
+              _buildActionRow(
+                icon: Icons.photo_camera_outlined,
+                iconColor: AppColors.secondarySage,
+                label: 'Take Photo',
+                labelColor: AppColors.primaryTextOffWhite,
+                onTap: onTakePhoto,
+              ),
+              Container(height: 1, color: AppColors.cardBorder),
+              _buildActionRow(
+                icon: Icons.collections_outlined,
+                iconColor: AppColors.secondarySage,
+                label: 'Choose from Photo Library',
+                labelColor: AppColors.primaryTextOffWhite,
+                onTap: onChooseFromLibrary,
+              ),
+              if (hasActivePhoto && onRemovePhoto != null) ...[
+                Container(height: 1, color: AppColors.cardBorder),
+                _buildActionRow(
+                  icon: Icons.delete_outline_rounded,
+                  iconColor: const Color(0xFF9E4747),
+                  label: 'Remove Current Photo',
+                  labelColor: const Color(0xFF9E4747),
+                  onTap: onRemovePhoto!,
                 ),
               ],
-            ),
-            const SizedBox(height: 14),
-
-            // Photo Preview Strip
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color(0xFF131718),
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(color: _cardBorder),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _isEmpty ? _carbon : _forest,
-                      border: Border.all(color: _isEmpty ? _stoneGrey : _mint, width: 2),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        _isEmpty ? Icons.person_outline : Icons.pets,
-                        color: _isEmpty ? _stoneGrey : _mint,
-                        size: 24,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          _isEmpty ? 'No Profile Photo Set' : 'Current Active Portrait',
-                          style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w700),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          _isEmpty
-                              ? 'Tap an option below to upload an image.'
-                              : 'Recommended minimum: 800 x 800 px (1:1).',
-                          style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 18),
-
-            // Action Options
-            _buildActionOption(
-              icon: Icons.camera_alt_outlined,
-              title: 'Take Photo',
-              subtitle: 'Capture new canine photo using camera',
-              onTap: _openImageEditor,
-            ),
-            const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 48),
-            _buildActionOption(
-              icon: Icons.photo_library_outlined,
-              title: 'Choose from Photo Library',
-              subtitle: 'Select from device photo album',
-              onTap: _openImageEditor,
-            ),
-            const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 48),
-            _buildActionOption(
-              icon: Icons.perm_media_outlined,
-              title: 'Select from Canine Media Assets',
-              subtitle: 'Choose from uploaded 4K drill snapshots',
-              onTap: _openImageEditor,
-            ),
-
-            if (!_isEmpty) ...[
-              const Divider(color: Color(0x0FFFFFFF), height: 1, indent: 48),
-              _buildActionOption(
-                icon: Icons.delete_outline,
-                title: 'Remove Current Photo',
-                subtitle: 'Revert to initial avatar placeholder',
-                isDestructive: true,
-                onTap: () {
-                  setState(() => _isEmpty = true);
-                  Navigator.pop(context, true);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Profile photo removed.'),
-                      backgroundColor: _forest,
-                    ),
-                  );
-                },
+              Container(height: 1, color: AppColors.cardBorder),
+              _buildActionRow(
+                icon: Icons.close_rounded,
+                iconColor: AppColors.secondaryTextStoneGrey,
+                label: 'Cancel',
+                labelColor: AppColors.secondaryTextStoneGrey,
+                onTap: onCancel,
               ),
             ],
-            const SizedBox(height: 8),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildActionOption({
+  Widget _buildAvatarPreview() {
+    return SizedBox(
+      width: 90,
+      height: 90,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            width: 88,
+            height: 88,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFF222526),
+              border: Border.all(
+                color: hasActivePhoto
+                    ? AppColors.primaryForestGreen
+                    : AppColors.cardBorder,
+                width: 2.2,
+              ),
+            ),
+            child: ClipOval(
+              child: hasActivePhoto
+                  ? Transform.scale(
+                      scale: zoom,
+                      child: RotatedBox(
+                        quarterTurns: quarterTurns,
+                        child: Image.asset(
+                          currentAssetPath,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : Center(
+                      child: Text(
+                        initials,
+                        style: const TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.primaryTextOffWhite,
+                        ),
+                      ),
+                    ),
+            ),
+          ),
+          if (hasActivePhoto)
+            Positioned(
+              right: 2,
+              bottom: 2,
+              child: Container(
+                width: 18,
+                height: 18,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryForestGreen,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColors.cardsCarbon,
+                    width: 2.2,
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionRow({
     required IconData icon,
-    required String title,
-    required String subtitle,
-    bool isDestructive = false,
+    required Color iconColor,
+    required String label,
+    required Color labelColor,
     required VoidCallback onTap,
   }) {
-    final color = isDestructive ? _red : _offWhite;
-
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(10),
         onTap: onTap,
+        borderRadius: BorderRadius.circular(10),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 4),
           child: Row(
             children: [
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: isDestructive ? _red.withValues(alpha: 0.15) : _mint.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(icon, color: isDestructive ? _red : _mint, size: 20),
-              ),
-              const SizedBox(width: 14),
+              Icon(icon, size: 20, color: iconColor),
+              const SizedBox(width: 16),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Inter',
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 11)),
-                  ],
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 15.5,
+                    fontWeight: FontWeight.w500,
+                    color: labelColor,
+                  ),
                 ),
               ),
-              const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
             ],
           ),
         ),

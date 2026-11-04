@@ -58,7 +58,6 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
   final FocusNode _searchFocusNode = FocusNode();
   String _searchQuery = '';
   String _filter = 'All';
-  int _animKey = 0; // bump to replay the animated gauge
 
   int _dogIndex = 0;
   final List<DogProfile> _dogs = const [
@@ -123,7 +122,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
       ),
       DentalRecord(
         id: 'd3',
-        title: 'Teeth Brushing Session',
+        title: 'Teeth Brushing',
         subtitle: 'Home Routine',
         kind: DentalKind.homeCare,
         date: DateTime(2026, 8, 20),
@@ -157,11 +156,17 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
     return list.isEmpty ? null : list.first.nextCheck;
   }
 
-  String get _oralStatus => _activeIssues > 0 ? 'Needs Attention' : 'Good';
+  String? _userOralHealthAssessment;
 
-  double get _oralScore {
-    var s = 0.9 - _activeIssues * 0.25 + _doneToday.length * 0.025;
-    return s.clamp(0.1, 1.0);
+  String get _oralStatus {
+    if (_userOralHealthAssessment != null) {
+      return _userOralHealthAssessment!;
+    }
+    if (_records.isNotEmpty) {
+      final sorted = List<DentalRecord>.from(_records)..sort((a, b) => b.date.compareTo(a.date));
+      return sorted.first.oralHealth;
+    }
+    return 'Good';
   }
 
   List<DentalRecord> get _visible {
@@ -241,7 +246,6 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
   void _setEmpty(bool v) {
     setState(() {
       _isEmpty = v;
-      _animKey++;
     });
   }
 
@@ -404,56 +408,28 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
     );
   }
 
-  /// Animated oral-health gauge (this screen has no chart, so the status
-  /// banner animates a score bar that is tappable for a breakdown).
+  /// Current user-entered oral health assessment banner (matches Figma layout).
   Widget _oralHealthBanner() {
-    final good = _activeIssues == 0;
-    final color = good ? _forest : const Color(0xFFB4823C);
+    final status = _oralStatus;
+    final isGood = status.toLowerCase() == 'good';
+    final isIssue = status.toLowerCase().contains('treatment') || status.toLowerCase().contains('attention');
+    final color = isGood ? _forest : (isIssue ? _red : const Color(0xFFB4823C));
     return InkWell(
-      onTap: _showOralBreakdown,
+      onTap: _showOralAssessmentSheet,
       borderRadius: BorderRadius.circular(12),
       child: _card(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Column(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('CURRENT ORAL HEALTH',
-                    style: TextStyle(
-                        color: AppColors.secondaryTextStoneGrey,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.6)),
-                Text(_oralStatus,
-                    style: TextStyle(color: good ? _forest : const Color(0xFFB4823C), fontSize: 13, fontWeight: FontWeight.w600)),
-              ],
-            ),
-            const SizedBox(height: 10),
-            TweenAnimationBuilder<double>(
-              key: ValueKey('$_animKey-${_oralScore.toStringAsFixed(2)}'),
-              tween: Tween(begin: 0, end: _oralScore),
-              duration: const Duration(milliseconds: 1100),
-              curve: Curves.easeOutCubic,
-              builder: (c, v, w) => Row(
-                children: [
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(3),
-                      child: LinearProgressIndicator(
-                        value: v,
-                        minHeight: 5,
-                        backgroundColor: AppColors.backgroundObsidian,
-                        valueColor: AlwaysStoppedAnimation(color),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Text('${(v * 100).round()}',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
-                ],
-              ),
-            ),
+            const Text('CURRENT ORAL HEALTH',
+                style: TextStyle(
+                    color: AppColors.secondaryTextStoneGrey,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.6)),
+            Text(status,
+                style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w600)),
           ],
         ),
       ),
@@ -697,7 +673,6 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                   child: InkWell(
                     onTap: () => setState(() {
                       done ? _doneToday.remove(t) : _doneToday.add(t);
-                      _animKey++;
                     }),
                     borderRadius: BorderRadius.circular(20),
                     child: AnimatedContainer(
@@ -801,7 +776,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Text(
-              "Keep a complete record of your dog's dental health — professional procedures, home care, and oral health history all in one place.",
+              'Keep track of your dog’s dental health, including professional procedures, home care and oral health records.',
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5),
             ),
@@ -816,14 +791,6 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
               alignment: Alignment.center,
               child: const Text('Add Dental Record',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
-            ),
-          ),
-          const SizedBox(height: 22),
-          Center(
-            child: GestureDetector(
-              onTap: _showLearnSheet,
-              child: const Text('Learn about Dental Care Tracking',
-                  style: TextStyle(color: _mint, fontSize: 14, fontWeight: FontWeight.w500)),
             ),
           ),
         ],
@@ -917,6 +884,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
     final sub = TextEditingController();
     final notes = TextEditingController();
     DentalKind kind = DentalKind.professional;
+    String selectedOralHealth = 'Good';
     bool followUp = false;
 
     _sheet((ctx) => StatefulBuilder(builder: (ctx, setM) {
@@ -950,6 +918,24 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                     const SizedBox(height: 12),
                     _field('VET / CLINIC / ROUTINE', sub, 'e.g. City Vets, Dr. Sarah Connell'),
                     const SizedBox(height: 12),
+                    const Text('ORAL HEALTH ASSESSMENT',
+                        style: TextStyle(
+                            color: AppColors.secondaryTextStoneGrey,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 0.5)),
+                    const SizedBox(height: 8),
+                    Wrap(spacing: 8, runSpacing: 8, children: [
+                      _chip('Good', selectedOralHealth == 'Good',
+                          () => setM(() => selectedOralHealth = 'Good'), color: _forest),
+                      _chip('Fair', selectedOralHealth == 'Fair',
+                          () => setM(() => selectedOralHealth = 'Fair'), color: const Color(0xFFB4823C)),
+                      _chip('Requires Treatment', selectedOralHealth == 'Requires Treatment',
+                          () => setM(() => selectedOralHealth = 'Requires Treatment'), color: _red),
+                      _chip('Under Observation', selectedOralHealth == 'Under Observation',
+                          () => setM(() => selectedOralHealth = 'Under Observation'), color: const Color(0xFFB4823C)),
+                    ]),
+                    const SizedBox(height: 14),
                     _field('NOTES', notes, 'Findings, treatment, advice...', lines: 3),
                     const SizedBox(height: 12),
                     Row(
@@ -976,7 +962,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                             : sub.text.trim(),
                         kind: kind,
                         date: DateTime.now(),
-                        oralHealth: isIssue ? 'Requires Treatment' : 'Good',
+                        oralHealth: selectedOralHealth,
                         nextCheck: isPro ? DateTime.now().add(const Duration(days: 180)) : null,
                         followUpRequired: followUp || isIssue,
                         notes: notes.text.trim(),
@@ -984,8 +970,8 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                       Navigator.pop(ctx);
                       setState(() {
                         _isEmpty = false;
+                        _userOralHealthAssessment = selectedOralHealth;
                         _records.insert(0, rec);
-                        _animKey++;
                       });
                     }),
                   ],
@@ -1038,7 +1024,6 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                           setState(() {
                             _records.removeWhere((x) => x.id == r.id);
                             if (_records.isEmpty) _isEmpty = true;
-                            _animKey++;
                           });
                         },
                         child: const Text('Delete', style: TextStyle(color: Color(0xFFFFB4AB))),
@@ -1059,7 +1044,6 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                               r.kind = DentalKind.professional;
                               r.oralHealth = 'Good';
                               r.followUpRequired = false;
-                              _animKey++;
                             });
                           }
                         },
@@ -1088,25 +1072,46 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
         ),
       );
 
-  void _showOralBreakdown() {
-    _sheet((ctx) => SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _sheetHeader(ctx, 'Oral Health Score'),
-                const SizedBox(height: 8),
-                _row('Baseline (last professional check)', '90'),
-                _row('Active issues', '-${_activeIssues * 25}'),
-                _row('Home care today', '+${(_doneToday.length * 2.5).toStringAsFixed(1)}'),
-                const Divider(color: Colors.white12),
-                _row('Current score', '${(_oralScore * 100).round()}'),
-                const SizedBox(height: 8),
-                const Text('Complete today\'s home care tasks and resolve active issues to raise the score.',
-                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12, height: 1.4)),
-              ],
+  void _showOralAssessmentSheet() {
+    String currentSelection = _oralStatus;
+    _sheet((ctx) => StatefulBuilder(
+          builder: (ctx, setM) => SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _sheetHeader(ctx, 'Current Oral Health Assessment'),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Select the current oral health assessment based on your observations or veterinary guidance.',
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.5),
+                  ),
+                  const SizedBox(height: 16),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      _chip('Good', currentSelection == 'Good',
+                          () => setM(() => currentSelection = 'Good'), color: _forest),
+                      _chip('Fair', currentSelection == 'Fair',
+                          () => setM(() => currentSelection = 'Fair'), color: const Color(0xFFB4823C)),
+                      _chip('Requires Treatment', currentSelection == 'Requires Treatment',
+                          () => setM(() => currentSelection = 'Requires Treatment'), color: _red),
+                      _chip('Under Observation', currentSelection == 'Under Observation',
+                          () => setM(() => currentSelection = 'Under Observation'), color: const Color(0xFFB4823C)),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  _primaryButton('Save Assessment', Icons.check, () {
+                    setState(() {
+                      _userOralHealthAssessment = currentSelection;
+                    });
+                    Navigator.pop(ctx);
+                  }),
+                ],
+              ),
             ),
           ),
         ));
@@ -1154,7 +1159,6 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                     onTap: () {
                       setState(() {
                         _dogIndex = i;
-                        _animKey++;
                       });
                       Navigator.pop(ctx);
                     },
@@ -1193,30 +1197,4 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
         ));
   }
 
-  void _showLearnSheet() {
-    _sheet((ctx) => SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _sheetHeader(ctx, 'Dental Care Tracking'),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Most dogs show signs of dental disease by age three. Logging professional cleanings, home care and issues like fractured teeth lets you spot trends early and keeps vets informed.',
-                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.5),
-                  ),
-                  const SizedBox(height: 14),
-                  const Text('• Professional: scale & polish, extractions, X-rays\n• Home care: brushing, chews, rinses, dental toys\n• Active issues: broken teeth, gum disease, abscesses',
-                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.6)),
-                  const SizedBox(height: 20),
-                  _primaryButton('Got It', Icons.check, () => Navigator.pop(ctx)),
-                ],
-              ),
-            ),
-          ),
-        ));
-  }
 }

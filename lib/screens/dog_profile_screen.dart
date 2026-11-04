@@ -1,3 +1,5 @@
+import 'media_library_screen.dart';
+import 'sport_pack_overview_screen.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import 'skills_list_screen.dart';
@@ -22,7 +24,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
   late TabController _tabController;
 
   static const List<String> _tabs = [
-    'Overview', 'Training Log', 'Statistics', 'Health', 'Awards'
+    'Overview', 'Training', 'S&C', 'Health', 'Sport', 'Media'
   ];
 
   @override
@@ -55,77 +57,20 @@ class _DogProfileScreenState extends State<DogProfileScreen>
         body: TabBarView(
           controller: _tabController,
           children: [
-            // Overview
+            // 1. Overview
             _buildScrollableContent(
               _hasData ? _buildPopulatedContent() : _buildEmptyContent(),
             ),
-            // Training Log
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.fitness_center_outlined, size: 48, color: Color(0xFF95D3BB)),
-                    const SizedBox(height: 16),
-                    const Text('Training & Conditioning', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
-                    const SizedBox(height: 8),
-                    const Text('Track physical load, intensity, and activities', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
-                    const SizedBox(height: 20),
-                    ElevatedButton.icon(
-                      icon: const Icon(Icons.fitness_center, size: 18),
-                      label: const Text('Open S&C Dashboard'),
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StrengthConditioningDashboardScreen())),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF2E6B57),
-                        foregroundColor: AppColors.primaryTextOffWhite,
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Statistics
-            StatisticsTab(hasData: _hasData),
-            // Health
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.monitor_heart_outlined, size: 48, color: Color(0xFF95d3bb)),
-                  const SizedBox(height: 16),
-                  const Text('Health Overview', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 16),
-                  Wrap(
-                    spacing: 12,
-                    runSpacing: 8,
-                    alignment: WrapAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthDashboardScreen())),
-                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2e6b57), foregroundColor: AppColors.primaryTextOffWhite),
-                        child: const Text('Open Health Dashboard'),
-                      ),
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.medical_services_outlined, size: 18, color: Color(0xFF95D3BB)),
-                        label: const Text('Health Categories', style: TextStyle(color: Color(0xFF95D3BB))),
-                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthScreen())),
-                        style: OutlinedButton.styleFrom(side: const BorderSide(color: Color(0xFF95D3BB))),
-                      ),
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.analytics_outlined, size: 18, color: Color(0xFF95D3BB)),
-                        label: const Text('Health Stats', style: TextStyle(color: Color(0xFF95D3BB))),
-                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthStatisticsScreen())),
-                        style: OutlinedButton.styleFrom(side: const BorderSide(color: Color(0xFF95D3BB))),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            // Awards
-            _buildComingSoonTab('Awards', Icons.emoji_events_outlined),
+            // 2. Training
+            _buildTrainingTab(),
+            // 3. S&C
+            _buildStrengthConditioningTab(),
+            // 4. Health
+            _buildHealthTab(),
+            // 5. Sport
+            _buildSportTab(),
+            // 6. Media
+            _buildMediaTab(),
           ],
         ),
       ),
@@ -141,35 +86,6 @@ class _DogProfileScreenState extends State<DogProfileScreen>
       ),
     );
   }
-
-  Widget _buildComingSoonTab(String name, IconData icon) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 40, color: AppColors.secondarySage),
-          const SizedBox(height: 16),
-          Text(
-            name,
-            style: const TextStyle(
-              color: AppColors.primaryTextOffWhite,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'Coming soon',
-            style: TextStyle(
-              color: AppColors.secondaryTextStoneGrey,
-              fontSize: 14,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
 
   Widget _buildSliverAppBar(bool innerBoxIsScrolled) {
     return SliverAppBar(
@@ -402,18 +318,18 @@ class _DogProfileScreenState extends State<DogProfileScreen>
       _buildEmptyCard(
         icon: Icons.fitness_center,
         title: 'No Training Sessions Recorded',
-        primaryButtonLabel: 'Start Training Session \u2192',
+        primaryButtonLabel: 'Record Training Session',
       ),
       const SizedBox(height: 12),
       _buildEmptyCard(
-        icon: Icons.track_changes,
-        title: 'No Active Goals',
-        primaryButtonLabel: 'Create Goal',
+        icon: Icons.fitness_center_outlined,
+        title: 'No S&C Sessions Recorded',
+        primaryButtonLabel: 'Record S&C Session',
       ),
       const SizedBox(height: 12),
       _buildEmptyCard(
         icon: Icons.calendar_today_outlined,
-        title: 'No upcoming activities scheduled.',
+        title: 'No Upcoming Activities',
         primaryButtonLabel: 'Create Reminder',
         secondaryButtonLabel: 'Schedule Session',
         isRowButtons: true,
@@ -522,11 +438,11 @@ class _DogProfileScreenState extends State<DogProfileScreen>
         ),
         child: Column(
           children: [
-            _buildFocusRow(Icons.medical_services_outlined, 'Metacam', '08:00 AM', 'Log', AppColors.errorDestructive),
+            _buildFocusRow(Icons.medical_services_outlined, 'Metacam', '08:00 AM · Due Today', 'Log', AppColors.errorDestructive),
             const Divider(color: Colors.white12, height: 1),
-            _buildFocusRow(Icons.flag_outlined, 'Improve Recall', 'Active Goal', 'View', AppColors.primaryForestGreen),
+            _buildFocusRow(Icons.fitness_center_outlined, 'Recall Foundation', 'Due Today · 15m Drill', 'Start', AppColors.primaryForestGreen),
             const Divider(color: Colors.white12, height: 1),
-            _buildFocusRow(Icons.emoji_events_outlined, 'IGP Trial', 'Competition Prep', 'Details', AppColors.secondarySage),
+            _buildFocusRow(Icons.water_drop_outlined, 'Evening Conditioning', '06:00 PM · Due Today', 'Log', const Color(0xFF5D8FAF)),
           ],
         ),
       ),
@@ -753,6 +669,267 @@ class _DogProfileScreenState extends State<DogProfileScreen>
       ),
     );
   }
+
+  Widget _buildTrainingTab() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _buildSkillsTile(),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: AppColors.cardsCarbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text('Training Drills', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                    Icon(Icons.fitness_center, size: 20, color: AppColors.primaryForestGreen),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Text('Logged 128 sessions · 94% criteria pass rate', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                const SizedBox(height: 16),
+                ElevatedButton.icon(
+                  onPressed: () => AppSnackbar.show(context, message: 'Record Training Session coming soon', type: SnackbarType.info),
+                  icon: const Icon(Icons.add, size: 18),
+                  label: const Text('Record Training Session'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryForestGreen,
+                    foregroundColor: AppColors.primaryTextOffWhite,
+                    minimumSize: const Size(double.infinity, 44),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          StatisticsTab(hasData: _hasData),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStrengthConditioningTab() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: AppColors.cardsCarbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text('Strength & Conditioning', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                    Icon(Icons.water, size: 20, color: Color(0xFF5D8FAF)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Text('Track physical load, intensity, sprints and endurance volume.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.fitness_center, size: 18),
+                        label: const Text('Open S&C Dashboard'),
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StrengthConditioningDashboardScreen())),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF2E6B57),
+                          foregroundColor: AppColors.primaryTextOffWhite,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.add, size: 18, color: Color(0xFF95D3BB)),
+                        label: const Text('Record S&C', style: TextStyle(color: Color(0xFF95D3BB))),
+                        onPressed: () => AppSnackbar.show(context, message: 'Record S&C Session coming soon', type: SnackbarType.info),
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Color(0xFF95D3BB)),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHealthTab() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: AppColors.cardsCarbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text('Health Overview', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                    Icon(Icons.monitor_heart_outlined, size: 22, color: Color(0xFF95D3BB)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Text('Medical history, vaccinations, veterinary logs and reminders.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                const SizedBox(height: 16),
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 10,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthDashboardScreen())),
+                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2E6B57), foregroundColor: AppColors.primaryTextOffWhite),
+                      child: const Text('Open Health Dashboard'),
+                    ),
+                    OutlinedButton.icon(
+                      icon: const Icon(Icons.medical_services_outlined, size: 18, color: Color(0xFF95D3BB)),
+                      label: const Text('Health Categories', style: TextStyle(color: Color(0xFF95D3BB))),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthScreen())),
+                      style: OutlinedButton.styleFrom(side: const BorderSide(color: Color(0xFF95D3BB))),
+                    ),
+                    OutlinedButton.icon(
+                      icon: const Icon(Icons.analytics_outlined, size: 18, color: Color(0xFF95D3BB)),
+                      label: const Text('Health Stats', style: TextStyle(color: Color(0xFF95D3BB))),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthStatisticsScreen())),
+                      style: OutlinedButton.styleFrom(side: const BorderSide(color: Color(0xFF95D3BB))),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSportTab() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: AppColors.cardsCarbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text('Sport Pack · Competitions & Trials', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                    Icon(Icons.emoji_events_outlined, size: 22, color: AppColors.secondarySage),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Text('IGP, IPO, Agility, Schutzhund trial scores and performance logs.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                const SizedBox(height: 16),
+                ElevatedButton.icon(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SportPackOverviewScreen())),
+                  icon: const Icon(Icons.military_tech_outlined, size: 18),
+                  label: const Text('Open Sport Pack Overview'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryForestGreen,
+                    foregroundColor: AppColors.primaryTextOffWhite,
+                    minimumSize: const Size(double.infinity, 44),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMediaTab() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: AppColors.cardsCarbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text('Media & Highlights', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                    Icon(Icons.photo_library_outlined, size: 22, color: Color(0xFF95D3BB)),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Text('Photos, slow-motion clips and training session videos.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                const SizedBox(height: 16),
+                ElevatedButton.icon(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MediaLibraryScreen())),
+                  icon: const Icon(Icons.photo_camera_back_outlined, size: 18),
+                  label: const Text('Open Dog Media Library'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryForestGreen,
+                    foregroundColor: AppColors.primaryTextOffWhite,
+                    minimumSize: const Size(double.infinity, 44),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 }
 
 class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {

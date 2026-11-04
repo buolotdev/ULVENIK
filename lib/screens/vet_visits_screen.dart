@@ -184,7 +184,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
   // ==========================================
   int get _totalVisitsCount => _isEmpty ? 0 : 12; // 12 in mock lifetime records
   int get _upcomingVisitsCount => _visits.where((v) => v.status == VetVisitStatus.upcoming).length;
-  int get _activeTreatmentsCount => _visits.where((v) => v.isFollowUpRequired || v.status == VetVisitStatus.upcoming).length;
+  int get _followUpsCount => _visits.where((v) => v.isFollowUpRequired).length;
   String get _lastVisitFormatted {
     final completed = _visits.where((v) => v.status == VetVisitStatus.completed).toList();
     if (completed.isEmpty) return 'None';
@@ -489,7 +489,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   ],
                 ),
               ),
-              // Bottom Row: Last Visit & Active Treatments
+              // Bottom Row: Last Visit & Follow-Ups
               IntrinsicHeight(
                 child: Row(
                   children: [
@@ -508,15 +508,15 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                         onTap: () {
                           setState(() {
                             _statusFilter = null;
-                            _searchQuery = 'lameness';
-                            _searchController.text = 'lameness';
+                            _searchQuery = 'follow-up';
+                            _searchController.text = 'follow-up';
                           });
                         },
                         borderRadius: const BorderRadius.only(bottomRight: Radius.circular(20)),
                         child: _buildSummaryBox(
                           icon: Icons.content_paste_outlined,
-                          value: '$_activeTreatmentsCount',
-                          label: 'ACTIVE TREATMENTS',
+                          value: '$_followUpsCount',
+                          label: 'FOLLOW-UPS',
                           borderRight: false,
                           borderBottom: false,
                         ),
@@ -1160,7 +1160,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Keep a complete record of every veterinary appointment, diagnosis, and treatment throughout your dog\'s life.',
+              'Keep a record of your dog’s veterinary visits, appointments and follow-ups in one place.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.9),
@@ -1200,22 +1200,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
 
-          // Educational Link
-          Center(
-            child: TextButton(
-              onPressed: _showEducationalModal,
-              child: const Text(
-                'Learn about Vet Visits',
-                style: TextStyle(
-                  color: Color(0xFF95D3BB),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
 
           const SizedBox(height: 60),
         ],
@@ -1917,84 +1902,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
   }
 
   // Educational Modal
-  void _showEducationalModal() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: AppColors.cardsCarbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'About Vet Visits Manager',
-                      style: TextStyle(
-                        color: AppColors.primaryTextOffWhite,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
-                      onPressed: () => Navigator.pop(ctx),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  'The Vet Visits Manager keeps a verified clinical log for trials, travel certifications, and sports dog maintenance.',
-                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
-                ),
-                const SizedBox(height: 14),
-                _buildEducationPoint(Icons.calendar_month, 'Keep tabs on booster and orthopedic check schedules.'),
-                _buildEducationPoint(Icons.medication, 'Track active lameness and prescription courses seamlessly.'),
-                _buildEducationPoint(Icons.receipt_long, 'Store itemized veterinary invoices for insurance claims.'),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2E6B57),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                    onPressed: () => Navigator.pop(ctx),
-                    child: const Text('Got it'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
-  Widget _buildEducationPoint(IconData icon, String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: const Color(0xFF95D3BB), size: 18),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(text, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _buildDogAvatar(String url, {double size = 36}) {
     return Container(

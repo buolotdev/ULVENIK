@@ -81,7 +81,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
             _buildTextField(_nameController, 'e.g., Target Touch'),
             
             const SizedBox(height: 24),
-            _buildLabel('PARENT SKILL'),
+            _buildLabel('SKILL'),
             const SizedBox(height: 8),
             _buildDropdown(),
 
@@ -96,7 +96,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
             _buildTagsSection(),
 
             const SizedBox(height: 24),
-            _buildLabel('TRAINING NOTES'),
+            _buildLabel('NOTES'),
             const SizedBox(height: 8),
             _buildTextField(_notesController, 'Add notes...', maxLines: 4),
 
@@ -149,6 +149,53 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
     );
   }
 
+  void _confirmSkillChange(String newSkill) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.cardsCarbon,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text(
+          'Change Linked Skill?',
+          style: TextStyle(
+            color: AppColors.primaryTextOffWhite,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        content: Text(
+          'Changing the linked skill to "$newSkill" will update inherited tags and training parameters for this exercise. Are you sure you want to proceed?',
+          style: const TextStyle(
+            color: AppColors.secondaryTextStoneGrey,
+            fontSize: 14,
+            height: 1.4,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              setState(() {
+                _parentSkill = newSkill;
+              });
+              AppSnackbar.show(context, message: 'Linked skill updated to $newSkill', type: SnackbarType.success);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primaryForestGreen,
+              foregroundColor: AppColors.primaryTextOffWhite,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            child: const Text('Change Skill'),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _showSkillPicker() {
     showModalBottomSheet(
       context: context,
@@ -172,7 +219,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Select Parent Skill',
+                'Select Skill',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
@@ -181,8 +228,10 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                   title: Text(skill, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
                   trailing: _parentSkill == skill ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
                   onTap: () {
-                    setState(() => _parentSkill = skill);
                     Navigator.pop(context);
+                    if (skill != _parentSkill) {
+                      _confirmSkillChange(skill);
+                    }
                   },
                 ),
               const SizedBox(height: 16),
@@ -197,7 +246,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
     return GestureDetector(
       onTap: _showSkillPicker,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           border: Border.all(color: Colors.white12),
@@ -205,15 +254,20 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              _parentSkill,
-              style: const TextStyle(
-                color: AppColors.primaryTextOffWhite,
-                fontSize: 14,
+            Expanded(
+              child: Text(
+                _parentSkill,
+                style: const TextStyle(
+                  color: AppColors.primaryTextOffWhite,
+                  fontSize: 14,
+                  height: 1.2,
+                ),
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+            const SizedBox(width: 8),
+            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 22),
           ],
         ),
       ),
@@ -261,7 +315,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.primaryForestGreen.withOpacity(0.5)),
+                      border: Border.all(color: AppColors.primaryForestGreen.withValues(alpha: 0.5)),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Text(

@@ -3,17 +3,49 @@ import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 
 class CreateGoalScreen extends StatefulWidget {
-  const CreateGoalScreen({super.key});
+  final String? initialDogName;
+  final bool initialIsClientDog;
+  final bool hasSportPack;
+  final bool hasTrainerPack;
+
+  const CreateGoalScreen({
+    super.key,
+    this.initialDogName,
+    this.initialIsClientDog = false,
+    this.hasSportPack = true,
+    this.hasTrainerPack = true,
+  });
 
   @override
   State<CreateGoalScreen> createState() => _CreateGoalScreenState();
 }
 
 class _CreateGoalScreenState extends State<CreateGoalScreen> {
+  late String _selectedDog;
+  late bool _isClientDog;
+  late bool _hasSportPack;
+  late bool _hasTrainerPack;
+
   String _selectedCategory = 'Training';
   bool _isAutomaticTracking = true;
   int _targetCount = 20;
   String _selectedPriority = 'Medium';
+
+  final List<Map<String, dynamic>> _availableDogs = [
+    {'name': 'Arlo', 'breed': 'German Shepherd', 'isClient': false},
+    {'name': 'Nova', 'breed': 'Belgian Malinois', 'isClient': false},
+    {'name': 'Murphy', 'breed': 'Golden Retriever', 'isClient': true},
+    {'name': 'Bella', 'breed': 'Dutch Shepherd', 'isClient': true},
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDog = widget.initialDogName ?? 'Arlo';
+    _isClientDog = widget.initialIsClientDog;
+    _hasSportPack = widget.hasSportPack;
+    _hasTrainerPack = widget.hasTrainerPack;
+  }
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -62,6 +94,8 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            _buildDogSelector(),
+            const SizedBox(height: 24),
             _buildBasicInfoSection(),
             const SizedBox(height: 24),
             _buildCategorySection(),
@@ -103,6 +137,153 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _showDogPicker() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const Text('Select Dog for Goal',
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 6),
+              const Text('Trainer Pack allows managing goals for both your own dogs and client dogs.',
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+              const SizedBox(height: 16),
+              const Text('MY DOGS', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
+              const SizedBox(height: 8),
+              ..._availableDogs.where((d) => !(d['isClient'] as bool)).map((d) => ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(d['name'] as String, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w500)),
+                    subtitle: Text(d['breed'] as String, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                    trailing: _selectedDog == d['name'] ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
+                    onTap: () {
+                      setState(() {
+                        _selectedDog = d['name'] as String;
+                        _isClientDog = false;
+                      });
+                      Navigator.pop(ctx);
+                    },
+                  )),
+              if (_hasTrainerPack) ...[
+                const SizedBox(height: 12),
+                const Text('CLIENT DOGS (TRAINER PACK)', style: TextStyle(color: Color(0xFFD99B4B), fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
+                const SizedBox(height: 8),
+                ..._availableDogs.where((d) => d['isClient'] as bool).map((d) => ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(d['name'] as String, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w500)),
+                      subtitle: Text('${d['breed']} • Client Dog', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                      trailing: _selectedDog == d['name'] ? const Icon(Icons.check, color: Color(0xFFD99B4B)) : null,
+                      onTap: () {
+                        setState(() {
+                          _selectedDog = d['name'] as String;
+                          _isClientDog = true;
+                        });
+                        Navigator.pop(ctx);
+                      },
+                    )),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDogSelector() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.cardsCarbon,
+        border: Border.all(color: Colors.white12),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('DOG', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.05)),
+              if (_hasTrainerPack)
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: AppColors.secondarySage.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: const Text('TRAINER PACK', style: TextStyle(color: AppColors.secondarySage, fontSize: 10, fontWeight: FontWeight.w700)),
+                ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          GestureDetector(
+            onTap: _showDogPicker,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              decoration: BoxDecoration(
+                color: AppColors.backgroundObsidian,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.white12),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: _isClientDog ? const Color(0xFFD99B4B).withValues(alpha: 0.2) : AppColors.primaryForestGreen.withValues(alpha: 0.2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        _selectedDog.isNotEmpty ? _selectedDog[0] : '?',
+                        style: TextStyle(
+                          color: _isClientDog ? const Color(0xFFD99B4B) : AppColors.primaryForestGreen,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(_selectedDog, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
+                        Text(_isClientDog ? 'Client Dog · Trainer Pack' : 'My Dog · Core', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11)),
+                      ],
+                    ),
+                  ),
+                  const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -174,6 +355,8 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
               _buildChoiceChip('Training', _selectedCategory == 'Training', (val) => setState(() => _selectedCategory = 'Training')),
               _buildChoiceChip('S&C', _selectedCategory == 'S&C', (val) => setState(() => _selectedCategory = 'S&C')),
               _buildChoiceChip('Health', _selectedCategory == 'Health', (val) => setState(() => _selectedCategory = 'Health')),
+              if (_hasSportPack)
+                _buildChoiceChip('Sport', _selectedCategory == 'Sport', (val) => setState(() => _selectedCategory = 'Sport')),
             ],
           ),
         ],
@@ -228,7 +411,9 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text('Automatic', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500)),
-                        Text('Track based on logged sessions', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                        Text('Track based on recorded sessions', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                        SizedBox(height: 2),
+                        Text('Calculates objective progress from your recorded sessions only, never automated judging.', style: TextStyle(color: Colors.white38, fontSize: 11)),
                       ],
                     ),
                   ),

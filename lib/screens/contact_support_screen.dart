@@ -1,492 +1,944 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
+import 'package:flutter/services.dart';
+import '../widgets/custom_snackbar.dart';
+import '../widgets/ulvenik_bottom_nav.dart';
 
-// ─── Design Tokens ──────────────────────────────────────────────────────────
-const Color _obsidian = Color(0xFF101214);
-const Color _carbon = Color(0xFF1A1F22);
-const Color _cardBorder = Color(0x14FFFFFF);
-const Color _forest = Color(0xFF2E6B57);
-const Color _mint = Color(0xFFAAE9D0);
-const Color _offWhite = Color(0xFFF5F6F2);
-const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _mutedGrey = Color(0xFF718096);
-const Color _syncGreen = Color(0xFF4ADE80);
+class _SupportAttachment {
+  final String id;
+  final String name;
+  final String sizeLabel;
+  final IconData icon;
+
+  const _SupportAttachment({
+    required this.id,
+    required this.name,
+    required this.sizeLabel,
+    this.icon = Icons.description_outlined,
+  });
+}
 
 class ContactSupportScreen extends StatefulWidget {
-  const ContactSupportScreen({super.key});
+  final String? subscriptionPlan;
+  final bool hasSportPack;
+  final bool hasTrainerPack;
+
+  const ContactSupportScreen({
+    super.key,
+    this.subscriptionPlan,
+    this.hasSportPack = false,
+    this.hasTrainerPack = false,
+  });
 
   @override
   State<ContactSupportScreen> createState() => _ContactSupportScreenState();
 }
 
 class _ContactSupportScreenState extends State<ContactSupportScreen> {
-  final _subjectController = TextEditingController();
-  final _descController = TextEditingController();
+  static const Color _obsidian = Color(0xFF101214);
+  static const Color _carbon = Color(0xFF1A1F22);
+  static const Color _forest = Color(0xFF2E6B57);
+  static const Color _mint = Color(0xFF95D3BB);
+  static const Color _offWhite = Color(0xFFF5F6F2);
+  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static const Color _cardBorder = Color(0x14FFFFFF);
+  static const Color _errorRed = Color(0xFF8B3A3A);
+
+  static const List<String> _categories = [
+    'General Question',
+    'Account & Login',
+    'Subscription & Billing',
+    'Sync & Offline Mode',
+    'Training & S&C Logs',
+    'Health Records & Reminders',
+    'Privacy & Data Export',
+  ];
+
+  static const List<_SupportAttachment> _sampleAttachmentPool = [
+    _SupportAttachment(
+      id: 'att_sync_log',
+      name: 'sync_queue_status.png',
+      sizeLabel: '840 KB',
+      icon: Icons.image_outlined,
+    ),
+    _SupportAttachment(
+      id: 'att_recording',
+      name: 'session_screen_clip.mp4',
+      sizeLabel: '4.6 MB',
+      icon: Icons.videocam_outlined,
+    ),
+    _SupportAttachment(
+      id: 'att_invoice',
+      name: 'subscription_receipt.pdf',
+      sizeLabel: '310 KB',
+      icon: Icons.picture_as_pdf_outlined,
+    ),
+    _SupportAttachment(
+      id: 'att_export',
+      name: 'timeline_diagnostics.json',
+      sizeLabel: '128 KB',
+      icon: Icons.code_rounded,
+    ),
+  ];
+
+  final TextEditingController _subjectController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController(
+    text: 'user@example.com',
+  );
+
+  final FocusNode _subjectFocus = FocusNode();
+  final FocusNode _descriptionFocus = FocusNode();
+  final FocusNode _emailFocus = FocusNode();
 
   String _selectedCategory = 'General Question';
   bool _includeDiagnostics = true;
-  bool _hasAttachment = true;
-  String _attachmentName = 'screenshot_01.png';
-  String _attachmentSize = '1.2 MB';
+  bool _showValidationErrors = false;
+  bool _isSubmitted = false;
+  String _submittedTicketId = '#ULV-48219';
 
-  final List<String> _categories = [
-    'General Question',
-    'Account & Sign In',
-    'Training & Sessions',
-    'Subscription & Billing',
-    'Cloud Sync & Offline',
-    'Feature Inquiries',
-    'Other Issue',
+  final List<_SupportAttachment> _attachments = [
+    const _SupportAttachment(
+      id: 'att_initial_1',
+      name: 'screenshot_01.png',
+      sizeLabel: '1.2 MB',
+      icon: Icons.description_outlined,
+    ),
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _subjectFocus.addListener(_onFocusChange);
+    _descriptionFocus.addListener(_onFocusChange);
+    _emailFocus.addListener(_onFocusChange);
+  }
+
+  void _onFocusChange() {
+    if (mounted) setState(() {});
+  }
+
+  @override
   void dispose() {
+    _subjectFocus.removeListener(_onFocusChange);
+    _descriptionFocus.removeListener(_onFocusChange);
+    _emailFocus.removeListener(_onFocusChange);
     _subjectController.dispose();
-    _descController.dispose();
+    _descriptionController.dispose();
+    _emailController.dispose();
+    _subjectFocus.dispose();
+    _descriptionFocus.dispose();
+    _emailFocus.dispose();
     super.dispose();
   }
 
-  void _onBottomNavTapped(int index) {
-    if (index == 4) {
-      Navigator.pop(context);
-      return;
+  String _formatWithCommas(int value) {
+    final s = value.toString();
+    final buf = StringBuffer();
+    for (int i = 0; i < s.length; i++) {
+      final posFromEnd = s.length - i;
+      buf.write(s[i]);
+      if (posFromEnd > 1 && posFromEnd % 3 == 1) {
+        buf.write(',');
+      }
     }
-    Widget target;
-    switch (index) {
-      case 0:
-        target = const HomepageScreen();
-        break;
-      case 1:
-        target = const MyDogsScreen();
-        break;
-      case 2:
-        target = const TrainingScreen();
-        break;
-      case 3:
-        target = const TimelineScreen();
-        break;
-      case 4:
-        target = const MorePageScreen();
-        break;
-      default:
-        return;
+    return buf.toString();
+  }
+
+  bool get _isEmailValid {
+    final email = _emailController.text.trim();
+    return email.contains('@') && email.contains('.') && email.length >= 5;
+  }
+
+  String get _userSubscriptionLabel {
+    final explicit = widget.subscriptionPlan?.trim();
+    if (explicit != null && explicit.isNotEmpty) {
+      return explicit;
     }
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => target),
+    if (widget.hasSportPack && widget.hasTrainerPack) {
+      return 'Complete';
+    }
+    if (widget.hasSportPack) {
+      return 'Core + Sport';
+    }
+    if (widget.hasTrainerPack) {
+      return 'Core + Trainer';
+    }
+    return 'Core';
+  }
+
+  void _openCategoryPicker() {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: _obsidian,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            border: Border(top: BorderSide(color: _cardBorder)),
+          ),
+          child: SafeArea(
+            top: false,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                Center(
+                  child: Container(
+                    width: 36,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: _stoneGrey.withValues(alpha: 0.35),
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 16, 20, 10),
+                  child: Text(
+                    'Select Support Category',
+                    style: TextStyle(
+                      color: _offWhite,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                ),
+                const Divider(height: 1, color: _cardBorder),
+                ...List.generate(_categories.length, (i) {
+                  final cat = _categories[i];
+                  final selected = cat == _selectedCategory;
+                  return InkWell(
+                    onTap: () {
+                      setState(() => _selectedCategory = cat);
+                      Navigator.of(ctx).pop();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 14,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              cat,
+                              style: TextStyle(
+                                color: selected ? _mint : _offWhite,
+                                fontSize: 15,
+                                fontWeight: selected
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                fontFamily: 'Inter',
+                              ),
+                            ),
+                          ),
+                          if (selected)
+                            const Icon(
+                              Icons.check_rounded,
+                              color: _mint,
+                              size: 20,
+                            ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+                const SizedBox(height: 8),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
-  void _sendSupportRequest() {
-    if (_subjectController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter a subject for your request.'),
-          duration: Duration(seconds: 2),
-        ),
+  void _openAttachmentPicker() {
+    if (_attachments.length >= 5) {
+      AppSnackbar.show(
+        context,
+        title: 'Attachment Limit Reached',
+        message: 'You can attach up to 5 files per support request.',
+        type: SnackbarType.warning,
       );
       return;
     }
 
-    showDialog(
+    showModalBottomSheet<void>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: _carbon,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text(
-          'Request Received',
-          style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700),
-        ),
-        content: const Text(
-          'Your support ticket (#ULV-4920) has been created. A specialist from our team will respond to user@example.com shortly.',
-          style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
-        ),
-        actions: [
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: _forest,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: _obsidian,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            border: Border(top: BorderSide(color: _cardBorder)),
+          ),
+          child: SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 36,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: _stoneGrey.withValues(alpha: 0.35),
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Add Attachment',
+                    style: TextStyle(
+                      color: _offWhite,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'Choose a screenshot, recording, or document from your device',
+                    style: TextStyle(
+                      color: _stoneGrey,
+                      fontSize: 13,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  ..._sampleAttachmentPool.map((candidate) {
+                    final alreadyAdded = _attachments.any(
+                      (a) => a.name == candidate.name,
+                    );
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: alreadyAdded
+                            ? null
+                            : () {
+                                setState(() {
+                                  _attachments.add(
+                                    _SupportAttachment(
+                                      id: '${candidate.id}_${DateTime.now().millisecondsSinceEpoch}',
+                                      name: candidate.name,
+                                      sizeLabel: candidate.sizeLabel,
+                                      icon: candidate.icon,
+                                    ),
+                                  );
+                                });
+                                Navigator.of(ctx).pop();
+                              },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            color: _carbon,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: _cardBorder),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                candidate.icon,
+                                color: alreadyAdded
+                                    ? _stoneGrey.withValues(alpha: 0.4)
+                                    : _mint,
+                                size: 19,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      candidate.name,
+                                      style: TextStyle(
+                                        color: alreadyAdded
+                                            ? _stoneGrey
+                                            : _offWhite,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Inter',
+                                      ),
+                                    ),
+                                    Text(
+                                      candidate.sizeLabel,
+                                      style: const TextStyle(
+                                        color: _stoneGrey,
+                                        fontSize: 12,
+                                        fontFamily: 'Inter',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                alreadyAdded ? 'Added' : 'Attach',
+                                style: TextStyle(
+                                  color: alreadyAdded ? _stoneGrey : _mint,
+                                  fontSize: 12.5,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Inter',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ],
               ),
             ),
-            onPressed: () {
-              Navigator.pop(ctx);
-              Navigator.pop(context);
-            },
-            child: const Text('Done', style: TextStyle(color: _offWhite)),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  void _addAttachment() {
+  void _submitSupportRequest() {
+    FocusScope.of(context).unfocus();
+    final subjectOk = _subjectController.text.trim().isNotEmpty;
+    final descOk = _descriptionController.text.trim().isNotEmpty;
+    final emailOk = _isEmailValid;
+
+    if (!subjectOk || !descOk || !emailOk) {
+      setState(() => _showValidationErrors = true);
+      AppSnackbar.show(
+        context,
+        title: 'Incomplete Request',
+        message: !subjectOk
+            ? 'Please enter a brief subject for your enquiry.'
+            : !descOk
+            ? 'Please describe your question or issue before sending.'
+            : 'Please enter a valid Reply To email address.',
+        type: SnackbarType.error,
+      );
+      return;
+    }
+
+    final randomNum = 40000 + math.Random().nextInt(59999);
     setState(() {
-      _hasAttachment = true;
-      _attachmentName = 'screenshot_01.png';
-      _attachmentSize = '1.2 MB';
+      _showValidationErrors = false;
+      _submittedTicketId = '#ULV-$randomNum';
+      _isSubmitted = true;
     });
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Attachment added: screenshot_01.png'),
-        duration: Duration(seconds: 2),
-      ),
+
+    AppSnackbar.show(
+      context,
+      title: 'Support Request Sent',
+      message: 'Reference $_submittedTicketId received by Ulvenik Support.',
+      type: SnackbarType.success,
     );
+  }
+
+  void _resetForm() {
+    setState(() {
+      _subjectController.clear();
+      _descriptionController.clear();
+      _selectedCategory = 'General Question';
+      _includeDiagnostics = true;
+      _showValidationErrors = false;
+      _isSubmitted = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final subjectEmptyError =
+        _showValidationErrors && _subjectController.text.trim().isEmpty;
+    final descEmptyError =
+        _showValidationErrors && _descriptionController.text.trim().isEmpty;
+    final emailError = _showValidationErrors && !_isEmailValid;
+
     return Scaffold(
       backgroundColor: _obsidian,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // ─── Header: < Contact Support ─────────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56),
+        child: Container(
+          decoration: const BoxDecoration(
+            color: _obsidian,
+            border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
+          ),
+          child: SafeArea(
+            bottom: false,
+            child: SizedBox(
+              height: 56,
               child: Row(
                 children: [
-                  InkWell(
-                    onTap: () => Navigator.pop(context),
-                    borderRadius: BorderRadius.circular(8),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.chevron_left, color: _offWhite, size: 22),
-                          SizedBox(width: 4),
-                          Text(
-                            'Contact Support',
-                            style: TextStyle(
-                              color: _offWhite,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
+                  const SizedBox(width: 4),
+                  IconButton(
+                    onPressed: () => Navigator.of(context).maybePop(),
+                    icon: const Icon(
+                      Icons.chevron_left,
+                      color: _stoneGrey,
+                      size: 26,
+                    ),
+                    splashRadius: 20,
+                  ),
+                  const Text(
+                    'Contact Support',
+                    style: TextStyle(
+                      color: _offWhite,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.3,
+                      fontFamily: 'Inter',
                     ),
                   ),
                 ],
               ),
             ),
-
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                children: [
-                  // ─── NEED SOME HELP? Banner ────────────────────────────
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.chat_bubble_outline,
-                                color: _stoneGrey, size: 18),
-                            SizedBox(width: 8),
-                            Text(
-                              'Need some help?',
-                              style: TextStyle(
-                                color: _offWhite,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Our support team is here to help. Complete the form below and we\'ll get back to you as soon as possible.',
-                          style: TextStyle(
+          ),
+        ),
+      ),
+      body: _isSubmitted
+          ? _buildConfirmationView()
+          : ListView(
+              padding: const EdgeInsets.fromLTRB(16, 18, 16, 36),
+              children: [
+                // Intro Hero Card
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Row(
+                        children: [
+                          Icon(
+                            Icons.chat_bubble_outline_rounded,
                             color: _stoneGrey,
-                            fontSize: 13,
-                            height: 1.4,
+                            size: 18,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // ─── CATEGORY ──────────────────────────────────────────
-                  _buildSectionHeader('CATEGORY'),
-                  const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Support Category',
-                          style: TextStyle(color: _stoneGrey, fontSize: 11),
-                        ),
-                        const SizedBox(height: 4),
-                        DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: _selectedCategory,
-                            isExpanded: true,
-                            dropdownColor: _carbon,
-                            icon: const Icon(Icons.keyboard_arrow_down,
-                                color: _stoneGrey),
-                            items: _categories.map((c) {
-                              return DropdownMenuItem<String>(
-                                value: c,
-                                child: Text(
-                                  c,
-                                  style: const TextStyle(
-                                    color: _offWhite,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (val) {
-                              if (val != null) {
-                                setState(() => _selectedCategory = val);
-                              }
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // ─── SUBJECT ───────────────────────────────────────────
-                  _buildSectionHeader('SUBJECT'),
-                  const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Subject',
-                          style: TextStyle(color: _stoneGrey, fontSize: 11),
-                        ),
-                        const SizedBox(height: 6),
-                        TextField(
-                          controller: _subjectController,
-                          maxLength: 100,
-                          onChanged: (_) => setState(() {}),
-                          style: const TextStyle(color: _offWhite, fontSize: 14),
-                          decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding: EdgeInsets.zero,
-                            hintText: 'Briefly describe your issue',
-                            hintStyle: const TextStyle(
-                              color: _mutedGrey,
-                              fontSize: 14,
-                            ),
-                            border: InputBorder.none,
-                            counterText:
-                                '${_subjectController.text.length} / 100',
-                            counterStyle: const TextStyle(
-                              color: _mutedGrey,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // ─── DESCRIPTION ───────────────────────────────────────
-                  _buildSectionHeader('DESCRIPTION'),
-                  const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Description',
-                          style: TextStyle(color: _stoneGrey, fontSize: 12),
-                        ),
-                        const SizedBox(height: 8),
-                        TextField(
-                          controller: _descController,
-                          maxLines: 4,
-                          maxLength: 5000,
-                          onChanged: (_) => setState(() {}),
-                          style: const TextStyle(color: _offWhite, fontSize: 14),
-                          decoration: InputDecoration(
-                            isDense: true,
-                            contentPadding: EdgeInsets.zero,
-                            hintText:
-                                'Please describe your issue in as much detail as possible...',
-                            hintStyle: const TextStyle(
-                              color: _mutedGrey,
-                              fontSize: 13,
-                              height: 1.4,
-                            ),
-                            border: InputBorder.none,
-                            counterText:
-                                '${_descController.text.length} / 5,000',
-                            counterStyle: const TextStyle(
-                              color: _mutedGrey,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // ─── ATTACHMENTS ───────────────────────────────────────
-                  _buildSectionHeader('ATTACHMENTS'),
-                  const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: Column(
-                      children: [
-                        InkWell(
-                          onTap: _addAttachment,
-                          borderRadius: BorderRadius.circular(12),
-                          child: Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF14191C),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: _stoneGrey.withValues(alpha: 0.3),
-                                width: 1.2,
-                              ),
-                            ),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.attach_file,
-                                    color: _stoneGrey, size: 18),
-                                SizedBox(width: 8),
-                                Text(
-                                  'Add Attachment',
-                                  style: TextStyle(
-                                    color: _stoneGrey,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Screenshots, photos, recordings or documents',
-                          style: TextStyle(color: _mutedGrey, fontSize: 12),
-                        ),
-                        if (_hasAttachment) ...[
-                          const SizedBox(height: 14),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 14,
-                              vertical: 10,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF14181B),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: _cardBorder),
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.description_outlined,
-                                    color: _stoneGrey, size: 18),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: Text(
-                                    _attachmentName,
-                                    style: const TextStyle(
-                                      color: _offWhite,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  _attachmentSize,
-                                  style: const TextStyle(
-                                    color: _mutedGrey,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() => _hasAttachment = false);
-                                  },
-                                  child: const Icon(Icons.close,
-                                      color: _stoneGrey, size: 16),
-                                ),
-                              ],
+                          SizedBox(width: 10),
+                          Text(
+                            'Need some help?',
+                            style: TextStyle(
+                              color: _offWhite,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Inter',
                             ),
                           ),
                         ],
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Our support team is here to help. Complete the form below and we\'ll get back to you as soon as possible.',
+                        style: TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 13.5,
+                          height: 1.5,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                    ],
                   ),
+                ),
 
-                  const SizedBox(height: 20),
-
-                  // ─── DIAGNOSTICS ───────────────────────────────────────
-                  _buildSectionHeader('DIAGNOSTICS'),
-                  const SizedBox(height: 8),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
+                const SizedBox(height: 24),
+                _buildSectionLabel('CATEGORY'),
+                const SizedBox(height: 10),
+                Container(
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(16, 14, 16, 12),
+                        child: Text(
+                          'Support Category',
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Inter',
                           ),
+                        ),
+                      ),
+                      const Divider(height: 1, thickness: 1, color: _cardBorder),
+                      InkWell(
+                        borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(16),
+                        ),
+                        onTap: _openCategoryPicker,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
                           child: Row(
                             children: [
-                              const Icon(Icons.shield_outlined,
-                                  color: _stoneGrey, size: 20),
+                              Expanded(
+                                child: Text(
+                                  _selectedCategory,
+                                  style: const TextStyle(
+                                    color: _offWhite,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Inter',
+                                  ),
+                                ),
+                              ),
+                              const Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                color: _stoneGrey,
+                                size: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+                _buildSectionLabel('SUBJECT'),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: subjectEmptyError
+                          ? _errorRed
+                          : _subjectFocus.hasFocus
+                          ? _forest
+                          : _cardBorder,
+                      width: _subjectFocus.hasFocus ? 1.4 : 1.0,
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Subject',
+                        style: TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 13,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      TextField(
+                        controller: _subjectController,
+                        focusNode: _subjectFocus,
+                        maxLength: 100,
+                        onChanged: (_) => setState(() {}),
+                        cursorColor: _mint,
+                        style: const TextStyle(
+                          color: _offWhite,
+                          fontSize: 15,
+                          fontFamily: 'Inter',
+                        ),
+                        decoration: InputDecoration(
+                          isDense: true,
+                          contentPadding: const EdgeInsets.only(bottom: 8),
+                          counterText: '',
+                          hintText: 'Briefly describe your issue',
+                          hintStyle: TextStyle(
+                            color: _stoneGrey.withValues(alpha: 0.55),
+                            fontSize: 15,
+                            fontFamily: 'Inter',
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: _stoneGrey.withValues(alpha: 0.22),
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: _forest, width: 1.5),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          '${_subjectController.text.length} / 100',
+                          style: const TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 12,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+                _buildSectionLabel('DESCRIPTION'),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: descEmptyError
+                          ? _errorRed
+                          : _descriptionFocus.hasFocus
+                          ? _forest
+                          : _cardBorder,
+                      width: _descriptionFocus.hasFocus ? 1.4 : 1.0,
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Description',
+                        style: TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 13,
+                          fontFamily: 'Inter',
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      TextField(
+                        controller: _descriptionController,
+                        focusNode: _descriptionFocus,
+                        minLines: 5,
+                        maxLines: 8,
+                        maxLength: 5000,
+                        onChanged: (_) => setState(() {}),
+                        cursorColor: _mint,
+                        style: const TextStyle(
+                          color: _offWhite,
+                          fontSize: 15,
+                          height: 1.45,
+                          fontFamily: 'Inter',
+                        ),
+                        decoration: InputDecoration(
+                          isDense: true,
+                          contentPadding: const EdgeInsets.only(bottom: 8),
+                          counterText: '',
+                          hintText:
+                              'Please describe your issue in as much detail as possible...',
+                          hintStyle: TextStyle(
+                            color: _stoneGrey.withValues(alpha: 0.55),
+                            fontSize: 15,
+                            height: 1.45,
+                            fontFamily: 'Inter',
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: _stoneGrey.withValues(alpha: 0.22),
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: _forest, width: 1.5),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          '${_formatWithCommas(_descriptionController.text.length)} / 5,000',
+                          style: const TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 12,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+                _buildSectionLabel('ATTACHMENTS'),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Column(
+                    children: [
+                      CustomPaint(
+                        painter: _DashedRectPainter(
+                          color: _stoneGrey.withValues(alpha: 0.28),
+                          radius: 12,
+                        ),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(12),
+                          onTap: _openAttachmentPicker,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 14,
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.attach_file_rounded,
+                                  color: _stoneGrey,
+                                  size: 19,
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Add Attachment',
+                                        style: TextStyle(
+                                          color: _offWhite.withValues(
+                                            alpha: 0.78,
+                                          ),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Inter',
+                                        ),
+                                      ),
+                                      const SizedBox(height: 2),
+                                      const Text(
+                                        'Screenshots, photos, recordings or documents',
+                                        style: TextStyle(
+                                          color: _stoneGrey,
+                                          fontSize: 12,
+                                          fontFamily: 'Inter',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (_attachments.isNotEmpty) ...[
+                        const SizedBox(height: 10),
+                        ...List.generate(_attachments.length, (i) {
+                          final item = _attachments[i];
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              bottom: i == _attachments.length - 1 ? 0 : 8,
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 12,
+                              ),
+                              decoration: BoxDecoration(
+                                color: _obsidian.withValues(alpha: 0.35),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(color: _cardBorder),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    item.icon,
+                                    color: _stoneGrey,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item.name,
+                                          style: const TextStyle(
+                                            color: _offWhite,
+                                            fontSize: 13.5,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Inter',
+                                          ),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          item.sizeLabel,
+                                          style: const TextStyle(
+                                            color: _stoneGrey,
+                                            fontSize: 12,
+                                            fontFamily: 'Inter',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _attachments.removeAt(i);
+                                      });
+                                    },
+                                    behavior: HitTestBehavior.opaque,
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.close_rounded,
+                                        color: _stoneGrey,
+                                        size: 18,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+                      ],
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+                _buildSectionLabel('DIAGNOSTICS'),
+                const SizedBox(height: 10),
+                Container(
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: _cardBorder),
+                  ),
+                  child: Column(
+                    children: [
+                      InkWell(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(16),
+                        ),
+                        onTap: () => setState(
+                          () => _includeDiagnostics = !_includeDiagnostics,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.shield_outlined,
+                                color: _stoneGrey,
+                                size: 19,
+                              ),
                               const SizedBox(width: 12),
                               const Expanded(
                                 child: Column(
@@ -496,190 +948,390 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                                       'Include Diagnostic Information',
                                       style: TextStyle(
                                         color: _offWhite,
-                                        fontSize: 14,
+                                        fontSize: 14.5,
                                         fontWeight: FontWeight.w600,
+                                        fontFamily: 'Inter',
                                       ),
                                     ),
-                                    SizedBox(height: 2),
+                                    SizedBox(height: 3),
                                     Text(
-                                      'Helps our team resolve your issue fast',
+                                      'Helps our team resolve your issue faster',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: _stoneGrey,
-                                        fontSize: 11,
+                                        fontSize: 12,
+                                        fontFamily: 'Inter',
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              Switch(
+                              const SizedBox(width: 10),
+                              _buildForestSwitch(
                                 value: _includeDiagnostics,
-                                activeThumbColor: _forest,
-                                activeTrackColor:
-                                    _syncGreen.withValues(alpha: 0.6),
-                                inactiveThumbColor: _stoneGrey,
-                                inactiveTrackColor: _obsidian,
-                                onChanged: (val) {
-                                  setState(() => _includeDiagnostics = val);
-                                },
+                                onChanged: (v) =>
+                                    setState(() => _includeDiagnostics = v),
                               ),
                             ],
                           ),
                         ),
-                        if (_includeDiagnostics) ...[
-                          const Divider(height: 1, color: Color(0x0FFFFFFF)),
-                          _buildDiagnosticRow('App Version', '2.4.1'),
-                          _buildDivider(),
-                          _buildDiagnosticRow('Device', 'iPhone 15 Pro'),
-                          _buildDivider(),
-                          _buildDiagnosticRow('OS Version', 'iOS 17.4'),
-                          _buildDivider(),
-                          _buildDiagnosticRow(
-                              'Subscription', 'Dog Owner Plan'),
-                        ],
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // ─── CONTACT EMAIL ─────────────────────────────────────
-                  _buildSectionHeader('CONTACT EMAIL'),
-                  const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Reply To',
-                          style: TextStyle(color: _stoneGrey, fontSize: 11),
-                        ),
-                        SizedBox(height: 6),
-                        Row(
+                      ),
+                      AnimatedOpacity(
+                        duration: const Duration(milliseconds: 180),
+                        opacity: _includeDiagnostics ? 1.0 : 0.42,
+                        child: Column(
                           children: [
-                            Icon(Icons.mail_outline,
-                                color: _stoneGrey, size: 18),
-                            SizedBox(width: 10),
-                            Text(
-                              'user@example.com',
-                              style: TextStyle(
-                                color: _offWhite,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
+                            const Divider(
+                              height: 1,
+                              thickness: 1,
+                              color: _cardBorder,
+                            ),
+                            _buildDiagnosticRow(
+                              'App Version',
+                              '2.4.1',
+                              monospace: true,
+                            ),
+                            const Divider(
+                              height: 1,
+                              thickness: 1,
+                              color: _cardBorder,
+                            ),
+                            _buildDiagnosticRow('Device', 'iPhone 15 Pro'),
+                            const Divider(
+                              height: 1,
+                              thickness: 1,
+                              color: _cardBorder,
+                            ),
+                            _buildDiagnosticRow(
+                              'OS Version',
+                              'iOS 17.4',
+                              monospace: true,
+                            ),
+                            const Divider(
+                              height: 1,
+                              thickness: 1,
+                              color: _cardBorder,
+                            ),
+                            _buildDiagnosticRow(
+                              'Subscription',
+                              _userSubscriptionLabel,
                             ),
                           ],
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+                _buildSectionLabel('CONTACT EMAIL'),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: emailError
+                          ? _errorRed
+                          : _emailFocus.hasFocus
+                          ? _forest
+                          : _cardBorder,
+                      width: _emailFocus.hasFocus ? 1.4 : 1.0,
                     ),
                   ),
-
-                  const SizedBox(height: 24),
-
-                  // ─── SEND SUPPORT REQUEST ──────────────────────────────
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _forest,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Reply To',
+                        style: TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 13,
+                          fontFamily: 'Inter',
                         ),
                       ),
-                      onPressed: _sendSupportRequest,
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      const SizedBox(height: 8),
+                      Row(
                         children: [
-                          Icon(Icons.play_arrow_outlined,
-                              color: _offWhite, size: 20),
-                          SizedBox(width: 8),
-                          Text(
-                            'Send Support Request',
-                            style: TextStyle(
-                              color: _offWhite,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
+                          const Icon(
+                            Icons.mail_outline_rounded,
+                            color: _stoneGrey,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: TextField(
+                              controller: _emailController,
+                              focusNode: _emailFocus,
+                              keyboardType: TextInputType.emailAddress,
+                              onChanged: (_) => setState(() {}),
+                              cursorColor: _mint,
+                              style: const TextStyle(
+                                color: _offWhite,
+                                fontSize: 15,
+                                fontFamily: 'Inter',
+                              ),
+                              decoration: InputDecoration(
+                                isDense: true,
+                                contentPadding: const EdgeInsets.only(
+                                  bottom: 4,
+                                ),
+                                hintText: 'user@example.com',
+                                hintStyle: TextStyle(
+                                  color: _stoneGrey.withValues(alpha: 0.55),
+                                  fontSize: 15,
+                                  fontFamily: 'Inter',
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: _stoneGrey.withValues(alpha: 0.22),
+                                  ),
+                                ),
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: _forest,
+                                    width: 1.5,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+                SizedBox(
+                  height: 52,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _submitSupportRequest,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _forest,
+                      foregroundColor: _offWhite,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.send_outlined,
+                          size: 17,
+                          color: _offWhite,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Send Support Request',
+                          style: TextStyle(
+                            color: _offWhite,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                ),
+              ],
+            ),
+      bottomNavigationBar: const UlvenikBottomNav(
+        activeTab: UlvenikNavTab.more,
+      ),
+    );
+  }
 
-                  const SizedBox(height: 32),
+  Widget _buildConfirmationView() {
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(16, 24, 16, 36),
+      children: [
+        Container(
+          padding: const EdgeInsets.all(22),
+          decoration: BoxDecoration(
+            color: _carbon,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: _forest.withValues(alpha: 0.6)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 42,
+                    height: 42,
+                    decoration: BoxDecoration(
+                      color: _forest.withValues(alpha: 0.25),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.check_rounded,
+                      color: _mint,
+                      size: 22,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Request Received',
+                          style: TextStyle(
+                            color: _offWhite,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Ticket $_submittedTicketId · Typical response < 24h',
+                          style: const TextStyle(
+                            color: _mint,
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Inter',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ],
+              const SizedBox(height: 18),
+              const Divider(height: 1, color: _cardBorder),
+              const SizedBox(height: 16),
+              _buildSummaryLine('Category', _selectedCategory),
+              const SizedBox(height: 10),
+              _buildSummaryLine('Subject', _subjectController.text.trim()),
+              const SizedBox(height: 10),
+              _buildSummaryLine('Reply To', _emailController.text.trim()),
+              const SizedBox(height: 10),
+              _buildSummaryLine(
+                'Attachments',
+                _attachments.isEmpty
+                    ? 'None'
+                    : '${_attachments.length} file(s)',
+              ),
+              const SizedBox(height: 10),
+              _buildSummaryLine(
+                'Diagnostics',
+                _includeDiagnostics
+                    ? 'Included (v2.4.1 · $_userSubscriptionLabel)'
+                    : 'Not included',
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () {
+                        Clipboard.setData(
+                          ClipboardData(text: _submittedTicketId),
+                        );
+                        AppSnackbar.show(
+                          context,
+                          title: 'Copied',
+                          message:
+                              'Ticket reference $_submittedTicketId copied.',
+                          type: SnackbarType.info,
+                        );
+                      },
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: _offWhite,
+                        side: const BorderSide(color: _cardBorder),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      icon: const Icon(Icons.copy_rounded, size: 16),
+                      label: const Text('Copy Ticket ID'),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: _resetForm,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _forest,
+                        foregroundColor: _offWhite,
+                        elevation: 0,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text('New Request'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 4, // More tab active
-        onTap: _onBottomNavTapped,
-        backgroundColor: _obsidian,
-        selectedItemColor: _mint,
-        unselectedItemColor: _stoneGrey,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.pets_outlined),
-            activeIcon: Icon(Icons.pets),
-            label: 'Dogs',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            label: 'Training',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history_outlined),
-            activeIcon: Icon(Icons.history),
-            label: 'Timeline',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            label: 'More',
-          ),
-        ],
-      ),
+      ],
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSummaryLine(String label, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 100,
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: _stoneGrey,
+              fontSize: 13,
+              fontFamily: 'Inter',
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: const TextStyle(
+              color: _offWhite,
+              fontSize: 13.5,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Inter',
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSectionLabel(String text) {
     return Text(
-      title,
+      text,
       style: const TextStyle(
-        color: _mutedGrey,
+        color: _stoneGrey,
         fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 1.0,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 1.2,
+        fontFamily: 'Inter',
       ),
     );
   }
 
-  Widget _buildDivider() {
-    return const Divider(
-      height: 1,
-      thickness: 1,
-      color: Color(0x0FFFFFFF),
-      indent: 16,
-      endIndent: 16,
-    );
-  }
-
-  Widget _buildDiagnosticRow(String label, String value) {
+  Widget _buildDiagnosticRow(
+    String label,
+    String value, {
+    bool monospace = false,
+  }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -687,19 +1339,90 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
             label,
             style: const TextStyle(
               color: _stoneGrey,
-              fontSize: 13,
+              fontSize: 13.5,
+              fontFamily: 'Inter',
             ),
           ),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
-              fontSize: 13,
+              fontSize: 13.5,
               fontWeight: FontWeight.w500,
+              fontFamily: monospace ? 'monospace' : 'Inter',
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget _buildForestSwitch({
+    required bool value,
+    required ValueChanged<bool> onChanged,
+  }) {
+    return GestureDetector(
+      onTap: () => onChanged(!value),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        width: 46,
+        height: 26,
+        padding: const EdgeInsets.all(3),
+        decoration: BoxDecoration(
+          color: value ? _forest : const Color(0xFF2B3135),
+          borderRadius: BorderRadius.circular(999),
+        ),
+        alignment: value ? Alignment.centerRight : Alignment.centerLeft,
+        child: Container(
+          width: 20,
+          height: 20,
+          decoration: const BoxDecoration(
+            color: _offWhite,
+            shape: BoxShape.circle,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DashedRectPainter extends CustomPainter {
+  final Color color;
+  final double radius;
+
+  const _DashedRectPainter({
+    required this.color,
+    required this.radius,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.1;
+
+    final rrect = RRect.fromRectAndRadius(
+      Offset.zero & size,
+      Radius.circular(radius),
+    );
+    final path = Path()..addRRect(rrect);
+
+    const dashWidth = 4.5;
+    const dashSpace = 3.5;
+
+    for (final metric in path.computeMetrics()) {
+      double distance = 0;
+      while (distance < metric.length) {
+        final next = math.min(distance + dashWidth, metric.length);
+        canvas.drawPath(metric.extractPath(distance, next), paint);
+        distance += dashWidth + dashSpace;
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _DashedRectPainter oldDelegate) {
+    return oldDelegate.color != color || oldDelegate.radius != radius;
   }
 }

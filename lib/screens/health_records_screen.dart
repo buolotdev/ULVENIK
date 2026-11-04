@@ -407,6 +407,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           statusColor: AppColors.primaryTextOffWhite,
           statusBgColor: const Color(0xFF2e6b57),
           title: 'Metacam 1.5mg — Daily',
+          recordType: 'medication',
         ),
         _buildRecordCard(
           icon: Icons.healing_outlined,
@@ -430,6 +431,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
     required String title,
     String? subtitle,
     int attachments = 0,
+    String recordType = 'injury',
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -442,7 +444,14 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthRecordDetailsScreen())),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => HealthRecordDetailsScreen(
+                recordType: recordType,
+              ),
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -614,9 +623,9 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         childAspectRatio: 1.2,
         children: [
           _buildEmptyStatItem(Icons.monitor_weight_outlined, 'Weight'),
-          _buildEmptyStatItem(Icons.vaccines_outlined, 'Vaccines'),
-          _buildEmptyStatItem(Icons.medication_outlined, 'Meds'),
-          _buildEmptyStatItem(Icons.favorite_outline, 'Heart'),
+          _buildEmptyStatItem(Icons.vaccines_outlined, 'Vaccinations'),
+          _buildEmptyStatItem(Icons.medication_outlined, 'Medications'),
+          _buildEmptyStatItem(Icons.straighten_outlined, 'Body Condition'),
           _buildEmptyStatItem(Icons.healing_outlined, 'Injuries'),
           _buildEmptyStatItem(Icons.calendar_month_outlined, 'Next Vet'),
         ],
@@ -669,10 +678,10 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           ),
         ),
         const SizedBox(height: 12),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            "Start building Koda's complete health history. Track weight, vaccines, medications, and vet visits all in one place.",
+            "Start building $_selectedDog’s complete health history. Track weight, body condition, vaccinations, medications and vet visits all in one place.",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -708,18 +717,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
             ),
           ),
         ),
-        const SizedBox(height: 24),
-        TextButton(
-          onPressed: () => AppSnackbar.show(context, message: 'Learn about Health Records coming soon', type: SnackbarType.info),
-          child: const Text(
-            'Learn about Health Records',
-            style: TextStyle(
-              color: Color(0xFF2e6b57),
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
+
       ],
     );
   }

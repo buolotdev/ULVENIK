@@ -3,48 +3,90 @@ import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'training_screen.dart';
 
-// ─── Local models ─────────────────────────────────────────────────────────────
+// ─── Local mutable working models for live session editing ───────────────────
 
-class _Section {
+class _EditableExercise {
+  String id;
   String name;
-  int mins;
-  bool open;
-  final List<String> categories;
-  final List<String> exercises;
+  int repetitions;
+  String? notes;
+  bool isCustom;
 
-  _Section({
+  _EditableExercise({
+    required this.id,
     required this.name,
-    required this.mins,
-    this.open = false,
-    this.categories = const [],
-    List<String>? exercises,
-  }) : exercises = exercises ?? [];
+    this.repetitions = 1,
+    this.notes,
+    this.isCustom = false,
+  });
+
+  factory _EditableExercise.fromEntry(RecordedExerciseEntry entry) {
+    return _EditableExercise(
+      id: entry.id,
+      name: entry.name,
+      repetitions: entry.repetitions,
+      notes: entry.notes,
+      isCustom: entry.isCustom,
+    );
+  }
+
+  RecordedExerciseEntry toEntry() {
+    return RecordedExerciseEntry(
+      id: id,
+      name: name.trim(),
+      repetitions: repetitions < 1 ? 1 : repetitions,
+      notes: notes,
+      isCustom: isCustom,
+    );
+  }
 }
 
-class _Phase {
-  final IconData icon;
-  final Color color;
-  final String name;
-  final List<String> chips;
-  final List<String> details;
+class _EditableSkill {
+  String id;
+  String skillName;
+  bool isCustom;
   bool open;
+  final List<_EditableExercise> exercises;
 
-  _Phase({
-    required this.icon,
-    required this.color,
-    required this.name,
-    required this.chips,
-    required this.details,
-    this.open = false,
-  });
+  _EditableSkill({
+    required this.id,
+    required this.skillName,
+    this.isCustom = false,
+    this.open = true,
+    List<_EditableExercise>? exercises,
+  }) : exercises = exercises ?? [];
+
+  factory _EditableSkill.fromEntry(RecordedSkillEntry entry) {
+    return _EditableSkill(
+      id: entry.id,
+      skillName: entry.skillName,
+      isCustom: entry.isCustom,
+      open: true,
+      exercises: entry.exercises.map(_EditableExercise.fromEntry).toList(),
+    );
+  }
+
+  RecordedSkillEntry toEntry() {
+    return RecordedSkillEntry(
+      id: id,
+      skillName: skillName.trim(),
+      isCustom: isCustom,
+      exercises: exercises.map((e) => e.toEntry()).toList(),
+    );
+  }
 }
 
 // ─── Screen ───────────────────────────────────────────────────────────────────
 
 class TrainingSessionScreen extends StatefulWidget {
   final TrainingSession session;
+  final bool isNewSession;
 
-  const TrainingSessionScreen({super.key, required this.session});
+  const TrainingSessionScreen({
+    super.key,
+    required this.session,
+    this.isNewSession = false,
+  });
 
   @override
   State<TrainingSessionScreen> createState() => _TrainingSessionScreenState();
@@ -62,120 +104,128 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
   ];
 
   static const List<String> _months = [
-    'January', 'February', 'March', 'April', 'May', 'June', 'July',
-    'August', 'September', 'October', 'November', 'December',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  static const List<String> _shortMonths = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
 
   static const List<String> _locationOptions = [
+    'Meadow Training Field',
+    'Club Training Pitch',
     'Nordic Woods Field',
     'Västervik Brukshundklubb',
     'Home Garden',
-    'City Park',
+    'Riverside Paddock',
+    'Chelmsford Training Ground',
   ];
+
   static const List<String> _purposeOptions = [
-    'Trial Prep',
     'Skill Building',
+    'Trial Prep',
     'Fitness',
     'Socialisation',
     'Club Night',
   ];
+
   static const List<String> _equipmentOptions = [
-    'Prong Collar', 'Long Line (10m)', 'Bite Sleeve', 'Harness',
-    'Clicker', 'Dumbbell',
-  ];
-  static const List<String> _rewardOptions = [
-    'Tug Toy', 'High-Value Food', 'Ball', 'Praise',
-  ];
-  static const List<String> _tagOptions = [
-    '#ClubNight', '#IGP3_Prep', '#NightTraining', '#Recall', '#Tracking',
+    'Long Line (10m)',
+    'Flat Collar',
+    'Harness',
+    'Clicker',
+    'Canvas Dummy (500g)',
+    'Position Box Marker',
+    'Boundary Mat',
+    'Bite Sleeve',
+    'Dumbbell',
   ];
 
+  static const List<String> _rewardOptions = [
+    'High-Value Food',
+    'Tug Toy',
+    'Ball',
+    'Praise',
+    'Play',
+  ];
+
+  static const List<String> _tagOptions = [
+    '#ClubNight',
+    '#IGP3_Prep',
+    '#MorningSession',
+    '#Proofing',
+    '#FieldWork',
+  ];
+
+  late TrainingSession _savedSnapshot;
   late SessionStatus _status;
+  late bool _isEditing;
   late String _title;
   late DateTime _date;
   late TimeOfDay _start;
   TimeOfDay? _finish;
+  int? _recordedDurationMinutes;
   late String _location;
-  String _weather = '16°C · Overcast';
+  final String _weather = '16°C · Overcast';
   late String _purpose;
   late final TextEditingController _notes;
   bool _mediaExpanded = false;
 
-  late final List<_Section> _sections;
-  late final List<_Phase> _phases;
+  late List<_EditableSkill> _skills;
   late List<String> _equipment;
   late List<String> _rewards;
-  late List<String> _tags;
+  late List<String> _sessionTags;
 
   bool get _isDraft => _status == SessionStatus.draft;
+  bool get _inEditorMode => _isDraft || _isEditing;
 
   @override
   void initState() {
     super.initState();
-    final s = widget.session;
+    final latest =
+        TrainingSessionStore.findById(widget.session.id) ?? widget.session;
+    _savedSnapshot = latest;
+    _notes = TextEditingController();
+    _loadFromSession(latest);
+    _isEditing = latest.status == SessionStatus.draft;
+  }
+
+  void _loadFromSession(TrainingSession s) {
     _status = s.status;
     _title = s.title;
-    _date = _isDraft ? DateTime.now() : DateTime(2026, 6, 14);
-    _start = const TimeOfDay(hour: 18, minute: 30);
-    _finish = _isDraft ? null : const TimeOfDay(hour: 20, minute: 45);
-    _location = _isDraft ? 'Nordic Woods Field' : 'Västervik Brukshundklubb';
-    _purpose = 'Trial Prep';
-    _notes = TextEditingController(
-      text: _isDraft
-          ? '${s.dogName} showed excellent drive during the initial heelwork phases. Maintained strong eye contact. Need to work on slowing down the retrieve return, slightly too frantic.'
-          : 'Excellent focus in protection phase. ${s.dogName} handled the helper movement on the blind search with increased intensity. Need to watch the barking rhythm on the hold and bark, tends to get frantic if helper is stationary too long. Obedience routine was solid, but the send-away needs more drive off the line.',
-    );
-
-    _sections = [
-      _Section(
-        name: 'Heelwork',
-        mins: 15,
-        open: true,
-        categories: const ['Competition Heelwork'],
-        exercises: ['Figure of Eight x3'],
-      ),
-      _Section(name: 'Retrieve', mins: 10, exercises: ['Dumbbell Retrieve x2']),
-    ];
-
-    _phases = [
-      _Phase(
-        icon: Icons.sports_score,
-        color: AppColors.infoAlpineBlue,
-        name: 'Obedience',
-        chips: const ['4 Exercises', '1 Note'],
-        details: const [
-          'Heel position x3',
-          'Sit and Down stay',
-          'Recall off the line',
-          'Send-away',
-        ],
-      ),
-      _Phase(
-        icon: Icons.explore_outlined,
-        color: AppColors.primaryForestGreen,
-        name: 'Tracking',
-        chips: const ['2 Articles', '1 Video'],
-        details: const ['Article indication x2', 'Cold start track'],
-      ),
-      _Phase(
-        icon: Icons.shield_outlined,
-        color: AppColors.errorDestructive,
-        name: 'Protection',
-        chips: const ['6 Skills', '2 Videos', 'Notes'],
-        details: const [
-          'Blind search',
-          'Hold and bark',
-          'Sleeve work',
-          'Out on command',
-          'Escape and re-bite',
-          'Courage test',
-        ],
-      ),
-    ];
-
-    _equipment = ['Prong Collar', 'Long Line (10m)', 'Bite Sleeve'];
-    _rewards = ['Tug Toy', 'High-Value Food'];
-    _tags = ['#ClubNight', '#IGP3_Prep', '#NightTraining'];
+    _date = s.date;
+    _start = s.startTime;
+    _finish = s.finishTime;
+    _recordedDurationMinutes = s.recordedDurationMinutes;
+    _location = s.location;
+    _purpose = s.purpose;
+    _notes.text = s.notes;
+    _skills = s.recordedSkills.map(_EditableSkill.fromEntry).toList();
+    _equipment = List<String>.from(s.equipment);
+    _rewards = List<String>.from(s.rewards);
+    _sessionTags = List<String>.from(s.sessionTags);
   }
 
   @override
@@ -184,22 +234,51 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     super.dispose();
   }
 
-  // ── Helpers ───────────────────────────────────────────────────────────────
+  // ── Live Computed Session Snapshot ────────────────────────────────────────
 
   String _fmtTime(TimeOfDay t) =>
       '${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}';
 
   String _fmtDate(DateTime d) => '${d.day} ${_months[d.month - 1]} ${d.year}';
 
-  String get _duration {
-    if (_finish == null) return 'Calculating...';
-    var mins = (_finish!.hour * 60 + _finish!.minute) -
-        (_start.hour * 60 + _start.minute);
-    if (mins < 0) mins += 24 * 60;
-    final h = mins ~/ 60;
-    final m = mins % 60;
-    if (h == 0) return '${m}m';
-    return '${h}h ${m}m';
+  String _buildDateLabel(SessionStatus status) {
+    if (status == SessionStatus.draft) {
+      return '${_date.day} ${_shortMonths[_date.month - 1]} · Incomplete';
+    }
+    return '${_date.day} ${_shortMonths[_date.month - 1]} · ${_fmtTime(_start)}';
+  }
+
+  TrainingSession _buildUpdatedSession({SessionStatus? overrideStatus}) {
+    final targetStatus = overrideStatus ?? _status;
+    return _savedSnapshot.copyWith(
+      title: _title.trim().isEmpty ? _savedSnapshot.title : _title.trim(),
+      date: _date,
+      dateLabel: _buildDateLabel(targetStatus),
+      startTime: _start,
+      finishTime: _finish,
+      clearFinishTime: _finish == null,
+      recordedDurationMinutes: _recordedDurationMinutes,
+      clearRecordedDuration: _recordedDurationMinutes == null,
+      status: targetStatus,
+      recordedSkills: _skills.map((s) => s.toEntry()).toList(),
+      location: _location,
+      purpose: _purpose,
+      notes: _notes.text.trim(),
+      equipment: List<String>.from(_equipment),
+      rewards: List<String>.from(_rewards),
+      sessionTags: List<String>.from(_sessionTags),
+    );
+  }
+
+  void _persistToStore({SessionStatus? overrideStatus}) {
+    final updated = _buildUpdatedSession(overrideStatus: overrideStatus);
+    _savedSnapshot = updated;
+    TrainingSessionStore.upsertSession(updated);
+  }
+
+  String get _durationDisplay {
+    final preview = _buildUpdatedSession();
+    return preview.duration ?? 'Not recorded yet';
   }
 
   void _toast(String msg, SnackbarType type) =>
@@ -227,7 +306,10 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       lastDate: DateTime(2100),
       builder: (c, child) => Theme(data: _pickerTheme, child: child!),
     );
-    if (d != null) setState(() => _date = d);
+    if (d != null) {
+      setState(() => _date = d);
+      if (_isDraft && !widget.isNewSession) _persistToStore();
+    }
   }
 
   Future<void> _pickTime({required bool isStart}) async {
@@ -237,10 +319,123 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       builder: (c, child) => Theme(data: _pickerTheme, child: child!),
     );
     if (t == null) return;
-    setState(() => isStart ? _start = t : _finish = t);
+    setState(() {
+      if (isStart) {
+        _start = t;
+      } else {
+        _finish = t;
+      }
+      if (_finish != null) {
+        var diff = (_finish!.hour * 60 + _finish!.minute) -
+            (_start.hour * 60 + _start.minute);
+        if (diff < 0) diff += 24 * 60;
+        if (diff > 0) {
+          _recordedDurationMinutes = diff;
+        }
+      }
+    });
+    if (_isDraft && !widget.isNewSession) _persistToStore();
   }
 
-  Future<String?> _pickOption(String title, List<String> options, String current) {
+  Future<void> _editDurationMinutes() async {
+    final currentMins = _buildUpdatedSession().durationMinutes;
+    final ctrl = TextEditingController(
+      text: currentMins != null ? '$currentMins' : '',
+    );
+    final result = await showDialog<int>(
+      context: context,
+      builder: (c) => Dialog(
+        backgroundColor: AppColors.cardsCarbon,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(color: Colors.white12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Recorded Duration',
+                  style: _ts(18, AppColors.primaryTextOffWhite, FontWeight.w600)),
+              const SizedBox(height: 6),
+              Text(
+                'Enter the duration recorded for this session in minutes.',
+                style: _ts(13, AppColors.secondaryTextStoneGrey, FontWeight.w400, 1.4),
+              ),
+              const SizedBox(height: 14),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                decoration: BoxDecoration(
+                  color: AppColors.backgroundObsidian,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.white12),
+                ),
+                child: TextField(
+                  controller: ctrl,
+                  autofocus: true,
+                  keyboardType: TextInputType.number,
+                  style: _ts(15, AppColors.primaryTextOffWhite),
+                  cursorColor: AppColors.primaryForestGreen,
+                  decoration: InputDecoration(
+                    hintText: 'e.g. 8',
+                    suffixText: 'min',
+                    suffixStyle: _ts(14, AppColors.secondaryTextStoneGrey),
+                    hintStyle: _ts(15, AppColors.secondaryTextStoneGrey),
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                  onSubmitted: (v) {
+                    final parsed = int.tryParse(v.trim());
+                    Navigator.pop(c, parsed);
+                  },
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(c),
+                    child: Text('Cancel',
+                        style: _ts(14, AppColors.secondaryTextStoneGrey,
+                            FontWeight.w600)),
+                  ),
+                  const SizedBox(width: 8),
+                  TextButton(
+                    onPressed: () {
+                      final parsed = int.tryParse(ctrl.text.trim());
+                      Navigator.pop(c, parsed);
+                    },
+                    child: Text('Save',
+                        style: _ts(
+                            14, AppColors.primaryForestGreen, FontWeight.w700)),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    if (result != null && result > 0) {
+      setState(() {
+        _recordedDurationMinutes = result;
+        final totalEndMinutes = (_start.hour * 60 + _start.minute + result) % (24 * 60);
+        _finish = TimeOfDay(
+          hour: totalEndMinutes ~/ 60,
+          minute: totalEndMinutes % 60,
+        );
+      });
+      if (_isDraft && !widget.isNewSession) _persistToStore();
+    }
+  }
+
+  Future<String?> _pickOption(
+      String title, List<String> options, String current) {
+    final merged = {...options, if (current.isNotEmpty) current}.toList();
     return showModalBottomSheet<String>(
       context: context,
       backgroundColor: AppColors.cardsCarbon,
@@ -255,12 +450,13 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             children: [
               _sheetHandle(),
               Text(title,
-                  style: _ts(18, AppColors.primaryTextOffWhite, FontWeight.w600)),
+                  style:
+                      _ts(18, AppColors.primaryTextOffWhite, FontWeight.w600)),
               const SizedBox(height: 8),
               Flexible(
                 child: ListView(
                   shrinkWrap: true,
-                  children: options
+                  children: merged
                       .map((o) => ListTile(
                             contentPadding: EdgeInsets.zero,
                             title: Text(o,
@@ -307,7 +503,8 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title,
-                  style: _ts(18, AppColors.primaryTextOffWhite, FontWeight.w600)),
+                  style:
+                      _ts(18, AppColors.primaryTextOffWhite, FontWeight.w600)),
               const SizedBox(height: 14),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -358,8 +555,482 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     );
   }
 
+  // ── Add / Create Custom Skill Sheet ───────────────────────────────────────
+
+  Future<void> _showAddSkillSheet() async {
+    final customCtrl = TextEditingController();
+    final selectedName = await showModalBottomSheet<String>(
+      context: context,
+      backgroundColor: AppColors.cardsCarbon,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (c) => StatefulBuilder(
+        builder: (c, setSheet) {
+          final catalog = TrainingSessionStore.skillCatalogNotifier.value;
+          final query = customCtrl.text.trim().toLowerCase();
+          final filteredCatalog = query.isEmpty
+              ? catalog
+              : catalog
+                  .where((e) => e.skillName.toLowerCase().contains(query))
+                  .toList();
+          final exactCatalogMatch = catalog.any(
+            (e) =>
+                normalizeTrainingKey(e.skillName) ==
+                normalizeTrainingKey(customCtrl.text),
+          );
+
+          return SafeArea(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                20,
+                16,
+                20,
+                MediaQuery.of(c).viewInsets.bottom + 20,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _sheetHandle(),
+                    Text(
+                      'Add Skill to Session',
+                      style: _ts(
+                          18, AppColors.primaryTextOffWhite, FontWeight.w600),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Select one of your skills or enter a custom skill name. Each distinct skill is counted once per session.',
+                      style: _ts(13, AppColors.secondaryTextStoneGrey,
+                          FontWeight.w400, 1.4),
+                    ),
+                    const SizedBox(height: 14),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      decoration: BoxDecoration(
+                        color: AppColors.backgroundObsidian,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.white12),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.layers_outlined,
+                              size: 18,
+                              color: AppColors.secondaryTextStoneGrey),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: TextField(
+                              controller: customCtrl,
+                              onChanged: (_) => setSheet(() {}),
+                              style: _ts(14, AppColors.primaryTextOffWhite),
+                              cursorColor: AppColors.primaryForestGreen,
+                              decoration: InputDecoration(
+                                hintText:
+                                    'Search or create custom skill (e.g. Platform Send)...',
+                                hintStyle:
+                                    _ts(13, AppColors.secondaryTextStoneGrey),
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 14),
+                              ),
+                              onSubmitted: (v) {
+                                if (v.trim().isNotEmpty) {
+                                  Navigator.pop(c, v.trim());
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (customCtrl.text.trim().isNotEmpty &&
+                        !exactCatalogMatch) ...[
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: double.infinity,
+                        child: _primaryBtn(
+                          'Create Custom Skill "${customCtrl.text.trim()}"',
+                          Icons.add_circle_outline,
+                          () => Navigator.pop(c, customCtrl.text.trim()),
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 16),
+                    _label('YOUR SKILLS'),
+                    const SizedBox(height: 10),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: filteredCatalog.map((entry) {
+                        final alreadyInSession = _skills.any(
+                          (s) =>
+                              normalizeTrainingKey(s.skillName) ==
+                              normalizeTrainingKey(entry.skillName),
+                        );
+                        return GestureDetector(
+                          onTap: () => Navigator.pop(c, entry.skillName),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: alreadyInSession
+                                  ? AppColors.primaryForestGreen
+                                      .withValues(alpha: 0.22)
+                                  : AppColors.backgroundObsidian,
+                              borderRadius: BorderRadius.circular(9999),
+                              border: Border.all(
+                                color: alreadyInSession
+                                    ? AppColors.primaryForestGreen
+                                    : Colors.white12,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (alreadyInSession) ...[
+                                  const Icon(Icons.check,
+                                      size: 14,
+                                      color: AppColors.primaryForestGreen),
+                                  const SizedBox(width: 5),
+                                ],
+                                Text(
+                                  entry.skillName,
+                                  style: _ts(
+                                    13,
+                                    alreadyInSession
+                                        ? AppColors.primaryTextOffWhite
+                                        : AppColors.secondaryTextStoneGrey,
+                                    FontWeight.w500,
+                                  ),
+                                ),
+                                if (entry.isCustom) ...[
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    'CUSTOM',
+                                    style: _ts(
+                                        9,
+                                        AppColors.primaryForestGreen,
+                                        FontWeight.w700),
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+
+    if (selectedName == null || selectedName.trim().isEmpty) return;
+    final cleanName = selectedName.trim();
+    final key = normalizeTrainingKey(cleanName);
+
+    final existingIdx = _skills.indexWhere(
+      (s) => normalizeTrainingKey(s.skillName) == key,
+    );
+    if (existingIdx >= 0) {
+      setState(() => _skills[existingIdx].open = true);
+      _toast(
+        '"${_skills[existingIdx].skillName}" is already recorded in this session (counted once)',
+        SnackbarType.info,
+      );
+      return;
+    }
+
+    final isCustom = TrainingSessionStore.isCustomSkill(cleanName);
+    if (isCustom) {
+      TrainingSessionStore.registerCustomSkill(cleanName);
+    }
+
+    setState(() {
+      _skills.add(
+        _EditableSkill(
+          id: 'sk_${DateTime.now().microsecondsSinceEpoch}',
+          skillName: cleanName,
+          isCustom: isCustom,
+          open: true,
+        ),
+      );
+    });
+    if (_isDraft && !widget.isNewSession) _persistToStore();
+  }
+
+  // ── Add / Create Custom Exercise (with Separate Repetitions) Sheet ────────
+
+  Future<void> _showAddExerciseSheet(_EditableSkill skill) async {
+    final nameCtrl = TextEditingController();
+    int reps = 1;
+
+    final result = await showModalBottomSheet<(String, int)>(
+      context: context,
+      backgroundColor: AppColors.cardsCarbon,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (c) => StatefulBuilder(
+        builder: (c, setSheet) {
+          final suggestions =
+              TrainingSessionStore.exercisesForSkill(skill.skillName);
+          final canAdd = nameCtrl.text.trim().isNotEmpty;
+
+          return SafeArea(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                20,
+                16,
+                20,
+                MediaQuery.of(c).viewInsets.bottom + 20,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _sheetHandle(),
+                    Text(
+                      'Add Exercise · ${skill.skillName}',
+                      style: _ts(
+                          18, AppColors.primaryTextOffWhite, FontWeight.w600),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Select an exercise or enter a custom one. Repetitions are recorded separately and do not increase the distinct exercise count.',
+                      style: _ts(13, AppColors.secondaryTextStoneGrey,
+                          FontWeight.w400, 1.4),
+                    ),
+                    if (suggestions.isNotEmpty) ...[
+                      const SizedBox(height: 14),
+                      _label('SUGGESTED EXERCISES'),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: suggestions.map((exName) {
+                          final selected = normalizeTrainingKey(nameCtrl.text) ==
+                              normalizeTrainingKey(exName);
+                          return GestureDetector(
+                            onTap: () => setSheet(() => nameCtrl.text = exName),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: selected
+                                    ? AppColors.primaryForestGreen
+                                        .withValues(alpha: 0.25)
+                                    : AppColors.backgroundObsidian,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: selected
+                                      ? AppColors.primaryForestGreen
+                                      : Colors.white12,
+                                ),
+                              ),
+                              child: Text(
+                                exName,
+                                style: _ts(
+                                  13,
+                                  selected
+                                      ? AppColors.primaryTextOffWhite
+                                      : AppColors.secondaryTextStoneGrey,
+                                  FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                    const SizedBox(height: 16),
+                    _label('EXERCISE NAME'),
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      decoration: BoxDecoration(
+                        color: AppColors.backgroundObsidian,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.white12),
+                      ),
+                      child: TextField(
+                        controller: nameCtrl,
+                        onChanged: (_) => setSheet(() {}),
+                        style: _ts(14, AppColors.primaryTextOffWhite),
+                        cursorColor: AppColors.primaryForestGreen,
+                        decoration: InputDecoration(
+                          hintText:
+                              'e.g. Down on verbal cue (or custom exercise)',
+                          hintStyle:
+                              _ts(13, AppColors.secondaryTextStoneGrey),
+                          border: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 14),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: AppColors.backgroundObsidian,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.white12),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Repetitions',
+                                  style: _ts(14, AppColors.primaryTextOffWhite,
+                                      FontWeight.w600),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Recorded separately from exercise count',
+                                  style: _ts(
+                                      11, AppColors.secondaryTextStoneGrey),
+                                ),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                            tooltip: 'Decrease repetitions',
+                            onPressed: reps > 1
+                                ? () => setSheet(() => reps--)
+                                : null,
+                            icon: Icon(
+                              Icons.remove_circle_outline,
+                              color: reps > 1
+                                  ? AppColors.primaryTextOffWhite
+                                  : Colors.white24,
+                              size: 22,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 36,
+                            child: Text(
+                              '$reps',
+                              textAlign: TextAlign.center,
+                              style: _ts(16, AppColors.primaryTextOffWhite,
+                                  FontWeight.w700),
+                            ),
+                          ),
+                          IconButton(
+                            tooltip: 'Increase repetitions',
+                            onPressed: () => setSheet(() => reps++),
+                            icon: const Icon(
+                              Icons.add_circle_outline,
+                              color: AppColors.primaryForestGreen,
+                              size: 22,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 18),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: canAdd
+                            ? () =>
+                                Navigator.pop(c, (nameCtrl.text.trim(), reps))
+                            : null,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryForestGreen,
+                          disabledBackgroundColor: AppColors.primaryForestGreen
+                              .withValues(alpha: 0.3),
+                          foregroundColor: AppColors.primaryTextOffWhite,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          'Add Exercise',
+                          style: _ts(14, AppColors.primaryTextOffWhite,
+                              FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+
+    if (result == null) return;
+    final exName = result.$1.trim();
+    final addedReps = result.$2;
+    if (exName.isEmpty) return;
+
+    final exKey = normalizeTrainingKey(exName);
+
+    // Check if this exercise was already recorded anywhere in this session
+    for (final sk in _skills) {
+      final existingIdx = sk.exercises.indexWhere(
+        (e) => normalizeTrainingKey(e.name) == exKey,
+      );
+      if (existingIdx >= 0) {
+        setState(() {
+          sk.exercises[existingIdx].repetitions += addedReps;
+          sk.open = true;
+        });
+        if (_isDraft && !widget.isNewSession) _persistToStore();
+        _toast(
+          'Added $addedReps ${addedReps == 1 ? 'rep' : 'reps'} to "${sk.exercises[existingIdx].name}" (distinct exercise count unchanged)',
+          SnackbarType.info,
+        );
+        return;
+      }
+    }
+
+    final catalogExercises =
+        TrainingSessionStore.exercisesForSkill(skill.skillName);
+    final isKnownInCatalog = catalogExercises.any(
+      (e) => normalizeTrainingKey(e) == exKey,
+    );
+    final isCustomEx = !isKnownInCatalog;
+    if (isCustomEx) {
+      TrainingSessionStore.registerCustomExercise(skill.skillName, exName);
+    }
+
+    setState(() {
+      skill.exercises.add(
+        _EditableExercise(
+          id: 'ex_${DateTime.now().microsecondsSinceEpoch}',
+          name: exName,
+          repetitions: addedReps,
+          isCustom: isCustomEx,
+        ),
+      );
+      skill.open = true;
+    });
+    if (_isDraft && !widget.isNewSession) _persistToStore();
+  }
+
   Future<void> _editChips(
-      String title, List<String> options, List<String> selected,
+      String title,
+      List<String> options,
+      List<String> selected,
       ValueChanged<List<String>> onDone) async {
     final temp = List<String>.from(selected);
     final all = {...options, ...selected}.toList();
@@ -379,8 +1050,8 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               children: [
                 _sheetHandle(),
                 Text(title,
-                    style: _ts(18, AppColors.primaryTextOffWhite,
-                        FontWeight.w600)),
+                    style: _ts(
+                        18, AppColors.primaryTextOffWhite, FontWeight.w600)),
                 const SizedBox(height: 16),
                 Wrap(
                   spacing: 8,
@@ -396,7 +1067,8 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                             horizontal: 14, vertical: 8),
                         decoration: BoxDecoration(
                           color: on
-                              ? AppColors.primaryForestGreen.withOpacity(0.25)
+                              ? AppColors.primaryForestGreen
+                                  .withValues(alpha: 0.25)
                               : AppColors.backgroundObsidian,
                           borderRadius: BorderRadius.circular(9999),
                           border: Border.all(
@@ -425,24 +1097,46 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
         ),
       ),
     );
-    if (result != null) setState(() => onDone(result));
+    if (result != null) {
+      setState(() => onDone(result));
+      _persistToStore();
+    }
   }
 
-  void _saveDraft() => _toast('Draft saved', SnackbarType.success);
+  void _saveDraft() {
+    _persistToStore(overrideStatus: SessionStatus.draft);
+    _toast('Draft saved', SnackbarType.success);
+  }
 
-  void _complete() {
-    if (_finish == null) {
-      _toast('Set a finish time before completing the session',
-          SnackbarType.warning);
-      return;
+  void _completeSession() {
+    if (_recordedDurationMinutes == null && _finish == null) {
+      _recordedDurationMinutes = 10;
+      final endMins = (_start.hour * 60 + _start.minute + 10) % (24 * 60);
+      _finish = TimeOfDay(hour: endMins ~/ 60, minute: endMins % 60);
     }
-    setState(() => _status = SessionStatus.completed);
+    setState(() {
+      _status = SessionStatus.completed;
+      _isEditing = false;
+    });
+    _persistToStore(overrideStatus: SessionStatus.completed);
     _toast('Session completed', SnackbarType.success);
   }
 
-  void _reopen() {
-    setState(() => _status = SessionStatus.draft);
-    _toast('Session reopened for editing', SnackbarType.info);
+  void _saveCompletedEdits() {
+    setState(() => _isEditing = false);
+    _persistToStore(overrideStatus: SessionStatus.completed);
+    _toast('Session updated', SnackbarType.success);
+  }
+
+  void _cancelCompletedEdits() {
+    setState(() {
+      _loadFromSession(_savedSnapshot);
+      _isEditing = false;
+    });
+  }
+
+  void _enterEditMode() {
+    setState(() => _isEditing = true);
   }
 
   Future<void> _confirmDelete() async {
@@ -460,23 +1154,26 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             children: [
               _sheetHandle(),
               Text('Delete this session?',
-                  style: _ts(18, AppColors.primaryTextOffWhite,
-                      FontWeight.w600)),
+                  style:
+                      _ts(18, AppColors.primaryTextOffWhite, FontWeight.w600)),
               const SizedBox(height: 8),
               Text(
-                  'This will permanently remove "$_title" and all of its notes and media.',
-                  style: _ts(14, AppColors.secondaryTextStoneGrey, FontWeight.w400,
-                      1.4)),
+                  'This will permanently remove "$_title" and all recorded skills, exercises, notes, and media. This action cannot be undone.',
+                  style: _ts(14, AppColors.secondaryTextStoneGrey,
+                      FontWeight.w400, 1.4)),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
-                child: _filledBtn('Delete Session', AppColors.errorDestructive,
+                child: _filledBtn(
+                    'Permanently Delete Session',
+                    AppColors.errorDestructive,
                     () => Navigator.pop(c, true)),
               ),
               const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,
-                child: _outlineBtn('Cancel', null, () => Navigator.pop(c, false)),
+                child:
+                    _outlineBtn('Cancel', null, () => Navigator.pop(c, false)),
               ),
             ],
           ),
@@ -484,6 +1181,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       ),
     );
     if (ok == true && mounted) {
+      TrainingSessionStore.deleteSession(_savedSnapshot.id);
       _toast('Session deleted', SnackbarType.error);
       Navigator.of(context).maybePop();
     }
@@ -491,12 +1189,30 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
 
   void _showMore() {
     final items = <(IconData, String, VoidCallback)>[
-      (Icons.copy_outlined, 'Duplicate Session',
-          () => _toast('Session duplicated as a new draft', SnackbarType.success)),
-      (Icons.ios_share_outlined, 'Share Session',
-          () => _toast('Share link copied', SnackbarType.info)),
-      (Icons.picture_as_pdf_outlined, 'Export as PDF',
-          () => _toast('Export started', SnackbarType.info)),
+      (
+        Icons.copy_outlined,
+        'Duplicate Session',
+        () {
+          final copy = _buildUpdatedSession(overrideStatus: SessionStatus.draft)
+              .copyWith(
+            id: 'session_${DateTime.now().microsecondsSinceEpoch}',
+            title: '$_title (Copy)',
+            dateLabel: 'Today · Incomplete',
+          );
+          TrainingSessionStore.upsertSession(copy);
+          _toast('Session duplicated as a new draft', SnackbarType.success);
+        }
+      ),
+      (
+        Icons.ios_share_outlined,
+        'Share Session',
+        () => _toast('Share link copied', SnackbarType.info)
+      ),
+      (
+        Icons.picture_as_pdf_outlined,
+        'Export as PDF',
+        () => _toast('Export started', SnackbarType.info)
+      ),
       (Icons.delete_outline, 'Delete Session', _confirmDelete),
     ];
     showModalBottomSheet(
@@ -540,6 +1256,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     final width = MediaQuery.of(context).size.width;
     final topSafe = MediaQuery.of(context).padding.top;
     final heroH = (width * 0.6).clamp(200.0, 300.0) + topSafe * 0.5;
+    final preview = _buildUpdatedSession();
 
     return Scaffold(
       backgroundColor: AppColors.backgroundObsidian,
@@ -554,13 +1271,16 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
                   child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 280),
-                    child: _isDraft
+                    duration: const Duration(milliseconds: 240),
+                    child: _inEditorMode
                         ? KeyedSubtree(
-                            key: const ValueKey('draft'), child: _buildDraft())
+                            key: const ValueKey('editor'),
+                            child: _buildEditor(preview),
+                          )
                         : KeyedSubtree(
                             key: const ValueKey('completed'),
-                            child: _buildCompleted()),
+                            child: _buildCompleted(preview),
+                          ),
                   ),
                 ),
               ),
@@ -612,8 +1332,8 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _circleBtn(Icons.chevron_left,
-                    () => Navigator.of(context).maybePop()),
+                _circleBtn(
+                    Icons.chevron_left, () => Navigator.of(context).maybePop()),
                 _circleBtn(Icons.more_vert, _showMore),
               ],
             ),
@@ -625,7 +1345,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
 
   Widget _circleBtn(IconData icon, VoidCallback onTap) {
     return Material(
-      color: AppColors.cardsCarbon.withOpacity(0.85),
+      color: AppColors.cardsCarbon.withValues(alpha: 0.85),
       shape: const CircleBorder(side: BorderSide(color: Colors.white12)),
       child: InkWell(
         customBorder: const CircleBorder(),
@@ -639,17 +1359,16 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     );
   }
 
-  // ── Shared header ─────────────────────────────────────────────────────────
+  // ── Shared header with live auto-calculated summary ───────────────────────
 
-  Widget _buildHeader() {
-    final s = widget.session;
+  Widget _buildHeader(TrainingSession preview) {
     final badge = _isDraft
         ? Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
-                  color: AppColors.primaryForestGreen.withOpacity(0.7)),
+                  color: AppColors.primaryForestGreen.withValues(alpha: 0.7)),
             ),
             child: Text('DRAFT',
                 style: _ts(11, AppColors.primaryForestGreen, FontWeight.w700)
@@ -662,7 +1381,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               borderRadius: BorderRadius.circular(4),
               border: Border.all(color: Colors.white12),
             ),
-            child: Text('COMPLETED',
+            child: Text(_isEditing ? 'EDITING' : 'COMPLETED',
                 style: _ts(11, const Color(0xFFAAE9D0), FontWeight.w700)
                     .copyWith(letterSpacing: 0.6)),
           );
@@ -676,18 +1395,18 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: s.dogColor.withOpacity(0.2),
+                color: preview.dogColor.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.primaryForestGreen),
               ),
               child: Center(
-                child: Text(s.dogInitial,
-                    style: _ts(16, s.dogColor, FontWeight.w700)),
+                child: Text(preview.dogInitial,
+                    style: _ts(16, preview.dogColor, FontWeight.w700)),
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: Text(s.dogName,
+              child: Text(preview.dogName,
                   overflow: TextOverflow.ellipsis,
                   style: _ts(16, AppColors.primaryTextOffWhite, FontWeight.w600)),
             ),
@@ -710,55 +1429,159 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             ),
           ],
         ),
+        const SizedBox(height: 14),
+        // Auto-calculated session statistics strip
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          decoration: BoxDecoration(
+            color: AppColors.cardsCarbon,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.white12),
+          ),
+          child: Wrap(
+            spacing: 14,
+            runSpacing: 6,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              _headerStatItem(
+                Icons.schedule_outlined,
+                preview.duration ?? 'No duration yet',
+              ),
+              _headerStatItem(
+                Icons.layers_outlined,
+                preview.formattedSkillCount,
+              ),
+              _headerStatItem(
+                Icons.repeat,
+                preview.formattedExerciseCount,
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
 
-  // ── Draft state ───────────────────────────────────────────────────────────
+  Widget _headerStatItem(IconData icon, String text) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 15, color: AppColors.primaryForestGreen),
+        const SizedBox(width: 5),
+        Text(
+          text,
+          style: _ts(13, AppColors.primaryTextOffWhite, FontWeight.w600),
+        ),
+      ],
+    );
+  }
 
-  Widget _buildDraft() {
+  // ── Draft / Editor state ──────────────────────────────────────────────────
+
+  Widget _buildEditor(TrainingSession preview) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildHeader(),
+        _buildHeader(preview),
         const SizedBox(height: 20),
-        _primaryBtn('Complete Session', Icons.check_circle_outline, _complete),
-        const SizedBox(height: 10),
-        _outlineBtn('Save Draft', Icons.save_outlined, _saveDraft),
+        if (_isDraft) ...[
+          _primaryBtn(
+              'Complete Session', Icons.check_circle_outline, _completeSession),
+          const SizedBox(height: 10),
+          _outlineBtn('Save Draft', Icons.save_outlined, _saveDraft),
+        ] else ...[
+          Row(
+            children: [
+              Expanded(
+                child: _primaryBtn(
+                    'Save Changes', Icons.check_circle_outline, _saveCompletedEdits),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _outlineBtn('Cancel', null, _cancelCompletedEdits),
+              ),
+            ],
+          ),
+        ],
         const SizedBox(height: 20),
         _card(
           padding: EdgeInsets.zero,
           child: Column(
             children: [
-              _detailRow(Icons.edit_outlined, 'Title', _title, onTap: () async {
-                final v = await _promptText('Session title', 'Title', _title);
-                if (v != null && v.isNotEmpty) setState(() => _title = v);
+              _detailRow(Icons.edit_outlined, 'Title', _title,
+                  chevron: true, onTap: () async {
+                final v = await _promptText('Session Title', 'Title', _title);
+                if (v != null && v.isNotEmpty) {
+                  setState(() => _title = v);
+                  if (_isDraft && !widget.isNewSession) _persistToStore();
+                }
               }),
               _detailRow(Icons.calendar_today_outlined, 'Date', _fmtDate(_date),
                   chevron: true, onTap: _pickDate),
               _detailRow(Icons.schedule, 'Start Time', _fmtTime(_start),
                   chevron: true, onTap: () => _pickTime(isStart: true)),
-              _detailRow(Icons.update, 'Finish Time',
+              _detailRow(
+                  Icons.update,
+                  'Finish Time',
                   _finish == null ? 'Not set' : _fmtTime(_finish!),
-                  chevron: true, onTap: () => _pickTime(isStart: false)),
-              _detailRow(Icons.timer_outlined, 'Duration', _duration),
+                  chevron: true,
+                  onTap: () => _pickTime(isStart: false)),
+              _detailRow(Icons.timer_outlined, 'Duration', _durationDisplay,
+                  chevron: true, onTap: _editDurationMinutes),
               _detailRow(Icons.place_outlined, 'Location', _location,
                   chevron: true, onTap: () async {
-                final v = await _pickOption(
-                    'Location', _locationOptions, _location);
-                if (v != null) setState(() => _location = v);
+                final v =
+                    await _pickOption('Location', _locationOptions, _location);
+                if (v != null) {
+                  setState(() => _location = v);
+                  if (_isDraft && !widget.isNewSession) _persistToStore();
+                }
               }),
               _detailRow(Icons.cloud_outlined, 'Weather', _weather),
               _detailRow(Icons.flag_outlined, 'Purpose', _purpose,
                   chevron: true, last: true, onTap: () async {
                 final v =
                     await _pickOption('Purpose', _purposeOptions, _purpose);
-                if (v != null) setState(() => _purpose = v);
+                if (v != null) {
+                  setState(() => _purpose = v);
+                  if (_isDraft && !widget.isNewSession) _persistToStore();
+                }
               }),
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 24),
+        SizedBox(
+          width: double.infinity,
+          child: Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 4,
+            children: [
+              _label('SKILLS & EXERCISES'),
+              Text(
+                '${preview.formattedSkillCount} · ${preview.formattedExerciseCount}',
+                style: _ts(12, AppColors.primaryForestGreen, FontWeight.w600),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        if (_skills.isEmpty)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: _card(
+              child: Text(
+                'No skills recorded yet. Add a skill and its exercises below — Ulvenik automatically calculates distinct skills and exercises for you.',
+                style: _ts(
+                    13, AppColors.secondaryTextStoneGrey, FontWeight.w400, 1.45),
+              ),
+            ),
+          ),
+        ..._skills.map(_buildEditableSkillCard),
+        _dashedButton('Add Skill', Icons.add, _showAddSkillSheet),
+        const SizedBox(height: 24),
         _label('SESSION NOTES'),
         const SizedBox(height: 8),
         _card(
@@ -766,10 +1589,14 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             controller: _notes,
             maxLines: null,
             minLines: 3,
+            onChanged: (_) {
+              if (_isDraft && !widget.isNewSession) _persistToStore();
+            },
             cursorColor: AppColors.primaryForestGreen,
-            style: _ts(14, AppColors.primaryTextOffWhite, FontWeight.w400, 1.5),
+            style:
+                _ts(14, AppColors.primaryTextOffWhite, FontWeight.w400, 1.5),
             decoration: InputDecoration(
-              hintText: 'Add notes about this session',
+              hintText: 'Add notes about this session...',
               hintStyle: _ts(14, AppColors.secondaryTextStoneGrey),
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
@@ -779,21 +1606,11 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             ),
           ),
         ),
-        const SizedBox(height: 24),
-        _label('SESSION SECTIONS'),
-        const SizedBox(height: 10),
-        ..._sections.map(_buildSectionCard),
-        _dashedButton('Add Section', Icons.add, () async {
-          final v = await _promptText('New section', 'e.g. Tracking');
-          if (v != null && v.isNotEmpty) {
-            setState(() => _sections.add(_Section(name: v, mins: 10, open: true)));
-          }
-        }),
         const SizedBox(height: 28),
         Center(
           child: TextButton(
             onPressed: _confirmDelete,
-            child: Text('Delete Draft',
+            child: Text(_isDraft ? 'Delete Draft' : 'Delete Session',
                 style: _ts(13, const Color(0xFFB05A5A), FontWeight.w600)),
           ),
         ),
@@ -801,7 +1618,11 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     );
   }
 
-  Widget _buildSectionCard(_Section sec) {
+  Widget _buildEditableSkillCard(_EditableSkill skill) {
+    final distinctEx = skill.toEntry().distinctExerciseCount;
+    final exLabel =
+        '$distinctEx ${distinctEx == 1 ? 'Exercise' : 'Exercises'}';
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: _card(
@@ -810,29 +1631,73 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
           children: [
             InkWell(
               borderRadius: BorderRadius.circular(16),
-              onTap: () => setState(() => sec.open = !sec.open),
+              onTap: () => setState(() => skill.open = !skill.open),
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.fromLTRB(16, 14, 10, 14),
                 child: Row(
                   children: [
-                    const Icon(Icons.drag_indicator,
-                        color: AppColors.secondaryTextStoneGrey, size: 20),
+                    const Icon(Icons.layers_outlined,
+                        color: AppColors.primaryForestGreen, size: 20),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: Text(sec.name,
-                          overflow: TextOverflow.ellipsis,
-                          style: _ts(18, AppColors.primaryTextOffWhite,
-                              FontWeight.w600)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  skill.skillName,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: _ts(17, AppColors.primaryTextOffWhite,
+                                      FontWeight.w600),
+                                ),
+                              ),
+                              if (skill.isCustom) ...[
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 6, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primaryForestGreen
+                                        .withValues(alpha: 0.2),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    'CUSTOM',
+                                    style: _ts(
+                                        9,
+                                        AppColors.primaryForestGreen,
+                                        FontWeight.w700),
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            exLabel,
+                            style: _ts(12, AppColors.secondaryTextStoneGrey),
+                          ),
+                        ],
+                      ),
                     ),
-                    Text('${sec.mins}m',
-                        style: _ts(13, AppColors.secondaryTextStoneGrey)),
-                    const SizedBox(width: 6),
+                    IconButton(
+                      tooltip: 'Remove Skill',
+                      icon: const Icon(Icons.delete_outline,
+                          size: 19, color: AppColors.secondaryTextStoneGrey),
+                      onPressed: () {
+                        setState(() => _skills.remove(skill));
+                        if (_isDraft && !widget.isNewSession) _persistToStore();
+                      },
+                    ),
                     AnimatedRotation(
-                      turns: sec.open ? 0.5 : 0,
+                      turns: skill.open ? 0.5 : 0,
                       duration: const Duration(milliseconds: 220),
                       child: const Icon(Icons.expand_more,
                           color: AppColors.secondaryTextStoneGrey),
                     ),
+                    const SizedBox(width: 4),
                   ],
                 ),
               ),
@@ -841,93 +1706,144 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               duration: const Duration(milliseconds: 240),
               curve: Curves.easeOutCubic,
               alignment: Alignment.topCenter,
-              child: sec.open
+              child: skill.open
                   ? Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (sec.categories.isNotEmpty)
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: sec.categories
-                                  .map((c) => Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 6),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.backgroundObsidian,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                          border: Border.all(
-                                              color: Colors.white12),
+                          ...skill.exercises.map(
+                            (ex) => Container(
+                              margin: const EdgeInsets.only(bottom: 8),
+                              padding: const EdgeInsets.only(
+                                  left: 12, top: 8, bottom: 8, right: 4),
+                              decoration: BoxDecoration(
+                                color: AppColors.backgroundObsidian,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.white12),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          ex.name,
+                                          style: _ts(
+                                              14,
+                                              AppColors.primaryTextOffWhite,
+                                              FontWeight.w500),
                                         ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              width: 6,
-                                              height: 6,
-                                              decoration: const BoxDecoration(
-                                                color:
-                                                    AppColors.infoAlpineBlue,
-                                                shape: BoxShape.circle,
-                                              ),
+                                        if (ex.isCustom)
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 2),
+                                            child: Text(
+                                              'Custom exercise',
+                                              style: _ts(
+                                                  11,
+                                                  AppColors.primaryForestGreen,
+                                                  FontWeight.w500),
                                             ),
-                                            const SizedBox(width: 8),
-                                            Text(c,
-                                                style: _ts(
-                                                    12,
-                                                    AppColors
-                                                        .primaryTextOffWhite,
-                                                    FontWeight.w500)),
-                                          ],
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  // Separate repetitions stepper
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.cardsCarbon,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border:
+                                          Border.all(color: Colors.white12),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        InkWell(
+                                          onTap: ex.repetitions > 1
+                                              ? () {
+                                                  setState(
+                                                      () => ex.repetitions--);
+                                                  if (_isDraft &&
+                                                      !widget.isNewSession) {
+                                                    _persistToStore();
+                                                  }
+                                                }
+                                              : null,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4),
+                                            child: Icon(
+                                              Icons.remove,
+                                              size: 14,
+                                              color: ex.repetitions > 1
+                                                  ? AppColors
+                                                      .secondaryTextStoneGrey
+                                                  : Colors.white24,
+                                            ),
+                                          ),
                                         ),
-                                      ))
-                                  .toList(),
-                            ),
-                          if (sec.categories.isNotEmpty)
-                            const SizedBox(height: 12),
-                          ...sec.exercises.map((e) => Container(
-                                margin: const EdgeInsets.only(bottom: 8),
-                                padding: const EdgeInsets.only(
-                                    left: 14, right: 4),
-                                decoration: BoxDecoration(
-                                  color: AppColors.backgroundObsidian,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: Colors.white12),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 14),
-                                        child: Text(e,
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 6),
+                                          child: Text(
+                                            '${ex.repetitions} ${ex.repetitions == 1 ? 'rep' : 'reps'}',
                                             style: _ts(
-                                                14,
+                                                12,
                                                 AppColors.primaryTextOffWhite,
-                                                FontWeight.w500)),
-                                      ),
+                                                FontWeight.w600),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() => ex.repetitions++);
+                                            if (_isDraft &&
+                                                !widget.isNewSession) {
+                                              _persistToStore();
+                                            }
+                                          },
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(4),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 14,
+                                              color:
+                                                  AppColors.primaryForestGreen,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    IconButton(
-                                      icon: const Icon(Icons.close,
-                                          size: 18,
-                                          color: AppColors
-                                              .secondaryTextStoneGrey),
-                                      onPressed: () => setState(
-                                          () => sec.exercises.remove(e)),
-                                    ),
-                                  ],
-                                ),
-                              )),
-                          _dashedButton('Add Exercise', Icons.add, () async {
-                            final v = await _promptText(
-                                'Add exercise', 'e.g. Figure of Eight x3');
-                            if (v != null && v.isNotEmpty) {
-                              setState(() => sec.exercises.add(v));
-                            }
-                          }, compact: true),
+                                  ),
+                                  IconButton(
+                                    tooltip: 'Remove Exercise',
+                                    visualDensity: VisualDensity.compact,
+                                    icon: const Icon(Icons.close,
+                                        size: 18,
+                                        color:
+                                            AppColors.secondaryTextStoneGrey),
+                                    onPressed: () {
+                                      setState(() => skill.exercises.remove(ex));
+                                      if (_isDraft && !widget.isNewSession) {
+                                        _persistToStore();
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          _dashedButton(
+                            'Add Exercise',
+                            Icons.add,
+                            () => _showAddExerciseSheet(skill),
+                            compact: true,
+                          ),
                         ],
                       ),
                     )
@@ -941,45 +1857,114 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
 
   // ── Completed state ───────────────────────────────────────────────────────
 
-  Widget _buildCompleted() {
+  Widget _buildCompleted(TrainingSession preview) {
+    final hasNotes = _notes.text.trim().isNotEmpty;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildHeader(),
+        _buildHeader(preview),
         const SizedBox(height: 20),
         Row(
           children: [
-            Expanded(child: _primaryBtn('Edit Session', Icons.edit, _reopen)),
+            Expanded(
+              child: _primaryBtn('Edit Session', Icons.edit, _enterEditMode),
+            ),
             const SizedBox(width: 12),
             Expanded(
-                child:
-                    _outlineBtn('More Options', Icons.more_horiz, _showMore)),
+              child: _outlineBtn('More Options', Icons.more_horiz, _showMore),
+            ),
           ],
         ),
         const SizedBox(height: 20),
         _card(
           child: Column(
             children: [
-              _metaRow('Dog', widget.session.dogName, first: true),
+              _metaRow('Dog', preview.dogName, first: true),
               _metaRow('Location', _location),
-              _metaRow('Trainer/Helper', 'Erik Svensson'),
-              _metaRow('Total Duration', _duration,
-                  valueColor: AppColors.primaryForestGreen, last: true),
+              _metaRow('Purpose', _purpose),
+              _metaRow(
+                'Recorded Duration',
+                preview.duration ?? 'Not recorded',
+                valueColor: AppColors.primaryForestGreen,
+                last: true,
+              ),
             ],
           ),
         ),
         const SizedBox(height: 24),
-        _label('SESSION NOTES'),
+        SizedBox(
+          width: double.infinity,
+          child: Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 4,
+            children: [
+              _label('SKILLS & EXERCISES'),
+              Text(
+                '${preview.formattedSkillCount} · ${preview.formattedExerciseCount}',
+                style: _ts(12, AppColors.primaryForestGreen, FontWeight.w600),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        if (_skills.isEmpty)
+          _card(
+            child: Text(
+              'No skills recorded in this session.',
+              style: _ts(13, AppColors.secondaryTextStoneGrey),
+            ),
+          )
+        else
+          ..._skills.map(_buildCompletedSkillCard),
+        if (preview.skillTags.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _label('SKILL TAGS'),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: preview.skillTags.map(_miniTag).toList(),
+                ),
+              ],
+            ),
+          ),
+        ],
+        const SizedBox(height: 24),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _label('SESSION NOTES'),
+            if (!hasNotes)
+              GestureDetector(
+                onTap: _enterEditMode,
+                child: Text('Add Note',
+                    style: _ts(
+                        13, AppColors.primaryForestGreen, FontWeight.w600)),
+              ),
+          ],
+        ),
         const SizedBox(height: 8),
         _card(
-          child: Text(_notes.text,
-              style: _ts(14, AppColors.primaryTextOffWhite, FontWeight.w400, 1.55)),
+          child: Text(
+            hasNotes ? _notes.text.trim() : 'No notes added',
+            style: _ts(
+              14,
+              hasNotes
+                  ? AppColors.primaryTextOffWhite
+                  : AppColors.secondaryTextStoneGrey,
+              FontWeight.w400,
+              1.55,
+            ),
+          ),
         ),
         const SizedBox(height: 24),
-        _label('PHASES LOGGED'),
-        const SizedBox(height: 10),
-        ..._phases.map(_buildPhaseCard),
-        const SizedBox(height: 12),
         _buildMedia(),
         const SizedBox(height: 24),
         LayoutBuilder(builder: (context, c) {
@@ -1004,35 +1989,16 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
           return Column(children: [eq, const SizedBox(height: 12), rw]);
         }),
         const SizedBox(height: 12),
-        _chipCard('TAGS', _tags, () {
-          _editChips('Tags', _tagOptions, _tags, (v) => _tags = v);
+        _chipCard('TAGS', _sessionTags, () {
+          _editChips('Tags', _tagOptions, _sessionTags, (v) => _sessionTags = v);
         }, square: true),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: AppColors.backgroundObsidian,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.white12),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _label('RECORD INFO'),
-              const SizedBox(height: 10),
-              _infoRow('Created', '14 Jun 2026, 21:45'),
-              const SizedBox(height: 6),
-              _infoRow('Last edited', '15 Jun 2026, 08:12'),
-            ],
-          ),
-        ),
         const SizedBox(height: 28),
         Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 400),
             child: SizedBox(
               width: double.infinity,
-              child: _primaryBtn('Edit Session', null, _reopen),
+              child: _primaryBtn('Edit Session', null, _enterEditMode),
             ),
           ),
         ),
@@ -1048,14 +2014,19 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     );
   }
 
-  Widget _buildPhaseCard(_Phase p) {
+  Widget _buildCompletedSkillCard(_EditableSkill skill) {
+    final entry = skill.toEntry();
+    final distinctEx = entry.distinctExerciseCount;
+    final exCountChip =
+        '$distinctEx ${distinctEx == 1 ? 'Exercise' : 'Exercises'}';
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: _card(
         padding: EdgeInsets.zero,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () => setState(() => p.open = !p.open),
+          onTap: () => setState(() => skill.open = !skill.open),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -1063,60 +2034,63 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               children: [
                 Row(
                   children: [
-                    Icon(p.icon, color: p.color, size: 22),
+                    const Icon(Icons.layers_outlined,
+                        color: AppColors.primaryForestGreen, size: 22),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: Text(p.name,
+                      child: Text(skill.skillName,
                           style: _ts(18, AppColors.primaryTextOffWhite,
                               FontWeight.w600)),
                     ),
+                    _miniTag(exCountChip),
+                    const SizedBox(width: 6),
                     AnimatedRotation(
-                      turns: p.open ? 0.5 : 0,
+                      turns: skill.open ? 0.5 : 0,
                       duration: const Duration(milliseconds: 220),
                       child: const Icon(Icons.expand_more,
                           color: AppColors.secondaryTextStoneGrey),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: p.chips.map(_miniTag).toList(),
-                ),
                 AnimatedSize(
                   duration: const Duration(milliseconds: 240),
                   curve: Curves.easeOutCubic,
                   alignment: Alignment.topCenter,
-                  child: p.open
+                  child: skill.open
                       ? Padding(
                           padding: const EdgeInsets.only(top: 12),
                           child: Column(
-                            children: p.details
-                                .map((d) => Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 8),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            width: 5,
-                                            height: 5,
-                                            decoration: BoxDecoration(
-                                              color: p.color,
-                                              shape: BoxShape.circle,
-                                            ),
+                            children: skill.exercises
+                                .map(
+                                  (ex) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 8),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: 5,
+                                          height: 5,
+                                          decoration: const BoxDecoration(
+                                            color: AppColors.primaryForestGreen,
+                                            shape: BoxShape.circle,
                                           ),
-                                          const SizedBox(width: 10),
-                                          Expanded(
-                                            child: Text(d,
-                                                style: _ts(
-                                                    14,
-                                                    AppColors
-                                                        .primaryTextOffWhite)),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Expanded(
+                                          child: Text(
+                                            ex.name,
+                                            style: _ts(
+                                                14,
+                                                AppColors.primaryTextOffWhite),
                                           ),
-                                        ],
-                                      ),
-                                    ))
+                                        ),
+                                        const SizedBox(width: 8),
+                                        _miniTag(
+                                          '${ex.repetitions} ${ex.repetitions == 1 ? 'rep' : 'reps'}',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
                                 .toList(),
                           ),
                         )
@@ -1131,7 +2105,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
   }
 
   Widget _buildMedia() {
-    final total = _mediaUrls.length + 2; // two extra items beyond the preview
+    final total = _mediaUrls.length + 2;
     final items = List<int>.generate(total, (i) => i);
     final visible = _mediaExpanded ? items : items.take(4).toList();
     final hidden = total - 4;
@@ -1147,7 +2121,8 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               onTap: () =>
                   _toast('Media manager coming soon', SnackbarType.info),
               child: Text('Manage Media',
-                  style: _ts(13, AppColors.primaryForestGreen, FontWeight.w600)),
+                  style:
+                      _ts(13, AppColors.primaryForestGreen, FontWeight.w600)),
             ),
           ],
         ),
@@ -1164,7 +2139,9 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                 final isVideo = i == 0 || i == 3;
                 return GestureDetector(
                   onTap: () => _toast(
-                      isVideo ? 'Video viewer coming soon' : 'Photo viewer coming soon',
+                      isVideo
+                          ? 'Video viewer coming soon'
+                          : 'Photo viewer coming soon',
                       SnackbarType.info),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
@@ -1337,7 +2314,8 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               child: Text(value,
                   textAlign: TextAlign.right,
                   overflow: TextOverflow.ellipsis,
-                  style: _ts(14, AppColors.primaryTextOffWhite, FontWeight.w500)),
+                  style: _ts(
+                      14, AppColors.primaryTextOffWhite, FontWeight.w500)),
             ),
             if (chevron) ...[
               const SizedBox(width: 4),
@@ -1361,7 +2339,9 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       ),
       child: Row(
         children: [
-          Text(label, style: _ts(13, AppColors.secondaryTextStoneGrey, FontWeight.w500)),
+          Text(label,
+              style: _ts(
+                  13, AppColors.secondaryTextStoneGrey, FontWeight.w500)),
           const SizedBox(width: 16),
           Expanded(
             child: Text(value,
@@ -1374,14 +2354,6 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       ),
     );
   }
-
-  Widget _infoRow(String l, String v) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(l, style: _ts(12, AppColors.secondaryTextStoneGrey)),
-          Text(v, style: _ts(12, AppColors.primaryTextOffWhite)),
-        ],
-      );
 
   Widget _primaryBtn(String label, IconData? icon, VoidCallback onTap) =>
       _filledBtn(label, AppColors.primaryForestGreen, onTap, icon: icon);
@@ -1410,8 +2382,8 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               Flexible(
                 child: Text(label,
                     overflow: TextOverflow.ellipsis,
-                    style: _ts(14, AppColors.primaryTextOffWhite,
-                        FontWeight.w600)),
+                    style: _ts(
+                        14, AppColors.primaryTextOffWhite, FontWeight.w600)),
               ),
             ],
           ),
@@ -1443,8 +2415,8 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               Flexible(
                 child: Text(label,
                     overflow: TextOverflow.ellipsis,
-                    style: _ts(14, AppColors.primaryTextOffWhite,
-                        FontWeight.w600)),
+                    style: _ts(
+                        14, AppColors.primaryTextOffWhite, FontWeight.w600)),
               ),
             ],
           ),
@@ -1473,8 +2445,8 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               Icon(icon, size: 18, color: AppColors.secondaryTextStoneGrey),
               const SizedBox(width: 6),
               Text(label,
-                  style: _ts(13, AppColors.secondaryTextStoneGrey,
-                      FontWeight.w500)),
+                  style: _ts(
+                      13, AppColors.secondaryTextStoneGrey, FontWeight.w500)),
             ],
           ),
         ),

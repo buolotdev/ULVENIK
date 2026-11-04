@@ -1,3 +1,4 @@
+import 'activity_library_screen.dart';
 import 'package:flutter/material.dart';
 import '../widgets/custom_snackbar.dart';
 import 'session_details_screen.dart';
@@ -7,6 +8,7 @@ class RecordSessionScreen extends StatefulWidget {
   final String? initialCategory;
   final IconData? initialIcon;
   final bool startWithActivity;
+  final List<CustomActivityMetric>? initialCustomMetrics;
 
   const RecordSessionScreen({
     super.key,
@@ -14,6 +16,7 @@ class RecordSessionScreen extends StatefulWidget {
     this.initialCategory,
     this.initialIcon,
     this.startWithActivity = true,
+    this.initialCustomMetrics,
   });
 
   @override
@@ -50,18 +53,15 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
   TimeOfDay _endTime = const TimeOfDay(hour: 10, minute: 15);
 
   // Metrics State
-  double _distanceKm = 3.2;
-  int _repetitions = 12;
-  int _sets = 4;
-  int _weightKg = 15;
   String _intensity = 'Med'; // 'Low', 'Med', 'High'
+  List<Map<String, String>> _recordedCustomMetrics = [];
 
   // Rating & Notes
-  int _rating = 0; // 0 to 5 stars
+  int _rating = 4; // 0 to 5 stars (default 4/5 as per design)
   final TextEditingController _notesController = TextEditingController();
 
   // Media attachments
-  final List<String> _attachedMedia = [];
+  final List<Map<String, dynamic>> _attachedMedia = [];
 
   // Library activities catalog for picker
   final List<Map<String, dynamic>> _availableActivities = const [
@@ -69,31 +69,54 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
       'name': 'Hill Work',
       'category': 'Strength & Conditioning',
       'icon': Icons.terrain,
+      'customMetrics': [
+        {'name': 'Distance', 'unit': 'metres', 'default': '3200'},
+        {'name': 'Load', 'unit': 'kg', 'default': '15'},
+      ],
     },
     {
       'name': 'Swimming Fitness',
       'category': 'Hydrotherapy & Endurance',
       'icon': Icons.pool,
+      'customMetrics': [
+        {'name': 'Distance', 'unit': 'metres', 'default': '1800'},
+      ],
     },
     {
       'name': 'Sprint Intervals',
       'category': 'Cardio & Speed',
       'icon': Icons.directions_run,
+      'customMetrics': [
+        {'name': 'Speed', 'unit': 'mph', 'default': '22'},
+        {'name': 'Repetitions', 'unit': 'reps', 'default': '8'},
+      ],
     },
     {
       'name': 'Weighted Carries',
       'category': 'Power & Core',
       'icon': Icons.fitness_center,
+      'customMetrics': [
+        {'name': 'Load', 'unit': 'kg', 'default': '15'},
+        {'name': 'Repetitions', 'unit': 'reps', 'default': '12'},
+      ],
     },
     {
       'name': 'Treadmill Sprints',
       'category': 'Endurance Work',
       'icon': Icons.speed,
+      'customMetrics': [
+        {'name': 'Speed', 'unit': 'mph', 'default': '16'},
+        {'name': 'Incline', 'unit': '%', 'default': '6'},
+      ],
     },
     {
       'name': 'Core & Balance',
       'category': 'Stability Drill',
       'icon': Icons.shield,
+      'customMetrics': [
+        {'name': 'Height', 'unit': 'cm', 'default': '30'},
+        {'name': 'Repetitions', 'unit': 'reps', 'default': '10'},
+      ],
     },
   ];
 
@@ -108,6 +131,27 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
       _activityIcon = widget.initialIcon ?? Icons.terrain;
     } else {
       _hasActivity = widget.startWithActivity;
+    }
+
+    if (widget.initialCustomMetrics != null) {
+      _recordedCustomMetrics = widget.initialCustomMetrics!
+          .map((m) => {'name': m.name, 'unit': m.unit, 'value': '10'})
+          .toList();
+    } else if (_hasActivity) {
+      final match = _availableActivities.firstWhere(
+        (a) => a['name'] == _activityName,
+        orElse: () => _availableActivities.first,
+      );
+      final list = match['customMetrics'] as List<dynamic>?;
+      if (list != null) {
+        _recordedCustomMetrics = list
+            .map((m) => {
+                  'name': m['name'].toString(),
+                  'unit': m['unit'].toString(),
+                  'value': m['default']?.toString() ?? '10',
+                })
+            .toList();
+      }
     }
 
     _notesController.addListener(() => setState(() {}));
@@ -250,16 +294,17 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
         builder: (_) => SessionDetailsScreen(
           sessionTitle: _activityName,
           dateSubtitle: _formattedDate,
-          shortDate: '${_selectedDate.day} ${_months[_selectedDate.month - 1]} ${_selectedDate.year}',
-          durationText: '${_durationMinutes ~/ 60 > 0 ? '${_durationMinutes ~/ 60}h ' : ''}${_durationMinutes % 60}m',
+          shortDate:
+              '${_selectedDate.day} ${_months[_selectedDate.month - 1]} ${_selectedDate.year}',
+          durationText:
+              '${_durationMinutes ~/ 60 > 0 ? '${_durationMinutes ~/ 60}h ' : ''}${_durationMinutes % 60}m',
           initialRating: _rating,
-          distance: '$_distanceKm km',
-          sets: '$_sets',
           intensity: _intensity,
-          repetitions: '$_repetitions',
           notes: _notesController.text.isNotEmpty
               ? _notesController.text
               : 'Completed session with focus on cadence and consistency.',
+          customMetrics: _recordedCustomMetrics,
+          attachedMedia: _attachedMedia,
         ),
       ),
     );
@@ -378,6 +423,18 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                       _activityName = act['name'] as String;
                       _category = act['category'] as String;
                       _activityIcon = act['icon'] as IconData;
+                      final metrics = act['customMetrics'] as List<dynamic>?;
+                      if (metrics != null && metrics.isNotEmpty) {
+                        _recordedCustomMetrics = metrics
+                            .map((m) => {
+                                  'name': m['name'].toString(),
+                                  'unit': m['unit'].toString(),
+                                  'value': m['default']?.toString() ?? '10',
+                                })
+                            .toList();
+                      } else {
+                        _recordedCustomMetrics = [];
+                      }
                     });
                     Navigator.pop(ctx);
                     ScaffoldMessenger.of(context).clearSnackBars();
@@ -451,8 +508,8 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
     );
   }
 
-  void _showMetricAdjuster(String title, String currentVal, String unit,
-      ValueChanged<double> onSaved) {
+  void _showCustomMetricAdjuster(String title, String unit,
+      String currentVal, ValueChanged<String> onSaved) {
     final ctrl = TextEditingController(text: currentVal);
     showDialog(
       context: context,
@@ -462,8 +519,9 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
           borderRadius: BorderRadius.circular(14),
           side: _hairlineSide,
         ),
-        title: Text('Adjust $title ($unit)',
-            style: const TextStyle(color: _offWhite, fontSize: 17)),
+        title: Text('Record $title ($unit)',
+            style: const TextStyle(
+                color: _offWhite, fontSize: 17, fontWeight: FontWeight.w700)),
         content: TextField(
           controller: ctrl,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -491,9 +549,9 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
               foregroundColor: _offWhite,
             ),
             onPressed: () {
-              final val = double.tryParse(ctrl.text.trim());
-              if (val != null) {
-                onSaved(val);
+              final text = ctrl.text.trim();
+              if (text.isNotEmpty) {
+                onSaved(text);
               }
               Navigator.pop(ctx);
             },
@@ -532,7 +590,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
             );
           },
           child: const Text(
-            'TRAINING SESSION',
+            'RECORD S&C SESSION',
             style: TextStyle(
               color: _offWhite,
               fontSize: 14,
@@ -584,7 +642,12 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   _buildSelectedDateTimeCard(),
                   const SizedBox(height: 24),
 
-                  _buildSessionMetricsGrid(),
+                  if (_recordedCustomMetrics.isNotEmpty) ...[
+                    _buildSessionMetricsGrid(),
+                    const SizedBox(height: 24),
+                  ],
+
+                  _buildIntensityCard(),
                   const SizedBox(height: 24),
 
                   _buildRatingCard(),
@@ -848,144 +911,161 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
   }
 
   Widget _buildSessionMetricsGrid() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            // Distance
-            Expanded(
-              child: _buildMetricTile(
-                label: 'Distance',
-                value: _distanceKm.toStringAsFixed(1),
-                unit: 'km',
-                onTap: () {
-                  _showMetricAdjuster('Distance', _distanceKm.toString(), 'km',
-                      (val) => setState(() => _distanceKm = val));
-                },
-              ),
-            ),
-            const SizedBox(width: 8),
-            // Repetitions
-            Expanded(
-              child: _buildMetricTile(
-                label: 'Repetitions',
-                value: '$_repetitions',
-                unit: 'reps',
-                onTap: () {
-                  _showMetricAdjuster(
-                      'Repetitions',
-                      _repetitions.toString(),
-                      'reps',
-                      (val) => setState(() => _repetitions = val.toInt()));
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Row(
-          children: [
-            // Sets
-            Expanded(
-              child: _buildMetricTile(
-                label: 'Sets',
-                value: '$_sets',
-                unit: 'sets',
-                onTap: () {
-                  _showMetricAdjuster('Sets', _sets.toString(), 'sets',
-                      (val) => setState(() => _sets = val.toInt()));
-                },
-              ),
-            ),
-            const SizedBox(width: 8),
-            // Weight
-            Expanded(
-              child: _buildMetricTile(
-                label: 'Weight',
-                value: '$_weightKg',
-                unit: 'kg',
-                onTap: () {
-                  _showMetricAdjuster('Weight', _weightKg.toString(), 'kg',
-                      (val) => setState(() => _weightKg = val.toInt()));
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
+    // Pair custom metrics in rows of 2
+    final List<List<Map<String, String>>> metricRows = [];
+    for (int i = 0; i < _recordedCustomMetrics.length; i += 2) {
+      if (i + 1 < _recordedCustomMetrics.length) {
+        metricRows.add(
+            [_recordedCustomMetrics[i], _recordedCustomMetrics[i + 1]]);
+      } else {
+        metricRows.add([_recordedCustomMetrics[i]]);
+      }
+    }
 
-        // Intensity Selector
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: _carbon,
-            borderRadius: BorderRadius.circular(8),
-            border: _hairlineBorder,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'METRICS',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.8,
+              ),
+            ),
+            Text(
+              'Activity Custom Metrics',
+              style: TextStyle(
+                color: _mint,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        for (int r = 0; r < metricRows.length; r++) ...[
+          if (r > 0) const SizedBox(height: 8),
+          Row(
             children: [
-              const Text(
-                'Intensity',
-                style: TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
+              Expanded(
+                child: _buildMetricTile(
+                  label: metricRows[r][0]['name']!,
+                  value: metricRows[r][0]['value']!,
+                  unit: metricRows[r][0]['unit']!,
+                  onTap: () {
+                    _showCustomMetricAdjuster(
+                      metricRows[r][0]['name']!,
+                      metricRows[r][0]['unit']!,
+                      metricRows[r][0]['value']!,
+                      (val) => setState(() => metricRows[r][0]['value'] = val),
+                    );
+                  },
                 ),
               ),
-              const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: _surfaceHigh,
-                  borderRadius: BorderRadius.circular(9999),
+              if (metricRows[r].length > 1) ...[
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _buildMetricTile(
+                    label: metricRows[r][1]['name']!,
+                    value: metricRows[r][1]['value']!,
+                    unit: metricRows[r][1]['unit']!,
+                    onTap: () {
+                      _showCustomMetricAdjuster(
+                        metricRows[r][1]['name']!,
+                        metricRows[r][1]['unit']!,
+                        metricRows[r][1]['value']!,
+                        (val) =>
+                            setState(() => metricRows[r][1]['value'] = val),
+                      );
+                    },
+                  ),
                 ),
-                child: Row(
-                  children: ['Low', 'Med', 'High'].map((opt) {
-                    final isSelected = _intensity == opt;
-                    return Expanded(
-                      child: InkWell(
-                        onTap: () => setState(() => _intensity = opt),
+              ] else ...[
+                const SizedBox(width: 8),
+                const Expanded(child: SizedBox.shrink()),
+              ],
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildIntensityCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(8),
+        border: _hairlineBorder,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Intensity',
+            style: TextStyle(
+              color: _stoneGrey,
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: _surfaceHigh,
+              borderRadius: BorderRadius.circular(9999),
+            ),
+            child: Row(
+              children: ['Low', 'Med', 'High'].map((opt) {
+                final isSelected = _intensity == opt;
+                return Expanded(
+                  child: InkWell(
+                    onTap: () => setState(() => _intensity = opt),
+                    borderRadius: BorderRadius.circular(9999),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 180),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      decoration: BoxDecoration(
+                        color: isSelected ? _forestGreen : Colors.transparent,
                         borderRadius: BorderRadius.circular(9999),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 180),
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          decoration: BoxDecoration(
-                            color: isSelected ? _forestGreen : Colors.transparent,
-                            borderRadius: BorderRadius.circular(9999),
-                            boxShadow: isSelected
-                                ? [
-                                    BoxShadow(
-                                      color: _forestGreen.withValues(alpha: 0.35),
-                                      blurRadius: 4,
-                                      offset: const Offset(0, 1),
-                                    )
-                                  ]
-                                : null,
-                          ),
-                          child: Center(
-                            child: Text(
-                              opt,
-                              style: TextStyle(
-                                color: isSelected ? _offWhite : _stoneGrey,
-                                fontSize: 13,
-                                fontWeight: isSelected
-                                    ? FontWeight.w600
-                                    : FontWeight.w400,
-                              ),
-                            ),
+                        boxShadow: isSelected
+                            ? [
+                                BoxShadow(
+                                  color: _forestGreen.withValues(alpha: 0.35),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 1),
+                                )
+                              ]
+                            : null,
+                      ),
+                      child: Center(
+                        child: Text(
+                          opt,
+                          style: TextStyle(
+                            color: isSelected ? _offWhite : _stoneGrey,
+                            fontSize: 13,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.w400,
                           ),
                         ),
                       ),
-                    );
-                  }).toList(),
-                ),
-              ),
-            ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -1152,24 +1232,204 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
     );
   }
 
+  void _showAddPhotoSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: _carbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (ctx) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Add Photo',
+                        style: TextStyle(
+                          color: _offWhite,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.camera_alt_outlined, color: _mint),
+                  title: const Text('Capture with Camera',
+                      style: TextStyle(
+                          color: _offWhite, fontWeight: FontWeight.w600)),
+                  subtitle: const Text('Take a photo using device camera',
+                      style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    setState(() {
+                      _attachedMedia.add({
+                        'url':
+                            'https://lh3.googleusercontent.com/aida-public/AB6AXuAA6MpFhgm_ya4naDvk30iHXXw0S4bepNDThgPkAckv3Hc-D2AuLO2x49hfQt16v2C11kr-MPg5WEDxWYAzQ65ps64CBmdg52V3AAzvO6PRetWJc4lHen01H0IHsjCVpS8zhVGDDE_0jqFyakfSuhKSaVuDNhZLSwU5r_TWezJSXfa6W0vxXHDNyOoFNYEjDDh1Q2JW3o-1lDsOMSDDel84xZtJffr0D_Z55DYrzL_6G6JB7tJgHu4',
+                        'isVideo': false,
+                        'source': 'Camera',
+                        'caption': 'Captured session photo',
+                      });
+                    });
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    AppSnackbar.show(
+                      context,
+                      message: 'Photo captured and attached to session',
+                      type: SnackbarType.success,
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.photo_library_outlined, color: _sage),
+                  title: const Text('Choose from Library',
+                      style: TextStyle(
+                          color: _offWhite, fontWeight: FontWeight.w600)),
+                  subtitle: const Text('Select existing photo from device library',
+                      style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    setState(() {
+                      _attachedMedia.add({
+                        'url':
+                            'https://lh3.googleusercontent.com/aida-public/AB6AXuBgTCj489HAbnhTX_kWdzYawL_TLnu7f6kRayI4YE4uuuCL0T_FkF3voiho_bcLD6WYBq_1EG2eEV8OAX1Yp27PvJIHpCc1CTeUBf8T7JymDOALuzvHyllbsnhgc2drthTedkyrqWwfXQ0R8cGNSMe9tcAihlgH_V8QL2ExBQHTrck54DLL97xb7761FyRVutjPpLn4CpyVogRFiOAIK2OrMzejEcBPhvr4g3Gb4_jboqCWfW3J720',
+                        'isVideo': false,
+                        'source': 'Library',
+                        'caption': 'Selected library photo',
+                      });
+                    });
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    AppSnackbar.show(
+                      context,
+                      message: 'Photo selected from library and attached',
+                      type: SnackbarType.success,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showAddVideoSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: _carbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (ctx) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Add Video',
+                        style: TextStyle(
+                          color: _offWhite,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.videocam_outlined, color: _mint),
+                  title: const Text('Record with Camera',
+                      style: TextStyle(
+                          color: _offWhite, fontWeight: FontWeight.w600)),
+                  subtitle: const Text('Record video clip using device camera',
+                      style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    setState(() {
+                      _attachedMedia.add({
+                        'url':
+                            'https://lh3.googleusercontent.com/aida-public/AB6AXuDtaD_VcUUqG8-da9mao4g5Tx-yY7TwHuvpIs8oTPw-couiKtMUvFiOihlnRpLeuT60Kk5YKVlj0w90w6O7nTd40bNXIW3OwJ-mrDFMCAzYadO0nStnFMO5TCElw5nKsh3xmiKlU8mZsQPeYwroA-90lrF_aFmfPQ9SQdbs7E61NgTBTPD86AJvCJp2J9SlVhfLR6rhy07LYQSkhrKSAHeJpC4guCiB3-FmRdebiz6xb4qGSZOeZdc',
+                        'isVideo': true,
+                        'source': 'Camera',
+                        'caption': 'Recorded session video clip',
+                      });
+                    });
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    AppSnackbar.show(
+                      context,
+                      message: 'Video recorded and attached to session',
+                      type: SnackbarType.success,
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.video_library_outlined, color: _sage),
+                  title: const Text('Choose from Library',
+                      style: TextStyle(
+                          color: _offWhite, fontWeight: FontWeight.w600)),
+                  subtitle: const Text('Select existing video from device library',
+                      style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    setState(() {
+                      _attachedMedia.add({
+                        'url':
+                            'https://lh3.googleusercontent.com/aida-public/AB6AXuDtaD_VcUUqG8-da9mao4g5Tx-yY7TwHuvpIs8oTPw-couiKtMUvFiOihlnRpLeuT60Kk5YKVlj0w90w6O7nTd40bNXIW3OwJ-mrDFMCAzYadO0nStnFMO5TCElw5nKsh3xmiKlU8mZsQPeYwroA-90lrF_aFmfPQ9SQdbs7E61NgTBTPD86AJvCJp2J9SlVhfLR6rhy07LYQSkhrKSAHeJpC4guCiB3-FmRdebiz6xb4qGSZOeZdc',
+                        'isVideo': true,
+                        'source': 'Library',
+                        'caption': 'Selected library video clip',
+                      });
+                    });
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    AppSnackbar.show(
+                      context,
+                      message: 'Video selected from library and attached',
+                      type: SnackbarType.success,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildMediaSection() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Text(
+          'MEDIA',
+          style: TextStyle(
+            color: _stoneGrey,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 8),
+
         Row(
           children: [
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _attachedMedia.add('photo_${_attachedMedia.length + 1}.jpg');
-                  });
-                  ScaffoldMessenger.of(context).clearSnackBars();
-                  AppSnackbar.show(
-                    context,
-                    message: 'Photo attachment added',
-                    type: SnackbarType.info,
-                  );
-                },
+                onPressed: _showAddPhotoSheet,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _carbon,
                   foregroundColor: _mint,
@@ -1188,17 +1448,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
             const SizedBox(width: 8),
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _attachedMedia.add('video_${_attachedMedia.length + 1}.mp4');
-                  });
-                  ScaffoldMessenger.of(context).clearSnackBars();
-                  AppSnackbar.show(
-                    context,
-                    message: 'Video attachment added',
-                    type: SnackbarType.info,
-                  );
-                },
+                onPressed: _showAddVideoSheet,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _carbon,
                   foregroundColor: _mint,
@@ -1222,6 +1472,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
         Row(
           children: List.generate(3, (index) {
             final hasAttachment = index < _attachedMedia.length;
+            final isVid = hasAttachment && _attachedMedia[index]['isVideo'] == true;
             return Expanded(
               child: Padding(
                 padding: EdgeInsets.only(right: index < 2 ? 8.0 : 0.0),
@@ -1245,7 +1496,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                         Center(
                           child: Icon(
                             hasAttachment
-                                ? (_attachedMedia[index].contains('video')
+                                ? (isVid
                                     ? Icons.play_circle_outline
                                     : Icons.image)
                                 : Icons.image,
@@ -1494,50 +1745,34 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
           ],
         ),
         const SizedBox(height: 8),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                decoration: BoxDecoration(
-                  color: _carbon.withValues(alpha: 0.6),
-                  borderRadius: BorderRadius.circular(8),
-                  border: _hairlineBorder,
-                ),
-                child: const Column(
-                  children: [
-                    Icon(Icons.straighten, color: _outlineVariant, size: 24),
-                    SizedBox(height: 8),
-                    Text(
-                      'Distance',
-                      style: TextStyle(color: _outlineVariant, fontSize: 13),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                decoration: BoxDecoration(
-                  color: _carbon.withValues(alpha: 0.6),
-                  borderRadius: BorderRadius.circular(8),
-                  border: _hairlineBorder,
-                ),
-                child: const Column(
-                  children: [
-                    Icon(Icons.timer_outlined, color: _outlineVariant, size: 24),
-                    SizedBox(height: 8),
-                    Text(
-                      'Pace',
-                      style: TextStyle(color: _outlineVariant, fontSize: 13),
-                    ),
-                  ],
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          decoration: BoxDecoration(
+            color: _carbon.withValues(alpha: 0.6),
+            borderRadius: BorderRadius.circular(8),
+            border: _hairlineBorder,
+          ),
+          child: const Column(
+            children: [
+              Icon(Icons.tune, color: _outlineVariant, size: 28),
+              SizedBox(height: 10),
+              Text(
+                'Custom Metrics Locked',
+                style: TextStyle(
+                  color: _offWhite,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 4),
+              Text(
+                'Select an activity above to load and record its custom metrics (e.g. Load, Distance, Speed).',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: _stoneGrey, fontSize: 12),
+              ),
+            ],
+          ),
         ),
       ],
     );

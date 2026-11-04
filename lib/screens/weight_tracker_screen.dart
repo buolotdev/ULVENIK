@@ -189,9 +189,9 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
   double get _averageWeight =>
       _records.isNotEmpty ? _records.map((r) => r.weightKg).reduce((a, b) => a + b) / _records.length : 0.0;
 
-  double get _thirtyDayChange {
+  double get _latestChange {
     if (_records.length < 2) return 0.0;
-    return _records.first.weightKg - _records.last.weightKg;
+    return _records[0].weightKg - _records[1].weightKg;
   }
 
   double get _largestIncrease {
@@ -499,7 +499,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Text(
-            'Start tracking ${_activeDog.name}\'s weight to monitor long-term health and conditioning. Every entry builds a complete picture over time.',
+            'Start tracking ${_activeDog.name}’s weight to monitor changes and build a clear picture of their weight over time.',
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -532,7 +532,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                 Icon(Icons.monitor_weight_outlined, color: Colors.white, size: 18),
                 SizedBox(width: 8),
                 Text(
-                  'Add First Weight',
+                  'Record First Weight',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,
@@ -542,21 +542,6 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                 SizedBox(width: 6),
                 Icon(Icons.arrow_forward, color: Colors.white, size: 16),
               ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 18),
-        // Learn about Weight Tracking
-        GestureDetector(
-          onTap: _showLearnModal,
-          child: const Text(
-            'Learn about Weight Tracking',
-            style: TextStyle(
-              color: Color(0xFF95D3BB),
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              decoration: TextDecoration.underline,
-              decorationColor: Color(0xFF95D3BB),
             ),
           ),
         ),
@@ -682,22 +667,45 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 6),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.arrow_upward, color: Color(0xFF95D3BB), size: 16),
-                    const SizedBox(width: 4),
-                    Text(
-                      '${_formatWeight(0.3, includeUnit: false)} $_weightUnit this month',
-                      style: const TextStyle(
-                        color: Color(0xFF95D3BB),
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
+                if (_activeDog.targetWeightKg > 0) ...[
+                  const SizedBox(height: 6),
+                  Builder(
+                    builder: (context) {
+                      final double diff = _currentWeight - _activeDog.targetWeightKg;
+                      String text;
+                      IconData icon;
+                      Color color;
+                      if (diff > 0.05) {
+                        text = '${diff.toStringAsFixed(1)} $_weightUnit above target';
+                        icon = Icons.arrow_upward;
+                        color = const Color(0xFF95D3BB);
+                      } else if (diff < -0.05) {
+                        text = '${(-diff).toStringAsFixed(1)} $_weightUnit below target';
+                        icon = Icons.arrow_downward;
+                        color = const Color(0xFFFFB4AB);
+                      } else {
+                        text = 'On target weight';
+                        icon = Icons.check_circle_outline;
+                        color = const Color(0xFF95D3BB);
+                      }
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(icon, color: color, size: 16),
+                          const SizedBox(width: 4),
+                          Text(
+                            text,
+                            style: TextStyle(
+                              color: color,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
               ],
             ),
           ),
@@ -737,8 +745,8 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     Container(width: 1, height: 60, color: Colors.white.withValues(alpha: 0.08)),
                     Expanded(
                       child: _buildGridCell(
-                        label: '30 DAY CHANGE',
-                        value: _formatDelta(_thirtyDayChange),
+                        label: 'CHANGE',
+                        value: _formatDelta(_latestChange),
                         valueColor: const Color(0xFF95D3BB),
                       ),
                     ),
@@ -1265,8 +1273,8 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
               Container(width: 1, height: 60, color: Colors.white.withValues(alpha: 0.08)),
               Expanded(
                 child: _buildGridCell(
-                  label: 'MONTHLY CHANGE',
-                  value: _formatDelta(0.3),
+                  label: 'CHANGE',
+                  value: _formatDelta(_latestChange),
                   valueColor: const Color(0xFF95D3BB),
                 ),
               ),
@@ -1866,13 +1874,45 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                       icon: const Icon(Icons.delete_outline, size: 18),
                       label: const Text('Delete'),
                       onPressed: () {
-                        setState(() {
-                          _records.removeWhere((r) => r.id == record.id);
-                          if (_records.isEmpty) {
-                            _isEmpty = true;
-                          }
-                        });
-                        Navigator.pop(ctx);
+                        showDialog(
+                          context: context,
+                          builder: (dialogCtx) => AlertDialog(
+                            backgroundColor: AppColors.cardsCarbon,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                            title: const Text(
+                              'Delete Weight Entry?',
+                              style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600, fontSize: 18),
+                            ),
+                            content: const Text(
+                              'Are you sure you want to delete this weight entry? This action cannot be undone.',
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(dialogCtx),
+                                child: const Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(dialogCtx);
+                                  setState(() {
+                                    _records.removeWhere((r) => r.id == record.id);
+                                    if (_records.isEmpty) {
+                                      _isEmpty = true;
+                                    }
+                                  });
+                                  Navigator.pop(ctx);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF8B3A3A),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                ),
+                                child: const Text('Delete'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -2253,108 +2293,6 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
           },
         );
       },
-    );
-  }
-
-  /// Educational Guide Modal (Learn about Weight Tracking)
-  void _showLearnModal() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: AppColors.backgroundObsidian,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Weight & Conditioning Guide',
-                      style: TextStyle(
-                        color: AppColors.primaryTextOffWhite,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
-                      onPressed: () => Navigator.pop(ctx),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                _buildGuideSection(
-                  '1. Regular Tracking',
-                  'For active working breeds, monitor weight weekly at the same time of day (ideally morning before feeding) to detect conditioning changes early.',
-                ),
-                const SizedBox(height: 12),
-                _buildGuideSection(
-                  '2. Body Condition Score (BCS)',
-                  'Ideal score is 4 to 5 on a 9-point scale. Ribs should be easily palpable with minimal fat cover, with an obvious waist when viewed from above and clear abdominal tuck.',
-                ),
-                const SizedBox(height: 12),
-                _buildGuideSection(
-                  '3. Seasonal Adjustments',
-                  'Working dogs often burn significantly more calories in colder weather or during intense training cycles. Adjust caloric intake to preserve lean muscle mass.',
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2E6B57),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                    onPressed: () => Navigator.pop(ctx),
-                    child: const Text('Got It', style: TextStyle(color: Colors.white)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildGuideSection(String title, String body) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Color(0xFF95D3BB),
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            body,
-            style: const TextStyle(
-              color: AppColors.secondaryTextStoneGrey,
-              fontSize: 13,
-              height: 1.4,
-            ),
-          ),
-        ],
-      ),
     );
   }
 

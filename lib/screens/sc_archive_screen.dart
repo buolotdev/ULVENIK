@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'sc_settings_screen.dart';
 
-enum ArchiveCategory { activity, equipment, template }
+enum ArchiveCategory { activity, template }
 
 class ArchivedItem {
   final String id;
@@ -56,7 +56,6 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
 
   // Accordion Expand/Collapse State
   bool _activitiesExpanded = true;
-  bool _equipmentExpanded = true;
   bool _templatesExpanded = false; // Collapsed by default as in Figma Screenshot 1
 
   // Chart Animation
@@ -111,25 +110,6 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
         linkedSessions: 6,
         icon: Icons.water,
       ),
-      // Equipment
-      const ArchivedItem(
-        id: 'eq-1',
-        title: 'Resistance Bands Set',
-        category: ArchiveCategory.equipment,
-        archivedAgo: 'Archived 3 weeks ago',
-        lastUsedAgo: 'Last used 2 months ago',
-        linkedSessions: 9,
-        icon: Icons.fitness_center,
-      ),
-      const ArchivedItem(
-        id: 'eq-2',
-        title: 'Wobble Board',
-        category: ArchiveCategory.equipment,
-        archivedAgo: 'Archived 1 month ago',
-        lastUsedAgo: 'Last used 6 weeks ago',
-        linkedSessions: 4,
-        icon: Icons.balance,
-      ),
       // Session Templates
       const ArchivedItem(
         id: 'tmpl-1',
@@ -172,13 +152,69 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
 
   // ─── Interactive Actions: Restore & Permanent Delete ───────────────────────
 
-  void _handleRestore(ArchivedItem item) {
-    setState(() {
-      _items.removeWhere((i) => i.id == item.id);
-      if (_items.isEmpty) {
-        _isEmptyState = true;
-      }
-    });
+  void _confirmRestore(ArchivedItem item) {
+    final sectionName = item.category == ArchiveCategory.activity
+        ? 'Activities'
+        : 'Session Templates';
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: _carbon,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: [
+            const Icon(Icons.unarchive_outlined, color: _mint, size: 24),
+            const SizedBox(width: 10),
+            const Expanded(
+              child: Text(
+                'Restore Item?',
+                style: TextStyle(
+                  color: _offWhite,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        ),
+        content: Text(
+          'Are you sure you want to restore "${item.title}"?\n\nThe item will be returned to its relevant active section in $sectionName.',
+          style: const TextStyle(color: _stoneGrey, fontSize: 13, height: 1.45),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _forest,
+              foregroundColor: _offWhite,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            onPressed: () {
+              Navigator.pop(ctx);
+              setState(() {
+                _items.removeWhere((i) => i.id == item.id);
+                if (_items.isEmpty) {
+                  _isEmptyState = true;
+                }
+              });
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('"${item.title}" restored to active $sectionName.'),
+                  backgroundColor: _forest,
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            },
+            child: const Text('Restore', style: TextStyle(fontWeight: FontWeight.w600)),
+          ),
+        ],
+      ),
+    );
   }
 
   void _confirmDeletePermanently(ArchivedItem item) {
@@ -249,7 +285,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
           style: TextStyle(color: _offWhite, fontSize: 17, fontWeight: FontWeight.w700),
         ),
         content: const Text(
-          'This will permanently delete all archived activities, equipment, and session templates.',
+          'This will permanently delete all archived activities and session templates.',
           style: TextStyle(color: _stoneGrey, fontSize: 13),
         ),
         actions: [
@@ -341,7 +377,6 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                   _resetDemoData();
                   _isEmptyState = false;
                   _activitiesExpanded = true;
-                  _equipmentExpanded = true;
                   _templatesExpanded = false;
                   _searchController.clear();
                 });
@@ -430,10 +465,9 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
 
   Widget _buildPopulatedStateView() {
     final activityItems = _getItemsForCategory(ArchiveCategory.activity);
-    final equipmentItems = _getItemsForCategory(ArchiveCategory.equipment);
     final templateItems = _getItemsForCategory(ArchiveCategory.template);
 
-    final totalVisible = activityItems.length + equipmentItems.length + templateItems.length;
+    final totalVisible = activityItems.length + templateItems.length;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
@@ -464,16 +498,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
             ),
             const SizedBox(height: 20),
 
-            // ─── Section 2: Equipment ────────────────────────────────────────
-            _buildCategorySection(
-              title: 'Equipment',
-              items: equipmentItems,
-              isExpanded: _equipmentExpanded,
-              onToggle: () {
-                setState(() => _equipmentExpanded = !_equipmentExpanded);
-              },
-            ),
-            const SizedBox(height: 20),
+
 
             // ─── Section 3: Session Templates ────────────────────────────────
             _buildCategorySection(
@@ -526,16 +551,14 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
 
   Widget _buildInteractiveArchiveChart() {
     final actCount = _getItemsForCategory(ArchiveCategory.activity).length;
-    final eqCount = _getItemsForCategory(ArchiveCategory.equipment).length;
     final tmplCount = _getItemsForCategory(ArchiveCategory.template).length;
-    final totalCount = actCount + eqCount + tmplCount;
+    final totalCount = actCount + tmplCount;
 
     if (totalCount == 0) return const SizedBox.shrink();
 
     final dataList = [
       {'label': 'Activities', 'count': actCount, 'color': _mint},
-      {'label': 'Equipment', 'count': eqCount, 'color': _forest},
-      {'label': 'Templates', 'count': tmplCount, 'color': const Color(0xFF5D8FAF)},
+      {'label': 'Templates', 'count': tmplCount, 'color': _forest},
     ];
 
     return Container(
@@ -745,7 +768,6 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
   Widget _buildArchiveCard(ArchivedItem item) {
     final catHeader = switch (item.category) {
       ArchiveCategory.activity => 'ACTIVITY',
-      ArchiveCategory.equipment => 'EQUIPMENT',
       ArchiveCategory.template => 'SESSION TEMPLATE',
     };
 
@@ -862,7 +884,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                   minimumSize: Size.zero,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                onPressed: () => _handleRestore(item),
+                onPressed: () => _confirmRestore(item),
                 child: const Text(
                   'Restore',
                   style: TextStyle(
@@ -954,7 +976,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
             const SizedBox(
               width: 320,
               child: Text(
-                'You don\'t have any archived Strength & Conditioning items. Archive activities, equipment or templates to store them here.',
+                'You don’t have any archived Strength & Conditioning items. Archived activities and session templates will appear here.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: _stoneGrey,

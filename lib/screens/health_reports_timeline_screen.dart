@@ -18,7 +18,19 @@ class HealthTrendPoint {
   });
 }
 
-enum EntryType { vetVisit, weight, medication, condition, reminder }
+enum EntryType {
+  vetVisit,
+  weight,
+  medication,
+  vaccination,
+  injury,
+  rehabilitation,
+  supplement,
+  surgery,
+  dental,
+  condition,
+  reminder,
+}
 
 extension EntryTypeX on EntryType {
   String get label {
@@ -26,9 +38,21 @@ extension EntryTypeX on EntryType {
       case EntryType.vetVisit:
         return 'Vet Visit';
       case EntryType.weight:
-        return 'Weight Check';
+        return 'Weight Recorded';
       case EntryType.medication:
         return 'Medication';
+      case EntryType.vaccination:
+        return 'Vaccination';
+      case EntryType.injury:
+        return 'Injury';
+      case EntryType.rehabilitation:
+        return 'Rehabilitation';
+      case EntryType.supplement:
+        return 'Supplement';
+      case EntryType.surgery:
+        return 'Surgery & Procedure';
+      case EntryType.dental:
+        return 'Dental Care';
       case EntryType.condition:
         return 'Condition';
       case EntryType.reminder:
@@ -44,6 +68,18 @@ extension EntryTypeX on EntryType {
         return 'Weight';
       case EntryType.medication:
         return 'Medications';
+      case EntryType.vaccination:
+        return 'Vaccinations';
+      case EntryType.injury:
+        return 'Injuries';
+      case EntryType.rehabilitation:
+        return 'Rehabilitation';
+      case EntryType.supplement:
+        return 'Supplements';
+      case EntryType.surgery:
+        return 'Surgeries';
+      case EntryType.dental:
+        return 'Dental Care';
       case EntryType.condition:
         return 'Conditions';
       case EntryType.reminder:
@@ -59,6 +95,18 @@ extension EntryTypeX on EntryType {
         return Icons.scale_outlined;
       case EntryType.medication:
         return Icons.medication_outlined;
+      case EntryType.vaccination:
+        return Icons.vaccines_outlined;
+      case EntryType.injury:
+        return Icons.healing_outlined;
+      case EntryType.rehabilitation:
+        return Icons.directions_walk_outlined;
+      case EntryType.supplement:
+        return Icons.science_outlined;
+      case EntryType.surgery:
+        return Icons.medical_services_outlined;
+      case EntryType.dental:
+        return Icons.sentiment_satisfied_alt_outlined;
       case EntryType.condition:
         return Icons.warning_amber_rounded;
       case EntryType.reminder:
@@ -372,7 +420,7 @@ class _HealthReportsTimelineScreenState
         icon: const Icon(Icons.arrow_back, color: _mint),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      title: const Text('Health Reports & Timeline',
+      title: const Text('Health History',
           style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
       centerTitle: false,
       actions: [
@@ -1266,46 +1314,13 @@ class _HealthReportsTimelineScreenState
 
   // ---------- empty ----------
   Widget _emptyView() {
-    const vitals = ['WEIGHT', 'BODY COND', 'RESTING HR', 'TEMP', 'RESP RATE', 'HYDRATION'];
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 40),
+      padding: const EdgeInsets.fromLTRB(20, 32, 20, 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: AppColors.cardsCarbon,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-            ),
-            child: LayoutBuilder(builder: (context, c) {
-              final w = c.maxWidth / 3;
-              return Wrap(
-                runSpacing: 22,
-                children: vitals
-                    .map((v) => SizedBox(
-                          width: w,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(v,
-                                  style: const TextStyle(
-                                      color: AppColors.secondaryTextStoneGrey,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w700,
-                                      letterSpacing: 0.6)),
-                              const SizedBox(height: 6),
-                              Container(width: 28, height: 2, color: AppColors.primaryTextOffWhite),
-                            ],
-                          ),
-                        ))
-                    .toList(),
-              );
-            }),
-          ),
-          const SizedBox(height: 60),
+          const SizedBox(height: 32),
           Center(
             child: Container(
               width: 120,
@@ -1322,32 +1337,17 @@ class _HealthReportsTimelineScreenState
           const Text('No Health History Yet',
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
-          const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(
-              "As you begin recording your dog's health, a complete medical timeline will appear here.",
+              "Health History builds automatically from records created across ${_dog.name}'s Health areas (Weight, Body Condition, Medications, Vaccinations, Vet Visits, Injuries, Rehabilitation, Supplements and other Health records).",
               textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5),
+              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5),
             ),
           ),
-          const SizedBox(height: 28),
+          const SizedBox(height: 32),
           _primaryButton('Add Health Record', _showAddSheet, arrow: true),
-          const SizedBox(height: 14),
-          InkWell(
-            onTap: _showLearnSheet,
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-              ),
-              alignment: Alignment.center,
-              child: const Text('Learn about Health Records',
-                  style: TextStyle(color: _mint, fontSize: 14, fontWeight: FontWeight.w500)),
-            ),
-          ),
         ],
       ),
     );
@@ -1590,7 +1590,7 @@ class _HealthReportsTimelineScreenState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _header(ctx, 'Filter Timeline'),
-                  const Text('RECORD TYPE',
+                  const Text('RECORD CATEGORY',
                       style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 10,
@@ -1753,24 +1753,4 @@ class _HealthReportsTimelineScreenState
         ));
   }
 
-  void _showLearnSheet() {
-    _sheet((ctx) => SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _header(ctx, 'Health Records'),
-                const Text(
-                  "Every vet visit, weight check, medication, condition and reminder is logged here and shown on one chronological timeline. Share it with your vet, trainer or insurer in a tap.",
-                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.5),
-                ),
-                const SizedBox(height: 20),
-                _primaryButton('Got It', () => Navigator.pop(ctx)),
-              ],
-            ),
-          ),
-        ));
-  }
 }

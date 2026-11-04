@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
@@ -110,7 +109,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
               'assets/images/brand.png',
               width: 72,
               height: 72,
-              errorBuilder: (_, __, ___) => const SizedBox(height: 72),
+              errorBuilder: (_, error, stackTrace) => const SizedBox(height: 72),
             ),
           ),
           
@@ -135,7 +134,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
           ),
           const SizedBox(height: 12),
           const Text(
-            "We've sent a verification link to your email address to ensure account security.",
+            "We’ve sent a verification link to your email address. Follow the link to verify your account.",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -214,7 +213,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Check your inbox and spam folder for an email from ULVENIK. Click the link inside to verify.',
+                  'Check your inbox and spam folder for an email from Ulvenik, then follow the link to verify your account.',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 13,
@@ -255,7 +254,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
               ),
             ),
             child: const Text(
-              "I've Verified My Email",
+              "I’ve Verified — Continue",
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
@@ -272,7 +271,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
                 Text(
                   'Resend Verification Email',
                   style: TextStyle(
-                    color: AppColors.secondaryTextStoneGrey.withOpacity(0.5),
+                    color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5),
                     fontSize: 13,
                   ),
                 ),
@@ -298,7 +297,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
                   ),
                   style: TextButton.styleFrom(
                     foregroundColor: AppColors.primaryTextOffWhite,
-                    backgroundColor: Colors.white.withOpacity(0.06),
+                    backgroundColor: Colors.white.withValues(alpha: 0.06),
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(999),
@@ -347,7 +346,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
               'assets/images/brand.png',
               width: 72,
               height: 72,
-              errorBuilder: (_, __, ___) => const SizedBox(height: 72),
+              errorBuilder: (_, error, stackTrace) => const SizedBox(height: 72),
             ),
           ),
           

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
+import 'training_screen.dart';
 
 class AddSkillScreen extends StatefulWidget {
   const AddSkillScreen({super.key});
@@ -79,32 +80,58 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
+              Container(
+                width: 44,
+                height: 44,
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE07070).withValues(alpha: 0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.warning_amber_rounded,
+                  color: Color(0xFFE07070),
+                  size: 24,
+                ),
+              ),
               const Text(
-                'Discard skill?',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite),
+                'Discard Changes?',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primaryTextOffWhite,
+                ),
               ),
               const SizedBox(height: 8),
               const Text(
-                'Any information you have entered will be lost.',
+                'You have unsaved changes to this skill. If you leave now, your changes won’t be saved.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: AppColors.secondaryTextStoneGrey, height: 1.4),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.secondaryTextStoneGrey,
+                  height: 1.4,
+                ),
               ),
               const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(ctx);
-                    Navigator.pop(context);
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xFF8B3A3A).withOpacity(0.15),
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryForestGreen,
+                    foregroundColor: AppColors.primaryTextOffWhite,
                     padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 0,
                   ),
                   child: const Text(
-                    'Discard',
-                    style: TextStyle(color: Color(0xFFE07070), fontSize: 15, fontWeight: FontWeight.w600),
+                    'Continue Editing',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
@@ -112,7 +139,10 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () => Navigator.pop(ctx),
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                    Navigator.pop(context);
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: AppColors.cardsCarbon,
                     padding: const EdgeInsets.symmetric(vertical: 14),
@@ -122,8 +152,12 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                     ),
                   ),
                   child: const Text(
-                    'Keep Editing',
-                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),
+                    'Discard Changes',
+                    style: TextStyle(
+                      color: Color(0xFFE07070),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
@@ -136,8 +170,10 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
 
   void _handleSave() {
     if (!_canSave) return;
+    final createdName = _nameController.text.trim();
+    TrainingSessionStore.registerCustomSkill(createdName);
     AppSnackbar.show(context, message: 'Skill saved', type: SnackbarType.success);
-    Navigator.pop(context);
+    Navigator.pop(context, createdName);
   }
 
   @override
@@ -230,7 +266,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                       const SizedBox(height: 6),
                       _textInput(
                         controller: _nameController,
-                        hint: 'e.g. Heeling',
+                        hint: 'e.g. Heelwork',
                       ),
                       const SizedBox(height: 16),
                       _fieldLabel('Description', optional: true),
@@ -546,7 +582,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: isPrimary
-                  ? AppColors.primaryForestGreen.withOpacity(0.5)
+                  ? AppColors.primaryForestGreen.withValues(alpha: 0.5)
                   : Colors.white24,
             ),
           ),

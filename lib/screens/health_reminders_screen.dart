@@ -127,16 +127,13 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
   // View Toggle: 0: List View, 1: Calendar/Adherence Graph View
   int _viewMode = 0; // 0: List, 1: Calendar & Graph
 
-  // Filter: 'All', 'Due Today', 'Overdue', 'Upcoming', 'Medication', 'Vaccines', 'Appointments', 'Completed'
+  // Filter: All | Due Today | Upcoming | Overdue | Completed (All selected by default)
   String _selectedFilter = 'All';
   final List<String> _filters = const [
     'All',
     'Due Today',
-    'Overdue',
     'Upcoming',
-    'Medication',
-    'Vaccines',
-    'Appointments',
+    'Overdue',
     'Completed',
   ];
 
@@ -224,13 +221,13 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
       ),
       HealthReminderItem(
         id: 'rem-2',
-        title: 'Evening Apoquel Dose - Missed',
-        timingText: 'Was due yesterday, 8:00 PM',
-        dateTime: DateTime.now().subtract(const Duration(days: 1, hours: 4)),
+        title: 'NexGard Spectra - Overdue',
+        timingText: 'Was due 1 Aug',
+        dateTime: DateTime.now().subtract(const Duration(days: 23)),
         status: ReminderStatus.overdue,
         category: ReminderCategory.medication,
         dogName: 'Rex',
-        note: '16mg Apoquel with dinner for seasonal dermatitis.',
+        note: 'Monthly chewable treatment for fleas, ticks and heartworm.',
       ),
 
       // DUE TODAY
@@ -359,28 +356,16 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
         // If switched to another dog profile that has data
       }
 
-      // Filter tabs
+      // Filter tabs: All | Due Today | Upcoming | Overdue | Completed
       switch (_selectedFilter) {
         case 'Due Today':
           if (item.status != ReminderStatus.dueToday || item.isCompleted) return false;
           break;
-        case 'Overdue':
-          if (item.status != ReminderStatus.overdue || item.isCompleted) return false;
-          break;
         case 'Upcoming':
           if (item.status != ReminderStatus.upcoming || item.isCompleted) return false;
           break;
-        case 'Medication':
-          if (item.category != ReminderCategory.medication) return false;
-          break;
-        case 'Vaccines':
-          if (item.category != ReminderCategory.vaccination) return false;
-          break;
-        case 'Appointments':
-          if (item.category != ReminderCategory.grooming &&
-              item.category != ReminderCategory.vetVisit) {
-            return false;
-          }
+        case 'Overdue':
+          if (item.status != ReminderStatus.overdue || item.isCompleted) return false;
           break;
         case 'Completed':
           if (!item.isCompleted) return false;
@@ -1004,54 +989,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
     );
   }
 
-  void _showLearnDialog() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF1A1F22),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Row(
-          children: [
-            Icon(Icons.info_outline, color: _mint, size: 22),
-            SizedBox(width: 10),
-            Text(
-              'Health Reminders',
-              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17),
-            ),
-          ],
-        ),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Automated & Synchronized Care',
-              style: TextStyle(
-                color: _mint,
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Ulvenik automatically generates smart reminders whenever you prescribe medications, schedule vaccination boosters, or book veterinary checkups.\n\nNever miss an Apoquel tablet, heartworm chew, or rehab session again with multi-tier alerts and push notification schedules.',
-              style: TextStyle(
-                color: AppColors.secondaryTextStoneGrey,
-                fontSize: 13,
-                height: 1.45,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Got it', style: TextStyle(color: _mint, fontWeight: FontWeight.w600)),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -1657,7 +1595,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               alignment: WrapAlignment.center,
               children: [
                 _ChartLegend(color: _forest, label: '100% On-time'),
-                _ChartLegend(color: _amber, label: 'Missed / Snoozed'),
+                _ChartLegend(color: _amber, label: 'Overdue / Snoozed'),
                 _ChartLegend(color: Color(0xFF111412), label: 'Target'),
               ],
             ),
@@ -2340,7 +2278,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 const SizedBox(width: 8),
                 _buildEmptyFilterPill('Medications', false),
                 const SizedBox(width: 8),
-                _buildEmptyFilterPill('Vaccines', false),
+                _buildEmptyFilterPill('Vaccinations', false),
                 const SizedBox(width: 8),
                 _buildEmptyFilterPill('Appointments', false),
               ],
@@ -2381,7 +2319,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Health reminders from medications, vaccinations and appointments will automatically appear here.',
+              'Keep track of upcoming medications, vaccinations, appointments and other health reminders in one place.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
@@ -2414,22 +2352,6 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 SizedBox(width: 8),
                 Icon(Icons.arrow_forward, size: 16),
               ],
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          // Learn text link
-          Center(
-            child: TextButton(
-              onPressed: _showLearnDialog,
-              child: const Text(
-                'Learn about Health Reminders',
-                style: TextStyle(
-                  color: _mint,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
             ),
           ),
         ],

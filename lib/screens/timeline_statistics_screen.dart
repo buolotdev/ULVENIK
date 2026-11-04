@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'timeline_calendar_screen.dart';
-import 'timeline_dashboard_screen.dart';
 import 'record_session_screen.dart';
 import 'timeline_export_screen.dart';
 import 'timeline_favourites_screen.dart';
@@ -16,11 +15,13 @@ import 'timeline_insights_screen.dart';
 class TimelineStatisticsScreen extends StatefulWidget {
   final bool initialEmpty;
   final String initialDog;
+  final bool hasSportPack;
 
   const TimelineStatisticsScreen({
     super.key,
     this.initialEmpty = false,
     this.initialDog = 'Koda',
+    this.hasSportPack = false,
   });
 
   @override
@@ -45,10 +46,12 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
   static const Color _catHealth = Color(0xFF8D504A); // Muted Red / Coral
   static const Color _catComp = Color(0xFF2E6B57); // Forest Mint
   static const Color _catSC = Color(0xFFC28A47); // Amber / Conditioning
-  static const Color _catOther = Color(0xFF6B7780); // Slate
+  static const Color _catGoals = Color(0xFFB8920A); // Gold / Goals
+  static const Color _catMedia = Color(0xFF7A5BAF); // Violet / Media
 
   late bool _isEmpty;
   late String _currentDog;
+  late bool _hasSportPack;
   late String _selectedTimeframe;
 
   // Animation Controllers
@@ -96,6 +99,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
     super.initState();
     _isEmpty = widget.initialEmpty;
     _currentDog = widget.initialDog;
+    _hasSportPack = widget.hasSportPack;
     _selectedTimeframe = 'This Year';
 
     // Chart entrance animation
@@ -1071,6 +1075,26 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
   // CATEGORY BREAKDOWN CARD (Figma Donut Chart + Legend)
   // -------------------------------------------------------------
   Widget _buildCategoryBreakdownCard() {
+    final items = <Map<String, dynamic>>[
+      {'label': 'Training', 'value': 42.0, 'pct': '42%', 'color': _catTraining},
+      {'label': 'S&C', 'value': 22.0, 'pct': '22%', 'color': _catSC},
+      {'label': 'Health', 'value': 16.0, 'pct': '16%', 'color': _catHealth},
+      {
+        'label': 'Goals',
+        'value': _hasSportPack ? 8.0 : 12.0,
+        'pct': _hasSportPack ? '8%' : '12%',
+        'color': _catGoals,
+      },
+      {
+        'label': 'Media',
+        'value': _hasSportPack ? 4.0 : 8.0,
+        'pct': _hasSportPack ? '4%' : '8%',
+        'color': _catMedia,
+      },
+      if (_hasSportPack)
+        {'label': 'Competition', 'value': 8.0, 'pct': '8%', 'color': _catComp},
+    ];
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(16),
@@ -1121,43 +1145,15 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                             }
                           },
                         ),
-                        sections: [
-                          // Training 42%
-                          PieChartSectionData(
-                            color: _catTraining,
-                            value: 42,
+                        sections: List.generate(items.length, (i) {
+                          final item = items[i];
+                          return PieChartSectionData(
+                            color: item['color'] as Color,
+                            value: item['value'] as double,
                             showTitle: false,
-                            radius: _activePieSlice == 0 ? 22 : 17,
-                          ),
-                          // Health 16%
-                          PieChartSectionData(
-                            color: _catHealth,
-                            value: 16,
-                            showTitle: false,
-                            radius: _activePieSlice == 1 ? 22 : 17,
-                          ),
-                          // Comp 8%
-                          PieChartSectionData(
-                            color: _catComp,
-                            value: 8,
-                            showTitle: false,
-                            radius: _activePieSlice == 2 ? 22 : 17,
-                          ),
-                          // S&C 18%
-                          PieChartSectionData(
-                            color: _catSC,
-                            value: 18,
-                            showTitle: false,
-                            radius: _activePieSlice == 3 ? 22 : 17,
-                          ),
-                          // Other 16%
-                          PieChartSectionData(
-                            color: _catOther,
-                            value: 16,
-                            showTitle: false,
-                            radius: _activePieSlice == 4 ? 22 : 17,
-                          ),
-                        ],
+                            radius: _activePieSlice == i ? 22 : 17,
+                          );
+                        }),
                       ),
                     ),
                     const Column(
@@ -1188,19 +1184,19 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
 
               const SizedBox(width: 24),
 
-              // Legend Column (Exact Figma Labels & Percentages)
+              // Legend Column (Recorded Timeline Categories)
               Expanded(
                 child: Column(
                   children: [
-                    _buildLegendRow('Training', '42%', _catTraining, 0),
-                    const SizedBox(height: 10),
-                    _buildLegendRow('Health', '16%', _catHealth, 1),
-                    const SizedBox(height: 10),
-                    _buildLegendRow('Comp', '8%', _catComp, 2),
-                    const SizedBox(height: 10),
-                    _buildLegendRow('S&C', '18%', _catSC, 3),
-                    const SizedBox(height: 10),
-                    _buildLegendRow('Other', '16%', _catOther, 4),
+                    for (int i = 0; i < items.length; i++) ...[
+                      if (i > 0) const SizedBox(height: 10),
+                      _buildLegendRow(
+                        items[i]['label'] as String,
+                        items[i]['pct'] as String,
+                        items[i]['color'] as Color,
+                        i,
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -1316,7 +1312,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                 ),
                 const SizedBox(height: 22),
 
-                // CTA Button: Go to Timeline ->
+                // CTA Button: Add a Record ->
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -1332,16 +1328,16 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const TimelineDashboardScreen()),
+                        MaterialPageRoute(builder: (_) => const RecordSessionScreen()),
                       );
                     },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.history, color: Colors.white, size: 18),
+                        Icon(Icons.add, color: Colors.white, size: 18),
                         SizedBox(width: 8),
                         Text(
-                          'Go to Timeline',
+                          'Add a Record',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -1350,21 +1346,6 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                         SizedBox(width: 6),
                         Icon(Icons.arrow_forward, color: Colors.white, size: 16),
                       ],
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Text link: Learn about the Timeline
-                GestureDetector(
-                  onTap: _showLearnTimelineModal,
-                  child: const Text(
-                    'Learn about the Timeline',
-                    style: TextStyle(
-                      color: _mint,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),

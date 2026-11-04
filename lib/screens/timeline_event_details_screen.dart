@@ -555,7 +555,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
             durationText: '45 mins',
             initialRating: 5,
             distance: '3.2 km',
-            sets: '7 Exercises',
+            sets: '3 Exercises',
             restTime: '15m Total',
           ),
         ),
@@ -574,8 +574,8 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
 
   Widget _buildSummarySection(bool isTraining) {
     final summaryText = isTraining
-        ? 'Focused session on off-leash reliability in medium-distraction environments. Fenrir responded excellently to recall despite the presence of other dogs at a distance. Heel work needs minor adjustment on right turns.'
-        : 'Routine annual physical examination. Atlas is in excellent health, maintaining optimal weight for sporting activities. Core vaccinations updated. Joint mobility and muscle tone are exceptional for his age bracket.';
+        ? 'Off-leash obedience session recorded in a medium-distraction park environment. Practised focused heelwork (15 mins), recall with distraction (5 reps), and long down-stay (3 mins).'
+        : 'Routine annual physical examination and core vaccination booster recorded. Weight logged at 34.2 kg. Vaccinations updated: Rabies (3-Yr Booster), DHPP Core Annual, and Leptospirosis 4-way.';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -873,22 +873,22 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
   Widget _buildHighDensityDetailsGrid(bool isTraining) {
     final rows = isTraining
         ? [
-            {'icon': Icons.category, 'label': 'SESSION TYPE', 'value': 'Obedience Drill'},
-            {'icon': Icons.psychology, 'label': 'SKILLS', 'value': 'Focus, Impulse Control'},
+            {'icon': Icons.category, 'label': 'SESSION TYPE', 'value': 'Obedience Session'},
+            {'icon': Icons.psychology, 'label': 'SKILLS', 'value': 'Heelwork, Recall, Down Stay'},
             {
               'icon': Icons.checklist,
               'label': 'EXERCISES',
-              'multi': ['Focused Heel (15m)', 'Recall with Distraction (x5)', 'Long Down-Stay (3m)'],
+              'multi': ['Focused Heel (15m)', 'Recall with Distraction · 5 reps', 'Long Down-Stay (3m)'],
             },
-            {'icon': Icons.timer, 'label': 'DURATION', 'value': '45 Minutes (Active)'},
+            {'icon': Icons.timer, 'label': 'DURATION', 'value': '45 Minutes'},
             {'icon': Icons.emoji_events_outlined, 'label': 'REWARDS', 'value': 'High-Value Food, Tug Toy'},
             {'icon': Icons.construction, 'label': 'EQUIPMENT', 'value': 'Long Line, Clicker'},
             {'icon': Icons.wb_cloudy_outlined, 'label': 'WEATHER', 'value': '14°C, Overcast, Dry'},
           ]
         : [
             {'icon': Icons.category, 'label': 'RECORD TYPE', 'value': 'Annual Physical Exam'},
-            {'icon': Icons.scale, 'label': 'WEIGHT', 'value': '34.2 kg (Optimal)'},
-            {'icon': Icons.health_and_safety, 'label': 'CONDITION SCORE', 'value': '5/9 (Ideal Athletic)'},
+            {'icon': Icons.scale, 'label': 'WEIGHT', 'value': '34.2 kg'},
+            {'icon': Icons.health_and_safety, 'label': 'CONDITION SCORE', 'value': '5/9'},
             {'icon': Icons.person, 'label': 'VETERINARIAN', 'value': 'Dr. Sarah Jenkins, DVM'},
             {'icon': Icons.local_hospital, 'label': 'CLINIC', 'value': 'Barkcroft Veterinary Hospital'},
             {

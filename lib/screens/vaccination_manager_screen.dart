@@ -664,7 +664,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
           Container(width: 1, height: 48, color: Colors.white.withValues(alpha: 0.08)),
           Expanded(child: _buildEmptyBentoMetric(Icons.calendar_month_outlined, '0', 'UPCOMING')),
           Container(width: 1, height: 48, color: Colors.white.withValues(alpha: 0.08)),
-          Expanded(child: _buildEmptyBentoMetric(Icons.history_outlined, '0', 'EXPIRED')),
+          Expanded(child: _buildEmptyBentoMetric(Icons.history_outlined, '0', 'OVERDUE')),
           Container(width: 1, height: 48, color: Colors.white.withValues(alpha: 0.08)),
           Expanded(child: _buildEmptyBentoMetric(Icons.warning_amber_rounded, '0', 'ALERTS')),
         ],
@@ -729,7 +729,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Text(
-            'Keep ${_activeDog.name}\'s vaccination history organised in one place. Add records to ensure they are always ready for training, trials, and travel.',
+            'Keep ${_activeDog.name}’s vaccination history organised in one place. Record vaccinations and keep track of upcoming and overdue boosters.',
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -771,20 +771,6 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 SizedBox(width: 6),
                 Icon(Icons.arrow_forward, color: Colors.white, size: 16),
               ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 18),
-        GestureDetector(
-          onTap: _showLearnModal,
-          child: const Text(
-            'Learn about Vaccination Manager',
-            style: TextStyle(
-              color: Color(0xFF95D3BB),
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              decoration: TextDecoration.underline,
-              decorationColor: Color(0xFF95D3BB),
             ),
           ),
         ),
@@ -893,12 +879,12 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
           ),
         ),
         const SizedBox(width: 8),
-        // Lifetime
+        // Total Records
         Expanded(
           child: _buildSummaryCardItem(
             icon: Icons.calendar_month_outlined,
             count: '$_lifetimeCount',
-            label: 'Lifetime',
+            label: 'Total Records',
           ),
         ),
       ],
@@ -952,13 +938,18 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                       ),
                     ),
                     const SizedBox(height: 2),
-                    Text(
-                      label.toUpperCase(),
-                      style: TextStyle(
-                        color: labelColor ?? AppColors.secondaryTextStoneGrey,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.5,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      child: Text(
+                        label.toUpperCase(),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        style: TextStyle(
+                          color: labelColor ?? AppColors.secondaryTextStoneGrey,
+                          fontSize: 8.5,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.3,
+                        ),
                       ),
                     ),
                   ],
@@ -1042,7 +1033,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                   ),
                   onPressed: () => _showRenewModal(vax),
                   child: const Text(
-                    'Renew Now',
+                    'Record Vaccination',
                     style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -1303,7 +1294,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Renew ${vax.name}',
+                    'Record ${vax.name}',
                     style: const TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 18,
@@ -1382,7 +1373,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     });
                     Navigator.pop(ctx);
                   },
-                  child: const Text('Confirm Renewal', style: TextStyle(color: Colors.white, fontSize: 15)),
+                  child: const Text('Record Vaccination', style: TextStyle(color: Colors.white, fontSize: 15)),
                 ),
               ),
             ],
@@ -1869,95 +1860,6 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
     );
   }
 
-  /// Educational Guide Modal (Learn about Vaccination Manager)
-  void _showLearnModal() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: AppColors.backgroundObsidian,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Canine Vaccination Protocol',
-                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w700),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
-                      onPressed: () => Navigator.pop(ctx),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                _buildGuideSection(
-                  '1. Core vs Non-Core Vaccines',
-                  'Core vaccines (DHPPi, Rabies) are medically essential for all dogs. Non-core vaccines (Bordetella, Leptospirosis, Lyme) depend on exposure risk in trial grounds and forested habitats.',
-                ),
-                const SizedBox(height: 12),
-                _buildGuideSection(
-                  '2. Titer Testing Options',
-                  'For seasoned working dogs, serological antibody titers can be recorded to confirm adequate immunity before administering unnecessary annual booster revaccinations.',
-                ),
-                const SizedBox(height: 12),
-                _buildGuideSection(
-                  '3. Trial & Travel Certification',
-                  'Major working trials and international travel require strict rabies titers and non-expired certificates. Keep lot numbers documented for inspection.',
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2E6B57),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                    onPressed: () => Navigator.pop(ctx),
-                    child: const Text('Got It', style: TextStyle(color: Colors.white)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildGuideSection(String title, String body) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(color: Color(0xFF95D3BB), fontSize: 14, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            body,
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
-          ),
-        ],
-      ),
-    );
-  }
 
   String _formatMonthYear(DateTime dt) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

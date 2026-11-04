@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'timeline_dashboard_screen.dart';
 import 'timeline_statistics_screen.dart';
 import 'timeline_favourites_screen.dart';
 import 'timeline_archive_screen.dart';
@@ -42,9 +41,9 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
   String _selectedDatePreset = 'This Year'; // 'Last 30 Days' | 'This Year' | 'All Time' | 'Custom'
   String _selectedFormat = 'pdf'; // 'pdf' | 'csv'
 
-  DateTime _startDate = DateTime(2026, 1, 1);
-  DateTime _endDate = DateTime(2026, 12, 31);
-  int _dayCount = 365;
+  late DateTime _startDate;
+  late DateTime _endDate;
+  late int _dayCount;
 
   // Specific events selection state
   final Map<String, bool> _selectedEventCategories = {
@@ -88,19 +87,20 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
   void _updateDateRangeByPreset(String preset) {
     setState(() {
       _selectedDatePreset = preset;
-      final now = DateTime(2026, 10, 26);
+      final now = DateTime.now();
+      final currentYear = now.year;
       if (preset == 'Last 30 Days') {
         _startDate = now.subtract(const Duration(days: 30));
         _endDate = now;
         _dayCount = 30;
       } else if (preset == 'This Year') {
-        _startDate = DateTime(2026, 1, 1);
-        _endDate = DateTime(2026, 12, 31);
-        _dayCount = 365;
+        _startDate = DateTime(currentYear, 1, 1);
+        _endDate = DateTime(currentYear, 12, 31);
+        _dayCount = _endDate.difference(_startDate).inDays + 1;
       } else if (preset == 'All Time') {
-        _startDate = DateTime(2024, 1, 1);
+        _startDate = DateTime(currentYear - 2, 1, 1);
         _endDate = now;
-        _dayCount = now.difference(_startDate).inDays;
+        _dayCount = _endDate.difference(_startDate).inDays + 1;
       }
     });
   }
@@ -879,7 +879,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                 ),
                 const SizedBox(height: 28),
 
-                // Go to Timeline -> Button
+                // Add a Record -> Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -895,14 +895,14 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const TimelineDashboardScreen()),
+                        MaterialPageRoute(builder: (_) => const RecordSessionScreen()),
                       );
                     },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Go to Timeline',
+                          'Add a Record',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,

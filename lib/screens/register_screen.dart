@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/password_strength_indicator.dart';
-import 'login_screen.dart';
 import 'email_verification_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -121,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     }
 
     final strength = PasswordStrengthIndicator.evaluate(password);
-    if (strength == PasswordStrength.weak || strength == PasswordStrength.fair) {
+    if (strength == PasswordStrength.weak) {
       AppSnackbar.show(context,
           title: 'Password Too Simple',
           message: 'Use uppercase letters, numbers, and symbols to make it stronger.',
@@ -185,7 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     return InputDecoration(
       hintText: hint,
       hintStyle: TextStyle(
-        color: AppColors.secondaryTextStoneGrey.withOpacity(0.5),
+        color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5),
         fontSize: 15,
       ),
       filled: true,
@@ -220,7 +219,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                   child: Image.asset(
                     'assets/images/brand.png',
                     fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => const SizedBox(),
+                    errorBuilder: (_, error, stackTrace) => const SizedBox(),
                   ),
                 ),
               ),
@@ -276,7 +275,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                               'assets/images/brand.png',
                               width: 72,
                               height: 72,
-                              errorBuilder: (_, __, ___) => const SizedBox(height: 72),
+                              errorBuilder: (_, error, stackTrace) => const SizedBox(height: 72),
                             ),
                           ),
                         ),

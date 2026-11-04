@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
-import 'timeline_screen.dart';
-import 'more_page_screen.dart';
+import 'package:flutter/services.dart';
+import '../theme/app_colors.dart';
+import '../widgets/custom_snackbar.dart';
+import '../widgets/ulvenik_bottom_nav.dart';
 
-// ─── Design Tokens ──────────────────────────────────────────────────────────
-const Color _obsidian = Color(0xFF101214);
-const Color _carbon = Color(0xFF1A1F22);
-const Color _cardBorder = Color(0x14FFFFFF);
-const Color _forest = Color(0xFF2E6B57);
-const Color _mint = Color(0xFFAAE9D0);
-const Color _offWhite = Color(0xFFF5F6F2);
-const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _mutedGrey = Color(0xFF718096);
+class _LicencePackage {
+  final String name;
+  final String version;
+  final String licenceType;
+  final String copyright;
+  final String repository;
+  final String description;
+  final IconData icon;
+
+  const _LicencePackage({
+    required this.name,
+    required this.version,
+    required this.licenceType,
+    required this.copyright,
+    required this.repository,
+    required this.description,
+    required this.icon,
+  });
+}
 
 class OpenSourceLicencesScreen extends StatefulWidget {
   const OpenSourceLicencesScreen({super.key});
@@ -24,66 +33,102 @@ class OpenSourceLicencesScreen extends StatefulWidget {
 }
 
 class _OpenSourceLicencesScreenState extends State<OpenSourceLicencesScreen> {
-  final _searchController = TextEditingController();
-  String _searchQuery = '';
+  static const Color _mint = Color(0xFF95D3BB);
+  static const Color _badgeBg = Color(0xFF323533);
 
-  final List<Map<String, dynamic>> _libraries = [
-    {
-      'name': 'Flutter',
-      'version': 'Version 3.24.0',
-      'license': 'BSD 3-CLAUSE',
-      'icon': Icons.code,
-      'text': 'Copyright 2014 The Flutter Authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.',
-    },
-    {
-      'name': 'Firebase',
-      'version': 'Version 10.x.x',
-      'license': 'APACHE 2.0',
-      'icon': Icons.storage_outlined,
-      'text': 'Copyright 2020 Google LLC\n\nLicensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.',
-    },
-    {
-      'name': 'provider',
-      'version': 'Version 6.1.2',
-      'license': 'MIT',
-      'icon': Icons.sync_alt,
-      'text': 'MIT License\n\nCopyright (c) 2019 Remi Rousselet\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction.',
-    },
-    {
-      'name': 'go_router',
-      'version': 'Version 13.x.x',
-      'license': 'BSD 3-CLAUSE',
-      'icon': Icons.alt_route,
-      'text': 'Copyright 2013 The Flutter Authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted.',
-    },
-    {
-      'name': 'image_picker',
-      'version': 'Version 1.x.x',
-      'license': 'APACHE 2.0',
-      'icon': Icons.photo_outlined,
-      'text': 'Copyright 2013 The Flutter Authors. All rights reserved.\n\nLicensed under the Apache License, Version 2.0.',
-    },
-    {
-      'name': 'shared_preferences',
-      'version': 'Version 2.x.x',
-      'license': 'BSD 3-CLAUSE',
-      'icon': Icons.tune,
-      'text': 'Copyright 2013 The Flutter Authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted.',
-    },
-    {
-      'name': 'fl_chart',
-      'version': 'Version 0.68.x',
-      'license': 'MIT',
-      'icon': Icons.show_chart,
-      'text': 'MIT License\n\nCopyright (c) 2019 Iman Khoshabi\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software.',
-    },
-    {
-      'name': 'intl',
-      'version': 'Version 0.19.x',
-      'license': 'BSD 3-CLAUSE',
-      'icon': Icons.language,
-      'text': 'Copyright 2013, the Dart project authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted.',
-    },
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+  String _selectedLicenceFilter = 'All';
+
+  static const List<String> _licenceFilters = [
+    'All',
+    'BSD 3-CLAUSE',
+    'APACHE 2.0',
+    'MIT',
+  ];
+
+  static const List<_LicencePackage> _packages = [
+    _LicencePackage(
+      name: 'Flutter',
+      version: 'Version 3.24.0',
+      licenceType: 'BSD 3-CLAUSE',
+      copyright: 'Copyright 2014 The Flutter Authors. All rights reserved.',
+      repository: 'github.com/flutter/flutter',
+      description:
+          'Google UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.',
+      icon: Icons.data_object_rounded,
+    ),
+    _LicencePackage(
+      name: 'Firebase',
+      version: 'Version 10.x.x',
+      licenceType: 'APACHE 2.0',
+      copyright: 'Copyright 2024 Google LLC',
+      repository: 'github.com/firebase/flutterfire',
+      description:
+          'Official FlutterFire plugins providing cloud sync, authentication, and secure storage services.',
+      icon: Icons.storage_outlined,
+    ),
+    _LicencePackage(
+      name: 'provider',
+      version: 'Version 6.1.2',
+      licenceType: 'MIT',
+      copyright: 'Copyright (c) 2019 Remi Rousselet',
+      repository: 'github.com/rrousselGit/provider',
+      description:
+          'A wrapper around InheritedWidget to make state management and dependency injection predictable and composable.',
+      icon: Icons.swap_horiz_rounded,
+    ),
+    _LicencePackage(
+      name: 'go_router',
+      version: 'Version 13.x.x',
+      licenceType: 'BSD 3-CLAUSE',
+      copyright: 'Copyright 2013 The Flutter Authors. All rights reserved.',
+      repository: 'github.com/flutter/packages/tree/main/packages/go_router',
+      description:
+          'Declarative routing package for Flutter using the Router API for deep linking and nested navigation.',
+      icon: Icons.alt_route_rounded,
+    ),
+    _LicencePackage(
+      name: 'image_picker',
+      version: 'Version 1.x.x',
+      licenceType: 'APACHE 2.0',
+      copyright: 'Copyright 2013 The Flutter Authors. All rights reserved.',
+      repository: 'github.com/flutter/packages/tree/main/packages/image_picker',
+      description:
+          'Cross-platform media selection plugin for capturing training photos, videos, and profile avatars.',
+      icon: Icons.collections_outlined,
+    ),
+    _LicencePackage(
+      name: 'shared_preferences',
+      version: 'Version 2.x.x',
+      licenceType: 'BSD 3-CLAUSE',
+      copyright: 'Copyright 2013 The Flutter Authors. All rights reserved.',
+      repository:
+          'github.com/flutter/packages/tree/main/packages/shared_preferences',
+      description:
+          'Persistent key-value storage wrapper for local app preferences and offline state.',
+      icon: Icons.tune_rounded,
+    ),
+    _LicencePackage(
+      name: 'fl_chart',
+      version: 'Version 0.68.x',
+      licenceType: 'MIT',
+      copyright: 'Copyright (c) 2020 Iman Khoshabi',
+      repository: 'github.com/imaNNeo/fl_chart',
+      description:
+          'Customizable charting engine used for training analytics, weight trends, and session statistics.',
+      icon: Icons.show_chart_rounded,
+    ),
+    _LicencePackage(
+      name: 'intl',
+      version: 'Version 0.19.x',
+      licenceType: 'BSD 3-CLAUSE',
+      copyright: 'Copyright 2013, the Dart project authors.',
+      repository: 'github.com/dart-lang/i18n/tree/main/pkgs/intl',
+      description:
+          'Internationalization and localization utilities including date/time formatting, plurals, and measurement formatting.',
+      icon: Icons.language_rounded,
+    ),
   ];
 
   @override
@@ -92,130 +137,286 @@ class _OpenSourceLicencesScreenState extends State<OpenSourceLicencesScreen> {
     super.dispose();
   }
 
-  void _onBottomNavTapped(int index) {
-    if (index == 4) {
-      Navigator.pop(context);
-      return;
-    }
-    Widget target;
-    switch (index) {
-      case 0:
-        target = const HomepageScreen();
-        break;
-      case 1:
-        target = const MyDogsScreen();
-        break;
-      case 2:
-        target = const TrainingScreen();
-        break;
-      case 3:
-        target = const TimelineScreen();
-        break;
-      case 4:
-        target = const MorePageScreen();
-        break;
-      default:
-        return;
-    }
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => target),
-    );
+  List<_LicencePackage> get _filteredPackages {
+    final q = _searchQuery.trim().toLowerCase();
+    return _packages.where((pkg) {
+      if (_selectedLicenceFilter != 'All' &&
+          pkg.licenceType != _selectedLicenceFilter) {
+        return false;
+      }
+      if (q.isEmpty) return true;
+      return pkg.name.toLowerCase().contains(q) ||
+          pkg.version.toLowerCase().contains(q) ||
+          pkg.licenceType.toLowerCase().contains(q) ||
+          pkg.description.toLowerCase().contains(q);
+    }).toList();
   }
 
-  void _showLicenseModal(Map<String, dynamic> lib) {
-    showModalBottomSheet(
+  String _fullLicenceTextFor(_LicencePackage pkg) {
+    switch (pkg.licenceType) {
+      case 'MIT':
+        return '''MIT License
+
+${pkg.copyright}
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.''';
+
+      case 'APACHE 2.0':
+        return '''Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
+
+${pkg.copyright}
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.''';
+
+      case 'BSD 3-CLAUSE':
+      default:
+        return '''BSD 3-Clause License
+
+${pkg.copyright}
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE.''';
+    }
+  }
+
+  void _openLicenceViewer(_LicencePackage pkg) {
+    final fullText = _fullLicenceTextFor(pkg);
+
+    showModalBottomSheet<void>(
       context: context,
+      useRootNavigator: true,
       isScrollControlled: true,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: _mutedGrey.withValues(alpha: 0.4),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
+      backgroundColor: Colors.transparent,
+      builder: (sheetCtx) {
+        return Container(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(sheetCtx).size.height * 0.85,
+          ),
+          decoration: const BoxDecoration(
+            color: AppColors.cardsCarbon,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
+            border: Border(
+              top: BorderSide(color: AppColors.cardBorder, width: 1),
             ),
-            const SizedBox(height: 18),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          child: SafeArea(
+            top: false,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  lib['name'] as String,
-                  style: const TextStyle(
-                    color: _offWhite,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
+                const SizedBox(height: 10),
+                Container(
+                  width: 38,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: AppColors.secondaryTextStoneGrey
+                        .withValues(alpha: 0.35),
+                    borderRadius: BorderRadius.circular(2),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF14191C),
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: _cardBorder),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 18, 12, 14),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: AppColors.backgroundObsidian,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.cardBorder),
+                        ),
+                        child: Icon(
+                          pkg.icon,
+                          color: AppColors.secondaryTextStoneGrey,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    pkg.name,
+                                    style: const TextStyle(
+                                      fontFamily: 'Inter',
+                                      color: AppColors.primaryTextOffWhite,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                _buildLicenceBadge(pkg.licenceType),
+                              ],
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              '${pkg.version} • ${pkg.repository}',
+                              style: const TextStyle(
+                                fontFamily: 'Inter',
+                                color: AppColors.secondaryTextStoneGrey,
+                                fontSize: 12,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => Navigator.of(sheetCtx).pop(),
+                        icon: const Icon(
+                          Icons.close_rounded,
+                          color: AppColors.secondaryTextStoneGrey,
+                          size: 21,
+                        ),
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    lib['license'] as String,
-                    style: const TextStyle(
-                      color: _stoneGrey,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
+                ),
+                const Divider(height: 1, color: AppColors.cardBorder),
+                Flexible(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          pkg.description,
+                          style: const TextStyle(
+                            fontFamily: 'Inter',
+                            color: AppColors.secondaryTextStoneGrey,
+                            fontSize: 13.5,
+                            height: 1.48,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'FULL LICENCE TEXT',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: AppColors.secondaryTextStoneGrey,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.9,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: AppColors.backgroundObsidian,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: AppColors.cardBorder),
+                          ),
+                          child: SelectableText(
+                            fullText,
+                            style: const TextStyle(
+                              fontFamily: 'monospace',
+                              color: AppColors.primaryTextOffWhite,
+                              fontSize: 12,
+                              height: 1.52,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: OutlinedButton.icon(
+                                onPressed: () {
+                                  Clipboard.setData(
+                                    ClipboardData(text: fullText),
+                                  );
+                                  Navigator.of(sheetCtx).pop();
+                                  AppSnackbar.show(
+                                    context,
+                                    title: 'Licence Copied',
+                                    message:
+                                        'Copied ${pkg.name} (${pkg.licenceType}) licence text.',
+                                    type: SnackbarType.success,
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.copy_rounded,
+                                  size: 16,
+                                  color: _mint,
+                                ),
+                                label: const Text(
+                                  'Copy Licence Text',
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    color: _mint,
+                                    fontSize: 13.5,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                style: OutlinedButton.styleFrom(
+                                  backgroundColor: AppColors.primaryForestGreen
+                                      .withValues(alpha: 0.2),
+                                  side: BorderSide(
+                                    color: AppColors.primaryForestGreen
+                                        .withValues(alpha: 0.5),
+                                  ),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 13),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 4),
-            Text(
-              lib['version'] as String,
-              style: const TextStyle(color: _stoneGrey, fontSize: 13),
-            ),
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: _obsidian,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _cardBorder),
-              ),
-              child: Text(
-                lib['text'] as String,
-                style: const TextStyle(
-                  color: _stoneGrey,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  height: 1.45,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _forest,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () => Navigator.pop(ctx),
-                child: const Text('Close', style: TextStyle(color: _offWhite)),
-              ),
-            ),
-          ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLicenceBadge(String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: _badgeBg,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(
+          fontFamily: 'Inter',
+          color: AppColors.secondaryTextStoneGrey,
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.4,
         ),
       ),
     );
@@ -223,309 +424,421 @@ class _OpenSourceLicencesScreenState extends State<OpenSourceLicencesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final filtered = _libraries.where((l) {
-      if (_searchQuery.isEmpty) return true;
-      final n = (l['name'] as String).toLowerCase();
-      final lic = (l['license'] as String).toLowerCase();
-      return n.contains(_searchQuery) || lic.contains(_searchQuery);
-    }).toList();
+    final visible = _filteredPackages;
+    final isFiltered =
+        _searchQuery.trim().isNotEmpty || _selectedLicenceFilter != 'All';
 
     return Scaffold(
-      backgroundColor: _obsidian,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // ─── Header: < Open Source Licences ────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () => Navigator.pop(context),
-                    borderRadius: BorderRadius.circular(8),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.chevron_left, color: _offWhite, size: 22),
-                          SizedBox(width: 4),
-                          Text(
-                            'Open Source Licences',
-                            style: TextStyle(
-                              color: _offWhite,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
+      backgroundColor: AppColors.backgroundObsidian,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56),
+        child: Container(
+          decoration: const BoxDecoration(
+            color: AppColors.backgroundObsidian,
+            border: Border(
+              bottom: BorderSide(color: AppColors.cardBorder, width: 1),
+            ),
+          ),
+          child: SafeArea(
+            bottom: false,
+            child: SizedBox(
+              height: 56,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.of(context).maybePop(),
+                      icon: const Icon(
+                        Icons.chevron_left,
+                        color: AppColors.secondaryTextStoneGrey,
+                        size: 26,
                       ),
+                      tooltip: 'Back',
+                    ),
+                    const SizedBox(width: 2),
+                    const Expanded(
+                      child: Text(
+                        'Open Source Licences',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: AppColors.primaryTextOffWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.3,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'OPEN SOURCE',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                color: AppColors.secondaryTextStoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.1,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: AppColors.cardsCarbon,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColors.cardBorder),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Icon(
+                    Icons.code_rounded,
+                    color: AppColors.secondaryTextStoneGrey,
+                    size: 20,
+                  ),
+                  SizedBox(height: 12),
+                  Text(
+                    'Open Source Software',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: AppColors.primaryTextOffWhite,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.2,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Ulvenik is built using a number of trusted open-source libraries and frameworks. We gratefully acknowledge the developers and communities who maintain these projects.',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: AppColors.secondaryTextStoneGrey,
+                      fontSize: 14,
+                      height: 1.5,
                     ),
                   ),
                 ],
               ),
             ),
-
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+            const SizedBox(height: 14),
+            Container(
+              height: 46,
+              decoration: BoxDecoration(
+                color: AppColors.cardsCarbon,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.cardBorder),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: Row(
                 children: [
-                  // ─── OPEN SOURCE Card ──────────────────────────────────
-                  _buildSectionHeader('OPEN SOURCE'),
-                  const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.code, color: _stoneGrey, size: 18),
-                            SizedBox(width: 8),
-                            Text(
-                              'Open Source Software',
-                              style: TextStyle(
-                                color: _offWhite,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Ulvenik is built using a number of trusted open-source libraries and frameworks. We gratefully acknowledge the developers and communities who maintain these projects.',
-                          style: TextStyle(
-                            color: _stoneGrey,
-                            fontSize: 13,
-                            height: 1.4,
-                          ),
-                        ),
-                      ],
-                    ),
+                  const Icon(
+                    Icons.search,
+                    color: AppColors.secondaryTextStoneGrey,
+                    size: 18,
                   ),
-
-                  const SizedBox(height: 20),
-
-                  // ─── Search Bar ────────────────────────────────────────
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: _cardBorder),
-                    ),
+                  const SizedBox(width: 10),
+                  Expanded(
                     child: TextField(
                       controller: _searchController,
-                      style: const TextStyle(color: _offWhite, fontSize: 14),
-                      onChanged: (val) => setState(() => _searchQuery = val.trim().toLowerCase()),
+                      onChanged: (value) {
+                        setState(() {
+                          _searchQuery = value;
+                        });
+                      },
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        color: AppColors.primaryTextOffWhite,
+                        fontSize: 14,
+                      ),
+                      cursorColor: _mint,
                       decoration: const InputDecoration(
-                        icon: Icon(Icons.search, color: _stoneGrey, size: 20),
                         hintText: 'Search Libraries',
-                        hintStyle: TextStyle(color: _mutedGrey, fontSize: 14),
+                        hintStyle: TextStyle(
+                          fontFamily: 'Inter',
+                          color: AppColors.secondaryTextStoneGrey,
+                          fontSize: 14,
+                        ),
                         border: InputBorder.none,
+                        isDense: true,
+                        contentPadding: EdgeInsets.zero,
                       ),
                     ),
                   ),
-
-                  const SizedBox(height: 24),
-
-                  // ─── LIBRARIES ─────────────────────────────────────────
+                  if (_searchQuery.isNotEmpty)
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _searchController.clear();
+                          _searchQuery = '';
+                        });
+                      },
+                      child: const Icon(
+                        Icons.close_rounded,
+                        color: AppColors.secondaryTextStoneGrey,
+                        size: 18,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: _licenceFilters.map((filter) {
+                  final selected = _selectedLicenceFilter == filter;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedLicenceFilter = filter;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 160),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: selected
+                              ? AppColors.primaryForestGreen
+                                  .withValues(alpha: 0.24)
+                              : AppColors.cardsCarbon,
+                          borderRadius: BorderRadius.circular(18),
+                          border: Border.all(
+                            color: selected
+                                ? _mint.withValues(alpha: 0.5)
+                                : AppColors.cardBorder,
+                          ),
+                        ),
+                        child: Text(
+                          filter == 'All' ? 'All Licences' : filter,
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: selected
+                                ? _mint
+                                : AppColors.secondaryTextStoneGrey,
+                            fontSize: 11.5,
+                            fontWeight:
+                                selected ? FontWeight.w600 : FontWeight.w500,
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            const SizedBox(height: 22),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'LIBRARIES',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: AppColors.secondaryTextStoneGrey,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.1,
+                  ),
+                ),
+                Text(
+                  isFiltered
+                      ? '${visible.length} of ${_packages.length}'
+                      : '${_packages.length} Total',
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    color: AppColors.secondaryTextStoneGrey,
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            if (visible.isEmpty)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: AppColors.cardsCarbon,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.cardBorder),
+                ),
+                child: Column(
+                  children: [
+                    const Icon(
+                      Icons.search_off_rounded,
+                      color: AppColors.secondaryTextStoneGrey,
+                      size: 28,
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'No libraries match your filter',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        color: AppColors.primaryTextOffWhite,
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _searchController.clear();
+                          _searchQuery = '';
+                          _selectedLicenceFilter = 'All';
+                        });
+                      },
+                      child: const Text(
+                        'Show all libraries',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: _mint,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            else
+              Container(
+                width: double.infinity,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  color: AppColors.cardsCarbon,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.cardBorder),
+                ),
+                child: Column(
+                  children: [
+                    for (int i = 0; i < visible.length; i++) ...[
+                      if (i > 0)
+                        const Divider(height: 1, color: AppColors.cardBorder),
+                      _buildLibraryRow(visible[i]),
+                    ],
+                  ],
+                ),
+              ),
+            const SizedBox(height: 28),
+            Center(
+              child: Column(
+                children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildSectionHeader('LIBRARIES'),
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(
+                        Icons.verified_outlined,
+                        color: AppColors.secondaryTextStoneGrey,
+                        size: 15,
+                      ),
+                      SizedBox(width: 6),
                       Text(
-                        '${_libraries.length} Total',
-                        style: const TextStyle(
-                          color: _mutedGrey,
+                        'ULVENIK CORE ENGINE',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: AppColors.secondaryTextStoneGrey,
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
+                          letterSpacing: 1.2,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-
-                  Container(
-                    decoration: BoxDecoration(
-                      color: _carbon,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: Column(
-                      children: filtered.asMap().entries.map((entry) {
-                        final idx = entry.key;
-                        final lib = entry.value;
-                        final isLast = idx == filtered.length - 1;
-
-                        return Column(
-                          children: [
-                            InkWell(
-                              onTap: () => _showLicenseModal(lib),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 14,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(lib['icon'] as IconData,
-                                        color: _stoneGrey, size: 20),
-                                    const SizedBox(width: 14),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            lib['name'] as String,
-                                            style: const TextStyle(
-                                              color: _offWhite,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 2),
-                                          Text(
-                                            lib['version'] as String,
-                                            style: const TextStyle(
-                                              color: _stoneGrey,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 3,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFF14191C),
-                                        borderRadius: BorderRadius.circular(6),
-                                        border: Border.all(color: _cardBorder),
-                                      ),
-                                      child: Text(
-                                        lib['license'] as String,
-                                        style: const TextStyle(
-                                          color: _stoneGrey,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 6),
-                                    const Icon(Icons.chevron_right,
-                                        color: _stoneGrey, size: 16),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            if (!isLast)
-                              const Divider(
-                                height: 1,
-                                color: Color(0x0FFFFFFF),
-                                indent: 50,
-                              ),
-                          ],
-                        );
-                      }).toList(),
+                  const SizedBox(height: 5),
+                  const Text(
+                    'Version 2.4.1 (Build 4092)',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: AppColors.secondaryTextStoneGrey,
+                      fontSize: 12,
                     ),
                   ),
-
-                  const SizedBox(height: 28),
-
-                  // ─── Footer: ULVENIK CORE ENGINE ───────────────────────
-                  const Center(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.verified_user_outlined,
-                                color: _stoneGrey, size: 16),
-                            SizedBox(width: 6),
-                            Text(
-                              'ULVENIK CORE ENGINE',
-                              style: TextStyle(
-                                color: _mutedGrey,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.8,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Version 2.4.1 (Build 4092)',
-                          style: TextStyle(
-                            color: _mutedGrey,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 32),
                 ],
               ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 4, // More tab active
-        onTap: _onBottomNavTapped,
-        backgroundColor: _obsidian,
-        selectedItemColor: _mint,
-        unselectedItemColor: _stoneGrey,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.pets_outlined),
-            activeIcon: Icon(Icons.pets),
-            label: 'Dogs',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            label: 'Training',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history_outlined),
-            activeIcon: Icon(Icons.history),
-            label: 'Timeline',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            label: 'More',
-          ),
-        ],
+      bottomNavigationBar: const UlvenikBottomNav(
+        activeTab: UlvenikNavTab.more,
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        color: _mutedGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 1.0,
+  Widget _buildLibraryRow(_LicencePackage pkg) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => _openLicenceViewer(pkg),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 24,
+                child: Icon(
+                  pkg.icon,
+                  color: AppColors.secondaryTextStoneGrey,
+                  size: 19,
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      pkg.name,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        color: AppColors.primaryTextOffWhite,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      pkg.version,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        color: AppColors.secondaryTextStoneGrey,
+                        fontSize: 12.5,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              _buildLicenceBadge(pkg.licenceType),
+              const SizedBox(width: 8),
+              const Icon(
+                Icons.chevron_right_rounded,
+                color: AppColors.secondaryTextStoneGrey,
+                size: 18,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

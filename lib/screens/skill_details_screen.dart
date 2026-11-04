@@ -6,10 +6,50 @@ import 'add_exercise_screen.dart';
 import 'exercise_details_screen.dart';
 import '../widgets/animated_progress_bar.dart';
 
-class SkillDetailsScreen extends StatelessWidget {
+class _SkillSessionRecord {
+  final String date;
+  String rating;
+  final String title;
+  final String time;
+  final String location;
+
+  _SkillSessionRecord({
+    required this.date,
+    required this.rating,
+    required this.title,
+    required this.time,
+    required this.location,
+  });
+}
+
+class SkillDetailsScreen extends StatefulWidget {
   final String skillName;
 
   const SkillDetailsScreen({super.key, required this.skillName});
+
+  @override
+  State<SkillDetailsScreen> createState() => _SkillDetailsScreenState();
+}
+
+class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
+  double _goalProgress = 0.70;
+
+  final List<_SkillSessionRecord> _sessions = [
+    _SkillSessionRecord(
+      date: '22 JULY 2026',
+      rating: 'GREAT',
+      title: 'Emergency Recall',
+      time: '15m',
+      location: 'Woods',
+    ),
+    _SkillSessionRecord(
+      date: '20 JULY 2026',
+      rating: 'NEUTRAL',
+      title: 'Recall Through Distractions',
+      time: '20m',
+      location: 'Park',
+    ),
+  ];
 
   void _toast(BuildContext context, String msg) {
     AppSnackbar.show(context, message: msg, type: SnackbarType.info);
@@ -18,7 +58,189 @@ class SkillDetailsScreen extends StatelessWidget {
   void _openAddExercise(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => AddExerciseScreen(parentSkill: skillName)),
+      MaterialPageRoute(builder: (_) => AddExerciseScreen(parentSkill: widget.skillName)),
+    );
+  }
+
+  void _showProgressDialog() {
+    double tempVal = _goalProgress;
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setSheetState) => SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 36,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                const Text(
+                  'Update Goal Progress',
+                  style: TextStyle(
+                    color: AppColors.primaryTextOffWhite,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                const Text(
+                  'Set your dog\'s progress based on your training records and observations. Ulvenik progress is handler-recorded, never judged automatically.',
+                  style: TextStyle(
+                    color: AppColors.secondaryTextStoneGrey,
+                    fontSize: 13,
+                    height: 1.4,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Handler-Assessed Progress',
+                      style: TextStyle(
+                        color: AppColors.primaryTextOffWhite,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      '${(tempVal * 100).round()}%',
+                      style: const TextStyle(
+                        color: AppColors.primaryForestGreen,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: AppColors.primaryForestGreen,
+                    inactiveTrackColor: Colors.white12,
+                    thumbColor: AppColors.primaryForestGreen,
+                    overlayColor: AppColors.primaryForestGreen.withValues(alpha: 0.2),
+                  ),
+                  child: Slider(
+                    value: tempVal,
+                    min: 0.0,
+                    max: 1.0,
+                    divisions: 20,
+                    onChanged: (v) => setSheetState(() => tempVal = v),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() => _goalProgress = tempVal);
+                      Navigator.pop(ctx);
+                      _toast(context, 'Goal progress updated to ${(tempVal * 100).round()}%');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryForestGreen,
+                      foregroundColor: AppColors.primaryTextOffWhite,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      elevation: 0,
+                    ),
+                    child: const Text('Save Progress',
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _editSessionRating(_SkillSessionRecord session) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const Text(
+                'Handler Session Rating',
+                style: TextStyle(
+                  color: AppColors.primaryTextOffWhite,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 6),
+              const Text(
+                'Select your evaluation for this session. Ulvenik ratings reflect your own assessment rather than automated judging.',
+                style: TextStyle(
+                  color: AppColors.secondaryTextStoneGrey,
+                  fontSize: 13,
+                  height: 1.4,
+                ),
+              ),
+              const SizedBox(height: 16),
+              ...[
+                ('GREAT', '★ Great — High responsiveness & focus', AppColors.primaryForestGreen),
+                ('GOOD', '● Good — Executed with minor handler support', AppColors.secondarySage),
+                ('NEUTRAL', '– Neutral — Met baseline criteria', AppColors.secondaryTextStoneGrey),
+                ('NEEDS WORK', '▲ Needs Work — Distracted or inconsistent', const Color(0xFFD99B4B)),
+              ].map((opt) => ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(opt.$2,
+                        style: TextStyle(
+                            color: opt.$1 == session.rating
+                                ? opt.$3
+                                : AppColors.primaryTextOffWhite,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500)),
+                    trailing: opt.$1 == session.rating
+                        ? Icon(Icons.check, color: opt.$3, size: 20)
+                        : null,
+                    onTap: () {
+                      setState(() => session.rating = opt.$1);
+                      Navigator.pop(ctx);
+                      _toast(context, 'Rating updated to ${opt.$1} (Handler recorded)');
+                    },
+                  )),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -78,7 +300,7 @@ class SkillDetailsScreen extends StatelessWidget {
                   end: Alignment.topCenter,
                   colors: [
                     AppColors.backgroundObsidian,
-                    AppColors.backgroundObsidian.withOpacity(0.6),
+                    AppColors.backgroundObsidian.withValues(alpha: 0.6),
                     Colors.transparent,
                   ],
                   stops: const [0.0, 0.3, 0.65],
@@ -112,7 +334,7 @@ class SkillDetailsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  skillName,
+                  widget.skillName,
                   style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
                 ),
                 const SizedBox(height: 8),
@@ -132,7 +354,7 @@ class SkillDetailsScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: AppColors.cardsCarbon.withOpacity(0.5),
+        color: AppColors.cardsCarbon.withValues(alpha: 0.5),
         border: Border.all(color: Colors.white12),
         borderRadius: BorderRadius.circular(4),
       ),
@@ -155,7 +377,7 @@ class SkillDetailsScreen extends StatelessWidget {
         children: [
           Expanded(child: _actionBtn(context, Icons.play_arrow, 'Record', true)),
           const SizedBox(width: 12),
-          Expanded(child: _actionBtn(context, Icons.add, 'Exercise', false)),
+          Expanded(child: _actionBtn(context, Icons.add, 'Add Exercise', false)),
           const SizedBox(width: 12),
           Expanded(child: _actionBtn(context, Icons.edit, 'Edit', false)),
         ],
@@ -170,9 +392,13 @@ class SkillDetailsScreen extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        onTap: () => label == 'Exercise'
-            ? _openAddExercise(context)
-            : _toast(context, '$label tapped'),
+        onTap: () {
+          if (label == 'Add Exercise') {
+            _openAddExercise(context);
+          } else {
+            _toast(context, '$label tapped');
+          }
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
@@ -186,7 +412,7 @@ class SkillDetailsScreen extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.2),
+                  color: color.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(icon, color: color, size: 20),
@@ -209,7 +435,26 @@ class SkillDetailsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Current Goal', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Current Goal', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+              GestureDetector(
+                onTap: _showProgressDialog,
+                child: const Row(
+                  children: [
+                    Icon(Icons.edit_outlined, size: 14, color: AppColors.secondarySage),
+                    SizedBox(width: 4),
+                    Text('Update Progress',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.secondarySage)),
+                  ],
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(16),
@@ -237,22 +482,22 @@ class SkillDetailsScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: AppColors.primaryForestGreen.withOpacity(0.2),
+                        color: AppColors.primaryForestGreen.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(4),
-                        border: Border.all(color: AppColors.primaryForestGreen.withOpacity(0.3)),
+                        border: Border.all(color: AppColors.primaryForestGreen.withValues(alpha: 0.3)),
                       ),
                       child: const Text('ACTIVE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.primaryForestGreen)),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                const AnimatedProgressBar(value: 0.7),
+                AnimatedProgressBar(value: _goalProgress),
                 const SizedBox(height: 8),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('PROGRESS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
-                    AnimatedPercentText(value: 0.7, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.primaryForestGreen)),
+                    const Text('PROGRESS (USER-RECORDED)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
+                    AnimatedPercentText(value: _goalProgress, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.primaryForestGreen)),
                   ],
                 ),
               ],
@@ -333,55 +578,79 @@ class SkillDetailsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Recent Sessions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Recent Sessions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+              Text('Handler-assessed', style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
+            ],
+          ),
           const SizedBox(height: 12),
-          _sessionCard('22 JULY 2026', true, 'Emergency Recall', '15m', 'Woods'),
-          const SizedBox(height: 12),
-          _sessionCard('20 JULY 2026', false, 'Recall Through Distractions', '20m', 'Park'),
+          ..._sessions.map((sess) => Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: _sessionCard(sess),
+              )),
         ],
       ),
     );
   }
 
-  Widget _sessionCard(String date, bool isGreat, String title, String time, String location) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
+  Widget _sessionCard(_SkillSessionRecord sess) {
+    final isGreat = sess.rating == 'GREAT';
+    return Material(
+      color: AppColors.cardsCarbon,
+      borderRadius: BorderRadius.circular(8),
+      child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        onTap: () => _editSessionRating(sess),
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white12),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(date, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(sess.date, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: isGreat ? AppColors.primaryForestGreen.withValues(alpha: 0.15) : Colors.white10,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(isGreat ? Icons.star : Icons.remove, size: 13, color: isGreat ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey),
+                        const SizedBox(width: 4),
+                        Text(sess.rating, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: isGreat ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey)),
+                        const SizedBox(width: 4),
+                        const Icon(Icons.arrow_drop_down, size: 14, color: AppColors.secondaryTextStoneGrey),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(sess.title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+              const SizedBox(height: 4),
               Row(
                 children: [
-                  Icon(isGreat ? Icons.star : Icons.remove, size: 14, color: isGreat ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey),
+                  const Icon(Icons.timer_outlined, size: 14, color: AppColors.secondaryTextStoneGrey),
                   const SizedBox(width: 4),
-                  Text(isGreat ? 'GREAT' : 'NEUTRAL', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: isGreat ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey)),
+                  Text(sess.time, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
+                  const SizedBox(width: 16),
+                  const Icon(Icons.park_outlined, size: 14, color: AppColors.secondaryTextStoneGrey),
+                  const SizedBox(width: 4),
+                  Text(sess.location, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                 ],
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text(title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              const Icon(Icons.timer_outlined, size: 14, color: AppColors.secondaryTextStoneGrey),
-              const SizedBox(width: 4),
-              Text(time, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
-              const SizedBox(width: 16),
-              const Icon(Icons.park_outlined, size: 14, color: AppColors.secondaryTextStoneGrey),
-              const SizedBox(width: 4),
-              Text(location, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -439,7 +708,7 @@ class SkillDetailsScreen extends StatelessWidget {
                       width: 32,
                       height: 32,
                       decoration: BoxDecoration(
-                        color: AppColors.cardsCarbon.withOpacity(0.8),
+                        color: AppColors.cardsCarbon.withValues(alpha: 0.8),
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.white12),
                       ),

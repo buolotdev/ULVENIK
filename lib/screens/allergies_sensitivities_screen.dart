@@ -363,7 +363,7 @@ class _AllergiesSensitivitiesScreenState
         ),
         IconButton(
           icon: const Icon(Icons.add, color: Color(0xFF95D3BB), size: 22),
-          tooltip: 'Add Allergy',
+          tooltip: 'Add Allergy or Sensitivity',
           onPressed: _showAddAllergyModal,
         ),
         const SizedBox(width: 4),
@@ -534,7 +534,7 @@ class _AllergiesSensitivitiesScreenState
                   child: _buildSummaryBox(
                     icon: Icons.eco,
                     valueText: '$_envCount',
-                    label: 'ENV',
+                    label: 'ENVIRONMENTAL',
                     onTap: () => setState(() => _selectedFilter = 'Environmental'),
                   ),
                 ),
@@ -544,7 +544,7 @@ class _AllergiesSensitivitiesScreenState
                   child: _buildSummaryBox(
                     icon: Icons.medication,
                     valueText: '$_medsCount',
-                    label: 'MEDS',
+                    label: 'MEDICATION',
                     onTap: () => setState(() => _selectedFilter = 'Medication'),
                   ),
                 ),
@@ -595,15 +595,19 @@ class _AllergiesSensitivitiesScreenState
                       ),
                     ),
                     const SizedBox(height: 2),
-                    Text(
-                      label,
-                      style: TextStyle(
-                        color: textColor == const Color(0xFF8B3A3A)
-                            ? const Color(0xFF8B3A3A)
-                            : AppColors.secondaryTextStoneGrey,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.5,
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        label,
+                        maxLines: 1,
+                        style: TextStyle(
+                          color: textColor == const Color(0xFF8B3A3A)
+                              ? const Color(0xFF8B3A3A)
+                              : AppColors.secondaryTextStoneGrey,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.5,
+                        ),
                       ),
                     ),
                   ],
@@ -1397,7 +1401,7 @@ class _AllergiesSensitivitiesScreenState
               Icon(Icons.add, color: Color(0xFFF5F6F2), size: 20),
               SizedBox(width: 8),
               Text(
-                'Add Allergy',
+                'Add Allergy or Sensitivity',
                 style: TextStyle(
                   color: Color(0xFFF5F6F2),
                   fontSize: 14,
@@ -1483,7 +1487,7 @@ class _AllergiesSensitivitiesScreenState
 
           // Heading
           const Text(
-            'No Allergies Recorded',
+            'No Allergies or Sensitivities Recorded',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.primaryTextOffWhite,
@@ -1497,7 +1501,7 @@ class _AllergiesSensitivitiesScreenState
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Record allergies and sensitivities to keep important health information organised and accessible for owners, trainers and vets.',
+              'Record allergies and sensitivities to keep important health information organised and accessible.',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
@@ -1508,7 +1512,7 @@ class _AllergiesSensitivitiesScreenState
           ),
           const SizedBox(height: 32),
 
-          // + Add Allergy Button
+          // + Add Allergy or Sensitivity Button
           InkWell(
             onTap: _showAddAllergyModal,
             borderRadius: BorderRadius.circular(8),
@@ -1531,7 +1535,7 @@ class _AllergiesSensitivitiesScreenState
                   Icon(Icons.add, color: Color(0xFFF5F6F2), size: 20),
                   SizedBox(width: 8),
                   Text(
-                    'Add Allergy',
+                    'Add Allergy or Sensitivity',
                     style: TextStyle(
                       color: Color(0xFFF5F6F2),
                       fontSize: 14,
@@ -1539,24 +1543,6 @@ class _AllergiesSensitivitiesScreenState
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // Learn link
-          Center(
-            child: GestureDetector(
-              onTap: _showLearnModal,
-              child: const Text(
-                'Learn about Allergy Tracking',
-                style: TextStyle(
-                  color: Color(0xFF95D3BB),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  decoration: TextDecoration.underline,
-                  decorationColor: Color(0xFF95D3BB),
-                ),
               ),
             ),
           ),
@@ -2121,107 +2107,7 @@ class _AllergiesSensitivitiesScreenState
     );
   }
 
-  // 4. LEARN ALLERGY MODAL
-  void _showLearnModal() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: AppColors.cardsCarbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Canine Allergy Guidelines',
-                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
-                        onPressed: () => Navigator.pop(ctx),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  _buildLearnPoint(
-                    Icons.restaurant,
-                    'Food Allergies vs Sensitivities',
-                    'True food allergies are immune-mediated (IgE hypersensitivity) often triggered by intact proteins like chicken or beef. Symptoms involve facial swelling, severe itching, or GI distress.',
-                  ),
-                  const SizedBox(height: 12),
-                  _buildLearnPoint(
-                    Icons.eco,
-                    'Atopic Environmental Allergies',
-                    'Caused by airborne pollen, molds, and dust mites entering through compromised epidermal skin barriers. Regular barrier repair washes minimize allergen penetration.',
-                  ),
-                  const SizedBox(height: 12),
-                  _buildLearnPoint(
-                    Icons.emergency,
-                    'Emergency Protocol Readiness',
-                    'Always document emergency antihistamine dosages calculated by your veterinarian. Have an emergency contact plan for travel and working trials.',
-                  ),
-                  const SizedBox(height: 24),
-                  InkWell(
-                    onTap: () => Navigator.pop(ctx),
-                    borderRadius: BorderRadius.circular(8),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF2E6B57),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Text('Understood', style: TextStyle(color: Color(0xFFF5F6F2), fontSize: 14, fontWeight: FontWeight.w600)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildLearnPoint(IconData icon, String title, String body) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: const Color(0xFF2E6B57).withValues(alpha: 0.2),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, size: 20, color: const Color(0xFF95D3BB)),
-        ),
-        const SizedBox(width: 14),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
-              const SizedBox(height: 4),
-              Text(body, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12, height: 1.4)),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  // 5. FILTER OPTIONS MODAL
+  // 4. FILTER OPTIONS MODAL
   void _showFilterOptionsModal() {
     showModalBottomSheet(
       context: context,

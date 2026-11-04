@@ -837,7 +837,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
             child: InkWell(
               onTap: _showRecordAdminModal,
               child: const Text(
-                'Record Administration',
+                'Record as Given',
                 style: TextStyle(
                   color: Color(0xFF95D3BB),
                   fontSize: 13,
@@ -1078,7 +1078,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      'NEXT DOSE',
+                      'NEXT DUE',
                       style: TextStyle(
                         color: isDue ? const Color(0xFFFFB4AB) : AppColors.secondaryTextStoneGrey,
                         fontSize: 10,
@@ -1230,20 +1230,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
           ),
           const SizedBox(height: 16),
 
-          // Horizontal Navigation Pills (Overview, Training, Supplements, Health)
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            child: Row(
-              children: [
-                _buildTabPill('Overview', false),
-                _buildTabPill('Training', false),
-                _buildTabPill('Supplements', true),
-                _buildTabPill('Health', false),
-              ],
-            ),
-          ),
-          const SizedBox(height: 70),
+          const SizedBox(height: 36),
 
           // Centered Circular Leaf/Eco Badge
           Center(
@@ -1280,7 +1267,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Keep track of every supplement ${_activeDog.name} receives. Build a comprehensive history to monitor performance and health outcomes over time.',
+              'Keep track of your dog’s supplements, dosages and schedule, with a complete history over time.',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
@@ -1327,53 +1314,12 @@ class _SupplementsScreenState extends State<SupplementsScreen>
               ),
             ),
           ),
-          const SizedBox(height: 20),
-
-          // Learn link
-          Center(
-            child: GestureDetector(
-              onTap: _showLearnModal,
-              child: const Text(
-                'Learn about Supplement Tracking',
-                style: TextStyle(
-                  color: Color(0xFF95D3BB),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  decoration: TextDecoration.underline,
-                  decorationColor: Color(0xFF95D3BB),
-                ),
-              ),
-            ),
-          ),
           const SizedBox(height: 40),
         ],
       ),
     );
   }
 
-  Widget _buildTabPill(String title, bool isSelected) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF2E6B57) : AppColors.cardsCarbon,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: isSelected ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
-          ),
-        ),
-        child: Text(
-          title,
-          style: TextStyle(
-            color: isSelected ? const Color(0xFFAAE9D0) : AppColors.secondaryTextStoneGrey,
-            fontSize: 13,
-            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-          ),
-        ),
-      ),
-    );
-  }
 
   // ==========================================
   // HELPER: CRASH-PROOF DOG AVATAR
@@ -1611,7 +1557,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          "Today's Administration",
+                          "Record as Given",
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 18,
@@ -1908,104 +1854,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
   }
 
   // 4. LEARN SUPPLEMENT TRACKING MODAL
-  void _showLearnModal() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: AppColors.cardsCarbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Supplement Protocols',
-                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
-                        onPressed: () => Navigator.pop(ctx),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  _buildLearnPoint(
-                    Icons.spa,
-                    'Joint & Connective Tissue',
-                    'Glucosamine, Chondroitin, and MSM preserve articular cartilage during high-impact bitesport, agility, and sprint deceleration.',
-                  ),
-                  const SizedBox(height: 12),
-                  _buildLearnPoint(
-                    Icons.water_drop,
-                    'Omega-3 Fatty Acids (EPA & DHA)',
-                    'Cold-water marine oils modulate systemic inflammation and maintain epithelial barrier strength.',
-                  ),
-                  const SizedBox(height: 12),
-                  _buildLearnPoint(
-                    Icons.security,
-                    'Microbiome Resilience',
-                    'Targeted canine probiotics prevent travel and training induced gastrointestinal dysbiosis.',
-                  ),
-                  const SizedBox(height: 24),
-                  InkWell(
-                    onTap: () => Navigator.pop(ctx),
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF2E6B57),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Text('Understood', style: TextStyle(color: Color(0xFFAAE9D0), fontSize: 14, fontWeight: FontWeight.w600)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
 
-  Widget _buildLearnPoint(IconData icon, String title, String body) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: const Color(0xFF2E6B57).withValues(alpha: 0.2),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, size: 20, color: const Color(0xFF95D3BB)),
-        ),
-        const SizedBox(width: 14),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
-              const SizedBox(height: 4),
-              Text(body, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12, height: 1.4)),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
 
   // 5. DOG SWITCHER MODAL
   void _showDogSwitcherModal() {

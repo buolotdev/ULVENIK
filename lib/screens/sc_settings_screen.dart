@@ -19,16 +19,12 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
   static const Color _offWhite = Color(0xFFF5F6F2);
   static const Color _stoneGrey = Color(0xFFA7B0AB);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _forest = Color(0xFF2E6B57);
   static const Color _checkboxBlue = Color(0xFF1A73E8);
   static const Color _errorRed = Color(0xFFCC5050);
   static const Color _errorBorder = Color(0x668B3A3A);
-  static const BorderSide _hairlineSide =
-      BorderSide(color: Color(0x14FFFFFF), width: 1);
 
   // ─── Settings State ────────────────────────────────────────────────────────
   String _defaultActivity = 'None selected';
-  String _defaultSessionRating = 'Not set';
   bool _autoSaveDrafts = true;
   bool _autoAttachLocation = false;
   bool _autoRecordWeather = false;
@@ -44,10 +40,8 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
   bool _animateCharts = true;
 
   // Chart Interactive Preview State
-  bool _showChartPreview = true;
   late AnimationController _chartAnimController;
   late Animation<double> _chartProgressAnim;
-  int _selectedChartPoint = -1;
 
   // Save State
   bool _isSavedRecently = false;
@@ -55,7 +49,6 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
   // Initial State Snapshot to detect changes
   static const Map<String, dynamic> _defaults = {
     'defaultActivity': 'None selected',
-    'defaultSessionRating': 'Not set',
     'autoSaveDrafts': true,
     'autoAttachLocation': false,
     'autoRecordWeather': false,
@@ -73,7 +66,6 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
 
   bool get _hasUnsavedChanges {
     return _defaultActivity != _savedSnapshot['defaultActivity'] ||
-        _defaultSessionRating != _savedSnapshot['defaultSessionRating'] ||
         _autoSaveDrafts != _savedSnapshot['autoSaveDrafts'] ||
         _autoAttachLocation != _savedSnapshot['autoAttachLocation'] ||
         _autoRecordWeather != _savedSnapshot['autoRecordWeather'] ||
@@ -117,7 +109,6 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
     setState(() {
       _savedSnapshot = {
         'defaultActivity': _defaultActivity,
-        'defaultSessionRating': _defaultSessionRating,
         'autoSaveDrafts': _autoSaveDrafts,
         'autoAttachLocation': _autoAttachLocation,
         'autoRecordWeather': _autoRecordWeather,
@@ -143,7 +134,6 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
   void _resetToDefaults() {
     setState(() {
       _defaultActivity = _defaults['defaultActivity'] as String;
-      _defaultSessionRating = _defaults['defaultSessionRating'] as String;
       _autoSaveDrafts = _defaults['autoSaveDrafts'] as bool;
       _autoAttachLocation = _defaults['autoAttachLocation'] as bool;
       _autoRecordWeather = _defaults['autoRecordWeather'] as bool;
@@ -222,7 +212,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                   child: ListView.separated(
                     shrinkWrap: true,
                     itemCount: activities.length,
-                    separatorBuilder: (_, __) =>
+                    separatorBuilder: (_, index) =>
                         const Divider(color: Color(0x14FFFFFF), height: 1),
                     itemBuilder: (c, idx) {
                       final item = activities[idx];
@@ -246,100 +236,6 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                             : null,
                         onTap: () {
                           setState(() => _defaultActivity = item);
-                          Navigator.pop(ctx);
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void _pickDefaultRating() {
-    final ratings = [
-      'Not set',
-      '★ 1 - Low Energy',
-      '★★ 2 - Fair Response',
-      '★★★ 3 - Standard Workout',
-      '★★★★ 4 - High Performance',
-      '★★★★★ 5 - Peak Record (PR)',
-    ];
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    width: 38,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.white24,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'DEFAULT SESSION RATING',
-                    style: TextStyle(
-                      color: _stoneGrey,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Flexible(
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: ratings.length,
-                    separatorBuilder: (_, __) =>
-                        const Divider(color: Color(0x14FFFFFF), height: 1),
-                    itemBuilder: (c, idx) {
-                      final item = ratings[idx];
-                      final isSelected = item.startsWith(_defaultSessionRating) ||
-                          item == _defaultSessionRating;
-                      return ListTile(
-                        dense: true,
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 20),
-                        title: Text(
-                          item,
-                          style: TextStyle(
-                            color: isSelected ? _mint : _offWhite,
-                            fontWeight: isSelected
-                                ? FontWeight.w600
-                                : FontWeight.w400,
-                            fontSize: 14,
-                          ),
-                        ),
-                        trailing: isSelected
-                            ? const Icon(Icons.check, color: _mint, size: 18)
-                            : null,
-                        onTap: () {
-                          setState(() {
-                            _defaultSessionRating =
-                                idx == 0 ? 'Not set' : item.split(' - ')[0];
-                          });
                           Navigator.pop(ctx);
                         },
                       );
@@ -405,7 +301,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                   child: ListView.separated(
                     shrinkWrap: true,
                     itemCount: sortOptions.length,
-                    separatorBuilder: (_, __) =>
+                    separatorBuilder: (_, index) =>
                         const Divider(color: Color(0x14FFFFFF), height: 1),
                     itemBuilder: (c, idx) {
                       final item = sortOptions[idx];
@@ -494,7 +390,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                   child: ListView.separated(
                     shrinkWrap: true,
                     itemCount: filterOptions.length,
-                    separatorBuilder: (_, __) =>
+                    separatorBuilder: (_, index) =>
                         const Divider(color: Color(0x14FFFFFF), height: 1),
                     itemBuilder: (c, idx) {
                       final item = filterOptions[idx];
@@ -584,7 +480,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                   child: ListView.separated(
                     shrinkWrap: true,
                     itemCount: rangeOptions.length,
-                    separatorBuilder: (_, __) =>
+                    separatorBuilder: (_, index) =>
                         const Divider(color: Color(0x14FFFFFF), height: 1),
                     itemBuilder: (c, idx) {
                       final item = rangeOptions[idx];
@@ -800,15 +696,6 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                   ),
                   const Divider(color: Color(0x14FFFFFF), height: 1),
 
-                  // Row 2: Default Session Rating
-                  _buildNavigationRow(
-                    icon: Icons.star_border,
-                    title: 'Default Session Rating',
-                    value: _defaultSessionRating,
-                    onTap: _pickDefaultRating,
-                  ),
-                  const Divider(color: Color(0x14FFFFFF), height: 1),
-
                   // Row 3: Auto-Save Draft Sessions
                   _buildToggleRow(
                     icon: Icons.save_outlined,
@@ -930,7 +817,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                   _buildToggleRow(
                     icon: Icons.emoji_events_outlined,
                     title: 'Show Milestones',
-                    subtitle: 'Display milestone achievements in statistics',
+                    subtitle: 'Display recorded session milestones in statistics.',
                     value: _showMilestones,
                     onChanged: (val) => setState(() => _showMilestones = val),
                   ),

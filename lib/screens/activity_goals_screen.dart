@@ -114,13 +114,13 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         id: 'cg-3',
         title: 'Sub 1:30 100m Free',
         date: '15 Jun 2026',
-        achievement: '1:28 PB',
+        achievement: '1:28 Achieved',
       ),
       _CompletedGoalModel(
         id: 'cg-4',
-        title: 'Swim 30 Days Streak',
-        date: '02 May 2026',
-        achievement: '30 / 30 Days',
+        title: 'Complete 15 Water Retrieves',
+        date: '28 May 2026',
+        achievement: '15 / 15 Retrieves',
       ),
     ];
   }
@@ -141,14 +141,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
     });
   }
 
-  int get _overallProgressPercentage {
-    if (_activeGoals.isEmpty) return 0;
-    double total = 0;
-    for (final g in _activeGoals) {
-      total += g.ratio;
-    }
-    return ((total / _activeGoals.length) * 100).round();
-  }
+
 
   // ===========================================================================
   // INTERACTIVE ACTION HANDLERS
@@ -644,70 +637,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
     );
   }
 
-  void _showLearnAboutGoals() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 36,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.white24,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Row(
-              children: [
-                Icon(Icons.flag_outlined, color: _mint, size: 22),
-                SizedBox(width: 10),
-                Text(
-                  'About Canine Activity Goals',
-                  style: TextStyle(
-                    color: _offWhite,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Activity Goals help structure conditioning cycles for canine athletes:\n\n'
-              '• Volume Targets: Build base conditioning through total logged sessions.\n'
-              '• Duration Thresholds: Increase cardiovascular endurance systematically.\n'
-              '• Frequency Consistency: Maintain multi-week active streaks to prevent deconditioning.\n\n'
-              'Goals automatically integrate with your recorded training sessions and timeline.',
-              style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.5),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _forest,
-                  foregroundColor: _offWhite,
-                ),
-                onPressed: () => Navigator.pop(ctx),
-                child: const Text('Got it'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+
 
   // ===========================================================================
   // BUILD METHOD
@@ -786,8 +716,6 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                 );
               } else if (val == 'create') {
                 _showCreateGoalDialog();
-              } else if (val == 'learn') {
-                _showLearnAboutGoals();
               }
             },
             itemBuilder: (context) => [
@@ -825,16 +753,6 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                     Icon(Icons.add, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Create Goal', style: TextStyle(color: _offWhite)),
-                  ],
-                ),
-              ),
-              const PopupMenuItem(
-                value: 'learn',
-                child: Row(
-                  children: [
-                    Icon(Icons.info_outline, color: _offWhite, size: 18),
-                    SizedBox(width: 10),
-                    Text('Learn about Goals', style: TextStyle(color: _offWhite)),
                   ],
                 ),
               ),
@@ -931,8 +849,9 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
     );
   }
 
-  // Summary Card: ACTIVE GOALS | COMPLETED | OVERALL PROGRESS
+  // Summary Card: Active Goals | Completed | Total Goals
   Widget _buildPopulatedSummaryCard() {
+    final totalGoals = _activeGoals.length + _completedGoals.length;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
       decoration: BoxDecoration(
@@ -969,9 +888,9 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
             ),
             Expanded(
               child: _buildSummaryColumn(
-                'OVERALL PROGRESS',
-                '$_overallProgressPercentage%',
-                _forest,
+                'TOTAL GOALS',
+                '$totalGoals',
+                _mint,
               ),
             ),
           ],
@@ -1253,7 +1172,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
             child: Row(
               children: [
                 Expanded(
-                  child: _buildEmptySummaryColumn('ACTIVE'),
+                  child: _buildEmptySummaryColumn('ACTIVE GOALS'),
                 ),
                 VerticalDivider(
                   color: Colors.white.withValues(alpha: 0.08),
@@ -1269,7 +1188,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                   width: 1,
                 ),
                 Expanded(
-                  child: _buildEmptySummaryColumn('OVERALL\nPROGRESS'),
+                  child: _buildEmptySummaryColumn('TOTAL GOALS'),
                 ),
               ],
             ),
@@ -1314,10 +1233,10 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         const SizedBox(height: 10),
 
         // 4. Subtitle Description
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: const Text(
-            'Set your first goal to help track progress and stay consistent with this activity.',
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Text(
+            'Set your first goal for this activity and track your progress over time.',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: _stoneGrey,
@@ -1351,29 +1270,6 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                   'Create Goal',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                 ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-
-        // 6. Learn about Goals Text Link
-        Center(
-          child: InkWell(
-            onTap: _showLearnAboutGoals,
-            child: const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Learn about Goals',
-                  style: TextStyle(
-                    color: _mint,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(width: 4),
-                Icon(Icons.arrow_forward, color: _mint, size: 14),
               ],
             ),
           ),

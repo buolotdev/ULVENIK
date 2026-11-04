@@ -64,10 +64,12 @@ class FavouriteEventItem {
 
 class TimelineFavouritesScreen extends StatefulWidget {
   final bool initialEmpty;
+  final bool hasSportPack;
 
   const TimelineFavouritesScreen({
     super.key,
     this.initialEmpty = false,
+    this.hasSportPack = false,
   });
 
   @override
@@ -78,6 +80,7 @@ class TimelineFavouritesScreen extends StatefulWidget {
 class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
     with SingleTickerProviderStateMixin {
   late bool _isEmptyState;
+  late bool _hasSportPack;
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
   String? _selectedCategoryFilter; // null = all, or 'Training', 'Competition', etc.
@@ -92,6 +95,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
   void initState() {
     super.initState();
     _isEmptyState = widget.initialEmpty;
+    _hasSportPack = widget.hasSportPack;
 
     _animController = AnimationController(
       vsync: this,
@@ -177,7 +181,9 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
   List<FavouriteEventItem> get _filteredEvents {
     if (_isEmptyState) return [];
 
-    List<FavouriteEventItem> list = _allEvents.where((e) => e.isFavourited).toList();
+    List<FavouriteEventItem> list = _allEvents
+        .where((e) => e.isFavourited && (_hasSportPack || e.category != 'Competition'))
+        .toList();
 
     // Category filter
     if (_selectedCategoryFilter != null) {
@@ -210,8 +216,10 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
   void _toggleFavourite(FavouriteEventItem item) {
     setState(() {
       item.isFavourited = !item.isFavourited;
-      // If all items removed, automatically show empty state
-      if (_allEvents.every((e) => !e.isFavourited)) {
+      // If all visible items removed, automatically show empty state
+      if (_allEvents
+          .where((e) => _hasSportPack || e.category != 'Competition')
+          .every((e) => !e.isFavourited)) {
         _isEmptyState = true;
       }
     });
@@ -340,7 +348,8 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                 children: [
                   _buildCategoryFilterChip('All Categories', null, null),
                   _buildCategoryFilterChip('Training', 'Training', _catTraining),
-                  _buildCategoryFilterChip('Competition', 'Competition', _catCompetition),
+                  if (_hasSportPack)
+                    _buildCategoryFilterChip('Competition', 'Competition', _catCompetition),
                   _buildCategoryFilterChip('Goals', 'Goals', _catGoals),
                   _buildCategoryFilterChip('Health', 'Health', _catHealth),
                   _buildCategoryFilterChip('S&C', 'S&C', _catSC),
@@ -489,6 +498,13 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
           onSelected: (val) {
             if (val == 'toggle') {
               setState(() => _isEmptyState = !_isEmptyState);
+            } else if (val == 'sport_pack') {
+              setState(() {
+                _hasSportPack = !_hasSportPack;
+                if (!_hasSportPack && _selectedCategoryFilter == 'Competition') {
+                  _selectedCategoryFilter = null;
+                }
+              });
             } else if (val == 'restore') {
               _restoreAllFavourites();
             } else if (val == 'archive') {
@@ -541,6 +557,23 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                   const SizedBox(width: 10),
                   Text(
                     _isEmptyState ? 'Switch to Populated' : 'Switch to Empty State',
+                    style: const TextStyle(color: _offWhite, fontSize: 13),
+                  ),
+                ],
+              ),
+            ),
+            PopupMenuItem(
+              value: 'sport_pack',
+              child: Row(
+                children: [
+                  Icon(
+                    _hasSportPack ? Icons.emoji_events : Icons.emoji_events_outlined,
+                    color: _mint,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    _hasSportPack ? 'Disable Sport Pack' : 'Enable Sport Pack',
                     style: const TextStyle(color: _offWhite, fontSize: 13),
                   ),
                 ],
@@ -665,7 +698,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
             ),
             const SizedBox(height: 12),
             const Text(
-              'Favourite your most important Timeline moments to access them quickly. Tap the heart icon on any event to save it here.',
+              'Favourite important Timeline events to find them quickly. Tap the heart icon on any event to save it here.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: _stoneGrey,
@@ -807,7 +840,9 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
   }
 
   Widget _buildMetricsBentoCard() {
-    final activeCount = _allEvents.where((e) => e.isFavourited).length;
+    final activeCount = _allEvents
+        .where((e) => e.isFavourited && (_hasSportPack || e.category != 'Competition'))
+        .length;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -821,7 +856,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
           // Top Row: 3 metric columns
           Row(
             children: [
-              // Col 1: Saved moments
+              // Col 1: Favourite events
               Expanded(
                 child: Column(
                   children: [
@@ -836,7 +871,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                     ),
                     const SizedBox(height: 4),
                     const Text(
-                      'SAVED\nMOMENTS',
+                      'FAVOURITE\nEVENTS',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: _stoneGrey,
@@ -927,8 +962,10 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
               Row(
                 children: [
                   _buildBentoDot(_catTraining, 'Training'),
-                  const SizedBox(width: 8),
-                  _buildBentoDot(_catCompetition, 'Competition'),
+                  if (_hasSportPack) ...[
+                    const SizedBox(width: 8),
+                    _buildBentoDot(_catCompetition, 'Competition'),
+                  ],
                   const SizedBox(width: 8),
                   _buildBentoDot(_catGoals, 'Goals'),
                   const SizedBox(width: 8),

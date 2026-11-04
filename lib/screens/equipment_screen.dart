@@ -616,6 +616,22 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.sync_alt, size: 12, color: _mint.withValues(alpha: 0.8)),
+                    const SizedBox(width: 5),
+                    const Text(
+                      'Shared across Training, S&C and Sport sessions',
+                      style: TextStyle(
+                        color: _stoneGrey,
+                        fontSize: 11,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 16),
 
                 if (item.notes != null) ...[
@@ -1753,7 +1769,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
-            'Create your first equipment item to keep track of what you use during your Strength & Conditioning sessions.',
+            'Create your first equipment item to start building your Equipment Library and keep track of what you use across your dog’s training.',
             style: TextStyle(
               color: _stoneGrey,
               fontSize: 14,

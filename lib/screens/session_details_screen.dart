@@ -26,6 +26,8 @@ class SessionDetailsScreen extends StatefulWidget {
   final String intensity;
   final String repetitions;
   final String notes;
+  final List<Map<String, String>>? customMetrics;
+  final List<Map<String, dynamic>>? attachedMedia;
 
   const SessionDetailsScreen({
     super.key,
@@ -43,14 +45,15 @@ class SessionDetailsScreen extends StatefulWidget {
     this.repetitions = '12',
     this.notes =
         'Strong performance today. Maintained good form throughout the main sets. Slight fatigue visible during the final repetition, consider increasing rest time slightly next session if repeating this protocol.',
+    this.customMetrics,
+    this.attachedMedia,
   });
 
   @override
   State<SessionDetailsScreen> createState() => _SessionDetailsScreenState();
 }
 
-class _SessionDetailsScreenState extends State<SessionDetailsScreen>
-    with SingleTickerProviderStateMixin {
+class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
   // Theme Color Palette
   static const _obsidian = Color(0xFF101214);
   static const _carbon = Color(0xFF1A1F22);
@@ -68,14 +71,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen>
   // State Variables
   late int _rating;
   late String _currentNotes;
-  late String _distance;
-  late String _sets;
-  late String _restTime;
-  late String _intensity;
-  late String _repetitions;
-
-  late AnimationController _celebrationController;
-  late Animation<double> _glowAnimation;
+  late List<Map<String, String>> _customMetrics;
 
   // Media items from Figma/Stitch
   final List<_SessionMediaItem> _mediaItems = [
@@ -122,28 +118,34 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen>
     super.initState();
     _rating = widget.initialRating;
     _currentNotes = widget.notes;
-    _distance = widget.distance;
-    _sets = widget.sets;
-    _restTime = widget.restTime;
-    _intensity = widget.intensity;
-    _repetitions = widget.repetitions;
+    _customMetrics = widget.customMetrics != null
+        ? List<Map<String, String>>.from(widget.customMetrics!)
+        : [
+            {'name': 'Distance', 'value': '1.8', 'unit': 'km'},
+            {'name': 'Sets', 'value': '6', 'unit': 'sets'},
+            {'name': 'Rest Time', 'value': '45', 'unit': 'sec'},
+            {'name': 'Intensity', 'value': widget.intensity, 'unit': ''},
+          ];
 
-    _celebrationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1400),
-    )..repeat(reverse: true);
-
-    _glowAnimation = Tween<double>(begin: 0.3, end: 0.9).animate(
-      CurvedAnimation(
-        parent: _celebrationController,
-        curve: Curves.easeInOut,
-      ),
-    );
+    if (widget.attachedMedia != null && widget.attachedMedia!.isNotEmpty) {
+      for (final m in widget.attachedMedia!) {
+        final isVid = m['isVideo'] == true;
+        _mediaItems.insert(
+          0,
+          _SessionMediaItem(
+            url: m['url'] ??
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuAA6MpFhgm_ya4naDvk30iHXXw0S4bepNDThgPkAckv3Hc-D2AuLO2x49hfQt16v2C11kr-MPg5WEDxWYAzQ65ps64CBmdg52V3AAzvO6PRetWJc4lHen01H0IHsjCVpS8zhVGDDE_0jqFyakfSuhKSaVuDNhZLSwU5r_TWezJSXfa6W0vxXHDNyOoFNYEjDDh1Q2JW3o-1lDsOMSDDel84xZtJffr0D_Z55DYrzL_6G6JB7tJgHu4',
+            caption: m['caption'] ??
+                (isVid ? 'User recorded video clip' : 'User captured session photo'),
+            isVideo: isVid,
+          ),
+        );
+      }
+    }
   }
 
   @override
   void dispose() {
-    _celebrationController.dispose();
     super.dispose();
   }
 
@@ -382,11 +384,11 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen>
               setState(() {
                 final txt = ctrl.text.trim();
                 if (txt.isNotEmpty) {
-                  if (metricName.contains('DISTANCE')) _distance = txt;
-                  if (metricName.contains('SETS')) _sets = txt;
-                  if (metricName.contains('REST')) _restTime = txt;
-                  if (metricName.contains('INTENSITY')) _intensity = txt;
-                  if (metricName.contains('REPETITIONS')) _repetitions = txt;
+                  for (final m in _customMetrics) {
+                    if ((m['name'] ?? '').toUpperCase() == metricName) {
+                      m['value'] = txt;
+                    }
+                  }
                 }
               });
               Navigator.pop(ctx);
@@ -816,13 +818,9 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen>
 
             // 6. Media Grid (3x2 preview)
             _buildMediaGridSection(),
-            const SizedBox(height: 24),
-
-            // 7. Personal Best Banner
-            _buildPersonalBestCard(),
             const SizedBox(height: 32),
 
-            // 8. Bottom Action CTAs
+            // 7. Bottom Action CTAs
             _buildBottomActions(),
           ],
         ),
@@ -1042,6 +1040,20 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen>
   // ===========================================================================
 
   Widget _buildRecordedMetricsGrid() {
+    if (_customMetrics.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    // Pair metrics into rows of 2
+    final List<List<Map<String, String>>> rows = [];
+    for (int i = 0; i < _customMetrics.length; i += 2) {
+      if (i + 1 < _customMetrics.length) {
+        rows.add([_customMetrics[i], _customMetrics[i + 1]]);
+      } else {
+        rows.add([_customMetrics[i]]);
+      }
+    }
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -1051,83 +1063,39 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen>
       ),
       child: Column(
         children: [
-          // Row 1: Distance & Sets
-          Row(
-            children: [
-              Expanded(
-                child: _buildMetricTile(
-                  label: 'DISTANCE',
-                  value: _distance,
-                  onTap: () => _showMetricBreakdown(
-                    'DISTANCE',
-                    _distance,
-                    'Target was 1.5 km. Achieved +300m bonus volume in open water.',
+          for (int r = 0; r < rows.length; r++) ...[
+            if (r > 0) const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildMetricTile(
+                    label: (rows[r][0]['name'] ?? 'METRIC').toUpperCase(),
+                    value: '${rows[r][0]['value']} ${rows[r][0]['unit']}'.trim(),
+                    onTap: () => _showMetricBreakdown(
+                      (rows[r][0]['name'] ?? 'METRIC').toUpperCase(),
+                      '${rows[r][0]['value']} ${rows[r][0]['unit']}'.trim(),
+                      'Recorded ${rows[r][0]['name']} during this session.',
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: _buildMetricTile(
-                  label: 'SETS',
-                  value: _sets,
-                  onTap: () => _showMetricBreakdown(
-                    'SETS',
-                    _sets,
-                    '6 total work sets completed with consistent cadence.',
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-
-          // Row 2: Rest Time & Intensity
-          Row(
-            children: [
-              Expanded(
-                child: _buildMetricTile(
-                  label: 'REST TIME',
-                  value: _restTime,
-                  onTap: () => _showMetricBreakdown(
-                    'REST TIME',
-                    _restTime,
-                    'Strict rest intervals maintained between swimming bouts.',
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: _buildMetricTile(
-                  label: 'INTENSITY',
-                  value: _intensity,
-                  onTap: () => _showMetricBreakdown(
-                    'INTENSITY',
-                    _intensity,
-                    'Target rate of perceived exertion: 8.5/10 (High threshold).',
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-
-          // Row 3: Repetitions
-          Row(
-            children: [
-              Expanded(
-                child: _buildMetricTile(
-                  label: 'REPETITIONS',
-                  value: _repetitions,
-                  onTap: () => _showMetricBreakdown(
-                    'REPETITIONS',
-                    _repetitions,
-                    '12 water entry and retrieve repetitions logged.',
-                  ),
-                ),
-              ),
-              const Expanded(child: SizedBox()),
-            ],
-          ),
+                const SizedBox(width: 16),
+                if (rows[r].length > 1)
+                  Expanded(
+                    child: _buildMetricTile(
+                      label: (rows[r][1]['name'] ?? 'METRIC').toUpperCase(),
+                      value: '${rows[r][1]['value']} ${rows[r][1]['unit']}'.trim(),
+                      onTap: () => _showMetricBreakdown(
+                        (rows[r][1]['name'] ?? 'METRIC').toUpperCase(),
+                        '${rows[r][1]['value']} ${rows[r][1]['unit']}'.trim(),
+                        'Recorded ${rows[r][1]['name']} during this session.',
+                      ),
+                    ),
+                  )
+                else
+                  const Expanded(child: SizedBox.shrink()),
+              ],
+            ),
+          ],
         ],
       ),
     );
@@ -1488,92 +1456,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen>
     );
   }
 
-  // ===========================================================================
-  // SECTION 7: PERSONAL BEST BANNER
-  // ===========================================================================
 
-  Widget _buildPersonalBestCard() {
-    return Container(
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(14),
-        border: _hairlineBorder,
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Left Mint Accent Stripe (Animated glow)
-            AnimatedBuilder(
-              animation: _glowAnimation,
-              builder: (context, _) => Container(
-                width: 4,
-                color: _mint.withValues(alpha: _glowAnimation.value),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Row(
-                          children: [
-                            Icon(Icons.emoji_events, color: _mint, size: 16),
-                            SizedBox(width: 6),
-                            Text(
-                              'NEW PERSONAL BEST',
-                              style: TextStyle(
-                                color: _mint,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.05,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        const Text(
-                          'Longest Session',
-                          style: TextStyle(
-                            color: _offWhite,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        const Text(
-                          'Previous: 1h 15m (12 Jun 2026)',
-                          style: TextStyle(
-                            color: _stoneGrey,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      widget.durationText,
-                      style: const TextStyle(
-                        color: _offWhite,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: -0.3,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   // ===========================================================================
   // SECTION 8: BOTTOM ACTION CTAS

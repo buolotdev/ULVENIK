@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
+import 'training_screen.dart';
 
 class AddExerciseScreen extends StatefulWidget {
   final String parentSkill;
@@ -61,8 +62,13 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
 
   void _handleSave() {
     if (!_canSave) return;
+    final createdExercise = _nameController.text.trim();
+    TrainingSessionStore.registerCustomExercise(
+      widget.parentSkill,
+      createdExercise,
+    );
     AppSnackbar.show(context, message: 'Exercise saved', type: SnackbarType.success);
-    Navigator.pop(context);
+    Navigator.pop(context, createdExercise);
   }
 
   void _showDiscardSheet() {
@@ -86,13 +92,43 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              const Text('Discard exercise?',
+              Container(
+                width: 44,
+                height: 44,
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE07070).withValues(alpha: 0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.warning_amber_rounded,
+                  color: Color(0xFFE07070),
+                  size: 24,
+                ),
+              ),
+              const Text('Discard Changes?',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite)),
               const SizedBox(height: 8),
-              const Text('Any information you have entered will be lost.',
+              const Text('You have unsaved changes to this exercise. If you leave now, your changes won’t be saved.',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14, color: AppColors.secondaryTextStoneGrey, height: 1.4)),
               const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryForestGreen,
+                    foregroundColor: AppColors.primaryTextOffWhite,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    elevation: 0,
+                  ),
+                  child: const Text('Continue Editing',
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+                ),
+              ),
+              const SizedBox(height: 12),
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
@@ -101,20 +137,6 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                     Navigator.pop(context);
                   },
                   style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xFF8B3A3A).withOpacity(0.15),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  ),
-                  child: const Text('Discard',
-                      style: TextStyle(color: Color(0xFFE07070), fontSize: 15, fontWeight: FontWeight.w600)),
-                ),
-              ),
-              const SizedBox(height: 12),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  onPressed: () => Navigator.pop(ctx),
-                  style: TextButton.styleFrom(
                     backgroundColor: AppColors.cardsCarbon,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
@@ -122,8 +144,8 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                       side: const BorderSide(color: Colors.white12),
                     ),
                   ),
-                  child: const Text('Keep Editing',
-                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500)),
+                  child: const Text('Discard Changes',
+                      style: TextStyle(color: Color(0xFFE07070), fontSize: 15, fontWeight: FontWeight.w600)),
                 ),
               ),
             ],
@@ -196,7 +218,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
               padding: EdgeInsets.only(left: 20, right: 20, top: 24, bottom: bottomSafe + 40),
               children: [
                 // Parent skill (locked)
-                _sectionLabel('PARENT SKILL'),
+                _sectionLabel('SKILL'),
                 _card(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,7 +236,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        'This exercise will belong to ${widget.parentSkill} and inherit its core training tags.',
+                        'This exercise will be linked to ${widget.parentSkill} and inherit its training tags.',
                         style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey, height: 1.4),
                       ),
                     ],
@@ -230,7 +252,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                     children: [
                       _fieldLabel('Exercise Name', required: true),
                       const SizedBox(height: 6),
-                      _textInput(controller: _nameController, hint: 'e.g. Hidden subject recall'),
+                      _textInput(controller: _nameController, hint: 'e.g. Recall through distractions'),
                       const SizedBox(height: 16),
                       _fieldLabel('Description', optional: true),
                       const SizedBox(height: 6),
@@ -267,7 +289,19 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                                   0.2126, 0.7152, 0.0722, 0, 0,
                                   0, 0, 0, 0.85, 0,
                                 ]),
-                                child: Image.network(_inheritedImage, fit: BoxFit.cover),
+                                child: Image.network(
+                                  _inheritedImage,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (_, _, _) => Container(
+                                    color: Colors.white10,
+                                    alignment: Alignment.center,
+                                    child: const Icon(
+                                      Icons.fitness_center_rounded,
+                                      size: 20,
+                                      color: Colors.white38,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -276,10 +310,10 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('INHERITED FROM ${widget.parentSkill.toUpperCase()}',
+                                Text('Using ${widget.parentSkill} image',
                                     style: const TextStyle(
-                                        fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.6,
-                                        color: AppColors.secondaryTextStoneGrey)),
+                                        fontSize: 13, fontWeight: FontWeight.w600,
+                                        color: AppColors.primaryTextOffWhite)),
                                 const SizedBox(height: 2),
                                 const Text('Default visual asset',
                                     style: TextStyle(fontSize: 12, color: Colors.white38)),
@@ -329,7 +363,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                 Material(
                   color: _canSave
                       ? AppColors.primaryForestGreen
-                      : AppColors.primaryForestGreen.withOpacity(0.4),
+                      : AppColors.primaryForestGreen.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(12),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),

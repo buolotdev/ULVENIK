@@ -28,18 +28,19 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     OnboardingData(
       title: 'Welcome to Ulvenik',
       body:
-          'Your complete training journey for every dog. Build your own training system, record every session and watch your progress grow over time. All in one place.',
+          'Your dog’s training journey, all in one place. Build your own training system, record every session and follow your progress over time.',
       bgImage: 'assets/bg-images/onboarding_1.png',
     ),
     OnboardingData(
       title: 'Train Your Way',
       body:
-          'Every dog is different. Every handler is different. That\'s why Ulvenik never forces predefined Skills, Exercises, Sports, Rewards or Equipment. Instead, you build your own training system, allowing Ulvenik to adapt to the way you already train.',
+          'Every dog is different. Every handler is different. That’s why Ulvenik doesn’t define how you train. Create your own skills, exercises, sports, rewards and equipment, and build a training system around you and your dog.',
       bgImage: 'assets/bg-images/onboarding_2.png',
     ),
     OnboardingData(
-      title: 'Every Session Builds Your Journey',
-      body: 'Record your Training, Strength & Conditioning and Competitions alongside videos, notes, rewards, equipment and progress. Ulvenik automatically connects everything together, building a complete history of your journey over time.',
+      title: 'Track What Matters',
+      body:
+          'Bring training, health, strength & conditioning and competition records together with your videos, notes, goals and progress — building a complete history of your dog’s journey over time.',
       bgImage: 'assets/bg-images/onboarding_3.png',
     ),
   ];
@@ -206,17 +207,21 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             ),
           ),
 
-          // ── Gradient overlay: bottom 45% ──────────────────────────────
+          // ── Gradient overlay: consistent across all 3 onboarding screens ────
           Positioned.fill(
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  stops: const [0.40, 0.65, 1.0],
+                  stops: const [0.0, 0.14, 0.30, 0.48, 0.70, 0.88, 1.0],
                   colors: [
+                    AppColors.backgroundObsidian.withValues(alpha: 0.50),
+                    AppColors.backgroundObsidian.withValues(alpha: 0.10),
                     Colors.transparent,
-                    AppColors.backgroundObsidian.withOpacity(0.82),
+                    AppColors.backgroundObsidian.withValues(alpha: 0.35),
+                    AppColors.backgroundObsidian.withValues(alpha: 0.78),
+                    AppColors.backgroundObsidian.withValues(alpha: 0.96),
                     AppColors.backgroundObsidian,
                   ],
                 ),
@@ -318,7 +323,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                         .bodyLarge
                                         ?.copyWith(
                                           color: AppColors.primaryTextOffWhite
-                                              .withOpacity(0.85),
+                                              .withValues(alpha: 0.85),
                                           fontSize: 17,
                                           height: 1.7,
                                         ),
@@ -362,7 +367,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                     color: _currentPageValue.round() == index
                                         ? AppColors.primaryForestGreen
                                         : AppColors.secondaryTextStoneGrey
-                                            .withOpacity(0.50),
+                                            .withValues(alpha: 0.50),
                                     borderRadius: BorderRadius.circular(9999),
                                   ),
                                 ),

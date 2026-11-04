@@ -1,206 +1,1593 @@
 import 'package:flutter/material.dart';
-import 'timeline_screen.dart';
-import 'timeline_dashboard_screen.dart';
-import 'timeline_statistics_screen.dart';
-import 'timeline_export_screen.dart';
-import 'timeline_favourites_screen.dart';
-import 'timeline_archive_screen.dart';
-import 'timeline_settings_screen.dart';
-import 'timeline_insights_screen.dart';
-import 'timeline_activity_map_screen.dart';
-import 'homepage_screen.dart';
-import 'my_dogs_screen.dart';
-import 'training_screen.dart';
+import '../widgets/custom_snackbar.dart';
+import '../widgets/ulvenik_bottom_nav.dart';
+import 'timeline_event_details_screen.dart';
 
-// ─── Design Tokens ──────────────────────────────────────────────────────────
-const Color _obsidian = Color(0xFF101214);
-const Color _carbon = Color(0xFF1A1F22);
-const Color _cardBorder = Color(0x14FFFFFF);
-const Color _forest = Color(0xFF2E6B57);
-const Color _mint = Color(0xFFAAE9D0);
-const Color _offWhite = Color(0xFFF5F6F2);
-const Color _stoneGrey = Color(0xFFA7B0AB);
-const Color _gold = Color(0xFFECC94B);
+class _MemoryItem {
+  final String id;
+  final String section; // 'today', 'month', 'milestones', 'achievements', 'year'
+  final int? year;
+  final String category;
+  final Color categoryColor;
+  final String? badgeText;
+  final bool isGoldBadge;
+  final bool isGreenBadge;
+  final bool isMilestoneHeaderIcon;
+  final String title;
+  final String? dateLabel;
+  final String subtitle;
+  final String? imageUrl;
+  final IconData? icon;
+  final Color? iconColor;
+  final bool extraItem;
+  bool isBookmarked = false;
+  String reflectionNote = '';
 
-// Category Colors matching Figma
-const Color _catTraining = Color(0xFF5D8FAF); // Blue
-const Color _catSC = Color(0xFFB4823C);       // Bronze / Orange
-const Color _catHealth = Color(0xFF8B3A3A);   // Red
-const Color _catGoals = Color(0xFFB8920A);    // Yellow / Gold
-const Color _catComp = Color(0xFF2E6B57);     // Forest Green
-const Color _catPuppy = Color(0xFF57B69D);    // Teal
+  _MemoryItem({
+    required this.id,
+    required this.section,
+    this.year,
+    required this.category,
+    required this.categoryColor,
+    this.badgeText,
+    this.isGoldBadge = false,
+    this.isGreenBadge = false,
+    this.isMilestoneHeaderIcon = false,
+    required this.title,
+    this.dateLabel,
+    required this.subtitle,
+    this.imageUrl,
+    this.icon,
+    this.iconColor,
+    this.extraItem = false,
+  });
+}
 
 class TimelineMemoriesScreen extends StatefulWidget {
   final bool initialEmpty;
-  final String initialDog;
+  final bool hasSportPack;
 
   const TimelineMemoriesScreen({
     super.key,
     this.initialEmpty = false,
-    this.initialDog = 'Murphy',
+    this.hasSportPack = false,
   });
 
   @override
   State<TimelineMemoriesScreen> createState() => _TimelineMemoriesScreenState();
 }
 
-class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen>
-    with SingleTickerProviderStateMixin {
+class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
+  static const Color _obsidian = Color(0xFF101214);
+  static const Color _carbon = Color(0xFF1A1F22);
+  static const Color _iconBoxBg = Color(0xFF0C0F0D);
+  static const Color _forest = Color(0xFF2E6B57);
+  static const Color _mint = Color(0xFF95D3BB);
+  static const Color _sage = Color(0xFFB6CCB5);
+  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static const Color _gold = Color(0xFFB8920A);
+  static const Color _bronze = Color(0xFFB4823C);
+  static const Color _healthRed = Color(0xFFA84646);
+  static const Color _offWhite = Color(0xFFF5F6F2);
+  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static const Color _cardBorder = Color(0x14FFFFFF);
+
+  // Curated decorative hero image bank (rotates per Handover rule)
+  static const List<String> _heroImageBank = [
+    'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=900&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=900&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1534361960057-19889db9621e?q=80&w=900&auto=format&fit=crop',
+  ];
+
   late bool _isEmptyState;
-  late String _selectedDog;
-  String? _selectedCategoryFilter;
+  late bool _hasSportPack;
+  int _heroImageIndex = 0;
+  String _selectedCategory = 'All';
+  int? _selectedYear;
+  bool _expandThisMonth = false;
+  bool _expand2023 = false;
+  bool _expand2022 = false;
 
-  // Expansion toggles
-  bool _expandedMonth = false;
-  bool _expanded2023 = false;
-  bool _expanded2022 = false;
-
-  late AnimationController _animController;
-  late Animation<double> _fadeAnimation;
+  late final List<_MemoryItem> _memories = [
+    // TODAY
+    _MemoryItem(
+      id: 'm1',
+      section: 'today',
+      year: 2023,
+      category: 'TRAINING',
+      categoryColor: _alpineBlue,
+      badgeText: '2 Years Ago',
+      isGoldBadge: true,
+      title: 'Scent Work Introduction — First Session',
+      dateLabel: '14 Sep 2023',
+      subtitle: 'Riverside Trail · 45 min · 3 skills',
+      imageUrl:
+          'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=300&auto=format&fit=crop',
+    ),
+    _MemoryItem(
+      id: 'm2',
+      section: 'today',
+      year: 2024,
+      category: 'GOALS',
+      categoryColor: _gold,
+      badgeText: '1 Year Ago',
+      isGoldBadge: true,
+      title: 'Completed Goal: Distance Down',
+      dateLabel: '14 Sep 2024',
+      subtitle: 'Achieved after 38 days · 22 sessions',
+      icon: Icons.emoji_events_outlined,
+      iconColor: _gold,
+    ),
+    // THIS MONTH
+    _MemoryItem(
+      id: 'm3',
+      section: 'month',
+      year: 2022,
+      category: 'HEALTH',
+      categoryColor: _healthRed,
+      badgeText: '3 Years Ago',
+      title: "Murphy's ACL Recovery — Final Clearance",
+      dateLabel: '7 Sep 2022',
+      subtitle: 'Recovery completed after 14 weeks rehab',
+      icon: Icons.medical_services_outlined,
+      iconColor: _healthRed,
+    ),
+    _MemoryItem(
+      id: 'm4',
+      section: 'month',
+      year: 2023,
+      category: 'S&C',
+      categoryColor: _bronze,
+      badgeText: '2 Years Ago',
+      title: 'First Conditioning Assessment',
+      dateLabel: '3 Sep 2023',
+      subtitle: 'Baseline recorded — 8 exercises logged',
+      imageUrl:
+          'https://images.unsplash.com/photo-1551730459-92db2a308d6a?q=80&w=300&auto=format&fit=crop',
+    ),
+    _MemoryItem(
+      id: 'm5',
+      section: 'month',
+      year: 2024,
+      category: 'S&C',
+      categoryColor: _bronze,
+      badgeText: '1 Year Ago',
+      title: 'Hydrotherapy Endurance Benchmark',
+      dateLabel: '19 Sep 2024',
+      subtitle: 'Underwater treadmill · 24 min continuous',
+      icon: Icons.pool_outlined,
+      iconColor: _alpineBlue,
+      extraItem: true,
+    ),
+    _MemoryItem(
+      id: 'm6',
+      section: 'month',
+      year: 2023,
+      category: 'TRAINING',
+      categoryColor: _alpineBlue,
+      badgeText: '2 Years Ago',
+      title: 'Long-Line Forest Tracking',
+      dateLabel: '22 Sep 2023',
+      subtitle: '420m aged track · 2 articles recovered',
+      icon: Icons.explore_outlined,
+      iconColor: _mint,
+      extraItem: true,
+    ),
+    _MemoryItem(
+      id: 'm7',
+      section: 'month',
+      year: 2024,
+      category: 'HEALTH',
+      categoryColor: _healthRed,
+      badgeText: '1 Year Ago',
+      title: 'Annual Wellness & Sport Screening',
+      dateLabel: '28 Sep 2024',
+      subtitle: 'Routine wellness check · Weight logged: 29.4 kg',
+      icon: Icons.monitor_heart_outlined,
+      iconColor: _healthRed,
+      extraItem: true,
+    ),
+    // MILESTONES
+    _MemoryItem(
+      id: 'm8',
+      section: 'milestones',
+      year: 2022,
+      category: 'MILESTONES',
+      categoryColor: _mint,
+      isMilestoneHeaderIcon: true,
+      badgeText: 'First Entry',
+      isGreenBadge: true,
+      title: 'Murphy Joins Ulvenik',
+      dateLabel: '2 Jan 2022',
+      subtitle: "The beginning of Murphy's recorded journey",
+      icon: Icons.outlined_flag,
+      iconColor: _mint,
+    ),
+    _MemoryItem(
+      id: 'm9',
+      section: 'milestones',
+      year: 2023,
+      category: 'MILESTONES',
+      categoryColor: _gold,
+      isMilestoneHeaderIcon: true,
+      badgeText: '100th Event',
+      isGreenBadge: true,
+      title: '100th Timeline Entry',
+      dateLabel: '18 Mar 2023',
+      subtitle: 'Reached 100 recorded Timeline events',
+      icon: Icons.workspace_premium_outlined,
+      iconColor: _gold,
+    ),
+    // ACHIEVEMENTS
+    _MemoryItem(
+      id: 'm10',
+      section: 'achievements',
+      year: 2025,
+      category: 'TRAINING',
+      categoryColor: _alpineBlue,
+      badgeText: '1 Year Ago',
+      isGoldBadge: true,
+      title: 'Longest Recording Streak — 31 Days',
+      dateLabel: 'March 2025',
+      subtitle: '31 consecutive recording days logged',
+      imageUrl:
+          'https://images.unsplash.com/photo-1534361960057-19889db9621e?q=80&w=300&auto=format&fit=crop',
+    ),
+    // PREVIOUS YEARS — 2024
+    _MemoryItem(
+      id: 'm11',
+      section: 'year',
+      year: 2024,
+      category: 'COMPETITION',
+      categoryColor: _forest,
+      title: 'Regional IGP I Tracking Trial',
+      subtitle: 'Recorded result: 94/100 · Excellent',
+      icon: Icons.tour_outlined,
+      iconColor: _forest,
+    ),
+    _MemoryItem(
+      id: 'm12',
+      section: 'year',
+      year: 2024,
+      category: 'TRAINING',
+      categoryColor: _alpineBlue,
+      title: 'First Broad Jump Regulation Clear',
+      subtitle: 'Nordic Training Grounds · Height 1.2m',
+      icon: Icons.open_in_full,
+      iconColor: _alpineBlue,
+    ),
+    // PREVIOUS YEARS — 2023
+    _MemoryItem(
+      id: 'm13',
+      section: 'year',
+      year: 2023,
+      category: 'TRAINING',
+      categoryColor: _alpineBlue,
+      title: 'Heeling under High Distraction',
+      subtitle: 'Suburban perimeter session · 40 mins',
+      imageUrl:
+          'https://images.unsplash.com/photo-1568572933382-74d440642117?q=80&w=300&auto=format&fit=crop',
+    ),
+    _MemoryItem(
+      id: 'm14',
+      section: 'year',
+      year: 2023,
+      category: 'GOALS',
+      categoryColor: _gold,
+      title: 'Foundation Heeling Certified',
+      subtitle: 'Goal completed · 10/10 club evaluation logged',
+      icon: Icons.outlined_flag,
+      iconColor: _gold,
+    ),
+    _MemoryItem(
+      id: 'm15',
+      section: 'year',
+      year: 2023,
+      category: 'COMPETITION',
+      categoryColor: _forest,
+      title: 'BH-VT Companion Dog Temperament Pass',
+      subtitle: 'Recorded result: Pass · Traffic & neutrality phase',
+      icon: Icons.verified_outlined,
+      iconColor: _mint,
+      extraItem: true,
+    ),
+    // PREVIOUS YEARS — 2022
+    _MemoryItem(
+      id: 'm16',
+      section: 'year',
+      year: 2022,
+      category: 'PUPPYHOOD',
+      categoryColor: _mint,
+      title: 'First Crate Night & House Manners',
+      subtitle: 'Recorded note: Settled overnight in crate',
+      icon: Icons.sentiment_satisfied_alt_outlined,
+      iconColor: _mint,
+    ),
+    _MemoryItem(
+      id: 'm17',
+      section: 'year',
+      year: 2022,
+      category: 'PUPPYHOOD',
+      categoryColor: _mint,
+      title: 'Environmental Socialisation — Train Station',
+      subtitle: 'Recorded note: 30 min platform exposure session',
+      icon: Icons.train_outlined,
+      iconColor: _mint,
+      extraItem: true,
+    ),
+  ];
 
   @override
   void initState() {
     super.initState();
     _isEmptyState = widget.initialEmpty;
-    _selectedDog = widget.initialDog;
+    _hasSportPack = widget.hasSportPack;
+    _heroImageIndex = DateTime.now().second % _heroImageBank.length;
+  }
 
-    _animController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-    _fadeAnimation = CurvedAnimation(
-      parent: _animController,
-      curve: Curves.easeOutCubic,
-    );
-    _animController.forward();
+  bool _matchesActiveFilters(_MemoryItem item) {
+    if (!_hasSportPack && item.category.toUpperCase() == 'COMPETITION') {
+      return false;
+    }
+    if (_selectedCategory != 'All' &&
+        item.category.toUpperCase() != _selectedCategory.toUpperCase()) {
+      return false;
+    }
+    if (_selectedYear != null && item.year != _selectedYear) {
+      return false;
+    }
+    return true;
   }
 
   @override
-  void dispose() {
-    _animController.dispose();
-    super.dispose();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: _obsidian,
+      appBar: _buildAppBar(),
+      body: Column(
+        children: [
+          if (!_isEmptyState &&
+              (_selectedCategory != 'All' || _selectedYear != null))
+            _buildActiveFilterBanner(),
+          Expanded(
+            child: _isEmptyState ? _buildEmptyState() : _buildPopulatedState(),
+          ),
+          _buildBottomActionStrip(),
+        ],
+      ),
+      bottomNavigationBar:
+          const UlvenikBottomNav(activeTab: UlvenikNavTab.timeline),
+    );
   }
 
-  void _showFilterModal() {
-    String? tempFilter = _selectedCategoryFilter;
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: _carbon,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      backgroundColor: const Color(0xFF131719),
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      centerTitle: true,
+      leading: IconButton(
+        icon: const Icon(Icons.chevron_left, color: _stoneGrey, size: 26),
+        onPressed: () => Navigator.maybePop(context),
       ),
-      builder: (ctx) => StatefulBuilder(
-        builder: (context, setModalState) {
-          return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+      title: const Text(
+        'Timeline Memories',
+        style: TextStyle(
+          color: _offWhite,
+          fontSize: 17,
+          fontWeight: FontWeight.w700,
+          fontFamily: 'Inter',
+        ),
+      ),
+      actions: [
+        IconButton(
+          tooltip: 'Filter & Display Options',
+          icon: const Icon(Icons.tune, color: _stoneGrey, size: 20),
+          onPressed: _showFilterCategoriesSheet,
+        ),
+        PopupMenuButton<String>(
+          icon: const Icon(Icons.more_horiz, color: _stoneGrey, size: 20),
+          color: _carbon,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+            side: const BorderSide(color: _cardBorder),
+          ),
+          onSelected: (val) {
+            if (val == 'toggle_state') {
+              setState(() => _isEmptyState = !_isEmptyState);
+              AppSnackbar.show(
+                context,
+                message: _isEmptyState
+                    ? 'Switched to Empty State preview'
+                    : 'Switched to Populated State',
+                type: SnackbarType.info,
+              );
+            } else if (val == 'sport_pack') {
+              setState(() {
+                _hasSportPack = !_hasSportPack;
+                if (!_hasSportPack && _selectedCategory == 'COMPETITION') {
+                  _selectedCategory = 'All';
+                }
+              });
+            } else if (val == 'rotate_hero') {
+              setState(() {
+                _heroImageIndex = (_heroImageIndex + 1) % _heroImageBank.length;
+              });
+            } else if (val == 'reset_filters') {
+              setState(() {
+                _selectedCategory = 'All';
+                _selectedYear = null;
+              });
+            }
+          },
+          itemBuilder: (_) => [
+            PopupMenuItem(
+              value: 'toggle_state',
+              child: Text(
+                _isEmptyState
+                    ? 'Switch to Populated State'
+                    : 'Switch to Empty State',
+                style: const TextStyle(color: _offWhite, fontSize: 13),
+              ),
+            ),
+            PopupMenuItem(
+              value: 'sport_pack',
+              child: Text(
+                _hasSportPack ? 'Disable Sport Pack' : 'Enable Sport Pack',
+                style: const TextStyle(color: _offWhite, fontSize: 13),
+              ),
+            ),
+            const PopupMenuItem(
+              value: 'rotate_hero',
+              child: Text(
+                'Cycle Anniversary Cover Photo',
+                style: TextStyle(color: _offWhite, fontSize: 13),
+              ),
+            ),
+            const PopupMenuItem(
+              value: 'reset_filters',
+              child: Text(
+                'Reset Category & Year Filters',
+                style: TextStyle(color: _offWhite, fontSize: 13),
+              ),
+            ),
+          ],
+        ),
+      ],
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(1),
+        child: Container(height: 1, color: _cardBorder),
+      ),
+    );
+  }
+
+  Widget _buildActiveFilterBanner() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: const BoxDecoration(
+        color: _carbon,
+        border: Border(bottom: BorderSide(color: _cardBorder)),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.filter_alt_outlined, color: _mint, size: 16),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              [
+                if (_selectedCategory != 'All') 'Category: $_selectedCategory',
+                if (_selectedYear != null) 'Year: $_selectedYear',
+              ].join(' · '),
+              style: const TextStyle(
+                color: _offWhite,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => setState(() {
+              _selectedCategory = 'All';
+              _selectedYear = null;
+            }),
+            child: const Text(
+              'Clear',
+              style: TextStyle(
+                color: _mint,
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyState() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 44),
+      child: Column(
+        children: [
+          const SizedBox(height: 28),
+          Container(
+            width: 96,
+            height: 96,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: const Color(0x14FFFFFF), width: 1),
+            ),
+            alignment: Alignment.center,
+            child: Container(
+              width: 68,
+              height: 68,
+              decoration: BoxDecoration(
+                color: _carbon,
+                shape: BoxShape.circle,
+                border: Border.all(color: const Color(0x18FFFFFF)),
+              ),
+              child: const Icon(
+                Icons.history_toggle_off,
+                color: _sage,
+                size: 32,
+              ),
+            ),
+          ),
+          const SizedBox(height: 28),
+          const Text(
+            'No Memories Yet',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: _offWhite,
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Inter',
+            ),
+          ),
+          const SizedBox(height: 12),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 18),
+            child: Text(
+              "As your dog's journey grows,\nmemorable moments and anniversaries\nwill appear here automatically.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 14,
+                height: 1.5,
+                fontFamily: 'Inter',
+              ),
+            ),
+          ),
+          const SizedBox(height: 28),
+          SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: ElevatedButton(
+              onPressed: () => Navigator.maybePop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _forest,
+                foregroundColor: _offWhite,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Center(
-                    child: Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: Colors.white24,
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'FILTER MEMORY CATEGORIES',
+                  Text(
+                    'Go to Timeline',
                     style: TextStyle(
-                      color: _stoneGrey,
-                      fontSize: 12,
+                      fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      letterSpacing: 1.0,
+                      fontFamily: 'Inter',
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 10,
-                    children: [
-                      _buildFilterChip('All Memories', null, null, tempFilter, (c) => setModalState(() => tempFilter = c)),
-                      _buildFilterChip('Training', 'Training', _catTraining, tempFilter, (c) => setModalState(() => tempFilter = c)),
-                      _buildFilterChip('Goals', 'Goals', _catGoals, tempFilter, (c) => setModalState(() => tempFilter = c)),
-                      _buildFilterChip('Health', 'Health', _catHealth, tempFilter, (c) => setModalState(() => tempFilter = c)),
-                      _buildFilterChip('S&C', 'S&C', _catSC, tempFilter, (c) => setModalState(() => tempFilter = c)),
-                      _buildFilterChip('Competition', 'Competition', _catComp, tempFilter, (c) => setModalState(() => tempFilter = c)),
-                      _buildFilterChip('Puppyhood', 'Puppyhood', _catPuppy, tempFilter, (c) => setModalState(() => tempFilter = c)),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _forest,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_forward, size: 17),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 36),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.auto_awesome_outlined,
+                        color: _sage, size: 15),
+                    const SizedBox(width: 8),
+                    const Expanded(
+                      child: Text(
+                        'MILESTONE ENGINE',
+                        style: TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.7,
                         ),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _selectedCategoryFilter = tempFilter;
-                        });
-                        Navigator.pop(ctx);
-                      },
-                      child: const Text('Apply Filter', style: TextStyle(color: _offWhite)),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: _forest.withValues(alpha: 0.22),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: const Text(
+                        'STANDBY',
+                        style: TextStyle(
+                          color: _mint,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.6,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'Memories and milestones are generated automatically from your recorded Timeline data — including dates, anniversaries, session counts, completed goals, and recorded events.',
+                  style: TextStyle(
+                    color: _stoneGrey,
+                    fontSize: 13,
+                    height: 1.5,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPopulatedState() {
+    final todayItems = _memories
+        .where((m) => m.section == 'today' && _matchesActiveFilters(m))
+        .toList();
+    final allMonthItems = _memories
+        .where((m) => m.section == 'month' && _matchesActiveFilters(m))
+        .toList();
+    final visibleMonthItems = _expandThisMonth
+        ? allMonthItems
+        : allMonthItems.where((m) => !m.extraItem).toList();
+    final hiddenMonthCount = allMonthItems.length - visibleMonthItems.length;
+
+    final milestoneItems = _memories
+        .where((m) => m.section == 'milestones' && _matchesActiveFilters(m))
+        .toList();
+    final achievementItems = _memories
+        .where((m) => m.section == 'achievements' && _matchesActiveFilters(m))
+        .toList();
+
+    final y2024 = _memories
+        .where((m) =>
+            m.section == 'year' && m.year == 2024 && _matchesActiveFilters(m))
+        .toList();
+    final all2023 = _memories
+        .where((m) =>
+            m.section == 'year' && m.year == 2023 && _matchesActiveFilters(m))
+        .toList();
+    final visible2023 =
+        _expand2023 ? all2023 : all2023.where((m) => !m.extraItem).toList();
+
+    final all2022 = _memories
+        .where((m) =>
+            m.section == 'year' && m.year == 2022 && _matchesActiveFilters(m))
+        .toList();
+    final visible2022 =
+        _expand2022 ? all2022 : all2022.where((m) => !m.extraItem).toList();
+
+    final showHero = (_selectedCategory == 'All' ||
+            _selectedCategory.toUpperCase() == 'TRAINING') &&
+        (_selectedYear == null || _selectedYear == 2025);
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 28),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (showHero) ...[
+            _buildHeroAnniversaryCard(),
+            const SizedBox(height: 24),
+          ],
+          if (todayItems.isNotEmpty) ...[
+            _buildSectionHeader(
+                'TODAY',
+                todayItems.length == 2
+                    ? '2 Memories'
+                    : '${todayItems.length} Memories'),
+            const SizedBox(height: 10),
+            ...todayItems.map(_buildMemoryCard),
+            const SizedBox(height: 18),
+          ],
+          if (allMonthItems.isNotEmpty) ...[
+            _buildSectionHeader('THIS MONTH', '${allMonthItems.length} Memories'),
+            const SizedBox(height: 10),
+            ...visibleMonthItems.map(_buildMemoryCard),
+            if (allMonthItems.any((m) => m.extraItem))
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 6, bottom: 8),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: () =>
+                        setState(() => _expandThisMonth = !_expandThisMonth),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            _expandThisMonth
+                                ? 'Show fewer this month'
+                                : '+ $hiddenMonthCount more this month',
+                            style: const TextStyle(
+                              color: _stoneGrey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Icon(
+                            _expandThisMonth
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: _stoneGrey,
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            const SizedBox(height: 16),
+          ],
+          if (milestoneItems.isNotEmpty) ...[
+            _buildSectionHeader(
+                'MILESTONES',
+                _selectedCategory == 'All' && _selectedYear == null
+                    ? '4 Memories'
+                    : '${milestoneItems.length} Memories'),
+            const SizedBox(height: 10),
+            ...milestoneItems.map(_buildMemoryCard),
+            const SizedBox(height: 18),
+          ],
+          if (achievementItems.isNotEmpty) ...[
+            _buildSectionHeader(
+                'ACHIEVEMENTS',
+                _selectedCategory == 'All' && _selectedYear == null
+                    ? '3 Memories'
+                    : '${achievementItems.length} Memories'),
+            const SizedBox(height: 10),
+            ...achievementItems.map(_buildMemoryCard),
+            const SizedBox(height: 18),
+          ],
+          if (y2024.isNotEmpty || all2023.isNotEmpty || all2022.isNotEmpty) ...[
+            const Text(
+              'PREVIOUS YEARS',
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.7,
+              ),
+            ),
+            const SizedBox(height: 12),
+            if (y2024.isNotEmpty) ...[
+              const Text(
+                '2024',
+                style: TextStyle(
+                  color: _offWhite,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 10),
+              ...y2024.map(_buildMemoryCard),
+              const SizedBox(height: 10),
+            ],
+            if (all2023.isNotEmpty) ...[
+              const Text(
+                '2023',
+                style: TextStyle(
+                  color: _offWhite,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 10),
+              ...visible2023.map(_buildMemoryCard),
+              if (all2023.any((m) => m.extraItem))
+                _buildExpandYearLink(
+                  expanded: _expand2023,
+                  year: 2023,
+                  onTap: () => setState(() => _expand2023 = !_expand2023),
+                ),
+              const SizedBox(height: 10),
+            ],
+            if (all2022.isNotEmpty) ...[
+              const Text(
+                '2022',
+                style: TextStyle(
+                  color: _offWhite,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 10),
+              ...visible2022.map(_buildMemoryCard),
+              if (all2022.any((m) => m.extraItem))
+                _buildExpandYearLink(
+                  expanded: _expand2022,
+                  year: 2022,
+                  onTap: () => setState(() => _expand2022 = !_expand2022),
+                ),
+            ],
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeroAnniversaryCard() {
+    return Container(
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: _cardBorder),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 225,
+            width: double.infinity,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.network(
+                  _heroImageBank[_heroImageIndex],
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, _, _) => Container(color: _carbon),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withValues(alpha: 0.12),
+                        _carbon.withValues(alpha: 0.78),
+                        _carbon,
+                      ],
+                      stops: const [0.0, 0.62, 1.0],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 18,
+                  right: 18,
+                  bottom: 6,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 6,
+                            height: 6,
+                            decoration: const BoxDecoration(
+                              color: _gold,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          const Text(
+                            'ONE YEAR AGO TODAY',
+                            style: TextStyle(
+                              color: _gold,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 0.7,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      const Text(
+                        "Murphy's First Off-Lead Recall Session",
+                        style: TextStyle(
+                          color: _offWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          height: 1.25,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      const Text(
+                        '14 Sep 2025 · Riverside Trail',
+                        style: TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(18, 12, 18, 18),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Session notes: Murphy completed three off-lead recalls at Riverside Trail (45 mins). Maintained recall response around bird distractions.',
+                  style: TextStyle(
+                    color: _stoneGrey,
+                    fontSize: 14,
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 18),
+                SizedBox(
+                  width: double.infinity,
+                  height: 46,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const TimelineEventDetailsScreen(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _forest,
+                      foregroundColor: _offWhite,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Open Original Event',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        SizedBox(width: 6),
+                        Icon(Icons.arrow_forward, size: 16),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Center(
+                  child: GestureDetector(
+                    onTap: _showShareMemorySheet,
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.share_outlined, color: _mint, size: 15),
+                        SizedBox(width: 6),
+                        Text(
+                          'Share This Memory',
+                          style: TextStyle(
+                            color: _mint,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String leftLabel, String rightCount) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          leftLabel,
+          style: const TextStyle(
+            color: _stoneGrey,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.7,
+          ),
+        ),
+        Text(
+          rightCount,
+          style: const TextStyle(
+            color: _stoneGrey,
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMemoryCard(_MemoryItem item) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () => _showMemoryDetailSheet(item),
+          child: Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: _carbon,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: _cardBorder),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (item.imageUrl != null)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: SizedBox(
+                      width: 56,
+                      height: 56,
+                      child: Image.network(
+                        item.imageUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, _, _) => Container(
+                          color: _iconBoxBg,
+                          child: Icon(Icons.photo_outlined,
+                              color: item.categoryColor, size: 22),
+                        ),
+                      ),
+                    ),
+                  )
+                else
+                  Container(
+                    width: 56,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      color: _iconBoxBg,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      item.icon ?? Icons.flag_outlined,
+                      color: item.iconColor ?? item.categoryColor,
+                      size: 22,
+                    ),
+                  ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          if (item.isMilestoneHeaderIcon)
+                            const Icon(Icons.emoji_events_outlined,
+                                color: _stoneGrey, size: 12)
+                          else ...[
+                            Container(
+                              width: 6,
+                              height: 6,
+                              decoration: BoxDecoration(
+                                color: item.categoryColor,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              item.category,
+                              style: const TextStyle(
+                                color: _stoneGrey,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 0.6,
+                              ),
+                            ),
+                          ],
+                          const Spacer(),
+                          if (item.badgeText != null) _buildBadge(item),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        item.title,
+                        maxLines: item.dateLabel == null ? 2 : 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: _offWhite,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      if (item.dateLabel != null) ...[
+                        const SizedBox(height: 3),
+                        Text(
+                          item.dateLabel!,
+                          style: const TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 11.5,
+                          ),
+                        ),
+                      ],
+                      const SizedBox(height: 3),
+                      Text(
+                        item.subtitle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: _stoneGrey,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Icon(
+                  item.isBookmarked ? Icons.bookmark : Icons.chevron_right,
+                  color: item.isBookmarked ? _gold : _stoneGrey,
+                  size: 18,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBadge(_MemoryItem item) {
+    Color bg = _iconBoxBg;
+    Color border = Colors.transparent;
+    Color fg = _stoneGrey;
+
+    if (item.isGoldBadge) {
+      bg = _gold.withValues(alpha: 0.14);
+      border = _gold.withValues(alpha: 0.55);
+      fg = const Color(0xFFE0B129);
+    } else if (item.isGreenBadge) {
+      bg = _forest.withValues(alpha: 0.22);
+      border = _forest.withValues(alpha: 0.55);
+      fg = _mint;
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2.5),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: border),
+      ),
+      child: Text(
+        item.badgeText!,
+        style: TextStyle(
+          color: fg,
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildExpandYearLink({
+    required bool expanded,
+    required int year,
+    required VoidCallback onTap,
+  }) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        child: GestureDetector(
+          onTap: onTap,
+          child: Text(
+            expanded ? 'Show fewer from $year' : '+ More from $year',
+            style: const TextStyle(
+              color: _stoneGrey,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBottomActionStrip() {
+    final textColor =
+        _isEmptyState ? _stoneGrey.withValues(alpha: 0.55) : _stoneGrey;
+    return Container(
+      height: 48,
+      decoration: const BoxDecoration(
+        color: Color(0xFF14181B),
+        border: Border(
+          top: BorderSide(color: _cardBorder, width: 1),
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: InkWell(
+              onTap: _isEmptyState
+                  ? () => AppSnackbar.show(context,
+                      message:
+                          'Switch to Populated State in the top ••• menu to filter memories',
+                      type: SnackbarType.info)
+                  : _showFilterCategoriesSheet,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.filter_list, color: textColor, size: 17),
+                  const SizedBox(width: 8),
+                  Text(
+                    _isEmptyState ? 'Filter' : 'Filter Categories',
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
               ),
             ),
-          );
-        },
+          ),
+          Container(width: 1, height: 22, color: _cardBorder),
+          Expanded(
+            child: InkWell(
+              onTap: _isEmptyState
+                  ? () => AppSnackbar.show(context,
+                      message:
+                          'Switch to Populated State in the top ••• menu to browse years',
+                      type: SnackbarType.info)
+                  : _showBrowseYearsSheet,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.calendar_today_outlined,
+                      color: textColor, size: 15),
+                  const SizedBox(width: 8),
+                  Text(
+                    _selectedYear != null
+                        ? 'Year: $_selectedYear'
+                        : 'Browse Years',
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildFilterChip(
-    String label,
-    String? categoryValue,
-    Color? color,
-    String? currentSelected,
-    ValueChanged<String?> onSelect,
-  ) {
-    final isSelected = currentSelected == categoryValue;
-    return GestureDetector(
-      onTap: () => onSelect(categoryValue),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected ? (color ?? _forest).withValues(alpha: 0.25) : _obsidian,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: isSelected ? (color ?? _mint) : _cardBorder,
-            width: isSelected ? 1.5 : 1,
+  void _showFilterCategoriesSheet() {
+    final categories = [
+      'All',
+      'TRAINING',
+      'GOALS',
+      'HEALTH',
+      'S&C',
+      'MILESTONES',
+      if (_hasSportPack) 'COMPETITION',
+      'PUPPYHOOD',
+    ];
+    showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      backgroundColor: _carbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 14, 20, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 38,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Filter Memory Categories',
+                style: TextStyle(
+                  color: _offWhite,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 14),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: categories.map((cat) {
+                  final active = _selectedCategory == cat;
+                  return ChoiceChip(
+                    label: Text(cat == 'All' ? 'All Categories' : cat),
+                    selected: active,
+                    selectedColor: _forest,
+                    backgroundColor: _obsidian,
+                    labelStyle: TextStyle(
+                      color: active ? _offWhite : _stoneGrey,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    onSelected: (_) {
+                      setState(() {
+                        _selectedCategory = cat;
+                        _isEmptyState = false;
+                      });
+                      Navigator.pop(ctx);
+                    },
+                  );
+                }).toList(),
+              ),
+            ],
           ),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (color != null) ...[
-              Container(
-                width: 8,
-                height: 8,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
+    );
+  }
+
+  void _showBrowseYearsSheet() {
+    final years = [null, 2025, 2024, 2023, 2022];
+    showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      backgroundColor: _carbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 14, 20, 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 38,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
               ),
-              const SizedBox(width: 6),
+              const SizedBox(height: 16),
+              const Text(
+                'Browse Memories by Year',
+                style: TextStyle(
+                  color: _offWhite,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 8),
+              ...years.map((yr) {
+                final selected = _selectedYear == yr;
+                return ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(
+                    Icons.calendar_month_outlined,
+                    color: selected ? _mint : _stoneGrey,
+                    size: 20,
+                  ),
+                  title: Text(
+                    yr == null ? 'All Recorded Years (2022–2025)' : '$yr',
+                    style: TextStyle(
+                      color: selected ? _mint : _offWhite,
+                      fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
+                  trailing: selected
+                      ? const Icon(Icons.check, color: _mint, size: 18)
+                      : null,
+                  onTap: () {
+                    setState(() {
+                      _selectedYear = yr;
+                      _isEmptyState = false;
+                    });
+                    Navigator.pop(ctx);
+                  },
+                );
+              }),
             ],
-            Text(
-              label,
-              style: TextStyle(
-                color: isSelected ? _offWhite : _stoneGrey,
-                fontSize: 12,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showMemoryDetailSheet(_MemoryItem item) {
+    final noteCtrl = TextEditingController(text: item.reflectionNote);
+    showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      backgroundColor: _carbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => Padding(
+        padding: EdgeInsets.fromLTRB(
+          20,
+          14,
+          20,
+          MediaQuery.of(ctx).viewInsets.bottom + 24,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 38,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.white24,
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Text(
+                  item.category,
+                  style: TextStyle(
+                    color: item.categoryColor,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.7,
+                  ),
+                ),
+                const Spacer(),
+                IconButton(
+                  icon: Icon(
+                    item.isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+                    color: item.isBookmarked ? _gold : _stoneGrey,
+                  ),
+                  onPressed: () {
+                    setState(() => item.isBookmarked = !item.isBookmarked);
+                    Navigator.pop(ctx);
+                    AppSnackbar.show(
+                      context,
+                      message: item.isBookmarked
+                          ? 'Memory pinned to keepsakes'
+                          : 'Removed from keepsakes',
+                      type: SnackbarType.success,
+                    );
+                  },
+                ),
+              ],
+            ),
+            Text(
+              item.title,
+              style: const TextStyle(
+                color: _offWhite,
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            if (item.dateLabel != null) ...[
+              const SizedBox(height: 4),
+              Text(item.dateLabel!,
+                  style: const TextStyle(color: _stoneGrey, fontSize: 13)),
+            ],
+            const SizedBox(height: 8),
+            Text(item.subtitle,
+                style: const TextStyle(color: _stoneGrey, fontSize: 14)),
+            const SizedBox(height: 16),
+            TextField(
+              controller: noteCtrl,
+              style: const TextStyle(color: _offWhite, fontSize: 14),
+              decoration: const InputDecoration(
+                labelText: 'Personal reflection note',
+                labelStyle: TextStyle(color: _stoneGrey, fontSize: 12),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: _stoneGrey),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: _forest),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      setState(
+                          () => item.reflectionNote = noteCtrl.text.trim());
+                      Navigator.pop(ctx);
+                      AppSnackbar.show(context,
+                          message: 'Reflection saved to memory',
+                          type: SnackbarType.success);
+                    },
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: _mint,
+                      side: const BorderSide(color: _forest),
+                      padding: const EdgeInsets.symmetric(vertical: 13),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text('Save Note'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const TimelineEventDetailsScreen(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _forest,
+                      foregroundColor: _offWhite,
+                      padding: const EdgeInsets.symmetric(vertical: 13),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text('Open Original Event'),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -208,9 +1595,10 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen>
     );
   }
 
-  void _showYearJumpPicker() {
+  void _showShareMemorySheet() {
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: _carbon,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -222,127 +1610,37 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen>
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
               const Text(
-                'BROWSE BY YEAR',
+                'Share Anniversary Memory',
                 style: TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 12,
+                  color: _offWhite,
+                  fontSize: 17,
                   fontWeight: FontWeight.w700,
-                  letterSpacing: 1.0,
                 ),
               ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildYearButton('2026', true),
-                  _buildYearButton('2025', false),
-                  _buildYearButton('2024', false),
-                  _buildYearButton('2023', false),
-                  _buildYearButton('2022', false),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildYearButton(String year, bool isCurrent) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: _carbon,
-            content: Text('Jumped to memories from $year', style: const TextStyle(color: _offWhite)),
-            duration: const Duration(seconds: 1),
-          ),
-        );
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        decoration: BoxDecoration(
-          color: isCurrent ? _forest : _obsidian,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: isCurrent ? _mint : _cardBorder),
-        ),
-        child: Text(
-          year,
-          style: TextStyle(
-            color: isCurrent ? _offWhite : _stoneGrey,
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showShareModal(String memoryTitle) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)),
-                ),
-              ),
-              const SizedBox(height: 18),
-              const Text(
-                'SHARE MEMORY',
-                style: TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 1),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                memoryTitle,
-                style: const TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 20),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.image_outlined, color: _mint),
-                title: const Text('Export Memory Card (Image)', style: TextStyle(color: _offWhite, fontSize: 14)),
-                onTap: () {
-                  Navigator.pop(ctx);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Memory card generated for sharing')),
-                  );
-                },
-              ),
+              const SizedBox(height: 12),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.link, color: _mint),
-                title: const Text('Copy Memory Link', style: TextStyle(color: _offWhite, fontSize: 14)),
+                title: const Text('Copy Memory Card Link',
+                    style: TextStyle(color: _offWhite, fontSize: 14)),
                 onTap: () {
                   Navigator.pop(ctx);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Memory link copied to clipboard')),
-                  );
+                  AppSnackbar.show(context,
+                      message: 'Memory link copied to clipboard',
+                      type: SnackbarType.success);
+                },
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.download_outlined, color: _mint),
+                title: const Text('Save Story Card to Device',
+                    style: TextStyle(color: _offWhite, fontSize: 14)),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  AppSnackbar.show(context,
+                      message: 'Anniversary card exported to Photos',
+                      type: SnackbarType.success);
                 },
               ),
             ],
@@ -351,1316 +1649,4 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen>
       ),
     );
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _obsidian,
-      appBar: _buildAppBar(),
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: _isEmptyState ? _buildEmptyState() : _buildPopulatedState(),
-      ),
-      bottomNavigationBar: _buildBottomNav(),
-    );
-  }
-
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      backgroundColor: _obsidian,
-      elevation: 0,
-      centerTitle: true,
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _offWhite),
-        onPressed: () {
-          if (Navigator.canPop(context)) {
-            Navigator.pop(context);
-          } else {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (_) => const TimelineScreen()),
-            );
-          }
-        },
-      ),
-      title: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            'Timeline Memories',
-            style: TextStyle(
-              color: _offWhite,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'Inter',
-            ),
-          ),
-          Text(
-            _selectedDog,
-            style: const TextStyle(
-              color: _mint,
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Inter',
-            ),
-          ),
-        ],
-      ),
-      actions: [
-        IconButton(
-          tooltip: 'Filter Memories',
-          icon: Icon(
-            Icons.tune,
-            color: _selectedCategoryFilter != null ? _mint : _stoneGrey,
-            size: 20,
-          ),
-          onPressed: _showFilterModal,
-        ),
-        IconButton(
-          tooltip: 'Toggle Empty/Populated State',
-          icon: Icon(
-            _isEmptyState ? Icons.visibility : Icons.visibility_off_outlined,
-            color: _mint,
-            size: 20,
-          ),
-          onPressed: () {
-            setState(() => _isEmptyState = !_isEmptyState);
-          },
-        ),
-        PopupMenuButton<String>(
-          icon: const Icon(Icons.more_vert, color: _stoneGrey),
-          color: _carbon,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(color: Color(0xFF272B29)),
-          ),
-          onSelected: (val) {
-            if (val == 'map') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const TimelineActivityMapScreen()),
-              );
-            } else if (val == 'insights') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const TimelineInsightsScreen()),
-              );
-            } else if (val == 'favourites') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const TimelineFavouritesScreen()),
-              );
-            } else if (val == 'archive') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const TimelineArchiveScreen()),
-              );
-            } else if (val == 'export') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const TimelineExportScreen()),
-              );
-            } else if (val == 'stats') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const TimelineStatisticsScreen()),
-              );
-            } else if (val == 'settings') {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const TimelineSettingsScreen()),
-              );
-            }
-          },
-          itemBuilder: (ctx) => const [
-            PopupMenuItem(
-              value: 'map',
-              child: Row(
-                children: [
-                  Icon(Icons.map_outlined, color: _mint, size: 18),
-                  SizedBox(width: 10),
-                  Text('Activity Map', style: TextStyle(color: _offWhite, fontSize: 13)),
-                ],
-              ),
-            ),
-            PopupMenuItem(
-              value: 'insights',
-              child: Row(
-                children: [
-                  Icon(Icons.lightbulb_outline, color: _mint, size: 18),
-                  SizedBox(width: 10),
-                  Text('Timeline Insights', style: TextStyle(color: _offWhite, fontSize: 13)),
-                ],
-              ),
-            ),
-            PopupMenuItem(
-              value: 'export',
-              child: Row(
-                children: [
-                  Icon(Icons.file_upload_outlined, color: _mint, size: 18),
-                  SizedBox(width: 10),
-                  Text('Export Timeline', style: TextStyle(color: _offWhite, fontSize: 13)),
-                ],
-              ),
-            ),
-            PopupMenuItem(
-              value: 'settings',
-              child: Row(
-                children: [
-                  Icon(Icons.settings_outlined, color: _mint, size: 18),
-                  SizedBox(width: 10),
-                  Text('Timeline Settings', style: TextStyle(color: _offWhite, fontSize: 13)),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  // ════════════════════════════════════════════════════════════════════════════
-  // POPULATED STATE (Matching Figma 'Timeline Memories - Populated State.svg')
-  // ════════════════════════════════════════════════════════════════════════════
-  Widget _buildPopulatedState() {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-            children: [
-              // Active Filter Indicator
-              if (_selectedCategoryFilter != null) ...[
-                _buildActiveFilterIndicator(),
-                const SizedBox(height: 12),
-              ],
-
-              // 1. HERO MEMORY CARD (One Year Ago Today)
-              _buildHeroMemoryCard(),
-              const SizedBox(height: 24),
-
-              // 2. TODAY (2 Memories)
-              _buildSectionHeader('TODAY', '2 Memories'),
-              const SizedBox(height: 10),
-              _buildMemoryCard(
-                category: 'TRAINING',
-                categoryColor: _catTraining,
-                timeBadge: '2 Years Ago',
-                timeBadgeColor: const Color(0xFF382F10),
-                timeBadgeTextColor: _gold,
-                title: 'Scent Work Introduction — First Session',
-                subtitle: '14 Sep 2023',
-                details: 'Riverside Trail • 45 min • 3 skills',
-                leadingWidget: _buildThumbnailBox(Icons.pets, _catTraining),
-                onTap: () => _openEventDetail('Scent Work Introduction'),
-              ),
-              const SizedBox(height: 8),
-              _buildMemoryCard(
-                category: 'GOALS',
-                categoryColor: _catGoals,
-                timeBadge: '1 Year Ago',
-                timeBadgeColor: const Color(0xFF382F10),
-                timeBadgeTextColor: _gold,
-                title: 'Completed Goal: Distance Down',
-                subtitle: '14 Sep 2024',
-                details: 'Achieved after 38 days • 22 sessions',
-                leadingWidget: _buildIconBox(Icons.emoji_events_outlined, _gold),
-                onTap: () => _openEventDetail('Distance Down Goal'),
-              ),
-              const SizedBox(height: 24),
-
-              // 3. THIS MONTH (5 Memories)
-              _buildSectionHeader('THIS MONTH', '5 Memories'),
-              const SizedBox(height: 10),
-              _buildMemoryCard(
-                category: 'HEALTH',
-                categoryColor: _catHealth,
-                timeBadge: '3 Years Ago',
-                timeBadgeColor: const Color(0xFF24282B),
-                timeBadgeTextColor: _stoneGrey,
-                title: 'Murphy\'s ACL Recovery — Final Checkup',
-                subtitle: '7 Sep 2022',
-                details: 'Recovery completed after 14 weeks rehabilitation',
-                leadingWidget: _buildIconBox(Icons.medical_services_outlined, _catHealth),
-                onTap: () => _openEventDetail('ACL Recovery'),
-              ),
-              const SizedBox(height: 8),
-              _buildMemoryCard(
-                category: 'S&C',
-                categoryColor: _catSC,
-                timeBadge: '2 Years Ago',
-                timeBadgeColor: const Color(0xFF382F10),
-                timeBadgeTextColor: _gold,
-                title: 'First Conditioning Assessment',
-                subtitle: '3 Sep 2023',
-                details: 'Baseline recorded — 8 exercises logged',
-                leadingWidget: _buildThumbnailBox(Icons.directions_run, _catSC),
-                onTap: () => _openEventDetail('Conditioning Assessment'),
-              ),
-
-              // Expandable: + 3 more this month
-              if (_expandedMonth) ...[
-                const SizedBox(height: 8),
-                _buildMemoryCard(
-                  category: 'TRAINING',
-                  categoryColor: _catTraining,
-                  timeBadge: '2 Years Ago',
-                  timeBadgeColor: const Color(0xFF382F10),
-                  timeBadgeTextColor: _gold,
-                  title: 'Long Line Recall Progression',
-                  subtitle: '18 Sep 2023',
-                  details: 'Field track • 30m distance tested',
-                  leadingWidget: _buildThumbnailBox(Icons.explore_outlined, _catTraining),
-                  onTap: () => _openEventDetail('Long Line Recall'),
-                ),
-                const SizedBox(height: 8),
-                _buildMemoryCard(
-                  category: 'HEALTH',
-                  categoryColor: _catHealth,
-                  timeBadge: '1 Year Ago',
-                  timeBadgeColor: const Color(0xFF382F10),
-                  timeBadgeTextColor: _gold,
-                  title: 'Annual Dental & Vaccinations',
-                  subtitle: '22 Sep 2024',
-                  details: 'Dr. Evans Veterinary Clinic • All clear',
-                  leadingWidget: _buildIconBox(Icons.vaccines_outlined, _catHealth),
-                  onTap: () => _openEventDetail('Annual Vaccinations'),
-                ),
-                const SizedBox(height: 8),
-                _buildMemoryCard(
-                  category: 'GOALS',
-                  categoryColor: _catGoals,
-                  timeBadge: '3 Years Ago',
-                  timeBadgeColor: const Color(0xFF24282B),
-                  timeBadgeTextColor: _stoneGrey,
-                  title: 'Beginner Agility Foundation Completed',
-                  subtitle: '28 Sep 2022',
-                  details: 'Weave poles & tunnel drive verified',
-                  leadingWidget: _buildIconBox(Icons.flag_outlined, _gold),
-                  onTap: () => _openEventDetail('Agility Foundation'),
-                ),
-              ],
-              const SizedBox(height: 6),
-              Center(
-                child: TextButton(
-                  onPressed: () => setState(() => _expandedMonth = !_expandedMonth),
-                  child: Text(
-                    _expandedMonth ? '— Show less this month' : '+ 3 more this month ˅',
-                    style: const TextStyle(color: _stoneGrey, fontSize: 12, fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 18),
-
-              // 4. MILESTONES (4 Memories)
-              _buildSectionHeader('MILESTONES', '4 Memories'),
-              const SizedBox(height: 10),
-              _buildMemoryCard(
-                category: 'MILESTONE',
-                categoryColor: _mint,
-                timeBadge: 'First Entry',
-                timeBadgeColor: const Color(0xFF142B22),
-                timeBadgeTextColor: _mint,
-                title: 'Murphy Joins Ulvenik',
-                subtitle: '2 Jan 2022',
-                details: 'The beginning of Murphy\'s recorded journey',
-                leadingWidget: _buildIconBox(Icons.flag_outlined, _mint),
-                isMilestone: true,
-                onTap: () => _openEventDetail('Murphy Joins Ulvenik'),
-              ),
-              const SizedBox(height: 8),
-              _buildMemoryCard(
-                category: 'MILESTONE',
-                categoryColor: _mint,
-                timeBadge: '100th Event',
-                timeBadgeColor: const Color(0xFF142B22),
-                timeBadgeTextColor: _mint,
-                title: '100th Timeline Entry',
-                subtitle: '18 Mar 2023',
-                details: 'Reached 100 recorded Timeline events',
-                leadingWidget: _buildIconBox(Icons.military_tech_outlined, _gold),
-                isMilestone: true,
-                onTap: () => _openEventDetail('100th Timeline Entry'),
-              ),
-              const SizedBox(height: 24),
-
-              // 5. ACHIEVEMENTS (3 Memories)
-              _buildSectionHeader('ACHIEVEMENTS', '3 Memories'),
-              const SizedBox(height: 10),
-              _buildMemoryCard(
-                category: 'TRAINING',
-                categoryColor: _catTraining,
-                timeBadge: '1 Year Ago',
-                timeBadgeColor: const Color(0xFF382F10),
-                timeBadgeTextColor: _gold,
-                title: 'Longest Recording Streak — 31 Days',
-                subtitle: 'March 2025',
-                details: 'Your best ever consecutive recording streak',
-                leadingWidget: _buildThumbnailBox(Icons.local_fire_department_outlined, _catTraining),
-                onTap: () => _openEventDetail('Longest Streak Achievement'),
-              ),
-              const SizedBox(height: 24),
-
-              // 6. PREVIOUS YEARS
-              const Text(
-                'PREVIOUS YEARS',
-                style: TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.8,
-                ),
-              ),
-              const SizedBox(height: 14),
-
-              // 2024 Subheading
-              const Text(
-                '2024',
-                style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 8),
-              _buildMemoryCard(
-                category: 'COMPETITION',
-                categoryColor: _catComp,
-                title: 'Regional IGP I Tracking Trial',
-                subtitle: '',
-                details: 'Scored 94/100 • Qualified Excellent',
-                leadingWidget: _buildIconBox(Icons.flag, _catComp),
-                onTap: () => _openEventDetail('Regional IGP Trial'),
-              ),
-              const SizedBox(height: 8),
-              _buildMemoryCard(
-                category: 'TRAINING',
-                categoryColor: _catTraining,
-                title: 'First Broad Jump Regulation Clear',
-                subtitle: '',
-                details: 'Nordic Training Grounds • Height 1.2m',
-                leadingWidget: _buildIconBox(Icons.fitness_center, _catTraining),
-                onTap: () => _openEventDetail('Broad Jump Clear'),
-              ),
-              const SizedBox(height: 16),
-
-              // 2023 Subheading
-              const Text(
-                '2023',
-                style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 8),
-              _buildMemoryCard(
-                category: 'TRAINING',
-                categoryColor: _catTraining,
-                title: 'Heeling under High Distraction',
-                subtitle: '',
-                details: 'Suburban perimeter session',
-                leadingWidget: _buildThumbnailBox(Icons.pets, _catTraining),
-                onTap: () => _openEventDetail('Heeling Session'),
-              ),
-              const SizedBox(height: 8),
-              _buildMemoryCard(
-                category: 'GOALS',
-                categoryColor: _catGoals,
-                title: 'Foundation Heeling Certified',
-                subtitle: '',
-                details: 'Club evaluation passed 10/10',
-                leadingWidget: _buildIconBox(Icons.flag_outlined, _catGoals),
-                onTap: () => _openEventDetail('Foundation Heeling'),
-              ),
-              if (_expanded2023) ...[
-                const SizedBox(height: 8),
-                _buildMemoryCard(
-                  category: 'HEALTH',
-                  categoryColor: _catHealth,
-                  title: 'Hip & Elbow Dysplasia Screening (Clear)',
-                  subtitle: '',
-                  details: 'OFA Certification recorded Grade 1',
-                  leadingWidget: _buildIconBox(Icons.medical_services_outlined, _catHealth),
-                  onTap: () => _openEventDetail('Screening Clear'),
-                ),
-              ],
-              const SizedBox(height: 4),
-              Center(
-                child: TextButton(
-                  onPressed: () => setState(() => _expanded2023 = !_expanded2023),
-                  child: Text(
-                    _expanded2023 ? '— Less from 2023' : '+ More from 2023 ˅',
-                    style: const TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 14),
-
-              // 2022 Subheading
-              const Text(
-                '2022',
-                style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 8),
-              _buildMemoryCard(
-                category: 'PUPPYHOOD',
-                categoryColor: _catPuppy,
-                title: 'First Crate Night & House Manners',
-                subtitle: '',
-                details: 'Zero distress logged',
-                leadingWidget: _buildIconBox(Icons.sentiment_very_satisfied_outlined, _catPuppy),
-                onTap: () => _openEventDetail('Puppy First Night'),
-              ),
-              if (_expanded2022) ...[
-                const SizedBox(height: 8),
-                _buildMemoryCard(
-                  category: 'TRAINING',
-                  categoryColor: _catTraining,
-                  title: 'Name Recognition & Food Luring',
-                  subtitle: '',
-                  details: 'First training rep in Ulvenik',
-                  leadingWidget: _buildIconBox(Icons.check_circle_outline, _catTraining),
-                  onTap: () => _openEventDetail('Name Recognition'),
-                ),
-              ],
-              const SizedBox(height: 4),
-              Center(
-                child: TextButton(
-                  onPressed: () => setState(() => _expanded2022 = !_expanded2022),
-                  child: Text(
-                    _expanded2022 ? '— Less from 2022' : '+ More from 2022 ˅',
-                    style: const TextStyle(color: _stoneGrey, fontSize: 11, fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        // Bottom Action Bar: Filter Categories | Browse Years
-        _buildBottomSplitBar(),
-      ],
-    );
-  }
-
-  Widget _buildActiveFilterIndicator() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _mint.withValues(alpha: 0.5)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.filter_list, color: _mint, size: 16),
-              const SizedBox(width: 8),
-              Text(
-                'Filtered by: $_selectedCategoryFilter',
-                style: const TextStyle(color: _offWhite, fontSize: 12, fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-          GestureDetector(
-            onTap: () => setState(() => _selectedCategoryFilter = null),
-            child: const Text('Clear', style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w700)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeroMemoryCard() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: _cardBorder),
-        gradient: const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF263339),
-            Color(0xFF14191C),
-            Color(0xFF101214),
-          ],
-        ),
-        boxShadow: const [
-          BoxShadow(color: Colors.black45, blurRadius: 16, offset: Offset(0, 4)),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Mountain hero artwork placeholder / header
-          Container(
-            height: 140,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFF2C3E47), Color(0xFF1E282D), Color(0xFF121618)],
-              ),
-            ),
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: CustomPaint(
-                    painter: _MountainSilhouettePainter(),
-                  ),
-                ),
-                Positioned(
-                  top: 16,
-                  left: 16,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 7,
-                        height: 7,
-                        decoration: const BoxDecoration(color: _gold, shape: BoxShape.circle),
-                      ),
-                      const SizedBox(width: 6),
-                      const Text(
-                        '• ONE YEAR AGO TODAY',
-                        style: TextStyle(
-                          color: _gold,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 0.8,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Content below
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Murphy\'s First Off-Lead Recall Session',
-                  style: TextStyle(
-                    color: _offWhite,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Inter',
-                    height: 1.25,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  '14 Sep 2025 • Riverside Trail',
-                  style: TextStyle(color: _stoneGrey, fontSize: 12),
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  'A major training breakthrough — Murphy completed three successful off-lead recalls at Riverside Trail. Solid responsiveness despite bird distractions.',
-                  style: TextStyle(
-                    color: _stoneGrey,
-                    fontSize: 13,
-                    height: 1.45,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                const SizedBox(height: 18),
-
-                // Primary CTA: Open Original Event
-                SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _forest,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () => _openEventDetail('Murphy\'s First Off-Lead Recall Session'),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Open Original Event',
-                          style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(width: 6),
-                        Icon(Icons.arrow_forward, color: _offWhite, size: 16),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-
-                // Secondary CTA: Share This Memory
-                Center(
-                  child: TextButton.icon(
-                    onPressed: () => _showShareModal('Murphy\'s First Off-Lead Recall Session'),
-                    icon: const Icon(Icons.share_outlined, color: _stoneGrey, size: 16),
-                    label: const Text(
-                      'Share This Memory',
-                      style: TextStyle(color: _stoneGrey, fontSize: 13, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(String title, String countBadge) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            color: _stoneGrey,
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.8,
-          ),
-        ),
-        Text(
-          countBadge,
-          style: const TextStyle(
-            color: _stoneGrey,
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildMemoryCard({
-    required String category,
-    required Color categoryColor,
-    String? timeBadge,
-    Color? timeBadgeColor,
-    Color? timeBadgeTextColor,
-    required String title,
-    required String subtitle,
-    required String details,
-    required Widget leadingWidget,
-    bool isMilestone = false,
-    required VoidCallback onTap,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(14),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(14),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                leadingWidget,
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Top Row: Category dot + label + optional Time Badge
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 6,
-                                height: 6,
-                                decoration: BoxDecoration(color: categoryColor, shape: BoxShape.circle),
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                category,
-                                style: TextStyle(
-                                  color: categoryColor,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w800,
-                                  letterSpacing: 0.6,
-                                ),
-                              ),
-                            ],
-                          ),
-                          if (timeBadge != null)
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: timeBadgeColor ?? const Color(0xFF24282B),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                timeBadge,
-                                style: TextStyle(
-                                  color: timeBadgeTextColor ?? _stoneGrey,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-
-                      // Title
-                      Row(
-                        children: [
-                          if (isMilestone) ...[
-                            const Icon(Icons.workspace_premium, color: _mint, size: 14),
-                            const SizedBox(width: 4),
-                          ],
-                          Expanded(
-                            child: Text(
-                              title,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: _offWhite,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Inter',
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      if (subtitle.isNotEmpty) ...[
-                        const SizedBox(height: 2),
-                        Text(
-                          subtitle,
-                          style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                        ),
-                      ],
-                      const SizedBox(height: 2),
-                      Text(
-                        details,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: _stoneGrey, fontSize: 11),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 6),
-                const Icon(Icons.chevron_right, color: _stoneGrey, size: 16),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildThumbnailBox(IconData fallbackIcon, Color tint) {
-    return Container(
-      width: 46,
-      height: 46,
-      decoration: BoxDecoration(
-        color: _obsidian,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Center(
-        child: Icon(fallbackIcon, color: tint, size: 22),
-      ),
-    );
-  }
-
-  Widget _buildIconBox(IconData icon, Color tint) {
-    return Container(
-      width: 46,
-      height: 46,
-      decoration: BoxDecoration(
-        color: _obsidian,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _cardBorder),
-      ),
-      child: Center(
-        child: Icon(icon, color: tint, size: 20),
-      ),
-    );
-  }
-
-  Widget _buildBottomSplitBar() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(top: BorderSide(color: Color(0x1AFFFFFF), width: 1)),
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Expanded(
-            child: InkWell(
-              onTap: _showFilterModal,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 6),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.filter_list, color: _stoneGrey, size: 16),
-                    SizedBox(width: 6),
-                    Text('Filter Categories', style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w500)),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Container(width: 1, height: 20, color: const Color(0x1AFFFFFF)),
-          Expanded(
-            child: InkWell(
-              onTap: _showYearJumpPicker,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 6),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.calendar_today_outlined, color: _stoneGrey, size: 16),
-                    SizedBox(width: 6),
-                    Text('Browse Years', style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w500)),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ════════════════════════════════════════════════════════════════════════════
-  // EMPTY STATE (Matching Figma 'Timeline Memories - Empty State.svg')
-  // ════════════════════════════════════════════════════════════════════════════
-  Widget _buildEmptyState() {
-    return Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            child: Column(
-              children: [
-                const SizedBox(height: 60),
-
-                // Radar clock icon inside concentric circles
-                Container(
-                  width: 88,
-                  height: 88,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _carbon,
-                    border: Border.all(color: _cardBorder, width: 2),
-                    boxShadow: const [
-                      BoxShadow(color: Colors.black38, blurRadius: 16),
-                    ],
-                  ),
-                  child: Center(
-                    child: Container(
-                      width: 52,
-                      height: 52,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _obsidian,
-                        border: Border.all(color: _mint.withValues(alpha: 0.3), width: 1.5),
-                      ),
-                      child: const Center(
-                        child: Icon(Icons.history_toggle_off, color: _mint, size: 26),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 28),
-
-                const Text(
-                  'No Memories Yet',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: _offWhite,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                const SizedBox(height: 12),
-
-                const Text(
-                  'As your dog\'s journey grows, memorable moments and anniversaries will appear here automatically.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: _stoneGrey,
-                    fontSize: 14,
-                    height: 1.5,
-                    fontFamily: 'Inter',
-                  ),
-                ),
-                const SizedBox(height: 32),
-
-                // Go to Timeline CTA Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _forest,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed: () {
-                      if (Navigator.canPop(context)) {
-                        Navigator.pop(context);
-                      } else {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                        );
-                      }
-                    },
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Go to Timeline',
-                          style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(Icons.arrow_forward, color: _offWhite, size: 16),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 18),
-
-                // Learn link
-                GestureDetector(
-                  onTap: _showLearnModal,
-                  child: const Text(
-                    'Learn about Timeline Memories',
-                    style: TextStyle(
-                      color: _mint,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 48),
-
-                // Milestone Engine Card (Standby)
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: _carbon,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: _cardBorder),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Row(
-                            children: [
-                              Icon(Icons.timeline, color: _mint, size: 16),
-                              SizedBox(width: 8),
-                              Text(
-                                'MILESTONE ENGINE',
-                                style: TextStyle(
-                                  color: _stoneGrey,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 0.8,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF14241E),
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(color: _forest.withValues(alpha: 0.5)),
-                            ),
-                            child: const Text(
-                              'STANDBY',
-                              style: TextStyle(color: _mint, fontSize: 10, fontWeight: FontWeight.w800),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      const Text(
-                        'Ulvenik logs field trails, agility trials, and physical conditioning milestones. Milestones consolidate annually into deep-memory scrolls.',
-                        style: TextStyle(
-                          color: _stoneGrey,
-                          fontSize: 12,
-                          height: 1.45,
-                          fontFamily: 'Inter',
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-
-        // Bottom Bar (Faint in Empty State)
-        Container(
-          decoration: const BoxDecoration(
-            color: _obsidian,
-            border: Border(top: BorderSide(color: Color(0x1AFFFFFF), width: 1)),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.filter_list, color: _stoneGrey.withValues(alpha: 0.4), size: 16),
-                      const SizedBox(width: 6),
-                      Text('Filter', style: TextStyle(color: _stoneGrey.withValues(alpha: 0.4), fontSize: 13)),
-                    ],
-                  ),
-                ),
-              ),
-              Container(width: 1, height: 20, color: const Color(0x1AFFFFFF)),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.calendar_today_outlined, color: _stoneGrey.withValues(alpha: 0.4), size: 16),
-                      const SizedBox(width: 6),
-                      Text('Browse Years', style: TextStyle(color: _stoneGrey.withValues(alpha: 0.4), fontSize: 13)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  void _showLearnModal() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(width: 40, height: 4, decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2))),
-              ),
-              const SizedBox(height: 18),
-              const Text(
-                'About Timeline Memories',
-                style: TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(height: 12),
-              const Text(
-                'Timeline Memories automatically resurfaces significant past moments — like "One Year Ago Today", puppyhood foundations, major goal completions, and annual training milestones — so you can look back on your dog\'s progression over months and years.',
-                style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.5),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: _forest, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                  onPressed: () => Navigator.pop(ctx),
-                  child: const Text('Got it', style: TextStyle(color: _offWhite)),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _openEventDetail(String title) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: _carbon,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(width: 40, height: 4, decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2))),
-              ),
-              const SizedBox(height: 16),
-              const Text('ORIGINAL TIMELINE EVENT', style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.8)),
-              const SizedBox(height: 8),
-              Text(title, style: const TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.w700)),
-              const SizedBox(height: 8),
-              Text('Logged for $_selectedDog • GPS verified', style: const TextStyle(color: _stoneGrey, fontSize: 12)),
-              const SizedBox(height: 16),
-              const Divider(color: Color(0x14FFFFFF)),
-              const SizedBox(height: 12),
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _forest,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(ctx);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                    );
-                  },
-                  child: const Text('View Full Timeline Record', style: TextStyle(color: _offWhite)),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBottomNav() {
-    return Container(
-      decoration: const BoxDecoration(
-        color: _obsidian,
-        border: Border(
-          top: BorderSide(color: Color(0x14FFFFFF), width: 1),
-        ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_outlined, 'Home', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HomepageScreen()),
-                );
-              }),
-              _buildNavItem(Icons.pets_outlined, 'Dogs', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyDogsScreen()),
-                );
-              }),
-              _buildNavItem(Icons.fitness_center_outlined, 'Training', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TrainingScreen()),
-                );
-              }),
-              _buildNavItem(Icons.event_note, 'Timeline', true, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                );
-              }),
-              _buildNavItem(Icons.more_horiz_outlined, 'More', false, () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const TimelineDashboardScreen()),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            color: isSelected ? _mint : _stoneGrey,
-            size: 22,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? _mint : _stoneGrey,
-              fontSize: 10,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-              fontFamily: 'Inter',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Custom silhouette painter for the Mountain Hero card
-class _MountainSilhouettePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final mountainPaint = Paint()
-      ..color = const Color(0x4D1A252A)
-      ..style = PaintingStyle.fill;
-
-    final path = Path();
-    path.moveTo(0, size.height);
-    path.lineTo(size.width * 0.2, size.height * 0.35);
-    path.lineTo(size.width * 0.45, size.height * 0.7);
-    path.lineTo(size.width * 0.7, size.height * 0.25);
-    path.lineTo(size.width, size.height * 0.6);
-    path.lineTo(size.width, size.height);
-    path.close();
-
-    canvas.drawPath(path, mountainPaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

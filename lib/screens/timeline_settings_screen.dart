@@ -166,114 +166,135 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
     );
   }
 
+  String _formatDigestTime(String time24) {
+    if (_timeFormat == '12 Hour') {
+      switch (time24) {
+        case '08:00':
+          return '8:00 AM';
+        case '12:00':
+          return '12:00 PM';
+        case '18:00':
+          return '6:00 PM';
+        case '20:00':
+          return '8:00 PM';
+        case '22:00':
+          return '10:00 PM';
+        default:
+          return time24;
+      }
+    }
+    return time24;
+  }
+
   void _confirmReset() {
-    showModalBottomSheet(
+    showDialog<void>(
       context: context,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.white24,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Icon(Icons.refresh, color: _destructive, size: 40),
-              const SizedBox(height: 14),
-              const Text(
+      builder: (ctx) => AlertDialog(
+        backgroundColor: _carbon,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+          side: const BorderSide(color: _cardBorder),
+        ),
+        title: const Row(
+          children: [
+            Icon(Icons.refresh, color: _destructive, size: 22),
+            SizedBox(width: 10),
+            Expanded(
+              child: Text(
                 'Reset Timeline Settings?',
                 style: TextStyle(
                   color: _offWhite,
-                  fontSize: 18,
+                  fontSize: 17,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Inter',
                 ),
               ),
-              const SizedBox(height: 8),
-              const Text(
-                'All display density, view preferences, formats, and notification toggles will be restored to defaults.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 13,
-                  fontFamily: 'Inter',
+            ),
+          ],
+        ),
+        content: const Text(
+          'Are you sure you want to reset all Timeline settings to their default values?',
+          style: TextStyle(
+            color: _stoneGrey,
+            fontSize: 13.5,
+            height: 1.45,
+            fontFamily: 'Inter',
+          ),
+        ),
+        actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        actions: [
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: _cardBorder),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                  ),
+                  onPressed: () => Navigator.pop(ctx),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(color: _stoneGrey, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: _cardBorder),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                      ),
-                      onPressed: () => Navigator.pop(ctx),
-                      child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+              const SizedBox(width: 10),
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _destructive,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _destructive,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                    setState(() {
+                      _defaultView = 'Chronological Feed';
+                      _defaultSortOrder = 'Newest First';
+                      _eventDensity = 'Comfortable';
+                      _dateFormat = 'DD/MM/YYYY';
+                      _timeFormat = '24 Hour';
+                      _autoExpandToday = true;
+                      _groupBy = 'Date (Today, Yesterday, Month)';
+                      _showThumbnails = true;
+                      _showTelemetry = true;
+                      _pinFavourites = false;
+                      _autoArchive = 'Never';
+                      _saveRecentSearches = true;
+                      _searchScope = 'Active Feed & Archive';
+                      _milestoneReminders = true;
+                      _streakAlerts = true;
+                      _weeklyDigest = true;
+                      _digestTime = '20:00';
+                      _hardwareAcceleration = true;
+                      _preloadMedia = true;
+                      _showHandlerName = true;
+                      _gpsTagging = true;
+                      _encryption = 'AES-256 Enabled';
+                    });
+                    _triggerSaved();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Timeline settings have been reset to defaults.'),
+                        backgroundColor: _carbon,
+                        behavior: SnackBarBehavior.floating,
                       ),
-                      onPressed: () {
-                        Navigator.pop(ctx);
-                        setState(() {
-                          _defaultView = 'Chronological Feed';
-                          _defaultSortOrder = 'Newest First';
-                          _eventDensity = 'Comfortable';
-                          _dateFormat = 'DD/MM/YYYY';
-                          _timeFormat = '24 Hour';
-                          _autoExpandToday = true;
-                          _groupBy = 'Date (Today, Yesterday, Month)';
-                          _showThumbnails = true;
-                          _showTelemetry = true;
-                          _pinFavourites = false;
-                          _autoArchive = 'Never';
-                          _saveRecentSearches = true;
-                          _searchScope = 'Active Feed & Archive';
-                          _milestoneReminders = true;
-                          _streakAlerts = true;
-                          _weeklyDigest = true;
-                          _digestTime = '20:00';
-                          _hardwareAcceleration = true;
-                          _preloadMedia = true;
-                          _showHandlerName = true;
-                          _gpsTagging = true;
-                          _encryption = 'AES-256 Enabled';
-                        });
-                        _triggerSaved();
-                      },
-                      child: const Text(
-                        'Reset All',
-                        style: TextStyle(color: _offWhite, fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                    );
+                  },
+                  child: const Text(
+                    'Reset Settings',
+                    style: TextStyle(color: _offWhite, fontWeight: FontWeight.w700),
                   ),
-                ],
+                ),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }
@@ -401,7 +422,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
                 value: '$_timeFormat >',
                 onTap: () => _showPickerModal(
                   title: 'Time Format',
-                  options: ['24 Hour', '12 Hour AM/PM'],
+                  options: ['12 Hour', '24 Hour'],
                   currentVal: _timeFormat,
                   onSelected: (val) => setState(() => _timeFormat = val),
                 ),
@@ -609,12 +630,21 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
                 icon: Icons.alarm,
                 title: 'Daily Digest Time',
                 subtitle: 'Time of day for activity digests',
-                value: '$_digestTime >',
+                value: '${_formatDigestTime(_digestTime)} >',
                 onTap: () => _showPickerModal(
                   title: 'Daily Digest Time',
-                  options: ['08:00', '12:00', '18:00', '20:00', '22:00'],
-                  currentVal: _digestTime,
-                  onSelected: (val) => setState(() => _digestTime = val),
+                  options: ['08:00', '12:00', '18:00', '20:00', '22:00']
+                      .map(_formatDigestTime)
+                      .toList(),
+                  currentVal: _formatDigestTime(_digestTime),
+                  onSelected: (val) {
+                    const rawTimes = ['08:00', '12:00', '18:00', '20:00', '22:00'];
+                    final matched = rawTimes.firstWhere(
+                      (t) => _formatDigestTime(t) == val,
+                      orElse: () => '20:00',
+                    );
+                    setState(() => _digestTime = matched);
+                  },
                 ),
               ),
             ],

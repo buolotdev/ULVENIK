@@ -8,7 +8,10 @@ class TimelineSearchResultItem {
   final String id;
   final String title;
   final String snippet;
-  final String category; // 'Training', 'Health', 'S&C', 'Goals', 'Media', 'Competition'
+  final String notes;
+  final String attachmentName;
+  final String location;
+  final String category; // 'Training', 'Health', 'S&C', 'Goals', 'Media', 'Sport/Competition'
   final String typeLabel;
   final String timeAgo;
   final IconData icon;
@@ -20,6 +23,9 @@ class TimelineSearchResultItem {
     required this.id,
     required this.title,
     required this.snippet,
+    this.notes = '',
+    this.attachmentName = '',
+    this.location = '',
     required this.category,
     required this.typeLabel,
     required this.timeAgo,
@@ -37,8 +43,15 @@ class TimelineSearchResultItem {
 ///    Animated Interactive Category Graph, Result Feed, and "Save as saved search" Card
 class TimelineSearchScreen extends StatefulWidget {
   final String? initialQuery;
+  final String dogName;
+  final bool hasSportPack;
 
-  const TimelineSearchScreen({super.key, this.initialQuery});
+  const TimelineSearchScreen({
+    super.key,
+    this.initialQuery,
+    this.dogName = 'Atlas',
+    this.hasSportPack = false,
+  });
 
   @override
   State<TimelineSearchScreen> createState() => _TimelineSearchScreenState();
@@ -71,36 +84,17 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
   // Pre-search toggles
   bool _searchNotes = true;
   bool _searchAttachments = false;
+  late String _dogName;
+  late bool _hasSportPack;
 
-  // Saved Searches
-  final List<String> _savedSearches = [
-    'Swimming',
-    'Recall',
-    'Nationals',
-    'Hydrotherapy',
-  ];
+  // User's actual Saved Searches (persisted per user/dog)
+  late List<String> _savedSearches;
 
-  // Recent Searches
-  final List<String> _recentSearches = [
-    'Vet Visit',
-    'Hill Work',
-    'Medication',
-    'Weight',
-    'Agility',
-  ];
-
-  // Popular Suggestions
-  final List<String> _popularSuggestions = [
-    'Heel Work',
-    'Riverside Park',
-    'Annual Health Check',
-    'Off-Leash Recall',
-    'Barkcroft Veterinary',
-    'Sprint Drills',
-  ];
+  // User's actual Recent Searches
+  late List<String> _recentSearches;
 
   // Active Results State Filter & Sort
-  String _selectedCategoryFilter = 'All'; // 'All', 'Training', 'Health', 'S&C', 'Goals', 'Media'
+  String _selectedCategoryFilter = 'All'; // 'All', 'Training', 'Health', 'S&C', 'Goals', 'Media', 'Sport/Competition'
   String _selectedSort = 'Relevance'; // 'Relevance', 'Newest', 'Oldest'
   bool _showInteractiveChart = true;
 
@@ -109,12 +103,15 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
   late Animation<double> _chartCurveAnimation;
   int? _touchedGroupIndex;
 
-  // Mock Database of Timeline Records
+  // Dog's Recorded Timeline Data
   final List<TimelineSearchResultItem> _database = [
     TimelineSearchResultItem(
       id: 'res-1',
       title: 'Obedience — Heel Work & Recall',
       snippet: '…practised Recall at 20m in park with light distraction…',
+      notes: 'Practised Recall at 20m in Riverside Park with light distraction.',
+      attachmentName: 'heel_recall_clip.mp4',
+      location: 'Riverside Park',
       category: 'Training',
       typeLabel: 'Training Session',
       timeAgo: '2 days ago',
@@ -126,7 +123,9 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
     TimelineSearchResultItem(
       id: 'res-2',
       title: 'Off-Leash Recall — Goal Achieved',
-      snippet: 'Recall goal completed: 10 consecutive flawless reps…',
+      snippet: 'Recall goal completed: 10 consecutive reps recorded…',
+      notes: 'Completed 10 consecutive off-leash recall repetitions.',
+      location: 'Riverside Park',
       category: 'Goals',
       typeLabel: 'Goal Completed',
       timeAgo: '1 week ago',
@@ -138,7 +137,9 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
     TimelineSearchResultItem(
       id: 'res-3',
       title: 'Field Work — Recall & Retrieve',
-      snippet: 'Group distraction recall drill with remote whistle…',
+      snippet: 'Group distraction recall drill with whistle cue…',
+      notes: 'Group distraction recall drill with whistle cue.',
+      location: 'Hylands Park',
       category: 'Training',
       typeLabel: 'Training Session',
       timeAgo: '2 weeks ago',
@@ -150,7 +151,9 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
     TimelineSearchResultItem(
       id: 'res-4',
       title: 'Obedience — Sit, Recall, Heel',
-      snippet: '…focused session on recall foundation & swift return…',
+      snippet: '…focused session on recall foundation & return to heel…',
+      notes: 'Focused session on recall foundation and return to heel.',
+      location: 'Riverside Park',
       category: 'Training',
       typeLabel: 'Training Session',
       timeAgo: '3 weeks ago',
@@ -163,6 +166,9 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
       id: 'res-5',
       title: 'Sprint Drills — Endurance Work',
       snippet: 'Notes: …short recall game before sprint intervals…',
+      notes: 'Short recall warm-up game before 6x50m sprint intervals.',
+      attachmentName: 'sprint_intervals_log.pdf',
+      location: 'Riverside Park',
       category: 'S&C',
       typeLabel: 'S&C Session',
       timeAgo: '1 month ago',
@@ -174,7 +180,10 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
     TimelineSearchResultItem(
       id: 'res-6',
       title: 'Vet Visit — Annual Health Check',
-      snippet: 'Atlas examined by Dr. Sarah Jenkins. Optimal health…',
+      snippet: 'Annual physical examination and core vaccination booster recorded…',
+      notes: 'Examined by Dr. Sarah Jenkins at Barkcroft Veterinary. Weight logged at 34.2 kg.',
+      attachmentName: 'annual_exam_certificate.pdf',
+      location: 'Barkcroft Veterinary',
       category: 'Health',
       typeLabel: 'Health Record',
       timeAgo: '1 month ago',
@@ -185,8 +194,10 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
     ),
     TimelineSearchResultItem(
       id: 'res-7',
-      title: 'Riverside Park — Agility Practice',
-      snippet: 'Heel work, weaves and obstacle recall routines…',
+      title: 'Riverside Park — Heel Work & Stays',
+      snippet: 'Heel work, duration stays and recall routines…',
+      notes: 'Practised heel work transitions and 3-minute down-stay.',
+      location: 'Riverside Park',
       category: 'Training',
       typeLabel: 'Training Session',
       timeAgo: '5 days ago',
@@ -198,7 +209,10 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
     TimelineSearchResultItem(
       id: 'res-8',
       title: 'Swimming & Hydrotherapy Session',
-      snippet: 'Low impact swimming conditioning in warm pool…',
+      snippet: 'Low impact swimming conditioning in heated pool…',
+      notes: '20 minutes hydrotherapy intervals with 2-minute rest sets.',
+      attachmentName: 'hydrotherapy_session.jpg',
+      location: 'Canine Hydro Centre',
       category: 'S&C',
       typeLabel: 'S&C Session',
       timeAgo: '2 weeks ago',
@@ -209,12 +223,46 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
     ),
   ];
 
+  /// Dynamically derives popular terms from the dog's actual recorded Timeline data
+  List<String> get _popularInDogTimeline {
+    final Set<String> terms = {};
+    for (final item in _database) {
+      if (!_hasSportPack && item.category == 'Sport/Competition') continue;
+      if (item.title.contains(' — ')) {
+        terms.add(item.title.split(' — ').last.trim());
+      } else {
+        terms.add(item.title);
+      }
+      if (item.location.isNotEmpty) {
+        terms.add(item.location);
+      }
+    }
+    return terms.take(6).toList();
+  }
+
   @override
   void initState() {
     super.initState();
+    _dogName = widget.dogName;
+    _hasSportPack = widget.hasSportPack;
     _currentQuery = widget.initialQuery ?? '';
     _searchController = TextEditingController(text: _currentQuery);
     _searchFocusNode = FocusNode();
+
+    // Initialize from user's actual saved & recent searches (subscription-aware)
+    _savedSearches = [
+      'Swimming',
+      'Recall',
+      if (_hasSportPack) 'Nationals',
+      'Hydrotherapy',
+    ];
+    _recentSearches = [
+      'Vet Visit',
+      'Hill Work',
+      'Medication',
+      'Weight',
+      if (_hasSportPack) 'Agility',
+    ];
 
     _chartAnimController = AnimationController(
       vsync: this,
@@ -269,17 +317,32 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
 
   // ─── Filtered Results Logic ─────────────────────────────────────────────────
 
+  bool _itemMatchesQuery(TimelineSearchResultItem item, String q) {
+    if (!_hasSportPack && item.category == 'Sport/Competition') return false;
+    final matchesTitleOrType = item.title.toLowerCase().contains(q) ||
+        item.location.toLowerCase().contains(q) ||
+        item.typeLabel.toLowerCase().contains(q);
+    final matchesSnippet = !item.snippet.startsWith('Notes:') &&
+        item.snippet.toLowerCase().contains(q);
+    final matchesNotes = _searchNotes &&
+        (item.notes.toLowerCase().contains(q) ||
+            item.snippet.toLowerCase().contains(q));
+    final matchesAttachments =
+        _searchAttachments && item.attachmentName.toLowerCase().contains(q);
+
+    return matchesTitleOrType ||
+        matchesSnippet ||
+        matchesNotes ||
+        matchesAttachments;
+  }
+
   List<TimelineSearchResultItem> get _filteredResults {
     if (_currentQuery.isEmpty) return [];
 
     final q = _currentQuery.toLowerCase();
 
     final results = _database.where((item) {
-      final matchesQuery = item.title.toLowerCase().contains(q) ||
-          item.snippet.toLowerCase().contains(q) ||
-          item.typeLabel.toLowerCase().contains(q);
-
-      if (!matchesQuery) return false;
+      if (!_itemMatchesQuery(item, q)) return false;
 
       if (_selectedCategoryFilter != 'All' &&
           item.category != _selectedCategoryFilter) {
@@ -304,10 +367,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
   int _countForCategory(String cat) {
     final q = _currentQuery.toLowerCase();
     return _database.where((item) {
-      final matchesQuery = item.title.toLowerCase().contains(q) ||
-          item.snippet.toLowerCase().contains(q) ||
-          item.typeLabel.toLowerCase().contains(q);
-      return matchesQuery && item.category == cat;
+      return _itemMatchesQuery(item, q) && item.category == cat;
     }).length;
   }
 
@@ -699,6 +759,9 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
   // ─── Popular Searches Card (Figma Item 4) ───────────────────────────────────
 
   Widget _buildPopularSearchesCard() {
+    final popularTerms = _popularInDogTimeline;
+    if (popularTerms.isEmpty) return const SizedBox.shrink();
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -709,9 +772,9 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "POPULAR IN ATLAS'S TIMELINE",
-            style: TextStyle(
+          Text(
+            "POPULAR IN ${_dogName.toUpperCase()}'S TIMELINE",
+            style: const TextStyle(
               color: _stoneGrey,
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -728,9 +791,9 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
               mainAxisSpacing: 10,
               childAspectRatio: 2.8,
             ),
-            itemCount: _popularSuggestions.length,
+            itemCount: popularTerms.length,
             itemBuilder: (ctx, index) {
-              final term = _popularSuggestions[index];
+              final term = popularTerms[index];
               return InkWell(
                 onTap: () => _executeSearch(term),
                 borderRadius: BorderRadius.circular(8),
@@ -923,6 +986,8 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
       {'label': 'S&C', 'dot': _scDot},
       {'label': 'Goals', 'dot': _goalsDot},
       {'label': 'Media', 'dot': _mediaDot},
+      if (_hasSportPack)
+        {'label': 'Sport/Competition', 'dot': const Color(0xFFE0B45A)},
     ];
 
     return Container(
@@ -995,8 +1060,22 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
   // ─── Interactive Animated Category Breakdown Graph ──────────────────────────
 
   Widget _buildInteractiveSearchDistributionChart() {
-    final categories = ['Training', 'Health', 'S&C', 'Goals', 'Media'];
-    final colors = [_alpineBlue, _healthDot, _scDot, _goalsDot, _mediaDot];
+    final categories = [
+      'Training',
+      'Health',
+      'S&C',
+      'Goals',
+      'Media',
+      if (_hasSportPack) 'Sport/Competition',
+    ];
+    final colors = [
+      _alpineBlue,
+      _healthDot,
+      _scDot,
+      _goalsDot,
+      _mediaDot,
+      if (_hasSportPack) const Color(0xFFE0B45A),
+    ];
 
     return Container(
       margin: const EdgeInsets.only(top: 14),

@@ -18,11 +18,13 @@ enum CalendarViewMode { month, week, day }
 class TimelineCalendarScreen extends StatefulWidget {
   final CalendarViewMode initialViewMode;
   final DateTime? initialDate;
+  final bool hasSportPack;
 
   const TimelineCalendarScreen({
     super.key,
     this.initialViewMode = CalendarViewMode.month,
     this.initialDate,
+    this.hasSportPack = false,
   });
 
   @override
@@ -60,6 +62,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
   late CalendarViewMode _viewMode;
   late DateTime _selectedDate;
   late DateTime _displayedMonth; // First day of the month currently shown
+  late bool _hasSportPack;
   String _selectedDog = 'Atlas'; // Atlas | Nova | All
   bool _weekDetailsExpanded = false;
   int _graphTouchedIndex = -1;
@@ -74,6 +77,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
   void initState() {
     super.initState();
     _viewMode = widget.initialViewMode;
+    _hasSportPack = widget.hasSportPack;
     // Default to August 14, 2026 for populated month state (as in Figma)
     // or August 27, 2026 for populated day state
     final initial = widget.initialDate ??
@@ -229,8 +233,8 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         'sc': 1,
         'goals': null,
         'media': 2,
-        'comp': 1,
-        'total': 6,
+        'comp': _hasSportPack ? 1 : null,
+        'total': _hasSportPack ? 6 : 5,
       };
     } else if (date.day == 27 && date.month == 8 && date.year == 2026) {
       return {
@@ -304,19 +308,20 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               'DHPP & Rabies booster administered. Weight verified at 34.2 kg.',
           'type': 'health',
         },
-        {
-          'time': '18:00',
-          'duration': '90 min',
-          'category': 'COMPETITION',
-          'categoryLabel': 'Competition',
-          'color': _mint,
-          'icon': Icons.sports_score,
-          'title': 'IGP3 Regional Trial',
-          'location': 'Regional Stadium',
-          'desc':
-              'High scoring obedience routine (96/100). Flawless dumbbell retrieve over hurdle.',
-          'type': 'training',
-        },
+        if (_hasSportPack)
+          {
+            'time': '18:00',
+            'duration': '90 min',
+            'category': 'COMPETITION',
+            'categoryLabel': 'Competition',
+            'color': _mint,
+            'icon': Icons.sports_score,
+            'title': 'IGP3 Regional Trial',
+            'location': 'Regional Stadium',
+            'desc':
+                'High scoring obedience routine (96/100). Flawless dumbbell retrieve over hurdle.',
+            'type': 'training',
+          },
         {
           'time': '10:30',
           'duration': '45 min',
@@ -967,16 +972,17 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                     label: 'MEDIA',
                     dotColor: _catMedia,
                     count: summary['media'],
-                    isRightBorder: true,
+                    isRightBorder: _hasSportPack,
                     isBottomBorder: false,
                   ),
-                  _buildSummaryCell(
-                    label: 'COMP.',
-                    dotColor: _forest,
-                    count: summary['comp'],
-                    isRightBorder: false,
-                    isBottomBorder: false,
-                  ),
+                  if (_hasSportPack)
+                    _buildSummaryCell(
+                      label: 'COMP.',
+                      dotColor: _forest,
+                      count: summary['comp'],
+                      isRightBorder: false,
+                      isBottomBorder: false,
+                    ),
                 ],
               ),
             ],
@@ -1088,23 +1094,33 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             ),
             const SizedBox(height: 4),
             const Text(
-              'Nothing was recorded for this date. Keep track of progress by logging an event.',
+              'Nothing was recorded for this date. Keep building your dog’s journey by adding a new record.',
               textAlign: TextAlign.center,
               style: TextStyle(color: _muted, fontSize: 13),
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 10,
+              runSpacing: 10,
               children: [
                 _buildQuickActionBtn(
                   label: '+ Training',
                   onTap: () => _openRecordEvent('training'),
                 ),
-                const SizedBox(width: 12),
+                _buildQuickActionBtn(
+                  label: '+ S&C',
+                  onTap: () => _openRecordEvent('sc'),
+                ),
                 _buildQuickActionBtn(
                   label: '+ Health',
                   onTap: () => _openRecordEvent('health'),
                 ),
+                if (_hasSportPack)
+                  _buildQuickActionBtn(
+                    label: '+ Sport',
+                    onTap: () => _openRecordEvent('sport'),
+                  ),
               ],
             ),
           ],
@@ -1395,10 +1411,16 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               text: '13:30 - Annual Vaccination',
             ),
             const SizedBox(height: 4),
-            _buildWeekPreviewRow(
-              color: _mint,
-              text: '18:00 - IGP3 Trial Preparation',
-            ),
+            if (_hasSportPack)
+              _buildWeekPreviewRow(
+                color: _mint,
+                text: '18:00 - IGP3 Trial Preparation',
+              )
+            else
+              _buildWeekPreviewRow(
+                color: _catSc,
+                text: '10:30 - Core Stability & Proprioception',
+              ),
           ] else
             const Text(
               'No scheduled entries for this day.',
@@ -1720,7 +1742,10 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             children: [
               _buildDaySummaryMetric('GOAL', summary['goals']),
               _buildDaySummaryMetric('MEDIA', summary['media']),
-              _buildDaySummaryMetric('COMP', summary['comp']),
+              if (_hasSportPack)
+                _buildDaySummaryMetric('COMP', summary['comp'])
+              else
+                const Spacer(),
             ],
           ),
         ],
@@ -1797,7 +1822,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             ),
             const SizedBox(height: 8),
             const Text(
-              "Nothing was recorded for this date. Keep track of your dog's progress by logging an event.",
+              'Nothing was recorded for this date. Keep building your dog’s journey by adding a new record.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: _muted,
@@ -1821,18 +1846,28 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                   style: TextStyle(fontWeight: FontWeight.w600)),
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 10,
+              runSpacing: 10,
               children: [
                 _buildQuickActionBtn(
                   label: '+ Training',
                   onTap: () => _openRecordEvent('training'),
                 ),
-                const SizedBox(width: 12),
+                _buildQuickActionBtn(
+                  label: '+ S&C',
+                  onTap: () => _openRecordEvent('sc'),
+                ),
                 _buildQuickActionBtn(
                   label: '+ Health',
                   onTap: () => _openRecordEvent('health'),
                 ),
+                if (_hasSportPack)
+                  _buildQuickActionBtn(
+                    label: '+ Sport',
+                    onTap: () => _openRecordEvent('sport'),
+                  ),
               ],
             ),
           ],
@@ -2216,8 +2251,10 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               _buildChartLegendItem(_alpineBlue, 'Training'),
               const SizedBox(width: 14),
               _buildChartLegendItem(_errorLight, 'Health'),
-              const SizedBox(width: 14),
-              _buildChartLegendItem(_mint, 'Comp'),
+              if (_hasSportPack) ...[
+                const SizedBox(width: 14),
+                _buildChartLegendItem(_mint, 'Comp'),
+              ],
               const SizedBox(width: 14),
               _buildChartLegendItem(_catSc, 'S&C'),
             ],
@@ -2366,7 +2403,27 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => const RecordSessionScreen(),
+          builder: (_) => const RecordSessionScreen(
+            initialCategory: 'Training',
+          ),
+        ),
+      );
+    } else if (type == 'sc') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const RecordSessionScreen(
+            initialCategory: 'Strength & Conditioning',
+          ),
+        ),
+      );
+    } else if (type == 'sport') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const RecordSessionScreen(
+            initialCategory: 'Sport',
+          ),
         ),
       );
     } else {

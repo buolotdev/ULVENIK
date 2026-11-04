@@ -8,6 +8,7 @@ import 'timeline_settings_screen.dart';
 import 'homepage_screen.dart';
 import 'my_dogs_screen.dart';
 import 'training_screen.dart';
+import 'record_session_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
 const Color _obsidian = Color(0xFF101214);
@@ -52,13 +53,12 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
 
   // Accordion Expand/Collapse Map
   final Map<String, bool> _expandedCategories = {
-    'Recording Consistency': true,
+    'Recording Patterns': true,
     'Training': false,
     'Strength & Conditioning': false,
     'Health': false,
     'Goals': false,
     'Milestones': false,
-    'Activity Balance': false,
   };
 
   @override
@@ -97,78 +97,6 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
         setState(() => _isRefreshing = false);
       }
     });
-  }
-
-  void _showEducationalModal() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Row(
-                children: [
-                  Icon(Icons.lightbulb_outline, color: _mint, size: 24),
-                  SizedBox(width: 10),
-                  Text(
-                    'About Timeline Insights',
-                    style: TextStyle(
-                      color: _offWhite,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 14),
-              const Text(
-                'Ulvenik automatically analyzes your Timeline logs across Training, Health, Goals, and S&C to compute streaks, peak training periods, and habit trends.',
-                style: TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 13,
-                  height: 1.5,
-                  fontFamily: 'Inter',
-                ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _forest,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  onPressed: () => Navigator.pop(ctx),
-                  child: const Text('Got it', style: TextStyle(color: _offWhite)),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 
   void _showInsightDetailModal({
@@ -409,7 +337,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                       runSpacing: 10,
                       children: [
                         _buildFilterModalChip('All Insights', null, null, tempFilter, (c) => setModalState(() => tempFilter = c)),
-                        _buildFilterModalChip('Consistency', 'Consistency', _catConsistency, tempFilter, (c) => setModalState(() => tempFilter = c)),
+                        _buildFilterModalChip('Recording Patterns', 'Recording Patterns', _catConsistency, tempFilter, (c) => setModalState(() => tempFilter = c)),
                         _buildFilterModalChip('Training', 'Training', _catTraining, tempFilter, (c) => setModalState(() => tempFilter = c)),
                         _buildFilterModalChip('S&C', 'S&C', _catSC, tempFilter, (c) => setModalState(() => tempFilter = c)),
                         _buildFilterModalChip('Health', 'Health', _catHealth, tempFilter, (c) => setModalState(() => tempFilter = c)),
@@ -433,7 +361,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                             _selectedCategoryFilter = tempFilter;
                             if (tempFilter != null) {
                               final catMap = {
-                                'Consistency': 'Recording Consistency',
+                                'Recording Patterns': 'Recording Patterns',
                                 'Training': 'Training',
                                 'S&C': 'Strength & Conditioning',
                                 'Health': 'Health',
@@ -749,20 +677,18 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                         elevation: 0,
                       ),
                       onPressed: () {
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context);
-                        } else {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                          );
-                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const RecordSessionScreen(),
+                          ),
+                        );
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Go to Timeline',
+                            'Add a Record',
                             style: TextStyle(
                               color: _offWhite,
                               fontSize: 15,
@@ -773,18 +699,6 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                           SizedBox(width: 8),
                           Icon(Icons.arrow_forward, color: _offWhite, size: 18),
                         ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 18),
-                  TextButton(
-                    onPressed: _showEducationalModal,
-                    child: const Text(
-                      'Learn about Timeline Insights',
-                      style: TextStyle(
-                        color: _mint,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -1340,13 +1254,13 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
   }
 
   Widget _buildInsightCategoriesSection() {
-    final showConsistency = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Consistency';
+    final showPatterns =
+        _selectedCategoryFilter == null || _selectedCategoryFilter == 'Recording Patterns';
     final showTraining = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Training';
     final showSC = _selectedCategoryFilter == null || _selectedCategoryFilter == 'S&C';
     final showHealth = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Health';
     final showGoals = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Goals';
     final showMilestones = _selectedCategoryFilter == null || _selectedCategoryFilter == 'Milestones';
-    final showActivityBalance = _selectedCategoryFilter == null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1362,15 +1276,16 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
         ),
         const SizedBox(height: 12),
 
-        // 1. Recording Consistency (4 insights)
-        if (showConsistency) ...[
+        // 1. Recording Patterns (4 insights)
+        if (showPatterns) ...[
           _buildCategoryAccordion(
-            title: 'Recording Consistency',
+            title: 'Recording Patterns',
             icon: Icons.local_fire_department_outlined,
             color: _catConsistency,
             insightCount: 4,
-            isExpanded: _selectedCategoryFilter == 'Consistency' || (_expandedCategories['Recording Consistency'] ?? false),
-            onHeaderTap: () => _toggleCategory('Recording Consistency'),
+            isExpanded: _selectedCategoryFilter == 'Recording Patterns' ||
+                (_expandedCategories['Recording Patterns'] ?? false),
+            onHeaderTap: () => _toggleCategory('Recording Patterns'),
             items: [
               _buildInsightItem(
                 icon: Icons.local_fire_department_outlined,
@@ -1382,7 +1297,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
               _buildInsightItem(
                 icon: Icons.emoji_events_outlined,
                 title: 'Longest Streak',
-                subtitle: 'Achieved in March 2025',
+                subtitle: 'Recorded in March 2025',
                 value: '31 Days',
                 color: _catConsistency,
               ),
@@ -1417,7 +1332,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
             items: [
               _buildInsightItem(
                 icon: Icons.fitness_center_outlined,
-                title: 'Most Trained Skill',
+                title: 'Most Recorded Activity',
                 subtitle: 'Field Tracking & Retrieval',
                 value: '42 Sessions',
                 color: _catTraining,
@@ -1425,15 +1340,29 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
               _buildInsightItem(
                 icon: Icons.timer_outlined,
                 title: 'Average Session Duration',
-                subtitle: 'Consistently sustained focus',
+                subtitle: 'Calculated across recorded training sessions',
                 value: '48 Mins',
                 color: _catTraining,
               ),
               _buildInsightItem(
                 icon: Icons.wb_sunny_outlined,
-                title: 'Peak Training Window',
-                subtitle: 'Saturday Mornings 08:00',
-                value: 'Optimal',
+                title: 'Most Common Training Window',
+                subtitle: 'Saturday Mornings (08:00–10:00)',
+                value: '18 Sessions',
+                color: _catTraining,
+              ),
+              _buildInsightItem(
+                icon: Icons.location_on_outlined,
+                title: 'Most Visited Training Location',
+                subtitle: 'Riverside Trail',
+                value: '14 Sessions',
+                color: _catTraining,
+              ),
+              _buildInsightItem(
+                icon: Icons.event_note_outlined,
+                title: 'Total Training Sessions',
+                subtitle: 'Recorded in Timeline history',
+                value: '86 Sessions',
                 color: _catTraining,
               ),
             ],
@@ -1453,16 +1382,23 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
             items: [
               _buildInsightItem(
                 icon: Icons.speed_outlined,
-                title: 'Weekly S&C Volume',
-                subtitle: 'Sprint work, hills & core',
+                title: 'Average Weekly S&C Duration',
+                subtitle: 'Calculated across recorded S&C sessions',
                 value: '3.5 Hours',
                 color: _catSC,
               ),
               _buildInsightItem(
-                icon: Icons.replay_outlined,
-                title: 'Recovery Compliance',
-                subtitle: 'Required 24h rest adhered',
-                value: '96% Rate',
+                icon: Icons.fitness_center_outlined,
+                title: 'Most Recorded S&C Activity',
+                subtitle: 'Treadmill Intervals',
+                value: '24 Sessions',
+                color: _catSC,
+              ),
+              _buildInsightItem(
+                icon: Icons.calendar_today_outlined,
+                title: 'Average Days Between S&C Sessions',
+                subtitle: 'Across recorded S&C history',
+                value: '2.8 Days',
                 color: _catSC,
               ),
             ],
@@ -1481,17 +1417,31 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
             onHeaderTap: () => _toggleCategory('Health'),
             items: [
               _buildInsightItem(
-                icon: Icons.scale_outlined,
-                title: 'Weight Stability',
-                subtitle: 'Average 28.4 kg across year',
-                value: 'Optimal',
+                icon: Icons.folder_outlined,
+                title: 'Total Health Records',
+                subtitle: 'Logged across all Health categories',
+                value: '24 Records',
                 color: _catHealth,
               ),
               _buildInsightItem(
-                icon: Icons.vaccines_outlined,
-                title: 'Preventative Care',
-                subtitle: 'Vaccines & check-ups current',
-                value: 'Up to Date',
+                icon: Icons.category_outlined,
+                title: 'Most Recorded Category',
+                subtitle: 'Weight & Condition Logs',
+                value: '10 Records',
+                color: _catHealth,
+              ),
+              _buildInsightItem(
+                icon: Icons.scale_outlined,
+                title: 'Latest Recorded Weight',
+                subtitle: 'Logged on 14 Aug 2026',
+                value: '28.4 kg',
+                color: _catHealth,
+              ),
+              _buildInsightItem(
+                icon: Icons.event_repeat_outlined,
+                title: 'Average Time Between Vet Visits',
+                subtitle: 'Calculated from recorded visits',
+                value: '4.2 Months',
                 color: _catHealth,
               ),
             ],
@@ -1512,15 +1462,29 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
               _buildInsightItem(
                 icon: Icons.task_alt,
                 title: 'Goals Completed',
-                subtitle: 'Across all canine programs',
+                subtitle: 'Completed goals recorded in Timeline',
                 value: '18 Total',
                 color: _catGoals,
               ),
               _buildInsightItem(
-                icon: Icons.trending_up,
-                title: 'Average Completion Velocity',
-                subtitle: 'Days from creation to mastery',
+                icon: Icons.schedule_outlined,
+                title: 'Average Goal Duration',
+                subtitle: 'Average days from creation to completion',
                 value: '32 Days',
+                color: _catGoals,
+              ),
+              _buildInsightItem(
+                icon: Icons.timelapse_outlined,
+                title: 'Longest Goal Duration',
+                subtitle: 'Heel Work Perfection',
+                value: '94 Days',
+                color: _catGoals,
+              ),
+              _buildInsightItem(
+                icon: Icons.bolt_outlined,
+                title: 'Shortest Goal Duration',
+                subtitle: 'Crate Calmness Foundation',
+                value: '14 Days',
                 color: _catGoals,
               ),
             ],
@@ -1540,32 +1504,38 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
             items: [
               _buildInsightItem(
                 icon: Icons.workspace_premium_outlined,
-                title: 'Major Milestones Logged',
-                subtitle: 'Puppy foundation to trial ready',
-                value: '12 Badges',
+                title: 'Total Milestones Recorded',
+                subtitle: 'Milestones logged in Timeline',
+                value: '12 Total',
                 color: _catMilestone,
               ),
-            ],
-          ),
-          const SizedBox(height: 10),
-        ],
-
-        // 7. Activity Balance (1 insight)
-        if (showActivityBalance) ...[
-          _buildCategoryAccordion(
-            title: 'Activity Balance',
-            icon: Icons.pie_chart_outline,
-            color: _offWhite,
-            insightCount: 1,
-            isExpanded: _expandedCategories['Activity Balance'] ?? false,
-            onHeaderTap: () => _toggleCategory('Activity Balance'),
-            items: [
               _buildInsightItem(
-                icon: Icons.donut_large_outlined,
-                title: 'Training vs Rest Ratio',
-                subtitle: '60% Training, 30% S&C, 10% Other',
-                value: 'Balanced',
-                color: _offWhite,
+                icon: Icons.outlined_flag,
+                title: 'First Timeline Record',
+                subtitle: 'Initial record logged for $_selectedDog',
+                value: '2 Jan 2022',
+                color: _catMilestone,
+              ),
+              _buildInsightItem(
+                icon: Icons.event_available_outlined,
+                title: 'Latest Milestone Recorded',
+                subtitle: '100th Timeline Entry',
+                value: '18 Mar 2026',
+                color: _catMilestone,
+              ),
+              _buildInsightItem(
+                icon: Icons.numbers_outlined,
+                title: 'Session Count Milestones',
+                subtitle: '25th, 50th & 100th sessions recorded',
+                value: '3 Reached',
+                color: _catMilestone,
+              ),
+              _buildInsightItem(
+                icon: Icons.calendar_month_outlined,
+                title: 'Average Time Between Milestones',
+                subtitle: 'Across recorded Timeline history',
+                value: '3.1 Months',
+                color: _catMilestone,
               ),
             ],
           ),

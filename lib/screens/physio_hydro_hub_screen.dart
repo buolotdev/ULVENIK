@@ -61,15 +61,15 @@ class DogProfile {
   });
 }
 
-class RecoveryTrendPoint {
+class SessionTrendPoint {
   final String month;
-  final double recoveryPercent; // 0 to 100
+  final int sessionCount;
   final String milestone;
   final String note;
 
-  const RecoveryTrendPoint({
+  const SessionTrendPoint({
     required this.month,
-    required this.recoveryPercent,
+    required this.sessionCount,
     required this.milestone,
     required this.note,
   });
@@ -123,42 +123,42 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
   late Animation<double> _chartCurveAnimation;
   int _selectedChartPointIndex = 4; // Defaults to Aug/Sep (last active)
 
-  final List<RecoveryTrendPoint> _trendPoints = const [
-    RecoveryTrendPoint(
+  final List<SessionTrendPoint> _trendPoints = const [
+    SessionTrendPoint(
       month: 'Apr',
-      recoveryPercent: 20.0,
+      sessionCount: 1,
       milestone: 'Initial Assessment',
-      note: 'Baseline mobility 20%. Guarding left foreleg.',
+      note: 'Baseline evaluation. 1 session recorded.',
     ),
-    RecoveryTrendPoint(
+    SessionTrendPoint(
       month: 'May',
-      recoveryPercent: 35.0,
+      sessionCount: 2,
       milestone: 'Stretching & Passive ROM',
-      note: 'Extension improved by 15°. Inflammation subsided.',
+      note: 'Passive ROM and gentle hydro intro.',
     ),
-    RecoveryTrendPoint(
+    SessionTrendPoint(
       month: 'Jun',
-      recoveryPercent: 50.0,
-      milestone: 'Hydrotherapy Initiated',
-      note: 'Buoyancy swimming reduced joint loading.',
+      sessionCount: 3,
+      milestone: 'Active Extension & Treadmill',
+      note: 'Water treadmill sessions underway.',
     ),
-    RecoveryTrendPoint(
+    SessionTrendPoint(
       month: 'Jul',
-      recoveryPercent: 62.0,
-      milestone: 'Treadmill Gait Re-training',
-      note: 'Symmetrical stride achieved at 1.8 km/h.',
+      sessionCount: 3,
+      milestone: 'Targeted Hydro Conditioning',
+      note: 'Endurance in warm pool 30 min.',
     ),
-    RecoveryTrendPoint(
+    SessionTrendPoint(
       month: 'Aug',
-      recoveryPercent: 70.0,
-      milestone: 'Agility Conditioning',
-      note: 'Weight bearing symmetry reaches 88%.',
+      sessionCount: 4,
+      milestone: 'Advanced Gait Symmetry',
+      note: 'Full trotting gait symmetry observed.',
     ),
-    RecoveryTrendPoint(
+    SessionTrendPoint(
       month: 'Sep',
-      recoveryPercent: 82.0,
-      milestone: 'Pre-Competition Return',
-      note: 'Full active extension with zero pain response.',
+      sessionCount: 1,
+      milestone: 'Maintenance Follow-up',
+      note: 'Maintenance protocol scheduled.',
     ),
   ];
 
@@ -317,7 +317,6 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
   int get _totalSessionsCount => 14; // Matches Figma populated badge (14)
   int get _totalPhysioCount => 9; // Matches Figma (9)
   int get _totalHydroCount => 5; // Matches Figma (5)
-  String get _currentProgressText => '70%'; // Matches Figma (70%)
   String get _nextApptDate => '02 Sep'; // Matches Figma
   int get _avgDurationMin => 48; // Matches Figma (48 min)
 
@@ -344,7 +343,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         tooltip: 'Back',
       ),
       title: const Text(
-        'Physio & Hydro',
+        'Rehabilitation',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
           fontSize: 18,
@@ -384,7 +383,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         // Add Session
         IconButton(
           icon: const Icon(Icons.add, color: AppColors.primaryTextOffWhite, size: 22),
-          tooltip: 'Add Session',
+          tooltip: 'Record Session',
           onPressed: _showAddSessionModal,
         ),
         const SizedBox(width: 4),
@@ -579,13 +578,13 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 SizedBox(
                   width: itemWidth,
                   child: _buildSummaryBox(
-                    label: 'PROGRESS',
-                    icon: Icons.trending_up,
-                    valueWidget: Text(
-                      _currentProgressText,
-                      style: const TextStyle(
-                        color: Color(0xFF95D3BB),
-                        fontSize: 22,
+                    label: 'LAST SESSION',
+                    icon: Icons.event_outlined,
+                    valueWidget: const Text(
+                      '14 Aug',
+                      style: TextStyle(
+                        color: AppColors.primaryTextOffWhite,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -709,7 +708,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Recovery Trend',
+                'Sessions Over Time',
                 style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
                   fontSize: 14,
@@ -718,7 +717,6 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
               ),
               InkWell(
                 onTap: () {
-                  // Replay animation smoothly
                   _chartAnimController.reset();
                   _chartAnimController.forward();
                 },
@@ -770,7 +768,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   ),
                 ),
                 Text(
-                  '${activePoint.recoveryPercent.toInt()}% Recovery',
+                  '${activePoint.sessionCount} Sessions',
                   style: const TextStyle(
                     color: Color(0xFF95D3BB),
                     fontSize: 12,
@@ -803,14 +801,13 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 final animValue = _chartCurveAnimation.value;
 
                 final List<FlSpot> animatedSpots = List.generate(_trendPoints.length, (i) {
-                  final targetY = _trendPoints[i].recoveryPercent;
-                  // Animate smoothly upward from 0.0 to targetY
+                  final targetY = _trendPoints[i].sessionCount.toDouble();
                   return FlSpot(i.toDouble(), targetY * animValue);
                 });
 
                 return Stack(
                   children: [
-                    // Y Axis labels (100%, 50%, 0%)
+                    // Y Axis labels (6, 3, 0)
                     Positioned(
                       left: 0,
                       top: 4,
@@ -819,56 +816,78 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text('100%', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
-                          Text('50%', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
-                          Text('0%', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
+                          Text('6', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
+                          Text('3', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
+                          Text('0', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
                         ],
                       ),
                     ),
 
                     // The fl_chart LineChart with touch interaction
                     Padding(
-                      padding: const EdgeInsets.only(left: 36, right: 6, bottom: 20),
+                      padding: const EdgeInsets.only(left: 28, right: 6, bottom: 20),
                       child: LineChart(
                         LineChartData(
                           minX: 0,
                           maxX: (_trendPoints.length - 1).toDouble(),
                           minY: 0,
-                          maxY: 100,
+                          maxY: 6,
                           gridData: FlGridData(
                             show: true,
                             drawVerticalLine: false,
-                            horizontalInterval: 50,
+                            horizontalInterval: 3,
                             getDrawingHorizontalLine: (value) => FlLine(
-                              color: Colors.white.withValues(alpha: 0.04),
+                              color: Colors.white.withValues(alpha: 0.05),
                               strokeWidth: 1,
-                              dashArray: [4, 4],
                             ),
                           ),
-                          titlesData: const FlTitlesData(
-                            show: false, // Custom X-axis rendered below
+                          titlesData: FlTitlesData(
+                            leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                interval: 1,
+                                getTitlesWidget: (value, meta) {
+                                  final index = value.toInt();
+                                  if (index >= 0 && index < _trendPoints.length) {
+                                    final isSelected = index == _selectedChartPointIndex;
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 6),
+                                      child: Text(
+                                        _trendPoints[index].month,
+                                        style: TextStyle(
+                                          color: isSelected ? const Color(0xFF95D3BB) : AppColors.secondaryTextStoneGrey,
+                                          fontSize: 10,
+                                          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  return const SizedBox.shrink();
+                                },
+                              ),
+                            ),
                           ),
                           borderData: FlBorderData(show: false),
                           lineTouchData: LineTouchData(
                             enabled: true,
-                            handleBuiltInTouches: true,
                             touchTooltipData: LineTouchTooltipData(
-                              getTooltipItems: (touchedSpots) => [], // Custom header box
+                              getTooltipColor: (_) => Colors.transparent,
+                              getTooltipItems: (touchedSpots) => touchedSpots.map((_) => null).toList(),
                             ),
-                            touchCallback: (FlTouchEvent event, LineTouchResponse? touchResponse) {
-                              if (touchResponse != null &&
-                                  touchResponse.lineBarSpots != null &&
-                                  touchResponse.lineBarSpots!.isNotEmpty) {
-                                final spotIndex = touchResponse.lineBarSpots!.first.spotIndex;
-                                if (spotIndex >= 0 &&
-                                    spotIndex < _trendPoints.length &&
-                                    spotIndex != _selectedChartPointIndex) {
+                            touchCallback: (event, response) {
+                              if (response != null && response.lineBarSpots != null && response.lineBarSpots!.isNotEmpty) {
+                                final spotIndex = response.lineBarSpots!.first.spotIndex;
+                                if (spotIndex != _selectedChartPointIndex) {
                                   setState(() {
                                     _selectedChartPointIndex = spotIndex;
                                   });
                                 }
                               }
                             },
+                            handleBuiltInTouches: true,
                           ),
                           lineBarsData: [
                             LineChartBarData(
@@ -876,73 +895,34 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                               isCurved: true,
                               curveSmoothness: 0.35,
                               color: const Color(0xFF2E6B57),
-                              barWidth: 3.0,
+                              barWidth: 3,
                               isStrokeCapRound: true,
+                              dotData: FlDotData(
+                                show: true,
+                                getDotPainter: (spot, percent, barData, index) {
+                                  final isSelected = index == _selectedChartPointIndex;
+                                  return FlDotCirclePainter(
+                                    radius: isSelected ? 5.5 : 3.5,
+                                    color: isSelected ? const Color(0xFF95D3BB) : const Color(0xFF2E6B57),
+                                    strokeWidth: 2,
+                                    strokeColor: AppColors.backgroundObsidian,
+                                  );
+                                },
+                              ),
                               belowBarData: BarAreaData(
                                 show: true,
                                 gradient: LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    const Color(0xFF2E6B57).withValues(alpha: 0.28),
+                                    const Color(0xFF2E6B57).withValues(alpha: 0.35),
                                     const Color(0xFF2E6B57).withValues(alpha: 0.0),
                                   ],
                                 ),
                               ),
-                              dotData: FlDotData(
-                                show: true,
-                                checkToShowDot: (spot, barData) => true,
-                                getDotPainter: (spot, percent, barData, index) {
-                                  final isSelected = index == _selectedChartPointIndex;
-                                  return FlDotCirclePainter(
-                                    radius: isSelected ? 6.0 : 3.5,
-                                    color: isSelected
-                                        ? const Color(0xFF95D3BB)
-                                        : const Color(0xFF2E6B57),
-                                    strokeWidth: isSelected ? 2.5 : 1.5,
-                                    strokeColor: isSelected
-                                        ? Colors.white
-                                        : const Color(0xFF95D3BB),
-                                  );
-                                },
-                              ),
                             ),
                           ],
                         ),
-                      ),
-                    ),
-
-                    // X-Axis Month Labels along bottom
-                    Positioned(
-                      left: 36,
-                      right: 6,
-                      bottom: 0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: List.generate(_trendPoints.length, (index) {
-                          final isSelected = index == _selectedChartPointIndex;
-                          return InkWell(
-                            onTap: () {
-                              setState(() {
-                                _selectedChartPointIndex = index;
-                              });
-                            },
-                            borderRadius: BorderRadius.circular(4),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                              child: Text(
-                                _trendPoints[index].month,
-                                style: TextStyle(
-                                  color: isSelected
-                                      ? const Color(0xFF95D3BB)
-                                      : AppColors.secondaryTextStoneGrey,
-                                  fontSize: 10,
-                                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          );
-                        }),
                       ),
                     ),
                   ],
@@ -1267,83 +1247,31 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             ),
             const SizedBox(height: 12),
 
-            // Animated Recovery Progress Bar & Status
+            // Outcome tag (User/practitioner selected)
             Container(
               padding: const EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
                 border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Recovery',
-                              style: TextStyle(
-                                color: AppColors.secondaryTextStoneGrey,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Text(
-                              '${(session.recoveryProgress * 100).toInt()}%',
-                              style: const TextStyle(
-                                color: AppColors.secondaryTextStoneGrey,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        // Animated progress bar
-                        TweenAnimationBuilder<double>(
-                          tween: Tween<double>(begin: 0.0, end: session.recoveryProgress),
-                          duration: const Duration(milliseconds: 900),
-                          curve: Curves.easeOutCubic,
-                          builder: (context, value, child) {
-                            return Stack(
-                              children: [
-                                Container(
-                                  height: 4,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.backgroundObsidian,
-                                    borderRadius: BorderRadius.circular(2),
-                                  ),
-                                ),
-                                FractionallySizedBox(
-                                  widthFactor: value.clamp(0.0, 1.0),
-                                  child: Container(
-                                    height: 4,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFF2E6B57),
-                                      borderRadius: BorderRadius.circular(2),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ],
+                  const Text(
+                    'Outcome',
+                    style: TextStyle(
+                      color: AppColors.secondaryTextStoneGrey,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(width: 16),
                   Text(
                     session.trendStatus,
                     style: TextStyle(
                       color: isImproving
                           ? const Color(0xFF95D3BB)
                           : AppColors.secondaryTextStoneGrey,
-                      fontSize: 11,
+                      fontSize: 12,
                       fontWeight: FontWeight.w700,
-                      letterSpacing: 0.4,
                     ),
                   ),
                 ],
@@ -1380,7 +1308,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             Icon(Icons.add, color: Color(0xFFAAE9D0), size: 20),
             SizedBox(width: 8),
             Text(
-              'Add Session',
+              'Record Session',
               style: TextStyle(
                 color: Color(0xFFAAE9D0),
                 fontSize: 14,
@@ -1481,7 +1409,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Track every physiotherapy and hydrotherapy session throughout ${_activeDog.name}\'s recovery journey.',
+              'Record and track your dog’s rehabilitation sessions throughout their recovery.',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
@@ -1494,24 +1422,6 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
 
           // Add Session Button
           _buildAddSessionCTA(),
-          const SizedBox(height: 20),
-
-          // Learn about Rehabilitation Tracking link
-          Center(
-            child: GestureDetector(
-              onTap: _showLearnRehabModal,
-              child: const Text(
-                'Learn about Rehabilitation Tracking',
-                style: TextStyle(
-                  color: Color(0xFF95D3BB),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  decoration: TextDecoration.underline,
-                  decorationColor: Color(0xFF95D3BB),
-                ),
-              ),
-            ),
-          ),
           const SizedBox(height: 40),
         ],
       ),
@@ -2146,104 +2056,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
   }
 
   // 4. LEARN REHABILITATION MODAL
-  void _showLearnRehabModal() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: AppColors.cardsCarbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Rehabilitation Tracking',
-                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
-                        onPressed: () => Navigator.pop(ctx),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  _buildLearnSection(
-                    Icons.sports_gymnastics,
-                    'Targeted Physiotherapy',
-                    'Focuses on targeted active/passive joint range of motion (ROM), isometric stabilization, and neuromuscular muscle recruitment.',
-                  ),
-                  const SizedBox(height: 12),
-                  _buildLearnSection(
-                    Icons.pool,
-                    'Hydrotherapy & Water Treadmill',
-                    'Warm water (29–31°C) buoyancy offsets up to 60% of gravitational weight-bearing, permitting non-concussive cardiovascular conditioning and synovial joint lubrication.',
-                  ),
-                  const SizedBox(height: 12),
-                  _buildLearnSection(
-                    Icons.trending_up,
-                    'Recovery Progression Tracking',
-                    'Regular bi-weekly recovery scores objectively measure gait symmetry, carpal extension angles, and resistance to fatigue over a 6-month rehabilitation curve.',
-                  ),
-                  const SizedBox(height: 24),
-                  InkWell(
-                    onTap: () => Navigator.pop(ctx),
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF2E6B57),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Text('Got It', style: TextStyle(color: Color(0xFFAAE9D0), fontSize: 14, fontWeight: FontWeight.w600)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
 
-  Widget _buildLearnSection(IconData icon, String title, String body) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: const Color(0xFF2E6B57).withValues(alpha: 0.2),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, size: 20, color: const Color(0xFF95D3BB)),
-        ),
-        const SizedBox(width: 14),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
-              const SizedBox(height: 4),
-              Text(body, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12, height: 1.4)),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
 
   // 5. FILTER OPTIONS MODAL
   void _showFilterOptionsModal() {

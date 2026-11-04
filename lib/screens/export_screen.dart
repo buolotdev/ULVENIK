@@ -71,7 +71,6 @@ class _ExportScreenState extends State<ExportScreen>
   // ─── Dual Screen State: Empty State vs Configured State ────────────────────
   late bool _isEmptyState;
   late String _currentDog;
-
   // ─── STATE 1: Configured Populated State Variables (Screenshot 1) ──────────
   String _scopeType = 'range'; // 'all' or 'range'
   String _selectedDateRange = 'Last 30 Days';
@@ -93,19 +92,8 @@ class _ExportScreenState extends State<ExportScreen>
   late List<ExportHistoryItem> _history;
 
   // ─── STATE 2: Empty History State Variables (Screenshot 2) ─────────────────
-  String _emptyScopeOption = 'All Dogs'; // Unselected or selected on tap
-  bool _emptyScopeSelected = false;
-
-  final List<String> _emptyScopeOptions = const [
-    'All Dogs',
-    'Selected Dogs Only',
-    'Training Sessions Only',
-    'Competitions Only',
-    'Health Metrics Only',
-  ];
-
   late Map<String, bool> _includeDataEmpty;
-  String? _exportFormatEmpty; // None selected by default in Screenshot 2
+  String? _exportFormatEmpty;
   late TextEditingController _fileNameEmptyController;
 
   // Chart Animation & Interactive Tooltip State
@@ -118,10 +106,10 @@ class _ExportScreenState extends State<ExportScreen>
     super.initState();
     _isEmptyState = widget.initialEmpty;
     _currentDog = widget.dogName;
-
-    // Configured state defaults (Screenshot 1)
+    // Configured state defaults: actual S&C information available on the platform
     _includeDataConfigured = {
       'Session Details': true,
+      'Custom Metrics': true,
       'Notes': true,
       'Statistics': true,
       'Goals': true,
@@ -168,19 +156,20 @@ class _ExportScreenState extends State<ExportScreen>
       ),
     ];
 
-    // Empty state defaults (Screenshot 2 - all unchecked)
+    // Empty state defaults: actual S&C information available on the platform
     _includeDataEmpty = {
-      'Session Notes': false,
-      'Environmental Conditions': false,
-      'Handler Notes': false,
-      'Video References': false,
-      'GPS Coordinates': false,
-      'Heart Rate Data': false,
-      'Recovery Scores': false,
-      'Injury Logs': false,
-      'Nutrition Logs': false,
-      'Weight History': false,
-      'Custom Tags': false,
+      'Session Details': false,
+      'Custom Metrics': false,
+      'Notes': false,
+      'Statistics': false,
+      'Goals': false,
+      'Equipment': false,
+      'Tags': false,
+      'Photos': false,
+      'Videos': false,
+      'Activity Insights': false,
+      'Location': false,
+      'Weather': false,
     };
 
     _fileNameEmptyController = TextEditingController();
@@ -207,11 +196,20 @@ class _ExportScreenState extends State<ExportScreen>
   // ─── Helper: Update File Name dynamically unless manually edited ───────────
   void _updateDefaultFileName() {
     if (_isCustomFileName) return;
-    final ext = _exportFormatConfigured.toLowerCase();
+    final ext = (_isEmptyState
+            ? (_exportFormatEmpty ?? 'PDF')
+            : _exportFormatConfigured)
+        .toLowerCase()
+        .replaceAll(' summary', '');
     final rangeStr = _selectedDateRange.replaceAll(' ', '_');
+    final dogStr = _currentDog;
     setState(() {
       _fileNameConfiguredController.text =
-          '${_currentDog}_Strength_Conditioning_${rangeStr}_2027.$ext';
+          '${dogStr}_Strength_Conditioning_${rangeStr}_2027.$ext';
+      if (_isEmptyState) {
+        _fileNameEmptyController.text =
+            '${dogStr}_Strength_Conditioning_${rangeStr}_2027.$ext';
+      }
     });
   }
 
@@ -504,14 +502,13 @@ class _ExportScreenState extends State<ExportScreen>
                 setState(() => _isEmptyState = !_isEmptyState);
               } else if (val == 'reset') {
                 setState(() {
-                  _scopeType = 'range';
                   _selectedDateRange = 'Last 30 Days';
                   _exportFormatConfigured = 'PDF';
                   _isCustomFileName = false;
                   for (final k in _includeDataConfigured.keys) {
                     _includeDataConfigured[k] = true;
                   }
-                  _emptyScopeSelected = false;
+                  _scopeType = 'range';
                   for (final k in _includeDataEmpty.keys) {
                     _includeDataEmpty[k] = false;
                   }
@@ -743,7 +740,9 @@ class _ExportScreenState extends State<ExportScreen>
             onTap: () {
               setState(() {
                 _scopeType = 'range';
-                _selectedDateRange = 'Last 30 Days';
+                if (_selectedDateRange == 'All Time') {
+                  _selectedDateRange = 'Last 30 Days';
+                }
                 _chartAnimController.reset();
                 _chartAnimController.forward();
               });
@@ -800,7 +799,6 @@ class _ExportScreenState extends State<ExportScreen>
             } else {
               setState(() {
                 _selectedDateRange = preset;
-                _scopeType = preset == 'All Time' ? 'all' : 'range';
                 _chartAnimController.reset();
                 _chartAnimController.forward();
               });
@@ -1349,77 +1347,47 @@ class _ExportScreenState extends State<ExportScreen>
   // ===========================================================================
 
   Widget _buildEmptyStateView() {
+    final areAllSelected = _includeDataEmpty.values.every((v) => v);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // ─── Section 1: EXPORT SCOPE (Figma Frame 1) ─────────────────────────
+        // ─── Section 1: EXPORT SCOPE (Dog Selection & Date Range) ────────────
         _buildSectionHeader('EXPORT SCOPE'),
         const SizedBox(height: 12),
-        Container(
-          decoration: BoxDecoration(
-            color: _carbon,
-            borderRadius: BorderRadius.circular(10),
-            border: _hairlineBorder,
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: _emptyScopeOptions.asMap().entries.map((entry) {
-              final idx = entry.key;
-              final opt = entry.value;
-              final isSelected = _emptyScopeSelected && _emptyScopeOption == opt;
-              final isLast = idx == _emptyScopeOptions.length - 1;
-
-              return InkWell(
-                onTap: () {
-                  setState(() {
-                    _emptyScopeOption = opt;
-                    _emptyScopeSelected = true;
-                  });
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? _forest.withValues(alpha: 0.12)
-                        : Colors.transparent,
-                    border: isLast
-                        ? null
-                        : const Border(
-                            bottom: BorderSide(color: Color(0x14FFFFFF), width: 1),
-                          ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        opt,
-                        style: TextStyle(
-                          color: isSelected ? _mint : _offWhite,
-                          fontSize: 13,
-                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                        ),
-                      ),
-                      isSelected
-                          ? const Icon(Icons.check_circle, color: _mint, size: 20)
-                          : Container(
-                              width: 20,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(color: Colors.white24, width: 1.5),
-                              ),
-                            ),
-                    ],
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
+        _buildExportScopeCardConfigured(),
+        const SizedBox(height: 16),
+        _buildDateRangeSelector(),
         const SizedBox(height: 24),
 
-        // ─── Section 2: INCLUDE DATA (Figma Frame 1 - 11 Unchecked Checkboxes) ─
-        _buildSectionHeader('INCLUDE DATA'),
+        // ─── Section 2: INCLUDE DATA (12 Checkboxes) ─────────────────────────
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildSectionHeader('INCLUDE DATA'),
+            TextButton(
+              style: TextButton.styleFrom(
+                visualDensity: VisualDensity.compact,
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+              ),
+              onPressed: () {
+                setState(() {
+                  for (final key in _includeDataEmpty.keys) {
+                    _includeDataEmpty[key] = !areAllSelected;
+                  }
+                });
+              },
+              child: Text(
+                areAllSelected ? 'Deselect All' : 'Select All',
+                style: const TextStyle(
+                  color: _mint,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
         const SizedBox(height: 12),
         Container(
           decoration: BoxDecoration(
@@ -1474,7 +1442,9 @@ class _ExportScreenState extends State<ExportScreen>
                         child: Text(
                           key,
                           style: TextStyle(
-                            color: isChecked ? _offWhite : _offWhite.withValues(alpha: 0.85),
+                            color: isChecked
+                                ? _offWhite
+                                : _offWhite.withValues(alpha: 0.85),
                             fontSize: 13,
                             fontWeight: isChecked ? FontWeight.w600 : FontWeight.w400,
                           ),
@@ -1489,12 +1459,12 @@ class _ExportScreenState extends State<ExportScreen>
         ),
         const SizedBox(height: 24),
 
-        // ─── Section 3: EXPORT FORMAT (Figma Frame 1 - CSV, JSON, PDF Summary) ─
+        // ─── Section 3: EXPORT FORMAT (PDF, CSV, JSON) ───────────────────────
         _buildSectionHeader('EXPORT FORMAT'),
         const SizedBox(height: 12),
         Column(
-          children: ['CSV', 'JSON', 'PDF Summary'].map((fmt) {
-            final isSelected = _exportFormatEmpty == fmt;
+          children: ['PDF', 'CSV', 'JSON'].map((fmt) {
+            final isSelected = (_exportFormatEmpty ?? 'PDF') == fmt;
 
             return Padding(
               padding: const EdgeInsets.only(bottom: 8),
@@ -1503,6 +1473,7 @@ class _ExportScreenState extends State<ExportScreen>
                   setState(() {
                     _exportFormatEmpty = fmt;
                   });
+                  _updateDefaultFileName();
                 },
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
@@ -1559,7 +1530,7 @@ class _ExportScreenState extends State<ExportScreen>
         ),
         const SizedBox(height: 24),
 
-        // ─── Section 4: FILE NAME (Figma Frame 1 - Placeholder: Enter a file name...)
+        // ─── Section 4: FILE NAME ────────────────────────────────────────────
         _buildSectionHeader('FILE NAME'),
         const SizedBox(height: 12),
         Container(
@@ -1589,116 +1560,110 @@ class _ExportScreenState extends State<ExportScreen>
         ),
         const SizedBox(height: 20),
 
-        // ─── Section 5: GENERATE BUTTON (Figma Frame 1 - Dimmed/Disabled) ─────
+        // ─── Section 5: GENERATE BUTTON ──────────────────────────────────────
         SizedBox(
           width: double.infinity,
           height: 52,
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFF1B2A24), // Dimmed dark forest
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
-            ),
-            child: InkWell(
-              onTap: () {
-                // If user tapped generate in empty state, guide them or generate!
-                _triggerExportGeneration();
-              },
-              borderRadius: BorderRadius.circular(12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.file_download_outlined,
-                    size: 18,
-                    color: _mint.withValues(alpha: 0.6),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Generate Export',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: _mint.withValues(alpha: 0.6),
-                      letterSpacing: 0.2,
-                    ),
-                  ),
-                ],
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _includeDataEmpty.values.any((v) => v)
+                  ? _forest
+                  : const Color(0xFF1B2A24),
+              foregroundColor: _offWhite,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
               ),
+            ),
+            onPressed: _triggerExportGeneration,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.file_download_outlined,
+                  size: 18,
+                  color: _includeDataEmpty.values.any((v) => v)
+                      ? _offWhite
+                      : _mint.withValues(alpha: 0.6),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'Generate Export',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: _includeDataEmpty.values.any((v) => v)
+                        ? _offWhite
+                        : _mint.withValues(alpha: 0.6),
+                    letterSpacing: 0.2,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
         const SizedBox(height: 28),
 
-        // ─── Section 6: EXPORT HISTORY (Figma Frame 1 - No Exports Yet Card) ──
+        // ─── Section 6: EXPORT HISTORY ───────────────────────────────────────
         _buildSectionHeader('EXPORT HISTORY'),
         const SizedBox(height: 12),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 24),
-          decoration: BoxDecoration(
-            color: _carbon,
-            borderRadius: BorderRadius.circular(12),
-            border: _hairlineBorder,
-          ),
-          child: Column(
-            children: [
-              Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1E2825),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: _forest.withValues(alpha: 0.25),
-                    width: 1,
-                  ),
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.inventory_2_outlined,
-                    color: _mint,
-                    size: 28,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 18),
-              const Text(
-                'No Exports Yet',
-                style: TextStyle(
-                  color: _offWhite,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'You haven\'t generated any exports yet.\nSelect options above to create your first data file.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 13,
-                  height: 1.4,
-                ),
-              ),
-              const SizedBox(height: 18),
-              OutlinedButton.icon(
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: _mint,
-                  side: const BorderSide(color: _mint),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9999)),
-                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                ),
-                icon: const Icon(Icons.arrow_forward, size: 16),
-                label: const Text('Switch to Configured State', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                onPressed: () {
-                  setState(() => _isEmptyState = false);
-                },
-              ),
-            ],
-          ),
-        ),
+        _history.isEmpty
+            ? _buildNoExportsYetCard()
+            : _buildPopulatedHistoryList(),
       ],
+    );
+  }
+
+  Widget _buildNoExportsYetCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 24),
+      decoration: BoxDecoration(
+        color: _carbon,
+        borderRadius: BorderRadius.circular(12),
+        border: _hairlineBorder,
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: 64,
+            height: 64,
+            decoration: BoxDecoration(
+              color: const Color(0xFF1E2825),
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: _forest.withValues(alpha: 0.25),
+                width: 1,
+              ),
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.inventory_2_outlined,
+                color: _mint,
+                size: 28,
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+          const Text(
+            'No Exports Yet',
+            style: TextStyle(
+              color: _offWhite,
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'You haven\'t generated any exports yet.\nSelect options above to create your first data file.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: _stoneGrey,
+              fontSize: 13,
+              height: 1.4,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

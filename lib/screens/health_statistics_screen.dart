@@ -433,7 +433,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               ),
               Expanded(
                 child: _buildMetricBlock(
-                  label: 'Active Meds',
+                  label: 'Active Medications',
                   targetCount: 3,
                   suffix: '',
                 ),
@@ -453,41 +453,24 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Health Score',
+                  children: const [
+                    Text(
+                      'Last Health Record',
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12,
                         color: AppColors.secondaryTextStoneGrey,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: const [
-                        Text(
-                          '—',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.secondaryTextStoneGrey,
-                          ),
-                        ),
-                        SizedBox(width: 6),
-                        Text(
-                          'SOON',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0.8,
-                            color: AppColors.secondaryTextStoneGrey,
-                          ),
-                        ),
-                      ],
+                    SizedBox(height: 4),
+                    Text(
+                      '12 Jul 2026',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primaryTextOffWhite,
+                      ),
                     ),
                   ],
                 ),
@@ -859,8 +842,6 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 mainValueSuffixColor: _mint,
                 footerText: '1 Overdue',
                 footerColor: _errorMuted,
-                progressBarPct: 0.80,
-                progressBarColor: _mint,
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const VaccinationManagerScreen()),
@@ -880,8 +861,6 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 mainValueSuffixColor: _errorMuted,
                 footerText: '2 Resolved',
                 footerColor: AppColors.secondaryTextStoneGrey,
-                progressBarPct: 0.65,
-                progressBarColor: _errorMuted,
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const InjuriesRecoveryScreen()),
@@ -921,12 +900,10 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 middleWidget: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text('Consistency', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11)),
-                    Text('88%', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 11, fontWeight: FontWeight.w600)),
+                    Text('Given Today', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11)),
+                    Text('3 of 4 Active', style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w600)),
                   ],
                 ),
-                progressBarPct: 0.88,
-                progressBarColor: _mint,
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const SupplementsScreen()),
@@ -1102,7 +1079,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
   }
 
   // ------------------------------------------
-  // Injury & Recovery Progress Section
+  // Injuries & Recovery Status Section (Objective Time & User-Selected Status)
   // ------------------------------------------
   Widget _buildInjuryRecoveryProgressCard() {
     return Container(
@@ -1116,7 +1093,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'INJURY & RECOVERY PROGRESS',
+            'INJURIES & RECOVERY STATUS',
             style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 11,
@@ -1126,69 +1103,95 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
             ),
           ),
           const SizedBox(height: 16),
-          _buildRecoveryBarRow('ACL Repair', 0.65, _errorMuted),
-          const SizedBox(height: 14),
-          _buildRecoveryBarRow('GDV Surgery', 0.85, _forest),
-          const SizedBox(height: 14),
-          _buildRecoveryBarRow('Paw Laceration', 1.0, _mint),
+          _buildRecoveryStatusRow(
+            title: 'ACL Repair',
+            timeInfo: 'Recovery: Week 6 · Recorded 14 Jul 2025',
+            status: 'Recovering',
+            statusColor: _forest,
+          ),
+          const SizedBox(height: 12),
+          _buildRecoveryStatusRow(
+            title: 'GDV Surgery',
+            timeInfo: '45 days since procedure',
+            status: 'Rehabilitation',
+            statusColor: _mint,
+          ),
+          const SizedBox(height: 12),
+          _buildRecoveryStatusRow(
+            title: 'Paw Laceration',
+            timeInfo: 'Resolved · 12 Mar 2026',
+            status: 'Resolved',
+            statusColor: AppColors.secondaryTextStoneGrey,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildRecoveryBarRow(String label, double pct, Color barColor) {
-    final pctInt = (pct * 100).toInt();
-
+  Widget _buildRecoveryStatusRow({
+    required String title,
+    required String timeInfo,
+    required String status,
+    required Color statusColor,
+  }) {
     return InkWell(
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => const SurgeryProceduresScreen()),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 13,
-                  color: AppColors.primaryTextOffWhite,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1D201F),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.primaryTextOffWhite,
+                  ),
                 ),
-              ),
-              Text(
-                '$pctInt%',
-                style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 12,
-                  color: AppColors.secondaryTextStoneGrey,
+                const SizedBox(height: 4),
+                Text(
+                  timeInfo,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 11,
+                    color: AppColors.secondaryTextStoneGrey,
+                  ),
                 ),
+              ],
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              decoration: BoxDecoration(
+                color: statusColor.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: statusColor.withValues(alpha: 0.3)),
               ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: Container(
-              height: 5,
-              width: double.infinity,
-              color: const Color(0xFF1D201F),
-              alignment: Alignment.centerLeft,
-              child: AnimatedBuilder(
-                animation: _anim,
-                builder: (context, child) {
-                  final progress = (pct * Curves.easeOutCubic.transform(_anim.value)).clamp(0.0, 1.0);
-                  return FractionallySizedBox(
-                    widthFactor: progress,
-                    child: Container(color: barColor),
-                  );
-                },
+              child: Text(
+                status.toUpperCase(),
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  color: statusColor,
+                  letterSpacing: 0.4,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -1416,8 +1419,8 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'Health Overview',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1426,28 +1429,22 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                         color: AppColors.primaryTextOffWhite,
                       ),
                     ),
-                    InkWell(
-                      onTap: _showLearnSheet,
-                      child: const Icon(Icons.info_outline, size: 18, color: AppColors.secondaryTextStoneGrey),
-                    ),
                   ],
                 ),
                 const SizedBox(height: 18),
                 Row(
                   children: [
-                    Expanded(child: _buildEmptyOverviewCell('HEALTH SCORE', '(Coming Soon)')),
-                    Expanded(child: _buildEmptyOverviewCell('AVG WEIGHT', null)),
-                    Expanded(child: _buildEmptyOverviewCell('VACCINES DUE', null)),
-                    Expanded(child: _buildEmptyOverviewCell('VET VISITS', null)),
+                    Expanded(child: _buildEmptyOverviewCell('CURRENT WEIGHT', null)),
+                    Expanded(child: _buildEmptyOverviewCell('ACTIVE CONDITIONS', null)),
+                    Expanded(child: _buildEmptyOverviewCell('VACCINATIONS DUE', null)),
                   ],
                 ),
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    Expanded(child: _buildEmptyOverviewCell('MEDS ACTIVE', null)),
-                    Expanded(child: _buildEmptyOverviewCell('INCIDENTS', null)),
-                    const Expanded(child: SizedBox()),
-                    const Expanded(child: SizedBox()),
+                    Expanded(child: _buildEmptyOverviewCell('VET VISITS', null)),
+                    Expanded(child: _buildEmptyOverviewCell('ACTIVE MEDICATIONS', null)),
+                    Expanded(child: _buildEmptyOverviewCell('TOTAL RECORDS', null)),
                   ],
                 ),
               ],
@@ -1530,23 +1527,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               ),
             ),
           ),
-          const SizedBox(height: 16),
 
-          // Educational Link
-          Center(
-            child: TextButton(
-              onPressed: _showLearnSheet,
-              child: const Text(
-                'Learn about Health Statistics',
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: _mint,
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
@@ -1955,39 +1936,5 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
     );
   }
 
-  void _showLearnSheet() {
-    _showSheet((ctx) => SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildSheetHeader(ctx, 'About Health Statistics'),
-                const SizedBox(height: 12),
-                const Text(
-                  'Ulvenik Health Statistics aggregate your dog’s wellness records over time:\n\n'
-                  '• Weight Trends: Identifies micro-fluctuations and muscular conditioning changes.\n'
-                  '• Medication & Supplement Consistency: Tracks ongoing treatment adherence.\n'
-                  '• Clinical Interventions: Summarizes routine checkups vs emergency visits.\n'
-                  '• Recovery Trajectory: Monitors progress toward full mobility clearances.',
-                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.5),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.pop(ctx),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: _forest,
-                      foregroundColor: AppColors.primaryTextOffWhite,
-                    ),
-                    child: const Text('Got It'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ));
-  }
+  
 }

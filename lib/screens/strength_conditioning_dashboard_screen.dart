@@ -80,8 +80,6 @@ class _StrengthConditioningDashboardScreenState
   static const _offWhite = Color(0xFFF5F6F2);
   static const _muted = Color(0xFFA7B0AB);
 
-  static final _hairlineSide =
-      BorderSide(color: Colors.white.withValues(alpha: 0.08));
   static final _hairlineBorder =
       Border.all(color: Colors.white.withValues(alpha: 0.08));
 
@@ -388,8 +386,7 @@ class _StrengthConditioningDashboardScreenState
                               '${activity.category} conditioning for canine athletes',
                           sessionCount: activity.sessionCount,
                           lastTrained: activity.lastTrained,
-                          streakDays: 8,
-                          isFavourite: true,
+                                                    isFavourite: true,
                           icon: Icons.fitness_center,
                           category: activity.category,
                           equipment: activity.equipment,
@@ -529,28 +526,7 @@ class _StrengthConditioningDashboardScreenState
     }
   }
 
-  void _showLearnDialog() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: _carbon,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14), side: _hairlineSide),
-        title: const Text('About S&C Tracking',
-            style: TextStyle(color: _offWhite, fontSize: 18)),
-        content: const Text(
-          'Strength & Conditioning in Ulvenik tracks power, endurance, posterior chain load, and sprint volume for canine athletes.\n\nWorkouts connect directly with health records and veterinary wellness checks to ensure balanced progression without injury risk.',
-          style: TextStyle(color: _muted, fontSize: 13, height: 1.5),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Got it', style: TextStyle(color: _mint)),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -927,9 +903,9 @@ class _StrengthConditioningDashboardScreenState
             children: [
               Expanded(
                 child: _buildMetricCell(
-                  icon: Icons.local_fire_department_outlined,
-                  label: 'Streak',
-                  value: '12 Days',
+                  icon: Icons.fitness_center_outlined,
+                  label: 'Activities',
+                  value: '${_activities.length}',
                 ),
               ),
               Container(width: 1, height: 80, color: Colors.white.withValues(alpha: 0.08)),
@@ -1342,7 +1318,7 @@ class _StrengthConditioningDashboardScreenState
               const SizedBox(height: 16),
               Row(
                 children: [
-                  Expanded(child: _buildEmptySummaryCell('STREAK', '0 Days')),
+                  Expanded(child: _buildEmptySummaryCell('ACTIVITIES', '0')),
                   Expanded(child: _buildEmptySummaryCell('ACTIVE GOALS', '—')),
                 ],
               ),
@@ -1373,7 +1349,7 @@ class _StrengthConditioningDashboardScreenState
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            'Create your first Strength & Conditioning activity to begin tracking your dog\'s physical development.',
+            'Create your first Strength & Conditioning activity to start building your dog’s activity library and recording their S&C sessions.',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: _muted,
@@ -1432,29 +1408,7 @@ class _StrengthConditioningDashboardScreenState
             ),
           ),
         ),
-        const SizedBox(height: 16),
 
-        // Learn about S&C Link
-        Center(
-          child: InkWell(
-            onTap: _showLearnDialog,
-            child: const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Learn about Strength & Conditioning',
-                  style: TextStyle(
-                    color: _mint,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SizedBox(width: 4),
-                Icon(Icons.arrow_forward, color: _mint, size: 14),
-              ],
-            ),
-          ),
-        ),
       ],
     );
   }

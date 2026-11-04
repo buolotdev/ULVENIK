@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'record_session_screen.dart';
+import 'add_health_record_screen.dart';
+import 'strength_conditioning_dashboard_screen.dart';
+import 'add_competition_screen.dart';
 import 'timeline_dashboard_screen.dart';
 import 'timeline_event_details_screen.dart';
 import 'timeline_filters_screen.dart';
@@ -19,7 +22,7 @@ import 'timeline_smart_collections_screen.dart';
 import 'timeline_widgets_screen.dart';
 
 /// Timeline Event Model
-enum TimelineCategory { training, health, milestone, competition, goal }
+enum TimelineCategory { training, sc, health, milestone, competition, goal }
 
 class TimelineEventItem {
   final String id;
@@ -39,6 +42,7 @@ class TimelineEventItem {
   final List<String>? tags;
   final String? smallThumbnailUrl;
   final String? widePhotoUrl;
+  final String? subtitle;
 
   const TimelineEventItem({
     required this.id,
@@ -58,6 +62,7 @@ class TimelineEventItem {
     this.tags,
     this.smallThumbnailUrl,
     this.widePhotoUrl,
+    this.subtitle,
   });
 }
 
@@ -105,8 +110,9 @@ class _TimelineScreenState extends State<TimelineScreen>
 
   // ─── State ─────────────────────────────────────────────────────────────────
   late bool _isEmptyState;
-  String _selectedDog = 'All Dogs'; // 'All Dogs', 'Murphy', 'Freya', 'Fenris'
+  String _selectedDog = 'Arlo'; // 'Arlo', 'All Dogs', 'Murphy', 'Freya', 'Fenris'
   String _selectedFilter = 'All Events';
+  final bool _hasSportPack = true;
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
   bool _showGraph = true;
@@ -114,6 +120,7 @@ class _TimelineScreenState extends State<TimelineScreen>
   // Filter State
   Set<TimelineCategory> _activeCategories = {
     TimelineCategory.training,
+    TimelineCategory.sc,
     TimelineCategory.health,
     TimelineCategory.milestone,
     TimelineCategory.competition,
@@ -162,7 +169,86 @@ class _TimelineScreenState extends State<TimelineScreen>
 
   void _initSampleEvents() {
     _allEvents = [
-      // TODAY
+      // SUMMER 2026 (Figma Image 2 - Arlo)
+      const TimelineEventItem(
+        id: 'ev-arlo-1',
+        dogName: 'Arlo',
+        dogAvatarUrl: _murphyAvatar,
+        title: 'Morning Obedience',
+        timeLabel: '14 Aug 2026 · 1hr 45 min',
+        dateGroup: 'Summer 2026',
+        category: TimelineCategory.training,
+        icon: Icons.fitness_center,
+        iconColor: _sage,
+        duration: '1hr 45 min',
+        location: 'Park Field',
+        tags: ['Heel Work', 'Recall'],
+        smallThumbnailUrl: _parkThumb,
+      ),
+      const TimelineEventItem(
+        id: 'ev-arlo-2',
+        dogName: 'Arlo',
+        dogAvatarUrl: _murphyAvatar,
+        title: 'Annual Vaccination',
+        timeLabel: '2 Jun 2026',
+        dateGroup: 'Summer 2026',
+        category: TimelineCategory.health,
+        icon: Icons.favorite,
+        iconColor: _errorMuted,
+        subtitle: 'Rabies, DHPP booster',
+        reportBadge: 'Rabies, DHPP booster',
+      ),
+      const TimelineEventItem(
+        id: 'ev-arlo-3',
+        dogName: 'Arlo',
+        dogAvatarUrl: _murphyAvatar,
+        title: 'Sit Stay 5 Minutes',
+        timeLabel: 'Goal Achieved',
+        dateGroup: 'Summer 2026',
+        category: TimelineCategory.goal,
+        icon: Icons.emoji_events,
+        iconColor: _gold,
+        goalBadge: 'Achieved after 67 days · 42 Sessions',
+      ),
+      const TimelineEventItem(
+        id: 'ev-arlo-4',
+        dogName: 'Arlo',
+        dogAvatarUrl: _murphyAvatar,
+        title: 'Weight Check',
+        timeLabel: '28 May 2026',
+        dateGroup: 'Summer 2026',
+        category: TimelineCategory.health,
+        icon: Icons.monitor_weight_outlined,
+        iconColor: _alpineBlue,
+        subtitle: '30.2 kg · 0.8 kg',
+      ),
+      const TimelineEventItem(
+        id: 'ev-arlo-5',
+        dogName: 'Arlo',
+        dogAvatarUrl: _murphyAvatar,
+        title: 'Canicross Conditioning',
+        timeLabel: '12 May 2026 · 45 min',
+        dateGroup: 'Summer 2026',
+        category: TimelineCategory.sc,
+        icon: Icons.bolt,
+        iconColor: Color(0xFFB6CCB5),
+        duration: '45 min',
+        location: 'Riverside Trail',
+      ),
+      const TimelineEventItem(
+        id: 'ev-arlo-6',
+        dogName: 'Arlo',
+        dogAvatarUrl: _murphyAvatar,
+        title: 'IGP Trial · Regional Qualifier',
+        timeLabel: '20 Apr 2026',
+        dateGroup: 'Spring 2026',
+        category: TimelineCategory.competition,
+        icon: Icons.workspace_premium,
+        iconColor: _gold,
+        widePhotoUrl: _igpJumpPhoto,
+      ),
+
+      // Today
       const TimelineEventItem(
         id: 'ev-1',
         dogName: 'Murphy',
@@ -173,7 +259,7 @@ class _TimelineScreenState extends State<TimelineScreen>
         category: TimelineCategory.training,
         icon: Icons.timer,
         iconColor: _sage,
-        duration: '45 mins',
+        duration: '45 min',
         location: 'Hylands Park',
         mediaBadge: '3 Videos',
         smallThumbnailUrl: _parkThumb,
@@ -186,12 +272,10 @@ class _TimelineScreenState extends State<TimelineScreen>
         timeLabel: '02:20 PM',
         dateGroup: 'Today',
         category: TimelineCategory.milestone,
-        icon: Icons.edit_outlined,
+        icon: Icons.flag,
         iconColor: _sage,
         tags: ['Hylands Park', 'Milestone'],
       ),
-
-      // YESTERDAY
       const TimelineEventItem(
         id: 'ev-3',
         dogName: 'Freya',
@@ -216,8 +300,6 @@ class _TimelineScreenState extends State<TimelineScreen>
         iconColor: _alpineBlue,
         goalBadge: 'Goal Progress',
       ),
-
-      // EARLIER THIS WEEK
       const TimelineEventItem(
         id: 'ev-5',
         dogName: 'Murphy',
@@ -228,12 +310,13 @@ class _TimelineScreenState extends State<TimelineScreen>
         category: TimelineCategory.training,
         icon: Icons.fitness_center,
         iconColor: _sage,
+        duration: '45 min',
       ),
       const TimelineEventItem(
         id: 'ev-6',
         dogName: 'Freya',
         dogAvatarUrl: _freyaAvatar,
-        title: 'IGP Trial — Regional Qualifier',
+        title: 'IGP Trial · Regional Qualifier',
         timeLabel: 'Sat · 09:00 AM',
         dateGroup: 'Earlier This Week',
         category: TimelineCategory.competition,
@@ -290,23 +373,24 @@ class _TimelineScreenState extends State<TimelineScreen>
       if (f == 'All Events') {
         _activeCategories = {
           TimelineCategory.training,
+          TimelineCategory.sc,
           TimelineCategory.health,
           TimelineCategory.milestone,
-          TimelineCategory.competition,
+          if (_hasSportPack) TimelineCategory.competition,
           TimelineCategory.goal,
         };
         _mediaOnlyFilter = false;
         _dateRangeFilter = 'All Time';
       } else if (f == 'Training') {
         _activeCategories = {TimelineCategory.training};
+      } else if (f == 'S&C') {
+        _activeCategories = {TimelineCategory.sc};
       } else if (f == 'Health') {
         _activeCategories = {TimelineCategory.health};
-      } else if (f == 'Competition') {
+      } else if (f == 'Sport/Competition' || f == 'Sport' || f == 'Competition') {
         _activeCategories = {TimelineCategory.competition};
-      } else if (f == 'Milestones') {
-        _activeCategories = {TimelineCategory.milestone};
-      } else if (f == 'Goals') {
-        _activeCategories = {TimelineCategory.goal};
+      } else if (f == 'Goals & Milestones' || f == 'Milestones' || f == 'Goals') {
+        _activeCategories = {TimelineCategory.milestone, TimelineCategory.goal};
       }
     });
   }
@@ -424,9 +508,10 @@ class _TimelineScreenState extends State<TimelineScreen>
                             setModalState(() {
                               tempCategories = {
                                 TimelineCategory.training,
+                                TimelineCategory.sc,
                                 TimelineCategory.health,
                                 TimelineCategory.milestone,
-                                TimelineCategory.competition,
+                                if (_hasSportPack) TimelineCategory.competition,
                                 TimelineCategory.goal,
                               };
                               tempDateRange = 'All Time';
@@ -473,6 +558,26 @@ class _TimelineScreenState extends State<TimelineScreen>
                           },
                         ),
                         _buildModalCategoryChip(
+                          label: 'S&C',
+                          icon: Icons.bolt,
+                          color: const Color(0xFFB6CCB5),
+                          isSelected:
+                              tempCategories.contains(TimelineCategory.sc),
+                          onTap: () {
+                            setModalState(() {
+                              if (tempCategories
+                                  .contains(TimelineCategory.sc)) {
+                                if (tempCategories.length > 1) {
+                                  tempCategories
+                                      .remove(TimelineCategory.sc);
+                                }
+                              } else {
+                                tempCategories.add(TimelineCategory.sc);
+                              }
+                            });
+                          },
+                        ),
+                        _buildModalCategoryChip(
                           label: 'Health',
                           icon: Icons.local_hospital,
                           color: _errorMuted,
@@ -511,26 +616,27 @@ class _TimelineScreenState extends State<TimelineScreen>
                             });
                           },
                         ),
-                        _buildModalCategoryChip(
-                          label: 'Competition',
-                          icon: Icons.emoji_events,
-                          color: _gold,
-                          isSelected:
-                              tempCategories.contains(TimelineCategory.competition),
-                          onTap: () {
-                            setModalState(() {
-                              if (tempCategories
-                                  .contains(TimelineCategory.competition)) {
-                                if (tempCategories.length > 1) {
-                                  tempCategories
-                                      .remove(TimelineCategory.competition);
+                        if (_hasSportPack)
+                          _buildModalCategoryChip(
+                            label: 'Sport/Competition',
+                            icon: Icons.emoji_events,
+                            color: _gold,
+                            isSelected:
+                                tempCategories.contains(TimelineCategory.competition),
+                            onTap: () {
+                              setModalState(() {
+                                if (tempCategories
+                                    .contains(TimelineCategory.competition)) {
+                                  if (tempCategories.length > 1) {
+                                    tempCategories
+                                        .remove(TimelineCategory.competition);
+                                  }
+                                } else {
+                                  tempCategories.add(TimelineCategory.competition);
                                 }
-                              } else {
-                                tempCategories.add(TimelineCategory.competition);
-                              }
-                            });
-                          },
-                        ),
+                              });
+                            },
+                          ),
                         _buildModalCategoryChip(
                           label: 'Goals',
                           icon: Icons.ads_click,
@@ -647,9 +753,10 @@ class _TimelineScreenState extends State<TimelineScreen>
                               final single = _activeCategories.first;
                               _selectedFilter = switch (single) {
                                 TimelineCategory.training => 'Training',
+                                TimelineCategory.sc => 'S&C',
                                 TimelineCategory.health => 'Health',
                                 TimelineCategory.milestone => 'Milestones',
-                                TimelineCategory.competition => 'Competition',
+                                TimelineCategory.competition => 'Sport',
                                 TimelineCategory.goal => 'Goals',
                               };
                             } else {
@@ -754,6 +861,21 @@ class _TimelineScreenState extends State<TimelineScreen>
                 ),
               ),
               const SizedBox(height: 12),
+              _buildDogOption(
+                name: 'Arlo',
+                subtitle: 'German Shepherd · 3 yrs (142 Events)',
+                avatar: const CircleAvatar(
+                  radius: 16,
+                  backgroundImage: NetworkImage(_murphyAvatar),
+                ),
+                onTap: () {
+                  setState(() {
+                    _selectedDog = 'Arlo';
+                    _isEmptyState = false;
+                  });
+                  Navigator.pop(ctx);
+                },
+              ),
               _buildDogOption(
                 name: 'All Dogs',
                 subtitle: 'Combined Activity Timeline (142 Events)',
@@ -1529,6 +1651,7 @@ class _TimelineScreenState extends State<TimelineScreen>
     showModalBottomSheet(
       context: context,
       backgroundColor: _carbon,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -1551,7 +1674,7 @@ class _TimelineScreenState extends State<TimelineScreen>
               ),
               const SizedBox(height: 16),
               const Text(
-                'LOG NEW TIMELINE EVENT',
+                'RECORD NEW ACTIVITY',
                 style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 12,
@@ -1559,7 +1682,7 @@ class _TimelineScreenState extends State<TimelineScreen>
                   letterSpacing: 0.5,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 14),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Container(
@@ -1574,13 +1697,38 @@ class _TimelineScreenState extends State<TimelineScreen>
                 title: const Text('Training Session',
                     style: TextStyle(
                         color: _offWhite, fontWeight: FontWeight.w600)),
-                subtitle: const Text('Record workout, reps, drills, or conditioning',
+                subtitle: const Text('Record workout, exercises, drills and focus',
                     style: TextStyle(color: _stoneGrey, fontSize: 12)),
                 onTap: () {
                   Navigator.pop(ctx);
                   Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (_) => const RecordSessionScreen()),
+                  );
+                },
+              ),
+              const Divider(color: Color(0x14FFFFFF), height: 1),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFB6CCB5).withValues(alpha: 0.25),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.bolt, color: Color(0xFFB6CCB5)),
+                ),
+                title: const Text('S&C Session',
+                    style: TextStyle(
+                        color: _offWhite, fontWeight: FontWeight.w600)),
+                subtitle: const Text('Track strength, conditioning, stamina and circuits',
+                    style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (_) => const StrengthConditioningDashboardScreen()),
                   );
                 },
               ),
@@ -1599,10 +1747,14 @@ class _TimelineScreenState extends State<TimelineScreen>
                 title: const Text('Health Record',
                     style: TextStyle(
                         color: _offWhite, fontWeight: FontWeight.w600)),
-                subtitle: const Text('Log vet visit, vaccination, or medication',
+                subtitle: const Text('Log weight, body condition, vet visits, vaccinations and medication',
                     style: TextStyle(color: _stoneGrey, fontSize: 12)),
                 onTap: () {
                   Navigator.pop(ctx);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (_) => const AddHealthRecordScreen()),
+                  );
                 },
               ),
               const Divider(color: Color(0x14FFFFFF), height: 1),
@@ -1612,23 +1764,90 @@ class _TimelineScreenState extends State<TimelineScreen>
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: _gold.withValues(alpha: 0.25),
+                    color: const Color(0xFFFFD1CC).withValues(alpha: 0.25),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.emoji_events, color: _gold),
+                  child: const Icon(Icons.flag_outlined, color: Color(0xFFFFD1CC)),
                 ),
-                title: const Text('Competition or Trial',
+                title: const Text('Milestone',
                     style: TextStyle(
                         color: _offWhite, fontWeight: FontWeight.w600)),
-                subtitle: const Text('Add score, placement, trial title & title photos',
+                subtitle: const Text('Record memorable breakthroughs, off-lead progress and achievements',
                     style: TextStyle(color: _stoneGrey, fontSize: 12)),
                 onTap: () {
                   Navigator.pop(ctx);
+                  _showRecordMilestoneDialog();
                 },
               ),
+              if (_hasSportPack) ...[
+                const Divider(color: Color(0x14FFFFFF), height: 1),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: _gold.withValues(alpha: 0.25),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(Icons.workspace_premium, color: _gold),
+                  ),
+                  title: const Text('Sport / Competition',
+                      style: TextStyle(
+                          color: _offWhite, fontWeight: FontWeight.w600)),
+                  subtitle: const Text('Add scores, title qualifications, trials and placements',
+                      style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (_) => const AddCompetitionScreen()),
+                    );
+                  },
+                ),
+              ],
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _showRecordMilestoneDialog() {
+    final titleController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: _carbon,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('Record Milestone', style: TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+        content: TextField(
+          controller: titleController,
+          style: const TextStyle(color: _offWhite),
+          decoration: InputDecoration(
+            hintText: 'e.g. First Off-Lead Forest Walk',
+            hintStyle: const TextStyle(color: _stoneGrey),
+            filled: true,
+            fillColor: _surfaceContainer,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide.none),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: _forest, foregroundColor: _offWhite),
+            onPressed: () {
+              Navigator.pop(ctx);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Milestone recorded to timeline')),
+              );
+            },
+            child: const Text('Save'),
+          ),
+        ],
       ),
     );
   }
@@ -1776,105 +1995,103 @@ class _TimelineScreenState extends State<TimelineScreen>
               children: [
                 const SizedBox(height: 16),
                 _buildDogSelectorCard(isPopulated: false),
-                const SizedBox(height: 50),
+                const SizedBox(height: 36),
 
-                // 3. Centered Compass Graphic & Onboarding Callout
-                Center(
-                  child: Container(
-                    width: 64,
-                    height: 64,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _obsidian,
-                      border: Border.all(color: _mint, width: 2),
-                    ),
-                    child: const Icon(
-                      Icons.explore_outlined,
-                      color: _mint,
-                      size: 32,
-                    ),
+                // 3. Centered Onboarding Card matching Figma Image 1
+                Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: _carbon,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: const Color(0x14FFFFFF)),
                   ),
-                ),
-                const SizedBox(height: 24),
-                const Text(
-                  "Your Dog's Journey Starts Here",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: _offWhite,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.3,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'Every training session, health record, competition, milestone and memory will automatically appear here as you use Ulvenik.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: _stoneGrey,
-                      fontSize: 14,
-                      height: 1.5,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 48),
-
-                // 4. Large Call-To-Action Button (Figma Image 2)
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _forest,
-                    foregroundColor: _offWhite,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const RecordSessionScreen(),
-                      ),
-                    );
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
                     children: [
-                      Text(
-                        'Record Your First Activity',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
+                      Container(
+                        width: 56,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _surfaceContainer,
+                          border: Border.all(color: _mint.withValues(alpha: 0.3)),
+                        ),
+                        child: const Icon(
+                          Icons.explore_outlined,
+                          color: _mint,
+                          size: 28,
                         ),
                       ),
-                      Icon(Icons.arrow_forward, size: 20),
+                      const SizedBox(height: 20),
+                      const Text(
+                        "Your Dog's Journey Starts Here",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _offWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.3,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          "Training sessions, S&C sessions, health records, milestones and memories will appear here as you build your dog’s journey with Ulvenik.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: _stoneGrey,
+                            fontSize: 14,
+                            height: 1.5,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 28),
+
+                      // Balanced primary Record button opening the unified Record Activity menu
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: _forest,
+                            foregroundColor: _offWhite,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 0,
+                          ),
+                          onPressed: _showQuickAddSheet,
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Start Their Journey',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Icon(Icons.arrow_forward, size: 18),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
-
-                // Load Demo Timeline shortcut
+                const SizedBox(height: 20),
                 Center(
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _selectedDog = 'All Dogs';
-                        _isEmptyState = false;
-                      });
-                    },
-                    child: const Text(
-                      'Load Sample Timeline Data',
-                      style: TextStyle(
-                        color: _mint,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  child: TextButton.icon(
+                    onPressed: () => setState(() => _isEmptyState = false),
+                    icon: const Icon(Icons.sync, color: _mint, size: 16),
+                    label: const Text(
+                      'Switch to Populated Timeline',
+                      style: TextStyle(color: _stoneGrey, fontSize: 13),
                     ),
                   ),
                 ),
+                const SizedBox(height: 60),
               ],
             ),
           ),
@@ -1884,6 +2101,32 @@ class _TimelineScreenState extends State<TimelineScreen>
   }
 
   // ─── Header: Misty Scandinavian Pine Forest ─────────────────────────────────
+
+    Widget _buildHeaderStatPill(IconData icon, String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: _carbon.withValues(alpha: 0.8),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0x1FFFFFFF)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 13, color: _mint),
+          const SizedBox(width: 5),
+          Text(
+            label,
+            style: const TextStyle(
+              color: _offWhite,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildHeroHeader({required bool isPopulated}) {
     final topPadding = MediaQuery.of(context).padding.top;
@@ -2320,9 +2563,11 @@ class _TimelineScreenState extends State<TimelineScreen>
                   onDoubleTap: () {
                     setState(() => _isEmptyState = !_isEmptyState);
                   },
-                  child: const Text(
-                    "Your Dogs' Journey",
-                    style: TextStyle(
+                  child: Text(
+                    !isPopulated
+                        ? "Your Dogs' Journey"
+                        : (_selectedDog == 'All Dogs' ? "All Dogs" : _selectedDog),
+                    style: const TextStyle(
                       color: _offWhite,
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
@@ -2331,14 +2576,40 @@ class _TimelineScreenState extends State<TimelineScreen>
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Every moment, every dog, in one place',
-                  style: TextStyle(
+                Text(
+                  !isPopulated
+                      ? 'Every moment, every dog, in one place'
+                      : (_selectedDog == 'All Dogs'
+                          ? 'Combined activity timeline across all dogs'
+                          : 'German Shepherd · 3 yrs · Born 14 March 2023'),
+                  style: const TextStyle(
                     color: _stoneGrey,
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+                if (isPopulated) ...[
+                  const SizedBox(height: 12),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    child: Row(
+                      children: [
+                        _buildHeaderStatPill(Icons.timer_outlined, '126 Sessions'),
+                        const SizedBox(width: 8),
+                        _buildHeaderStatPill(Icons.bolt_outlined, '32 S&C'),
+                        const SizedBox(width: 8),
+                        _buildHeaderStatPill(Icons.flag_outlined, '4 Goals'),
+                        const SizedBox(width: 8),
+                        _buildHeaderStatPill(Icons.favorite_outline, '18 Health'),
+                        if (_hasSportPack) ...[
+                          const SizedBox(width: 8),
+                          _buildHeaderStatPill(Icons.emoji_events_outlined, '12 Sport'),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
               ],
             ),
           ],
@@ -2442,9 +2713,7 @@ class _TimelineScreenState extends State<TimelineScreen>
       {'val': '142', 'lbl': 'Events', 'cat': 'All Events'},
       {'val': '86', 'lbl': 'Sessions', 'cat': 'Training'},
       {'val': '24', 'lbl': 'Health', 'cat': 'Health'},
-      {'val': '18', 'lbl': 'Goals', 'cat': 'Goals'},
-      {'val': '212', 'lbl': 'Photos', 'cat': 'Competition'},
-      {'val': '45', 'lbl': 'Videos', 'cat': 'Training'},
+      {'val': '18', 'lbl': 'Goals', 'cat': 'Goals & Milestones'},
     ];
 
     return SingleChildScrollView(
@@ -2782,13 +3051,12 @@ class _TimelineScreenState extends State<TimelineScreen>
   // ─── Filter Pills Strip ────────────────────────────────────────────────────
 
   Widget _buildFilterPillsStrip() {
-    const filters = [
+    final filters = [
       'All Events',
       'Training',
+      'S&C',
       'Health',
-      'Competition',
-      'Milestones',
-      'Goals'
+      if (_hasSportPack) 'Sport/Competition',
     ];
 
     return SingleChildScrollView(

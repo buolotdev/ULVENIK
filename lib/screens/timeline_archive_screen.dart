@@ -669,6 +669,8 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
           onSelected: (val) {
             if (val == 'toggle') {
               setState(() => _isEmptyState = !_isEmptyState);
+            } else if (val == 'filter') {
+              _showFilterSheet();
             } else if (val == 'select_all') {
               _selectAll(true);
             } else if (val == 'deselect_all') {
@@ -720,26 +722,38 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
-              value: 'select_all',
-              child: Row(
-                children: [
-                  Icon(Icons.select_all, color: _mint, size: 18),
-                  SizedBox(width: 10),
-                  Text('Select All Events', style: TextStyle(color: _offWhite, fontSize: 13)),
-                ],
+            if (!_isEmptyState) ...[
+              const PopupMenuItem(
+                value: 'filter',
+                child: Row(
+                  children: [
+                    Icon(Icons.filter_list, color: _mint, size: 18),
+                    SizedBox(width: 10),
+                    Text('Filter by Category', style: TextStyle(color: _offWhite, fontSize: 13)),
+                  ],
+                ),
               ),
-            ),
-            const PopupMenuItem(
-              value: 'deselect_all',
-              child: Row(
-                children: [
-                  Icon(Icons.deselect, color: _stoneGrey, size: 18),
-                  SizedBox(width: 10),
-                  Text('Deselect All', style: TextStyle(color: _offWhite, fontSize: 13)),
-                ],
+              const PopupMenuItem(
+                value: 'select_all',
+                child: Row(
+                  children: [
+                    Icon(Icons.select_all, color: _mint, size: 18),
+                    SizedBox(width: 10),
+                    Text('Select All Events', style: TextStyle(color: _offWhite, fontSize: 13)),
+                  ],
+                ),
               ),
-            ),
+              const PopupMenuItem(
+                value: 'deselect_all',
+                child: Row(
+                  children: [
+                    Icon(Icons.deselect, color: _stoneGrey, size: 18),
+                    SizedBox(width: 10),
+                    Text('Deselect All', style: TextStyle(color: _offWhite, fontSize: 13)),
+                  ],
+                ),
+              ),
+            ],
             const PopupMenuItem(
               value: 'dog',
               child: Row(
@@ -808,175 +822,105 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
   }
 
   Widget _buildEmptyState() {
-    return Column(
-      children: [
-        Expanded(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 96,
-                    height: 96,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _carbon,
-                      border: Border.all(color: _cardBorder),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.archive_outlined,
-                        size: 44,
-                        color: _stoneGrey,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 28),
-                  const Text(
-                    'No Archived Events',
-                    style: TextStyle(
-                      color: _offWhite,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Archived Timeline events will appear here. Archive events from your Timeline to keep your active feed focused.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: _stoneGrey,
-                      fontSize: 14,
-                      height: 1.5,
-                      fontFamily: 'Inter',
-                    ),
-                  ),
-                  const SizedBox(height: 36),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 52,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _forest,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        elevation: 0,
-                      ),
-                      onPressed: () {
-                        if (Navigator.canPop(context)) {
-                          Navigator.pop(context);
-                        } else {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (_) => const TimelineScreen()),
-                          );
-                        }
-                      },
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_back, color: _offWhite, size: 18),
-                          SizedBox(width: 8),
-                          Text(
-                            'Return to Timeline',
-                            style: TextStyle(
-                              color: _offWhite,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Inter',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _isEmptyState = false;
-                        _initSampleData();
-                      });
-                    },
-                    child: const Text(
-                      'Load Sample Archive Data',
-                      style: TextStyle(color: _mint, fontSize: 13),
-                    ),
-                  ),
-                ],
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 96,
+              height: 96,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _carbon,
+                border: Border.all(color: _cardBorder),
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.archive_outlined,
+                  size: 44,
+                  color: _stoneGrey,
+                ),
               ),
             ),
-          ),
-        ),
-
-        // Bottom Action Bar for Empty State
-        Container(
-          decoration: const BoxDecoration(
-            color: _obsidian,
-            border: Border(top: BorderSide(color: Color(0x1AFFFFFF), width: 1)),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  onTap: _showFilterSheet,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.filter_list, color: _stoneGrey, size: 16),
-                        SizedBox(width: 6),
-                        Text(
-                          'FILTER',
-                          style: TextStyle(
-                            color: _offWhite,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 0.8,
-                          ),
-                        ),
-                      ],
-                    ),
+            const SizedBox(height: 28),
+            const Text(
+              'No Archived Events',
+              style: TextStyle(
+                color: _offWhite,
+                fontSize: 22,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Inter',
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              'Archived Timeline events will appear here. Archive events from your Timeline to keep your active feed focused.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: _stoneGrey,
+                fontSize: 14,
+                height: 1.5,
+                fontFamily: 'Inter',
+              ),
+            ),
+            const SizedBox(height: 36),
+            SizedBox(
+              width: double.infinity,
+              height: 52,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _forest,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
                   ),
+                  elevation: 0,
+                ),
+                onPressed: () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const TimelineScreen()),
+                    );
+                  }
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.arrow_back, color: _offWhite, size: 18),
+                    SizedBox(width: 8),
+                    Text(
+                      'Return to Timeline',
+                      style: TextStyle(
+                        color: _offWhite,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Inter',
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Container(width: 1, height: 20, color: const Color(0x26FFFFFF)),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    setState(() => _isEmptyState = false);
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.search, color: _stoneGrey, size: 16),
-                        SizedBox(width: 6),
-                        Text(
-                          'SEARCH',
-                          style: TextStyle(
-                            color: _offWhite,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 0.8,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _isEmptyState = false;
+                  _initSampleData();
+                });
+              },
+              child: const Text(
+                'Load Sample Archive Data',
+                style: TextStyle(color: _mint, fontSize: 13),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -1071,6 +1015,12 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
   }
 
   Widget _buildArchiveSummaryCard() {
+    final categoryCount = _allArchivedEvents
+        .where((e) => !e.isOrphaned)
+        .map((e) => e.category)
+        .toSet()
+        .length;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -1093,7 +1043,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
           ),
           const SizedBox(height: 14),
 
-          // 3-columns
+          // 3-columns: Archived Events | Categories | Last Archived
           Row(
             children: [
               Expanded(
@@ -1126,9 +1076,9 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      '18.4',
-                      style: TextStyle(
+                    Text(
+                      '$categoryCount',
+                      style: const TextStyle(
                         color: _offWhite,
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
@@ -1137,7 +1087,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                     ),
                     const SizedBox(height: 4),
                     const Text(
-                      'MB STORAGE\nUSED',
+                      'CATEGORIES',
                       style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 10,

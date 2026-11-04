@@ -252,27 +252,21 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
     switch (_selectedDateRange) {
       case 'Last 30 Days':
         return {
-          'currentStreak': '8 Days',
-          'longestStreak': '14 Days',
-          'mostConsistent': 'August',
+          'sessionsThisMonth': '14 Sessions',
           'avgWeek': '3.2',
           'totalSessions': '18',
           'avgMonth': '18.0',
         };
       case 'Last 6 Months':
         return {
-          'currentStreak': '12 Days',
-          'longestStreak': '31 Days',
-          'mostConsistent': 'March',
+          'sessionsThisMonth': '14 Sessions',
           'avgWeek': '2.6',
           'totalSessions': '92',
           'avgMonth': '11.2',
         };
       case 'All Time':
         return {
-          'currentStreak': '12 Days',
-          'longestStreak': '42 Days',
-          'mostConsistent': 'March',
+          'sessionsThisMonth': '14 Sessions',
           'avgWeek': '2.5',
           'totalSessions': '164',
           'avgMonth': '10.8',
@@ -280,9 +274,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
       case 'Last 90 Days':
       default:
         return {
-          'currentStreak': '12 Days',
-          'longestStreak': '31 Days',
-          'mostConsistent': 'March',
+          'sessionsThisMonth': '14 Sessions',
           'avgWeek': '2.8',
           'totalSessions': '48',
           'avgMonth': '10.4',
@@ -727,57 +719,23 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
     );
   }
 
-  // 2. Consistency Bento Grid
+  // 2. Frequency & Volume Grid: Sessions This Month | Avg / Week | Total Sessions | Avg / Month
   Widget _buildConsistencyBentoGrid(Map<String, dynamic> bento) {
     return Column(
       children: [
-        // Row 1: Current Streak + Longest Streak
+        // Row 1: Sessions This Month + Avg / Week
         Row(
           children: [
             Expanded(
               child: _buildBentoCard(
-                title: 'CURRENT STREAK',
-                value: bento['currentStreak'],
+                title: 'SESSIONS THIS MONTH',
+                value: bento['sessionsThisMonth'],
                 valueColor: _mint,
                 onTap: () => _showBentoDetailModal(
-                  title: 'Current Streak',
-                  value: bento['currentStreak'],
+                  title: 'Sessions This Month',
+                  value: bento['sessionsThisMonth'],
                   explanation:
-                      'Your dog has stayed active for 12 consecutive training days without missing a scheduled session.',
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _buildBentoCard(
-                title: 'LONGEST STREAK',
-                value: bento['longestStreak'],
-                valueColor: _offWhite,
-                onTap: () => _showBentoDetailModal(
-                  title: 'Longest Streak',
-                  value: bento['longestStreak'],
-                  explanation:
-                      'All-time best streak achieved in June 2026. Keep this pace to beat it!',
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-
-        // Row 2: Most Consistent + Avg / Week
-        Row(
-          children: [
-            Expanded(
-              child: _buildBentoCard(
-                title: 'MOST CONSISTENT',
-                value: bento['mostConsistent'],
-                valueColor: _offWhite,
-                onTap: () => _showBentoDetailModal(
-                  title: 'Most Consistent Month',
-                  value: bento['mostConsistent'],
-                  explanation:
-                      'March recorded the highest density of swim sessions and lowest gap between workouts.',
+                      'Number of training sessions recorded during the current calendar month.',
                 ),
               ),
             ),
@@ -789,9 +747,9 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 valueColor: _offWhite,
                 onTap: () => _showBentoDetailModal(
                   title: 'Average Sessions Per Week',
-                  value: '${bento['avgWeek']} Sessions',
+                  value: '${bento['avgWeek']} Sessions / week',
                   explanation:
-                      'Calculated over the selected period. Recommended target for swimming conditioning is 3.0 sessions/week.',
+                      'Calculated average session frequency per week over the selected time period.',
                 ),
               ),
             ),
@@ -799,75 +757,37 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
         ),
         const SizedBox(height: 12),
 
-        // Row 3: Total Sessions + Avg / Month (Full Width)
-        InkWell(
-          onTap: () => _showBentoDetailModal(
-            title: 'Session Frequency Breakdown',
-            value: '${bento['totalSessions']} Total Sessions',
-            explanation:
-                'Averaging ${bento['avgMonth']} sessions per month. Your dog has completed a strong aerobic training cycle.',
-          ),
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(12),
-              border: _hairlineBorder,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'TOTAL SESSIONS',
-                      style: TextStyle(
-                        color: _stoneGrey,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.05,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      bento['totalSessions'],
-                      style: const TextStyle(
-                        color: _offWhite,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
+        // Row 2: Total Sessions + Avg / Month
+        Row(
+          children: [
+            Expanded(
+              child: _buildBentoCard(
+                title: 'TOTAL SESSIONS',
+                value: bento['totalSessions'],
+                valueColor: _offWhite,
+                onTap: () => _showBentoDetailModal(
+                  title: 'Total Sessions',
+                  value: '${bento['totalSessions']} Sessions',
+                  explanation:
+                      'Total completed workouts recorded for this activity across the selected period.',
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Text(
-                      'AVG / MONTH',
-                      style: TextStyle(
-                        color: _stoneGrey,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.05,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      bento['avgMonth'],
-                      style: const TextStyle(
-                        color: _offWhite,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
-          ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: _buildBentoCard(
+                title: 'AVG / MONTH',
+                value: bento['avgMonth'],
+                valueColor: _offWhite,
+                onTap: () => _showBentoDetailModal(
+                  title: 'Average Sessions Per Month',
+                  value: '${bento['avgMonth']} Sessions / month',
+                  explanation:
+                      'Calculated average session volume completed per monthly cycle.',
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -1341,7 +1261,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
     );
   }
 
-  // 5. Progress Summary Section
+  // 5. Activity Summary Section (Factual information)
   Widget _buildProgressSummaryCard() {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -1354,7 +1274,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Progress Summary',
+            'Activity Summary',
             style: TextStyle(
               color: _offWhite,
               fontSize: 18,
@@ -1370,14 +1290,14 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
               text: const TextSpan(
                 style: TextStyle(color: _offWhite, fontSize: 14, height: 1.4),
                 children: [
-                  TextSpan(text: 'Activity has increased by '),
+                  TextSpan(text: 'Session frequency changed by '),
                   TextSpan(
-                    text: '15%',
+                    text: '+15%',
                     style: TextStyle(
                         color: _mint, fontWeight: FontWeight.w600),
                   ),
                   TextSpan(
-                      text: ' compared to the previous 90-day period.'),
+                      text: ' compared to the previous period.'),
                 ],
               ),
             ),
@@ -1389,13 +1309,13 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
               text: const TextSpan(
                 style: TextStyle(color: _offWhite, fontSize: 14, height: 1.4),
                 children: [
-                  TextSpan(text: 'Highly consistent, averaging '),
+                  TextSpan(text: 'Recorded an average of '),
                   TextSpan(
-                    text: '3 sessions',
+                    text: '2.8 sessions',
                     style: TextStyle(
                         color: _mint, fontWeight: FontWeight.w600),
                   ),
-                  TextSpan(text: ' per week with minimal gaps.'),
+                  TextSpan(text: ' per week with 48 total sessions logged.'),
                 ],
               ),
             ),
@@ -1407,7 +1327,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
               text: const TextSpan(
                 style: TextStyle(color: _offWhite, fontSize: 14, height: 1.4),
                 children: [
-                  TextSpan(text: 'Duration remains stable at an average of '),
+                  TextSpan(text: 'Average session duration was '),
                   TextSpan(
                     text: '45m',
                     style: TextStyle(
@@ -1420,14 +1340,19 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
           ),
           const SizedBox(height: 16),
           _buildSummaryItem(
-            icon: Icons.local_fire_department,
+            icon: Icons.fitness_center,
             richText: RichText(
               text: const TextSpan(
                 style: TextStyle(color: _offWhite, fontSize: 14, height: 1.4),
                 children: [
+                  TextSpan(text: 'Total conditioning volume reached '),
                   TextSpan(
-                      text:
-                          'On track to beat longest streak of 31 days if current pace is maintained.'),
+                    text: '62h 15m',
+                    style: TextStyle(
+                        color: _mint, fontWeight: FontWeight.w600),
+                  ),
+                  TextSpan(
+                      text: ' across all recorded workouts.'),
                 ],
               ),
             ),
@@ -1528,7 +1453,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
-            'Complete more sessions to unlock insights into your dog\'s Strength & Conditioning progress.',
+            'Record more sessions to start seeing patterns and trends in this activity over time.',
             style: TextStyle(
               color: _stoneGrey,
               fontSize: 14,

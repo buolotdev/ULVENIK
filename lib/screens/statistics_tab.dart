@@ -5,7 +5,8 @@ import 'goals_list_screen.dart';
 
 class StatisticsTab extends StatefulWidget {
   final bool hasData;
-  const StatisticsTab({super.key, required this.hasData});
+  final String dogName;
+  const StatisticsTab({super.key, required this.hasData, this.dogName = 'Arlo'});
 
   @override
   State<StatisticsTab> createState() => _StatisticsTabState();
@@ -14,8 +15,16 @@ class StatisticsTab extends StatefulWidget {
 class _StatisticsTabState extends State<StatisticsTab> {
   String _selectedFilter = 'Overview';
   String _selectedTimeframe = 'This Year';
-  int? _touchedIndex;
+  int _selectedSpotIndex = 7; // August default
+  String? _selectedHeatmapInfo = '14 Aug · 3 sessions recorded';
+  int? _selectedDayIndex;
   bool _isLoaded = false;
+
+  static const List<String> _monthNames = [
+    'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',
+    'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'
+  ];
+  static const List<int> _monthSessions = [10, 12, 15, 20, 25, 22, 18, 14, 20, 28, 24, 20];
 
   @override
   void initState() {
@@ -81,10 +90,10 @@ class _StatisticsTabState extends State<StatisticsTab> {
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
-            'Complete your first Training Session to begin\nbuilding statistics.',
+          Text(
+            'Record your first training session to start building ${widget.dogName}’s statistics.',
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 14,
               height: 1.5,
@@ -98,7 +107,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
-            child: const Text('Start Training Session', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+            child: const Text('Record Training Session', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
           ),
           const SizedBox(height: 16),
           const Text('Already have records? Try changing your filters', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12, decoration: TextDecoration.underline)),
@@ -124,24 +133,49 @@ class _StatisticsTabState extends State<StatisticsTab> {
               children: [
                 _buildFilterPill('Overview'),
                 _buildFilterPill('Skills'),
+                _buildFilterPill('S&C'),
                 _buildFilterPill('Locations'),
               ],
             ),
           ),
           const SizedBox(width: 8),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: AppColors.cardsCarbon,
-              border: Border.all(color: Colors.white12),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                Text(_selectedTimeframe, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
-                const SizedBox(width: 4),
-                const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 18),
-              ],
+          GestureDetector(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                backgroundColor: AppColors.cardsCarbon,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                ),
+                builder: (ctx) => SafeArea(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: ['Lifetime', 'This Year', 'Last 6 Months', 'This Month'].map((tf) => ListTile(
+                      title: Text(tf, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                      trailing: _selectedTimeframe == tf ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
+                      onTap: () {
+                        setState(() => _selectedTimeframe = tf);
+                        Navigator.pop(ctx);
+                      },
+                    )).toList(),
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: AppColors.cardsCarbon,
+                border: Border.all(color: Colors.white12),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Text(_selectedTimeframe, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                  const SizedBox(width: 4),
+                  const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 18),
+                ],
+              ),
             ),
           ),
         ],
@@ -193,7 +227,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
           const SizedBox(height: 16),
           Row(
             children: [
-              Expanded(child: _buildGridStat('SUCCESS RATE', '88%')),
+              Expanded(child: _buildGridStat('SESSIONS', '126')),
               Expanded(child: _buildGridStat('MOST ACTIVE', 'Sat')),
             ],
           ),
@@ -232,10 +266,13 @@ class _StatisticsTabState extends State<StatisticsTab> {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text('Training Sessions Over Time', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
-                    SizedBox(height: 4),
-                    Text('Total volume for this year', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                  children: [
+                    const Text('Training Sessions Over Time', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${_monthNames[_selectedSpotIndex]}: ${_monthSessions[_selectedSpotIndex]} Sessions (Tap points to inspect)',
+                      style: const TextStyle(color: Color(0xFF95d3bb), fontSize: 12, fontWeight: FontWeight.w500),
+                    ),
                   ],
                 ),
               ),
@@ -243,7 +280,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2e6b57).withOpacity(0.1),
+                  color: const Color(0xFF2e6b57).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Row(
@@ -287,13 +324,21 @@ class _StatisticsTabState extends State<StatisticsTab> {
                 minY: 0,
                 maxY: 40,
                 lineTouchData: LineTouchData(
+                  touchCallback: (FlTouchEvent event, LineTouchResponse? touchResponse) {
+                    if (touchResponse != null && touchResponse.lineBarSpots != null && touchResponse.lineBarSpots!.isNotEmpty) {
+                      final spot = touchResponse.lineBarSpots!.first;
+                      setState(() {
+                        _selectedSpotIndex = spot.x.toInt().clamp(0, 11);
+                      });
+                    }
+                  },
                   touchTooltipData: LineTouchTooltipData(
                     getTooltipItems: (touchedSpots) {
                       return touchedSpots.map((spot) {
                         const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
                         return LineTooltipItem(
                           '${months[spot.x.toInt()]}\n${spot.y.toInt()} Sessions',
-                          const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w500),
+                          const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600),
                         );
                       }).toList();
                     },
@@ -334,7 +379,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                       show: true,
                       gradient: LinearGradient(
                         colors: [
-                          const Color(0xFF2e6b57).withOpacity(0.3),
+                          const Color(0xFF2e6b57).withValues(alpha: 0.3),
                           Colors.transparent,
                         ],
                         begin: Alignment.topCenter,
@@ -354,6 +399,9 @@ class _StatisticsTabState extends State<StatisticsTab> {
   }
 
   Widget _buildActivityHeatmap() {
+    const months = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
+    const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -364,42 +412,92 @@ class _StatisticsTabState extends State<StatisticsTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Activity Heatmap', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
-          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Activity Heatmap', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+              if (_selectedHeatmapInfo != null)
+                Text(_selectedHeatmapInfo!,
+                    style: const TextStyle(color: Color(0xFF95d3bb), fontSize: 12, fontWeight: FontWeight.w500)),
+            ],
+          ),
+          const SizedBox(height: 12),
+          // Months across top
+          Row(
+            children: [
+              const SizedBox(width: 18), // offset for day initials
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: months.map((m) => Text(m, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w600))).toList(),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          // Grid: 7 rows (days), columns (weeks)
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: List.generate(20, (colIndex) {
-                return Padding(
-                  padding: const EdgeInsets.only(right: 4),
-                  child: Column(
-                    children: List.generate(7, (rowIndex) {
-                      final intensity = (colIndex * 7 + rowIndex) % 5;
-                      Color cellColor;
-                      switch (intensity) {
-                        case 0: cellColor = const Color(0xFF323533); break;
-                        case 1: cellColor = const Color(0xFF2e6b57).withOpacity(0.2); break;
-                        case 2: cellColor = const Color(0xFF2e6b57).withOpacity(0.4); break;
-                        case 3: cellColor = const Color(0xFF2e6b57).withOpacity(0.8); break;
-                        case 4: cellColor = const Color(0xFF2e6b57); break;
-                        default: cellColor = const Color(0xFF323533);
-                      }
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 4),
-                        width: 12,
-                        height: 12,
-                        decoration: BoxDecoration(
-                          color: cellColor,
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      );
-                    }),
-                  ),
-                );
-              }),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Day initial column
+                Column(
+                  children: days.map((d) => Container(
+                    height: 14,
+                    margin: const EdgeInsets.only(bottom: 4, right: 6),
+                    alignment: Alignment.center,
+                    child: Text(d, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9, fontWeight: FontWeight.w600)),
+                  )).toList(),
+                ),
+                // Week columns
+                Row(
+                  children: List.generate(20, (colIndex) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: Column(
+                        children: List.generate(7, (rowIndex) {
+                          final dayNum = (colIndex * 7 + rowIndex) % 31 + 1;
+                          final monthName = months[(colIndex ~/ 4).clamp(0, months.length - 1)];
+                          final intensity = ((colIndex * 3 + rowIndex * 2) % 5);
+                          final sessionCount = intensity == 0 ? 0 : (intensity == 4 ? 4 : intensity);
+                          Color cellColor;
+                          switch (intensity) {
+                            case 0: cellColor = const Color(0xFF323533); break;
+                            case 1: cellColor = const Color(0xFF2e6b57).withValues(alpha: 0.3); break;
+                            case 2: cellColor = const Color(0xFF2e6b57).withValues(alpha: 0.6); break;
+                            case 3: cellColor = const Color(0xFF2e6b57).withValues(alpha: 0.9); break;
+                            case 4: cellColor = const Color(0xFF95d3bb); break;
+                            default: cellColor = const Color(0xFF323533);
+                          }
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _selectedHeatmapInfo = sessionCount == 0
+                                    ? '$dayNum $monthName · Rest day'
+                                    : '$dayNum $monthName · $sessionCount session${sessionCount > 1 ? "s" : ""} recorded';
+                              });
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 4),
+                              width: 14,
+                              height: 14,
+                              decoration: BoxDecoration(
+                                color: cellColor,
+                                borderRadius: BorderRadius.circular(3),
+                                border: Border.all(color: Colors.white12, width: 0.5),
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
+                    );
+                  }),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -407,9 +505,10 @@ class _StatisticsTabState extends State<StatisticsTab> {
               Row(
                 children: [
                   _buildHeatmapLegendCell(const Color(0xFF323533)),
-                  _buildHeatmapLegendCell(const Color(0xFF2e6b57).withOpacity(0.4)),
-                  _buildHeatmapLegendCell(const Color(0xFF2e6b57).withOpacity(0.8)),
-                  _buildHeatmapLegendCell(const Color(0xFF2e6b57)),
+                  _buildHeatmapLegendCell(const Color(0xFF2e6b57).withValues(alpha: 0.3)),
+                  _buildHeatmapLegendCell(const Color(0xFF2e6b57).withValues(alpha: 0.6)),
+                  _buildHeatmapLegendCell(const Color(0xFF2e6b57).withValues(alpha: 0.9)),
+                  _buildHeatmapLegendCell(const Color(0xFF95d3bb)),
                 ],
               ),
               const Text('More', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
@@ -433,6 +532,16 @@ class _StatisticsTabState extends State<StatisticsTab> {
   }
 
   Widget _buildTrainingByDay() {
+    const daysData = [
+      {'day': 'Mon', 'count': 14, 'factor': 0.36},
+      {'day': 'Tue', 'count': 22, 'factor': 0.57},
+      {'day': 'Wed', 'count': 18, 'factor': 0.47},
+      {'day': 'Thu', 'count': 24, 'factor': 0.63},
+      {'day': 'Fri', 'count': 20, 'factor': 0.52},
+      {'day': 'Sat', 'count': 38, 'factor': 1.0},
+      {'day': 'Sun', 'count': 26, 'factor': 0.68},
+    ];
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -443,62 +552,67 @@ class _StatisticsTabState extends State<StatisticsTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Training by Day', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
-          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Training by Day', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+              Text(_selectedDayIndex != null ? '${daysData[_selectedDayIndex!]["count"]} sessions' : 'Sat most active (38)',
+                  style: const TextStyle(color: Color(0xFF95d3bb), fontSize: 12, fontWeight: FontWeight.w500)),
+            ],
+          ),
+          const SizedBox(height: 20),
           SizedBox(
-            height: 160,
+            height: 180,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildDayBar('M', 0.3, false),
-                _buildDayBar('T', 0.45, false),
-                _buildDayBar('W', 0.35, false),
-                _buildDayBar('T', 0.5, false),
-                _buildDayBar('F', 0.4, false),
-                _buildDayBar('S', 0.85, true),
-                _buildDayBar('S', 0.7, false),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDayBar(String label, double fillPercent, bool isHighlighted) {
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Expanded(
-            child: TweenAnimationBuilder<double>(
-              tween: Tween<double>(begin: 0, end: fillPercent),
-              duration: const Duration(milliseconds: 1200),
-              curve: Curves.easeOutQuart,
-              builder: (context, value, _) {
-                return FractionallySizedBox(
-                  heightFactor: value,
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                      color: isHighlighted ? const Color(0xFF2e6b57) : const Color(0xFF323533),
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
-                      boxShadow: isHighlighted ? [BoxShadow(color: const Color(0xFF2e6b57).withOpacity(0.5), blurRadius: 12)] : null,
+              children: List.generate(daysData.length, (i) {
+                final item = daysData[i];
+                final isSat = item['day'] == 'Sat';
+                final isSelected = _selectedDayIndex == i;
+                final isHighlight = isSat || isSelected;
+                return Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _selectedDayIndex = i),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          '${item["count"]}',
+                          style: TextStyle(
+                            color: isHighlight ? const Color(0xFF95d3bb) : AppColors.secondaryTextStoneGrey,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Expanded(
+                          child: FractionallySizedBox(
+                            heightFactor: item['factor'] as double,
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 6),
+                              decoration: BoxDecoration(
+                                color: isHighlight ? const Color(0xFF2e6b57) : const Color(0xFF323533),
+                                borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
+                                border: isHighlight ? Border.all(color: const Color(0xFF95d3bb).withValues(alpha: 0.5)) : null,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          item['day'] as String,
+                          style: TextStyle(
+                            color: isHighlight ? const Color(0xFF95d3bb) : AppColors.secondaryTextStoneGrey,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );
-              },
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(
-              color: isHighlighted ? const Color(0xFF95d3bb) : AppColors.secondaryTextStoneGrey,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
+              }),
             ),
           ),
         ],
@@ -521,9 +635,9 @@ class _StatisticsTabState extends State<StatisticsTab> {
           const SizedBox(height: 16),
           _buildSkillProgress('Heel Work', '32 hrs', 0.75, const Color(0xFF2e6b57)),
           const SizedBox(height: 12),
-          _buildSkillProgress('Recall', '24 hrs', 0.55, const Color(0xFF2e6b57).withOpacity(0.8)),
+          _buildSkillProgress('Recall', '24 hrs', 0.55, const Color(0xFF2e6b57).withValues(alpha: 0.8)),
           const SizedBox(height: 12),
-          _buildSkillProgress('Retrieve', '18 hrs', 0.4, const Color(0xFF2e6b57).withOpacity(0.6)),
+          _buildSkillProgress('Retrieve', '18 hrs', 0.4, const Color(0xFF2e6b57).withValues(alpha: 0.6)),
         ],
       ),
     );

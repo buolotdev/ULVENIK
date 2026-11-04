@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'activity_library_screen.dart';
 import 'record_session_screen.dart';
 import 'export_screen.dart';
 import 'sc_archive_screen.dart';
@@ -16,6 +17,7 @@ class SessionTemplateItem {
   int durationMinutes;
   String equipment;
   String? notes;
+  List<CustomActivityMetric> customMetrics;
 
   SessionTemplateItem({
     required this.id,
@@ -28,6 +30,7 @@ class SessionTemplateItem {
     this.durationMinutes = 20,
     this.equipment = 'Standard Gear',
     this.notes,
+    this.customMetrics = const [],
   });
 }
 
@@ -107,6 +110,11 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         equipment: 'Motorized Slatmill, Heart Monitor',
         notes:
             'Warm up 5 min at 4 km/h, 15 min sustained pace at 8 km/h, 5 min cool down walk.',
+        customMetrics: const [
+          CustomActivityMetric(id: 'tm-1', name: 'Speed', unit: 'mph'),
+          CustomActivityMetric(id: 'tm-2', name: 'Incline', unit: '%'),
+          CustomActivityMetric(id: 'tm-3', name: 'Distance', unit: 'metres'),
+        ],
       ),
       SessionTemplateItem(
         id: 'tmpl-2',
@@ -120,6 +128,10 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         equipment: '10-Rung Ground Agility Ladder',
         notes:
             'Quick two-in two-out footwork drills to activate paw placement and stifle joint mobility.',
+        customMetrics: const [
+          CustomActivityMetric(id: 'tm-4', name: 'Repetitions', unit: 'reps'),
+          CustomActivityMetric(id: 'tm-5', name: 'Speed', unit: 'steps/s'),
+        ],
       ),
       SessionTemplateItem(
         id: 'tmpl-3',
@@ -133,6 +145,10 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         equipment: 'Sled Drag Harness, 4kg Weight Plate',
         notes:
             'Posterior chain development. 4x 30m drag pulls with 90s recovery interval between sets.',
+        customMetrics: const [
+          CustomActivityMetric(id: 'tm-6', name: 'Load', unit: 'kg'),
+          CustomActivityMetric(id: 'tm-7', name: 'Distance', unit: 'metres'),
+        ],
       ),
       SessionTemplateItem(
         id: 'tmpl-4',
@@ -146,6 +162,10 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         equipment: 'K9 FitBone, Circular Wobble Board',
         notes:
             'Core stabilization drills. High value treat lures for head turns while maintaining balanced stance.',
+        customMetrics: const [
+          CustomActivityMetric(id: 'tm-8', name: 'Hold Time', unit: 'seconds'),
+          CustomActivityMetric(id: 'tm-9', name: 'Repetitions', unit: 'reps'),
+        ],
       ),
       SessionTemplateItem(
         id: 'tmpl-5',
@@ -159,6 +179,10 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         equipment: 'Canine Floatation Vest & 15m Long Line',
         notes:
             'High-aerobic non-impact sprint intervals in water with structured recovery pauses.',
+        customMetrics: const [
+          CustomActivityMetric(id: 'tm-10', name: 'Laps', unit: 'laps'),
+          CustomActivityMetric(id: 'tm-11', name: 'Lap Duration', unit: 'seconds'),
+        ],
       ),
       SessionTemplateItem(
         id: 'tmpl-6',
@@ -172,6 +196,11 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         equipment: 'Tactical Harness, Long Line',
         notes:
             '15-degree incline sprint burst sets with handler recall to develop rear drive power.',
+        customMetrics: const [
+          CustomActivityMetric(id: 'tm-12', name: 'Incline', unit: '%'),
+          CustomActivityMetric(id: 'tm-13', name: 'Repetitions', unit: 'reps'),
+          CustomActivityMetric(id: 'tm-14', name: 'Distance', unit: 'metres'),
+        ],
       ),
     ];
   }
@@ -236,6 +265,8 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
       MaterialPageRoute(
         builder: (_) => RecordSessionScreen(
           initialActivityName: item.activityName,
+          initialIcon: item.activityIcon,
+          initialCustomMetrics: item.customMetrics,
           startWithActivity: true,
         ),
       ),
@@ -542,6 +573,24 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                           ),
                         ],
                       ),
+                      if (item.customMetrics.isNotEmpty) ...[
+                        const SizedBox(height: 10),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Custom Metrics', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                item.customMetrics.map((m) => '${m.name} (${m.unit})').join(', '),
+                                textAlign: TextAlign.end,
+                                style: const TextStyle(color: _mint, fontWeight: FontWeight.w600, fontSize: 13),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -604,7 +653,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                           children: [
                             Icon(Icons.play_arrow, size: 16),
                             SizedBox(width: 6),
-                            Text('Start Session', style: TextStyle(fontWeight: FontWeight.w600)),
+                            Text('Record Session', style: TextStyle(fontWeight: FontWeight.w600)),
                           ],
                         ),
                       ),
@@ -1463,6 +1512,32 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             ),
             const SizedBox(height: 10),
 
+            if (item.customMetrics.isNotEmpty) ...[
+              Wrap(
+                spacing: 6,
+                runSpacing: 4,
+                children: item.customMetrics.map((cm) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2.5),
+                    decoration: BoxDecoration(
+                      color: _surfaceVariant,
+                      borderRadius: BorderRadius.circular(4),
+                      border: _hairlineBorder,
+                    ),
+                    child: Text(
+                      '${cm.name} (${cm.unit})',
+                      style: const TextStyle(
+                        color: _mint,
+                        fontSize: 10.5,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 8),
+            ],
+
             // Row 3: Usage metadata
             Text(
               'Used ${item.usedCount} ${item.usedCount == 1 ? "time" : "times"} · Last used ${item.lastUsed}',
@@ -1493,7 +1568,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                     Icon(Icons.play_arrow, size: 18, color: _offWhite),
                     SizedBox(width: 8),
                     Text(
-                      'Start Session',
+                      'Record Session',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -1556,7 +1631,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
-            'Create your first template to quickly record your regular Strength & Conditioning sessions.',
+            'Create your first template to quickly set up Strength & Conditioning sessions you use regularly.',
             style: TextStyle(
               color: _stoneGrey,
               fontSize: 14,

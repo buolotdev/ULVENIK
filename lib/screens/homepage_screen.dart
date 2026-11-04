@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
-import 'my_dogs_screen.dart';
 
 class HomepageScreen extends StatefulWidget {
   const HomepageScreen({super.key});
@@ -13,8 +12,30 @@ class HomepageScreen extends StatefulWidget {
 class _HomepageScreenState extends State<HomepageScreen> {
   // Toggle this to test Empty vs Populated states!
   bool _hasData = false;
-  
-  int _currentIndex = 0;
+
+  static const List<String> _rotatingWelcomeMessages = [
+    'Pick up where you left off.',
+    'Keep the journey moving.',
+    'Every session adds something.',
+    'Progress is built over time.',
+    'Keep showing up.',
+    'Small steps. Lasting progress.',
+    'Another step in the journey.',
+    'Consistency shapes progress.',
+    'Keep building on yesterday.',
+    'Today is part of the journey.',
+    'Progress happens in the work.',
+    'Ready for what’s next?',
+  ];
+
+  late String _currentWelcomeMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    final randomIndex = DateTime.now().millisecondsSinceEpoch % _rotatingWelcomeMessages.length;
+    _currentWelcomeMessage = _rotatingWelcomeMessages[randomIndex];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +115,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
             Image.network(
               'https://lh3.googleusercontent.com/aida-public/AB6AXuDNtNABLaSeR2qYP4zwtAeqqo4tGmNRGsQJ556uoL5C5GNDLp5hmSZnapC-Ni_WhJeEWIwxajKjv4yj52D7bNx3mHeu7ifDPvuzdpsInQ5YMlDcpdIOgQznNND3vx_-hbn0YrwsbiGh8WXNydzq-Jb1LjFS5uCltfjpnXpLJz8D1C3QUJgoTD9Gy85cUdoBWxkwaPhvikcOBGe3nyAvI44PHs7tR7yKsa9Z8UK8CL-UjYFHOceYcgc',
               fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Container(color: AppColors.cardsCarbon),
+              errorBuilder: (context, error, stackTrace) => Container(color: AppColors.cardsCarbon),
             ),
             Container(
               decoration: BoxDecoration(
@@ -102,8 +123,8 @@ class _HomepageScreenState extends State<HomepageScreen> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(0.3),
-                    AppColors.backgroundObsidian.withOpacity(0.7),
+                    Colors.black.withValues(alpha: 0.3),
+                    AppColors.backgroundObsidian.withValues(alpha: 0.7),
                     AppColors.backgroundObsidian,
                   ],
                 ),
@@ -133,18 +154,41 @@ class _HomepageScreenState extends State<HomepageScreen> {
 
   Widget _buildTopNavRow() {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text(
-          'K9 PERFORMANCE',
-          style: TextStyle(
-            color: AppColors.primaryTextOffWhite,
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-            letterSpacing: -0.5,
-          ),
+        IconButton(
+          icon: const Icon(Icons.menu, color: AppColors.primaryTextOffWhite),
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
+          onPressed: () {},
         ),
+        const Spacer(),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/images/white_mountain_only.png',
+              height: 22,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) => const Icon(
+                Icons.terrain_rounded,
+                color: AppColors.primaryTextOffWhite,
+                size: 22,
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Text(
+              'ULVENIK',
+              style: TextStyle(
+                color: AppColors.primaryTextOffWhite,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 2.0,
+              ),
+            ),
+          ],
+        ),
+        const Spacer(),
         Container(
           width: 32,
           height: 32,
@@ -191,9 +235,9 @@ class _HomepageScreenState extends State<HomepageScreen> {
         ),
         if (_hasData) ...[
           const SizedBox(height: 4),
-          const Text(
-            'Every session builds the journey.',
-            style: TextStyle(
+          Text(
+            _currentWelcomeMessage,
+            style: const TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 14,
             ),
@@ -210,7 +254,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
         Expanded(
           child: _buildPopulatedActionCard(
             title: 'Start Training',
-            subtitle: 'Log field work',
+            subtitle: 'Record a training session',
             icon: Icons.fitness_center,
             iconColor: AppColors.primaryForestGreen,
             onTap: () {
@@ -222,7 +266,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
         Expanded(
           child: _buildPopulatedActionCard(
             title: 'Start S&C',
-            subtitle: 'Log conditioning',
+            subtitle: 'Record an S&C session',
             icon: Icons.water,
             iconColor: const Color(0xFF5D8FAF), // Alpine blue
             onTap: () {
@@ -258,9 +302,9 @@ class _HomepageScreenState extends State<HomepageScreen> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.1),
+                color: iconColor.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
-                border: Border.all(color: iconColor.withOpacity(0.3)),
+                border: Border.all(color: iconColor.withValues(alpha: 0.3)),
               ),
               child: Icon(icon, color: iconColor, size: 20),
             ),
@@ -546,7 +590,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildSectionHeader('Insights', actionLabel: 'FULL STATS'),
+        _buildSectionHeader('Insights', actionLabel: 'VIEW STATS'),
         
         // Pill Tabs
         SingleChildScrollView(

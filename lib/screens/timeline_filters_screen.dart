@@ -50,12 +50,14 @@ class TimelineFiltersScreen extends StatefulWidget {
   final Set<String>? initialCategories;
   final String? initialDateRange;
   final String? initialDog;
+  final bool hasSportPack;
 
   const TimelineFiltersScreen({
     super.key,
     this.initialCategories,
     this.initialDateRange,
     this.initialDog,
+    this.hasSportPack = false,
   });
 
   @override
@@ -86,6 +88,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
   late Set<String> _selectedCategories;
   late String _selectedDateRange;
   late String _selectedDog;
+  late bool _hasSportPack;
 
   // Accordion Section Expansion States
   bool _isSavedFiltersExpanded = true;
@@ -161,6 +164,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
 
     _selectedDateRange = widget.initialDateRange ?? 'Last 30 Days';
     _selectedDog = widget.initialDog ?? 'All Dogs';
+    _hasSportPack = widget.hasSportPack;
 
     // Animation Controller for Chart
     _chartAnimController = AnimationController(
@@ -173,7 +177,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
     );
     _chartAnimController.forward();
 
-    // Init Presets matching Figma
+    // Init Presets (Competition-specific saved filters only appear for Sport Pack users)
     _savedPresets = [
       const SavedFilterPreset(
         id: 'preset-1',
@@ -189,13 +193,14 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
         categories: {'Health'},
         dateRange: 'All Time',
       ),
-      const SavedFilterPreset(
-        id: 'preset-3',
-        name: 'Competition Results',
-        description: 'Last year competition events',
-        categories: {'Competition'},
-        dateRange: 'This Year',
-      ),
+      if (_hasSportPack)
+        const SavedFilterPreset(
+          id: 'preset-3',
+          name: 'Competition Results',
+          description: 'Last year competition events',
+          categories: {'Competition'},
+          dateRange: 'This Year',
+        ),
     ];
   }
 
@@ -222,6 +227,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
     }
 
     return _mockEvents.where((e) {
+      if (!_hasSportPack && e['category'] == 'Competition') return false;
       if (_selectedCategories.isNotEmpty &&
           !_selectedCategories.contains(e['category'])) {
         return false;
@@ -785,13 +791,13 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
         'dotColor': _mediaDot,
         'isLocked': false,
       },
-      {
-        'key': 'Competition',
-        'label': 'Competition',
-        'dotColor': _gold,
-        'isLocked': true,
-        'badge': 'Sport Pack',
-      },
+      if (_hasSportPack)
+        {
+          'key': 'Competition',
+          'label': 'Competition',
+          'dotColor': _gold,
+          'isLocked': false,
+        },
     ];
 
     return Container(
@@ -974,14 +980,21 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
   // ─── Interactive Animated Volume Distribution Graph ────────────────────────
 
   Widget _buildInteractiveDistributionGraph() {
-    final categories = ['Training', 'Health', 'S&C', 'Goals', 'Media', 'Competition'];
+    final categories = [
+      'Training',
+      'Health',
+      'S&C',
+      'Goals',
+      'Media',
+      if (_hasSportPack) 'Competition',
+    ];
     final colors = [
       _alpineBlue,
       _healthDot,
       _scDot,
       _goalsDot,
       _mediaDot,
-      _gold,
+      if (_hasSportPack) _gold,
     ];
 
     return Container(

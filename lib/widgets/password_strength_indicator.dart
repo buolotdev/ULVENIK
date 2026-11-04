@@ -1,107 +1,93 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 
-enum PasswordStrength { empty, weak, fair, good, strong }
-
-class GradientConfig {
-  final List<Color> colors;
-  final List<double> stops;
-  GradientConfig(this.colors, this.stops);
-}
+enum PasswordStrength { empty, weak, good, strong }
 
 class PasswordStrengthIndicator extends StatelessWidget {
   final String password;
   final bool isVisible;
 
   const PasswordStrengthIndicator({
-    super.key, 
-    required this.password, 
+    super.key,
+    required this.password,
     required this.isVisible,
   });
 
+  static const Color mutedRed = Color(0xFFC75D5D);
+  static const Color amberOrange = Color(0xFFD99B4B);
+  static const Color sageGreen = AppColors.secondarySage; // #7A8F7A
+
   static PasswordStrength evaluate(String password) {
     if (password.isEmpty) return PasswordStrength.empty;
+
     int score = 0;
     if (password.length >= 8) score++;
-    if (password.length >= 12) score++;
     if (RegExp(r'[A-Z]').hasMatch(password)) score++;
     if (RegExp(r'[a-z]').hasMatch(password)) score++;
     if (RegExp(r'[0-9]').hasMatch(password)) score++;
-    if (RegExp(r'[!@#\$%^&*(),.?":{}|<>_\-+=\[\]\\\/`~;]').hasMatch(password)) score++;
-    
-    if (score <= 1) return PasswordStrength.weak;
-    if (score == 2) return PasswordStrength.fair;
-    if (score <= 4) return PasswordStrength.good;
+    if (RegExp(r'[!@#\$%^&*(),.?":{}|<>_\-+=\[\]\\\/`~;]').hasMatch(password)) {
+      score++;
+    }
+
+    if (score < 3) return PasswordStrength.weak;
+    if (score < 5) return PasswordStrength.good;
     return PasswordStrength.strong;
   }
 
   static String _label(PasswordStrength s) {
     switch (s) {
-      case PasswordStrength.empty:  return 'Password Strength';
-      case PasswordStrength.weak:   return 'Weak';
-      case PasswordStrength.fair:   return 'Fair';
-      case PasswordStrength.good:   return 'Good';
-      case PasswordStrength.strong: return 'Strong';
+      case PasswordStrength.empty:
+        return '';
+      case PasswordStrength.weak:
+        return 'WEAK';
+      case PasswordStrength.good:
+        return 'GOOD';
+      case PasswordStrength.strong:
+        return 'STRONG';
     }
   }
 
-  static Color _labelColor(PasswordStrength s) {
-    switch (s) {
-      case PasswordStrength.empty:  return AppColors.secondaryTextStoneGrey;
-      case PasswordStrength.weak:   return const Color(0xFFFF5B5B);
-      case PasswordStrength.fair:   return const Color(0xFFFFB347);
-      case PasswordStrength.good:   return const Color(0xFF5D8FAF);
-      case PasswordStrength.strong: return AppColors.primaryForestGreen;
-    }
-  }
-
-  static GradientConfig _getGradient(PasswordStrength s) {
-    const red    = Color(0xFFFF5B5B);
-    const amber  = Color(0xFFFFB347);
-    const blue   = Color(0xFF5D8FAF);
-    const green  = AppColors.primaryForestGreen;
-
+  static Color _strengthColor(PasswordStrength s) {
     switch (s) {
       case PasswordStrength.empty:
+        return AppColors.secondaryTextStoneGrey;
       case PasswordStrength.weak:
-        return GradientConfig(
-          [red, red, red, red, red, red, red, red],
-          [0.0, 0.2, 0.3, 0.45, 0.55, 0.7, 0.8, 1.0],
-        );
-      case PasswordStrength.fair:
-        return GradientConfig(
-          [red, red, red, red, amber, amber, amber, amber],
-          [0.0, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 1.0], 
-        );
+        return mutedRed;
       case PasswordStrength.good:
-        return GradientConfig(
-          [red, red, amber, amber, amber, amber, blue, blue],
-          [0.0, 0.28, 0.38, 0.45, 0.55, 0.62, 0.72, 1.0], 
-        );
+        return amberOrange;
       case PasswordStrength.strong:
-        return GradientConfig(
-          [red, red, amber, amber, blue, blue, green, green],
-          [0.0, 0.2, 0.3, 0.45, 0.55, 0.7, 0.8, 1.0], 
-        );
+        return sageGreen;
+    }
+  }
+
+  static int _activeSegments(PasswordStrength s) {
+    switch (s) {
+      case PasswordStrength.empty:
+        return 0;
+      case PasswordStrength.weak:
+        return 1;
+      case PasswordStrength.good:
+        return 3;
+      case PasswordStrength.strong:
+        return 4;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final strength = evaluate(password);
-    final isEmpty = strength == PasswordStrength.empty;
-    
-    final label      = _label(strength);
-    final labelColor = _labelColor(strength);
-    final gradConfig = _getGradient(strength);
+    final label = _label(strength);
+    final color = _strengthColor(strength);
+    final activeCount = _activeSegments(strength);
 
-    final hasUpper   = RegExp(r'[A-Z]').hasMatch(password);
-    final hasLower   = RegExp(r'[a-z]').hasMatch(password);
-    final hasNumber  = RegExp(r'[0-9]').hasMatch(password);
+    final hasMinLength = password.length >= 8;
+    final hasUpper = RegExp(r'[A-Z]').hasMatch(password);
+    final hasLower = RegExp(r'[a-z]').hasMatch(password);
+    final hasNumber = RegExp(r'[0-9]').hasMatch(password);
     final hasSpecial = RegExp(r'[!@#\$%^&*(),.?":{}|<>_\-+=\[\]\\\/`~;]').hasMatch(password);
 
     return AnimatedSize(
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 350),
       curve: Curves.easeOutCubic,
       alignment: Alignment.topCenter,
       child: !isVisible
@@ -111,81 +97,67 @@ class PasswordStrengthIndicator extends StatelessWidget {
               children: [
                 const SizedBox(height: 12),
 
-                // ── Full-width gradient bar ──────────────────────────
-                LayoutBuilder(
-                  builder: (context, constraints) {
-                    return Stack(
-                      children: [
-                        // Empty background track
-                        Container(
-                          width: constraints.maxWidth,
-                          height: 5,
-                          decoration: BoxDecoration(
-                            color: Colors.white10,
-                            borderRadius: BorderRadius.circular(99),
-                          ),
-                        ),
-                        // Colored fill (animates width from 0 to 100%)
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 600),
-                          curve: Curves.easeOutCubic,
-                          width: isEmpty ? 0 : constraints.maxWidth,
-                          height: 5,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(99),
-                            gradient: LinearGradient(
-                              colors: gradConfig.colors,
-                              stops: gradConfig.stops,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-
-                const SizedBox(height: 8),
-
-                // ── Label row ────────────────────────────────────────
+                // ── 4 Segmented Bars + Strength Label ──────────────────
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    AnimatedDefaultTextStyle(
-                      duration: const Duration(milliseconds: 300),
-                      style: TextStyle(
-                        color: labelColor,
-                        fontSize: 12,
-                        fontWeight: isEmpty ? FontWeight.w500 : FontWeight.w600,
+                    // 4 horizontal dashes
+                    Expanded(
+                      child: Row(
+                        children: List.generate(4, (index) {
+                          final isFilled = index < activeCount;
+                          return Expanded(
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeOutCubic,
+                              height: 4,
+                              margin: EdgeInsets.only(right: index < 3 ? 6.0 : 0.0),
+                              decoration: BoxDecoration(
+                                color: isFilled
+                                    ? color
+                                    : Colors.white.withValues(alpha: 0.08),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          );
+                        }),
                       ),
-                      child: Text(label),
                     ),
-                    if (strength == PasswordStrength.strong)
-                      const Text(
-                        'All requirements met ✓',
+                    const SizedBox(width: 14),
+                    // Strength Label on the right
+                    SizedBox(
+                      width: 58,
+                      child: AnimatedDefaultTextStyle(
+                        duration: const Duration(milliseconds: 250),
+                        textAlign: TextAlign.right,
                         style: TextStyle(
-                          color: AppColors.primaryForestGreen,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
+                          color: color,
+                          fontSize: 11.5,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.6,
+                          fontFamily: 'Inter',
                         ),
+                        child: Text(label),
                       ),
+                    ),
                   ],
                 ),
 
                 const SizedBox(height: 16),
 
-                // ── Checklist ─────────────────────────────────────────
+                // ── Checklist (Matching Image 5) ─────────────────────
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _CheckItem(label: 'At least 8 characters', met: password.length >= 8),
-                    const SizedBox(height: 6),
-                    _CheckItem(label: 'Uppercase letter',       met: hasUpper),
-                    const SizedBox(height: 6),
-                    _CheckItem(label: 'Lowercase letter',       met: hasLower),
-                    const SizedBox(height: 6),
-                    _CheckItem(label: 'Number',                 met: hasNumber),
-                    const SizedBox(height: 6),
-                    _CheckItem(label: 'Special character',      met: hasSpecial),
+                    _CheckItem(label: 'At least 8 characters', met: hasMinLength),
+                    const SizedBox(height: 8),
+                    _CheckItem(label: 'One uppercase letter', met: hasUpper),
+                    const SizedBox(height: 8),
+                    _CheckItem(label: 'One lowercase letter', met: hasLower),
+                    const SizedBox(height: 8),
+                    _CheckItem(label: 'One number', met: hasNumber),
+                    const SizedBox(height: 8),
+                    _CheckItem(label: 'One special character', met: hasSpecial),
                   ],
                 ),
 
@@ -207,29 +179,42 @@ class _CheckItem extends StatelessWidget {
     return Row(
       children: [
         AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 250),
           curve: Curves.easeOutCubic,
           width: 16,
           height: 16,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: met ? AppColors.primaryForestGreen : Colors.transparent,
+            color: met
+                ? AppColors.secondarySage.withValues(alpha: 0.25)
+                : Colors.transparent,
             border: Border.all(
-              color: met ? AppColors.primaryForestGreen : Colors.white24,
-              width: 1.5,
+              color: met
+                  ? AppColors.secondarySage
+                  : AppColors.secondaryTextStoneGrey.withValues(alpha: 0.4),
+              width: 1.2,
             ),
           ),
           child: met
-              ? const Icon(Icons.check, size: 10, color: Colors.white)
+              ? const Center(
+                  child: Icon(
+                    Icons.check_rounded,
+                    size: 11,
+                    color: AppColors.secondarySage,
+                  ),
+                )
               : null,
         ),
         const SizedBox(width: 10),
         AnimatedDefaultTextStyle(
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 250),
           style: TextStyle(
-            color: met ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
+            color: met
+                ? AppColors.primaryTextOffWhite
+                : AppColors.secondaryTextStoneGrey,
             fontSize: 13,
             fontWeight: met ? FontWeight.w500 : FontWeight.w400,
+            fontFamily: 'Inter',
           ),
           child: Text(label),
         ),

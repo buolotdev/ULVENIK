@@ -3,6 +3,7 @@ import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'skill_details_screen.dart';
 import 'add_skill_screen.dart';
+import 'training_screen.dart';
 
 // ─── Models ───────────────────────────────────────────────────────────────────
 
@@ -123,11 +124,15 @@ class SkillsListScreen extends StatefulWidget {
 }
 
 class _SkillsListScreenState extends State<SkillsListScreen> {
-  static const _filters = ['Recently Trained', 'All Skills', 'Needs Work', 'Mastered'];
+  static const _filters = ['All Skills', 'Recently Trained', 'Needs Work'];
 
   late List<_Dog> _dogs;
   late _Dog _dog;
-  int _filter = 0;
+  int _filter = 0; // 0 = All Skills (default), 1 = Recently Trained, 2 = Needs Work
+  final Set<String> _userMarkedNeedsWork = {'Recall', 'Retrieve', 'Send-away'};
+  final List<_Skill> _customSkills = [];
+
+  List<_Skill> get _allSkills => [..._customSkills, ..._skills];
   String _query = '';
   final TextEditingController _search = TextEditingController();
 
@@ -155,18 +160,18 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
 
   List<_Skill> get _visible {
     if (!_hasData) return const [];
-    var list = _skills.where((s) {
+    var list = _allSkills.where((s) {
       if (_query.isNotEmpty && !s.name.toLowerCase().contains(_query)) {
         return false;
       }
       return switch (_filter) {
-        2 => s.needsWork,
-        3 => s.mastered,
+        2 => _userMarkedNeedsWork.contains(s.name), // based on skills user marked as needing work
         _ => true,
       };
     }).toList();
     if (_filter == 1) {
-      list.sort((a, b) => a.name.compareTo(b.name));
+      // Recently Trained: sorted by recency
+      list.sort((a, b) => a.recencyRank.compareTo(b.recencyRank));
     } else {
       list.sort((a, b) => a.recencyRank.compareTo(b.recencyRank));
     }
@@ -175,6 +180,34 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
 
   void _toast(String m, SnackbarType t) =>
       AppSnackbar.show(context, message: m, type: t);
+
+  Future<void> _openCreateSkill() async {
+    final created = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (_) => const AddSkillScreen()),
+    );
+    if (created != null && created.trim().isNotEmpty) {
+      final key = normalizeTrainingKey(created);
+      final exists = _allSkills.any((s) => normalizeTrainingKey(s.name) == key);
+      if (!exists) {
+        setState(() {
+          _customSkills.insert(
+            0,
+            _Skill(
+              name: created.trim(),
+              exercises: TrainingSessionStore.exercisesForSkill(created).length,
+              sessions: 0,
+              lastTrained: 'Created just now',
+              recencyRank: -1,
+            ),
+          );
+          if (!_hasData) {
+            _dog = _Dog(_dog.name, _dog.breed, true);
+          }
+        });
+      }
+    }
+  }
 
   void _pickDog() {
     showModalBottomSheet(
@@ -294,12 +327,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                   side: BorderSide(color: Colors.white12)),
               child: InkWell(
                 customBorder: const CircleBorder(),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const AddSkillScreen()),
-                  );
-                },
+                onTap: _openCreateSkill,
                 child: const SizedBox(
                   width: 56,
                   height: 56,
@@ -365,7 +393,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: AppColors.secondarySage.withOpacity(0.2),
+        color: AppColors.secondarySage.withValues(alpha: 0.2),
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white12),
       ),
@@ -424,11 +452,11 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
   }
 
   Widget _buildStatStrip() {
-    final skills = _hasData ? _skills.length : 0;
+    final skills = _hasData ? _allSkills.length : 0;
     final exercises =
-        _hasData ? _skills.fold<int>(0, (a, s) => a + s.exercises) : 0;
+        _hasData ? _allSkills.fold<int>(0, (a, s) => a + s.exercises) : 0;
     final sessions =
-        _hasData ? _skills.fold<int>(0, (a, s) => a + s.sessions) : 0;
+        _hasData ? _allSkills.fold<int>(0, (a, s) => a + s.sessions) : 0;
 
     Widget cell(String value, String label, {bool last = false}) => Expanded(
           child: Container(
@@ -524,7 +552,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: _filters.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        separatorBuilder: (context, index) => const SizedBox(width: 8),
         itemBuilder: (context, i) {
           final active = _filter == i;
           return GestureDetector(
@@ -622,7 +650,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                         ],
                       ),
                     ],
-                    if (s.recencyRank == 0) ...[
+                    if ((_filter == 1 && s.lastTrained.isNotEmpty) || (s.recencyRank == 0 && s.lastTrained.isNotEmpty)) ...[
                       const SizedBox(height: 12),
                       Container(
                         width: double.infinity,
@@ -630,10 +658,21 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                         decoration: const BoxDecoration(
                           border: Border(top: BorderSide(color: Colors.white12)),
                         ),
-                        child: Text(s.lastTrained,
-                            style: const TextStyle(
-                                color: AppColors.secondaryTextStoneGrey,
-                                fontSize: 12)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(s.lastTrained,
+                                style: const TextStyle(
+                                    color: AppColors.secondaryTextStoneGrey,
+                                    fontSize: 12)),
+                            if (_filter == 2 && _userMarkedNeedsWork.contains(s.name))
+                              const Text('Marked by handler',
+                                  style: TextStyle(
+                                      color: Color(0xFFD99B4B),
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w600)),
+                          ],
+                        ),
                       ),
                     ],
                   ],
@@ -676,12 +715,12 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
         color: highlight
-            ? AppColors.primaryForestGreen.withOpacity(0.18)
+            ? AppColors.primaryForestGreen.withValues(alpha: 0.18)
             : AppColors.backgroundObsidian,
         borderRadius: BorderRadius.circular(4),
         border: Border.all(
             color: highlight
-                ? AppColors.primaryForestGreen.withOpacity(0.4)
+                ? AppColors.primaryForestGreen.withValues(alpha: 0.4)
                 : Colors.white12),
       ),
       child: Row(
@@ -728,10 +767,10 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                   fontSize: 22,
                   fontWeight: FontWeight.w600)),
           const SizedBox(height: 10),
-          Text(
-            "Start building ${_dog.name}'s foundation. Add behaviors, track progress, and log training sessions here.",
+          const Text(
+            "Create your dog’s skills, add exercises and track their progress over time.",
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 15,
                 height: 1.5),
@@ -744,12 +783,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
               borderRadius: BorderRadius.circular(12),
               child: InkWell(
                 borderRadius: BorderRadius.circular(12),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const AddSkillScreen()),
-                  );
-                },
+                onTap: _openCreateSkill,
                 child: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: Row(
@@ -784,7 +818,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
         children: [
           Icon(Icons.search_off,
               size: 40,
-              color: AppColors.secondaryTextStoneGrey.withOpacity(0.5)),
+              color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5)),
           const SizedBox(height: 12),
           const Text('No skills match your filters',
               style: TextStyle(

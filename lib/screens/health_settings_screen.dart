@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/app_colors.dart';
-import 'import_export_screen.dart';
-import 'health_archive_screen.dart';
-import 'health_dashboard_screen.dart';
+
 
 class DogSettingProfile {
   final String name;
@@ -87,18 +85,17 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
 
   // Settings State
   String _weightUnit = 'kg'; // 'kg' or 'lbs'
-  String _tempUnit = '°C'; // '°C' or '°F'
-  String _heightUnit = 'cm'; // 'cm' or 'in'
   late double _targetWeight; // in current weight unit
   late double _targetTolerance; // in current weight unit (e.g. +/- 1.5 kg)
   int _selectedChartPointIndex = -1;
 
   // Reminders & Notifications Preferences
+  bool _healthNotifications = true;
+  TimeOfDay _defaultReminderTime = const TimeOfDay(hour: 9, minute: 0);
   String _medLeadTime = '15 minutes before';
   String _vaxWarningLead = '30 days before';
   bool _quietHoursEnabled = true;
   bool _soundAlerts = true;
-  bool _cloudBackup = true;
 
   @override
   void initState() {
@@ -141,6 +138,17 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
       _markChanged();
       _anim.forward(from: 0);
     });
+  }
+
+  Future<void> _selectDefaultReminderTime() async {
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: _defaultReminderTime,
+    );
+    if (picked != null) {
+      setState(() => _defaultReminderTime = picked);
+      _markChanged();
+    }
   }
 
   void _saveSettings() {
@@ -334,68 +342,6 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
     );
   }
 
-  void _showTemperatureUnitSheet() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 36,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Select Temperature Unit',
-                style: TextStyle(
-                  color: AppColors.primaryTextOffWhite,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 14),
-              _buildUnitOption(
-                title: 'Celsius (°C)',
-                subtitle: 'Canine normal baseline: 38.3°C – 39.2°C',
-                isSelected: _tempUnit == '°C',
-                onTap: () {
-                  Navigator.pop(ctx);
-                  setState(() => _tempUnit = '°C');
-                  _markChanged();
-                },
-              ),
-              const SizedBox(height: 8),
-              _buildUnitOption(
-                title: 'Fahrenheit (°F)',
-                subtitle: 'Canine normal baseline: 101.0°F – 102.5°F',
-                isSelected: _tempUnit == '°F',
-                onTap: () {
-                  Navigator.pop(ctx);
-                  setState(() => _tempUnit = '°F');
-                  _markChanged();
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   Widget _buildUnitOption({
     required String title,
     required String subtitle,
@@ -463,8 +409,8 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
               _buildDogSelectorCard(),
               const SizedBox(height: 24),
 
-              // MEASUREMENT UNITS SECTION
-              _buildSectionTitle('MEASUREMENT UNITS'),
+              // WEIGHT SECTION
+              _buildSectionTitle('WEIGHT'),
               const SizedBox(height: 8),
               _buildMeasurementUnitsCard(),
               const SizedBox(height: 24),
@@ -479,12 +425,6 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
               _buildSectionTitle('HEALTH REMINDERS & ALERTS'),
               const SizedBox(height: 8),
               _buildReminderPreferencesCard(),
-              const SizedBox(height: 24),
-
-              // DATA & CLINIC SYNC PREFERENCES
-              _buildSectionTitle('DATA PRIVACY & BACKUP'),
-              const SizedBox(height: 8),
-              _buildDataSyncCard(),
             ],
           ),
         ),
@@ -652,137 +592,42 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
-      child: Column(
-        children: [
-          // Weight Unit row (matches screenshot)
-          InkWell(
-            onTap: _showWeightUnitSheet,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  const Icon(Icons.monitor_weight_outlined, color: _sage, size: 22),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Weight Unit',
-                          style: TextStyle(
-                            color: AppColors.primaryTextOffWhite,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          _weightUnit == 'kg' ? 'Kilograms (kg)' : 'Pounds (lbs)',
-                          style: const TextStyle(
-                            color: AppColors.secondaryTextStoneGrey,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Icon(Icons.chevron_right, color: _sage, size: 20),
-                ],
-              ),
-            ),
-          ),
-          Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
-
-          // Temperature Unit row (matches screenshot)
-          InkWell(
-            onTap: _showTemperatureUnitSheet,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  const Icon(Icons.thermostat_outlined, color: _sage, size: 22),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Temperature Unit',
-                          style: TextStyle(
-                            color: AppColors.primaryTextOffWhite,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          '$_tempUnit (${_tempUnit == '°C' ? 'Celsius' : 'Fahrenheit'})',
-                          style: const TextStyle(
-                            color: AppColors.secondaryTextStoneGrey,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Icon(Icons.chevron_right, color: _sage, size: 20),
-                ],
-              ),
-            ),
-          ),
-          Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
-
-          // Stature Unit row
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                const Icon(Icons.straighten_outlined, color: _sage, size: 22),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Height / Wither Stature',
-                        style: TextStyle(
-                          color: AppColors.primaryTextOffWhite,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
+      child: InkWell(
+        onTap: _showWeightUnitSheet,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              const Icon(Icons.monitor_weight_outlined, color: _sage, size: 22),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Weight Unit',
+                      style: TextStyle(
+                        color: AppColors.primaryTextOffWhite,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
                       ),
-                      const SizedBox(height: 2),
-                      Text(
-                        _heightUnit == 'cm' ? 'Centimeters (cm)' : 'Inches (in)',
-                        style: const TextStyle(
-                          color: AppColors.secondaryTextStoneGrey,
-                          fontSize: 13,
-                        ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      _weightUnit == 'kg' ? 'Kilograms (kg)' : 'Pounds (lbs)',
+                      style: const TextStyle(
+                        color: AppColors.secondaryTextStoneGrey,
+                        fontSize: 13,
                       ),
-                    ],
-                  ),
-                ),
-                DropdownButton<String>(
-                  value: _heightUnit,
-                  underline: const SizedBox(),
-                  dropdownColor: _carbon,
-                  style: const TextStyle(color: _mint, fontWeight: FontWeight.w600),
-                  items: const [
-                    DropdownMenuItem(value: 'cm', child: Text('cm')),
-                    DropdownMenuItem(value: 'in', child: Text('in')),
+                    ),
                   ],
-                  onChanged: (val) {
-                    if (val != null) {
-                      setState(() => _heightUnit = val);
-                      _markChanged();
-                    }
-                  },
                 ),
-              ],
-            ),
+              ),
+              const Icon(Icons.chevron_right, color: _sage, size: 20),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -1050,6 +895,69 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
       ),
       child: Column(
         children: [
+          // Health Notifications Toggle
+          SwitchListTile(
+            activeThumbColor: _mint,
+            activeTrackColor: _forest,
+            inactiveTrackColor: const Color(0xFF272B29),
+            secondary: const Icon(Icons.notifications_active_outlined, color: _sage, size: 22),
+            title: const Text(
+              'Health Notifications',
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),
+            ),
+            subtitle: const Text(
+              'Turn health reminders and notifications on or off',
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
+            ),
+            value: _healthNotifications,
+            onChanged: (val) {
+              setState(() => _healthNotifications = val);
+              _markChanged();
+            },
+          ),
+          Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
+
+          // Default Reminder Time
+          InkWell(
+            onTap: _selectDefaultReminderTime,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  const Icon(Icons.access_time_outlined, color: _sage, size: 22),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Default Reminder Time',
+                          style: TextStyle(
+                            color: AppColors.primaryTextOffWhite,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        const Text(
+                          'Preferred default time for Health reminders',
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    _defaultReminderTime.format(context),
+                    style: const TextStyle(color: _mint, fontWeight: FontWeight.w600, fontSize: 14),
+                  ),
+                  const SizedBox(width: 6),
+                  const Icon(Icons.chevron_right, color: _sage, size: 20),
+                ],
+              ),
+            ),
+          ),
+          Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
+
           // Medication Lead Time
           Padding(
             padding: const EdgeInsets.all(16),
@@ -1196,89 +1104,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
     );
   }
 
-  Widget _buildDataSyncCard() {
-    return Container(
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-      ),
-      child: Column(
-        children: [
-          SwitchListTile(
-            activeThumbColor: _mint,
-            activeTrackColor: _forest,
-            inactiveTrackColor: const Color(0xFF272B29),
-            secondary: const Icon(Icons.cloud_sync_outlined, color: _sage, size: 22),
-            title: const Text(
-              'Automatic Veterinary Cloud Sync',
-              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),
-            ),
-            subtitle: const Text(
-              'Sync encrypted records with clinic portal',
-              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
-            ),
-            value: _cloudBackup,
-            onChanged: (val) {
-              setState(() => _cloudBackup = val);
-              _markChanged();
-            },
-          ),
-          Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
-          ListTile(
-            leading: const Icon(Icons.import_export, color: _mint, size: 22),
-            title: const Text(
-              'Import & Export Health Records',
-              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),
-            ),
-            subtitle: const Text(
-              'Manage backups, PDF/CSV export and restore',
-              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
-            ),
-            trailing: const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const ImportExportScreen()),
-            ),
-          ),
-          Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
-          ListTile(
-            leading: const Icon(Icons.inventory_2_outlined, color: _mint, size: 22),
-            title: const Text(
-              'Health Archive',
-              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),
-            ),
-            subtitle: const Text(
-              'Long-term storage and archived clinical records',
-              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
-            ),
-            trailing: const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const HealthArchiveScreen()),
-            ),
-          ),
-          Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
-          ListTile(
-            leading: const Icon(Icons.space_dashboard_outlined, color: _mint, size: 22),
-            title: const Text(
-              'Health Dashboard',
-              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),
-            ),
-            subtitle: const Text(
-              'Biometrics, alerts, and vital athletic trends',
-              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
-            ),
-            trailing: const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const HealthDashboardScreen()),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   // Bottom Navigation Bar (Matches HTML & Screenshot)
   Widget _buildBottomNav() {

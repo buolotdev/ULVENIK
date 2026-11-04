@@ -15,8 +15,9 @@ class GoalsListScreen extends StatefulWidget {
 
 class _GoalsListScreenState extends State<GoalsListScreen> {
   late bool _hasData;
-  int _activeFilter = 0; // 0: Active, 1: Completed, 2: Overdue, 3: All
-  final List<String> _filters = ['Active', 'Completed', 'Overdue', 'All'];
+  int _activeFilter = 0; // 0: All (default), 1: Active, 2: Completed, 3: Overdue
+  final List<String> _filters = ['All', 'Active', 'Completed', 'Overdue'];
+  final bool _hasSportPack = true; // Sport Pack subscription indicator
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -45,9 +46,45 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
         backgroundColor: AppColors.backgroundObsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.secondaryTextStoneGrey),
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.menu, color: AppColors.primaryTextOffWhite),
+          onPressed: () {
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            }
+          },
         ),
+        centerTitle: true,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/images/white_mountain_only.png',
+              height: 20,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) => const Icon(
+                Icons.terrain_rounded,
+                color: AppColors.primaryTextOffWhite,
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Text(
+              'ULVENIK',
+              style: TextStyle(
+                color: AppColors.primaryTextOffWhite,
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 2.0,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person_outline, color: AppColors.primaryTextOffWhite),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -118,36 +155,51 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
       const SizedBox(height: 16),
       _buildFilterPills(),
       const SizedBox(height: 24),
-      const Text(
-        'Active Goals',
-        style: TextStyle(
+      Text(
+        _activeFilter == 0
+            ? 'All Goals'
+            : _activeFilter == 1
+                ? 'Active Goals'
+                : _activeFilter == 2
+                    ? 'Completed Goals'
+                    : 'Overdue Goals',
+        style: const TextStyle(
           color: AppColors.primaryTextOffWhite,
           fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
       ),
       const SizedBox(height: 12),
-      _buildGoalCardProgress(
-        title: 'Complete 20 Recall Sessions',
-        subtitle: 'Training • Target: Dec 31',
-        current: 14,
-        total: 20,
-      ),
-      const SizedBox(height: 12),
-      _buildGoalCardCheckable(
-        title: 'Pass BH',
-        subtitle: 'Competition • Target: Spring 2024',
-      ),
-      const SizedBox(height: 12),
-      _buildGoalCardOverdue(
-        title: 'Record Weight Every Month',
-        subtitle: 'Overdue by 5 days',
-      ),
-      const SizedBox(height: 12),
-      _buildGoalCardQualitative(
-        title: 'Improve Confidence Around Livestock',
-        subtitle: 'Behavior • Ongoing',
-      ),
+      if (_activeFilter == 0 || _activeFilter == 1) ...[
+        _buildGoalCardProgress(
+          title: 'Complete 20 Recall Sessions',
+          subtitle: 'Training • Target: Dec 31 (Session Count)',
+          current: 14,
+          total: 20,
+        ),
+        const SizedBox(height: 12),
+      ],
+      if (_activeFilter == 0 || _activeFilter == 2) ...[
+        _buildGoalCardCheckable(
+          title: 'Pass BH',
+          subtitle: 'Competition • Target: Spring 2024',
+        ),
+        const SizedBox(height: 12),
+      ],
+      if (_activeFilter == 0 || _activeFilter == 3) ...[
+        _buildGoalCardOverdue(
+          title: 'Record Weight Every Month',
+          subtitle: 'Overdue by 5 days',
+        ),
+        const SizedBox(height: 12),
+      ],
+      if (_activeFilter == 0 || _activeFilter == 1) ...[
+        _buildGoalCardQualitative(
+          title: 'Improve Confidence Around Livestock',
+          subtitle: 'Behavior • Ongoing • Handler Assessed',
+        ),
+        const SizedBox(height: 12),
+      ],
       const SizedBox(height: 32),
       const Text(
         'Categories',
@@ -192,7 +244,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
       ),
       const SizedBox(height: 24),
       const Text(
-        'Start Working Towards Your\nNext Achievement',
+        'Set Your First Goal',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -203,7 +255,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
       ),
       const SizedBox(height: 12),
       const Text(
-        'Create goals for training, health, and\ncompetition to track your progress.',
+        'Create goals for training, S&C, health and\nmore, and track your progress over time.',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: AppColors.secondaryTextStoneGrey,
@@ -494,7 +546,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
         padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: const Color(0xFFffb4ab).withOpacity(0.3)), // error tinted border
+        border: Border.all(color: const Color(0xFFffb4ab).withValues(alpha: 0.3)), // error tinted border
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -584,8 +636,10 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
       runSpacing: 8,
       children: [
         _buildCategoryChip(Icons.school_outlined, 'Training', 8),
+        _buildCategoryChip(Icons.fitness_center_outlined, 'S&C', 5),
         _buildCategoryChip(Icons.favorite_border, 'Health', 3),
-        _buildCategoryChip(Icons.emoji_events_outlined, 'Sport', 4),
+        if (_hasSportPack)
+          _buildCategoryChip(Icons.emoji_events_outlined, 'Sport', 4),
       ],
     );
   }

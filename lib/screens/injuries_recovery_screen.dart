@@ -11,10 +11,11 @@ class InjuryItem {
   String severity; // Mild, Moderate, Severe
   InjuryStatus status;
   double recoveryProgress; // 0.0 to 1.0
-  String recoveryStage; // RESTING, REHABILITATION, LIGHT EXERCISE, RETURN TO SPORT, RESOLVED
+  String recoveryStage; // Resting, Rehabilitation, Controlled Exercise, Return to Sport, Resolved
   String diagnosisNotes;
   String treatmentPlan;
   String? clinic;
+  final String? recoveryTimeDisplay;
 
   InjuryItem({
     required this.id,
@@ -28,6 +29,7 @@ class InjuryItem {
     required this.diagnosisNotes,
     required this.treatmentPlan,
     this.clinic,
+    this.recoveryTimeDisplay,
   });
 }
 
@@ -107,7 +109,8 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
         severity: 'Moderate',
         status: InjuryStatus.active,
         recoveryProgress: 0.35,
-        recoveryStage: 'RESTING',
+        recoveryStage: 'Resting',
+        recoveryTimeDisplay: '12 days since recorded',
         diagnosisNotes: 'Soft tissue strain from agility weave pole training.',
         treatmentPlan: 'Strict crate rest, cold therapy 3x daily, and anti-inflammatory course.',
         clinic: 'City Vets · Dr. Sarah Connell',
@@ -117,10 +120,11 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
         title: 'Hip Dysplasia Flare-up',
         bodyArea: 'Hip',
         date: DateTime(2026, 6, 22),
-        severity: 'Moderate',
+        severity: '',
         status: InjuryStatus.recovering,
         recoveryProgress: 0.70,
-        recoveryStage: 'REHABILITATION',
+        recoveryStage: 'Rehabilitation',
+        recoveryTimeDisplay: 'Week 8',
         diagnosisNotes: 'Secondary inflammation following strenuous mountain sprint.',
         treatmentPlan: 'Hydrotherapy 2x/week, controlled leash walks, and joint supplements.',
         clinic: 'City Vets · Dr. Sarah Connell',
@@ -785,8 +789,28 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
   // ==========================================
   // 5. CURRENT INJURY CARD (Active & Recovering)
   // ==========================================
+  String _formatRecoveryTime(DateTime date) {
+    final now = DateTime(2026, 8, 22);
+    final diffDays = now.difference(date).inDays.abs();
+    if (diffDays < 21) {
+      return '$diffDays days since recorded';
+    } else {
+      final weeks = (diffDays / 7).ceil();
+      return 'Week $weeks';
+    }
+  }
+
   Widget _buildCurrentInjuryCard(InjuryItem injury) {
     final isActive = injury.status == InjuryStatus.active;
+
+    // Subtitle parts: Body Area · Date · Severity (if present)
+    final subtitleParts = <String>[
+      injury.bodyArea,
+      _formatDate(injury.date),
+      if (injury.severity.isNotEmpty) injury.severity,
+    ];
+
+    final recoveryText = injury.recoveryTimeDisplay ?? _formatRecoveryTime(injury.date);
 
     return InkWell(
       onTap: () => _showInjuryDetailsModal(injury),
@@ -810,8 +834,8 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                     injury.title,
                     style: const TextStyle(
                       color: AppColors.primaryTextOffWhite,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
@@ -852,88 +876,31 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                   ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
 
-            // Metadata Row: Body Area, Date, Severity
-            Column(
-              children: [
-                _buildCardMetaRow(Icons.pets_outlined, injury.bodyArea),
-                const SizedBox(height: 4),
-                _buildCardMetaRow(Icons.calendar_month_outlined, _formatDate(injury.date)),
-                if (injury.severity.isNotEmpty) ...[
-                  const SizedBox(height: 4),
-                  _buildCardMetaRow(Icons.sell_outlined, injury.severity),
-                ],
-              ],
+            // Metadata: Area · Date · Severity
+            Text(
+              subtitleParts.join(' · '),
+              style: const TextStyle(
+                color: AppColors.secondaryTextStoneGrey,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Recovery: [time since recorded]
+            Text(
+              'Recovery: $recoveryText',
+              style: const TextStyle(
+                color: AppColors.primaryTextOffWhite,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: 12),
 
-            // Animated Recovery Progress Bar
-            TweenAnimationBuilder<double>(
-              tween: Tween<double>(begin: 0.0, end: injury.recoveryProgress.clamp(0.0, 1.0)),
-              duration: const Duration(milliseconds: 1200),
-              curve: Curves.easeOutCubic,
-              builder: (context, animValue, _) {
-                final displayPercent = (animValue * 100).toInt();
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'RECOVERY PROGRESS',
-                          style: TextStyle(
-                            color: AppColors.secondaryTextStoneGrey,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                        Text(
-                          '$displayPercent%',
-                          style: const TextStyle(
-                            color: Color(0xFF95D3BB),
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    Container(
-                      width: double.infinity,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: AppColors.backgroundObsidian,
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-                      ),
-                      child: FractionallySizedBox(
-                        alignment: Alignment.centerLeft,
-                        widthFactor: animValue,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF95D3BB),
-                            borderRadius: BorderRadius.circular(6),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFF95D3BB).withValues(alpha: 0.35),
-                                blurRadius: 4,
-                                offset: const Offset(0, 1),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(height: 12),
-
-            // Divider & Bottom Stage Tag
+            // Divider & Bottom Current Stage Tag
             Container(
               padding: const EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
@@ -943,12 +910,11 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    injury.recoveryStage.toUpperCase(),
+                    'Current Stage: ${injury.recoveryStage}',
                     style: TextStyle(
                       color: isActive ? AppColors.secondaryTextStoneGrey : const Color(0xFF95D3BB),
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.5,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
@@ -961,18 +927,6 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
     );
   }
 
-  Widget _buildCardMetaRow(IconData icon, String label) {
-    return Row(
-      children: [
-        Icon(icon, color: AppColors.secondaryTextStoneGrey, size: 16),
-        const SizedBox(width: 8),
-        Text(
-          label,
-          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
-        ),
-      ],
-    );
-  }
 
   // ==========================================
   // 6. RESOLVED INJURY CARD
@@ -1153,7 +1107,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Keep track of acute injuries, chronic flare-ups, and rehabilitation progress to protect your dog\'s athletic longevity.',
+              'Record injuries and monitor your dog’s recovery over time.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.9),
@@ -1183,7 +1137,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                     Icon(Icons.add, size: 20),
                     SizedBox(width: 8),
                     Text(
-                      'Add First Injury',
+                      'Add Injury',
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(width: 8),
@@ -1193,22 +1147,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
 
-          // Educational Link
-          Center(
-            child: TextButton(
-              onPressed: _showEducationalModal,
-              child: const Text(
-                'Learn about Injury & Return to Sport',
-                style: TextStyle(
-                  color: Color(0xFF95D3BB),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
 
           const SizedBox(height: 60),
         ],
@@ -1371,46 +1310,48 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       if (injury.clinic != null) _buildDetailRow('Attending Clinic', injury.clinic!),
                       const SizedBox(height: 12),
 
-                      // Interactive Recovery Progress Slider
+                      // User-selected Current Stage
                       const Text(
-                        'Update Recovery Progress',
+                        'Current Stage',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12, fontWeight: FontWeight.w600),
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Slider(
-                              value: injury.recoveryProgress,
-                              min: 0.0,
-                              max: 1.0,
-                              divisions: 20,
-                              activeColor: const Color(0xFF95D3BB),
-                              inactiveColor: AppColors.backgroundObsidian,
-                              onChanged: (val) {
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: ['Resting', 'Rehabilitation', 'Controlled Exercise', 'Resolved'].map((stage) {
+                          final isSelected = injury.recoveryStage.toLowerCase() == stage.toLowerCase();
+                          return ChoiceChip(
+                            label: Text(stage),
+                            selected: isSelected,
+                            onSelected: (selected) {
+                              if (selected) {
                                 setModalState(() {
-                                  injury.recoveryProgress = val;
-                                  if (val >= 1.0) {
+                                  injury.recoveryStage = stage;
+                                  if (stage == 'Resolved') {
                                     injury.status = InjuryStatus.resolved;
-                                    injury.recoveryStage = 'RESOLVED';
-                                  } else if (val >= 0.5) {
-                                    injury.status = InjuryStatus.recovering;
-                                    injury.recoveryStage = 'REHABILITATION';
-                                  } else {
+                                    injury.recoveryProgress = 1.0;
+                                  } else if (stage == 'Resting') {
                                     injury.status = InjuryStatus.active;
-                                    injury.recoveryStage = 'RESTING';
+                                  } else {
+                                    injury.status = InjuryStatus.recovering;
                                   }
                                 });
                                 setState(() {});
-                              },
+                              }
+                            },
+                            selectedColor: const Color(0xFF2E6B57),
+                            labelStyle: TextStyle(
+                              color: isSelected ? Colors.white : AppColors.secondaryTextStoneGrey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
                             ),
-                          ),
-                          Text(
-                            '${(injury.recoveryProgress * 100).toInt()}%',
-                            style: const TextStyle(color: Color(0xFF95D3BB), fontSize: 14, fontWeight: FontWeight.w700),
-                          ),
-                        ],
+                            backgroundColor: AppColors.cardsCarbon,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          );
+                        }).toList(),
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 14),
 
                       const Text('Clinical Diagnosis', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                       const SizedBox(height: 4),
@@ -1877,84 +1818,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
   }
 
   // Educational Modal
-  void _showEducationalModal() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: AppColors.cardsCarbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Injury Tracking & Longevity',
-                      style: TextStyle(
-                        color: AppColors.primaryTextOffWhite,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
-                      onPressed: () => Navigator.pop(ctx),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                const Text(
-                  'Tracking injuries accurately ensures proper return-to-sport timelines and prevents premature loading of recovering tissues.',
-                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
-                ),
-                const SizedBox(height: 14),
-                _buildEducationPoint(Icons.healing, 'Log soft-tissue strains, paw lacerations, and orthopedic flare-ups.'),
-                _buildEducationPoint(Icons.trending_up, 'Visualize progressive return-to-sport recovery milestones.'),
-                _buildEducationPoint(Icons.history, 'Keep a lifetime athletic injury log for veterinary assessments.'),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2E6B57),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                    onPressed: () => Navigator.pop(ctx),
-                    child: const Text('Understood'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
-  Widget _buildEducationPoint(IconData icon, String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: const Color(0xFF95D3BB), size: 18),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(text, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
-          ),
-        ],
-      ),
-    );
-  }
 
   // Crash-proof avatar builder
   Widget _buildDogAvatar(String url, {double size = 36}) {

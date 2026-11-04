@@ -9,10 +9,8 @@ import 'vet_visits_screen.dart';
 import 'injuries_recovery_screen.dart';
 import 'physio_hydro_hub_screen.dart';
 import 'supplements_screen.dart';
-import 'allergies_sensitivities_screen.dart';
-import 'dental_care_screen.dart';
+import 'certificates_documents_screen.dart';
 import 'health_reports_timeline_screen.dart';
-import 'surgery_procedures_screen.dart';
 import 'health_statistics_screen.dart';
 import 'health_reminders_screen.dart';
 import 'health_settings_screen.dart';
@@ -227,9 +225,9 @@ class _HealthScreenState extends State<HealthScreen> {
       children: [
         _buildBentoCard(Icons.monitor_weight_outlined, 'LATEST WEIGHT', '34.8 kg', false, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WeightTrackerScreen()))),
         _buildBentoCard(Icons.medication_outlined, 'MEDICATIONS', '2 Active', false, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MedicationManagerScreen()))),
-        _buildBentoCard(Icons.vaccines_outlined, 'NEXT VAX', '18 Sep 2026', true, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VaccinationManagerScreen()))),
+        _buildBentoCard(Icons.vaccines_outlined, 'NEXT VACCINATION', '18 Sep 2026', true, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VaccinationManagerScreen()))),
         _buildBentoCard(Icons.local_hospital_outlined, 'NEXT VET', 'Tomorrow 10:30', true, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VetVisitsScreen()))),
-        _buildBentoCard(Icons.accessibility_new_outlined, 'REHAB', '1 Active', false, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PhysioHydroHubScreen()))),
+        _buildBentoCard(Icons.accessibility_new_outlined, 'REHABILITATION', '1 Active', false, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PhysioHydroHubScreen()))),
         _buildBentoCard(Icons.update_outlined, 'LAST RECORD', '12 Jul 2026', true, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthReportsTimelineScreen()))),
       ],
     );
@@ -395,18 +393,14 @@ class _HealthScreenState extends State<HealthScreen> {
           childAspectRatio: 2.2,
           children: [
             _buildCategoryItem(Icons.monitor_weight_outlined, 'Weight', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WeightTrackerScreen()))),
-            _buildCategoryItem(Icons.medication_outlined, 'Medication', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MedicationManagerScreen()))),
+            _buildCategoryItem(Icons.straighten_outlined, 'Body Condition', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WeightTrackerScreen()))),
+            _buildCategoryItem(Icons.medication_outlined, 'Medications', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MedicationManagerScreen()))),
             _buildCategoryItem(Icons.vaccines_outlined, 'Vaccinations', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VaccinationManagerScreen()))),
             _buildCategoryItem(Icons.local_hospital_outlined, 'Vet Visits', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VetVisitsScreen()))),
             _buildCategoryItem(Icons.healing_outlined, 'Injuries', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InjuriesRecoveryScreen()))),
             _buildCategoryItem(Icons.accessibility_new_outlined, 'Rehabilitation', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PhysioHydroHubScreen()))),
             _buildCategoryItem(Icons.medication_liquid_outlined, 'Supplements', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SupplementsScreen()))),
-            _buildCategoryItem(Icons.shield_outlined, 'Allergies', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AllergiesSensitivitiesScreen()))),
-            _buildCategoryItem(Icons.sentiment_satisfied_alt_outlined, 'Dental Care', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DentalCareScreen()))),
-            _buildCategoryItem(Icons.medical_services_outlined, 'Surgeries', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SurgeryProceduresScreen()))),
-            _buildCategoryItem(Icons.history, 'Reports & Timeline', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthReportsTimelineScreen()))),
-            _buildCategoryItem(Icons.analytics_outlined, 'Health Stats', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthStatisticsScreen()))),
-            _buildCategoryItem(Icons.import_export, 'Import & Export', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ImportExportScreen()))),
+            _buildCategoryItem(Icons.folder_outlined, 'Documents', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CertificatesDocumentsScreen()))),
             _buildCategoryItem(Icons.note_add_outlined, 'Other Records', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthRecordsScreen()))),
           ],
         ),
@@ -498,14 +492,14 @@ class _HealthScreenState extends State<HealthScreen> {
       physics: const NeverScrollableScrollPhysics(),
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
-      childAspectRatio: 2.0,
+      childAspectRatio: 1.8,
       children: [
         _buildEmptyMetricBox('WEIGHT', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WeightTrackerScreen()))),
-        _buildEmptyMetricBox('BODY COND.'),
-        _buildEmptyMetricBox('HEALTH STATS', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthStatisticsScreen(initialEmpty: true)))),
-        _buildEmptyMetricBox('VACCINES', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VaccinationManagerScreen(initialEmpty: true)))),
-        _buildEmptyMetricBox('MEDS', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MedicationManagerScreen(initialEmpty: true)))),
-        _buildEmptyMetricBox('SURGERIES', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SurgeryProceduresScreen(initialEmpty: true)))),
+        _buildEmptyMetricBox('BODY CONDITION', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WeightTrackerScreen()))),
+        _buildEmptyMetricBox('VACCINATIONS', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VaccinationManagerScreen(initialEmpty: true)))),
+        _buildEmptyMetricBox('MEDICATIONS', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MedicationManagerScreen(initialEmpty: true)))),
+        _buildEmptyMetricBox('VET VISITS', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VetVisitsScreen()))),
+        _buildEmptyMetricBox('REHABILITATION', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PhysioHydroHubScreen()))),
       ],
     );
   }
@@ -567,7 +561,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           const SizedBox(height: 12),
           const Text(
-            "Start building Luna's health history to track weight, vaccinations, medications, and more.",
+            "Start building Luna's complete health history. Track weight, body condition, vaccinations, medications and vet visits all in one place.",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -586,7 +580,7 @@ class _HealthScreenState extends State<HealthScreen> {
               elevation: 0,
             ),
             child: const Text(
-              'Add First Health Record',
+              'Add Health Record',
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
             ),
           ),
@@ -602,30 +596,50 @@ class _HealthScreenState extends State<HealthScreen> {
       physics: const NeverScrollableScrollPhysics(),
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
-      childAspectRatio: 1.0,
+      childAspectRatio: 1.05,
       children: [
-        _buildEmptyCategoryIcon(Icons.crop_square),
-        _buildEmptyCategoryIcon(Icons.vaccines_outlined),
-        _buildEmptyCategoryIcon(Icons.medication_outlined),
-        _buildEmptyCategoryIcon(Icons.favorite_outline),
-        _buildEmptyCategoryIcon(Icons.content_cut_outlined),
-        _buildEmptyCategoryIcon(Icons.medical_information_outlined),
-        _buildEmptyCategoryIcon(Icons.sentiment_dissatisfied_outlined),
-        _buildEmptyCategoryIcon(Icons.remove_red_eye_outlined),
-        _buildEmptyCategoryIcon(Icons.hearing_outlined),
+        _buildEmptyCategoryTile(Icons.monitor_weight_outlined, 'Weight', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WeightTrackerScreen()))),
+        _buildEmptyCategoryTile(Icons.straighten_outlined, 'Body Condition', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WeightTrackerScreen()))),
+        _buildEmptyCategoryTile(Icons.medication_outlined, 'Medications', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MedicationManagerScreen(initialEmpty: true)))),
+        _buildEmptyCategoryTile(Icons.vaccines_outlined, 'Vaccinations', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VaccinationManagerScreen(initialEmpty: true)))),
+        _buildEmptyCategoryTile(Icons.local_hospital_outlined, 'Vet Visits', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VetVisitsScreen()))),
+        _buildEmptyCategoryTile(Icons.healing_outlined, 'Injuries', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InjuriesRecoveryScreen()))),
+        _buildEmptyCategoryTile(Icons.accessibility_new_outlined, 'Rehabilitation', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PhysioHydroHubScreen()))),
+        _buildEmptyCategoryTile(Icons.medication_liquid_outlined, 'Supplements', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SupplementsScreen()))),
+        _buildEmptyCategoryTile(Icons.folder_outlined, 'Documents', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CertificatesDocumentsScreen()))),
+        _buildEmptyCategoryTile(Icons.note_add_outlined, 'Other Records', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthRecordsScreen()))),
       ],
     );
   }
 
-  Widget _buildEmptyCategoryIcon(IconData icon) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Center(
-        child: Icon(icon, color: Colors.white10, size: 24),
+  Widget _buildEmptyCategoryTile(IconData icon, String label, [VoidCallback? onTap]) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+        decoration: BoxDecoration(
+          color: AppColors.cardsCarbon,
+          border: Border.all(color: Colors.white12),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: const Color(0xFF95D3BB), size: 24),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: AppColors.primaryTextOffWhite,
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

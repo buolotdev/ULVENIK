@@ -14,7 +14,7 @@ import 'timeline_settings_screen.dart';
 import 'timeline_insights_screen.dart';
 
 /// Timeline Event Model for Timeline Dashboard
-enum DashboardCategory { training, health, sc, goal, media }
+enum DashboardCategory { training, health, sc, competition, goal, media }
 
 class DashboardEventItem {
   final String id;
@@ -53,11 +53,13 @@ class DashboardEventItem {
 class TimelineDashboardScreen extends StatefulWidget {
   final bool initialEmpty;
   final String initialDog;
+  final bool hasSportPack;
 
   const TimelineDashboardScreen({
     super.key,
     this.initialEmpty = false,
     this.initialDog = 'Atlas',
+    this.hasSportPack = false,
   });
 
   @override
@@ -94,7 +96,8 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
   // ─── State Variables ────────────────────────────────────────────────────────
   late bool _isEmptyState;
   late String _selectedDog;
-  String _selectedMetric = 'DURATION'; // 'DURATION', 'DISTANCE', 'EVENTS'
+  late bool _hasSportPack;
+  String _selectedMetric = 'EVENTS';
   int _selectedStatIndex = 0; // 0..5
   String _selectedFilter = 'All'; // 'All', 'Training', 'Health', 'S&C', 'Media', 'Goal'
   final TextEditingController _searchController = TextEditingController();
@@ -132,6 +135,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
     super.initState();
     _isEmptyState = widget.initialEmpty;
     _selectedDog = widget.initialDog;
+    _hasSportPack = widget.hasSportPack;
 
     _chartAnimController = AnimationController(
       vsync: this,
@@ -167,7 +171,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
         categoryColor: _alpineBlue,
         categoryLabel: 'TRAINING',
         location: 'Riverside Park',
-        subtitle: '3 Skills · 7 Exercises · 45 min',
+        subtitle: '45 min · 3 Skills · 3 Exercises',
         statusBadge: 'COMPLETED',
       ),
       const DashboardEventItem(
@@ -291,6 +295,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
           DashboardCategory.training,
           DashboardCategory.health,
           DashboardCategory.sc,
+          if (_hasSportPack) DashboardCategory.competition,
           DashboardCategory.goal,
           DashboardCategory.media,
         };
@@ -302,6 +307,8 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
         _activeCategories = {DashboardCategory.health};
       } else if (f == 'S&C') {
         _activeCategories = {DashboardCategory.sc};
+      } else if (f == 'Sport/Competition') {
+        _activeCategories = {DashboardCategory.competition};
       } else if (f == 'Media') {
         _activeCategories = {DashboardCategory.media};
       } else if (f == 'Goal') {
@@ -639,6 +646,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                                 DashboardCategory.training => 'Training',
                                 DashboardCategory.health => 'Health',
                                 DashboardCategory.sc => 'S&C',
+                                DashboardCategory.competition => 'Sport/Competition',
                                 DashboardCategory.goal => 'Goal',
                                 DashboardCategory.media => 'Media',
                               };
@@ -1173,8 +1181,9 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                     spacing: 6,
                     children: [
                       DashboardCategory.training,
-                      DashboardCategory.health,
                       DashboardCategory.sc,
+                      DashboardCategory.health,
+                      if (_hasSportPack) DashboardCategory.competition,
                       DashboardCategory.goal,
                       DashboardCategory.media,
                     ].map((cat) {
@@ -1183,6 +1192,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                         DashboardCategory.training => 'Training',
                         DashboardCategory.health => 'Health',
                         DashboardCategory.sc => 'S&C',
+                        DashboardCategory.competition => 'Sport/Competition',
                         DashboardCategory.goal => 'Goal',
                         DashboardCategory.media => 'Media',
                       };
@@ -1227,6 +1237,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                           DashboardCategory.training => (Icons.fitness_center, _alpineBlue, 'TRAINING'),
                           DashboardCategory.health => (Icons.scale, _error, 'HEALTH'),
                           DashboardCategory.sc => (Icons.local_fire_department, _tertiary, 'S&C'),
+                          DashboardCategory.competition => (Icons.emoji_events_outlined, const Color(0xFFE0B45A), 'SPORT/COMPETITION'),
                           DashboardCategory.goal => (Icons.emoji_events, _mint, 'GOAL'),
                           DashboardCategory.media => (Icons.photo_camera, _secondary, 'MEDIA'),
                         };
@@ -1839,7 +1850,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
       ),
       child: Column(
         children: [
-          // Row 1
+          // Row 1: Total Events | This Month | Last Activity
           Row(
             children: [
               Expanded(
@@ -1854,8 +1865,8 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               Expanded(
                 child: _buildGridCell(
                   index: 1,
-                  value: '12',
-                  label: 'THIS WEEK',
+                  value: '38',
+                  label: 'THIS MONTH',
                   hasRightBorder: true,
                   hasBottomBorder: true,
                 ),
@@ -1863,22 +1874,22 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               Expanded(
                 child: _buildGridCell(
                   index: 2,
-                  value: '38',
-                  label: 'THIS MONTH',
+                  value: 'Today',
+                  label: 'LAST ACTIVITY',
                   hasRightBorder: false,
                   hasBottomBorder: true,
                 ),
               ),
             ],
           ),
-          // Row 2
+          // Row 2: Training Sessions | S&C Sessions | Health Records
           Row(
             children: [
               Expanded(
                 child: _buildGridCell(
                   index: 3,
-                  value: '214',
-                  label: 'THIS YEAR',
+                  value: '412',
+                  label: 'TRAINING SESSIONS',
                   hasRightBorder: true,
                   hasBottomBorder: false,
                 ),
@@ -1886,8 +1897,8 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               Expanded(
                 child: _buildGridCell(
                   index: 4,
-                  value: 'Today',
-                  label: 'LAST ACTIVITY',
+                  value: '186',
+                  label: 'S&C SESSIONS',
                   hasRightBorder: true,
                   hasBottomBorder: false,
                 ),
@@ -1895,8 +1906,8 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               Expanded(
                 child: _buildGridCell(
                   index: 5,
-                  value: '23',
-                  label: 'ACTIVE RECORDS',
+                  value: '48',
+                  label: 'HEALTH RECORDS',
                   hasRightBorder: false,
                   hasBottomBorder: false,
                 ),
@@ -2316,6 +2327,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
       {'label': 'Training', 'dotColor': _alpineBlue},
       {'label': 'Health', 'dotColor': _error},
       {'label': 'S&C', 'dotColor': _tertiary},
+      if (_hasSportPack) {'label': 'Sport/Competition', 'dotColor': const Color(0xFFE0B45A)},
       {'label': 'Media', 'dotColor': _secondary},
       {'label': 'Goal', 'dotColor': _mint},
     ];
@@ -2687,26 +2699,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
         ),
         const SizedBox(height: 20),
 
-        // 2. Metric Segmented Bar: DURATION | DISTANCE | EVENTS (Figma Image 2)
-        Container(
-          height: 48,
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: _carbon,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: const Color(0x14FFFFFF), width: 1),
-          ),
-          child: Row(
-            children: [
-              _buildMetricSegment('DURATION'),
-              _buildMetricSegment('DISTANCE'),
-              _buildMetricSegment('EVENTS'),
-            ],
-          ),
-        ),
-        const SizedBox(height: 24),
-
-        // 3. Section Header: Recent Activity & All Types Filter (Figma Image 2)
+        // 2. Section Header: Recent Activity & All Types Filter (Figma Image 2)
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -2778,15 +2771,17 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               ),
               const SizedBox(height: 8),
               const Text(
-                'Every journey starts somewhere...',
+                "Every journey starts somewhere. Record a training session, health check, or milestone to build your dog's story.",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 14,
+                  height: 1.45,
                 ),
               ),
               const SizedBox(height: 32),
 
-              // Primary CTA: + Start Recording -> (Figma Image 2)
+              // Primary Record Action — Add First Record (opens subscription-aware record type selector)
               SizedBox(
                 width: 260,
                 height: 50,
@@ -2799,21 +2794,14 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                     ),
                     elevation: 0,
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const RecordSessionScreen(),
-                      ),
-                    );
-                  },
+                  onPressed: _showQuickAddModal,
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.add, size: 18),
                       SizedBox(width: 8),
                       Text(
-                        'Start Recording',
+                        'Add First Record',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -2822,20 +2810,6 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                       SizedBox(width: 6),
                       Icon(Icons.arrow_forward, size: 16),
                     ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // Secondary CTA: Add a Health Record instead (Figma Image 2)
-              TextButton(
-                onPressed: _showQuickAddModal,
-                child: const Text(
-                  'Add a Health Record instead',
-                  style: TextStyle(
-                    color: _mint,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -2891,40 +2865,6 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMetricSegment(String metric) {
-    final isSel = _selectedMetric == metric;
-
-    return Expanded(
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            _selectedMetric = metric;
-          });
-        },
-        child: Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: isSel ? _mint : Colors.transparent,
-                width: 2,
-              ),
-            ),
-          ),
-          child: Text(
-            metric,
-            style: TextStyle(
-              color: isSel ? _offWhite : _stoneGrey,
-              fontSize: 11,
-              fontWeight: isSel ? FontWeight.w700 : FontWeight.w500,
-              letterSpacing: 0.5,
-            ),
-          ),
         ),
       ),
     );

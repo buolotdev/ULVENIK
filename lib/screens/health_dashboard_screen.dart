@@ -108,9 +108,11 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
     DashboardMetricPoint(label: 'Oct', vitality: 95, weightKg: 27.4, activityScore: 94),
   ];
 
-  // Dismissible Alerts
+  // Dismissible Alerts across Health categories
   bool _dismissedKennelCough = false;
   bool _dismissedFollowUp = false;
+  bool _dismissedMedicationAlert = false;
+  bool _dismissedWeightCheckAlert = false;
 
   @override
   void initState() {
@@ -224,112 +226,6 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
     );
   }
 
-  void _showStatusDetailsModal() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) {
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 36,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: _forest.withValues(alpha: 0.3),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(Icons.favorite, color: _mint, size: 20),
-                  ),
-                  const SizedBox(width: 12),
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Overall Health: Optimal',
-                          style: TextStyle(color: _offWhite, fontSize: 17, fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          'Continuous athletic tracking & biomarker evaluation',
-                          style: TextStyle(color: _muted, fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              _buildFactorRow('Vitality & Energy Index', '94%', _mint),
-              _buildFactorRow('Weight Stability & Target Ratio', '98%', _mint),
-              _buildFactorRow('Vaccination & Parasite Compliance', '100%', _mint),
-              _buildFactorRow('Post-Op Recovery & Tissue Healing', '88%', _amber),
-              _buildFactorRow('Rest & Sleep Quality', '91%', _mint),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pop(ctx),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _forest,
-                    foregroundColor: _offWhite,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  ),
-                  child: const Text('Close Assessment', style: TextStyle(fontWeight: FontWeight.w600)),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildFactorRow(String label, String score, Color color) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: const TextStyle(color: _offWhite, fontSize: 13)),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: color.withValues(alpha: 0.3)),
-            ),
-            child: Text(
-              score,
-              style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   void _showAlertActionSheet(String title, String subtitle, String category, Color color) {
     showModalBottomSheet(
       context: context,
@@ -395,6 +291,10 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                         setState(() {
                           if (category.contains('VACCINATION')) {
                             _dismissedKennelCough = true;
+                          } else if (category.contains('MEDICATION')) {
+                            _dismissedMedicationAlert = true;
+                          } else if (category.contains('WEIGHT')) {
+                            _dismissedWeightCheckAlert = true;
                           } else {
                             _dismissedFollowUp = true;
                           }
@@ -422,6 +322,10 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                         Navigator.pop(ctx);
                         if (category.contains('VACCINATION')) {
                           Navigator.push(context, MaterialPageRoute(builder: (_) => const VaccinationManagerScreen()));
+                        } else if (category.contains('MEDICATION')) {
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => const MedicationManagerScreen()));
+                        } else if (category.contains('WEIGHT')) {
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => const WeightTrackerScreen()));
                         } else {
                           Navigator.push(context, MaterialPageRoute(builder: (_) => const VetVisitsScreen()));
                         }
@@ -653,11 +557,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
         _buildHealthSummaryGrid(),
         const SizedBox(height: 22),
 
-        // OVERALL STATUS Section
-        _buildSectionTitle('OVERALL STATUS'),
-        const SizedBox(height: 10),
-        _buildOverallStatusCard(),
-        const SizedBox(height: 22),
+
 
         // INTERACTIVE ANIMATED GRAPH
         _buildSectionTitle('HEALTH INDEX & VITALITY TREND'),
@@ -665,8 +565,8 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
         _buildAnimatedGraphCard(),
         const SizedBox(height: 22),
 
-        // ALERTS Section
-        if (!_dismissedKennelCough || !_dismissedFollowUp) ...[
+        // ALERTS Section (allowing relevant due/overdue reminders from across Health areas)
+        if (!_dismissedKennelCough || !_dismissedFollowUp || !_dismissedMedicationAlert || !_dismissedWeightCheckAlert) ...[
           _buildAlertsSection(),
           const SizedBox(height: 20),
         ],
@@ -816,75 +716,6 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
     );
   }
 
-  // OVERALL STATUS CARD
-  Widget _buildOverallStatusCard() {
-    return InkWell(
-      onTap: _showStatusDetailsModal,
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: _carbon,
-          borderRadius: BorderRadius.circular(10),
-          border: _hairlineBorder,
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 42,
-              height: 42,
-              decoration: BoxDecoration(
-                color: _forest.withValues(alpha: 0.25),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.favorite, color: _mint, size: 22),
-            ),
-            const SizedBox(width: 14),
-            const Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Good',
-                    style: TextStyle(
-                      color: _mint,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(height: 2),
-                  Text(
-                    'Last updated 2 hours ago',
-                    style: TextStyle(
-                      color: _muted,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-              decoration: BoxDecoration(
-                color: _forest.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: _mint.withValues(alpha: 0.3)),
-              ),
-              child: const Text(
-                'GOOD',
-                style: TextStyle(
-                  color: _mint,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.0,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   // ANIMATED GRAPH CARD (fl_chart)
   Widget _buildAnimatedGraphCard() {
@@ -1126,7 +957,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
     );
   }
 
-  // ALERTS SECTION (Matches HTML & Screenshot 1)
+  // ALERTS SECTION - due/overdue reminders from across Health areas
   Widget _buildAlertsSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1141,7 +972,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
           ),
           child: Column(
             children: [
-              if (!_dismissedKennelCough)
+              if (!_dismissedKennelCough) ...[
                 _buildAlertItem(
                   accentColor: _error,
                   icon: Icons.warning_amber_rounded,
@@ -1155,9 +986,10 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                     _error,
                   ),
                 ),
-              if (!_dismissedKennelCough && !_dismissedFollowUp)
-                Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
-              if (!_dismissedFollowUp)
+                if (!_dismissedFollowUp || !_dismissedMedicationAlert || !_dismissedWeightCheckAlert)
+                  Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
+              ],
+              if (!_dismissedFollowUp) ...[
                 _buildAlertItem(
                   accentColor: _amber,
                   icon: Icons.calendar_month_outlined,
@@ -1168,6 +1000,40 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                     'Post-Surgery Check',
                     'Post-op elbow cleanout wound check overdue by 3 days.',
                     'FOLLOW-UP DUE',
+                    _amber,
+                  ),
+                ),
+                if (!_dismissedMedicationAlert || !_dismissedWeightCheckAlert)
+                  Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
+              ],
+              if (!_dismissedMedicationAlert) ...[
+                _buildAlertItem(
+                  accentColor: _mint,
+                  icon: Icons.medication_outlined,
+                  category: 'MEDICATION DUE',
+                  title: 'Apoquel (16mg) — Today, 20:00',
+                  subtitle: 'Daily seasonal allergy tablet with dinner',
+                  onTap: () => _showAlertActionSheet(
+                    'Apoquel Dose',
+                    'Evening 16mg tablet scheduled with dinner.',
+                    'MEDICATION DUE',
+                    _mint,
+                  ),
+                ),
+                if (!_dismissedWeightCheckAlert)
+                  Divider(height: 1, color: Colors.white.withValues(alpha: 0.08)),
+              ],
+              if (!_dismissedWeightCheckAlert)
+                _buildAlertItem(
+                  accentColor: _amber,
+                  icon: Icons.scale_outlined,
+                  category: 'WEIGHT CHECK OVERDUE',
+                  title: 'Monthly Weight Check — Overdue by 2 days',
+                  subtitle: 'Target corridor: 27.0 - 28.5 kg',
+                  onTap: () => _showAlertActionSheet(
+                    'Weight Check',
+                    'Regular bi-weekly weight check recommended to monitor body condition.',
+                    'WEIGHT CHECK OVERDUE',
                     _amber,
                   ),
                 ),
@@ -1291,10 +1157,10 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
               const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Start recording ${_dog.name}\'s health history to build a complete lifelong medical record.',
+                child: const Text(
+                  'Start building your dog’s health history by keeping their important health records together in one place.',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _muted,
                     fontSize: 13,
                     height: 1.45,
@@ -1356,7 +1222,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
         ),
         const SizedBox(height: 36),
 
-        // HEALTH SUMMARY Section (Dashed metrics)
+        // HEALTH SUMMARY Section (Dashed metrics aligned with established Health areas)
         _buildSectionTitle('HEALTH SUMMARY'),
         const SizedBox(height: 10),
         Container(
@@ -1372,17 +1238,17 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: _buildEmptyMetricCell('Weight')),
-                  Expanded(child: _buildEmptyMetricCell('Diet')),
-                  Expanded(child: _buildEmptyMetricCell('BCS')),
+                  Expanded(child: _buildEmptyMetricCell('Body Condition')),
+                  Expanded(child: _buildEmptyMetricCell('Medications')),
                 ],
               ),
               const SizedBox(height: 18),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(child: _buildEmptyMetricCell('Heart')),
-                  Expanded(child: _buildEmptyMetricCell('Activity')),
-                  Expanded(child: _buildEmptyMetricCell('Sleep')),
+                  Expanded(child: _buildEmptyMetricCell('Vaccinations')),
+                  Expanded(child: _buildEmptyMetricCell('Vet Visits')),
+                  Expanded(child: _buildEmptyMetricCell('Injuries')),
                 ],
               ),
             ],
@@ -1390,46 +1256,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
         ),
         const SizedBox(height: 22),
 
-        // OVERALL STATUS Section (No Data)
-        _buildSectionTitle('OVERALL STATUS'),
-        const SizedBox(height: 10),
-        InkWell(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const AddHealthRecordScreen()),
-          ),
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: _carbon,
-              borderRadius: BorderRadius.circular(10),
-              border: _hairlineBorder,
-            ),
-            child: const Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'No Data',
-                        style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.w600),
-                      ),
-                      SizedBox(height: 2),
-                      Text(
-                        'Add health records to generate status',
-                        style: TextStyle(color: _muted, fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ),
-                Icon(Icons.chevron_right, color: _muted, size: 20),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
+
 
         // Quick Link Card: Vaccinations
         _buildQuickLinkCard(

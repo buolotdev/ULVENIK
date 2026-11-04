@@ -40,6 +40,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
   bool _isFavourite = false;
   final String _selectedCategory = 'Strength';
   String _iconSearchQuery = '';
+  final List<CustomActivityMetric> _customMetrics = [];
 
   // Standard Swatches from Figma
   final List<Color> _swatches = const [
@@ -149,6 +150,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
       equipment: 'Standard Gear',
       defaultDurationMinutes: 25,
       color: _selectedColor,
+      customMetrics: List.unmodifiable(_customMetrics),
     );
 
     ScaffoldMessenger.of(context).clearSnackBars();
@@ -208,6 +210,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                         _selectedIcon = Icons.pets;
                         _selectedColor = _forestGreen;
                         _isFavourite = false;
+                        _customMetrics.clear();
                       });
                     },
                   ),
@@ -241,7 +244,11 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                 _buildColorSection(),
                 const SizedBox(height: 24),
 
-                // 5. Favourite Activity Toggle
+                // 5. Custom Metrics (Optional)
+                _buildCustomMetricsSection(),
+                const SizedBox(height: 24),
+
+                // 6. Favourite Activity Toggle
                 _buildFavouriteToggleSection(),
               ],
             ),
@@ -688,7 +695,435 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
   }
 
   // ==========================================
-  // SECTION 5: FAVOURITE ACTIVITY TOGGLE
+  // SECTION 5: CUSTOM METRICS (OPTIONAL)
+  // ==========================================
+  Widget _buildCustomMetricsSection() {
+    final metricCount = _customMetrics.length;
+    final countLabel = metricCount == 1 ? '1 metric' : '$metricCount metrics';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Custom Metrics (Optional)',
+              style: TextStyle(
+                color: _offWhite,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            if (_customMetrics.isNotEmpty)
+              Text(
+                countLabel,
+                style: const TextStyle(
+                  color: _mint,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        const Text(
+          'Create whatever you want to track for this particular activity (e.g. Distance — metres, Load — kg, Incline — %).',
+          style: TextStyle(
+            color: _stoneGrey,
+            fontSize: 13,
+            height: 1.4,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: _carbon,
+            borderRadius: BorderRadius.circular(12),
+            border: _hairlineBorder,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (_customMetrics.isEmpty) ...[
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      'No custom metrics added yet. Tap "+ Add Metric" to create metrics specific to this activity.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: _stoneGrey,
+                        fontSize: 13,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+              ] else ...[
+                ..._customMetrics.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final metric = entry.value;
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: _surfaceHigh,
+                      borderRadius: BorderRadius.circular(8),
+                      border: _hairlineBorder,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: _mint,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            '${metric.name} — ${metric.unit}',
+                            style: const TextStyle(
+                              color: _offWhite,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.close,
+                              size: 18, color: _stoneGrey),
+                          tooltip: 'Remove metric',
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                          onPressed: () {
+                            setState(() {
+                              _customMetrics.removeAt(index);
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+                const SizedBox(height: 6),
+              ],
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: _mint,
+                    side: BorderSide(color: _mint.withValues(alpha: 0.6)),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: _showAddMetricSheet,
+                  icon: const Icon(Icons.add, size: 18),
+                  label: const Text(
+                    '+ Add Metric',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showAddMetricSheet() {
+    final nameCtrl = TextEditingController();
+    final unitCtrl = TextEditingController();
+
+    final metricSuggestions = const [
+      'Distance',
+      'Speed',
+      'Incline',
+      'Height',
+      'Load',
+      'Repetitions',
+    ];
+
+    final unitSuggestions = const [
+      'metres',
+      'mph',
+      '%',
+      'cm',
+      'kg',
+      'reps',
+      'sec',
+      'min',
+    ];
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: _carbon,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) {
+        return StatefulBuilder(
+          builder: (context, setSheetState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 20,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Add Custom Metric',
+                        style: TextStyle(
+                          color: _offWhite,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close, color: _stoneGrey),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        onPressed: () => Navigator.pop(ctx),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'Define the metric name and unit you want to track for this activity.',
+                    style: TextStyle(
+                      color: _stoneGrey,
+                      fontSize: 13,
+                      height: 1.4,
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+
+                  // Metric Name Field
+                  const Text(
+                    'Metric Name',
+                    style: TextStyle(
+                      color: _offWhite,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: nameCtrl,
+                    style: const TextStyle(color: _offWhite, fontSize: 14),
+                    decoration: InputDecoration(
+                      hintText: 'e.g. Distance, Load, Speed, Incline',
+                      hintStyle: const TextStyle(color: _stoneGrey, fontSize: 13),
+                      filled: true,
+                      fillColor: _surfaceHigh,
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: _hairlineSide,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: _hairlineSide,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: _mint),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Metric Suggestions
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: metricSuggestions.map((suggestion) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: ActionChip(
+                            label: Text(suggestion),
+                            labelStyle: const TextStyle(
+                              color: _mint,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            backgroundColor: _surfaceHigh,
+                            side: BorderSide(
+                              color: _mint.withValues(alpha: 0.3),
+                            ),
+                            onPressed: () {
+                              setSheetState(() {
+                                nameCtrl.text = suggestion;
+                              });
+                            },
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+
+                  // Metric Unit Field
+                  const Text(
+                    'Unit',
+                    style: TextStyle(
+                      color: _offWhite,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: unitCtrl,
+                    style: const TextStyle(color: _offWhite, fontSize: 14),
+                    decoration: InputDecoration(
+                      hintText: 'e.g. metres, mph, %, cm, kg, reps',
+                      hintStyle: const TextStyle(color: _stoneGrey, fontSize: 13),
+                      filled: true,
+                      fillColor: _surfaceHigh,
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: _hairlineSide,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: _hairlineSide,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(color: _mint),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Unit Suggestions
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: unitSuggestions.map((suggestion) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: ActionChip(
+                            label: Text(suggestion),
+                            labelStyle: const TextStyle(
+                              color: _sage,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            backgroundColor: _surfaceHigh,
+                            side: BorderSide(
+                              color: _sage.withValues(alpha: 0.3),
+                            ),
+                            onPressed: () {
+                              setSheetState(() {
+                                unitCtrl.text = suggestion;
+                              });
+                            },
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Action Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _forestGreen,
+                        foregroundColor: _offWhite,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        elevation: 0,
+                      ),
+                      onPressed: () {
+                        final name = nameCtrl.text.trim();
+                        final unit = unitCtrl.text.trim();
+                        if (name.isEmpty) {
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          AppSnackbar.show(
+                            context,
+                            message: 'Please enter a metric name',
+                            type: SnackbarType.warning,
+                          );
+                          return;
+                        }
+                        if (unit.isEmpty) {
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          AppSnackbar.show(
+                            context,
+                            message: 'Please enter a unit',
+                            type: SnackbarType.warning,
+                          );
+                          return;
+                        }
+
+                        setState(() {
+                          _customMetrics.add(
+                            CustomActivityMetric(
+                              id: 'm-${DateTime.now().millisecondsSinceEpoch}',
+                              name: name,
+                              unit: unit,
+                            ),
+                          );
+                        });
+
+                        Navigator.pop(ctx);
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        AppSnackbar.show(
+                          context,
+                          message: 'Added metric: $name ($unit)',
+                          type: SnackbarType.success,
+                        );
+                      },
+                      child: const Text(
+                        'Add Metric',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  // ==========================================
+  // SECTION 6: FAVOURITE ACTIVITY TOGGLE
   // ==========================================
   Widget _buildFavouriteToggleSection() {
     return Container(
