@@ -204,7 +204,8 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                       behavior: HitTestBehavior.opaque,
                       child: const Padding(
                         padding: EdgeInsets.all(4),
-                        child: UlvenikIcon(UlvenikIcons.back,
+                        child: Icon(
+                          Icons.close_rounded,
                           size: 20,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
@@ -572,7 +573,7 @@ class _RewardTypePill extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            UlvenikIcon.fromMaterial(
+            Icon(
               icon,
               size: 16,
               color: isSelected

@@ -2016,7 +2016,7 @@ class _TimelineScreenState extends State<TimelineScreen>
                           color: _surfaceContainer,
                           border: Border.all(color: _mint.withValues(alpha: 0.3)),
                         ),
-                        child: const UlvenikIcon(UlvenikIcons.search,
+                        child: const UlvenikIcon(UlvenikIcons.journey,
                           color: _mint,
                           size: 28,
                         ),

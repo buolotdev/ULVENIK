@@ -59,11 +59,11 @@ class UlvenikIcons {
 </svg>''',
 
     timeline: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="5" cy="18" r="3"/>
-  <circle cx="12" cy="11" r="3"/>
-  <circle cx="19" cy="5" r="3"/>
-  <line x1="7.5" y1="16" x2="9.5" y2="13"/>
-  <line x1="14.5" y1="9" x2="16.5" y2="7"/>
+  <circle cx="5" cy="18" r="2.5"/>
+  <circle cx="12" cy="11" r="2.5"/>
+  <circle cx="19" cy="5" r="2.5"/>
+  <line x1="6.8" y1="16.2" x2="10.2" y2="12.8"/>
+  <line x1="13.8" y1="9.2" x2="17.2" y2="6.8"/>
 </svg>''',
 
     more: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -102,24 +102,23 @@ class UlvenikIcons {
 </svg>''',
 
     recordSession: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h6"/>
+  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
   <polyline points="14 2 14 8 20 8"/>
-  <line x1="8" y1="12" x2="14" y2="12"/>
-  <line x1="8" y1="16" x2="12" y2="16"/>
-  <line x1="19" y1="16" x2="19" y2="22"/>
-  <line x1="16" y1="19" x2="22" y2="19"/>
+  <line x1="12" y1="18" x2="12" y2="12"/>
+  <line x1="9" y1="15" x2="15" y2="15"/>
 </svg>''',
 
     goals: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <circle cx="12" cy="12" r="10"/>
   <circle cx="12" cy="12" r="6"/>
-  <circle cx="12" cy="12" r="2" fill="currentColor"/>
+  <path d="m22 2-10 10"/>
+  <path d="m16 2 6 6"/>
 </svg>''',
 
     progress: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="6" y1="20" x2="6" y2="14"/>
-  <line x1="12" y1="20" x2="12" y2="9"/>
-  <line x1="18" y1="20" x2="18" y2="4"/>
+  <rect x="3" y="13" width="4" height="8" rx="1"/>
+  <rect x="10" y="8" width="4" height="13" rx="1"/>
+  <rect x="17" y="3" width="4" height="18" rx="1"/>
 </svg>''',
 
     health: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -128,11 +127,9 @@ class UlvenikIcons {
 </svg>''',
 
     journey: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="5" cy="18" r="3"/>
-  <circle cx="12" cy="11" r="3"/>
-  <circle cx="19" cy="5" r="3"/>
-  <line x1="7.5" y1="16" x2="9.5" y2="13"/>
-  <line x1="14.5" y1="9" x2="16.5" y2="7"/>
+  <circle cx="6" cy="19" r="3"/>
+  <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/>
+  <circle cx="18" cy="5" r="3"/>
 </svg>''',
 
     exercises: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -172,11 +169,12 @@ class UlvenikIcons {
   <line x1="16" y1="2" x2="16" y2="6"/>
   <line x1="8" y1="2" x2="8" y2="6"/>
   <line x1="3" y1="10" x2="21" y2="10"/>
-  <line x1="3" y1="14" x2="21" y2="14"/>
-  <line x1="3" y1="18" x2="21" y2="18"/>
-  <line x1="8" y1="10" x2="8" y2="22"/>
-  <line x1="12" y1="10" x2="12" y2="22"/>
-  <line x1="16" y1="10" x2="16" y2="22"/>
+  <line x1="8" y1="14" x2="8.01" y2="14"/>
+  <line x1="12" y1="14" x2="12.01" y2="14"/>
+  <line x1="16" y1="14" x2="16.01" y2="14"/>
+  <line x1="8" y1="18" x2="8.01" y2="18"/>
+  <line x1="12" y1="18" x2="12.01" y2="18"/>
+  <line x1="16" y1="18" x2="16.01" y2="18"/>
 </svg>''',
 
     completed: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
