@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-  <ellipse cx="4.5" cy="10" rx="1.8" ry="2.6" transform="rotate(-25 4.5 10)"/>
-  <ellipse cx="9.2" cy="5.8" rx="2" ry="2.8" transform="rotate(-10 9.2 5.8)"/>
-  <ellipse cx="14.8" cy="5.8" rx="2" ry="2.8" transform="rotate(10 14.8 5.8)"/>
-  <ellipse cx="19.5" cy="10" rx="1.8" ry="2.6" transform="rotate(25 19.5 10)"/>
-  <path d="M12 10.5c-3.2 0-6 2.1-6 5.2 0 2.2 1.8 4.3 4 4.3 1.1 0 1.6-.7 2-.7s.9.7 2 .7c2.2 0 4-2.1 4-4.3 0-3.1-2.8-5.2-6-5.2z"/>
-</svg>
+<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+  <ellipse cx="5.5" cy="11" rx="2" ry="2.7" transform="rotate(-20 5.5 11)" />
+  <ellipse cx="9.8" cy="5.8" rx="2" ry="2.8" transform="rotate(-8 9.8 5.8)" />
+  <ellipse cx="14.2" cy="5.8" rx="2" ry="2.8" transform="rotate(8 14.2 5.8)" />
+  <ellipse cx="18.5" cy="11" rx="2" ry="2.7" transform="rotate(20 18.5 11)" />
+  <path d="M12 11c-3 0-6 3.5-6 6.2 0 2 1.6 2.8 3 2.8 1.2 0 2-.5 3-.5s1.8.5 3 .5c1.4 0 3-.8 3-2.8C18 14.5 15 11 12 11z" />
+  </svg>

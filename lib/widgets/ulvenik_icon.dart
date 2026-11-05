@@ -38,25 +38,140 @@ class UlvenikIcons {
   static String assetPath(String name) => 'assets/icons/ulvenik/$name.svg';
 
   static const Map<String, String> _svgStrings = {
-    home: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M3 9.5L12 3l9 6.5V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-  <polyline points="9 22 9 12 15 12 15 22"/>
+    add: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 4v16M4 12h16" fill="none" />
+  </svg>''',
+
+    back: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20 12H4M10 6l-6 6 6 6" fill="none" />
+  </svg>''',
+
+    calendar: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" />
+  <path d="M3.5 10h17M8 3v4M16 3v4" fill="none" />
+  <path d="M8.5 15h7" fill="none" />
+  </svg>''',
+
+    completed: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="9" fill="none" />
+  <path d="m7.8 12.3 3 3 5.5-6" fill="none" />
+  </svg>''',
+
+    details: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m9 4 8 8-8 8" fill="none" />
+  </svg>''',
+
+    dogs: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+  <ellipse cx="5.5" cy="11" rx="2" ry="2.7" transform="rotate(-20 5.5 11)" />
+  <ellipse cx="9.8" cy="5.8" rx="2" ry="2.8" transform="rotate(-8 9.8 5.8)" />
+  <ellipse cx="14.2" cy="5.8" rx="2" ry="2.8" transform="rotate(8 14.2 5.8)" />
+  <ellipse cx="18.5" cy="11" rx="2" ry="2.7" transform="rotate(20 18.5 11)" />
+  <path d="M12 11c-3 0-6 3.5-6 6.2 0 2 1.6 2.8 3 2.8 1.2 0 2-.5 3-.5s1.8.5 3 .5c1.4 0 3-.8 3-2.8C18 14.5 15 11 12 11z" />
+  </svg>''',
+
+    edit: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 20l.8-4L16 4.8a1.8 1.8 0 0 1 2.5 0l.7.7a1.8 1.8 0 0 1 0 2.5L8 19.2z" fill="none" />
+  <path d="M14 7l3 3" fill="none" />
+  </svg>''',
+
+    exercises: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="5" y="4.5" width="14" height="17" rx="2.5" fill="none" />
+  <rect x="9" y="2.5" width="6" height="4" rx="1" fill="none" />
+  <path d="M8.5 12h7M8.5 15.5h7M8.5 19h3" fill="none" />
+  </svg>''',
+
+    goals: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="9"/>
+  <circle cx="12" cy="12" r="5"/>
+  <path d="m21 3-9 9"/>
+  <path d="m15.5 3.5 5 5"/>
 </svg>''',
 
-    dogs: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-  <ellipse cx="4.5" cy="10" rx="1.8" ry="2.6" transform="rotate(-25 4.5 10)"/>
-  <ellipse cx="9.2" cy="5.8" rx="2" ry="2.8" transform="rotate(-10 9.2 5.8)"/>
-  <ellipse cx="14.8" cy="5.8" rx="2" ry="2.8" transform="rotate(10 14.8 5.8)"/>
-  <ellipse cx="19.5" cy="10" rx="1.8" ry="2.6" transform="rotate(25 19.5 10)"/>
-  <path d="M12 10.5c-3.2 0-6 2.1-6 5.2 0 2.2 1.8 4.3 4 4.3 1.1 0 1.6-.7 2-.7s.9.7 2 .7c2.2 0 4-2.1 4-4.3 0-3.1-2.8-5.2-6-5.2z"/>
+    health: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+  <path d="M6.5 12h2.5l1.5-3 2.5 6 1.5-3h3"/>
 </svg>''',
 
-    training: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="4" y="3" width="16" height="18" rx="2"/>
-  <line x1="8" y1="8" x2="16" y2="8"/>
-  <line x1="8" y1="12" x2="16" y2="12"/>
-  <line x1="8" y1="16" x2="12" y2="16"/>
+    history: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" fill="none" />
+  <path d="M3 3v5h5" fill="none" />
+  <path d="M12 7v5l4 2" fill="none" />
+  </svg>''',
+
+    home: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 11.5 12 3.5l9 8" fill="none" />
+  <path d="M5.5 10v10.5h13V10" fill="none" />
+  <path d="M10 20.5v-5.5h4v5.5" fill="none" />
+  </svg>''',
+
+    journey: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="5" cy="19" r="2"/>
+  <path d="M7 19h2a4 4 0 0 0 4-4v-2a4 4 0 0 1 4-4h1"/>
+  <path d="M18 2a3.5 3.5 0 0 0-3.5 3.5c0 2.5 3.5 5.5 3.5 5.5s3.5-3 3.5-5.5A3.5 3.5 0 0 0 18 2z"/>
+  <circle cx="18" cy="5.5" r="1" fill="currentColor"/>
 </svg>''',
+
+    male: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="10" cy="14" r="5.5" fill="none" />
+  <path d="m14 10 6-6M15 4h5v5" fill="none" />
+  </svg>''',
+
+    more: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+  <circle cx="4.5" cy="12" r="2" />
+  <circle cx="12" cy="12" r="2" />
+  <circle cx="19.5" cy="12" r="2" />
+  </svg>''',
+
+    notifications: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 2.5v1.2" fill="none" />
+  <path d="M12 3.7a6 6 0 0 0-6 6v4.8L4 18.5h16l-2-4V9.7a6 6 0 0 0-6-6z" fill="none" />
+  <path d="M9.8 21a2.4 2.4 0 0 0 4.4 0" fill="none" />
+  </svg>''',
+
+    overflowMenu: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+  <circle cx="12" cy="4.5" r="2" />
+  <circle cx="12" cy="12" r="2" />
+  <circle cx="12" cy="19.5" r="2" />
+  </svg>''',
+
+    play: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="9" fill="none" />
+  <path d="M10 8.2v7.6l6-3.8z" fill="none" />
+  </svg>''',
+
+    progress: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3.5" y="13" width="4" height="7.5" rx="1" fill="none" />
+  <rect x="10" y="8.5" width="4" height="12" rx="1" fill="none" />
+  <rect x="16.5" y="3.5" width="4" height="17" rx="1" fill="none" />
+  </svg>''',
+
+    recordSession: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M11 21H7a2.5 2.5 0 0 1-2.5-2.5v-13A2.5 2.5 0 0 1 7 3h7l5.5 5.5V11" fill="none" />
+  <path d="M14 3v4a1.5 1.5 0 0 0 1.5 1.5h4" fill="none" />
+  <path d="M8 12h4M8 16h3" fill="none" />
+  <path d="M17 14v6M14 17h6" fill="none" />
+  </svg>''',
+
+    scheduledTraining: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" />
+  <path d="M3.5 10h17M8 3v4M16 3v4" fill="none" />
+  <path d="m9 15.5 2.2 2.2 4-4.3" fill="none" />
+  </svg>''',
+
+    search: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="10.5" cy="10.5" r="6.5" fill="none" />
+  <path d="M15.5 15.5 21 21" fill="none" />
+  </svg>''',
+
+    skills: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 3.5 21 8l-9 4.5L3 8z" fill="none" />
+  <path d="m3 12 9 4.5 9-4.5" fill="none" />
+  <path d="m3 16 9 4.5 9-4.5" fill="none" />
+  </svg>''',
+
+    sort: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M7 20V4M3.5 7.5 7 4l3.5 3.5M17 4v16M13.5 16.5 17 20l3.5-3.5" fill="none" />
+  </svg>''',
 
     timeline: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <circle cx="5" cy="18" r="2.5"/>
@@ -66,144 +181,16 @@ class UlvenikIcons {
   <line x1="13.8" y1="9.2" x2="17.2" y2="6.8"/>
 </svg>''',
 
-    more: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-  <circle cx="6" cy="12" r="2"/>
-  <circle cx="12" cy="12" r="2"/>
-  <circle cx="18" cy="12" r="2"/>
-</svg>''',
+    training: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="4.5" y="3.5" width="15" height="17" rx="2.5" fill="none" />
+  <path d="M8.5 9h7M8.5 12.5h7M8.5 16h4" fill="none" />
+  </svg>''',
 
-    back: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="19" y1="12" x2="5" y2="12"/>
-  <polyline points="12 19 5 12 12 5"/>
-</svg>''',
+    trainingTime: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="9" fill="none" />
+  <path d="M12 7v5.5l3.5 2" fill="none" />
+  </svg>''',
 
-    notifications: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-  <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-</svg>''',
-
-    search: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="11" cy="11" r="7"/>
-  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-</svg>''',
-
-    add: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="12" y1="5" x2="12" y2="19"/>
-  <line x1="5" y1="12" x2="19" y2="12"/>
-</svg>''',
-
-    edit: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
-</svg>''',
-
-    play: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="12" cy="12" r="10"/>
-  <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/>
-</svg>''',
-
-    recordSession: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-  <polyline points="14 2 14 8 20 8"/>
-  <line x1="12" y1="18" x2="12" y2="12"/>
-  <line x1="9" y1="15" x2="15" y2="15"/>
-</svg>''',
-
-    goals: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="12" cy="12" r="10"/>
-  <circle cx="12" cy="12" r="6"/>
-  <path d="m22 2-10 10"/>
-  <path d="m16 2 6 6"/>
-</svg>''',
-
-    progress: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="3" y="13" width="4" height="8" rx="1"/>
-  <rect x="10" y="8" width="4" height="13" rx="1"/>
-  <rect x="17" y="3" width="4" height="18" rx="1"/>
-</svg>''',
-
-    health: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/>
-  <polyline points="7 12 10 12 11.5 9 13.5 15 12 17 12"/>
-</svg>''',
-
-    journey: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="6" cy="19" r="3"/>
-  <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/>
-  <circle cx="18" cy="5" r="3"/>
-</svg>''',
-
-    exercises: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-  <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
-  <line x1="9" y1="12" x2="15" y2="12"/>
-  <line x1="9" y1="16" x2="13" y2="16"/>
-</svg>''',
-
-    skills: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-  <polyline points="2 12 12 17 22 12"/>
-  <polyline points="2 17 12 22 22 17"/>
-</svg>''',
-
-    history: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-  <polyline points="3 3 3 8 8 8"/>
-  <polyline points="12 7 12 12 15 15"/>
-</svg>''',
-
-    scheduledTraining: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-  <line x1="16" y1="2" x2="16" y2="6"/>
-  <line x1="8" y1="2" x2="8" y2="6"/>
-  <line x1="3" y1="10" x2="21" y2="10"/>
-  <polyline points="9 16 11 18 15 13"/>
-</svg>''',
-
-    trainingTime: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="12" cy="12" r="10"/>
-  <polyline points="12 6 12 12 16 14"/>
-</svg>''',
-
-    calendar: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-  <line x1="16" y1="2" x2="16" y2="6"/>
-  <line x1="8" y1="2" x2="8" y2="6"/>
-  <line x1="3" y1="10" x2="21" y2="10"/>
-  <line x1="8" y1="14" x2="8.01" y2="14"/>
-  <line x1="12" y1="14" x2="12.01" y2="14"/>
-  <line x1="16" y1="14" x2="16.01" y2="14"/>
-  <line x1="8" y1="18" x2="8.01" y2="18"/>
-  <line x1="12" y1="18" x2="12.01" y2="18"/>
-  <line x1="16" y1="18" x2="16.01" y2="18"/>
-</svg>''',
-
-    completed: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="12" cy="12" r="10"/>
-  <polyline points="8 12 11 15 16 9"/>
-</svg>''',
-
-    male: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="10" cy="14" r="6"/>
-  <line x1="14.2" y1="9.8" x2="21" y2="3"/>
-  <polyline points="15 3 21 3 21 9"/>
-</svg>''',
-
-    sort: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M7 3v18"/>
-  <path d="m11 7-4-4-4 4"/>
-  <path d="M17 21V3"/>
-  <path d="m13 17 4 4 4-4"/>
-</svg>''',
-
-    details: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <polyline points="9 18 15 12 9 6"/>
-</svg>''',
-
-    overflowMenu: '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-  <circle cx="12" cy="5" r="2"/>
-  <circle cx="12" cy="12" r="2"/>
-  <circle cx="12" cy="19" r="2"/>
-</svg>''',
   };
 
   /// Returns the SVG string for the given icon name, or null if not found.
