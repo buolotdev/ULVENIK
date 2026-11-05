@@ -44,7 +44,7 @@ class GoalDetailsScreen extends StatelessWidget {
                   color: AppColors.primaryForestGreen.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const UlvenikIcon(UlvenikIcons.skills,
+                child: const Icon(Icons.archive_outlined,
                   color: AppColors.primaryForestGreen,
                   size: 24,
                 ),
@@ -129,7 +129,7 @@ class GoalDetailsScreen extends StatelessWidget {
                   color: const Color(0xFFBA1A1A).withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const UlvenikIcon(UlvenikIcons.back,
+                child: const Icon(Icons.delete_outline,
                   color: Color(0xFFFFB4AB),
                   size: 24,
                 ),
@@ -193,7 +193,7 @@ class GoalDetailsScreen extends StatelessWidget {
                     ),
                     const Row(
                       children: [
-                        UlvenikIcon(UlvenikIcons.notifications, size: 16, color: Color(0xFFFFB4AB)),
+                        Icon(Icons.warning_amber_rounded, size: 16, color: Color(0xFFFFB4AB)),
                         SizedBox(width: 8),
                         Text(
                           'WILL BE PERMANENTLY REMOVED',
@@ -272,7 +272,7 @@ class GoalDetailsScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const UlvenikIcon(UlvenikIcons.skills, color: AppColors.primaryForestGreen),
+                leading: const Icon(Icons.archive_outlined, color: AppColors.primaryForestGreen),
                 title: const Text('Archive Goal', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -280,7 +280,7 @@ class GoalDetailsScreen extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const UlvenikIcon(UlvenikIcons.back, color: Color(0xFFFFB4AB)),
+                leading: const Icon(Icons.delete_outline, color: Color(0xFFFFB4AB)),
                 title: const Text('Delete Goal', style: TextStyle(color: Color(0xFFFFB4AB))),
                 onTap: () {
                   Navigator.pop(ctx);

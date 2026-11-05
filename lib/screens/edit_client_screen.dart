@@ -391,7 +391,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const UlvenikIcon(UlvenikIcons.back,
+                      icon: const Icon(Icons.close,
                         color: AppColors.secondaryTextStoneGrey,
                       ),
                       onPressed: () => Navigator.pop(ctx),
@@ -483,7 +483,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                 ),
                 const SizedBox(height: 20),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.play,
+                  leading: const Icon(Icons.camera_alt_outlined,
                     color: AppColors.primaryForestGreen,
                   ),
                   title: const Text(
@@ -501,7 +501,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.play,
+                  leading: const Icon(Icons.photo_library_outlined,
                     color: AppColors.infoAlpineBlue,
                   ),
                   title: const Text(
@@ -519,7 +519,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.back,
+                  leading: const Icon(Icons.delete_outline,
                     color: AppColors.errorDestructive,
                   ),
                   title: const Text(
@@ -756,7 +756,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                                 width: 1.5,
                               ),
                             ),
-                            child: const UlvenikIcon(UlvenikIcons.play,
+                            child: const Icon(Icons.camera_alt_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 15,
                             ),
@@ -1028,7 +1028,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                     ),
                     child: const Row(
                       children: [
-                        UlvenikIcon(UlvenikIcons.notifications,
+                        Icon(Icons.info_outline_rounded,
                           color: AppColors.infoAlpineBlue,
                           size: 18,
                         ),

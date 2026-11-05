@@ -367,7 +367,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         ),
         // Filter options sheet
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.primaryTextOffWhite, size: 20),
+          icon: const Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 20),
           tooltip: 'Filter Options',
           onPressed: _showFilterOptionsModal,
         ),
@@ -499,7 +499,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
+            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -732,7 +732,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       ),
                     ),
                     SizedBox(width: 4),
-                    UlvenikIcon(UlvenikIcons.history, size: 12, color: AppColors.secondaryTextStoneGrey),
+                    Icon(Icons.refresh, size: 12, color: AppColors.secondaryTextStoneGrey),
                   ],
                 ),
               ),
@@ -1044,7 +1044,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   _searchQuery = '';
                 });
               },
-              child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -1091,7 +1091,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             ),
             child: Column(
               children: [
-                const UlvenikIcon(UlvenikIcons.search, size: 36, color: AppColors.secondaryTextStoneGrey),
+                const Icon(Icons.search_off, size: 36, color: AppColors.secondaryTextStoneGrey),
                 const SizedBox(height: 12),
                 const Text(
                   'No matching sessions found',
@@ -1385,7 +1385,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 color: AppColors.cardsCarbon,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08), width: 1.5),
               ),
-              child: const UlvenikIcon(UlvenikIcons.health,
+              child: const Icon(Icons.waves,
                 color: Color(0xFF95D3BB),
                 size: 38,
               ),
@@ -1512,7 +1512,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                             ),
                           ),
                           IconButton(
-                            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1818,7 +1818,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                         ),
                       ),
                       IconButton(
-                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -2084,7 +2084,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(tab, style: TextStyle(color: isSelected ? const Color(0xFF95D3BB) : AppColors.primaryTextOffWhite, fontSize: 14)),
-                    trailing: isSelected ? const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB)) : null,
+                    trailing: isSelected ? const Icon(Icons.check, color: Color(0xFF95D3BB)) : null,
                     onTap: () {
                       setState(() => _selectedFilterTab = tab);
                       Navigator.pop(ctx);

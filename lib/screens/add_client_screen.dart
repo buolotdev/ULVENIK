@@ -163,7 +163,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                       ),
                     ),
                     trailing: selected
-                        ? const UlvenikIcon(UlvenikIcons.completed,
+                        ? const Icon(Icons.check_rounded,
                             color: _greenHeader, size: 20)
                         : null,
                   );
@@ -557,7 +557,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             onTap: () => setState(() => _addressExpanded = !_addressExpanded),
             child: Row(
               children: [
-                const UlvenikIcon(UlvenikIcons.timeline, color: _sage, size: 17),
+                const Icon(Icons.location_on_outlined, color: _sage, size: 17),
                 const SizedBox(width: 8),
                 const Text(
                   'Add Address',
@@ -663,7 +663,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
         children: [
           Row(
             children: const [
-              UlvenikIcon(UlvenikIcons.overflowMenu, color: _sage, size: 15),
+              Icon(Icons.lock_outline_rounded, color: _sage, size: 15),
               SizedBox(width: 7),
               Text(
                 'Private to you only',
@@ -728,7 +728,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                UlvenikIcon(UlvenikIcons.notifications, color: _alpineBlue, size: 15),
+                Icon(Icons.info_outline_rounded, color: _alpineBlue, size: 15),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -942,7 +942,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 3),
-                child: UlvenikIcon(UlvenikIcons.notifications, color: _sage, size: 18),
+                child: Icon(Icons.mail_outline_rounded, color: _sage, size: 18),
               ),
               const SizedBox(width: 10),
               const Expanded(
@@ -1066,7 +1066,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
         children: [
           Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.timeline, color: _sage, size: 18),
+              const Icon(Icons.location_on_outlined, color: _sage, size: 18),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(

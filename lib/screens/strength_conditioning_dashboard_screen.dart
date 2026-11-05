@@ -581,7 +581,7 @@ class _StrengthConditioningDashboardScreenState
           ),
           IconButton(
             tooltip: 'Export Data',
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint),
+            icon: const Icon(Icons.ios_share, color: _mint),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -592,7 +592,7 @@ class _StrengthConditioningDashboardScreenState
           ),
           IconButton(
             tooltip: 'Archive',
-            icon: const UlvenikIcon(UlvenikIcons.skills, color: _mint),
+            icon: const Icon(Icons.inventory_2_outlined, color: _mint),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -603,7 +603,7 @@ class _StrengthConditioningDashboardScreenState
           ),
           IconButton(
             tooltip: 'S & C Settings',
-            icon: const UlvenikIcon(UlvenikIcons.sort, color: _mint),
+            icon: const Icon(Icons.settings_outlined, color: _mint),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -645,7 +645,7 @@ class _StrengthConditioningDashboardScreenState
                 value: 'settings',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
+                    Icon(Icons.settings_outlined, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('S & C Settings', style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600)),
                   ],
@@ -665,7 +665,7 @@ class _StrengthConditioningDashboardScreenState
                 value: 'export',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
+                    Icon(Icons.ios_share, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Data', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -675,7 +675,7 @@ class _StrengthConditioningDashboardScreenState
                 value: 'archive',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.skills, color: _offWhite, size: 18),
+                    Icon(Icons.inventory_2_outlined, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('View Archive', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -770,7 +770,7 @@ class _StrengthConditioningDashboardScreenState
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: _muted, size: 20),
+            const Icon(Icons.expand_more, color: _muted, size: 20),
           ],
         ),
       ),

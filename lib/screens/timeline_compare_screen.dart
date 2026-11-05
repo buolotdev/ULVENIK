@@ -1737,7 +1737,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                       color: const Color(0xFF272B29),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const UlvenikIcon(UlvenikIcons.progress,
+                    child: const Icon(Icons.auto_graph,
                       color: _alpineBlue,
                       size: 18,
                     ),
@@ -1828,7 +1828,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                UlvenikIcon(UlvenikIcons.overflowMenu,
+                Icon(Icons.ios_share,
                   color: _isEmptyState
                       ? _stoneGrey.withValues(alpha: 0.45)
                       : _periodAGreen,
@@ -1979,7 +1979,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               ])
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const UlvenikIcon(UlvenikIcons.history,
+                  leading: const Icon(Icons.compare_arrows,
                       color: _mint, size: 20),
                   title: Text(
                     preset,
@@ -1990,7 +1990,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                     ),
                   ),
                   trailing: _activePreset == preset && !_isEmptyState
-                      ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 18)
+                      ? const Icon(Icons.check, color: _mint, size: 18)
                       : null,
                   onTap: () {
                     Navigator.pop(ctx);
@@ -2041,7 +2041,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               const SizedBox(height: 12),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const UlvenikIcon(UlvenikIcons.training,
+                leading: const Icon(Icons.picture_as_pdf_outlined,
                     color: _mint, size: 21),
                 title: const Text(
                   'Coach & Physio PDF Comparison Report',
@@ -2066,7 +2066,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const UlvenikIcon(UlvenikIcons.training,
+                leading: const Icon(Icons.table_rows_outlined,
                     color: _alpineBlue, size: 21),
                 title: const Text(
                   'Export Raw CSV Metrics',

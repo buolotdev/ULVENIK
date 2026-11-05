@@ -603,7 +603,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                           children: [
                             const Row(
                               children: [
-                                UlvenikIcon(UlvenikIcons.play, color: _mint, size: 18),
+                                Icon(Icons.photo_outlined, color: _mint, size: 18),
                                 SizedBox(width: 8),
                                 Text('With Photos or Attachments Only',
                                     style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -764,7 +764,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 subtitle: const Text('Belgian Malinois · 3 yrs (847 Events — Populated State)',
                     style: TextStyle(color: _stoneGrey, fontSize: 12)),
                 trailing: _selectedDog == 'Atlas'
-                    ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
+                    ? const Icon(Icons.check, color: _mint, size: 20)
                     : null,
                 onTap: () {
                   _selectDog('Atlas');
@@ -787,7 +787,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 subtitle: const Text('German Shepherd Puppy · 6 mos (0 Events — Empty State)',
                     style: TextStyle(color: _stoneGrey, fontSize: 12)),
                 trailing: _selectedDog == 'Nova'
-                    ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
+                    ? const Icon(Icons.check, color: _mint, size: 20)
                     : null,
                 onTap: () {
                   _selectDog('Nova');
@@ -879,7 +879,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
             if (item.location != null) ...[
               Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.timeline, color: _stoneGrey, size: 16),
+                  const Icon(Icons.location_on, color: _stoneGrey, size: 16),
                   const SizedBox(width: 6),
                   Text(
                     item.location!,
@@ -1033,7 +1033,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                         ),
                       ),
                       IconButton(
-                        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 20),
+                        icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
                         onPressed: () => Navigator.pop(modalCtx),
                       ),
                     ],
@@ -1083,7 +1083,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                         color: _error.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.exercises, color: _error),
+                      child: const Icon(Icons.scale, color: _error),
                     ),
                     title: const Text('Health & Weight Record',
                         style: TextStyle(
@@ -1113,7 +1113,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                         color: _tertiary.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _tertiary),
+                      child: const Icon(Icons.local_fire_department, color: _tertiary),
                     ),
                     title: const Text('Strength & Conditioning',
                         style: TextStyle(
@@ -1344,14 +1344,14 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
         actions: [
           if (_searchQuery.isNotEmpty)
             IconButton(
-              icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 20),
+              icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
               onPressed: () {
                 _searchController.clear();
                 setState(() => _searchQuery = '');
               },
             ),
           IconButton(
-            icon: UlvenikIcon(UlvenikIcons.sort,
+            icon: Icon(Icons.filter_list,
               color: _hasCustomFilters ? _mint : _stoneGrey,
               size: 22,
             ),
@@ -1432,7 +1432,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
           icon: Stack(
             clipBehavior: Clip.none,
             children: [
-              UlvenikIcon(UlvenikIcons.sort,
+              Icon(Icons.filter_list,
                 color: _hasCustomFilters ? _mint : _stoneGrey,
                 size: 22,
               ),
@@ -1455,7 +1455,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
           onPressed: _openTimelineFiltersScreen,
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.scheduledTraining, color: _stoneGrey, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.calendar, color: _stoneGrey, size: 22),
           tooltip: 'Timeline Calendar',
           onPressed: () {
             Navigator.push(
@@ -1555,7 +1555,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               value: 'timeline_favourites',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.health, color: Color(0xFFB8920A), size: 18),
+                  Icon(Icons.favorite, color: Color(0xFFB8920A), size: 18),
                   SizedBox(width: 8),
                   Text('Timeline Favourites',
                       style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600)),
@@ -1566,7 +1566,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               value: 'timeline_archive',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
+                  Icon(Icons.archive_outlined, color: _mint, size: 18),
                   SizedBox(width: 8),
                   Text('Timeline Archive',
                       style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600)),
@@ -1577,7 +1577,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               value: 'timeline_settings',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
+                  Icon(Icons.settings_outlined, color: _mint, size: 18),
                   SizedBox(width: 8),
                   Text('Timeline Settings',
                       style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600)),
@@ -1588,7 +1588,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               value: 'timeline_insights',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.notifications, color: _mint, size: 18),
+                  Icon(Icons.lightbulb_outline, color: _mint, size: 18),
                   SizedBox(width: 8),
                   Text('Timeline Insights',
                       style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w600)),
@@ -1610,7 +1610,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               value: 'timeline_calendar',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.scheduledTraining, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.calendar, color: _mint, size: 18),
                   SizedBox(width: 8),
                   Text('Timeline Calendar',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -1632,7 +1632,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               value: 'timeline_filters',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
+                  Icon(Icons.tune, color: _mint, size: 18),
                   SizedBox(width: 8),
                   Text('Timeline Filters',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -1760,7 +1760,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               padding: const EdgeInsets.symmetric(vertical: 40),
               child: Column(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 36),
+                  const Icon(Icons.filter_alt_off, color: _stoneGrey, size: 36),
                   const SizedBox(height: 10),
                   Text(
                     'No events found matching "$_selectedFilter"',
@@ -1831,7 +1831,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ),
               ],
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: Color(0xFF404944), size: 24),
+            const Icon(Icons.keyboard_arrow_down, color: Color(0xFF404944), size: 24),
           ],
         ),
       ),
@@ -2011,7 +2011,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.history, color: _stoneGrey, size: 16),
+                icon: const Icon(Icons.refresh, color: _stoneGrey, size: 16),
                 tooltip: 'Replay Animation',
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
@@ -2272,7 +2272,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               },
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 6),
-                child: UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 16),
+                child: Icon(Icons.close, color: _stoneGrey, size: 16),
               ),
             ),
           const SizedBox(width: 4),
@@ -2289,7 +2289,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                   child: Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      UlvenikIcon(UlvenikIcons.sort,
+                      Icon(Icons.tune,
                         color: _hasCustomFilters ? _mint : _stoneGrey,
                         size: 20,
                       ),
@@ -2532,7 +2532,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                           ],
                         ),
                         if (item.hasStar)
-                          const UlvenikIcon(UlvenikIcons.goals, color: _mint, size: 18)
+                          const Icon(Icons.star, color: _mint, size: 18)
                         else
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -2610,7 +2610,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                         const SizedBox(height: 4),
                         Row(
                           children: [
-                            const UlvenikIcon(UlvenikIcons.timeline, color: _stoneGrey, size: 13),
+                            const Icon(Icons.location_on, color: _stoneGrey, size: 13),
                             const SizedBox(width: 3),
                             Text(
                               item.location!,
@@ -2718,7 +2718,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                     style: TextStyle(color: _stoneGrey, fontSize: 13),
                   ),
                   SizedBox(width: 4),
-                  UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 16),
+                  Icon(Icons.filter_list, color: _stoneGrey, size: 16),
                 ],
               ),
             ),
@@ -2822,7 +2822,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                icon: const UlvenikIcon(UlvenikIcons.history, size: 16, color: _mint),
+                icon: const Icon(Icons.sync, size: 16, color: _mint),
                 label: const Text('Load Atlas Populated Timeline'),
                 onPressed: () => _selectDog('Atlas'),
               ),
@@ -2851,7 +2851,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
           mainAxisSize: MainAxisSize.min,
           children: [
             if (isSelected) ...[
-              const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 15),
+              const Icon(Icons.check, color: _mint, size: 15),
               const SizedBox(width: 6),
             ],
             Text(

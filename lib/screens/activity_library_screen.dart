@@ -439,7 +439,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                   ),
                 ),
                 trailing: isSelected
-                    ? const UlvenikIcon(UlvenikIcons.completed, color: _mint)
+                    ? const Icon(Icons.check, color: _mint)
                     : null,
                 contentPadding: EdgeInsets.zero,
                 onTap: () {
@@ -668,7 +668,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
           prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _mint, size: 20),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const UlvenikIcon(UlvenikIcons.back, color: _muted, size: 18),
+                  icon: const Icon(Icons.clear, color: _muted, size: 18),
                   onPressed: () => _searchController.clear(),
                 )
               : null,
@@ -749,7 +749,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                     ),
                   ),
                   const SizedBox(width: 4),
-                  const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
+                  const Icon(Icons.arrow_drop_down, color: _mint, size: 18),
                 ],
               ),
             ),
@@ -809,7 +809,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                 ),
                 child: const Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.details, color: _mint, size: 14),
+                    Icon(Icons.touch_app, color: _mint, size: 14),
                     SizedBox(width: 4),
                     Text(
                       'Interactive',
@@ -1050,7 +1050,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                               borderRadius: BorderRadius.circular(12),
                               child: const Padding(
                                 padding: EdgeInsets.all(4),
-                                child: UlvenikIcon(UlvenikIcons.goals, color: _mint, size: 20),
+                                child: Icon(Icons.star, color: _mint, size: 20),
                               ),
                             ),
                           ],

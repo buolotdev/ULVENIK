@@ -151,7 +151,7 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                       children: [
                         Row(
                           children: [
-                            const UlvenikIcon(UlvenikIcons.completed,
+                            const Icon(Icons.check,
                               size: 18,
                               color: AppColors.primaryForestGreen,
                             ),

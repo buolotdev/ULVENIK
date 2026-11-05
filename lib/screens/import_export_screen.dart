@@ -625,7 +625,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                 children: [
 
-                  UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 22),
+                  Icon(Icons.upload_file, color: _mint, size: 22),
 
                   SizedBox(width: 10),
 
@@ -1153,7 +1153,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                 child: ElevatedButton.icon(
 
-                  icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
+                  icon: const Icon(Icons.download, size: 18),
 
                   label: Text('Download $_selectedFormat File'),
 
@@ -1479,7 +1479,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
         children: [
 
-          const UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 22),
+          const Icon(Icons.cloud_done, color: _mint, size: 22),
 
           const SizedBox(width: 12),
 
@@ -1569,7 +1569,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
           children: [
 
-            UlvenikIcon(UlvenikIcons.notifications, color: Color(0xFFD68A8A), size: 24),
+            Icon(Icons.warning_amber_rounded, color: Color(0xFFD68A8A), size: 24),
 
             SizedBox(width: 10),
 
@@ -1655,7 +1655,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
           children: [
 
-            UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 22),
+            Icon(Icons.shield_outlined, color: _mint, size: 22),
 
             SizedBox(width: 10),
 
@@ -1823,7 +1823,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
           tooltip: 'Health Settings',
 
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
+          icon: const Icon(Icons.settings_outlined, color: AppColors.secondaryTextStoneGrey),
 
           onPressed: () => Navigator.push(
 
@@ -2553,7 +2553,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                   children: [
 
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 14),
+                    Icon(Icons.shield, color: _mint, size: 14),
 
                     SizedBox(width: 4),
 
@@ -3069,7 +3069,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                       children: [
 
-                        UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 22),
+                        Icon(Icons.cloud_upload_outlined, color: AppColors.secondaryTextStoneGrey, size: 22),
 
                         SizedBox(height: 8),
 
@@ -3247,7 +3247,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                     children: [
 
-                      const UlvenikIcon(UlvenikIcons.overflowMenu, size: 14, color: _mint),
+                      const Icon(Icons.lock, size: 14, color: _mint),
 
                       const SizedBox(width: 4),
 
@@ -3293,7 +3293,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
             ),
 
-            child: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 36),
+            child: const Icon(Icons.cloud_off_outlined, color: AppColors.secondaryTextStoneGrey, size: 36),
 
           ),
 

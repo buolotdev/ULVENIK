@@ -337,7 +337,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                       padding: const EdgeInsets.fromLTRB(20, 18, 16, 12),
                       child: Row(
                         children: [
-                          const UlvenikIcon(UlvenikIcons.skills,
+                          const Icon(Icons.auto_awesome_outlined,
                             color: _mint,
                             size: 20,
                           ),
@@ -399,14 +399,14 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                               );
                             },
                             tooltip: 'Copy release notes',
-                            icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                            icon: const Icon(Icons.copy_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 19,
                             ),
                           ),
                           IconButton(
                             onPressed: () => Navigator.of(sheetCtx).pop(),
-                            icon: const UlvenikIcon(UlvenikIcons.back,
+                            icon: const Icon(Icons.close_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 21,
                             ),
@@ -800,7 +800,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                 ),
                 child: Column(
                   children: [
-                    const UlvenikIcon(UlvenikIcons.search,
+                    const Icon(Icons.manage_search_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 30,
                     ),
@@ -873,7 +873,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const UlvenikIcon(UlvenikIcons.skills,
+              const Icon(Icons.auto_awesome_outlined,
                 color: _mint,
                 size: 19,
               ),
@@ -1025,7 +1025,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                   _searchQuery = '';
                 });
               },
-              child: const UlvenikIcon(UlvenikIcons.back,
+              child: const Icon(Icons.close_rounded,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 18,
               ),

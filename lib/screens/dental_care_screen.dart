@@ -226,7 +226,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
           },
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: const Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: _showFilterSheet,
         ),
         IconButton(
@@ -324,7 +324,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
               ],
             ),
           ),
-          const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
+          const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
         ],
       ),
     );
@@ -505,7 +505,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                 _searchController.clear();
                 setState(() => _searchQuery = '');
               },
-              child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -615,7 +615,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
           if (r.followUpRequired) ...[
             const SizedBox(height: 4),
             Row(children: const [
-              UlvenikIcon(UlvenikIcons.notifications, size: 14, color: _red),
+              Icon(Icons.warning_amber_rounded, size: 14, color: _red),
               SizedBox(width: 4),
               Text('Follow-up required', style: TextStyle(color: _red, fontSize: 12)),
             ]),
@@ -687,7 +687,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                       child: Row(mainAxisSize: MainAxisSize.min, children: [
                         if (done) const Padding(
                           padding: EdgeInsets.only(right: 6),
-                          child: UlvenikIcon(UlvenikIcons.completed, size: 14, color: _mint),
+                          child: Icon(Icons.check, size: 14, color: _mint),
                         ),
                         Text(t,
                             style: TextStyle(
@@ -752,7 +752,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                     ],
                   ),
                 ),
-                const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
+                const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
               ]),
             ),
           ),
@@ -766,7 +766,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                 color: AppColors.cardsCarbon,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
-              child: const UlvenikIcon(UlvenikIcons.goals, color: _mint, size: 44),
+              child: const Icon(Icons.sentiment_satisfied_alt_outlined, color: _mint, size: 44),
             ),
           ),
           const SizedBox(height: 24),
@@ -820,7 +820,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                   color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(ctx),
         ),
       ],
@@ -1131,7 +1131,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                       contentPadding: EdgeInsets.zero,
                       title: Text(f,
                           style: TextStyle(color: f == _filter ? _mint : AppColors.primaryTextOffWhite, fontSize: 14)),
-                      trailing: f == _filter ? const UlvenikIcon(UlvenikIcons.completed, color: _mint) : null,
+                      trailing: f == _filter ? const Icon(Icons.check, color: _mint) : null,
                       onTap: () {
                         setState(() => _filter = f);
                         Navigator.pop(ctx);

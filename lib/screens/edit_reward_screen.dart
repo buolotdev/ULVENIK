@@ -667,7 +667,7 @@ class _EditRewardTypePill extends StatelessWidget {
             ),
             if (isSelected) ...[
               const SizedBox(width: 6),
-              const UlvenikIcon(UlvenikIcons.completed,
+              const Icon(Icons.check_rounded,
                 size: 14,
                 color: AppColors.primaryForestGreen,
               ),

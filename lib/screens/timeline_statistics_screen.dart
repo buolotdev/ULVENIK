@@ -181,7 +181,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -429,7 +429,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'favourites',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.health, color: Color(0xFFB8920A), size: 18),
+                  Icon(Icons.favorite, color: Color(0xFFB8920A), size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Favourites', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -439,7 +439,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'archive',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
+                  Icon(Icons.archive_outlined, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Archive', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -449,7 +449,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'settings',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
+                  Icon(Icons.settings_outlined, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Settings', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -459,7 +459,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'insights',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.notifications, color: _mint, size: 18),
+                  Icon(Icons.lightbulb_outline, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Insights', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -469,7 +469,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'export',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 18),
+                  Icon(Icons.file_download_outlined, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Export', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -489,7 +489,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'calendar',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.scheduledTraining, color: _stoneGrey, size: 18),
+                  UlvenikIcon(UlvenikIcons.calendar, color: _stoneGrey, size: 18),
                   SizedBox(width: 10),
                   Text('Open Timeline Calendar', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -499,7 +499,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'learn',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.notifications, color: _stoneGrey, size: 18),
+                  Icon(Icons.info_outline, color: _stoneGrey, size: 18),
                   SizedBox(width: 10),
                   Text('About Timeline', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -574,7 +574,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
+                        Icon(Icons.swap_horiz, color: _mint, size: 16),
                         SizedBox(width: 4),
                         Text(
                           'Switch',

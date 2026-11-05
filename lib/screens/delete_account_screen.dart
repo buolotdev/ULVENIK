@@ -281,7 +281,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                           color: _destructive.withValues(alpha: 0.5),
                         ),
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.back,
+                      child: const Icon(Icons.close_rounded,
                         color: _destructiveBright,
                         size: 18,
                       ),
@@ -742,7 +742,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                     child: const Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        UlvenikIcon(UlvenikIcons.notifications,
+                        Icon(Icons.warning_amber_rounded,
                           color: _destructiveBright,
                           size: 22,
                         ),
@@ -1051,7 +1051,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
         children: [
           const Row(
             children: [
-              UlvenikIcon(UlvenikIcons.trainingTime,
+              Icon(Icons.hourglass_bottom_rounded,
                 color: _destructiveBright,
                 size: 20,
               ),
@@ -1174,7 +1174,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   children: [
                     const Row(
                       children: [
-                        UlvenikIcon(UlvenikIcons.notifications,
+                        Icon(Icons.warning_amber_rounded,
                           color: _destructive,
                           size: 21,
                         ),
@@ -1278,7 +1278,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               ),
             ),
             child: const Center(
-              child: UlvenikIcon(UlvenikIcons.back,
+              child: Icon(Icons.close_rounded,
                 size: 10.5,
                 color: _destructive,
               ),
@@ -1321,7 +1321,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               behavior: HitTestBehavior.opaque,
               child: Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.notifications,
+                  const Icon(Icons.info_outline_rounded,
                     size: 16,
                     color: _stoneGrey,
                   ),
@@ -1634,7 +1634,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
           ),
           child: Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.notifications,
+              const Icon(Icons.feedback_outlined,
                 size: 18,
                 color: _stoneGrey,
               ),
@@ -1666,7 +1666,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.sort,
+              const Icon(Icons.unfold_more_rounded,
                 size: 19,
                 color: _stoneGrey,
               ),
@@ -1728,7 +1728,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               ),
             ),
             child: value
-                ? const UlvenikIcon(UlvenikIcons.completed,
+                ? const Icon(Icons.check_rounded,
                     size: 15,
                     color: _offWhite,
                   )

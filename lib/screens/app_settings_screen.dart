@@ -230,7 +230,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         ),
                       );
                     },
-                    icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                    icon: const Icon(Icons.person_outline_rounded,
                       size: 17,
                       color: _mint,
                     ),
@@ -497,7 +497,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                           ),
                         );
                       },
-                      icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                      icon: const Icon(Icons.security_rounded,
                         size: 17,
                         color: _mint,
                       ),
@@ -881,7 +881,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                       ),
                     );
                   },
-                  icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 17, color: _mint),
+                  icon: const Icon(Icons.code_rounded, size: 17, color: _mint),
                   label: const Text(
                     'View Open Source Licences',
                     style: TextStyle(
@@ -1303,7 +1303,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                             _searchQuery = '';
                           });
                         },
-                        child: const UlvenikIcon(UlvenikIcons.back,
+                        child: const Icon(Icons.close_rounded,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 18,
                         ),
@@ -1795,7 +1795,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(sheetCtx).pop(),
-                    icon: const UlvenikIcon(UlvenikIcons.back,
+                    icon: const Icon(Icons.close_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -2115,7 +2115,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const UlvenikIcon(UlvenikIcons.back,
+                    icon: const Icon(Icons.close_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -2281,7 +2281,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
                             color: AppColors.primaryTextOffWhite,
                           ),
                         )
-                      : const UlvenikIcon(UlvenikIcons.history, size: 18),
+                      : const Icon(Icons.sync_rounded, size: 18),
                   label: Text(
                     _syncing ? 'Syncing Workspace...' : 'Sync Now',
                     style: const TextStyle(

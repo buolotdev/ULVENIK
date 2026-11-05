@@ -272,7 +272,7 @@ class _RecordCompetitionResultScreenState
                       ),
                     ),
                     trailing: active
-                        ? const UlvenikIcon(UlvenikIcons.completed,
+                        ? const Icon(Icons.check_rounded,
                             color: Color(0xFF95D3BB),
                           )
                         : null,
@@ -697,7 +697,7 @@ class _RecordCompetitionResultScreenState
                   ),
                 ),
                 if (widget.competition == null)
-                  const UlvenikIcon(UlvenikIcons.sort,
+                  const Icon(Icons.unfold_more_rounded,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 18,
                   ),
@@ -819,7 +819,7 @@ class _RecordCompetitionResultScreenState
                                 fontFamily: 'Inter',
                               ),
                             ),
-                            const UlvenikIcon(UlvenikIcons.sort,
+                            const Icon(Icons.keyboard_arrow_down_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 20,
                             ),
@@ -1121,7 +1121,7 @@ class _RecordCompetitionResultScreenState
           const SizedBox(width: 8),
           GestureDetector(
             onTap: onRemove,
-            child: const UlvenikIcon(UlvenikIcons.back,
+            child: const Icon(Icons.close_rounded,
               color: AppColors.secondaryTextStoneGrey,
               size: 16,
             ),
@@ -1194,7 +1194,7 @@ class _RecordCompetitionResultScreenState
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                UlvenikIcon(UlvenikIcons.training,
+                Icon(Icons.attach_file_rounded,
                   color: Color(0xFF95D3BB),
                   size: 18,
                 ),
@@ -1265,7 +1265,7 @@ class _RecordCompetitionResultScreenState
                         onTap: () {
                           setState(() => _attachments.removeAt(i));
                         },
-                        child: const UlvenikIcon(UlvenikIcons.back,
+                        child: const Icon(Icons.close_rounded,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 18,
                         ),

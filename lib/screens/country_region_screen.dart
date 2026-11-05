@@ -572,7 +572,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
               behavior: HitTestBehavior.opaque,
               child: const Padding(
                 padding: EdgeInsets.all(4),
-                child: UlvenikIcon(UlvenikIcons.back,
+                child: Icon(Icons.close_rounded,
                   size: 17,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -641,7 +641,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
         ),
         child: Column(
           children: [
-            const UlvenikIcon(UlvenikIcons.overflowMenu,
+            const Icon(Icons.public_off_rounded,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
@@ -752,7 +752,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                         ),
                       ),
                       if (isSelected)
-                        const UlvenikIcon(UlvenikIcons.completed,
+                        const Icon(Icons.check_rounded,
                           size: 19,
                           color: AppColors.primaryForestGreen,
                         ),

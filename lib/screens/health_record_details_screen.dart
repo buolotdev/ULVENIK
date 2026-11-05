@@ -303,7 +303,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
               ),
               SizedBox(width: 16),
-              UlvenikIcon(UlvenikIcons.timeline, color: AppColors.secondaryTextStoneGrey, size: 14),
+              Icon(Icons.location_on_outlined, color: AppColors.secondaryTextStoneGrey, size: 14),
               SizedBox(width: 4),
               Text(
                 'Training Ground',
@@ -343,7 +343,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 onTap: () => AppSnackbar.show(context, message: 'Update status coming soon', type: SnackbarType.info),
                 child: const Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.history, color: Color(0xFF95d3bb), size: 16),
+                    Icon(Icons.update_outlined, color: Color(0xFF95d3bb), size: 16),
                     SizedBox(width: 4),
                     Text(
                       'Update Status',
@@ -483,7 +483,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
               color: Color(0xFF1d201f),
               shape: BoxShape.circle,
             ),
-            child: const UlvenikIcon(UlvenikIcons.play, color: AppColors.secondaryTextStoneGrey),
+            child: const Icon(Icons.photo_camera_outlined, color: AppColors.secondaryTextStoneGrey),
           ),
           const SizedBox(height: 16),
           const Text(
@@ -690,7 +690,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 onTap: () => AppSnackbar.show(context, message: 'Update status coming soon', type: SnackbarType.info),
                 child: const Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.history, color: Color(0xFF95d3bb), size: 16),
+                    Icon(Icons.update_outlined, color: Color(0xFF95d3bb), size: 16),
                     SizedBox(width: 4),
                     Text(
                       'Update Status',
@@ -801,7 +801,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                   width: 56,
                   height: 56,
                   color: AppColors.backgroundObsidian,
-                  child: const UlvenikIcon(UlvenikIcons.training, color: Color(0xFFE57373), size: 28),
+                  child: const Icon(Icons.picture_as_pdf, color: Color(0xFFE57373), size: 28),
                 ),
               ),
               const SizedBox(width: 12),
@@ -826,7 +826,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 ),
               ),
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.details, color: Color(0xFF95d3bb), size: 18),
+                icon: const Icon(Icons.open_in_new, color: Color(0xFF95d3bb), size: 18),
                 onPressed: () => AppSnackbar.show(context, message: 'Opening attachment...', type: SnackbarType.info),
               ),
             ],

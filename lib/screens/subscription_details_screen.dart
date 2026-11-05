@@ -246,7 +246,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(6),
-              child: UlvenikIcon(UlvenikIcons.notifications,
+              child: Icon(Icons.help_outline_rounded,
                 color: _stoneGrey,
                 size: 21,
               ),
@@ -386,7 +386,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                     color: _forest,
                   ),
                 ),
-                UlvenikIcon(UlvenikIcons.details,
+                Icon(Icons.open_in_new_rounded,
                   color: _forest,
                   size: 18,
                 ),
@@ -408,7 +408,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.skills, color: _forest, size: 17),
+          const Icon(Icons.local_offer_rounded, color: _forest, size: 17),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -721,7 +721,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 2),
-          child: UlvenikIcon(UlvenikIcons.completed,
+          child: Icon(Icons.check_rounded,
             color: checkColor,
             size: 15,
           ),

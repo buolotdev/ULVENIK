@@ -740,7 +740,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Strength & Conditioning', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                    UlvenikIcon(UlvenikIcons.health, size: 20, color: Color(0xFF5D8FAF)),
+                    Icon(Icons.water, size: 20, color: Color(0xFF5D8FAF)),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -861,7 +861,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Sport Pack · Competitions & Trials', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                    UlvenikIcon(UlvenikIcons.goals, size: 22, color: AppColors.secondarySage),
+                    Icon(Icons.emoji_events_outlined, size: 22, color: AppColors.secondarySage),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -869,7 +869,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                 const SizedBox(height: 16),
                 ElevatedButton.icon(
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SportPackOverviewScreen())),
-                  icon: const UlvenikIcon(UlvenikIcons.goals, size: 18),
+                  icon: const Icon(Icons.military_tech_outlined, size: 18),
                   label: const Text('Open Sport Pack Overview'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
@@ -906,7 +906,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Media & Highlights', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                    UlvenikIcon(UlvenikIcons.play, size: 22, color: Color(0xFF95D3BB)),
+                    Icon(Icons.photo_library_outlined, size: 22, color: Color(0xFF95D3BB)),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -914,7 +914,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                 const SizedBox(height: 16),
                 ElevatedButton.icon(
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MediaLibraryScreen())),
-                  icon: const UlvenikIcon(UlvenikIcons.play, size: 18),
+                  icon: const Icon(Icons.photo_camera_back_outlined, size: 18),
                   label: const Text('Open Dog Media Library'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,

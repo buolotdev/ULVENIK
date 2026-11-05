@@ -198,7 +198,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
         ),
         title: const Row(
           children: [
-            UlvenikIcon(UlvenikIcons.history, color: _destructive, size: 22),
+            Icon(Icons.refresh, color: _destructive, size: 22),
             SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -759,7 +759,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      UlvenikIcon(UlvenikIcons.history, color: _destructive, size: 18),
+                      Icon(Icons.refresh, color: _destructive, size: 18),
                       SizedBox(width: 8),
                       Text(
                         'Reset Timeline Settings',
@@ -837,7 +837,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
                     turns: isExpanded ? 0.5 : 0.0,
                     duration: const Duration(milliseconds: 260),
                     curve: Curves.easeInOutCubic,
-                    child: const UlvenikIcon(UlvenikIcons.sort,
+                    child: const Icon(Icons.keyboard_arrow_down,
                       color: _stoneGrey,
                       size: 18,
                     ),

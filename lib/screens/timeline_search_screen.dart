@@ -454,7 +454,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
             ),
             if (isSearching)
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
+                icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
                 onPressed: _clearSearch,
               ),
           ],
@@ -464,7 +464,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
         if (isSearching)
           IconButton(
             tooltip: 'Filter Timeline',
-            icon: const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 22),
+            icon: const Icon(Icons.tune, color: _mint, size: 22),
             onPressed: () async {
               await Navigator.push(
                 context,
@@ -636,7 +636,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                     children: [
                       Row(
                         children: [
-                          const UlvenikIcon(UlvenikIcons.skills, color: _forest, size: 20),
+                          const Icon(Icons.bookmark, color: _forest, size: 20),
                           const SizedBox(width: 12),
                           Text(
                             term,
@@ -738,7 +738,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                       ),
                     ),
                     IconButton(
-                      icon: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 16),
+                      icon: const Icon(Icons.close, color: _mint, size: 16),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
                       onPressed: () {
@@ -903,7 +903,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                   ),
                   child: Column(
                     children: [
-                      const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 36),
+                      const Icon(Icons.search_off, color: _stoneGrey, size: 36),
                       const SizedBox(height: 12),
                       Text(
                         'No results found for "$_currentQuery"',
@@ -947,7 +947,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                     children: [
                       Row(
                         children: [
-                          const UlvenikIcon(UlvenikIcons.skills, color: _stoneGrey, size: 20),
+                          const Icon(Icons.bookmark_outline, color: _stoneGrey, size: 20),
                           const SizedBox(width: 10),
                           Text(
                             'Save "$_currentQuery" as a saved search',

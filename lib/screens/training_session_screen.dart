@@ -463,7 +463,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                             title: Text(o,
                                 style: _ts(15, AppColors.primaryTextOffWhite)),
                             trailing: o == current
-                                ? const UlvenikIcon(UlvenikIcons.completed,
+                                ? const Icon(Icons.check,
                                     color: AppColors.primaryForestGreen)
                                 : null,
                             onTap: () => Navigator.pop(c, o),
@@ -693,7 +693,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 if (alreadyInSession) ...[
-                                  const UlvenikIcon(UlvenikIcons.completed,
+                                  const Icon(Icons.check,
                                       size: 14,
                                       color: AppColors.primaryForestGreen),
                                   const SizedBox(width: 5),
@@ -915,7 +915,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                             onPressed: reps > 1
                                 ? () => setSheet(() => reps--)
                                 : null,
-                            icon: UlvenikIcon(UlvenikIcons.back,
+                            icon: Icon(Icons.remove_circle_outline,
                               color: reps > 1
                                   ? AppColors.primaryTextOffWhite
                                   : Colors.white24,
@@ -1683,7 +1683,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                     ),
                     IconButton(
                       tooltip: 'Remove Skill',
-                      icon: const UlvenikIcon(UlvenikIcons.back,
+                      icon: const Icon(Icons.delete_outline,
                           size: 19, color: AppColors.secondaryTextStoneGrey),
                       onPressed: () {
                         setState(() => _skills.remove(skill));
@@ -1693,7 +1693,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                     AnimatedRotation(
                       turns: skill.open ? 0.5 : 0,
                       duration: const Duration(milliseconds: 220),
-                      child: const UlvenikIcon(UlvenikIcons.sort,
+                      child: const Icon(Icons.expand_more,
                           color: AppColors.secondaryTextStoneGrey),
                     ),
                     const SizedBox(width: 4),
@@ -1777,7 +1777,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                                               : null,
                                           child: Padding(
                                             padding: const EdgeInsets.all(4),
-                                            child: UlvenikIcon(UlvenikIcons.back,
+                                            child: Icon(Icons.remove,
                                               size: 14,
                                               color: ex.repetitions > 1
                                                   ? AppColors
@@ -1820,7 +1820,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                                   IconButton(
                                     tooltip: 'Remove Exercise',
                                     visualDensity: VisualDensity.compact,
-                                    icon: const UlvenikIcon(UlvenikIcons.back,
+                                    icon: const Icon(Icons.close,
                                         size: 18,
                                         color:
                                             AppColors.secondaryTextStoneGrey),
@@ -2044,7 +2044,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                     AnimatedRotation(
                       turns: skill.open ? 0.5 : 0,
                       duration: const Duration(milliseconds: 220),
-                      child: const UlvenikIcon(UlvenikIcons.sort,
+                      child: const Icon(Icons.expand_more,
                           color: AppColors.secondaryTextStoneGrey),
                     ),
                   ],
@@ -2153,7 +2153,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                             fit: BoxFit.cover,
                             errorBuilder: (c, e, s) => Container(
                               color: AppColors.cardsCarbon,
-                              child: const UlvenikIcon(UlvenikIcons.play,
+                              child: const Icon(Icons.image_outlined,
                                   color: AppColors.secondaryTextStoneGrey),
                             ),
                           ),
@@ -2167,7 +2167,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                                   color: Colors.black54,
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: const UlvenikIcon(UlvenikIcons.play,
+                                child: const Icon(Icons.videocam,
                                     size: 12,
                                     color: AppColors.primaryTextOffWhite),
                               ),

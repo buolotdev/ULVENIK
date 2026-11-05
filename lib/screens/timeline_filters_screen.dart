@@ -542,7 +542,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
         ),
         child: const Row(
           children: [
-            UlvenikIcon(UlvenikIcons.notifications, size: 16, color: _stoneGrey),
+            Icon(Icons.info_outline, size: 16, color: _stoneGrey),
             SizedBox(width: 8),
             Text(
               'No active filters — showing all timeline events',
@@ -586,7 +586,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                   borderRadius: BorderRadius.circular(9999),
                   child: const Padding(
                     padding: EdgeInsets.all(2),
-                    child: UlvenikIcon(UlvenikIcons.back,
+                    child: Icon(Icons.close,
                       color: Color(0xFF7A8F7A),
                       size: 16,
                     ),
@@ -650,7 +650,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   child: Row(
                     children: [
-                      UlvenikIcon(UlvenikIcons.add,
+                      Icon(Icons.bookmark_add_outlined,
                           color: _mint, size: 14),
                       SizedBox(width: 4),
                       Text(
@@ -688,7 +688,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                     Expanded(
                       child: Row(
                         children: [
-                          const UlvenikIcon(UlvenikIcons.sort,
+                          const Icon(Icons.filter_list,
                             color: Color(0xFF7A8F7A),
                             size: 22,
                           ),

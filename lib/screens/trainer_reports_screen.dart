@@ -590,7 +590,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                               Navigator.of(ctx).pop();
                               _duplicateReport(report);
                             },
-                            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 17),
+                            icon: const Icon(Icons.copy_rounded, size: 17),
                             label: const Text('Copy'),
                           ),
                         ),
@@ -611,7 +611,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                               Navigator.of(ctx).pop();
                               _confirmDeleteReport(report);
                             },
-                            icon: const UlvenikIcon(UlvenikIcons.back,
+                            icon: const Icon(Icons.delete_outline_rounded,
                               size: 18,
                             ),
                             label: const Text('Delete'),
@@ -642,7 +642,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                             type: SnackbarType.success,
                           );
                         },
-                        icon: const UlvenikIcon(UlvenikIcons.training,
+                        icon: const Icon(Icons.picture_as_pdf_outlined,
                           size: 18,
                         ),
                         label: const Text(
@@ -1064,7 +1064,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                   IconButton(
                     onPressed: _openFilterSheet,
                     visualDensity: VisualDensity.compact,
-                    icon: UlvenikIcon(UlvenikIcons.sort,
+                    icon: Icon(Icons.tune_rounded,
                       color: _hasActiveFilters ? _mintBright : _textSecondary,
                       size: 21,
                     ),
@@ -1213,7 +1213,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                 Positioned(
                   top: 10,
                   right: 10,
-                  child: UlvenikIcon(UlvenikIcons.overflowMenu,
+                  child: Icon(Icons.swipe_left_outlined,
                     size: 15,
                     color: _textSecondary.withValues(alpha: 0.65),
                   ),

@@ -382,7 +382,7 @@ class _CertificatesDocumentsScreenState
                       ),
                     ),
                     IconButton(
-                      icon: const UlvenikIcon(UlvenikIcons.back,
+                      icon: const Icon(Icons.close,
                           color: AppColors.secondaryTextStoneGrey),
                       onPressed: () => Navigator.pop(ctx),
                     ),
@@ -690,7 +690,7 @@ class _CertificatesDocumentsScreenState
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              UlvenikIcon(UlvenikIcons.completed,
+                              Icon(Icons.verified_rounded,
                                 color: AppColors.infoAlpineBlue,
                                 size: 13,
                               ),
@@ -748,7 +748,7 @@ class _CertificatesDocumentsScreenState
                               ),
                             );
                           },
-                          icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                          icon: const Icon(Icons.download_rounded,
                             color: AppColors.primaryForestGreen,
                             size: 18,
                           ),
@@ -787,7 +787,7 @@ class _CertificatesDocumentsScreenState
                               ),
                             );
                           },
-                          icon: const UlvenikIcon(UlvenikIcons.details, size: 20),
+                          icon: const Icon(Icons.fullscreen_rounded, size: 20),
                           label: const Text(
                             'View Full',
                             style: TextStyle(
@@ -811,7 +811,7 @@ class _CertificatesDocumentsScreenState
                         Navigator.pop(ctx);
                         _confirmDeleteDocument(item);
                       },
-                      icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
+                      icon: const Icon(Icons.delete_outline, size: 18),
                       label: const Text(
                         'Delete Document',
                         style: TextStyle(
@@ -965,7 +965,7 @@ class _CertificatesDocumentsScreenState
                           ),
                         ),
                         IconButton(
-                          icon: const UlvenikIcon(UlvenikIcons.back,
+                          icon: const Icon(Icons.close,
                               color: AppColors.secondaryTextStoneGrey),
                           onPressed: () => Navigator.pop(ctx),
                         ),
@@ -1131,7 +1131,7 @@ class _CertificatesDocumentsScreenState
                       ),
                       child: const Row(
                         children: [
-                          UlvenikIcon(UlvenikIcons.overflowMenu,
+                          Icon(Icons.upload_file_rounded,
                             color: AppColors.primaryForestGreen,
                             size: 28,
                           ),
@@ -1289,7 +1289,7 @@ class _CertificatesDocumentsScreenState
             },
           ),
           IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.sort,
+            icon: const Icon(Icons.tune_rounded,
               color: AppColors.primaryTextOffWhite,
             ),
             onPressed: _showFilterModal,
@@ -1334,7 +1334,7 @@ class _CertificatesDocumentsScreenState
                     ),
                     suffixIcon: _searchQuery.isNotEmpty
                         ? IconButton(
-                            icon: const UlvenikIcon(UlvenikIcons.back,
+                            icon: const Icon(Icons.close_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                             ),
                             onPressed: () {
@@ -1443,7 +1443,7 @@ class _CertificatesDocumentsScreenState
                             ),
                           ),
                           const SizedBox(width: 4),
-                          const UlvenikIcon(UlvenikIcons.sort,
+                          const Icon(Icons.keyboard_arrow_down_rounded,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 18,
                           ),
@@ -1462,7 +1462,7 @@ class _CertificatesDocumentsScreenState
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          UlvenikIcon(UlvenikIcons.overflowMenu,
+                          Icon(Icons.folder_open_rounded,
                             size: 64,
                             color: AppColors.secondaryTextStoneGrey
                                 .withValues(alpha: 0.5),
@@ -1581,7 +1581,7 @@ class _CertificatesDocumentsScreenState
                             children: [
                               Container(
                                 color: const Color(0xFF1E2824),
-                                child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                                child: const Icon(Icons.shield_outlined,
                                   color: AppColors.primaryForestGreen,
                                   size: 26,
                                 ),

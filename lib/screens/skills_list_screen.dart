@@ -252,7 +252,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 12)),
                     trailing: d.name == _dog.name
-                        ? const UlvenikIcon(UlvenikIcons.completed,
+                        ? const Icon(Icons.check,
                             color: AppColors.primaryForestGreen)
                         : null,
                     onTap: () {
@@ -443,7 +443,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.sort,
+              const Icon(Icons.unfold_more,
                   color: AppColors.secondaryTextStoneGrey),
             ],
           ),
@@ -539,7 +539,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
           if (_query.isNotEmpty)
             GestureDetector(
               onTap: _search.clear,
-              child: const UlvenikIcon(UlvenikIcons.back,
+              child: const Icon(Icons.close,
                   size: 18, color: AppColors.secondaryTextStoneGrey),
             ),
         ],
@@ -817,7 +817,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       padding: const EdgeInsets.symmetric(vertical: 40),
       child: Column(
         children: [
-          UlvenikIcon(UlvenikIcons.search,
+          Icon(Icons.search_off,
               size: 40,
               color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5)),
           const SizedBox(height: 12),

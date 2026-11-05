@@ -457,7 +457,7 @@ class _TrainerWorkspaceSettingsScreenState
                       ),
                     ),
                     trailing: isSelected
-                        ? const UlvenikIcon(UlvenikIcons.completed,
+                        ? const Icon(Icons.check_rounded,
                             color: _mintBright,
                             size: 20,
                           )
@@ -586,7 +586,7 @@ class _TrainerWorkspaceSettingsScreenState
                   ),
                 ),
                 const SizedBox(width: 5),
-                const UlvenikIcon(UlvenikIcons.sort,
+                const Icon(Icons.keyboard_arrow_down_rounded,
                   color: _textSecondary,
                   size: 16,
                 ),

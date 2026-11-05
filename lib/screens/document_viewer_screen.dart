@@ -640,7 +640,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       ),
                       IconButton(
                         onPressed: () => Navigator.pop(ctx),
-                        icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite),
+                        icon: const Icon(Icons.close, color: _offWhite),
                       ),
                     ],
                   ),
@@ -872,7 +872,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 },
               ),
               ListTile(
-                leading: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite),
+                leading: const Icon(Icons.print_outlined, color: _offWhite),
                 title: const Text(
                   'Export & Print Certified PDF',
                   style: TextStyle(color: _offWhite, fontFamily: 'Inter'),
@@ -1175,7 +1175,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const UlvenikIcon(UlvenikIcons.details,
+                              const Icon(Icons.zoom_in_rounded,
                                 color: _offWhite,
                                 size: 13,
                               ),
@@ -1514,7 +1514,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                                 _searchController.clear();
                                 setState(() => _searchQuery = '');
                               },
-                              icon: const UlvenikIcon(UlvenikIcons.back,
+                              icon: const Icon(Icons.close_rounded,
                                 color: _stoneGrey,
                                 size: 16,
                               ),
@@ -1556,7 +1556,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
               IconButton(
                 visualDensity: VisualDensity.compact,
                 onPressed: matches.isEmpty ? null : () => _stepSearchMatch(-1),
-                icon: UlvenikIcon(UlvenikIcons.sort,
+                icon: Icon(Icons.keyboard_arrow_up_rounded,
                   color: matches.isEmpty
                       ? _stoneGrey.withValues(alpha: 0.4)
                       : _offWhite,
@@ -1565,7 +1565,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
               IconButton(
                 visualDensity: VisualDensity.compact,
                 onPressed: matches.isEmpty ? null : () => _stepSearchMatch(1),
-                icon: UlvenikIcon(UlvenikIcons.sort,
+                icon: Icon(Icons.keyboard_arrow_down_rounded,
                   color: matches.isEmpty
                       ? _stoneGrey.withValues(alpha: 0.4)
                       : _offWhite,
@@ -1672,7 +1672,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       ),
                       if (isBookmarked) ...[
                         const SizedBox(width: 4),
-                        const UlvenikIcon(UlvenikIcons.skills,
+                        const Icon(Icons.bookmark_rounded,
                           size: 13,
                           color: _favGold,
                         ),
@@ -1750,7 +1750,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
               ),
               Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.completed,
+                  Icon(Icons.verified_user_outlined,
                     size: 14,
                     color: _alpineBlue.withValues(alpha: 0.9),
                   ),
@@ -2091,7 +2091,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                         ),
                       ),
                       if (doc.isFavourite)
-                        const UlvenikIcon(UlvenikIcons.health,
+                        const Icon(Icons.favorite_rounded,
                           size: 12,
                           color: Color(0xFFEAB308),
                         ),

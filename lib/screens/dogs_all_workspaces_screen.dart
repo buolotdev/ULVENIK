@@ -139,7 +139,7 @@ class _DogsAllWorkspacesScreenState extends State<DogsAllWorkspacesScreen> {
                         ),
                       );
                     },
-                    icon: const UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.primaryTextOffWhite),
+                    icon: const Icon(Icons.crop, size: 18, color: AppColors.primaryTextOffWhite),
                     label: const Text('Advanced Crop & Zoom Editor', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Colors.white24),
@@ -485,7 +485,7 @@ class _DogsAllWorkspacesScreenState extends State<DogsAllWorkspacesScreen> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: const [
-                      UlvenikIcon(UlvenikIcons.edit, size: 12, color: AppColors.primaryTextOffWhite),
+                      Icon(Icons.crop, size: 12, color: AppColors.primaryTextOffWhite),
                       SizedBox(width: 4),
                       Text(
                         'Reposition',

@@ -426,7 +426,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: _termsAccepted
-                                      ? const UlvenikIcon(UlvenikIcons.completed,
+                                      ? const Icon(Icons.check,
                                           size: 14, color: Colors.white)
                                       : null,
                                 ),

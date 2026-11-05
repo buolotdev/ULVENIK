@@ -631,7 +631,7 @@ class _NotificationSettingsScreenState
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             child: Row(
               children: [
-                const UlvenikIcon(UlvenikIcons.overflowMenu,
+                const Icon(Icons.nightlight_outlined,
                   color: _stoneGrey,
                   size: 19,
                 ),
@@ -805,7 +805,7 @@ class _NotificationSettingsScreenState
                             ),
                           ),
                           if (selected)
-                            const UlvenikIcon(UlvenikIcons.completed,
+                            const Icon(Icons.check_rounded,
                               color: _forest,
                               size: 19,
                             ),
@@ -837,7 +837,7 @@ class _NotificationSettingsScreenState
                 ),
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.play,
+                    Icon(Icons.music_note_outlined,
                       color: _stoneGrey.withValues(alpha: 0.55),
                       size: 19,
                     ),
@@ -992,7 +992,7 @@ class _NotificationSettingsScreenState
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              UlvenikIcon(UlvenikIcons.history, color: _destructiveText, size: 18),
+              Icon(Icons.sync_rounded, color: _destructiveText, size: 18),
               SizedBox(width: 8),
               Text(
                 'Reset Notification Settings',
@@ -1286,7 +1286,7 @@ class _NotificationSettingsScreenState
                       ),
                     ),
                     trailing: active
-                        ? const UlvenikIcon(UlvenikIcons.completed, color: _forest)
+                        ? const Icon(Icons.check_rounded, color: _forest)
                         : null,
                     onTap: () {
                       onSelect(opt);

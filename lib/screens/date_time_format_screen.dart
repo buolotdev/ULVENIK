@@ -315,7 +315,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 6),
-            child: UlvenikIcon(UlvenikIcons.scheduledTraining,
+            child: UlvenikIcon(UlvenikIcons.calendar,
               size: 22,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -375,7 +375,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
         ),
         child: Row(
           children: [
-            const UlvenikIcon(UlvenikIcons.overflowMenu,
+            const Icon(Icons.language_rounded,
               size: 20,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -551,7 +551,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
                         ),
                       if (isSelected) ...[
                         if (trailingText != null) const SizedBox(width: 10),
-                        const UlvenikIcon(UlvenikIcons.completed,
+                        const Icon(Icons.check_rounded,
                           size: 18,
                           color: AppColors.primaryForestGreen,
                         ),

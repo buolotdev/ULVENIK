@@ -751,7 +751,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                 ),
                 child: const Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.details, color: _mint, size: 14),
+                    Icon(Icons.touch_app, color: _mint, size: 14),
                     SizedBox(width: 4),
                     Text(
                       'Interactive',
@@ -1003,7 +1003,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) =>
-                                              const UlvenikIcon(UlvenikIcons.exercises,
+                                              const Icon(Icons.pool,
                                         color: _sage,
                                         size: 22,
                                       ),
@@ -1013,7 +1013,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                                 ],
                               )
                             : const Center(
-                                child: UlvenikIcon(UlvenikIcons.exercises,
+                                child: Icon(Icons.pool,
                                   color: _sage,
                                   size: 22,
                                 ),
@@ -1062,7 +1062,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                               const SizedBox(height: 4),
                               Row(
                                 children: [
-                                  const UlvenikIcon(UlvenikIcons.play,
+                                  const Icon(Icons.photo_camera,
                                     color: _sage,
                                     size: 13,
                                   ),

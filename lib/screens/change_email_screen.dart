@@ -388,7 +388,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                   ),
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.overflowMenu,
+              const Icon(Icons.lock_outline_rounded,
                 size: 17,
                 color: _stoneGrey,
               ),
@@ -454,7 +454,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                         )
                       : GestureDetector(
                           onTap: () => _newEmailController.clear(),
-                          child: const UlvenikIcon(UlvenikIcons.back,
+                          child: const Icon(Icons.cancel_outlined,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -514,7 +514,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
             const SizedBox(height: 14),
             Row(
               children: [
-                const UlvenikIcon(UlvenikIcons.completed,
+                const Icon(Icons.verified_user_outlined,
                   size: 16,
                   color: _sageMint,
                 ),
@@ -778,7 +778,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                           type: SnackbarType.info,
                         );
                       },
-                icon: const UlvenikIcon(UlvenikIcons.history, size: 16),
+                icon: const Icon(Icons.refresh_rounded, size: 16),
                 label: Text(
                   _resendSeconds > 0
                       ? 'Resend in ${_resendSeconds}s'
@@ -796,7 +796,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                   padding: EdgeInsets.zero,
                 ),
                 onPressed: _completeEmailVerification,
-                icon: const UlvenikIcon(UlvenikIcons.details, size: 15),
+                icon: const Icon(Icons.open_in_new_rounded, size: 15),
                 label: const Text(
                   'Simulate Link Click',
                   style: TextStyle(
@@ -833,7 +833,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                   color: _forest.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                 ),
-                child: const UlvenikIcon(UlvenikIcons.completed,
+                child: const Icon(Icons.verified_rounded,
                   color: _sageMint,
                   size: 20,
                 ),
@@ -913,7 +913,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
         children: [
           const Padding(
             padding: EdgeInsets.only(top: 1),
-            child: UlvenikIcon(UlvenikIcons.notifications,
+            child: Icon(Icons.info_outline_rounded,
               size: 18,
               color: _alpineBlue,
             ),

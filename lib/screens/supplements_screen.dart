@@ -328,7 +328,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
           },
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
+          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 20),
           tooltip: 'Filter Supplements',
           onPressed: _showFilterOptionsModal,
         ),
@@ -445,7 +445,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
+            const Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -946,7 +946,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                   _searchQuery = '';
                 });
               },
-              child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -1224,7 +1224,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                     ],
                   ),
                 ),
-                const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 22),
+                const Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey, size: 22),
               ],
             ),
           ),
@@ -1242,7 +1242,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                 color: AppColors.cardsCarbon,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08), width: 1.5),
               ),
-              child: const UlvenikIcon(UlvenikIcons.skills,
+              child: const Icon(Icons.eco_outlined,
                 color: Color(0xFF95D3BB),
                 size: 38,
               ),
@@ -1415,7 +1415,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                             ),
                           ),
                           IconButton(
-                            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1564,7 +1564,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                           ),
                         ),
                         IconButton(
-                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1689,7 +1689,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                         ),
                       ),
                       IconButton(
-                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1953,7 +1953,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(category, style: TextStyle(color: isSelected ? const Color(0xFF95D3BB) : AppColors.primaryTextOffWhite, fontSize: 14)),
-                    trailing: isSelected ? const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB)) : null,
+                    trailing: isSelected ? const Icon(Icons.check, color: Color(0xFF95D3BB)) : null,
                     onTap: () {
                       setState(() {
                         _selectedFilter = category;

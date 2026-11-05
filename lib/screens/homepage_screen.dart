@@ -158,7 +158,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+          icon: const Icon(Icons.menu, color: AppColors.primaryTextOffWhite),
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),
           onPressed: () {},
@@ -171,7 +171,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
               'assets/images/white_mountain_only.png',
               height: 22,
               fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) => const UlvenikIcon(UlvenikIcons.timeline,
+              errorBuilder: (context, error, stackTrace) => const Icon(Icons.terrain_rounded,
                 color: AppColors.primaryTextOffWhite,
                 size: 22,
               ),

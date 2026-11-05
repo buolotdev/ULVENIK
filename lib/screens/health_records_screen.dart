@@ -55,7 +55,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
             onPressed: () => AppSnackbar.show(context, message: 'Search functionality coming soon', type: SnackbarType.info),
           ),
           IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondarySage),
+            icon: const Icon(Icons.tune, color: AppColors.secondarySage),
             onPressed: () => AppSnackbar.show(context, message: 'Filter options coming soon', type: SnackbarType.info),
           ),
           IconButton(
@@ -64,7 +64,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           ),
           IconButton(
             tooltip: 'Health Archive',
-            icon: const UlvenikIcon(UlvenikIcons.skills, color: AppColors.secondarySage),
+            icon: const Icon(Icons.inventory_2_outlined, color: AppColors.secondarySage),
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthArchiveScreen())),
           ),
           IconButton(
@@ -219,7 +219,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
+            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
           ],
         ),
       ),
@@ -312,13 +312,13 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey),
         suffixIcon: _searchController.text.isNotEmpty 
             ? IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                 onPressed: () {
                   _searchController.clear();
                   setState(() {});
                 },
               )
-            : const UlvenikIcon(UlvenikIcons.play, color: AppColors.secondaryTextStoneGrey),
+            : const Icon(Icons.mic, color: AppColors.secondaryTextStoneGrey),
         filled: true,
         fillColor: AppColors.cardsCarbon,
         contentPadding: const EdgeInsets.symmetric(vertical: 10),
@@ -372,7 +372,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 _activeFilters.remove(label);
               });
             },
-            child: const UlvenikIcon(UlvenikIcons.back, size: 16, color: AppColors.secondarySage),
+            child: const Icon(Icons.close, size: 16, color: AppColors.secondarySage),
           ),
         ],
       ),
@@ -517,7 +517,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const UlvenikIcon(UlvenikIcons.training, size: 14, color: AppColors.secondaryTextStoneGrey),
+                            const Icon(Icons.attachment, size: 14, color: AppColors.secondaryTextStoneGrey),
                             const SizedBox(width: 4),
                             Text(
                               '$attachments attachments',

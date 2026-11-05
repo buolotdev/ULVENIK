@@ -163,7 +163,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                       ),
                     ),
                     trailing: selected
-                        ? const UlvenikIcon(UlvenikIcons.completed,
+                        ? const Icon(Icons.check_rounded,
                             color: _mint,
                             size: 20,
                           )
@@ -265,7 +265,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
             tooltip: 'Export Analytics',
             visualDensity: VisualDensity.compact,
             onPressed: _shareAnalytics,
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+            icon: const Icon(Icons.ios_share_rounded,
               color: _stoneGrey,
               size: 19,
             ),
@@ -274,7 +274,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
             tooltip: 'Filter Timeframe',
             visualDensity: VisualDensity.compact,
             onPressed: _showFilterSheet,
-            icon: const UlvenikIcon(UlvenikIcons.sort,
+            icon: const Icon(Icons.tune_rounded,
               color: _stoneGrey,
               size: 20,
             ),
@@ -671,7 +671,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           const SizedBox(height: 14),
           Row(
             children: const [
-              UlvenikIcon(UlvenikIcons.completed, color: _mintAccent, size: 7),
+              Icon(Icons.circle, color: _mintAccent, size: 7),
               SizedBox(width: 7),
               Expanded(
                 child: Text(
@@ -683,7 +683,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                   ),
                 ),
               ),
-              UlvenikIcon(UlvenikIcons.completed, color: _alpineBlue, size: 7),
+              Icon(Icons.circle, color: _alpineBlue, size: 7),
               SizedBox(width: 7),
               Expanded(
                 child: Text(
@@ -700,7 +700,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           const SizedBox(height: 8),
           Row(
             children: const [
-              UlvenikIcon(UlvenikIcons.completed, color: Color(0xFFB45353), size: 7),
+              Icon(Icons.circle, color: Color(0xFFB45353), size: 7),
               SizedBox(width: 7),
               Expanded(
                 child: Text(
@@ -712,7 +712,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                   ),
                 ),
               ),
-              UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF5A6560), size: 7),
+              Icon(Icons.circle, color: Color(0xFF5A6560), size: 7),
               SizedBox(width: 7),
               Expanded(
                 child: Text(
@@ -969,7 +969,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           const SizedBox(height: 14),
           Row(
             children: const [
-              UlvenikIcon(UlvenikIcons.back, color: _forest, size: 16),
+              Icon(Icons.horizontal_rule_rounded, color: _forest, size: 16),
               SizedBox(width: 5),
               Text(
                 'Training Activity',

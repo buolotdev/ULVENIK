@@ -412,7 +412,7 @@ class _ExportScreenState extends State<ExportScreen>
             ),
             const SizedBox(height: 20),
             ListTile(
-              leading: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint),
+              leading: const Icon(Icons.share_outlined, color: _mint),
               title: const Text('Share File', style: TextStyle(color: _offWhite)),
               contentPadding: EdgeInsets.zero,
               onTap: () {
@@ -420,7 +420,7 @@ class _ExportScreenState extends State<ExportScreen>
               },
             ),
             ListTile(
-              leading: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite),
+              leading: const Icon(Icons.download_outlined, color: _offWhite),
               title: const Text('Save to Local Storage', style: TextStyle(color: _offWhite)),
               contentPadding: EdgeInsets.zero,
               onTap: () {
@@ -429,7 +429,7 @@ class _ExportScreenState extends State<ExportScreen>
               },
             ),
             ListTile(
-              leading: const UlvenikIcon(UlvenikIcons.back, color: _errorRed),
+              leading: const Icon(Icons.delete_outline, color: _errorRed),
               title: const Text('Delete from History', style: TextStyle(color: _errorRed)),
               contentPadding: EdgeInsets.zero,
               onTap: () {
@@ -554,7 +554,7 @@ class _ExportScreenState extends State<ExportScreen>
                 value: 'reset',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.history, color: _offWhite, size: 18),
+                    Icon(Icons.refresh, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Reset Configuration', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -564,7 +564,7 @@ class _ExportScreenState extends State<ExportScreen>
                 value: 'clear',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.back, color: _errorRed, size: 18),
+                    Icon(Icons.delete_sweep_outlined, color: _errorRed, size: 18),
                     SizedBox(width: 10),
                     Text('Clear Export History', style: TextStyle(color: _errorRed, fontSize: 13)),
                   ],
@@ -574,7 +574,7 @@ class _ExportScreenState extends State<ExportScreen>
                 value: 'settings',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
+                    Icon(Icons.settings_outlined, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('S & C Settings', style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600)),
                   ],
@@ -830,7 +830,7 @@ class _ExportScreenState extends State<ExportScreen>
                 ),
                 if (isCustom) ...[
                   const SizedBox(width: 4),
-                  UlvenikIcon(UlvenikIcons.details,
+                  Icon(Icons.open_in_new,
                     size: 14,
                     color: isSelected ? _offWhite : _stoneGrey,
                   ),
@@ -886,7 +886,7 @@ class _ExportScreenState extends State<ExportScreen>
                             : Border.all(color: Colors.white24, width: 1),
                       ),
                       child: isChecked
-                          ? const UlvenikIcon(UlvenikIcons.completed, size: 14, color: _offWhite)
+                          ? const Icon(Icons.check, size: 14, color: _offWhite)
                           : null,
                     ),
                     const SizedBox(width: 8),
@@ -1074,7 +1074,7 @@ class _ExportScreenState extends State<ExportScreen>
               ),
               const Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.overflowMenu, size: 12, color: _mint),
+                  Icon(Icons.lock_outline, size: 12, color: _mint),
                   SizedBox(width: 4),
                   Text(
                     'AES-256 Encrypted Export',
@@ -1245,7 +1245,7 @@ class _ExportScreenState extends State<ExportScreen>
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            UlvenikIcon(UlvenikIcons.overflowMenu, size: 20, color: _offWhite),
+            Icon(Icons.ios_share, size: 20, color: _offWhite),
             SizedBox(width: 8),
             Text(
               'Generate Export',
@@ -1326,7 +1326,7 @@ class _ExportScreenState extends State<ExportScreen>
 
               // Action: Re-download / Options
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.history, color: _stoneGrey),
+                icon: const Icon(Icons.refresh, color: _stoneGrey),
                 tooltip: 'Re-export',
                 onPressed: () => _handleReDownload(item),
               ),
@@ -1434,7 +1434,7 @@ class _ExportScreenState extends State<ExportScreen>
                               : Border.all(color: Colors.white24, width: 1),
                         ),
                         child: isChecked
-                            ? const UlvenikIcon(UlvenikIcons.completed, size: 14, color: _offWhite)
+                            ? const Icon(Icons.check, size: 14, color: _offWhite)
                             : null,
                       ),
                       const SizedBox(width: 12),
@@ -1578,7 +1578,7 @@ class _ExportScreenState extends State<ExportScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                UlvenikIcon(UlvenikIcons.overflowMenu,
+                Icon(Icons.file_download_outlined,
                   size: 18,
                   color: _includeDataEmpty.values.any((v) => v)
                       ? _offWhite
@@ -1635,7 +1635,7 @@ class _ExportScreenState extends State<ExportScreen>
               ),
             ),
             child: const Center(
-              child: UlvenikIcon(UlvenikIcons.skills,
+              child: Icon(Icons.inventory_2_outlined,
                 color: _mint,
                 size: 28,
               ),

@@ -605,7 +605,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 value: 'goals',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.goals, color: _offWhite, size: 18),
+                    Icon(Icons.flag, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Activity Goals', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -615,7 +615,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 value: 'share',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
+                    Icon(Icons.share, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Share Insights', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -625,7 +625,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 value: 'export',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
+                    Icon(Icons.file_download, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Analytics', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],

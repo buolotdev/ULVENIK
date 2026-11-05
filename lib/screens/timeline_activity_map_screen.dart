@@ -798,7 +798,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
         ),
         IconButton(
           tooltip: 'Filter Map Categories & Range',
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 20),
+          icon: const Icon(Icons.tune, color: _stoneGrey, size: 20),
           onPressed: _showMapFilterSheet,
         ),
         PopupMenuButton<String>(
@@ -1042,7 +1042,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const UlvenikIcon(UlvenikIcons.sort,
+                            const Icon(Icons.filter_alt_outlined,
                                 color: _mint, size: 14),
                             const SizedBox(width: 6),
                             Text(
@@ -1064,7 +1064,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                 _activeCategoryFilter = 'ALL';
                                 _dateRangeFilter = 'All Time';
                               }),
-                              child: const UlvenikIcon(UlvenikIcons.back,
+                              child: const Icon(Icons.close,
                                   color: _mint, size: 14),
                             ),
                           ],
@@ -1153,7 +1153,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                 border: Border.all(
                                     color: Colors.white.withValues(alpha: 0.06)),
                               ),
-                              child: const UlvenikIcon(UlvenikIcons.timeline,
+                              child: const Icon(Icons.directions_run,
                                 color: _alpineBlue,
                                 size: 19,
                               ),
@@ -1553,7 +1553,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                           shape: BoxShape.circle,
                           border: Border.all(color: _offWhite, width: 1.5),
                         ),
-                        child: const UlvenikIcon(UlvenikIcons.timeline, color: _offWhite, size: 12),
+                        child: const Icon(Icons.park, color: _offWhite, size: 12),
                       ),
                     ),
                   ),
@@ -1571,7 +1571,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                             shape: BoxShape.circle,
                             border: Border.all(color: _offWhite, width: 1.5),
                           ),
-                          child: const UlvenikIcon(UlvenikIcons.goals,
+                          child: const Icon(Icons.emoji_events,
                               color: _offWhite, size: 12),
                         ),
                       ),
@@ -1605,7 +1605,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                       color: _forest.withValues(alpha: 0.9),
                                       width: 2),
                                 ),
-                                child: const UlvenikIcon(UlvenikIcons.timeline,
+                                child: const Icon(Icons.location_on_outlined,
                                   color: _alpineBlue,
                                   size: 20,
                                 ),
@@ -1637,7 +1637,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 6),
+                              Icon(Icons.circle, color: _mint, size: 6),
                               SizedBox(width: 6),
                               Text(
                                 'SELECTED',
@@ -1671,7 +1671,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const UlvenikIcon(UlvenikIcons.search,
+                          const Icon(Icons.explore_outlined,
                               color: _sage, size: 13),
                           const SizedBox(width: 6),
                           Text(
@@ -1773,7 +1773,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                   color: _forest.withValues(alpha: 0.45),
                                 ),
                               ),
-                              child: const UlvenikIcon(UlvenikIcons.timeline,
+                              child: const Icon(Icons.location_on_outlined,
                                 color: _mint,
                                 size: 20,
                               ),
@@ -1919,7 +1919,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const UlvenikIcon(UlvenikIcons.health,
+                            const Icon(Icons.favorite_border,
                                 color: _stoneGrey, size: 14),
                             const SizedBox(width: 6),
                             Expanded(
@@ -2401,7 +2401,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
         children: [
           Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.timeline, color: _mint, size: 15),
+              const Icon(Icons.terrain, color: _mint, size: 15),
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
@@ -2557,7 +2557,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 7),
+                    Icon(Icons.circle, color: _mint, size: 7),
                     SizedBox(width: 7),
                     Text(
                       'GPS ACTIVE • OFFLINE READY',
@@ -2650,7 +2650,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                 color: Colors.white.withValues(alpha: 0.08),
                               ),
                             ),
-                            child: const UlvenikIcon(UlvenikIcons.timeline,
+                            child: const Icon(Icons.location_off_outlined,
                               color: _sage,
                               size: 28,
                             ),
@@ -2681,7 +2681,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            UlvenikIcon(UlvenikIcons.search,
+                            Icon(Icons.explore_outlined,
                                 color: _sage, size: 12),
                             SizedBox(width: 6),
                             Text(
@@ -2947,7 +2947,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                               color: loc.pinColor.withValues(alpha: 0.18),
                               borderRadius: BorderRadius.circular(9),
                             ),
-                            child: UlvenikIcon(UlvenikIcons.timeline,
+                            child: Icon(Icons.place_outlined,
                                 color: loc.pinColor, size: 18),
                           ),
                           title: Text(
@@ -3169,7 +3169,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: _cardBorder),
                         ),
-                        child: const UlvenikIcon(UlvenikIcons.timeline,
+                        child: const Icon(Icons.directions_run,
                             color: _alpineBlue, size: 20),
                       ),
                       const SizedBox(width: 12),

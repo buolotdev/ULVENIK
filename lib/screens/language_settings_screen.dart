@@ -391,7 +391,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 3),
-                child: UlvenikIcon(UlvenikIcons.overflowMenu,
+                child: Icon(Icons.language_rounded,
                   size: 21,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -505,7 +505,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
         ),
         child: Row(
           children: [
-            const UlvenikIcon(UlvenikIcons.overflowMenu,
+            const Icon(Icons.smartphone_rounded,
               size: 20,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -603,7 +603,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
               behavior: HitTestBehavior.opaque,
               child: const Padding(
                 padding: EdgeInsets.all(4),
-                child: UlvenikIcon(UlvenikIcons.back,
+                child: Icon(Icons.close_rounded,
                   size: 17,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -723,7 +723,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                         ),
                       ),
                       if (isSelected)
-                        const UlvenikIcon(UlvenikIcons.completed,
+                        const Icon(Icons.check_rounded,
                           size: 19,
                           color: AppColors.primaryForestGreen,
                         ),

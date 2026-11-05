@@ -254,7 +254,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
             tooltip: 'Filter',
             visualDensity: VisualDensity.compact,
             onPressed: () {},
-            icon: const UlvenikIcon(UlvenikIcons.sort,
+            icon: const Icon(Icons.tune_rounded,
               color: _textSecondary,
               size: 20,
             ),
@@ -283,7 +283,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
               border: Border.all(color: _border),
             ),
             alignment: Alignment.center,
-            child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+            child: const Icon(Icons.person_outline_rounded,
               color: _textSecondary,
               size: 16,
             ),
@@ -408,7 +408,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const UlvenikIcon(UlvenikIcons.timeline, color: _sage, size: 12),
+                          const Icon(Icons.location_on_outlined, color: _sage, size: 12),
                           const SizedBox(width: 3),
                           Text(
                             r.location,
@@ -445,7 +445,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: const [
-                              UlvenikIcon(UlvenikIcons.exercises,
+                              Icon(Icons.assignment_turned_in_outlined,
                                   color: _greenAccent, size: 12),
                               SizedBox(width: 4),
                               Text(

@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'rewards_management_screen.dart';
@@ -594,7 +593,7 @@ class _RewardTypePill extends StatelessWidget {
             ),
             if (isSelected) ...[
               const SizedBox(width: 7),
-              const UlvenikIcon(UlvenikIcons.completed,
+              const Icon(Icons.check_rounded,
                 size: 15,
                 color: AppColors.primaryForestGreen,
               ),

@@ -400,7 +400,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                 const SizedBox(height: 12),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const UlvenikIcon(UlvenikIcons.details,
+                  leading: const Icon(Icons.open_in_new_rounded,
                     color: Color(0xFF95D3BB),
                   ),
                   title: const Text(
@@ -487,7 +487,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                               color: AppColors.primaryForestGreen.withValues(alpha: 0.3),
                             ),
                           ),
-                          child: const UlvenikIcon(UlvenikIcons.goals,
+                          child: const Icon(Icons.emoji_events_outlined,
                             size: 32,
                             color: AppColors.primaryForestGreen,
                           ),
@@ -717,7 +717,7 @@ class _MySportsScreenState extends State<MySportsScreen>
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: _openFilterSheet,
-            icon: UlvenikIcon(UlvenikIcons.sort,
+            icon: Icon(Icons.filter_list_rounded,
               color: hasActiveFilter
                   ? const Color(0xFF95D3BB)
                   : AppColors.secondaryTextStoneGrey,

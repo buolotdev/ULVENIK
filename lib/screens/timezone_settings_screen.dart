@@ -589,7 +589,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
         ),
         child: Row(
           children: [
-            const UlvenikIcon(UlvenikIcons.overflowMenu,
+            const Icon(Icons.language_rounded,
               size: 20,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -694,7 +694,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
               behavior: HitTestBehavior.opaque,
               child: const Padding(
                 padding: EdgeInsets.all(4),
-                child: UlvenikIcon(UlvenikIcons.back,
+                child: Icon(Icons.close_rounded,
                   size: 17,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -903,7 +903,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                             ),
                             if (isSelected) ...[
                               const SizedBox(height: 4),
-                              const UlvenikIcon(UlvenikIcons.completed,
+                              const Icon(Icons.check_rounded,
                                 size: 16,
                                 color: AppColors.primaryForestGreen,
                               ),
@@ -924,7 +924,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                             ),
                             if (isSelected) ...[
                               const SizedBox(width: 8),
-                              const UlvenikIcon(UlvenikIcons.completed,
+                              const Icon(Icons.check_rounded,
                                 size: 17,
                                 color: AppColors.primaryForestGreen,
                               ),

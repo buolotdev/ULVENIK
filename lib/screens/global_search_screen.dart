@@ -559,7 +559,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                     const Spacer(),
                     IconButton(
                       onPressed: () => Navigator.of(sheetCtx).pop(),
-                      icon: const UlvenikIcon(UlvenikIcons.back,
+                      icon: const Icon(Icons.close_rounded,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 20,
                       ),
@@ -839,7 +839,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                       behavior: HitTestBehavior.opaque,
                       child: const Padding(
                         padding: EdgeInsets.all(4),
-                        child: UlvenikIcon(UlvenikIcons.back,
+                        child: Icon(Icons.close_rounded,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 18,
                         ),
@@ -953,7 +953,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
               ),
             ),
             const SizedBox(width: 7),
-            const UlvenikIcon(UlvenikIcons.back,
+            const Icon(Icons.close_rounded,
               size: 14,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -1150,7 +1150,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                             behavior: HitTestBehavior.opaque,
                             child: const Padding(
                               padding: EdgeInsets.all(4),
-                              child: UlvenikIcon(UlvenikIcons.back,
+                              child: Icon(Icons.close_rounded,
                                 size: 16,
                                 color: AppColors.secondaryTextStoneGrey,
                               ),
@@ -1310,7 +1310,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                   shape: BoxShape.circle,
                   border: Border.all(color: AppColors.cardBorder),
                 ),
-                child: const UlvenikIcon(UlvenikIcons.search,
+                child: const Icon(Icons.search_off_rounded,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 26,
                 ),
@@ -1541,18 +1541,18 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
           color: AppColors.secondaryTextStoneGrey,
         );
       case _SearchScope.competitions:
-        return const UlvenikIcon(UlvenikIcons.goals,
+        return const Icon(Icons.emoji_events_outlined,
           size: 20,
           color: AppColors.secondaryTextStoneGrey,
         );
       case _SearchScope.clients:
-        return const UlvenikIcon(UlvenikIcons.overflowMenu,
+        return const Icon(Icons.person_outline_rounded,
           size: 20,
           color: AppColors.secondaryTextStoneGrey,
         );
       case _SearchScope.media:
       case _SearchScope.all:
-        return const UlvenikIcon(UlvenikIcons.training,
+        return const Icon(Icons.insert_drive_file_outlined,
           size: 20,
           color: AppColors.secondaryTextStoneGrey,
         );

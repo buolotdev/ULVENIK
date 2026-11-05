@@ -247,7 +247,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                         const SizedBox(height: 16),
                         Row(
                           children: [
-                            const UlvenikIcon(UlvenikIcons.notifications,
+                            const Icon(Icons.lightbulb_outline_rounded,
                               color: _mint,
                               size: 20,
                             ),
@@ -265,7 +265,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                             ),
                             IconButton(
                               onPressed: () => Navigator.of(ctx).pop(),
-                              icon: const UlvenikIcon(UlvenikIcons.back,
+                              icon: const Icon(Icons.close_rounded,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
@@ -599,7 +599,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              icon: UlvenikIcon(UlvenikIcons.goals,
+                              icon: Icon(Icons.thumb_up_outlined,
                                 size: 17,
                                 color: item.hasVoted ? _mint : _stoneGrey,
                               ),
@@ -691,7 +691,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UlvenikIcon(UlvenikIcons.notifications,
+                Icon(Icons.lightbulb_outline_rounded,
                   color: _stoneGrey,
                   size: 21,
                 ),
@@ -750,7 +750,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           _searchController.clear();
                           setState(() => _searchQuery = '');
                         },
-                        icon: const UlvenikIcon(UlvenikIcons.back,
+                        icon: const Icon(Icons.close_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
@@ -853,7 +853,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        UlvenikIcon(UlvenikIcons.notifications,
+                        Icon(Icons.lightbulb_outline_rounded,
                           color: _offWhite,
                           size: 19,
                         ),
@@ -984,7 +984,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
               ),
               child: Column(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.search,
+                  const Icon(Icons.search_off_rounded,
                     color: _stoneGrey,
                     size: 28,
                   ),
@@ -1085,7 +1085,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          UlvenikIcon(UlvenikIcons.goals,
+                          Icon(Icons.thumb_up_outlined,
                             size: 16,
                             color: item.hasVoted ? _votedGreen : _stoneGrey,
                           ),
@@ -1101,7 +1101,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           ),
                           if (item.hasVoted) ...[
                             const SizedBox(width: 6),
-                            const UlvenikIcon(UlvenikIcons.completed,
+                            const Icon(Icons.check_rounded,
                               size: 15,
                               color: _votedGreen,
                             ),

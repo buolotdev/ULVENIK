@@ -287,7 +287,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                       ),
                       IconButton(
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        icon: const UlvenikIcon(UlvenikIcons.back,
+                        icon: const Icon(Icons.close_rounded,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 21,
                         ),
@@ -359,7 +359,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                                     type: SnackbarType.success,
                                   );
                                 },
-                                icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                                icon: const Icon(Icons.copy_rounded,
                                   size: 16,
                                   color: _mint,
                                 ),
@@ -501,7 +501,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  UlvenikIcon(UlvenikIcons.overflowMenu,
+                  Icon(Icons.code_rounded,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 20,
                   ),
@@ -580,7 +580,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                           _searchQuery = '';
                         });
                       },
-                      child: const UlvenikIcon(UlvenikIcons.back,
+                      child: const Icon(Icons.close_rounded,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 18,
                       ),
@@ -678,7 +678,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                 ),
                 child: Column(
                   children: [
-                    const UlvenikIcon(UlvenikIcons.search,
+                    const Icon(Icons.search_off_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 28,
                     ),

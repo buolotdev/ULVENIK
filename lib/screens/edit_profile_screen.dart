@@ -369,7 +369,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                       IconButton(
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        icon: const UlvenikIcon(UlvenikIcons.back,
+                        icon: const Icon(Icons.close_rounded,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 20,
                         ),
@@ -999,7 +999,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    const UlvenikIcon(UlvenikIcons.notifications,
+                                    const Icon(Icons.mail_outline_rounded,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 20,
                                     ),
@@ -1082,7 +1082,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    const UlvenikIcon(UlvenikIcons.overflowMenu,
+                                    const Icon(Icons.lock_outline_rounded,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 20,
                                     ),
@@ -1315,7 +1315,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ],
                     ),
                   ),
-                  const UlvenikIcon(UlvenikIcons.sort,
+                  const Icon(Icons.keyboard_arrow_down_rounded,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 22,
                   ),

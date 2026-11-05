@@ -601,7 +601,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
                   ),
                 ),
                 const SizedBox(width: 6),
-                const UlvenikIcon(UlvenikIcons.sort,
+                const Icon(Icons.keyboard_arrow_down_rounded,
                   color: _textSecondary,
                   size: 16,
                 ),
@@ -943,7 +943,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
               ),
               Text(
                 _showTrendTooltip
-                    ? '$selectedDate · ${_formatHours(selectedHours)}'
+                    ? '$selectedDate Â· ${_formatHours(selectedHours)}'
                     : 'Weekly trend',
                 style: GoogleFonts.inter(
                   color: _showTrendTooltip ? _neonMint : _textSecondary,
@@ -1287,14 +1287,14 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Day ${_selectedHeatmapDay! + 1} · ${_heatmapSummary(data.heatmapLevels[_selectedHeatmapDay!])}',
+                    'Day ${_selectedHeatmapDay! + 1} Â· ${_heatmapSummary(data.heatmapLevels[_selectedHeatmapDay!])}',
                     style: GoogleFonts.inter(
                       color: _textPrimary,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const UlvenikIcon(UlvenikIcons.back, size: 14, color: _textSecondary),
+                  const Icon(Icons.close, size: 14, color: _textSecondary),
                 ],
               ),
             ),
@@ -1354,11 +1354,11 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
   String _heatmapSummary(int level) {
     switch (level) {
       case 3:
-        return '2 sessions · 1h 25m recorded';
+        return '2 sessions Â· 1h 25m recorded';
       case 2:
-        return '1 session · 50m recorded';
+        return '1 session Â· 50m recorded';
       case 1:
-        return '1 session · 20m recorded';
+        return '1 session Â· 20m recorded';
       case 0:
       default:
         return 'No sessions recorded';

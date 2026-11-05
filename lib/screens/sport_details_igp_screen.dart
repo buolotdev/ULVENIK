@@ -313,7 +313,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   },
                 ),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.back,
+                  leading: const Icon(Icons.delete_outline_rounded,
                     color: Color(0xFFB55454),
                   ),
                   title: const Text(
@@ -2152,7 +2152,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   ),
                   child: Row(
                     children: [
-                      const UlvenikIcon(UlvenikIcons.goals,
+                      const Icon(Icons.emoji_events_outlined,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 16,
                       ),

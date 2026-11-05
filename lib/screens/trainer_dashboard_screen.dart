@@ -1182,7 +1182,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 17),
+                        icon: const Icon(Icons.person_outline, size: 17),
                         label: const Text('Client Profile'),
                       ),
                     ),
@@ -1228,7 +1228,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        icon: const UlvenikIcon(UlvenikIcons.training, size: 17),
+                        icon: const Icon(Icons.sticky_note_2_outlined, size: 17),
                         label: const Text('Client Notes'),
                       ),
                     ),
@@ -1965,7 +1965,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
             tooltip: 'Workspace Settings',
             visualDensity: VisualDensity.compact,
             onPressed: _openWorkspaceSettings,
-            icon: const UlvenikIcon(UlvenikIcons.sort,
+            icon: const Icon(Icons.settings_outlined,
               color: _textSecondary,
               size: 20,
             ),
@@ -2017,7 +2017,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             width: 1.2,
                           ),
                         ),
-                        child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                        child: const Icon(Icons.account_circle_outlined,
                           color: _textSecondary,
                           size: 24,
                         ),
@@ -2234,7 +2234,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                 setState(() => _searchQuery = '');
                 _searchFocusNode.unfocus();
               },
-              child: const UlvenikIcon(UlvenikIcons.back,
+              child: const Icon(Icons.close_rounded,
                 color: _textSecondary,
                 size: 18,
               ),
@@ -2563,7 +2563,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                   Row(
                                     children: [
                                       if (lesson.hasLocationPin) ...[
-                                        const UlvenikIcon(UlvenikIcons.timeline,
+                                        const Icon(Icons.location_on_outlined,
                                           color: _textSecondary,
                                           size: 13.5,
                                         ),
@@ -2882,7 +2882,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                               ),
                               if (entry.hasPersonalBestStar) ...[
                                 const SizedBox(width: 6),
-                                const UlvenikIcon(UlvenikIcons.goals,
+                                const Icon(Icons.star_border_rounded,
                                   color: _forest,
                                   size: 15,
                                 ),

@@ -1326,7 +1326,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                     onTap: () => _cancelSingleItem(item),
                     child: const Padding(
                       padding: EdgeInsets.all(4),
-                      child: UlvenikIcon(UlvenikIcons.back,
+                      child: Icon(Icons.close_rounded,
                         color: _stoneGrey,
                         size: 17,
                       ),
@@ -1466,7 +1466,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 onTap: () => _cancelSingleItem(item),
                 child: const Padding(
                   padding: EdgeInsets.all(4),
-                  child: UlvenikIcon(UlvenikIcons.back,
+                  child: Icon(Icons.close_rounded,
                     color: _stoneGrey,
                     size: 17,
                   ),
@@ -1593,7 +1593,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(4),
-                        child: UlvenikIcon(UlvenikIcons.history,
+                        child: Icon(Icons.refresh_rounded,
                           color: _destructive,
                           size: 18,
                         ),
@@ -1604,7 +1604,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                       onTap: () => _cancelSingleItem(item),
                       child: const Padding(
                         padding: EdgeInsets.all(4),
-                        child: UlvenikIcon(UlvenikIcons.back,
+                        child: Icon(Icons.close_rounded,
                           color: _stoneGrey,
                           size: 17,
                         ),
@@ -1708,7 +1708,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
       child: Center(
         child: Column(
           children: [
-            UlvenikIcon(UlvenikIcons.overflowMenu,
+            Icon(Icons.cloud_done_outlined,
               color: _forest.withValues(alpha: 0.8),
               size: 42,
             ),

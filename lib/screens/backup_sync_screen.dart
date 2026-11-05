@@ -604,7 +604,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
               children: [
                 Row(
                   children: [
-                    const UlvenikIcon(UlvenikIcons.overflowMenu,
+                    const Icon(Icons.cloud_outlined,
                       color: _stoneGrey,
                       size: 18,
                     ),
@@ -665,7 +665,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.history, color: _stoneGrey, size: 20),
+          const Icon(Icons.cloud_sync_outlined, color: _stoneGrey, size: 20),
           const SizedBox(width: 14),
           const Expanded(
             child: Column(
@@ -713,7 +713,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.progress,
+          const Icon(Icons.signal_cellular_4_bar_rounded,
             color: _stoneGrey,
             size: 19,
           ),
@@ -773,7 +773,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                 children: [
                   RotationTransition(
                     turns: _syncSpinController,
-                    child: const UlvenikIcon(UlvenikIcons.history,
+                    child: const Icon(Icons.sync_rounded,
                       color: _forest,
                       size: 21,
                     ),
@@ -902,7 +902,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                         IconButton(
                           visualDensity: VisualDensity.compact,
                           onPressed: () => _confirmRemoveDevice(idx),
-                          icon: const UlvenikIcon(UlvenikIcons.back,
+                          icon: const Icon(Icons.delete_outline_rounded,
                             color: _stoneGrey,
                             size: 19,
                           ),

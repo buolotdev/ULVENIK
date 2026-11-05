@@ -53,7 +53,7 @@ class _HealthScreenState extends State<HealthScreen> {
         actions: [
           IconButton(
             tooltip: 'Health Dashboard',
-            icon: const UlvenikIcon(UlvenikIcons.progress, color: Color(0xFF95D3BB)),
+            icon: const Icon(Icons.space_dashboard_outlined, color: Color(0xFF95D3BB)),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const HealthDashboardScreen()),
@@ -85,7 +85,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           IconButton(
             tooltip: 'Health Archive',
-            icon: const UlvenikIcon(UlvenikIcons.skills, color: Color(0xFF95D3BB)),
+            icon: const Icon(Icons.inventory_2_outlined, color: Color(0xFF95D3BB)),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const HealthArchiveScreen()),
@@ -93,7 +93,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           IconButton(
             tooltip: 'Health Settings',
-            icon: const UlvenikIcon(UlvenikIcons.sort, color: Color(0xFF95D3BB)),
+            icon: const Icon(Icons.settings_outlined, color: Color(0xFF95D3BB)),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const HealthSettingsScreen()),
@@ -204,7 +204,7 @@ class _HealthScreenState extends State<HealthScreen> {
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
+            const Icon(Icons.settings_outlined, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),

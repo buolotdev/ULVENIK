@@ -574,7 +574,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
               value: 'refresh',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.history, color: _mint, size: 18),
+                  Icon(Icons.refresh, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Refresh Insights', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -584,7 +584,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
               value: 'export',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 18),
+                  Icon(Icons.file_download_outlined, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Export Insights', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -605,7 +605,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
               value: 'settings',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
+                  Icon(Icons.settings_outlined, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Settings', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -636,7 +636,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                       border: Border.all(color: _cardBorder),
                     ),
                     child: const Center(
-                      child: UlvenikIcon(UlvenikIcons.notifications,
+                      child: Icon(Icons.lightbulb_outline,
                         size: 48,
                         color: _stoneGrey,
                       ),
@@ -723,7 +723,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey.withValues(alpha: 0.5), size: 16),
+                      Icon(Icons.filter_list, color: _stoneGrey.withValues(alpha: 0.5), size: 16),
                       const SizedBox(width: 6),
                       Text(
                         'Filter',
@@ -744,7 +744,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey.withValues(alpha: 0.5), size: 16),
+                      Icon(Icons.file_upload_outlined, color: _stoneGrey.withValues(alpha: 0.5), size: 16),
                       const SizedBox(width: 6),
                       Text(
                         'Export',
@@ -807,7 +807,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
         children: [
           Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
+              const Icon(Icons.filter_alt, color: _mint, size: 16),
               const SizedBox(width: 8),
               Text(
                 'Filtered by: $_selectedCategoryFilter',
@@ -821,7 +821,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
               children: [
                 Text('Clear Filter', style: TextStyle(color: _mint, fontSize: 12, fontWeight: FontWeight.w600)),
                 SizedBox(width: 4),
-                UlvenikIcon(UlvenikIcons.back, color: _mint, size: 14),
+                Icon(Icons.close, color: _mint, size: 14),
               ],
             ),
           ),
@@ -941,7 +941,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
               Expanded(
                 child: Row(
                   children: [
-                    const UlvenikIcon(UlvenikIcons.notifications, color: _stoneGrey, size: 14),
+                    const Icon(Icons.lightbulb_outline, color: _stoneGrey, size: 14),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
@@ -964,7 +964,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                             height: 12,
                             child: CircularProgressIndicator(strokeWidth: 2, color: _mint),
                           )
-                        : const UlvenikIcon(UlvenikIcons.history, color: _mint, size: 14),
+                        : const Icon(Icons.refresh, color: _mint, size: 14),
                     const SizedBox(width: 4),
                     const Text(
                       'Refresh',
@@ -1218,7 +1218,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 16),
+                    Icon(Icons.filter_list, color: _stoneGrey, size: 16),
                     SizedBox(width: 6),
                     Text('Filter', style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w500)),
                   ],
@@ -1240,7 +1240,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 16),
+                    Icon(Icons.file_upload_outlined, color: _stoneGrey, size: 16),
                     SizedBox(width: 6),
                     Text('Export', style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w500)),
                   ],
@@ -1611,7 +1611,7 @@ class _TimelineInsightsScreenState extends State<TimelineInsightsScreen>
                     turns: isExpanded ? 0.5 : 0.0,
                     duration: const Duration(milliseconds: 260),
                     curve: Curves.easeInOutCubic,
-                    child: const UlvenikIcon(UlvenikIcons.sort,
+                    child: const Icon(Icons.keyboard_arrow_down,
                       color: _stoneGrey,
                       size: 18,
                     ),

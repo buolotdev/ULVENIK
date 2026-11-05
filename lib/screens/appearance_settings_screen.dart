@@ -623,7 +623,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                         color: _forest,
                         shape: BoxShape.circle,
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.completed,
+                      child: const Icon(Icons.check_rounded,
                         color: _offWhite,
                         size: 11.5,
                       ),
@@ -725,7 +725,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                           ),
                         ),
                         if (selected)
-                          const UlvenikIcon(UlvenikIcons.completed,
+                          const Icon(Icons.check_rounded,
                             color: _forest,
                             size: 19,
                           ),
@@ -746,7 +746,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
       (
         'Comfortable',
         'Recommended',
-        const UlvenikIcon(UlvenikIcons.progress, color: _stoneGrey, size: 19),
+        const Icon(Icons.grid_view_outlined, color: _stoneGrey, size: 19),
       ),
       (
         'Compact',
@@ -821,7 +821,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                           ),
                         ),
                         if (selected)
-                          const UlvenikIcon(UlvenikIcons.completed,
+                          const Icon(Icons.check_rounded,
                             color: _forest,
                             size: 19,
                           ),
@@ -847,7 +847,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.goals, color: _stoneGrey, size: 20),
+          const Icon(Icons.star_border_rounded, color: _stoneGrey, size: 20),
           const SizedBox(width: 14),
           const Expanded(
             child: Column(
@@ -898,7 +898,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.exercises, color: _stoneGrey, size: 19),
+          const Icon(Icons.back_hand_outlined, color: _stoneGrey, size: 19),
           const SizedBox(width: 14),
           const Expanded(
             child: Column(
@@ -956,7 +956,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              UlvenikIcon(UlvenikIcons.history, color: _destructiveText, size: 18),
+              Icon(Icons.replay_rounded, color: _destructiveText, size: 18),
               SizedBox(width: 8),
               Text(
                 'Reset Appearance Settings',

@@ -227,7 +227,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
               for (final skill in _availableSkills)
                 ListTile(
                   title: Text(skill, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
-                  trailing: _parentSkill == skill ? const UlvenikIcon(UlvenikIcons.completed, color: AppColors.primaryForestGreen) : null,
+                  trailing: _parentSkill == skill ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
                   onTap: () {
                     Navigator.pop(context);
                     if (skill != _parentSkill) {
@@ -268,7 +268,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
               ),
             ),
             const SizedBox(width: 8),
-            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 22),
+            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 22),
           ],
         ),
       ),
@@ -300,7 +300,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                   : null,
             ),
             child: !_hasCustomImage
-                ? const UlvenikIcon(UlvenikIcons.play, color: AppColors.secondaryTextStoneGrey)
+                ? const Icon(Icons.image_outlined, color: AppColors.secondaryTextStoneGrey)
                 : null,
           ),
           const SizedBox(width: 16),
@@ -388,7 +388,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                         const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () => _removeTag(tag),
-                          child: const UlvenikIcon(UlvenikIcons.back, size: 14, color: AppColors.secondaryTextStoneGrey),
+                          child: const Icon(Icons.close, size: 14, color: AppColors.secondaryTextStoneGrey),
                         ),
                       ],
                     ),

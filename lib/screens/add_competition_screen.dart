@@ -506,7 +506,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.notifications,
+          const Icon(Icons.error_outline_rounded,
             color: Color(0xFFE07A7A),
             size: 18,
           ),
@@ -934,7 +934,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               ),
             ),
             if (showChevron)
-              const UlvenikIcon(UlvenikIcons.sort,
+              const Icon(Icons.keyboard_arrow_down_rounded,
                 color: _stone,
                 size: 19,
               ),
@@ -982,7 +982,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                 ),
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort,
+            const Icon(Icons.keyboard_arrow_down_rounded,
               color: _stone,
               size: 19,
             ),
@@ -1620,7 +1620,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
           const SizedBox(width: 6),
           GestureDetector(
             onTap: onRemove,
-            child: const UlvenikIcon(UlvenikIcons.back, color: _stone, size: 15),
+            child: const Icon(Icons.close_rounded, color: _stone, size: 15),
           ),
         ],
       ),
@@ -2072,7 +2072,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                         ),
                         child: Row(
                           children: [
-                            const UlvenikIcon(UlvenikIcons.training,
+                            const Icon(Icons.attach_file_rounded,
                               color: _mint,
                               size: 18,
                             ),

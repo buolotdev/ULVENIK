@@ -334,7 +334,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
         children: [
           Padding(
             padding: EdgeInsets.only(top: 2),
-            child: UlvenikIcon(UlvenikIcons.notifications,
+            child: Icon(Icons.info_outline_rounded,
               size: 18,
               color: AppColors.infoAlpineBlue,
             ),
@@ -471,7 +471,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
                 behavior: HitTestBehavior.opaque,
                 child: const Padding(
                   padding: EdgeInsets.all(4),
-                  child: UlvenikIcon(UlvenikIcons.back,
+                  child: Icon(Icons.delete_outline_rounded,
                     size: 19,
                     color: AppColors.secondarySage,
                   ),
@@ -645,7 +645,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                     ),
                     GestureDetector(
                       onTap: () => Navigator.of(context).maybePop(),
-                      child: const UlvenikIcon(UlvenikIcons.back,
+                      child: const Icon(Icons.close_rounded,
                         size: 20,
                         color: AppColors.secondaryTextStoneGrey,
                       ),

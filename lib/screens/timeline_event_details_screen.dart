@@ -121,7 +121,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               top: 10,
               right: 10,
               child: IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
+                icon: const Icon(Icons.close, color: _offWhite, size: 24),
                 onPressed: () => Navigator.pop(ctx),
               ),
             ),
@@ -299,7 +299,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               value: 'view_original',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.details, color: _mint, size: 18),
+                  Icon(Icons.open_in_new, color: _mint, size: 18),
                   SizedBox(width: 8),
                   Text('View Original Record',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -486,7 +486,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               const SizedBox(width: 10),
               Container(width: 3, height: 3, decoration: const BoxDecoration(color: Color(0x38FFFFFF), shape: BoxShape.circle)),
               const SizedBox(width: 10),
-              const UlvenikIcon(UlvenikIcons.timeline, color: _secondary, size: 15),
+              const Icon(Icons.location_on, color: _secondary, size: 15),
               const SizedBox(width: 6),
               InkWell(
                 onTap: () {},
@@ -524,7 +524,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            UlvenikIcon(UlvenikIcons.details, size: 18),
+            Icon(Icons.open_in_new, size: 18),
             SizedBox(width: 8),
             Text(
               'View Original Record',
@@ -654,7 +654,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                 ],
               ),
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.history, color: _stoneGrey, size: 16),
+                icon: const Icon(Icons.refresh, color: _stoneGrey, size: 16),
                 tooltip: 'Replay Telemetry',
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
@@ -1115,7 +1115,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                                   color: Colors.black54,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const UlvenikIcon(UlvenikIcons.play, color: _offWhite, size: 14),
+                                child: const Icon(Icons.photo, color: _offWhite, size: 14),
                               ),
                             ),
                           ],

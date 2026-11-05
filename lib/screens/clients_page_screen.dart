@@ -470,7 +470,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                       ),
                     ),
                     trailing: selected
-                        ? const UlvenikIcon(UlvenikIcons.completed,
+                        ? const Icon(Icons.check_rounded,
                             color: _mint, size: 20)
                         : null,
                   );
@@ -508,7 +508,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 ),
                 const SizedBox(height: 10),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.details,
+                  leading: const Icon(Icons.visibility_outlined,
                       color: _textPrimary),
                   title: Text(
                     'View ${client.fullName}',
@@ -551,7 +551,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.training,
+                  leading: const Icon(Icons.sticky_note_2_outlined,
                       color: _textSecondary),
                   title: const Text(
                     'Open Client Notes',
@@ -567,7 +567,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.skills,
+                  leading: const Icon(Icons.archive_outlined,
                       color: _terracotta),
                   title: Text(
                     client.status == 'Archived'
@@ -706,7 +706,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const UlvenikIcon(UlvenikIcons.sort,
+                const Icon(Icons.tune_rounded,
                   color: _textSecondary,
                   size: 21,
                 ),
@@ -804,7 +804,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 _searchFocusNode.unfocus();
               }
             },
-            child: const UlvenikIcon(UlvenikIcons.back,
+            child: const Icon(Icons.close_rounded,
               color: _textSecondary,
               size: 18,
             ),
@@ -861,7 +861,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   ),
                   if (active) ...[
                     const SizedBox(width: 6),
-                    const UlvenikIcon(UlvenikIcons.back,
+                    const Icon(Icons.close_rounded,
                       color: _mint,
                       size: 13,
                     ),
@@ -1085,7 +1085,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                         ),
                         alignment: Alignment.center,
                         child: isInactive
-                            ? const UlvenikIcon(UlvenikIcons.overflowMenu,
+                            ? const Icon(Icons.person_outline_rounded,
                                 color: _textSecondary,
                                 size: 22,
                               )
@@ -1111,7 +1111,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                               shape: BoxShape.circle,
                               border: Border.all(color: _border),
                             ),
-                            child: const UlvenikIcon(UlvenikIcons.goals,
+                            child: const Icon(Icons.star_rounded,
                               color: _gold,
                               size: 11.5,
                             ),
@@ -1435,7 +1435,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                     shape: BoxShape.circle,
                     border: Border.all(color: _border),
                   ),
-                  child: const UlvenikIcon(UlvenikIcons.add,
+                  child: const Icon(Icons.group_add_outlined,
                     color: _sage,
                     size: 24,
                   ),
@@ -1478,7 +1478,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  icon: const UlvenikIcon(UlvenikIcons.add, size: 17),
+                  icon: const Icon(Icons.person_add_alt_1_outlined, size: 17),
                   label: const Text(
                     'Add Client',
                     style: TextStyle(

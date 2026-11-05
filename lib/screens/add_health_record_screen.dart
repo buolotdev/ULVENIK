@@ -256,7 +256,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                         ),
                       ),
                       SizedBox(width: 4),
-                      UlvenikIcon(UlvenikIcons.completed, size: 14, color: Color(0xFF95d3bb)),
+                      Icon(Icons.check, size: 14, color: Color(0xFF95d3bb)),
                     ],
                   ),
                 ),
@@ -386,7 +386,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                     fontSize: 14,
                   ),
                 ),
-                const UlvenikIcon(UlvenikIcons.scheduledTraining, color: AppColors.secondaryTextStoneGrey, size: 20),
+                const UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),
@@ -476,7 +476,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 28),
+                  Icon(Icons.upload_file_outlined, color: AppColors.secondaryTextStoneGrey, size: 28),
                   SizedBox(height: 8),
                   Text(
                     'Add photos or documents',
@@ -639,7 +639,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
           ),
           elevation: 0,
         ),
-        icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
+        icon: const Icon(Icons.save_outlined, size: 18),
         label: const Text('Save Health Record', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
       ),
     );
@@ -720,7 +720,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
               value: items.contains(value) ? value : items.first,
               isExpanded: true,
               dropdownColor: AppColors.cardsCarbon,
-              icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
+              icon: const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
               style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
               items: items.map((String item) {
                 return DropdownMenuItem<String>(
@@ -775,7 +775,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                   '${_selectedDate.month.toString().padLeft(2, '0')}/${_selectedDate.day.toString().padLeft(2, '0')}/${_selectedDate.year}',
                   style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                 ),
-                const UlvenikIcon(UlvenikIcons.scheduledTraining, color: AppColors.secondaryTextStoneGrey, size: 20),
+                const UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),

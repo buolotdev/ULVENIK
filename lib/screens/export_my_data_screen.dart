@@ -599,7 +599,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
         children: [
           Row(
             children: [
-              UlvenikIcon(UlvenikIcons.overflowMenu,
+              Icon(Icons.cloud_download_outlined,
                 color: _sageMint,
                 size: 21,
               ),
@@ -855,7 +855,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                 ),
               ),
               child: checked
-                  ? const UlvenikIcon(UlvenikIcons.completed,
+                  ? const Icon(Icons.check_rounded,
                       size: 14,
                       color: _offWhite,
                     )
@@ -1347,7 +1347,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const UlvenikIcon(UlvenikIcons.overflowMenu,
+                const Icon(Icons.lock_outline_rounded,
                   color: _sageMint,
                   size: 19,
                 ),
@@ -1563,7 +1563,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                     color: _forest.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const UlvenikIcon(UlvenikIcons.exercises,
+                  child: const UlvenikIcon(UlvenikIcons.completed,
                     color: _sageMint,
                     size: 21,
                   ),
@@ -1682,7 +1682,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                         type: SnackbarType.info,
                       );
                     },
-                    icon: const UlvenikIcon(UlvenikIcons.details, size: 17),
+                    icon: const Icon(Icons.link_rounded, size: 17),
                     label: const Text(
                       'Copy 48h Link',
                       style: TextStyle(
@@ -1705,7 +1705,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                       ),
                     ),
                     onPressed: _startExportGeneration,
-                    icon: const UlvenikIcon(UlvenikIcons.history, size: 17),
+                    icon: const Icon(Icons.refresh_rounded, size: 17),
                     label: const Text(
                       'Rebuild Export',
                       style: TextStyle(

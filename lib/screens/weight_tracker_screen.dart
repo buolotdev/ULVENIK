@@ -272,7 +272,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
         // Filter button
         IconButton(
           tooltip: 'Filters & Units',
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 24),
+          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
           onPressed: _showFilterModal,
         ),
         // Add button
@@ -355,7 +355,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const UlvenikIcon(UlvenikIcons.exercises, color: AppColors.secondaryTextStoneGrey, size: 16),
+              const Icon(Icons.monitor_weight_outlined, color: AppColors.secondaryTextStoneGrey, size: 16),
               const SizedBox(width: 6),
               const Text(
                 'Current Weight',
@@ -406,7 +406,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        UlvenikIcon(UlvenikIcons.goals, color: AppColors.secondaryTextStoneGrey, size: 14),
+                        Icon(Icons.flag_outlined, color: AppColors.secondaryTextStoneGrey, size: 14),
                         SizedBox(width: 4),
                         Text(
                           'TARGET',
@@ -438,7 +438,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        UlvenikIcon(UlvenikIcons.progress, color: AppColors.secondaryTextStoneGrey, size: 14),
+                        Icon(Icons.trending_flat, color: AppColors.secondaryTextStoneGrey, size: 14),
                         SizedBox(width: 4),
                         Text(
                           'CHANGE',
@@ -529,7 +529,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                UlvenikIcon(UlvenikIcons.exercises, color: Colors.white, size: 18),
+                Icon(Icons.monitor_weight_outlined, color: Colors.white, size: 18),
                 SizedBox(width: 8),
                 Text(
                   'Record First Weight',
@@ -618,7 +618,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 24),
+            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 24),
           ],
         ),
       ),
@@ -972,7 +972,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     ),
                   ),
                   SizedBox(width: 4),
-                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 16),
+                  Icon(Icons.north_east, color: AppColors.secondaryTextStoneGrey, size: 16),
                 ],
               ),
             ],
@@ -1464,7 +1464,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1590,7 +1590,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1623,7 +1623,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                                 style: IconButton.styleFrom(
                                   backgroundColor: Colors.white.withValues(alpha: 0.08),
                                 ),
-                                icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite),
+                                icon: const Icon(Icons.remove, color: AppColors.primaryTextOffWhite),
                                 onPressed: () {
                                   setModalState(() {
                                     tempWeight = (tempWeight - 0.1).clamp(5.0, 90.0);
@@ -1799,7 +1799,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1869,7 +1869,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
+                      icon: const Icon(Icons.delete_outline, size: 18),
                       label: const Text('Delete'),
                       onPressed: () {
                         showDialog(
@@ -2002,7 +2002,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -2020,7 +2020,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                       children: [
                         IconButton.filledTonal(
                           style: IconButton.styleFrom(backgroundColor: Colors.white.withValues(alpha: 0.08)),
-                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite),
+                          icon: const Icon(Icons.remove, color: AppColors.primaryTextOffWhite),
                           onPressed: () {
                             setModalState(() {
                               tempWeight = (tempWeight - 0.1).clamp(5.0, 90.0);
@@ -2117,7 +2117,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],

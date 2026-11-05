@@ -440,11 +440,11 @@ class _HealthReportsTimelineScreenState
           },
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showFilterSheet,
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: const Icon(Icons.share_outlined, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showShareSheet,
         ),
         IconButton(
@@ -547,7 +547,7 @@ class _HealthReportsTimelineScreenState
               ],
             ),
           ),
-          const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
+          const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
         ]),
       ),
     );
@@ -804,7 +804,7 @@ class _HealthReportsTimelineScreenState
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        UlvenikIcon(UlvenikIcons.sort, size: 13, color: _mint),
+                        Icon(Icons.filter_alt_outlined, size: 13, color: _mint),
                         SizedBox(width: 4),
                         Text(
                           'View',
@@ -1062,7 +1062,7 @@ class _HealthReportsTimelineScreenState
               child: Row(mainAxisSize: MainAxisSize.min, children: [
                 Text(label, style: const TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w500)),
                 const SizedBox(width: 4),
-                const UlvenikIcon(UlvenikIcons.back, size: 16, color: _mint),
+                const Icon(Icons.close, size: 16, color: _mint),
               ]),
             ),
           ),
@@ -1135,7 +1135,7 @@ class _HealthReportsTimelineScreenState
               _searchController.clear();
               setState(() => _query = '');
             },
-            child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
+            child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
           ),
       ]),
     );
@@ -1331,7 +1331,7 @@ class _HealthReportsTimelineScreenState
                 color: AppColors.cardsCarbon,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
-              child: const UlvenikIcon(UlvenikIcons.health, color: _mint, size: 52),
+              child: const Icon(Icons.favorite_border, color: _mint, size: 52),
             ),
           ),
           const SizedBox(height: 24),
@@ -1372,7 +1372,7 @@ class _HealthReportsTimelineScreenState
                     color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           ),
           IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
             onPressed: () => Navigator.pop(ctx),
           ),
         ],

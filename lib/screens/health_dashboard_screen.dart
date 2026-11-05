@@ -267,7 +267,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                   ),
                   const Spacer(),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: _muted, size: 20),
+                    icon: const Icon(Icons.close, color: _muted, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -538,7 +538,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: _muted, size: 22),
+            const Icon(Icons.expand_more, color: _muted, size: 22),
           ],
         ),
       ),
@@ -1144,7 +1144,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                   color: _surfaceDeep,
                   border: _hairlineBorder,
                 ),
-                child: const UlvenikIcon(UlvenikIcons.health, color: _mint, size: 34),
+                child: const Icon(Icons.favorite_outline, color: _mint, size: 34),
               ),
               const SizedBox(height: 18),
               const Text(

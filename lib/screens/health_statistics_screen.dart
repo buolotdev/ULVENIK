@@ -199,11 +199,11 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       centerTitle: false,
       actions: [
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showFilterOptionsSheet,
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: const Icon(Icons.ios_share, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showShareAccessSheet,
         ),
         IconButton(
@@ -299,7 +299,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 ),
               ],
             ),
-            const UlvenikIcon(UlvenikIcons.sort,
+            const Icon(Icons.unfold_more,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
@@ -565,7 +565,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                   color: AppColors.secondaryTextStoneGrey,
                 ),
               ),
-              UlvenikIcon(UlvenikIcons.exercises, size: 20, color: AppColors.secondaryTextStoneGrey),
+              Icon(Icons.monitor_weight_outlined, size: 20, color: AppColors.secondaryTextStoneGrey),
             ],
           ),
           const SizedBox(height: 16),
@@ -1338,7 +1338,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               ),
               child: Column(
                 children: const [
-                  UlvenikIcon(UlvenikIcons.training, size: 24, color: AppColors.primaryTextOffWhite),
+                  Icon(Icons.picture_as_pdf, size: 24, color: AppColors.primaryTextOffWhite),
                   SizedBox(height: 8),
                   Text(
                     'PDF Report',
@@ -1368,7 +1368,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               ),
               child: Column(
                 children: const [
-                  UlvenikIcon(UlvenikIcons.overflowMenu, size: 24, color: AppColors.primaryTextOffWhite),
+                  Icon(Icons.share, size: 24, color: AppColors.primaryTextOffWhite),
                   SizedBox(height: 8),
                   Text(
                     'Share Access',
@@ -1463,7 +1463,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
               alignment: Alignment.center,
-              child: const UlvenikIcon(UlvenikIcons.progress,
+              child: const Icon(Icons.ssid_chart,
                 size: 38,
                 color: _mint,
               ),
@@ -1597,7 +1597,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
           ),
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(ctx),
         ),
       ],
@@ -1767,7 +1767,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                   width: double.infinity,
                   child: ElevatedButton.icon(
                     onPressed: () => Navigator.pop(ctx),
-                    icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
+                    icon: const Icon(Icons.download, size: 18),
                     label: const Text('Export PDF Report'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _forest,
@@ -1819,7 +1819,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                   ),
                   child: Row(
                     children: const [
-                      UlvenikIcon(UlvenikIcons.details, size: 20, color: _mint),
+                      Icon(Icons.link, size: 20, color: _mint),
                       SizedBox(width: 10),
                       Expanded(
                         child: Text(

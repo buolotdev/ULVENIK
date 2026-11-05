@@ -543,7 +543,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                     ),
                   ],
                 ),
-                const UlvenikIcon(UlvenikIcons.sort, color: _sage),
+                const Icon(Icons.expand_more, color: _sage),
               ],
             ),
           ),
@@ -600,7 +600,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.exercises, color: _sage, size: 22),
+              const Icon(Icons.monitor_weight_outlined, color: _sage, size: 22),
               const SizedBox(width: 14),
               Expanded(
                 child: Column(
@@ -709,7 +709,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
               Row(
                 children: [
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: _sage, size: 22),
+                    icon: const Icon(Icons.remove_circle_outline, color: _sage, size: 22),
                     onPressed: () {
                       setState(() {
                         _targetWeight -= (unit == 'lbs' ? 0.5 : 0.2);
@@ -964,7 +964,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
-                const UlvenikIcon(UlvenikIcons.notifications, color: _sage, size: 22),
+                const Icon(Icons.alarm_on_outlined, color: _sage, size: 22),
                 const SizedBox(width: 14),
                 Expanded(
                   child: Column(
@@ -1063,7 +1063,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
             activeThumbColor: _mint,
             activeTrackColor: _forest,
             inactiveTrackColor: const Color(0xFF272B29),
-            secondary: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _sage, size: 22),
+            secondary: const Icon(Icons.nightlight_round_outlined, color: _sage, size: 22),
             title: const Text(
               'Quiet Hours (10 PM - 7 AM)',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),
@@ -1085,7 +1085,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
             activeThumbColor: _mint,
             activeTrackColor: _forest,
             inactiveTrackColor: const Color(0xFF272B29),
-            secondary: const UlvenikIcon(UlvenikIcons.play, color: _sage, size: 22),
+            secondary: const Icon(Icons.volume_up_outlined, color: _sage, size: 22),
             title: const Text(
               'Audible Health Chimes',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),

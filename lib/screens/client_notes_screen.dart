@@ -740,7 +740,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
                         ),
                         IconButton(
                           onPressed: () => Navigator.of(ctx).pop(),
-                          icon: const UlvenikIcon(UlvenikIcons.back, color: _textSecondary),
+                          icon: const Icon(Icons.close, color: _textSecondary),
                         ),
                       ],
                     ),
@@ -1108,7 +1108,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const UlvenikIcon(UlvenikIcons.sort, color: _sage, size: 21),
+                const Icon(Icons.filter_list, color: _sage, size: 21),
                 Positioned(
                   right: -1,
                   top: -1,
@@ -1249,7 +1249,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.sort, size: 15, color: Color(0xFF56C29B)),
+          const Icon(Icons.tune, size: 15, color: Color(0xFF56C29B)),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -1430,7 +1430,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
                             onTap: () => _togglePin(note),
                             child: Transform.rotate(
                               angle: 0.55,
-                              child: const UlvenikIcon(UlvenikIcons.skills,
+                              child: const Icon(Icons.push_pin,
                                 size: 14,
                                 color: _forest,
                               ),
@@ -1693,7 +1693,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
       ),
       child: Column(
         children: [
-          const UlvenikIcon(UlvenikIcons.training, color: _sage, size: 32),
+          const Icon(Icons.note_alt_outlined, color: _sage, size: 32),
           const SizedBox(height: 10),
           Text(
             'No matching client notes',

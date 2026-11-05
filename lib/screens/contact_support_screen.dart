@@ -238,7 +238,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                             ),
                           ),
                           if (selected)
-                            const UlvenikIcon(UlvenikIcons.completed,
+                            const Icon(Icons.check_rounded,
                               color: _mint,
                               size: 20,
                             ),
@@ -521,7 +521,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     children: [
                       const Row(
                         children: [
-                          UlvenikIcon(UlvenikIcons.notifications,
+                          Icon(Icons.chat_bubble_outline_rounded,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -596,7 +596,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                                   ),
                                 ),
                               ),
-                              const UlvenikIcon(UlvenikIcons.sort,
+                              const Icon(Icons.keyboard_arrow_down_rounded,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
@@ -792,7 +792,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                             ),
                             child: Row(
                               children: [
-                                const UlvenikIcon(UlvenikIcons.training,
+                                const Icon(Icons.attach_file_rounded,
                                   color: _stoneGrey,
                                   size: 19,
                                 ),
@@ -891,7 +891,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                                     behavior: HitTestBehavior.opaque,
                                     child: const Padding(
                                       padding: EdgeInsets.all(4),
-                                      child: UlvenikIcon(UlvenikIcons.back,
+                                      child: Icon(Icons.close_rounded,
                                         color: _stoneGrey,
                                         size: 18,
                                       ),
@@ -929,7 +929,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                           padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
                           child: Row(
                             children: [
-                              const UlvenikIcon(UlvenikIcons.overflowMenu,
+                              const Icon(Icons.shield_outlined,
                                 color: _stoneGrey,
                                 size: 19,
                               ),
@@ -1049,7 +1049,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          const UlvenikIcon(UlvenikIcons.notifications,
+                          const Icon(Icons.mail_outline_rounded,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -1114,7 +1114,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        UlvenikIcon(UlvenikIcons.details,
+                        Icon(Icons.send_outlined,
                           size: 17,
                           color: _offWhite,
                         ),
@@ -1163,7 +1163,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                       color: _forest.withValues(alpha: 0.25),
                       shape: BoxShape.circle,
                     ),
-                    child: const UlvenikIcon(UlvenikIcons.completed,
+                    child: const Icon(Icons.check_rounded,
                       color: _mint,
                       size: 22,
                     ),
@@ -1244,7 +1244,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 16),
+                      icon: const Icon(Icons.copy_rounded, size: 16),
                       label: const Text('Copy Ticket ID'),
                     ),
                   ),

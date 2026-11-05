@@ -325,7 +325,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: UlvenikIcon(UlvenikIcons.sort,
+                  child: Icon(Icons.tune_rounded,
                     color: _showFilters ? _offWhite : _stoneGrey,
                     size: 20,
                   ),
@@ -659,7 +659,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                         ),
                         if (isDownloaded) ...[
                           const SizedBox(width: 6),
-                          const UlvenikIcon(UlvenikIcons.overflowMenu,
+                          const Icon(Icons.download_done_rounded,
                             color: _forest,
                             size: 14,
                           ),
@@ -1051,7 +1051,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                                 type: SnackbarType.info,
                               );
                             },
-                            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 16),
+                            icon: const Icon(Icons.copy_rounded, size: 16),
                             label: const Text(
                               'Copy ID',
                               style: TextStyle(
@@ -1083,7 +1083,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                                 type: SnackbarType.success,
                               );
                             },
-                            icon: const UlvenikIcon(UlvenikIcons.notifications, size: 16),
+                            icon: const Icon(Icons.mail_outline_rounded, size: 16),
                             label: const Text(
                               'Email Copy',
                               style: TextStyle(
@@ -1322,7 +1322,7 @@ class _AnnualSpendSheetContentState extends State<_AnnualSpendSheetContent>
                   ),
                 ),
                 onPressed: widget.onExportStatement,
-                icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
+                icon: const Icon(Icons.download_rounded, size: 18),
                 label: const Text(
                   'Export Annual Statement (CSV)',
                   style: TextStyle(

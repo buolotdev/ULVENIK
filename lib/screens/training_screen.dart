@@ -1181,7 +1181,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.white12),
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                      child: const Icon(Icons.ios_share,
                           color: AppColors.primaryTextOffWhite, size: 18),
                     ),
                   ),
@@ -1324,7 +1324,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
           GestureDetector(
             onTap: () => AppSnackbar.show(context,
                 message: 'Voice search coming soon', type: SnackbarType.info),
-            child: const UlvenikIcon(UlvenikIcons.play,
+            child: const Icon(Icons.mic_outlined,
                 color: AppColors.secondaryTextStoneGrey, size: 20),
           ),
         ],
@@ -1589,7 +1589,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
           const SizedBox(width: 4),
           GestureDetector(
             onTap: onRemove,
-            child: const UlvenikIcon(UlvenikIcons.back,
+            child: const Icon(Icons.close,
                 size: 14, color: AppColors.secondaryTextStoneGrey),
           ),
         ],
@@ -1649,7 +1649,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         child: Center(
           child: Column(
             children: [
-              UlvenikIcon(UlvenikIcons.search,
+              Icon(Icons.search_off,
                   size: 40,
                   color:
                       AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5)),
@@ -1957,7 +1957,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.white12),
             ),
-            child: const UlvenikIcon(UlvenikIcons.skills,
+            child: const Icon(Icons.bookmark_border_outlined,
                 color: AppColors.primaryForestGreen, size: 32),
           ),
           const SizedBox(height: 24),

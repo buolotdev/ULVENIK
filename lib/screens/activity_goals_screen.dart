@@ -568,7 +568,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey),
+                    icon: const Icon(Icons.close, color: _stoneGrey),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],

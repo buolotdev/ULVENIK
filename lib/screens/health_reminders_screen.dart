@@ -462,7 +462,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               const SizedBox(height: 16),
               Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.notifications, color: _mint, size: 22),
+                  const Icon(Icons.snooze, color: _mint, size: 22),
                   const SizedBox(width: 10),
                   Text(
                     'Snooze Reminder',
@@ -624,7 +624,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                           ),
                         ),
                         IconButton(
-                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                           onPressed: () => Navigator.pop(modalCtx),
                         ),
                       ],
@@ -1186,7 +1186,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: _sage),
+            const Icon(Icons.expand_more, color: _sage),
           ],
         ),
       ),
@@ -1340,7 +1340,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   color: _viewMode == 0 ? _forest : Colors.transparent,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: UlvenikIcon(UlvenikIcons.training,
+                child: Icon(Icons.format_list_bulleted,
                   size: 18,
                   color: _viewMode == 0 ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
                 ),
@@ -1358,7 +1358,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   color: _viewMode == 1 ? _forest : Colors.transparent,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: UlvenikIcon(UlvenikIcons.scheduledTraining,
+                child: UlvenikIcon(UlvenikIcons.calendar,
                   size: 18,
                   color: _viewMode == 1 ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
                 ),
@@ -1694,7 +1694,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
         ),
         child: Column(
           children: [
-            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 36),
+            const Icon(Icons.filter_list_off, color: AppColors.secondaryTextStoneGrey, size: 36),
             const SizedBox(height: 12),
             const Text(
               'No matching reminders',
@@ -2138,7 +2138,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 shape: BoxShape.circle,
                 color: _forest,
               ),
-              child: const UlvenikIcon(UlvenikIcons.completed, color: AppColors.primaryTextOffWhite, size: 14),
+              child: const Icon(Icons.check, color: AppColors.primaryTextOffWhite, size: 14),
             ),
           ),
           const SizedBox(width: 12),
@@ -2217,7 +2217,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 16),
+                      const Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey, size: 16),
                     ],
                   ),
                 ),
@@ -2238,11 +2238,11 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                         color: _forest,
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.training, size: 16, color: AppColors.primaryTextOffWhite),
+                      child: const Icon(Icons.format_list_bulleted, size: 16, color: AppColors.primaryTextOffWhite),
                     ),
                     Container(
                       padding: const EdgeInsets.all(4),
-                      child: const UlvenikIcon(UlvenikIcons.scheduledTraining, size: 16, color: AppColors.secondaryTextStoneGrey),
+                      child: const UlvenikIcon(UlvenikIcons.calendar, size: 16, color: AppColors.secondaryTextStoneGrey),
                     ),
                   ],
                 ),

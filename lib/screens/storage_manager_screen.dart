@@ -1046,7 +1046,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                           ),
                         ),
                         selected
-                            ? const UlvenikIcon(UlvenikIcons.completed,
+                            ? const Icon(Icons.check_rounded,
                                 color: _forest,
                                 size: 20,
                               )

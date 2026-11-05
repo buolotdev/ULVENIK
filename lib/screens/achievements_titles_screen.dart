@@ -551,7 +551,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
           ),
           IconButton(
             onPressed: _openFilterSheet,
-            icon: UlvenikIcon(UlvenikIcons.sort,
+            icon: Icon(Icons.filter_alt_outlined,
               color: _hasActiveFilter ? _mint : _offWhite,
               size: 22,
             ),
@@ -559,7 +559,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
           ),
           IconButton(
             onPressed: _openSortSheet,
-            icon: UlvenikIcon(UlvenikIcons.sort,
+            icon: Icon(Icons.filter_list_rounded,
               color: _sortMode != 'Newest First' ? _mint : _stone,
               size: 22,
             ),
@@ -585,7 +585,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
+          const Icon(Icons.tune_rounded, color: _mint, size: 16),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -1051,7 +1051,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
           ),
           child: const Row(
             children: [
-              UlvenikIcon(UlvenikIcons.overflowMenu, color: _stone, size: 19),
+              Icon(Icons.ios_share_rounded, color: _stone, size: 19),
               SizedBox(width: 12),
               Expanded(
                 child: Text(
@@ -1120,7 +1120,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                             color: _forest.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: const UlvenikIcon(UlvenikIcons.goals,
+                          child: const Icon(Icons.emoji_events_outlined,
                             color: _mint,
                             size: 22,
                           ),
@@ -1502,7 +1502,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                       ),
                     ),
                     trailing: sel
-                        ? const UlvenikIcon(UlvenikIcons.completed, color: _mint)
+                        ? const Icon(Icons.check_rounded, color: _mint)
                         : null,
                     onTap: () {
                       Navigator.pop(ctx);
@@ -1920,7 +1920,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
+                        icon: const Icon(Icons.ios_share_rounded, size: 18),
                         label: const Text(
                           'Export & Share Report',
                           style: TextStyle(

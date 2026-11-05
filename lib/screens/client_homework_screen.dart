@@ -658,7 +658,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
                         ),
                         IconButton(
                           onPressed: () => Navigator.of(ctx).pop(),
-                          icon: const UlvenikIcon(UlvenikIcons.back, color: _textSecondary),
+                          icon: const Icon(Icons.close, color: _textSecondary),
                         ),
                       ],
                     ),
@@ -766,7 +766,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  UlvenikIcon(UlvenikIcons.notifications,
+                                  Icon(Icons.priority_high_rounded,
                                     size: 17,
                                     color: highPriority
                                         ? _crimsonText
@@ -1114,7 +1114,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const UlvenikIcon(UlvenikIcons.sort, color: _sage, size: 22),
+                const Icon(Icons.filter_list, color: _sage, size: 22),
                 Positioned(
                   right: -2,
                   top: -2,
@@ -1275,7 +1275,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.sort, color: _sage, size: 16),
+          const Icon(Icons.filter_alt_outlined, color: _sage, size: 16),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -1347,7 +1347,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       ),
       child: Column(
         children: [
-          const UlvenikIcon(UlvenikIcons.exercises,
+          const Icon(Icons.assignment_turned_in_outlined,
               color: _sage, size: 32),
           const SizedBox(height: 10),
           Text(
@@ -1738,7 +1738,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const UlvenikIcon(UlvenikIcons.skills,
+          const Icon(Icons.local_offer_outlined,
             size: 12,
             color: _sage,
           ),

@@ -312,7 +312,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                           color: Colors.white.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
-                        child: const UlvenikIcon(UlvenikIcons.back,
+                        child: const Icon(Icons.close,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 14,
                         ),
@@ -433,7 +433,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
         // Filter modal
         IconButton(
           tooltip: 'Filters & Preferences',
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 24),
+          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
           onPressed: _showFilterPreferencesModal,
         ),
         // Quick State Toggle (Populated / Empty)
@@ -709,7 +709,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
             shape: BoxShape.circle,
             border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
           ),
-          child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+          child: const Icon(Icons.shield_outlined,
             color: Color(0xFF95D3BB),
             size: 32,
           ),
@@ -831,7 +831,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 22),
+            const Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 22),
           ],
         ),
       ),
@@ -1240,7 +1240,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     _searchQuery = '';
                   });
                 },
-                icon: const UlvenikIcon(UlvenikIcons.back, size: 16),
+                icon: const Icon(Icons.clear, size: 16),
                 label: const Text('Reset Search', style: TextStyle(fontWeight: FontWeight.w600)),
               ),
             ],
@@ -1300,7 +1300,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1422,7 +1422,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1551,7 +1551,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1597,7 +1597,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
+                      icon: const Icon(Icons.delete_outline, size: 18),
                       label: const Text('Delete'),
                       onPressed: () {
                         setState(() {
@@ -1616,7 +1616,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      icon: const UlvenikIcon(UlvenikIcons.history, size: 18, color: Colors.white),
+                      icon: const Icon(Icons.refresh, size: 18, color: Colors.white),
                       label: const Text('Renew Dose', style: TextStyle(color: Colors.white)),
                       onPressed: () {
                         Navigator.pop(ctx);
@@ -1666,7 +1666,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w700),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1796,7 +1796,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w700),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],

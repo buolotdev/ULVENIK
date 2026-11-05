@@ -603,7 +603,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
           ),
           IconButton(
             onPressed: _openExportShareSheet,
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+            icon: const Icon(Icons.ios_share_rounded,
               color: _stone,
               size: 21,
             ),
@@ -672,7 +672,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
+          const Icon(Icons.filter_alt_outlined, color: _mint, size: 16),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -1012,7 +1012,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                   ),
                   GestureDetector(
                     onTap: () => setState(() => _touchedMonthIndex = null),
-                    child: const UlvenikIcon(UlvenikIcons.back,
+                    child: const Icon(Icons.close_rounded,
                       color: _stone,
                       size: 15,
                     ),

@@ -353,7 +353,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                   ],
                 ),
                 if (_phase != _RestorePhase.scanning)
-                  UlvenikIcon(UlvenikIcons.sort,
+                  Icon(Icons.unfold_more_rounded,
                     size: 18,
                     color: _stoneGrey.withValues(alpha: 0.6),
                   ),
@@ -395,7 +395,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          UlvenikIcon(UlvenikIcons.completed,
+          Icon(Icons.check_rounded,
             color: isVerified ? _forest : _sageMint,
             size: 16,
           ),
@@ -467,7 +467,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
         ),
         child: const Row(
           children: [
-            UlvenikIcon(UlvenikIcons.notifications, color: _sageMint, size: 19),
+            Icon(Icons.support_agent_rounded, color: _sageMint, size: 19),
             SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -728,7 +728,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                             type: SnackbarType.info,
                           );
                         },
-                        child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                        child: const Icon(Icons.copy_rounded,
                           color: _forest,
                           size: 18,
                         ),

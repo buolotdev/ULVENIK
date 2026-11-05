@@ -310,7 +310,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                           ),
                           IconButton(
                             onPressed: () => Navigator.of(sheetCtx).pop(),
-                            icon: const UlvenikIcon(UlvenikIcons.back,
+                            icon: const Icon(Icons.close_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 20,
                             ),
@@ -540,7 +540,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                         });
                       },
                       tooltip: 'Filter Categories',
-                      icon: UlvenikIcon(UlvenikIcons.sort,
+                      icon: Icon(Icons.tune_rounded,
                         color: (_showCategoryTabs || _selectedCategory != 'All')
                             ? _mint
                             : AppColors.secondaryTextStoneGrey,
@@ -613,7 +613,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                                   _searchQuery = '';
                                 });
                               },
-                              child: const UlvenikIcon(UlvenikIcons.back,
+                              child: const Icon(Icons.close_rounded,
                                 color: AppColors.secondaryTextStoneGrey,
                                 size: 18,
                               ),
@@ -845,7 +845,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const UlvenikIcon(UlvenikIcons.completed,
+                const Icon(Icons.done_all_rounded,
                   color: _mintBright,
                   size: 16,
                 ),
@@ -881,7 +881,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                UlvenikIcon(UlvenikIcons.sort,
+                Icon(Icons.tune_rounded,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 15,
                 ),
@@ -1147,7 +1147,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
       ),
       child: Column(
         children: [
-          const UlvenikIcon(UlvenikIcons.notifications,
+          const Icon(Icons.notifications_paused_outlined,
             color: AppColors.secondaryTextStoneGrey,
             size: 30,
           ),

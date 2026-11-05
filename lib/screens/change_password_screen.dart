@@ -243,7 +243,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         color: _forest.withValues(alpha: 0.22),
                         shape: BoxShape.circle,
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.completed,
+                      child: const Icon(Icons.verified_user_rounded,
                         color: _sageMint,
                         size: 22,
                       ),
@@ -445,7 +445,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             shape: BoxShape.circle,
             border: Border.all(color: _cardBorder),
           ),
-          child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+          child: const Icon(Icons.shield_outlined,
             color: _stoneGrey,
             size: 22,
           ),
@@ -657,7 +657,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const UlvenikIcon(UlvenikIcons.overflowMenu,
+              const Icon(Icons.smartphone_rounded,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -781,7 +781,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ),
           ),
           child: Center(
-            child: UlvenikIcon(UlvenikIcons.completed,
+            child: Icon(Icons.check_rounded,
               size: 10,
               color: itemColor,
             ),
@@ -818,7 +818,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         children: [
           Padding(
             padding: EdgeInsets.only(top: 1),
-            child: UlvenikIcon(UlvenikIcons.notifications,
+            child: Icon(Icons.info_outline_rounded,
               size: 18,
               color: _alpineBlue,
             ),

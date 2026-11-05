@@ -442,7 +442,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    const UlvenikIcon(UlvenikIcons.skills, color: _greenAccent, size: 14),
+                    const Icon(Icons.flash_on_rounded, color: _greenAccent, size: 14),
                     const SizedBox(width: 5),
                     Text(
                       streakText,
@@ -469,7 +469,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                     const SizedBox(width: 10),
                     const Text('•', style: TextStyle(color: _textSecondary, fontSize: 12)),
                     const SizedBox(width: 10),
-                    const UlvenikIcon(UlvenikIcons.goals, color: _sage, size: 13),
+                    const Icon(Icons.flag_outlined, color: _sage, size: 13),
                     const SizedBox(width: 4),
                     Text(
                       goalsText,

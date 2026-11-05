@@ -380,7 +380,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 const SizedBox(height: 16),
                 const Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.play, color: _forest, size: 20),
+                    Icon(Icons.camera_outlined, color: _forest, size: 20),
                     SizedBox(width: 8),
                     Text(
                       'EXIF & Capture Metadata',
@@ -628,7 +628,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const UlvenikIcon(UlvenikIcons.notifications, color: _offWhite),
+                  leading: const Icon(Icons.info_outline_rounded, color: _offWhite),
                   title: const Text(
                     'View EXIF & Camera Info',
                     style: TextStyle(fontFamily: 'Inter', color: _offWhite),
@@ -640,7 +640,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const UlvenikIcon(UlvenikIcons.details, color: _offWhite),
+                  leading: const Icon(Icons.zoom_in_rounded, color: _offWhite),
                   title: Text(
                     _isZoomed ? 'Reset Photo Zoom (1×)' : 'Zoom In Photo (2.2×)',
                     style: const TextStyle(fontFamily: 'Inter', color: _offWhite),
@@ -1009,7 +1009,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    UlvenikIcon(UlvenikIcons.notifications,
+                    Icon(Icons.info_outline_rounded,
                       size: 14,
                       color: _stoneGrey.withValues(alpha: 0.85),
                     ),

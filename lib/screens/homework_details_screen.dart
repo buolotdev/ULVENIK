@@ -339,7 +339,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.history, color: _sage),
+                  leading: const Icon(Icons.restart_alt_rounded, color: _sage),
                   title: Text(
                     'Reset Rep Progress to 0 / 12',
                     style: GoogleFonts.inter(
@@ -556,7 +556,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                                   _adjustReps(-1);
                                   setModalState(() {});
                                 },
-                                icon: const UlvenikIcon(UlvenikIcons.back,
+                                icon: const Icon(Icons.remove_circle_outline,
                                   color: _textSecondary,
                                 ),
                               ),
@@ -1746,7 +1746,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                   ),
                 ),
                 child: ex.isDone
-                    ? const UlvenikIcon(UlvenikIcons.completed, size: 14, color: _textPrimary)
+                    ? const Icon(Icons.check, size: 14, color: _textPrimary)
                     : null,
               ),
             ),
@@ -2220,7 +2220,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                       color: _bg,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const UlvenikIcon(UlvenikIcons.training,
+                    child: const Icon(Icons.insert_drive_file_outlined,
                       color: _sage,
                       size: 16,
                     ),

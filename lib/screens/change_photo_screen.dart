@@ -251,7 +251,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                           height: 46,
                           child: ElevatedButton.icon(
                             onPressed: _openModalPhotoSheet,
-                            icon: const UlvenikIcon(UlvenikIcons.play,
+                            icon: const Icon(Icons.photo_camera_outlined,
                               size: 18,
                             ),
                             label: const Text(
@@ -281,7 +281,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                               assetPath: _currentAssetPath,
                               fromCamera: false,
                             ),
-                            icon: const UlvenikIcon(UlvenikIcons.edit,
+                            icon: const Icon(Icons.crop_rounded,
                               size: 18,
                               color: AppColors.secondaryTextStoneGrey,
                             ),
@@ -502,7 +502,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                                   ),
                                 ),
                                 alignment: Alignment.center,
-                                child: const UlvenikIcon(UlvenikIcons.play,
+                                child: const Icon(Icons.photo_camera_outlined,
                                   size: 16,
                                   color: Color(0xFFD5D8D4),
                                 ),
@@ -545,7 +545,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                             assetPath: 'assets/images/photo_viewer_1.jpg',
                             fromCamera: true,
                           ),
-                          icon: const UlvenikIcon(UlvenikIcons.play,
+                          icon: const Icon(Icons.photo_camera_outlined,
                             size: 18,
                             color: Color(0xFFC7CCC8),
                           ),
@@ -587,7 +587,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                UlvenikIcon(UlvenikIcons.play,
+                                Icon(Icons.image_outlined,
                                   size: 18,
                                   color: Color(0xFFC7CCC8),
                                 ),

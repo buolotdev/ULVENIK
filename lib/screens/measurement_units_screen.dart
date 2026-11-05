@@ -440,7 +440,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
               ),
               const SizedBox(width: 10),
               if (isSelected)
-                const UlvenikIcon(UlvenikIcons.completed,
+                const Icon(Icons.check_rounded,
                   size: 20,
                   color: AppColors.primaryForestGreen,
                 ),
@@ -742,7 +742,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                   ),
                 ),
                 if (isSelected)
-                  const UlvenikIcon(UlvenikIcons.completed,
+                  const Icon(Icons.check_rounded,
                     size: 16,
                     color: Color(0xFF56A98B),
                   ),
@@ -796,7 +796,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             Container(height: 1, color: AppColors.cardBorder),
             _buildCategoryRow(
-              leading: const UlvenikIcon(UlvenikIcons.exercises,
+              leading: const Icon(Icons.straighten_rounded,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -828,7 +828,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             Container(height: 1, color: AppColors.cardBorder),
             _buildCategoryRow(
-              leading: const UlvenikIcon(UlvenikIcons.timeline,
+              leading: const Icon(Icons.near_me_outlined,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -860,7 +860,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             _buildCategoryGroupHeader('ENVIRONMENT'),
             _buildCategoryRow(
-              leading: const UlvenikIcon(UlvenikIcons.health,
+              leading: const Icon(Icons.water_drop_outlined,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),

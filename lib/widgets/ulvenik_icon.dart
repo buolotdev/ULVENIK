@@ -199,6 +199,8 @@ class UlvenikIcons {
   /// List of all 27 official icon keys.
   static List<String> get allIcons => _svgStrings.keys.toList();
 
+  /// Material icons that are semantically identical to an official guide icon.
+  /// Every other Material icon is intentionally NOT remapped and stays standard.
   static final Map<int, String> _materialMap = _initMaterialMap();
 
   static Map<int, String> _initMaterialMap() {
@@ -209,279 +211,91 @@ class UlvenikIcons {
       }
     }
 
-    // home
     mapGroup([
       Icons.home, Icons.home_outlined, Icons.home_rounded,
     ], home);
-
-    // dogs
     mapGroup([
       Icons.pets, Icons.pets_outlined, Icons.pets_rounded,
     ], dogs);
-
-    // training
     mapGroup([
-      Icons.description, Icons.description_outlined, Icons.article, Icons.article_outlined,
-      Icons.note, Icons.note_outlined, Icons.sticky_note_2_outlined, Icons.list_alt,
-      Icons.list_alt_outlined, Icons.picture_as_pdf, Icons.picture_as_pdf_outlined, Icons.receipt_long_outlined,
-      Icons.table_chart, Icons.table_chart_outlined, Icons.table_rows_outlined, Icons.view_headline,
-      Icons.view_list, Icons.summarize_outlined, Icons.insert_drive_file_outlined, Icons.file_copy_outlined,
-      Icons.content_paste_outlined, Icons.notes_rounded, Icons.note_alt_outlined, Icons.subtitles_outlined,
-      Icons.menu_book_outlined, Icons.book_outlined, Icons.school_outlined, Icons.science_outlined,
-      Icons.data_object, Icons.data_object_outlined, Icons.data_object_rounded, Icons.format_list_bulleted,
-      Icons.format_list_bulleted_rounded, Icons.list, Icons.attach_file, Icons.attach_file_rounded,
-      Icons.attachment,
+      Icons.description, Icons.description_outlined, Icons.article, Icons.article_outlined, Icons.list_alt, Icons.list_alt_outlined, Icons.receipt_long_outlined, Icons.summarize_outlined,
     ], training);
-
-    // timeline
     mapGroup([
-      Icons.timeline, Icons.timeline_rounded, Icons.route_outlined, Icons.linear_scale,
-      Icons.alt_route, Icons.alt_route_rounded, Icons.location_on, Icons.location_on_outlined,
-      Icons.location_off_outlined, Icons.map_outlined, Icons.place_outlined, Icons.my_location,
-      Icons.gps_fixed_rounded, Icons.near_me_outlined, Icons.directions_run, Icons.directions_walk_outlined,
-      Icons.hiking, Icons.travel_explore_rounded, Icons.hub_outlined, Icons.tour_outlined,
-      Icons.terrain, Icons.terrain_rounded, Icons.park, Icons.park_outlined,
-      Icons.landscape, Icons.landscape_outlined, Icons.cell_tower_rounded, Icons.train_outlined,
+      Icons.timeline, Icons.timeline_rounded, Icons.route_outlined, Icons.alt_route, Icons.alt_route_rounded,
     ], timeline);
-
-    // more
     mapGroup([
-      Icons.more_horiz, Icons.more_horiz_outlined, Icons.more_horiz_rounded, Icons.menu,
-      Icons.dehaze_rounded, Icons.density_medium,
+      Icons.more_horiz, Icons.more_horiz_outlined, Icons.more_horiz_rounded,
     ], more);
-
-    // back
     mapGroup([
-      Icons.arrow_back, Icons.arrow_back_ios, Icons.arrow_back_ios_new_rounded, Icons.chevron_left,
-      Icons.chevron_left_rounded, Icons.close, Icons.close_rounded, Icons.cancel_outlined,
-      Icons.cancel_rounded, Icons.clear, Icons.clear_rounded, Icons.undo,
-      Icons.undo_rounded, Icons.delete_outline, Icons.delete_outline_rounded, Icons.delete_sweep_outlined,
-      Icons.remove, Icons.remove_circle_outline, Icons.deselect, Icons.horizontal_rule_rounded,
-      Icons.highlight_off, Icons.block,
+      Icons.arrow_back, Icons.arrow_back_rounded, Icons.arrow_back_ios, Icons.arrow_back_ios_new, Icons.arrow_back_ios_new_rounded, Icons.chevron_left, Icons.chevron_left_rounded,
     ], back);
-
-    // notifications
     mapGroup([
-      Icons.notifications, Icons.notifications_active, Icons.notifications_active_outlined, Icons.notifications_none,
-      Icons.notifications_none_rounded, Icons.notifications_off, Icons.notifications_outlined, Icons.notifications_paused_outlined,
-      Icons.add_alert, Icons.alarm_on_outlined, Icons.error_outline_rounded, Icons.warning_amber_rounded,
-      Icons.info_outline, Icons.info_outline_rounded, Icons.chat_bubble_outline_rounded, Icons.mail_outline,
-      Icons.mail_outline_rounded, Icons.mark_email_read_outlined, Icons.mark_email_unread_outlined, Icons.feedback_outlined,
-      Icons.campaign_outlined, Icons.priority_high_rounded, Icons.tips_and_updates_outlined, Icons.lightbulb_outline,
-      Icons.lightbulb_outline_rounded, Icons.support_agent_rounded, Icons.support_rounded, Icons.hearing_outlined,
-      Icons.snooze, Icons.bug_report, Icons.bug_report_outlined, Icons.help_outline_rounded,
-      Icons.mode_comment_outlined,
+      Icons.notifications, Icons.notifications_active, Icons.notifications_active_outlined, Icons.notifications_none, Icons.notifications_none_rounded, Icons.notifications_outlined, Icons.add_alert,
     ], notifications);
-
-    // search
     mapGroup([
-      Icons.search, Icons.search_rounded, Icons.search_off, Icons.search_off_rounded,
-      Icons.manage_search, Icons.manage_search_rounded, Icons.explore_outlined,
+      Icons.search, Icons.search_rounded,
     ], search);
-
-    // add
     mapGroup([
-      Icons.add, Icons.add_rounded, Icons.add_circle_outline, Icons.add_circle_outline_rounded,
-      Icons.create_new_folder, Icons.group_add_outlined, Icons.person_add_alt_1_outlined, Icons.bookmark_add_outlined,
+      Icons.add, Icons.add_rounded, Icons.add_circle_outline, Icons.add_circle_outline_rounded, Icons.add_circle,
     ], add);
-
-    // edit
     mapGroup([
-      Icons.edit, Icons.edit_outlined, Icons.edit_rounded, Icons.edit_note,
-      Icons.edit_note_outlined, Icons.edit_note_rounded, Icons.edit_square, Icons.border_color,
-      Icons.content_cut_outlined, Icons.crop, Icons.crop_rounded, Icons.crop_landscape,
-      Icons.crop_original_rounded, Icons.crop_free_rounded, Icons.gesture, Icons.rate_review_outlined,
-      Icons.palette_outlined,
+      Icons.edit, Icons.edit_outlined, Icons.edit_rounded, Icons.edit_note, Icons.edit_note_outlined, Icons.edit_note_rounded,
     ], edit);
-
-    // play
     mapGroup([
-      Icons.play_arrow, Icons.play_arrow_outlined, Icons.play_circle, Icons.play_circle_fill,
-      Icons.play_circle_outline, Icons.play_circle_outline_rounded, Icons.pause, Icons.pause_circle_filled,
-      Icons.pause_circle_outline, Icons.pause_rounded, Icons.stop, Icons.videocam,
-      Icons.videocam_outlined, Icons.video_call, Icons.movie_outlined, Icons.photo,
-      Icons.photo_outlined, Icons.photo_camera, Icons.photo_camera_outlined, Icons.photo_camera_back_outlined,
-      Icons.photo_library_outlined, Icons.camera_alt_outlined, Icons.camera_alt_rounded, Icons.camera_outlined,
-      Icons.image, Icons.image_outlined, Icons.perm_media_outlined, Icons.mic,
-      Icons.mic_none, Icons.mic_outlined, Icons.volume_up_outlined, Icons.volume_off_outlined,
-      Icons.music_note_outlined,
+      Icons.play_arrow, Icons.play_arrow_outlined, Icons.play_arrow_rounded, Icons.play_circle, Icons.play_circle_fill, Icons.play_circle_outline, Icons.play_circle_outline_rounded,
     ], play);
-
-    // recordSession
     mapGroup([
-      Icons.note_add, Icons.note_add_outlined, Icons.post_add, Icons.add_task_rounded,
-      Icons.add_photo_alternate, Icons.add_photo_alternate_outlined,
+      Icons.note_add, Icons.note_add_outlined, Icons.post_add,
     ], recordSession);
-
-    // goals
     mapGroup([
-      Icons.track_changes, Icons.track_changes_outlined, Icons.track_changes_rounded, Icons.flag,
-      Icons.flag_outlined, Icons.outlined_flag, Icons.outlined_flag_rounded, Icons.emoji_events,
-      Icons.emoji_events_outlined, Icons.emoji_events_rounded, Icons.star, Icons.star_border,
-      Icons.star_border_rounded, Icons.star_rounded, Icons.stars, Icons.military_tech,
-      Icons.workspace_premium, Icons.workspace_premium_outlined, Icons.sports_score, Icons.sports_score_rounded,
-      Icons.card_giftcard_rounded, Icons.redeem_rounded, Icons.adjust, Icons.adjust_rounded,
-      Icons.thumb_up_alt_outlined, Icons.thumb_up_alt_rounded, Icons.thumb_up_off_alt_outlined, Icons.thumb_up_outlined,
-      Icons.thumb_down_alt_outlined, Icons.sentiment_satisfied_alt_outlined,
+      Icons.track_changes, Icons.track_changes_outlined, Icons.track_changes_rounded, Icons.adjust,
     ], goals);
-
-    // progress
     mapGroup([
-      Icons.bar_chart, Icons.bar_chart_rounded, Icons.bar_chart_outlined, Icons.show_chart,
-      Icons.show_chart_rounded, Icons.insights, Icons.insights_outlined, Icons.insights_rounded,
-      Icons.trending_up, Icons.trending_up_rounded, Icons.trending_flat, Icons.analytics,
-      Icons.analytics_outlined, Icons.pie_chart_outline_rounded, Icons.donut_large, Icons.auto_graph,
-      Icons.speed, Icons.speed_outlined, Icons.speed_rounded, Icons.space_dashboard_outlined,
-      Icons.dashboard_customize_outlined, Icons.ssid_chart, Icons.grid_view_outlined, Icons.grid_view_rounded,
-      Icons.numbers_outlined, Icons.signal_cellular_4_bar_rounded,
+      Icons.bar_chart, Icons.bar_chart_rounded, Icons.bar_chart_outlined, Icons.show_chart, Icons.show_chart_rounded, Icons.insights, Icons.insights_outlined, Icons.insights_rounded, Icons.trending_up, Icons.trending_up_rounded, Icons.analytics, Icons.analytics_outlined,
     ], progress);
-
-    // health
     mapGroup([
-      Icons.favorite, Icons.favorite_border, Icons.favorite_border_rounded, Icons.favorite_outline,
-      Icons.favorite_rounded, Icons.local_hospital, Icons.local_hospital_outlined, Icons.healing,
-      Icons.healing_outlined, Icons.medication, Icons.medication_outlined, Icons.medication_liquid_outlined,
-      Icons.medical_services, Icons.medical_services_outlined, Icons.health_and_safety, Icons.health_and_safety_outlined,
-      Icons.monitor_heart, Icons.monitor_heart_outlined, Icons.vaccines, Icons.vaccines_outlined,
-      Icons.personal_injury, Icons.emergency_outlined, Icons.spa, Icons.spa_outlined,
-      Icons.self_improvement, Icons.cleaning_services_outlined, Icons.water,
-      Icons.water_drop, Icons.water_drop_outlined, Icons.waves, Icons.waves_rounded,
+      Icons.monitor_heart, Icons.monitor_heart_outlined, Icons.health_and_safety, Icons.health_and_safety_outlined, Icons.vaccines, Icons.vaccines_outlined, Icons.medication, Icons.medication_outlined, Icons.local_hospital, Icons.local_hospital_outlined, Icons.medical_services, Icons.medical_services_outlined, Icons.healing, Icons.healing_outlined,
     ], health);
-
-    // journey
     mapGroup([
-      Icons.alt_route, Icons.route_outlined,
-    ], journey);
-
-    // exercises
-    mapGroup([
-      Icons.fitness_center, Icons.fitness_center_outlined, Icons.fitness_center_rounded, Icons.assignment,
-      Icons.assignment_outlined, Icons.assignment_turned_in_outlined, Icons.checklist, Icons.checklist_rtl_outlined,
-      Icons.task_alt, Icons.task_alt_rounded, Icons.monitor_weight_outlined, Icons.scale,
-      Icons.scale_outlined, Icons.sports_gymnastics, Icons.sports_tennis, Icons.sports_baseball_outlined,
-      Icons.sports_kabaddi_outlined, Icons.pool, Icons.pool_outlined, Icons.stairs,
-      Icons.straighten_outlined, Icons.straighten_rounded, Icons.accessibility_new, Icons.accessibility_new_outlined,
-      Icons.accessibility_new_rounded, Icons.back_hand_outlined, Icons.pan_tool_outlined, Icons.work_outline_rounded,
+      Icons.fitness_center, Icons.fitness_center_outlined, Icons.fitness_center_rounded, Icons.assignment, Icons.assignment_outlined, Icons.checklist,
     ], exercises);
-
-    // skills
     mapGroup([
-      Icons.layers, Icons.layers_outlined, Icons.auto_stories, Icons.inventory_2,
-      Icons.inventory_2_outlined, Icons.archive, Icons.archive_outlined, Icons.unarchive_outlined,
-      Icons.category, Icons.category_outlined, Icons.bookmark, Icons.bookmark_outline,
-      Icons.bookmark_rounded, Icons.bookmark_border, Icons.bookmark_border_outlined, Icons.bookmark_border_rounded,
-      Icons.bolt, Icons.bolt_outlined, Icons.bolt_rounded, Icons.flash_on_rounded,
-      Icons.auto_awesome, Icons.auto_awesome_motion, Icons.auto_awesome_outlined, Icons.tag_rounded,
-      Icons.local_offer_outlined, Icons.local_offer_rounded, Icons.push_pin, Icons.push_pin_outlined,
-      Icons.collections_bookmark_outlined, Icons.collections_outlined, Icons.backpack, Icons.checkroom,
-      Icons.eco, Icons.eco_outlined, Icons.psychology, Icons.psychology_outlined,
-      Icons.widgets_outlined, Icons.aspect_ratio, Icons.sell_outlined, Icons.view_in_ar_outlined,
+      Icons.layers, Icons.layers_outlined,
     ], skills);
-
-    // history
     mapGroup([
-      Icons.history, Icons.history_outlined, Icons.history_rounded, Icons.history_toggle_off,
-      Icons.history_toggle_off_rounded, Icons.replay_rounded, Icons.restore, Icons.restart_alt,
-      Icons.restart_alt_rounded, Icons.refresh, Icons.refresh_rounded, Icons.sync,
-      Icons.sync_rounded, Icons.sync_alt, Icons.autorenew_rounded, Icons.repeat,
-      Icons.repeat_outlined, Icons.settings_backup_restore, Icons.cloud_sync_outlined, Icons.update,
-      Icons.update_outlined, Icons.compare_arrows,
+      Icons.history, Icons.history_outlined, Icons.history_rounded, Icons.restore,
     ], history);
-
-    // scheduledTraining
     mapGroup([
-      Icons.event_available_outlined, Icons.event_note, Icons.event_note_outlined, Icons.calendar_month,
-      Icons.calendar_month_outlined, Icons.event_repeat_outlined,
+      Icons.event_available_outlined, Icons.event_note, Icons.event_note_outlined,
     ], scheduledTraining);
-
-    // trainingTime
     mapGroup([
-      Icons.schedule, Icons.schedule_outlined, Icons.schedule_rounded, Icons.timer,
-      Icons.timer_outlined, Icons.access_time, Icons.access_time_outlined, Icons.access_time_rounded,
-      Icons.timelapse_outlined, Icons.hourglass_bottom_rounded, Icons.hourglass_empty, Icons.hourglass_empty_rounded,
-      Icons.alarm,
+      Icons.schedule, Icons.schedule_outlined, Icons.schedule_rounded, Icons.timer, Icons.timer_outlined, Icons.access_time, Icons.access_time_outlined, Icons.access_time_rounded,
     ], trainingTime);
-
-    // calendar
     mapGroup([
-      Icons.calendar_today, Icons.calendar_today_outlined, Icons.event, Icons.event_outlined,
-      Icons.event_busy, Icons.event_busy_outlined, Icons.grid_on, Icons.grid_on_rounded,
+      Icons.calendar_today, Icons.calendar_today_outlined, Icons.event, Icons.event_outlined, Icons.calendar_month, Icons.calendar_month_outlined, Icons.date_range_outlined,
     ], calendar);
-
-    // completed
     mapGroup([
-      Icons.check, Icons.check_rounded, Icons.check_circle, Icons.check_circle_outline,
-      Icons.check_circle_outline_rounded, Icons.check_circle_rounded, Icons.done_all_rounded, Icons.verified,
-      Icons.verified_outlined, Icons.verified_rounded, Icons.verified_user_outlined, Icons.verified_user_rounded,
-      Icons.check_box_rounded, Icons.check_box_outlined, Icons.check_box_outline_blank_rounded, Icons.radio_button_checked,
-      Icons.radio_button_checked_rounded, Icons.radio_button_off, Icons.radio_button_off_rounded, Icons.radio_button_unchecked,
-      Icons.radio_button_unchecked_rounded, Icons.circle, Icons.fiber_manual_record, Icons.safety_check,
+      Icons.check_circle, Icons.check_circle_outline, Icons.check_circle_outline_rounded, Icons.check_circle_rounded, Icons.task_alt, Icons.task_alt_rounded, Icons.verified, Icons.verified_outlined,
     ], completed);
-
-    // male
     mapGroup([
       Icons.male, Icons.male_rounded,
     ], male);
-
-    // sort
     mapGroup([
-      Icons.sort, Icons.sort_by_alpha, Icons.swap_vert, Icons.swap_vert_rounded,
-      Icons.swap_horiz, Icons.swap_horiz_rounded, Icons.filter_list, Icons.filter_list_off,
-      Icons.filter_alt, Icons.filter_alt_off, Icons.filter_alt_outlined, Icons.tune,
-      Icons.tune_rounded, Icons.drag_handle, Icons.drag_handle_rounded, Icons.drag_indicator,
-      Icons.unfold_more, Icons.unfold_more_rounded, Icons.expand_more, Icons.expand_less,
-      Icons.keyboard_arrow_down, Icons.keyboard_arrow_down_rounded, Icons.keyboard_arrow_up, Icons.keyboard_arrow_up_rounded,
-      Icons.arrow_drop_down, Icons.arrow_downward, Icons.arrow_downward_rounded, Icons.arrow_upward,
-      Icons.arrow_upward_rounded, Icons.settings, Icons.settings_outlined, Icons.build_outlined,
-      Icons.construction, Icons.import_export, Icons.balance, Icons.toggle_on,
-      Icons.toggle_on_outlined, Icons.toggle_off_outlined,
+      Icons.sort, Icons.swap_vert, Icons.swap_vert_rounded, Icons.import_export,
     ], sort);
-
-    // details
     mapGroup([
-      Icons.chevron_right, Icons.chevron_right_rounded, Icons.arrow_forward, Icons.arrow_forward_rounded,
-      Icons.arrow_circle_down_outlined, Icons.visibility, Icons.visibility_outlined, Icons.visibility_off,
-      Icons.visibility_off_outlined, Icons.open_in_new, Icons.open_in_new_rounded, Icons.open_in_full,
-      Icons.fullscreen_rounded, Icons.fullscreen_exit_rounded, Icons.north_east, Icons.zoom_in_rounded,
-      Icons.touch_app, Icons.ads_click, Icons.link, Icons.link_rounded,
-      Icons.link_off, Icons.send_outlined,
+      Icons.chevron_right, Icons.chevron_right_rounded, Icons.arrow_forward_ios, Icons.arrow_forward, Icons.arrow_forward_rounded,
     ], details);
-
-    // overflowMenu
     mapGroup([
-      Icons.more_vert, Icons.share, Icons.share_outlined, Icons.ios_share,
-      Icons.ios_share_outlined, Icons.ios_share_rounded, Icons.download, Icons.download_outlined,
-      Icons.download_rounded, Icons.download_done_rounded, Icons.file_download, Icons.file_download_outlined,
-      Icons.download_for_offline_outlined, Icons.upload, Icons.upload_file, Icons.upload_file_outlined,
-      Icons.upload_file_rounded, Icons.file_upload_outlined, Icons.cloud_download, Icons.cloud_download_outlined,
-      Icons.cloud_upload, Icons.cloud_upload_outlined, Icons.cloud_outlined, Icons.cloud_done,
-      Icons.cloud_done_outlined, Icons.cloud_off_outlined, Icons.lock, Icons.lock_outline,
-      Icons.lock_outline_rounded, Icons.lock_open_outlined, Icons.lock_open_rounded, Icons.security_rounded,
-      Icons.shield, Icons.shield_outlined, Icons.privacy_tip_outlined, Icons.fingerprint_rounded,
-      Icons.key_rounded, Icons.folder_outlined, Icons.folder_open, Icons.folder_open_outlined,
-      Icons.folder_open_rounded, Icons.folder_shared_outlined, Icons.folder_special_outlined, Icons.folder_zip_outlined,
-      Icons.folder_off_outlined, Icons.storage_outlined, Icons.dns_outlined, Icons.save_outlined,
-      Icons.copy, Icons.copy_outlined, Icons.copy_rounded, Icons.print_outlined,
-      Icons.print_rounded, Icons.credit_card_outlined, Icons.person, Icons.person_outline,
-      Icons.person_outline_rounded, Icons.person_rounded, Icons.account_circle_outlined, Icons.people_outline_rounded,
-      Icons.groups_outlined, Icons.supervisor_account_outlined, Icons.badge_outlined, Icons.phone_android_rounded,
-      Icons.phone_iphone_rounded, Icons.tablet_mac_rounded, Icons.laptop_mac_rounded, Icons.devices_rounded,
-      Icons.smartphone_rounded, Icons.wifi_rounded, Icons.wifi_off_rounded, Icons.public,
-      Icons.public_rounded, Icons.public_off_rounded, Icons.language_rounded, Icons.translate_rounded,
-      Icons.apple, Icons.apartment_rounded, Icons.battery_charging_full, Icons.wb_sunny_outlined,
-      Icons.wb_cloudy_outlined, Icons.nightlight_outlined, Icons.nightlight_round_outlined, Icons.code_rounded,
-      Icons.swipe_left_outlined, Icons.select_all, Icons.vertical_align_top, Icons.local_fire_department,
-      Icons.local_fire_department_outlined, Icons.local_fire_department_rounded, Icons.restaurant, Icons.restaurant_rounded,
-      Icons.lens_blur, Icons.phone_outlined,
+      Icons.more_vert, Icons.more_vert_rounded,
     ], overflowMenu);
 
     return map;
   }
 
-  /// Maps an arbitrary Material [IconData] to the closest official Ulvenik icon key.
-  static String mapMaterial(IconData icon) {
-    return _materialMap[icon.codePoint] ?? details;
-  }
+  /// Returns the official guide icon key for a Material icon, or null when the
+  /// guide has no equivalent (the original Material icon must then be used).
+  static String? mapMaterial(IconData icon) => _materialMap[icon.codePoint];
 }
 
 /// A pixel-perfect vector icon widget that renders Ulvenik's official icons.
@@ -502,6 +316,9 @@ class UlvenikIcon extends StatelessWidget {
   /// Optional accessibility label.
   final String? semanticsLabel;
 
+  /// Standard Material icon rendered when the guide has no equivalent icon.
+  final IconData? _materialFallback;
+
   const UlvenikIcon(
     this.icon, {
     super.key,
@@ -510,11 +327,21 @@ class UlvenikIcon extends StatelessWidget {
     FontWeight? fontWeight,
     String? semanticsLabel,
     String? semanticLabel,
-  }) : semanticsLabel = semanticsLabel ?? semanticLabel;
+  })  : semanticsLabel = semanticsLabel ?? semanticLabel,
+        _materialFallback = null;
 
-  /// Convenient factory to create an [UlvenikIcon] mapped directly from any
-  /// existing Material [IconData], guaranteeing that only official Ulvenik icons
-  /// are rendered.
+  const UlvenikIcon._material(
+    IconData materialIcon, {
+    super.key,
+    this.size = 24.0,
+    this.color,
+    this.semanticsLabel,
+  })  : icon = '',
+        _materialFallback = materialIcon;
+
+  /// Creates an icon from a Material [IconData]. If the official Ulvenik guide
+  /// has an equivalent icon it is used; otherwise the standard Material icon is
+  /// rendered unchanged.
   factory UlvenikIcon.fromMaterial(
     IconData materialIcon, {
     Key? key,
@@ -525,6 +352,15 @@ class UlvenikIcon extends StatelessWidget {
     String? semanticLabel,
   }) {
     final mapped = UlvenikIcons.mapMaterial(materialIcon);
+    if (mapped == null) {
+      return UlvenikIcon._material(
+        materialIcon,
+        key: key,
+        size: size,
+        color: color,
+        semanticsLabel: semanticsLabel ?? semanticLabel,
+      );
+    }
     return UlvenikIcon(
       mapped,
       key: key,
@@ -538,6 +374,11 @@ class UlvenikIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final effectiveColor =
         color ?? IconTheme.of(context).color ?? Colors.white;
+    final fallback = _materialFallback;
+    if (fallback != null) {
+      return Icon(fallback,
+          size: size, color: color, semanticLabel: semanticsLabel);
+    }
     final svgString = UlvenikIcons.getSvgString(icon);
 
     if (svgString == null) {

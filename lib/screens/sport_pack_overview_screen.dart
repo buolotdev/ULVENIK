@@ -1108,7 +1108,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                               color: AppColors.primaryForestGreen.withValues(alpha: 0.3),
                             ),
                           ),
-                          child: const UlvenikIcon(UlvenikIcons.goals,
+                          child: const Icon(Icons.emoji_events_outlined,
                             size: 32,
                             color: AppColors.primaryForestGreen,
                           ),

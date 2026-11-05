@@ -309,7 +309,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
         errorBuilder: (_, _, _) => Container(
           color: const Color(0xFF1A2421),
           alignment: Alignment.center,
-          child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+          child: const Icon(Icons.person_rounded,
             color: Color(0xFF95D3BB),
             size: 42,
           ),
@@ -512,7 +512,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                                   _EditorToolButton(
                                     label: 'Reset',
                                     onTap: _resetAdjustments,
-                                    icon: UlvenikIcon(UlvenikIcons.history,
+                                    icon: Icon(Icons.replay_rounded,
                                       size: 22,
                                       color: _hasAdjustments
                                           ? const Color(0xFFF5F6F2)
@@ -520,7 +520,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                                     ),
                                   ),
                                   const SizedBox(width: 20),
-                                  const UlvenikIcon(UlvenikIcons.details,
+                                  const Icon(Icons.zoom_in_rounded,
                                     size: 21,
                                     color: Color(0xFFA7B0AB),
                                   ),

@@ -212,7 +212,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
           Row(
             children: [
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.progress, color: AppColors.primaryTextOffWhite),
+                icon: const Icon(Icons.grid_view_rounded, color: AppColors.primaryTextOffWhite),
                 onPressed: () {
                   Navigator.push(
                     context,

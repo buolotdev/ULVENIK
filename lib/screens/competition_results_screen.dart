@@ -863,7 +863,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           const SizedBox(height: 12),
           Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.skills, color: _muted, size: 16),
+              const Icon(Icons.tag_rounded, color: _muted, size: 16),
               const SizedBox(width: 8),
               const Text(
                 'Percentage',
@@ -910,7 +910,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           const SizedBox(height: 12),
           Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.goals,
+              const Icon(Icons.workspace_premium_outlined,
                 color: _greenAccent,
                 size: 19,
               ),
@@ -1086,7 +1086,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                             });
                             _animController.forward(from: 0.3);
                           },
-                          child: const UlvenikIcon(UlvenikIcons.back,
+                          child: const Icon(Icons.close_rounded,
                             color: _muted,
                             size: 16,
                           ),
@@ -1488,7 +1488,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                     const SizedBox(width: 8),
                     GestureDetector(
                       onTap: () => setState(() => _awards.removeAt(i)),
-                      child: const UlvenikIcon(UlvenikIcons.back,
+                      child: const Icon(Icons.close_rounded,
                         color: _muted,
                         size: 15,
                       ),
@@ -1565,13 +1565,13 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                               removed.dispose();
                             });
                           },
-                          child: const UlvenikIcon(UlvenikIcons.back,
+                          child: const Icon(Icons.close_rounded,
                             color: _muted,
                             size: 16,
                           ),
                         )
                       else
-                        const UlvenikIcon(UlvenikIcons.back,
+                        const Icon(Icons.close_rounded,
                           color: _muted,
                           size: 16,
                         ),
@@ -1813,7 +1813,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                                 errorBuilder: (context, error, stackTrace) =>
                                     Container(
                                   color: _forest.withValues(alpha: 0.35),
-                                  child: const UlvenikIcon(UlvenikIcons.play,
+                                  child: const Icon(Icons.image_outlined,
                                     color: _offWhite,
                                   ),
                                 ),

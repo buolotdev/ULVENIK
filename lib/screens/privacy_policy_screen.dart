@@ -158,7 +158,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 16),
+                          icon: const Icon(Icons.copy_rounded, size: 16),
                           label: const Text('Copy Email'),
                         ),
                       ),
@@ -182,7 +182,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          icon: const UlvenikIcon(UlvenikIcons.notifications,
+                          icon: const Icon(Icons.chat_bubble_outline_rounded,
                             size: 16,
                           ),
                           label: const Text('Contact Team'),
@@ -394,7 +394,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               ),
               GestureDetector(
                 onTap: _copyFullPolicySummary,
-                child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                child: const Icon(Icons.copy_rounded,
                   color: _stoneGrey,
                   size: 16,
                 ),
@@ -434,7 +434,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     ),
                     child: Row(
                       children: [
-                        const UlvenikIcon(UlvenikIcons.training,
+                        const Icon(Icons.format_list_bulleted_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
@@ -754,7 +754,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     padding: EdgeInsets.symmetric(vertical: 14),
                     child: Row(
                       children: [
-                        UlvenikIcon(UlvenikIcons.notifications,
+                        Icon(Icons.mail_outline_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
@@ -806,7 +806,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     padding: EdgeInsets.only(top: 14, bottom: 2),
                     child: Row(
                       children: [
-                        UlvenikIcon(UlvenikIcons.overflowMenu,
+                        Icon(Icons.language_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
@@ -870,7 +870,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                 ),
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort,
+            const Icon(Icons.arrow_downward_rounded,
               color: _mint,
               size: 15,
             ),
@@ -888,7 +888,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         children: [
           const Padding(
             padding: EdgeInsets.only(top: 7),
-            child: UlvenikIcon(UlvenikIcons.completed, size: 5, color: _stoneGrey),
+            child: Icon(Icons.circle, size: 5, color: _stoneGrey),
           ),
           const SizedBox(width: 12),
           Expanded(

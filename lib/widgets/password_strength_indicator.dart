@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 
 enum PasswordStrength { empty, weak, good, strong }
@@ -198,7 +197,7 @@ class _CheckItem extends StatelessWidget {
           ),
           child: met
               ? const Center(
-                  child: UlvenikIcon(UlvenikIcons.completed,
+                  child: Icon(Icons.check_rounded,
                     size: 11,
                     color: AppColors.secondarySage,
                   ),

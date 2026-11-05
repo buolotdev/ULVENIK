@@ -820,7 +820,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const UlvenikIcon(UlvenikIcons.skills,
+                  leading: const Icon(Icons.collections_bookmark_outlined,
                     color: _stoneGrey,
                   ),
                   title: const Text(
@@ -838,7 +838,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const UlvenikIcon(UlvenikIcons.back,
+                  leading: const Icon(Icons.delete_outline_rounded,
                     color: AppColors.errorDestructive,
                   ),
                   title: const Text(
@@ -948,7 +948,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              UlvenikIcon(UlvenikIcons.play,
+                              Icon(Icons.perm_media_outlined,
                                 size: 42,
                                 color: _stoneGrey.withValues(alpha: 0.5),
                               ),
@@ -1048,7 +1048,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
           ),
           IconButton(
             onPressed: _showLibraryToolsSheet,
-            icon: const UlvenikIcon(UlvenikIcons.sort,
+            icon: const Icon(Icons.tune_rounded,
               color: _stoneGrey,
               size: 21,
             ),
@@ -1060,7 +1060,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
             children: [
               IconButton(
                 onPressed: _showFilterSortSheet,
-                icon: UlvenikIcon(UlvenikIcons.sort,
+                icon: Icon(Icons.filter_list_rounded,
                   color: hasActiveFilters ? _forest : _stoneGrey,
                   size: 21,
                 ),
@@ -1295,7 +1295,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                   left: 7,
                   child: GestureDetector(
                     onTap: () => _toggleFavourite(item),
-                    child: const UlvenikIcon(UlvenikIcons.health,
+                    child: const Icon(Icons.favorite_rounded,
                       color: _favGold,
                       size: 14,
                     ),
@@ -1379,7 +1379,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                   left: 7,
                   child: GestureDetector(
                     onTap: () => _toggleFavourite(item),
-                    child: const UlvenikIcon(UlvenikIcons.health,
+                    child: const Icon(Icons.favorite_rounded,
                       color: _favGold,
                       size: 14,
                     ),

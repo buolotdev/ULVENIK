@@ -480,7 +480,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: _forest),
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.completed,
+                      child: const Icon(Icons.verified_user_outlined,
                         color: Color(0xFF429679),
                         size: 20,
                       ),
@@ -793,7 +793,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
         children: [
           Column(
             children: [
-              const UlvenikIcon(UlvenikIcons.completed,
+              const Icon(Icons.verified_user_outlined,
                 color: _sage,
                 size: 21,
               ),
@@ -1085,7 +1085,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
         children: [
           const Padding(
             padding: EdgeInsets.only(top: 1),
-            child: UlvenikIcon(UlvenikIcons.overflowMenu,
+            child: Icon(Icons.privacy_tip_outlined,
               color: _infoBlue,
               size: 16,
             ),

@@ -670,7 +670,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                     children: [
                       Row(
                         children: const [
-                          UlvenikIcon(UlvenikIcons.overflowMenu, color: _sage, size: 16),
+                          Icon(Icons.lock_outline_rounded, color: _sage, size: 16),
                           SizedBox(width: 6),
                           Text(
                             'Private Note (trainer only)',
@@ -961,7 +961,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const UlvenikIcon(UlvenikIcons.overflowMenu, color: _sage, size: 14),
+                  const Icon(Icons.phone_outlined, color: _sage, size: 14),
                   const SizedBox(width: 5),
                   Text(
                     displayPhone,
@@ -980,7 +980,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const UlvenikIcon(UlvenikIcons.notifications, color: _sage, size: 14),
+                  const Icon(Icons.mail_outline_rounded, color: _sage, size: 14),
                   const SizedBox(width: 5),
                   Text(
                     displayEmail,
@@ -1941,7 +1941,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                               Row(
                                 children: [
                                   if (note.isPrivate) ...[
-                                    const UlvenikIcon(UlvenikIcons.overflowMenu,
+                                    const Icon(Icons.lock_outline_rounded,
                                       color: _sage,
                                       size: 14,
                                     ),
@@ -2036,7 +2036,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                   ),
                   child: Row(
                     children: const [
-                      UlvenikIcon(UlvenikIcons.overflowMenu,
+                      Icon(Icons.lock_outline_rounded,
                         color: _alpineBlue,
                         size: 15,
                       ),

@@ -989,7 +989,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                             type: SnackbarType.info,
                           );
                         },
-                        icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
+                        icon: const Icon(Icons.delete_outline_rounded, size: 18),
                         label: const Text(
                           'Delete',
                           style: TextStyle(
@@ -1628,7 +1628,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
             children: [
               IconButton(
                 onPressed: _openFilterSheet,
-                icon: UlvenikIcon(UlvenikIcons.sort,
+                icon: Icon(Icons.tune_rounded,
                   color: hasActiveCategory ? _mint : _stoneGrey,
                   size: 21,
                 ),

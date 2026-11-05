@@ -89,7 +89,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                   color: const Color(0xFFE07070).withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const UlvenikIcon(UlvenikIcons.notifications,
+                child: const Icon(Icons.warning_amber_rounded,
                   color: Color(0xFFE07070),
                   size: 24,
                 ),
@@ -295,7 +295,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Colors.white12),
                         ),
-                        child: const UlvenikIcon(UlvenikIcons.play,
+                        child: const Icon(Icons.photo_camera_outlined,
                             color: AppColors.secondaryTextStoneGrey, size: 24),
                       ),
                       const SizedBox(width: 16),
@@ -365,7 +365,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          UlvenikIcon(UlvenikIcons.overflowMenu,
+                          Icon(Icons.save_outlined,
                               color: _canSave
                                   ? AppColors.primaryTextOffWhite
                                   : AppColors.secondaryTextStoneGrey,
@@ -555,7 +555,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
           const SizedBox(width: 4),
           GestureDetector(
             onTap: () => _removeTag(label),
-            child: const UlvenikIcon(UlvenikIcons.back,
+            child: const Icon(Icons.close,
                 size: 14, color: AppColors.secondaryTextStoneGrey),
           ),
         ],

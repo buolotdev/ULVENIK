@@ -1625,7 +1625,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const UlvenikIcon(UlvenikIcons.notifications,
+                            const Icon(Icons.info_outline_rounded,
                               color: _alpineBlue,
                               size: 18,
                             ),
@@ -1765,7 +1765,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                       ),
                     ),
                     IconButton(
-                      icon: const UlvenikIcon(UlvenikIcons.back, color: _textSecondary),
+                      icon: const Icon(Icons.close, color: _textSecondary),
                       onPressed: () => Navigator.pop(ctx),
                     ),
                   ],
@@ -2065,7 +2065,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             children: [
               Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.overflowMenu,
+                  const Icon(Icons.lock_open_rounded,
                     color: _sage,
                     size: 16,
                   ),
@@ -2153,7 +2153,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(top: 1),
-                      child: UlvenikIcon(UlvenikIcons.notifications,
+                      child: Icon(Icons.info_outline_rounded,
                         color: _alpineBlue,
                         size: 16,
                       ),

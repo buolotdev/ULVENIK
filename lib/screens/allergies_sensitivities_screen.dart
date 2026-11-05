@@ -348,7 +348,7 @@ class _AllergiesSensitivitiesScreenState
           },
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
+          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 20),
           tooltip: 'Filter Allergies',
           onPressed: _showFilterOptionsModal,
         ),
@@ -671,7 +671,7 @@ class _AllergiesSensitivitiesScreenState
                       ),
                     ),
                     SizedBox(width: 4),
-                    UlvenikIcon(UlvenikIcons.history, size: 12, color: AppColors.secondaryTextStoneGrey),
+                    Icon(Icons.refresh, size: 12, color: AppColors.secondaryTextStoneGrey),
                   ],
                 ),
               ),
@@ -1009,7 +1009,7 @@ class _AllergiesSensitivitiesScreenState
                   _searchQuery = '';
                 });
               },
-              child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -1461,7 +1461,7 @@ class _AllergiesSensitivitiesScreenState
                     ],
                   ),
                 ),
-                const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
+                const Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),
@@ -1477,7 +1477,7 @@ class _AllergiesSensitivitiesScreenState
                 color: AppColors.cardsCarbon,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08), width: 1.5),
               ),
-              child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+              child: const Icon(Icons.shield_outlined,
                 color: Color(0xFF95D3BB),
                 size: 38,
               ),
@@ -1639,7 +1639,7 @@ class _AllergiesSensitivitiesScreenState
                             ),
                           ),
                           IconButton(
-                            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1826,7 +1826,7 @@ class _AllergiesSensitivitiesScreenState
                         ),
                       ),
                       IconButton(
-                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1876,7 +1876,7 @@ class _AllergiesSensitivitiesScreenState
                       children: [
                         Row(
                           children: const [
-                            UlvenikIcon(UlvenikIcons.notifications, color: Color(0xFFFFB4AB), size: 18),
+                            Icon(Icons.warning_amber_rounded, color: Color(0xFFFFB4AB), size: 18),
                             SizedBox(width: 8),
                             Text(
                               'EMERGENCY ACTION PROTOCOL',
@@ -2133,7 +2133,7 @@ class _AllergiesSensitivitiesScreenState
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(tab, style: TextStyle(color: isSelected ? const Color(0xFF95D3BB) : AppColors.primaryTextOffWhite, fontSize: 14)),
-                    trailing: isSelected ? const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB)) : null,
+                    trailing: isSelected ? const Icon(Icons.check, color: Color(0xFF95D3BB)) : null,
                     onTap: () {
                       setState(() => _selectedFilter = tab);
                       Navigator.pop(ctx);

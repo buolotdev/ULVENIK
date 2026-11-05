@@ -591,7 +591,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
       ),
       title: Text(name, style: const TextStyle(color: _offWhite, fontWeight: FontWeight.bold)),
       subtitle: Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
-      trailing: isSelected ? const UlvenikIcon(UlvenikIcons.completed, color: _mint) : null,
+      trailing: isSelected ? const Icon(Icons.check, color: _mint) : null,
       onTap: () {
         setState(() => _selectedDog = name);
         Navigator.pop(ctx);
@@ -728,7 +728,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 value: 'filter',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
+                    Icon(Icons.filter_list, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Filter by Category', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -738,7 +738,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 value: 'select_all',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 18),
+                    Icon(Icons.select_all, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Select All Events', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -748,7 +748,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 value: 'deselect_all',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
+                    Icon(Icons.deselect, color: _stoneGrey, size: 18),
                     SizedBox(width: 10),
                     Text('Deselect All', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -770,7 +770,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'favourites',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.health, color: Color(0xFFB8920A), size: 18),
+                  Icon(Icons.favorite, color: Color(0xFFB8920A), size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Favourites', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -780,7 +780,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'settings',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
+                  Icon(Icons.settings_outlined, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Settings', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -790,7 +790,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'insights',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.notifications, color: _mint, size: 18),
+                  Icon(Icons.lightbulb_outline, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Insights', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -810,7 +810,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'export',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 18),
+                  Icon(Icons.file_download_outlined, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Export', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -838,7 +838,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 border: Border.all(color: _cardBorder),
               ),
               child: const Center(
-                child: UlvenikIcon(UlvenikIcons.skills,
+                child: Icon(Icons.archive_outlined,
                   size: 44,
                   color: _stoneGrey,
                 ),
@@ -1007,7 +1007,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 20),
+            const Icon(Icons.swap_horiz, color: _mint, size: 20),
           ],
         ),
       ),
@@ -1218,13 +1218,13 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
           hintStyle: const TextStyle(color: _stoneGrey, fontSize: 14),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
+                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
                   onPressed: () {
                     _searchController.clear();
                     setState(() => _searchQuery = '');
                   },
                 )
-              : const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey, size: 20),
+              : const Icon(Icons.mic_none, color: _stoneGrey, size: 20),
         ),
       ),
     );
@@ -1276,7 +1276,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 ),
               ),
               const SizedBox(width: 4),
-              const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 18),
+              const Icon(Icons.arrow_drop_down, color: _stoneGrey, size: 18),
             ],
           ),
         ),
@@ -1321,7 +1321,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
             padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
             child: Row(
               children: [
-                UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 16),
+                Icon(Icons.file_download_outlined, color: _offWhite, size: 16),
                 SizedBox(width: 4),
                 Text(
                   'Export',
@@ -1473,7 +1473,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                           const SizedBox(height: 6),
                           Row(
                             children: [
-                              const UlvenikIcon(UlvenikIcons.skills, color: _stoneGrey, size: 13),
+                              const Icon(Icons.archive_outlined, color: _stoneGrey, size: 13),
                               const SizedBox(width: 4),
                               Text(
                                 'Archived ${item.archivedDate}',
@@ -1601,7 +1601,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                       children: [
                         Row(
                           children: [
-                            const UlvenikIcon(UlvenikIcons.notifications, color: _stoneGrey, size: 14),
+                            const Icon(Icons.info_outline, color: _stoneGrey, size: 14),
                             const SizedBox(width: 6),
                             Text(
                               item.orphanedWarning!,
@@ -1676,7 +1676,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
       child: Center(
         child: Column(
           children: [
-            const UlvenikIcon(UlvenikIcons.search, size: 48, color: _stoneGrey),
+            const Icon(Icons.search_off, size: 48, color: _stoneGrey),
             const SizedBox(height: 12),
             const Text(
               'No matches found',

@@ -584,7 +584,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   },
                 ),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                  leading: const Icon(Icons.upload_file_outlined,
                     color: Color(0xFF3BA383),
                   ),
                   title: const Text(
@@ -616,7 +616,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   },
                 ),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.goals,
+                  leading: const Icon(Icons.emoji_events_outlined,
                     color: AppColors.infoAlpineBlue,
                   ),
                   title: Text(
@@ -841,7 +841,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
           const SizedBox(height: 12),
           Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.timeline,
+              const Icon(Icons.location_on_outlined,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 15,
               ),
@@ -944,7 +944,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
           ),
           child: Column(
             children: [
-              const UlvenikIcon(UlvenikIcons.goals,
+              const Icon(Icons.emoji_events_outlined,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 36,
               ),
@@ -1271,7 +1271,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
               color: AppColors.primaryForestGreen.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const UlvenikIcon(UlvenikIcons.goals,
+            child: const Icon(Icons.emoji_events_outlined,
               color: Color(0xFF3BA383),
               size: 20,
             ),
@@ -1417,7 +1417,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   ),
                   child: Row(
                     children: [
-                      const UlvenikIcon(UlvenikIcons.training,
+                      const Icon(Icons.insert_drive_file_outlined,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 21,
                       ),

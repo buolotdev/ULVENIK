@@ -153,7 +153,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                     mainAxisSize: MainAxisSize.min,
                     children: ['Lifetime', 'This Year', 'Last 6 Months', 'This Month'].map((tf) => ListTile(
                       title: Text(tf, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
-                      trailing: _selectedTimeframe == tf ? const UlvenikIcon(UlvenikIcons.completed, color: AppColors.primaryForestGreen) : null,
+                      trailing: _selectedTimeframe == tf ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
                       onTap: () {
                         setState(() => _selectedTimeframe = tf);
                         Navigator.pop(ctx);
@@ -174,7 +174,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                 children: [
                   Text(_selectedTimeframe, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                   const SizedBox(width: 4),
-                  const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 18),
+                  const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 18),
                 ],
               ),
             ),

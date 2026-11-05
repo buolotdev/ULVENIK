@@ -1029,7 +1029,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
                         ),
                       );
                     },
-                    icon: const UlvenikIcon(UlvenikIcons.training, size: 18),
+                    icon: const Icon(Icons.picture_as_pdf_outlined, size: 18),
                     label: Text(
                       'Export & Send Consolidated PDF',
                       style: GoogleFonts.inter(
@@ -1262,7 +1262,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const UlvenikIcon(UlvenikIcons.sort, color: _sage, size: 21),
+                const Icon(Icons.filter_alt_outlined, color: _sage, size: 21),
                 Positioned(
                   right: -1,
                   top: -1,

@@ -440,7 +440,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     color: _forest.withValues(alpha: 0.3),
                     shape: BoxShape.circle,
                   ),
-                  child: const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 20),
+                  child: const Icon(Icons.construction, color: _mint, size: 20),
                 ),
                 const SizedBox(width: 14),
                 Column(
@@ -543,7 +543,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey),
+                    icon: const Icon(Icons.close, color: _stoneGrey),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -576,7 +576,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) => Container(
                                 color: _carbon,
-                                child: const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey),
+                                child: const Icon(Icons.photo, color: _stoneGrey),
                               ),
                             ),
                             if (item.isVideo)
@@ -740,7 +740,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'share',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
+                    Icon(Icons.share, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Share Session', style: TextStyle(color: _offWhite)),
                   ],
@@ -750,7 +750,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'duplicate',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
+                    Icon(Icons.copy, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Save as Template', style: TextStyle(color: _offWhite)),
                   ],
@@ -760,7 +760,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'export',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
+                    Icon(Icons.file_download, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Data', style: TextStyle(color: _offWhite)),
                   ],
@@ -770,7 +770,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'archive',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
+                    Icon(Icons.inventory_2_outlined, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('View Archive', style: TextStyle(color: _mint, fontWeight: FontWeight.w600)),
                   ],
@@ -781,7 +781,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'delete',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.back, color: _errorRed, size: 18),
+                    Icon(Icons.delete_outline, color: _errorRed, size: 18),
                     SizedBox(width: 10),
                     Text('Delete Session', style: TextStyle(color: _errorRed)),
                   ],
@@ -1338,7 +1338,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           children: [
             Row(
               children: [
-                const UlvenikIcon(UlvenikIcons.sort,
+                const Icon(Icons.construction,
                   color: _stoneGrey,
                   size: 20,
                 ),
@@ -1429,7 +1429,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Container(
                         color: _carbon,
-                        child: const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey),
+                        child: const Icon(Icons.photo, color: _stoneGrey),
                       ),
                     ),
                     if (item.isVideo)
@@ -1572,7 +1572,7 @@ class _MediaLightboxViewerState extends State<_MediaLightboxViewer> {
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: Colors.white),
+          icon: const Icon(Icons.close, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(

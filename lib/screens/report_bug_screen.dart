@@ -273,7 +273,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                           ),
                           if (selected) ...[
                             const SizedBox(width: 10),
-                            const UlvenikIcon(UlvenikIcons.completed,
+                            const Icon(Icons.check_rounded,
                               color: _mint,
                               size: 19,
                             ),
@@ -540,7 +540,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                     children: [
                       Row(
                         children: [
-                          UlvenikIcon(UlvenikIcons.notifications,
+                          Icon(Icons.bug_report_outlined,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -619,7 +619,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                                   ),
                                 ),
                               ),
-                              const UlvenikIcon(UlvenikIcons.sort,
+                              const Icon(Icons.keyboard_arrow_down_rounded,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
@@ -912,7 +912,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  UlvenikIcon(UlvenikIcons.training,
+                                  Icon(Icons.attach_file_rounded,
                                     color: _stoneGrey,
                                     size: 18,
                                   ),
@@ -1002,7 +1002,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                                     behavior: HitTestBehavior.opaque,
                                     child: const Padding(
                                       padding: EdgeInsets.all(4),
-                                      child: UlvenikIcon(UlvenikIcons.back,
+                                      child: Icon(Icons.close_rounded,
                                         color: _stoneGrey,
                                         size: 17,
                                       ),
@@ -1040,7 +1040,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                           padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
                           child: Row(
                             children: [
-                              const UlvenikIcon(UlvenikIcons.completed,
+                              const Icon(Icons.verified_user_outlined,
                                 color: _stoneGrey,
                                 size: 19,
                               ),
@@ -1171,7 +1171,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        UlvenikIcon(UlvenikIcons.details,
+                        Icon(Icons.send_outlined,
                           size: 17,
                           color: _offWhite,
                         ),
@@ -1220,7 +1220,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                       color: _forest.withValues(alpha: 0.25),
                       shape: BoxShape.circle,
                     ),
-                    child: const UlvenikIcon(UlvenikIcons.notifications,
+                    child: const Icon(Icons.bug_report_outlined,
                       color: _mint,
                       size: 22,
                     ),
@@ -1299,7 +1299,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 16),
+                      icon: const Icon(Icons.copy_rounded, size: 16),
                       label: const Text('Copy Bug ID'),
                     ),
                   ),

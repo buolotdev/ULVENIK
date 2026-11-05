@@ -260,7 +260,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
         // Filter & Sort modal
         IconButton(
           tooltip: 'Filters & Preferences',
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 24),
+          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
           onPressed: _showFilterPreferencesModal,
         ),
         // Empty / Populated Toggle
@@ -590,7 +590,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 24),
+            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 24),
           ],
         ),
       ),
@@ -1007,7 +1007,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   onTap: () => _showRecordDoseModal(med),
                   child: Row(
                     children: const [
-                      UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB), size: 16),
+                      Icon(Icons.check, color: Color(0xFF95D3BB), size: 16),
                       SizedBox(width: 6),
                       Text(
                         'Record Dose',
@@ -1025,7 +1025,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   onTap: () => _showSkipDoseModal(med),
                   child: Row(
                     children: const [
-                      UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 15),
+                      Icon(Icons.block, color: AppColors.secondaryTextStoneGrey, size: 15),
                       SizedBox(width: 6),
                       Text(
                         'Skip Dose',
@@ -1147,7 +1147,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   onTap: () => _confirmStopMedication(med),
                   child: Row(
                     children: const [
-                      UlvenikIcon(UlvenikIcons.play, color: AppColors.secondaryTextStoneGrey, size: 15),
+                      Icon(Icons.stop, color: AppColors.secondaryTextStoneGrey, size: 15),
                       SizedBox(width: 6),
                       Text(
                         'Stop Medication',
@@ -1189,7 +1189,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
                 shape: BoxShape.circle,
               ),
-              child: const UlvenikIcon(UlvenikIcons.skills, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const Icon(Icons.archive_outlined, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -1312,7 +1312,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1327,7 +1327,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                     child: Row(
                       children: [
-                        const UlvenikIcon(UlvenikIcons.health, color: Color(0xFF95D3BB), size: 22),
+                        const Icon(Icons.medication_liquid_outlined, color: Color(0xFF95D3BB), size: 22),
                         const SizedBox(width: 12),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1445,7 +1445,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1597,7 +1597,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1752,7 +1752,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1792,7 +1792,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
+                      icon: const Icon(Icons.delete_outline, size: 18),
                       label: const Text('Delete'),
                       onPressed: () {
                         setState(() {
@@ -1812,7 +1812,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
-                        icon: const UlvenikIcon(UlvenikIcons.play, size: 18, color: Colors.white),
+                        icon: const Icon(Icons.pause, size: 18, color: Colors.white),
                         label: const Text('Pause', style: TextStyle(color: Colors.white)),
                         onPressed: () {
                           setState(() {
@@ -1888,7 +1888,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1998,7 +1998,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],

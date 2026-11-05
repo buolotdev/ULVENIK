@@ -759,7 +759,7 @@ class _TimelineSmartCollectionsScreenState
               const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 19),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 17),
+                  icon: const Icon(Icons.close, color: _stoneGrey, size: 17),
                   onPressed: () {
                     setState(() {
                       _searchController.clear();
@@ -769,7 +769,7 @@ class _TimelineSmartCollectionsScreenState
                 )
               : IconButton(
                   icon:
-                      const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey, size: 19),
+                      const Icon(Icons.mic_none, color: _stoneGrey, size: 19),
                   onPressed: () {
                     if (_isEmptyState) return;
                     setState(() {
@@ -864,7 +864,7 @@ class _TimelineSmartCollectionsScreenState
               ),
               child: Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.sort,
+                  const Icon(Icons.filter_alt_outlined,
                       color: _mint, size: 15),
                   const SizedBox(width: 8),
                   Expanded(
@@ -914,7 +914,7 @@ class _TimelineSmartCollectionsScreenState
               ),
               child: Column(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.overflowMenu,
+                  const Icon(Icons.folder_off_outlined,
                       color: _stoneGrey, size: 32),
                   const SizedBox(height: 10),
                   Text(
@@ -1002,7 +1002,7 @@ class _TimelineSmartCollectionsScreenState
                       color: _forest.withValues(alpha: 0.22),
                       borderRadius: BorderRadius.circular(9),
                     ),
-                    child: const UlvenikIcon(UlvenikIcons.skills,
+                    child: const Icon(Icons.auto_awesome,
                         color: _mint, size: 18),
                   ),
                   const SizedBox(width: 12),
@@ -1189,7 +1189,7 @@ class _TimelineSmartCollectionsScreenState
                             color: _obsidian.withValues(alpha: 0.78),
                             shape: BoxShape.circle,
                           ),
-                          child: const UlvenikIcon(UlvenikIcons.skills,
+                          child: const Icon(Icons.push_pin,
                               color: _mint, size: 11),
                         ),
                       ),
@@ -1290,7 +1290,7 @@ class _TimelineSmartCollectionsScreenState
       fit: BoxFit.cover,
       errorBuilder: (_, _, _) => Container(
         color: _darkSurface,
-        child: const UlvenikIcon(UlvenikIcons.timeline,
+        child: const Icon(Icons.landscape_outlined,
             color: _stoneGrey, size: 22),
       ),
     );
@@ -1466,7 +1466,7 @@ class _TimelineSmartCollectionsScreenState
                                 color: _carbon,
                                 border: Border.all(color: _cardBorder),
                               ),
-                              child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                              child: const Icon(Icons.folder_open_outlined,
                                 color: _sage,
                                 size: 30,
                               ),
@@ -1482,7 +1482,7 @@ class _TimelineSmartCollectionsScreenState
                                 shape: BoxShape.circle,
                                 color: _forest,
                               ),
-                              child: const UlvenikIcon(UlvenikIcons.skills,
+                              child: const Icon(Icons.auto_awesome,
                                 color: _mint,
                                 size: 13,
                               ),
@@ -1591,7 +1591,7 @@ class _TimelineSmartCollectionsScreenState
             ),
             Row(
               children: [
-                UlvenikIcon(UlvenikIcons.search,
+                Icon(Icons.manage_search,
                     color: _stoneGrey.withValues(alpha: 0.45), size: 18),
                 const SizedBox(width: 6),
                 Text(
@@ -1655,7 +1655,7 @@ class _TimelineSmartCollectionsScreenState
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                UlvenikIcon(UlvenikIcons.sort,
+                Icon(Icons.filter_list,
                   color: _badgeFilter != 'ALL' ? _mint : _stoneGrey,
                   size: 17,
                 ),
@@ -1813,7 +1813,7 @@ class _TimelineSmartCollectionsScreenState
                     ),
                     child: Row(
                       children: [
-                        const UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 14),
+                        const Icon(Icons.bolt, color: _mint, size: 14),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
@@ -2224,7 +2224,7 @@ class _TimelineSmartCollectionsScreenState
                     style: const TextStyle(color: _offWhite, fontSize: 14),
                   ),
                   trailing: _sortMode == m
-                      ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 19)
+                      ? const Icon(Icons.check, color: _mint, size: 19)
                       : null,
                   onTap: () {
                     Navigator.pop(ctx);

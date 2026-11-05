@@ -101,7 +101,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                   color: const Color(0xFFE07070).withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const UlvenikIcon(UlvenikIcons.notifications,
+                child: const Icon(Icons.warning_amber_rounded,
                   color: Color(0xFFE07070),
                   size: 24,
                 ),
@@ -225,13 +225,13 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                     children: [
                       Row(
                         children: [
-                          const UlvenikIcon(UlvenikIcons.skills, size: 18, color: AppColors.secondaryTextStoneGrey),
+                          const Icon(Icons.psychology_outlined, size: 18, color: AppColors.secondaryTextStoneGrey),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(widget.parentSkill,
                                 style: const TextStyle(fontSize: 15, color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w500)),
                           ),
-                          const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18, color: Colors.white30),
+                          const Icon(Icons.lock_outline, size: 18, color: Colors.white30),
                         ],
                       ),
                       const SizedBox(height: 6),
@@ -339,7 +339,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                UlvenikIcon(UlvenikIcons.recordSession, size: 18, color: AppColors.primaryTextOffWhite),
+                                Icon(Icons.add_photo_alternate_outlined, size: 18, color: AppColors.primaryTextOffWhite),
                                 SizedBox(width: 8),
                                 Text('Use Custom Image',
                                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.primaryTextOffWhite)),
@@ -475,7 +475,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
           ),
           child: Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.skills, size: 16, color: AppColors.secondaryTextStoneGrey),
+              const Icon(Icons.sell_outlined, size: 16, color: AppColors.secondaryTextStoneGrey),
               const SizedBox(width: 8),
               Expanded(
                 child: TextField(
@@ -543,7 +543,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
               const SizedBox(width: 4),
               GestureDetector(
                 onTap: () => setState(() => _tags.remove(label)),
-                child: const UlvenikIcon(UlvenikIcons.back, size: 14, color: AppColors.secondaryTextStoneGrey),
+                child: const Icon(Icons.close, size: 14, color: AppColors.secondaryTextStoneGrey),
               ),
             ],
           ],

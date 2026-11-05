@@ -484,7 +484,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                 value: 'export',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
+                    Icon(Icons.file_download, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Analytics Report', style: TextStyle(color: _offWhite)),
                   ],
@@ -494,7 +494,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                 value: 'share',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
+                    Icon(Icons.share, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Share Statistics', style: TextStyle(color: _offWhite)),
                   ],

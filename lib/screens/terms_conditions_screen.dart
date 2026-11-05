@@ -162,7 +162,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                       const Spacer(),
                       IconButton(
                         onPressed: () => Navigator.of(ctx).pop(),
-                        icon: const UlvenikIcon(UlvenikIcons.back,
+                        icon: const Icon(Icons.close_rounded,
                           color: _stoneGrey,
                           size: 20,
                         ),
@@ -276,7 +276,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 17),
+                      icon: const Icon(Icons.copy_rounded, size: 17),
                       label: const Text('Copy Terms Summary (REV 4.2)'),
                     ),
                   ),
@@ -360,7 +360,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 16),
+                          icon: const Icon(Icons.copy_rounded, size: 16),
                           label: const Text('Copy Email'),
                         ),
                       ),
@@ -384,7 +384,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          icon: const UlvenikIcon(UlvenikIcons.notifications,
+                          icon: const Icon(Icons.chat_bubble_outline_rounded,
                             size: 16,
                           ),
                           label: const Text('Contact Team'),
@@ -672,7 +672,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                     ),
                     child: Row(
                       children: [
-                        const UlvenikIcon(UlvenikIcons.training,
+                        const Icon(Icons.format_list_bulleted_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
@@ -1000,7 +1000,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                     padding: EdgeInsets.symmetric(vertical: 14),
                     child: Row(
                       children: [
-                        UlvenikIcon(UlvenikIcons.notifications,
+                        Icon(Icons.mail_outline_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
@@ -1052,7 +1052,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                     padding: EdgeInsets.only(top: 14, bottom: 2),
                     child: Row(
                       children: [
-                        UlvenikIcon(UlvenikIcons.overflowMenu,
+                        Icon(Icons.language_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
@@ -1104,7 +1104,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
       children: [
         const Padding(
           padding: EdgeInsets.only(top: 7),
-          child: UlvenikIcon(UlvenikIcons.completed, size: 5.5, color: _stoneGrey),
+          child: Icon(Icons.circle, size: 5.5, color: _stoneGrey),
         ),
         const SizedBox(width: 12),
         Expanded(

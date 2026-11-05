@@ -326,7 +326,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                     fontSize: 14,
                   ),
                 ),
-                trailing: isSel ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20) : null,
+                trailing: isSel ? const Icon(Icons.check, color: _mint, size: 20) : null,
                 onTap: () {
                   setState(() => _currentSort = opt['value'] as String);
                   Navigator.pop(ctx);
@@ -751,7 +751,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                         value: activity,
                         dropdownColor: _carbon,
                         isExpanded: true,
-                        icon: const UlvenikIcon(UlvenikIcons.sort, color: _mint),
+                        icon: const Icon(Icons.keyboard_arrow_down, color: _mint),
                         style: const TextStyle(color: _offWhite, fontSize: 14),
                         items: [
                           'Treadmill Running',
@@ -1096,7 +1096,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'filter',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.sort, color: _offWhite, size: 18),
+                    Icon(Icons.filter_list, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Filter by Activity', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1106,7 +1106,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'export',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
+                    Icon(Icons.file_download, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Templates', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1116,7 +1116,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'archive',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
+                    Icon(Icons.inventory_2_outlined, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('View Archive', style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600)),
                   ],
@@ -1126,7 +1126,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'settings',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.sort, color: _offWhite, size: 18),
+                    Icon(Icons.settings_outlined, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('S & C Settings', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1197,11 +1197,11 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             children: [
               if (_searchQuery.isNotEmpty)
                 IconButton(
-                  icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
+                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
                   onPressed: () => _searchCtrl.clear(),
                 ),
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey, size: 20),
+                icon: const Icon(Icons.mic_none, color: _stoneGrey, size: 20),
                 tooltip: 'Voice Search',
                 onPressed: () {},
               ),
@@ -1296,7 +1296,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 3),
-                                const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 16),
+                                const Icon(Icons.arrow_drop_down, color: _stoneGrey, size: 16),
                               ],
                             ),
                           ),
@@ -1339,7 +1339,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 4),
-                                UlvenikIcon(UlvenikIcons.sort,
+                                Icon(Icons.tune,
                                   color: isFiltered ? _mint : _stoneGrey,
                                   size: 14,
                                 ),
@@ -1384,7 +1384,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                       onTap: () {
                         setState(() => _selectedActivityFilter = 'All Activities');
                       },
-                      child: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 14),
+                      child: const Icon(Icons.close, color: _mint, size: 14),
                     ),
                   ],
                 ),
@@ -1408,7 +1408,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 48),
+            const Icon(Icons.search_off, color: _stoneGrey, size: 48),
             const SizedBox(height: 12),
             const Text(
               'No templates match search',
@@ -1604,7 +1604,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             ),
           ),
           child: const Center(
-            child: UlvenikIcon(UlvenikIcons.skills,
+            child: Icon(Icons.bolt,
               color: _mint,
               size: 40,
             ),

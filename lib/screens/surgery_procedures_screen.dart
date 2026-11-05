@@ -542,7 +542,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
           },
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: Color(0xFF2E6B57), size: 24),
+          icon: const Icon(Icons.tune, color: Color(0xFF2E6B57), size: 24),
           onPressed: _showTuneFilterSheet,
         ),
         IconButton(
@@ -660,7 +660,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 ),
               ],
             ),
-            const UlvenikIcon(UlvenikIcons.sort,
+            const Icon(Icons.expand_more,
               color: Color(0xFF7A8F7A),
               size: 22,
             ),
@@ -888,7 +888,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 _searchController.clear();
                 setState(() => _searchQuery = '');
               },
-              child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -1485,7 +1485,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const UlvenikIcon(UlvenikIcons.training, size: 12, color: AppColors.secondaryTextStoneGrey),
+                      const Icon(Icons.attachment, size: 12, color: AppColors.secondaryTextStoneGrey),
                       const SizedBox(width: 4),
                       Text(
                         'Attachments (${p.attachmentCount})',
@@ -1803,7 +1803,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       ),
       child: Column(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, size: 36, color: AppColors.secondaryTextStoneGrey),
+          const Icon(Icons.search_off, size: 36, color: AppColors.secondaryTextStoneGrey),
           const SizedBox(height: 12),
           const Text(
             'No procedures match your filter.',
@@ -2042,7 +2042,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
           ),
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(ctx),
         ),
       ],
@@ -2243,7 +2243,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                       Expanded(
                         child: ElevatedButton.icon(
                           onPressed: () => Navigator.pop(ctx),
-                          icon: const UlvenikIcon(UlvenikIcons.completed, size: 18),
+                          icon: const Icon(Icons.check, size: 18),
                           label: const Text('Done'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: _forest,

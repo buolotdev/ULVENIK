@@ -572,7 +572,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 20),
+          const Icon(Icons.wifi_off_rounded, color: _stoneGrey, size: 20),
           const SizedBox(width: 14),
           const Expanded(
             child: Column(
@@ -750,7 +750,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                             ),
                           ),
                           if (selected)
-                            const UlvenikIcon(UlvenikIcons.completed,
+                            const Icon(Icons.check_rounded,
                               color: _forest,
                               size: 19,
                             ),
@@ -804,7 +804,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                 ),
               ),
               onPressed: _downloadLatestData,
-              icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 19),
+              icon: const Icon(Icons.download_rounded, size: 19),
               label: Text(
                 _isDownloading
                     ? 'Downloading (${(_downloadProgress * 100).round()}%)…'
@@ -1023,7 +1023,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
           ),
           child: const Row(
             children: [
-              UlvenikIcon(UlvenikIcons.back,
+              Icon(Icons.delete_outline_rounded,
                 color: _destructiveText,
                 size: 20,
               ),

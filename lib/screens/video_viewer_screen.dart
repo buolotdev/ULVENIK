@@ -286,7 +286,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                               children: [
                                 IconButton(
                                   onPressed: () => Navigator.pop(ctx),
-                                  icon: const UlvenikIcon(UlvenikIcons.details,
+                                  icon: const Icon(Icons.fullscreen_exit_rounded,
                                     color: _offWhite,
                                   ),
                                 ),
@@ -489,7 +489,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const UlvenikIcon(UlvenikIcons.progress, color: _offWhite),
+                  leading: const Icon(Icons.speed_rounded, color: _offWhite),
                   title: Text(
                     'Cycle Playback Speed ($_speedLabel)',
                     style: const TextStyle(fontFamily: 'Inter', color: _offWhite),
@@ -912,7 +912,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                               horizontal: 6,
                               vertical: 4,
                             ),
-                            child: UlvenikIcon(UlvenikIcons.edit,
+                            child: Icon(Icons.crop_free_rounded,
                               color: _offWhite.withValues(alpha: 0.9),
                               size: 17,
                             ),

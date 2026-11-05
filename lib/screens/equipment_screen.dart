@@ -354,7 +354,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   ),
                 ),
                 trailing: isSel
-                    ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
+                    ? const Icon(Icons.check, color: _mint, size: 20)
                     : null,
                 onTap: () {
                   setState(() => _currentSort = opt['value'] as String);
@@ -621,7 +621,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    UlvenikIcon(UlvenikIcons.history, size: 12, color: _mint.withValues(alpha: 0.8)),
+                    Icon(Icons.sync_alt, size: 12, color: _mint.withValues(alpha: 0.8)),
                     const SizedBox(width: 5),
                     const Text(
                       'Shared across Training, S&C and Sport sessions',
@@ -846,7 +846,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                         value: category,
                         dropdownColor: _carbon,
                         isExpanded: true,
-                        icon: const UlvenikIcon(UlvenikIcons.sort, color: _mint),
+                        icon: const Icon(Icons.keyboard_arrow_down, color: _mint),
                         style: const TextStyle(color: _offWhite, fontSize: 14),
                         items: [
                           'Harnesses & Vests',
@@ -1226,7 +1226,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 value: 'filter',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.sort, color: _offWhite, size: 18),
+                    Icon(Icons.filter_list, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Filter by Category', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1236,7 +1236,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 value: 'export',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
+                    Icon(Icons.file_download, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Inventory', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1246,7 +1246,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 value: 'archive',
                 child: Row(
                   children: [
-                    UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
+                    Icon(Icons.inventory_2_outlined, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('View Archive', style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600)),
                   ],
@@ -1316,7 +1316,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
           prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
+                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
                   onPressed: () {
                     _searchCtrl.clear();
                   },
@@ -1445,7 +1445,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                                     ),
                                   ),
                                 ],
-                                UlvenikIcon(UlvenikIcons.sort,
+                                Icon(Icons.filter_list,
                                   color: isFiltered ? _offWhite : _stoneGrey,
                                   size: 15,
                                 ),
@@ -1498,7 +1498,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                       onTap: () {
                         setState(() => _selectedCategory = 'All Types');
                       },
-                      child: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 14),
+                      child: const Icon(Icons.close, color: _mint, size: 14),
                     ),
                   ],
                 ),
@@ -1539,7 +1539,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     ),
                   ),
                   SizedBox(width: 4),
-                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
+                  Icon(Icons.arrow_drop_down, color: _mint, size: 16),
                 ],
               ),
             ),
@@ -1590,7 +1590,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 48),
+            const Icon(Icons.search_off, color: _stoneGrey, size: 48),
             const SizedBox(height: 12),
             const Text(
               'No equipment found',

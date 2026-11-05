@@ -290,7 +290,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         // Filter list preferences modal
         IconButton(
           tooltip: 'Filter Options',
-          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: const Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: _showFilterPreferencesModal,
         ),
         // Quick State Toggle (Populated / Empty)
@@ -413,7 +413,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
+            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -640,7 +640,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4),
-                    child: UlvenikIcon(UlvenikIcons.back, color: Color(0xFF7A8F7A), size: 18),
+                    child: Icon(Icons.close, color: Color(0xFF7A8F7A), size: 18),
                   ),
                 ),
               const SizedBox(width: 4),
@@ -657,7 +657,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                     }
                   });
                 },
-                child: const UlvenikIcon(UlvenikIcons.play, color: Color(0xFF7A8F7A), size: 20),
+                child: const Icon(Icons.mic, color: Color(0xFF7A8F7A), size: 20),
               ),
             ],
           ),
@@ -753,7 +753,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
           const SizedBox(width: 6),
           GestureDetector(
             onTap: onRemove,
-            child: const UlvenikIcon(UlvenikIcons.back, color: Color(0xFF7A8F7A), size: 16),
+            child: const Icon(Icons.close, color: Color(0xFF7A8F7A), size: 16),
           ),
         ],
       ),
@@ -1063,7 +1063,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   _searchQuery = '';
                 });
               },
-              icon: const UlvenikIcon(UlvenikIcons.back, size: 16),
+              icon: const Icon(Icons.clear, size: 16),
               label: const Text('Reset All Filters'),
             ),
           ],
@@ -1240,7 +1240,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                      icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                       onPressed: () => Navigator.pop(ctx),
                     ),
                   ],
@@ -1336,7 +1336,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1491,7 +1491,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1538,7 +1538,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                             });
                             Navigator.pop(ctx);
                           },
-                          icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
+                          icon: const Icon(Icons.delete_outline, size: 18),
                           label: const Text('Delete Visit'),
                         ),
                       ),
@@ -1637,7 +1637,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                             ),
                           ),
                           IconButton(
-                            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
+                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],

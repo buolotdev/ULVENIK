@@ -230,7 +230,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                             fontSize: 14,
                             fontWeight: FontWeight.w500)),
                     trailing: opt.$1 == session.rating
-                        ? UlvenikIcon(UlvenikIcons.completed, color: opt.$3, size: 20)
+                        ? Icon(Icons.check, color: opt.$3, size: 20)
                         : null,
                     onTap: () {
                       setState(() => session.rating = opt.$1);
@@ -629,7 +629,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                         const SizedBox(width: 4),
                         Text(sess.rating, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: isGreat ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey)),
                         const SizedBox(width: 4),
-                        const UlvenikIcon(UlvenikIcons.sort, size: 14, color: AppColors.secondaryTextStoneGrey),
+                        const Icon(Icons.arrow_drop_down, size: 14, color: AppColors.secondaryTextStoneGrey),
                       ],
                     ),
                   ),
@@ -644,7 +644,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                   const SizedBox(width: 4),
                   Text(sess.time, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                   const SizedBox(width: 16),
-                  const UlvenikIcon(UlvenikIcons.timeline, size: 14, color: AppColors.secondaryTextStoneGrey),
+                  const Icon(Icons.park_outlined, size: 14, color: AppColors.secondaryTextStoneGrey),
                   const SizedBox(width: 4),
                   Text(sess.location, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                 ],

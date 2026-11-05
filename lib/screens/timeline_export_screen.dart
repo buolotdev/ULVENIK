@@ -170,7 +170,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                     ),
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 20),
+                    icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -343,7 +343,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
               value: 'favourites',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.health, color: Color(0xFFB8920A), size: 18),
+                  Icon(Icons.favorite, color: Color(0xFFB8920A), size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Favourites', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -353,7 +353,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
               value: 'archive',
               child: Row(
                 children: [
-                  UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
+                  Icon(Icons.archive_outlined, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Archive', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -756,7 +756,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: _carbonBorder),
                     ),
-                    child: const UlvenikIcon(UlvenikIcons.training, color: _mint, size: 22),
+                    child: const Icon(Icons.picture_as_pdf_outlined, color: _mint, size: 22),
                   ),
                   const SizedBox(width: 14),
                   const Expanded(
@@ -805,7 +805,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: _carbonBorder),
                     ),
-                    child: const UlvenikIcon(UlvenikIcons.training, color: _stoneGrey, size: 22),
+                    child: const Icon(Icons.table_chart_outlined, color: _stoneGrey, size: 22),
                   ),
                   const SizedBox(width: 14),
                   const Expanded(
@@ -982,7 +982,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                     ),
                   ),
                   const SizedBox(width: 8),
-                  UlvenikIcon(UlvenikIcons.overflowMenu,
+                  Icon(Icons.file_download_outlined,
                     size: 18,
                     color: isEnabled ? Colors.white : const Color(0xFF5D6468),
                   ),
@@ -1268,7 +1268,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
+                      icon: const Icon(Icons.share, size: 18),
                       label: const Text('Share File', style: TextStyle(fontWeight: FontWeight.w700)),
                     ),
                   ),

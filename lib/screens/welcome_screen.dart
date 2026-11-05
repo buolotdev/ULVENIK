@@ -253,7 +253,7 @@ class WelcomeScreen extends StatelessWidget {
           else if (icon != null)
             Padding(
               padding: const EdgeInsets.only(top: 2),
-              child: UlvenikIcon.fromMaterial(icon, size: 24),
+              child: Icon(icon, size: 24),
             ),
           const SizedBox(width: 8),
           Text(

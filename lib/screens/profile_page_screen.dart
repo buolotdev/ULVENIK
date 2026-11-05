@@ -524,7 +524,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                         ),
                         child: Row(
                           children: [
-                            const UlvenikIcon(UlvenikIcons.overflowMenu,
+                            const Icon(Icons.person_outline_rounded,
                               color: _sageIcon,
                               size: 19,
                             ),
@@ -1586,7 +1586,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   color: _streakIconBg,
                   borderRadius: BorderRadius.circular(11),
                 ),
-                child: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                child: const Icon(Icons.local_fire_department_outlined,
                   color: _sageIcon,
                   size: 22,
                 ),
@@ -1894,7 +1894,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(sheetCtx).pop(),
-                    icon: const UlvenikIcon(UlvenikIcons.back,
+                    icon: const Icon(Icons.close_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -2083,7 +2083,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
               const SizedBox(height: 16),
               Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.overflowMenu,
+                  const Icon(Icons.local_fire_department_rounded,
                     color: _mint,
                     size: 22,
                   ),
@@ -2101,7 +2101,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const UlvenikIcon(UlvenikIcons.back,
+                    icon: const Icon(Icons.close_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -2226,7 +2226,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: widget.onRecordQuickSession,
-                  icon: const UlvenikIcon(UlvenikIcons.recordSession, size: 18),
+                  icon: const Icon(Icons.add_task_rounded, size: 18),
                   label: const Text(
                     'Record Quick Session (+1 Day Streak)',
                     style: TextStyle(
