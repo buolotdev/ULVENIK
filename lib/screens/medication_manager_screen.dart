@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 
 enum MedicationStatus { active, paused, completed, expired }
@@ -211,7 +212,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: AppColors.secondaryTextStoneGrey, size: 24),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
       title: _isSearching
@@ -241,7 +242,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
         // Search Toggle
         IconButton(
           tooltip: _isSearching ? 'Close Search' : 'Search Medications',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isSearching ? Icons.close : Icons.search,
             color: AppColors.secondaryTextStoneGrey,
             size: 24,
@@ -259,13 +260,13 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
         // Filter & Sort modal
         IconButton(
           tooltip: 'Filters & Preferences',
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 24),
           onPressed: _showFilterPreferencesModal,
         ),
         // Empty / Populated Toggle
         IconButton(
           tooltip: _isEmpty ? 'Switch to Populated' : 'Switch to Empty',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on_outlined,
             color: _isEmpty ? AppColors.secondaryTextStoneGrey : const Color(0xFF95D3BB),
             size: 26,
@@ -277,7 +278,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
         // Add button
         IconButton(
           tooltip: 'Add Medication',
-          icon: const Icon(Icons.add_circle, color: Color(0xFF95D3BB), size: 26),
+          icon: const UlvenikIcon(UlvenikIcons.add, color: Color(0xFF95D3BB), size: 26),
           onPressed: _showAddMedicationModal,
         ),
         const SizedBox(width: 4),
@@ -462,8 +463,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
             shape: BoxShape.circle,
             border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
           ),
-          child: const Icon(
-            Icons.medication_outlined,
+          child: const UlvenikIcon(UlvenikIcons.health,
             color: Color(0xFF95D3BB),
             size: 30,
           ),
@@ -510,7 +510,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                Icon(Icons.medication_outlined, color: Colors.white, size: 18),
+                UlvenikIcon(UlvenikIcons.health, color: Colors.white, size: 18),
                 SizedBox(width: 8),
                 Text(
                   'Add Medication',
@@ -521,7 +521,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   ),
                 ),
                 SizedBox(width: 6),
-                Icon(Icons.arrow_forward, color: Colors.white, size: 16),
+                UlvenikIcon(UlvenikIcons.details, color: Colors.white, size: 16),
               ],
             ),
           ),
@@ -561,7 +561,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Container(
                     color: const Color(0xFF2E6B57),
-                    child: const Icon(Icons.pets, color: Colors.white, size: 20),
+                    child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 20),
                   ),
                 ),
               ),
@@ -590,7 +590,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 24),
+            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 24),
           ],
         ),
       ),
@@ -674,7 +674,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
   }) {
     return Column(
       children: [
-        Icon(icon, color: iconColor ?? AppColors.secondaryTextStoneGrey, size: 16),
+        UlvenikIcon.fromMaterial(icon, color: iconColor ?? AppColors.secondaryTextStoneGrey, size: 16),
         const SizedBox(height: 4),
         Text(
           count,
@@ -740,8 +740,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     color: const Color(0xFF2E6B57).withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.notifications_active_outlined,
+                  child: const UlvenikIcon(UlvenikIcons.notifications,
                     color: Color(0xFF95D3BB),
                     size: 20,
                   ),
@@ -896,7 +895,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(med.icon, color: AppColors.secondaryTextStoneGrey, size: 20),
+                  child: UlvenikIcon.fromMaterial(med.icon, color: AppColors.secondaryTextStoneGrey, size: 20),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -1008,7 +1007,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   onTap: () => _showRecordDoseModal(med),
                   child: Row(
                     children: const [
-                      Icon(Icons.check, color: Color(0xFF95D3BB), size: 16),
+                      UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB), size: 16),
                       SizedBox(width: 6),
                       Text(
                         'Record Dose',
@@ -1026,7 +1025,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   onTap: () => _showSkipDoseModal(med),
                   child: Row(
                     children: const [
-                      Icon(Icons.block, color: AppColors.secondaryTextStoneGrey, size: 15),
+                      UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 15),
                       SizedBox(width: 6),
                       Text(
                         'Skip Dose',
@@ -1070,7 +1069,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(med.icon, color: AppColors.secondaryTextStoneGrey, size: 20),
+                  child: UlvenikIcon.fromMaterial(med.icon, color: AppColors.secondaryTextStoneGrey, size: 20),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -1130,7 +1129,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   },
                   child: Row(
                     children: const [
-                      Icon(Icons.play_arrow, color: AppColors.primaryTextOffWhite, size: 17),
+                      UlvenikIcon(UlvenikIcons.play, color: AppColors.primaryTextOffWhite, size: 17),
                       SizedBox(width: 6),
                       Text(
                         'Resume',
@@ -1148,7 +1147,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   onTap: () => _confirmStopMedication(med),
                   child: Row(
                     children: const [
-                      Icon(Icons.stop, color: AppColors.secondaryTextStoneGrey, size: 15),
+                      UlvenikIcon(UlvenikIcons.play, color: AppColors.secondaryTextStoneGrey, size: 15),
                       SizedBox(width: 6),
                       Text(
                         'Stop Medication',
@@ -1190,7 +1189,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.archive_outlined, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const UlvenikIcon(UlvenikIcons.skills, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -1245,7 +1244,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
       child: Center(
         child: Column(
           children: [
-            const Icon(Icons.medication_outlined, size: 36, color: AppColors.secondaryTextStoneGrey),
+            const UlvenikIcon(UlvenikIcons.health, size: 36, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(height: 12),
             Text(
               'No $_selectedFilter medications',
@@ -1267,7 +1266,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
       backgroundColor: const Color(0xFF2E6B57),
       elevation: 4,
       onPressed: _showAddMedicationModal,
-      child: const Icon(Icons.add, color: Colors.white, size: 28),
+      child: const UlvenikIcon(UlvenikIcons.add, color: Colors.white, size: 28),
     );
   }
 
@@ -1313,7 +1312,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1328,7 +1327,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.medication_liquid_outlined, color: Color(0xFF95D3BB), size: 22),
+                        const UlvenikIcon(UlvenikIcons.health, color: Color(0xFF95D3BB), size: 22),
                         const SizedBox(width: 12),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1361,7 +1360,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                       ),
                       TextButton.icon(
                         style: TextButton.styleFrom(foregroundColor: const Color(0xFF95D3BB)),
-                        icon: const Icon(Icons.schedule, size: 16),
+                        icon: const UlvenikIcon(UlvenikIcons.trainingTime, size: 16),
                         label: Text(selectedTime.format(context)),
                         onPressed: () async {
                           final picked = await showTimePicker(
@@ -1446,7 +1445,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1479,7 +1478,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         ),
                         child: Row(
                           children: [
-                            Icon(
+                            UlvenikIcon.fromMaterial(
                               isSelected ? Icons.check_circle : Icons.radio_button_unchecked,
                               color: isSelected ? const Color(0xFF95D3BB) : AppColors.secondaryTextStoneGrey,
                               size: 18,
@@ -1598,7 +1597,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1753,7 +1752,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1793,7 +1792,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      icon: const Icon(Icons.delete_outline, size: 18),
+                      icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
                       label: const Text('Delete'),
                       onPressed: () {
                         setState(() {
@@ -1813,7 +1812,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
-                        icon: const Icon(Icons.pause, size: 18, color: Colors.white),
+                        icon: const UlvenikIcon(UlvenikIcons.play, size: 18, color: Colors.white),
                         label: const Text('Pause', style: TextStyle(color: Colors.white)),
                         onPressed: () {
                           setState(() {
@@ -1832,7 +1831,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
-                        icon: const Icon(Icons.play_arrow, size: 18, color: Colors.white),
+                        icon: const UlvenikIcon(UlvenikIcons.play, size: 18, color: Colors.white),
                         label: const Text('Resume', style: TextStyle(color: Colors.white)),
                         onPressed: () {
                           setState(() {
@@ -1889,7 +1888,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1930,7 +1929,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                                 width: 36,
                                 height: 36,
                                 color: const Color(0xFF2E6B57),
-                                child: const Icon(Icons.pets, color: Colors.white, size: 18),
+                                child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 18),
                               ),
                             ),
                           ),
@@ -1958,7 +1957,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                             ),
                           ),
                           if (isSelected)
-                            const Icon(Icons.check_circle, color: Color(0xFF95D3BB), size: 22),
+                            const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB), size: 22),
                         ],
                       ),
                     ),
@@ -1999,7 +1998,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],

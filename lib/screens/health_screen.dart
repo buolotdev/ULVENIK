@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import 'health_records_screen.dart';
 import 'add_health_record_screen.dart';
@@ -36,7 +37,7 @@ class _HealthScreenState extends State<HealthScreen> {
         backgroundColor: AppColors.cardsCarbon,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextOffWhite),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: const Text(
@@ -52,7 +53,7 @@ class _HealthScreenState extends State<HealthScreen> {
         actions: [
           IconButton(
             tooltip: 'Health Dashboard',
-            icon: const Icon(Icons.space_dashboard_outlined, color: Color(0xFF95D3BB)),
+            icon: const UlvenikIcon(UlvenikIcons.progress, color: Color(0xFF95D3BB)),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const HealthDashboardScreen()),
@@ -60,7 +61,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           IconButton(
             tooltip: 'Health Reminders',
-            icon: const Icon(Icons.notifications_active_outlined, color: Color(0xFF95D3BB)),
+            icon: const UlvenikIcon(UlvenikIcons.notifications, color: Color(0xFF95D3BB)),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const HealthRemindersScreen()),
@@ -68,7 +69,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           IconButton(
             tooltip: 'Health Statistics',
-            icon: const Icon(Icons.analytics_outlined, color: Color(0xFF95D3BB)),
+            icon: const UlvenikIcon(UlvenikIcons.progress, color: Color(0xFF95D3BB)),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const HealthStatisticsScreen()),
@@ -76,7 +77,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           IconButton(
             tooltip: 'Import & Export',
-            icon: const Icon(Icons.import_export, color: Color(0xFF95D3BB)),
+            icon: const UlvenikIcon(UlvenikIcons.sort, color: Color(0xFF95D3BB)),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const ImportExportScreen()),
@@ -84,7 +85,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           IconButton(
             tooltip: 'Health Archive',
-            icon: const Icon(Icons.inventory_2_outlined, color: Color(0xFF95D3BB)),
+            icon: const UlvenikIcon(UlvenikIcons.skills, color: Color(0xFF95D3BB)),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const HealthArchiveScreen()),
@@ -92,14 +93,14 @@ class _HealthScreenState extends State<HealthScreen> {
           ),
           IconButton(
             tooltip: 'Health Settings',
-            icon: const Icon(Icons.settings_outlined, color: Color(0xFF95D3BB)),
+            icon: const UlvenikIcon(UlvenikIcons.sort, color: Color(0xFF95D3BB)),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const HealthSettingsScreen()),
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.more_vert, color: AppColors.primaryTextOffWhite),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
             onPressed: () => setState(() => _isEmpty = !_isEmpty),
           ),
         ],
@@ -203,7 +204,7 @@ class _HealthScreenState extends State<HealthScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.settings_outlined, color: AppColors.secondaryTextStoneGrey, size: 20),
+            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -249,7 +250,7 @@ class _HealthScreenState extends State<HealthScreen> {
         children: [
           Row(
             children: [
-              Icon(icon, size: 18, color: const Color(0xFF95d3bb)),
+              UlvenikIcon.fromMaterial(icon, size: 18, color: const Color(0xFF95d3bb)),
               const SizedBox(width: 8),
               Text(
                 title,
@@ -334,7 +335,7 @@ class _HealthScreenState extends State<HealthScreen> {
               border: Border.all(color: Colors.white12),
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: const Color(0xFF95d3bb), size: 20),
+            child: UlvenikIcon.fromMaterial(icon, color: const Color(0xFF95d3bb), size: 20),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -358,7 +359,7 @@ class _HealthScreenState extends State<HealthScreen> {
             borderRadius: BorderRadius.circular(20),
             child: Padding(
               padding: const EdgeInsets.all(4),
-              child: Icon(
+              child: UlvenikIcon.fromMaterial(
                 isAlert ? Icons.notifications_active_outlined : Icons.notifications_outlined,
                 color: isAlert ? const Color(0xFF95d3bb) : AppColors.secondaryTextStoneGrey,
                 size: 20,
@@ -422,7 +423,7 @@ class _HealthScreenState extends State<HealthScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: const Color(0xFF95d3bb), size: 20),
+            UlvenikIcon.fromMaterial(icon, color: const Color(0xFF95d3bb), size: 20),
             const Spacer(),
             Text(
               label,
@@ -462,7 +463,7 @@ class _HealthScreenState extends State<HealthScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.add, color: AppColors.primaryTextOffWhite, size: 18),
+                UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 18),
                 SizedBox(width: 8),
                 Text(
                   'Add Health Record',
@@ -548,7 +549,7 @@ class _HealthScreenState extends State<HealthScreen> {
               color: const Color(0xFF95d3bb).withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(Icons.medical_services_outlined, color: Color(0xFF95d3bb), size: 32),
+            child: const UlvenikIcon(UlvenikIcons.health, color: Color(0xFF95d3bb), size: 32),
           ),
           const SizedBox(height: 24),
           const Text(
@@ -625,7 +626,7 @@ class _HealthScreenState extends State<HealthScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: const Color(0xFF95D3BB), size: 24),
+            UlvenikIcon.fromMaterial(icon, color: const Color(0xFF95D3BB), size: 24),
             const SizedBox(height: 8),
             Text(
               label,

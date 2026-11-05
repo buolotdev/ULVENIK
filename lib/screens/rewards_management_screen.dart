@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -346,11 +347,11 @@ class RewardGlyphIcon extends StatelessWidget {
           child: CustomPaint(painter: _SteamingSpoonPainter(color: color)),
         );
       case RewardIconKind.giftToy:
-        return Icon(Icons.card_giftcard_rounded, color: color, size: size);
+        return UlvenikIcon(UlvenikIcons.goals, color: color, size: size);
       case RewardIconKind.heartPraise:
-        return Icon(Icons.favorite_border_rounded, color: color, size: size);
+        return UlvenikIcon(UlvenikIcons.health, color: color, size: size);
       case RewardIconKind.kibbleFork:
-        return Icon(Icons.restaurant_rounded, color: color, size: size);
+        return UlvenikIcon(UlvenikIcons.overflowMenu, color: color, size: size);
       case RewardIconKind.boltPlay:
         return SizedBox(
           width: size,
@@ -358,7 +359,7 @@ class RewardGlyphIcon extends StatelessWidget {
           child: CustomPaint(painter: _BoltOutlinePainter(color: color)),
         );
       case RewardIconKind.trophyComp:
-        return Icon(Icons.star_border_rounded, color: color, size: size);
+        return UlvenikIcon(UlvenikIcons.goals, color: color, size: size);
       case RewardIconKind.circleBolt:
         return SizedBox(
           width: size,
@@ -366,7 +367,7 @@ class RewardGlyphIcon extends StatelessWidget {
           child: CustomPaint(painter: _CircleBoltPainter(color: color)),
         );
       case RewardIconKind.starCustom:
-        return Icon(Icons.auto_awesome_outlined, color: color, size: size);
+        return UlvenikIcon(UlvenikIcons.skills, color: color, size: size);
     }
   }
 }
@@ -872,8 +873,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                     ],
                   ),
                   child: const Center(
-                    child: Icon(
-                      Icons.add,
+                    child: UlvenikIcon(UlvenikIcons.add,
                       color: AppColors.primaryTextOffWhite,
                       size: 26,
                     ),
@@ -907,8 +907,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.arrow_back,
+                      UlvenikIcon(UlvenikIcons.back,
                         size: 18,
                         color: AppColors.secondaryTextStoneGrey,
                       ),
@@ -944,7 +943,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                 behavior: HitTestBehavior.opaque,
                 child: Padding(
                   padding: const EdgeInsets.all(6),
-                  child: Icon(
+                  child: UlvenikIcon.fromMaterial(
                     _isSearching ? Icons.close_rounded : Icons.search_rounded,
                     size: 22,
                     color: _isSearching
@@ -973,8 +972,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Row(
           children: [
-            const Icon(
-              Icons.search_rounded,
+            const UlvenikIcon(UlvenikIcons.search,
               size: 18,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -1007,8 +1005,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                   _searchController.clear();
                   setState(() {});
                 },
-                child: const Icon(
-                  Icons.cancel_rounded,
+                child: const UlvenikIcon(UlvenikIcons.back,
                   size: 16,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -1100,8 +1097,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.verified_outlined,
+                const UlvenikIcon(UlvenikIcons.completed,
                   size: 16,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -1146,8 +1142,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.tune_rounded,
+                UlvenikIcon(UlvenikIcons.sort,
                   size: 15,
                   color: AppColors.primaryForestGreen,
                 ),
@@ -1209,8 +1204,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.add_rounded,
+                    UlvenikIcon(UlvenikIcons.add,
                       size: 15,
                       color: AppColors.primaryForestGreen,
                     ),
@@ -1545,8 +1539,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                   behavior: HitTestBehavior.opaque,
                   child: const Padding(
                     padding: EdgeInsets.all(6),
-                    child: Icon(
-                      Icons.edit_outlined,
+                    child: UlvenikIcon(UlvenikIcons.edit,
                       size: 18,
                       color: AppColors.secondaryTextStoneGrey,
                     ),
@@ -1558,8 +1551,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                   behavior: HitTestBehavior.opaque,
                   child: const Padding(
                     padding: EdgeInsets.all(6),
-                    child: Icon(
-                      Icons.delete_outline_rounded,
+                    child: UlvenikIcon(UlvenikIcons.back,
                       size: 18,
                       color: AppColors.secondaryTextStoneGrey,
                     ),
@@ -1583,8 +1575,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
       ),
       child: Column(
         children: [
-          const Icon(
-            Icons.sports_baseball_outlined,
+          const UlvenikIcon(UlvenikIcons.exercises,
             size: 32,
             color: AppColors.secondarySage,
           ),

@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -247,8 +248,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                             shape: BoxShape.circle,
                           ),
                           alignment: Alignment.center,
-                          child: const Icon(
-                            Icons.arrow_back,
+                          child: const UlvenikIcon(UlvenikIcons.back,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 20,
                           ),
@@ -353,7 +353,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 ),
                                 decoration: _inputDecoration('Password').copyWith(
                                   suffixIcon: IconButton(
-                                    icon: Icon(
+                                    icon: UlvenikIcon.fromMaterial(
                                       _obscurePassword
                                           ? Icons.visibility
                                           : Icons.visibility_off,
@@ -382,7 +382,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 ),
                                 decoration: _inputDecoration('Confirm Password').copyWith(
                                   suffixIcon: IconButton(
-                                    icon: Icon(
+                                    icon: UlvenikIcon.fromMaterial(
                                       _obscureConfirmPassword
                                           ? Icons.visibility
                                           : Icons.visibility_off,
@@ -426,7 +426,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: _termsAccepted
-                                      ? const Icon(Icons.check,
+                                      ? const UlvenikIcon(UlvenikIcons.completed,
                                           size: 14, color: Colors.white)
                                       : null,
                                 ),

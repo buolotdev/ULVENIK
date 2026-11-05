@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -229,8 +230,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         ),
                       );
                     },
-                    icon: const Icon(
-                      Icons.person_outline_rounded,
+                    icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                       size: 17,
                       color: _mint,
                     ),
@@ -497,8 +497,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                           ),
                         );
                       },
-                      icon: const Icon(
-                        Icons.security_rounded,
+                      icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                         size: 17,
                         color: _mint,
                       ),
@@ -559,7 +558,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                       ),
                       child: Row(
                         children: [
-                          Icon(
+                          UlvenikIcon.fromMaterial(
                             device.isCurrent
                                 ? Icons.phone_iphone_rounded
                                 : Icons.tablet_mac_rounded,
@@ -882,7 +881,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                       ),
                     );
                   },
-                  icon: const Icon(Icons.code_rounded, size: 17, color: _mint),
+                  icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 17, color: _mint),
                   label: const Text(
                     'View Open Source Licences',
                     style: TextStyle(
@@ -1203,8 +1202,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   children: [
                     IconButton(
                       onPressed: () => Navigator.of(context).maybePop(),
-                      icon: const Icon(
-                        Icons.chevron_left,
+                      icon: const UlvenikIcon(UlvenikIcons.back,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 26,
                       ),
@@ -1237,8 +1235,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         }
                       },
                       tooltip: 'Search Settings',
-                      icon: Icon(
-                        Icons.search,
+                      icon: UlvenikIcon(UlvenikIcons.search,
                         color: _showSearch
                             ? _mint
                             : AppColors.secondaryTextStoneGrey,
@@ -1269,8 +1266,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 ),
                 child: Row(
                   children: [
-                    const Icon(
-                      Icons.search,
+                    const UlvenikIcon(UlvenikIcons.search,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 18,
                     ),
@@ -1307,8 +1303,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                             _searchQuery = '';
                           });
                         },
-                        child: const Icon(
-                          Icons.close_rounded,
+                        child: const UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 18,
                         ),
@@ -1642,8 +1637,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 20,
               ),
@@ -1706,7 +1700,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
           child: Row(
             children: [
-              Icon(
+              UlvenikIcon.fromMaterial(
                 icon,
                 color: iconColor ?? _sageIcon,
                 size: 20,
@@ -1741,8 +1735,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 ),
               ),
               const SizedBox(width: 8),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 19,
               ),
@@ -1802,8 +1795,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(sheetCtx).pop(),
-                    icon: const Icon(
-                      Icons.close_rounded,
+                    icon: const UlvenikIcon(UlvenikIcons.back,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -1898,7 +1890,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 ),
               ),
             ),
-            Icon(
+            UlvenikIcon.fromMaterial(
               selected
                   ? Icons.radio_button_checked_rounded
                   : Icons.radio_button_off_rounded,
@@ -2123,8 +2115,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(
-                      Icons.close_rounded,
+                    icon: const UlvenikIcon(UlvenikIcons.back,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -2290,7 +2281,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
                             color: AppColors.primaryTextOffWhite,
                           ),
                         )
-                      : const Icon(Icons.sync_rounded, size: 18),
+                      : const UlvenikIcon(UlvenikIcons.history, size: 18),
                   label: Text(
                     _syncing ? 'Syncing Workspace...' : 'Sync Now',
                     style: const TextStyle(

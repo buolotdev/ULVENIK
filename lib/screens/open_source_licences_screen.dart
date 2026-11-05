@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -243,7 +244,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: AppColors.cardBorder),
                         ),
-                        child: Icon(
+                        child: UlvenikIcon.fromMaterial(
                           pkg.icon,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 20,
@@ -286,8 +287,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                       ),
                       IconButton(
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        icon: const Icon(
-                          Icons.close_rounded,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 21,
                         ),
@@ -359,8 +359,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                                     type: SnackbarType.success,
                                   );
                                 },
-                                icon: const Icon(
-                                  Icons.copy_rounded,
+                                icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                                   size: 16,
                                   color: _mint,
                                 ),
@@ -449,8 +448,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                   children: [
                     IconButton(
                       onPressed: () => Navigator.of(context).maybePop(),
-                      icon: const Icon(
-                        Icons.chevron_left,
+                      icon: const UlvenikIcon(UlvenikIcons.back,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 26,
                       ),
@@ -503,8 +501,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  Icon(
-                    Icons.code_rounded,
+                  UlvenikIcon(UlvenikIcons.overflowMenu,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 20,
                   ),
@@ -543,8 +540,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
               padding: const EdgeInsets.symmetric(horizontal: 14),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.search,
+                  const UlvenikIcon(UlvenikIcons.search,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 18,
                   ),
@@ -584,8 +580,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                           _searchQuery = '';
                         });
                       },
-                      child: const Icon(
-                        Icons.close_rounded,
+                      child: const UlvenikIcon(UlvenikIcons.back,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 18,
                       ),
@@ -683,8 +678,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                 ),
                 child: Column(
                   children: [
-                    const Icon(
-                      Icons.search_off_rounded,
+                    const UlvenikIcon(UlvenikIcons.search,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 28,
                     ),
@@ -746,8 +740,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: const [
-                      Icon(
-                        Icons.verified_outlined,
+                      UlvenikIcon(UlvenikIcons.completed,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 15,
                       ),
@@ -796,7 +789,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             children: [
               SizedBox(
                 width: 24,
-                child: Icon(
+                child: UlvenikIcon.fromMaterial(
                   pkg.icon,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 19,
@@ -831,8 +824,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
               const SizedBox(width: 8),
               _buildLicenceBadge(pkg.licenceType),
               const SizedBox(width: 8),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 18,
               ),

@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 
 class _AnalyticsDataset {
@@ -456,8 +457,7 @@ class _TrainerWorkspaceSettingsScreenState
                       ),
                     ),
                     trailing: isSelected
-                        ? const Icon(
-                            Icons.check_rounded,
+                        ? const UlvenikIcon(UlvenikIcons.completed,
                             color: _mintBright,
                             size: 20,
                           )
@@ -529,8 +529,7 @@ class _TrainerWorkspaceSettingsScreenState
                 shape: BoxShape.circle,
                 border: Border.all(color: _cardBorder),
               ),
-              child: const Icon(
-                Icons.arrow_back_ios_new_rounded,
+              child: const UlvenikIcon(UlvenikIcons.back,
                 color: Colors.white,
                 size: 15,
               ),
@@ -587,8 +586,7 @@ class _TrainerWorkspaceSettingsScreenState
                   ),
                 ),
                 const SizedBox(width: 5),
-                const Icon(
-                  Icons.keyboard_arrow_down_rounded,
+                const UlvenikIcon(UlvenikIcons.sort,
                   color: _textSecondary,
                   size: 16,
                 ),

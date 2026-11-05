@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -512,8 +513,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 26,
             ),
@@ -550,7 +550,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                 type: SnackbarType.info,
               );
             },
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _isFavourite ? Icons.star_rounded : Icons.star_border_rounded,
               color: _isFavourite ? _gold : _textSecondary,
               size: 22,
@@ -560,8 +560,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
             tooltip: 'Client Options',
             visualDensity: VisualDensity.compact,
             onPressed: () => _showOverflowClientActions(client),
-            icon: const Icon(
-              Icons.more_horiz_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.more,
               color: _textSecondary,
               size: 21,
             ),
@@ -671,7 +670,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                     children: [
                       Row(
                         children: const [
-                          Icon(Icons.lock_outline_rounded, color: _sage, size: 16),
+                          UlvenikIcon(UlvenikIcons.overflowMenu, color: _sage, size: 16),
                           SizedBox(width: 6),
                           Text(
                             'Private Note (trainer only)',
@@ -917,7 +916,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
             ),
             child: Row(
               children: [
-                const Icon(Icons.calendar_today_outlined, color: _greenText, size: 13.5),
+                const UlvenikIcon(UlvenikIcons.calendar, color: _greenText, size: 13.5),
                 const SizedBox(width: 7),
                 Expanded(
                   child: Text(
@@ -962,7 +961,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.phone_outlined, color: _sage, size: 14),
+                  const UlvenikIcon(UlvenikIcons.overflowMenu, color: _sage, size: 14),
                   const SizedBox(width: 5),
                   Text(
                     displayPhone,
@@ -981,7 +980,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.mail_outline_rounded, color: _sage, size: 14),
+                  const UlvenikIcon(UlvenikIcons.notifications, color: _sage, size: 14),
                   const SizedBox(width: 5),
                   Text(
                     displayEmail,
@@ -1056,7 +1055,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, color: _sage, size: 16),
+              UlvenikIcon.fromMaterial(icon, color: _sage, size: 16),
               const SizedBox(width: 7),
               Text(
                 label,
@@ -1279,7 +1278,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, color: _sage, size: 19),
+              UlvenikIcon.fromMaterial(icon, color: _sage, size: 19),
               const SizedBox(height: 6),
               Text(
                 label,
@@ -1669,8 +1668,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                           fontFamily: 'Inter',
                                         ),
                                       ),
-                                      const Icon(
-                                        Icons.chevron_right_rounded,
+                                      const UlvenikIcon(UlvenikIcons.details,
                                         color: _textSecondary,
                                         size: 16,
                                       ),
@@ -1782,8 +1780,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                 ],
                               ),
                             ),
-                            const Icon(
-                              Icons.chevron_right_rounded,
+                            const UlvenikIcon(UlvenikIcons.details,
                               color: _textSecondary,
                               size: 18,
                             ),
@@ -1819,8 +1816,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                         ),
                       ),
                       SizedBox(width: 5),
-                      Icon(
-                        Icons.arrow_forward_rounded,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: _greenText,
                         size: 15,
                       ),
@@ -1917,7 +1913,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                           ),
                           Row(
                             children: [
-                              Icon(Icons.add, size: 16, color: _greenText),
+                              UlvenikIcon(UlvenikIcons.add, size: 16, color: _greenText),
                               SizedBox(width: 4),
                               Text(
                                 'Add',
@@ -1945,8 +1941,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                               Row(
                                 children: [
                                   if (note.isPrivate) ...[
-                                    const Icon(
-                                      Icons.lock_outline_rounded,
+                                    const UlvenikIcon(UlvenikIcons.overflowMenu,
                                       color: _sage,
                                       size: 14,
                                     ),
@@ -2023,8 +2018,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                           ),
                         ),
                         SizedBox(width: 5),
-                        Icon(
-                          Icons.arrow_forward_rounded,
+                        UlvenikIcon(UlvenikIcons.details,
                           color: _greenText,
                           size: 15,
                         ),
@@ -2042,8 +2036,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                   ),
                   child: Row(
                     children: const [
-                      Icon(
-                        Icons.lock_outline_rounded,
+                      UlvenikIcon(UlvenikIcons.overflowMenu,
                         color: _alpineBlue,
                         size: 15,
                       ),
@@ -2181,7 +2174,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                         ),
                         child: Row(
                           children: [
-                            Icon(
+                            UlvenikIcon.fromMaterial(
                               allowed
                                   ? Icons.check_rounded
                                   : Icons.close_rounded,
@@ -2240,8 +2233,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                         ),
                       ),
                       SizedBox(width: 5),
-                      Icon(
-                        Icons.arrow_forward_rounded,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: _greenText,
                         size: 15,
                       ),
@@ -2400,7 +2392,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                 fontFamily: 'Inter',
               ),
             ),
-            Icon(icon, color: iconColor, size: 18),
+            UlvenikIcon.fromMaterial(icon, color: iconColor, size: 18),
           ],
         ),
       ),

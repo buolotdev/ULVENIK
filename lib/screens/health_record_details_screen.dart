@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -90,7 +91,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
         backgroundColor: AppColors.backgroundObsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.secondaryTextStoneGrey),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: const Text(
@@ -104,7 +105,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
         centerTitle: true,
         actions: [
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert, color: AppColors.secondaryTextStoneGrey),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey),
             color: AppColors.cardsCarbon,
             onSelected: (val) {
               if (val == 'switch') {
@@ -236,7 +237,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             children: [
               const Row(
                 children: [
-                  Icon(Icons.healing_outlined, color: AppColors.secondaryTextStoneGrey, size: 16),
+                  UlvenikIcon(UlvenikIcons.health, color: AppColors.secondaryTextStoneGrey, size: 16),
                   SizedBox(width: 6),
                   Text(
                     'INJURY',
@@ -295,14 +296,14 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
           const SizedBox(height: 8),
           const Row(
             children: [
-              Icon(Icons.calendar_today, color: AppColors.secondaryTextStoneGrey, size: 14),
+              UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 14),
               SizedBox(width: 4),
               Text(
                 '28 Jan 2025',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
               ),
               SizedBox(width: 16),
-              Icon(Icons.location_on_outlined, color: AppColors.secondaryTextStoneGrey, size: 14),
+              UlvenikIcon(UlvenikIcons.timeline, color: AppColors.secondaryTextStoneGrey, size: 14),
               SizedBox(width: 4),
               Text(
                 'Training Ground',
@@ -328,7 +329,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 onTap: () => AppSnackbar.show(context, message: 'Edit record coming soon', type: SnackbarType.info),
                 child: const Row(
                   children: [
-                    Icon(Icons.edit_outlined, color: Color(0xFF95d3bb), size: 16),
+                    UlvenikIcon(UlvenikIcons.edit, color: Color(0xFF95d3bb), size: 16),
                     SizedBox(width: 4),
                     Text(
                       'Edit Record',
@@ -342,7 +343,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 onTap: () => AppSnackbar.show(context, message: 'Update status coming soon', type: SnackbarType.info),
                 child: const Row(
                   children: [
-                    Icon(Icons.update_outlined, color: Color(0xFF95d3bb), size: 16),
+                    UlvenikIcon(UlvenikIcons.history, color: Color(0xFF95d3bb), size: 16),
                     SizedBox(width: 4),
                     Text(
                       'Update Status',
@@ -384,7 +385,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.list_alt_outlined, color: AppColors.secondaryTextStoneGrey, size: 20),
+                const UlvenikIcon(UlvenikIcons.training, color: AppColors.secondaryTextStoneGrey, size: 20),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -422,7 +423,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.local_hospital_outlined, color: AppColors.secondaryTextStoneGrey, size: 20),
+                UlvenikIcon(UlvenikIcons.health, color: AppColors.secondaryTextStoneGrey, size: 20),
                 SizedBox(width: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -482,7 +483,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
               color: Color(0xFF1d201f),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.photo_camera_outlined, color: AppColors.secondaryTextStoneGrey),
+            child: const UlvenikIcon(UlvenikIcons.play, color: AppColors.secondaryTextStoneGrey),
           ),
           const SizedBox(height: 16),
           const Text(
@@ -508,7 +509,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.add, color: Color(0xFF95d3bb), size: 18),
+                UlvenikIcon(UlvenikIcons.add, color: Color(0xFF95d3bb), size: 18),
                 SizedBox(width: 4),
                 Text(
                   'Add Attachment',
@@ -583,7 +584,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             children: [
               const Row(
                 children: [
-                  Icon(Icons.medication_outlined, color: AppColors.secondaryTextStoneGrey, size: 16),
+                  UlvenikIcon(UlvenikIcons.health, color: AppColors.secondaryTextStoneGrey, size: 16),
                   SizedBox(width: 6),
                   Text(
                     'MEDICATION',
@@ -642,14 +643,14 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
           const SizedBox(height: 8),
           const Row(
             children: [
-              Icon(Icons.calendar_today, color: AppColors.secondaryTextStoneGrey, size: 14),
+              UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 14),
               SizedBox(width: 4),
               Text(
                 '01 Feb 2025',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
               ),
               SizedBox(width: 16),
-              Icon(Icons.schedule_outlined, color: AppColors.secondaryTextStoneGrey, size: 14),
+              UlvenikIcon(UlvenikIcons.trainingTime, color: AppColors.secondaryTextStoneGrey, size: 14),
               SizedBox(width: 4),
               Text(
                 '08:00 AM',
@@ -675,7 +676,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 onTap: () => AppSnackbar.show(context, message: 'Edit record coming soon', type: SnackbarType.info),
                 child: const Row(
                   children: [
-                    Icon(Icons.edit_outlined, color: Color(0xFF95d3bb), size: 16),
+                    UlvenikIcon(UlvenikIcons.edit, color: Color(0xFF95d3bb), size: 16),
                     SizedBox(width: 4),
                     Text(
                       'Edit Record',
@@ -689,7 +690,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 onTap: () => AppSnackbar.show(context, message: 'Update status coming soon', type: SnackbarType.info),
                 child: const Row(
                   children: [
-                    Icon(Icons.update_outlined, color: Color(0xFF95d3bb), size: 16),
+                    UlvenikIcon(UlvenikIcons.history, color: Color(0xFF95d3bb), size: 16),
                     SizedBox(width: 4),
                     Text(
                       'Update Status',
@@ -800,7 +801,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                   width: 56,
                   height: 56,
                   color: AppColors.backgroundObsidian,
-                  child: const Icon(Icons.picture_as_pdf, color: Color(0xFFE57373), size: 28),
+                  child: const UlvenikIcon(UlvenikIcons.training, color: Color(0xFFE57373), size: 28),
                 ),
               ),
               const SizedBox(width: 12),
@@ -825,7 +826,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.open_in_new, color: Color(0xFF95d3bb), size: 18),
+                icon: const UlvenikIcon(UlvenikIcons.details, color: Color(0xFF95d3bb), size: 18),
                 onPressed: () => AppSnackbar.show(context, message: 'Opening attachment...', type: SnackbarType.info),
               ),
             ],
@@ -1005,7 +1006,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             elevation: 0,
             minimumSize: const Size(double.infinity, 48),
           ),
-          icon: const Icon(Icons.edit_outlined, size: 18),
+          icon: const UlvenikIcon(UlvenikIcons.edit, size: 18),
           label: const Text(
             'Edit Record',
             style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
@@ -1034,7 +1035,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: AppColors.secondaryTextStoneGrey, size: 20),
+          UlvenikIcon.fromMaterial(icon, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

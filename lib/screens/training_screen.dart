@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'training_session_screen.dart';
@@ -1180,7 +1181,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.white12),
                       ),
-                      child: const Icon(Icons.ios_share,
+                      child: const UlvenikIcon(UlvenikIcons.overflowMenu,
                           color: AppColors.primaryTextOffWhite, size: 18),
                     ),
                   ),
@@ -1195,7 +1196,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white12),
                         ),
-                        child: const Icon(Icons.notifications_outlined,
+                        child: const UlvenikIcon(UlvenikIcons.notifications,
                             color: AppColors.primaryTextOffWhite, size: 20),
                       ),
                       Positioned(
@@ -1301,7 +1302,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: Row(
         children: [
-          const Icon(Icons.search,
+          const UlvenikIcon(UlvenikIcons.search,
               color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 12),
           Expanded(
@@ -1323,7 +1324,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
           GestureDetector(
             onTap: () => AppSnackbar.show(context,
                 message: 'Voice search coming soon', type: SnackbarType.info),
-            child: const Icon(Icons.mic_outlined,
+            child: const UlvenikIcon(UlvenikIcons.play,
                 color: AppColors.secondaryTextStoneGrey, size: 20),
           ),
         ],
@@ -1462,7 +1463,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Icon(icon,
+                  UlvenikIcon.fromMaterial(icon,
                       size: 18,
                       color: isPrimary
                           ? AppColors.primaryTextOffWhite
@@ -1588,7 +1589,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
           const SizedBox(width: 4),
           GestureDetector(
             onTap: onRemove,
-            child: const Icon(Icons.close,
+            child: const UlvenikIcon(UlvenikIcons.back,
                 size: 14, color: AppColors.secondaryTextStoneGrey),
           ),
         ],
@@ -1629,7 +1630,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
               AnimatedRotation(
                 turns: _sortNewest ? 0 : 0.5,
                 duration: const Duration(milliseconds: 250),
-                child: const Icon(Icons.swap_vert,
+                child: const UlvenikIcon(UlvenikIcons.sort,
                     size: 16, color: AppColors.secondaryTextStoneGrey),
               ),
             ],
@@ -1648,7 +1649,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         child: Center(
           child: Column(
             children: [
-              Icon(Icons.search_off,
+              UlvenikIcon(UlvenikIcons.search,
                   size: 40,
                   color:
                       AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5)),
@@ -1746,7 +1747,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                       padding: const EdgeInsets.all(4),
                       decoration: const BoxDecoration(
                           color: Colors.black54, shape: BoxShape.circle),
-                      child: Icon(
+                      child: UlvenikIcon.fromMaterial(
                         _videoPlaying ? Icons.pause : Icons.play_arrow,
                         color: AppColors.primaryTextOffWhite,
                         size: 18,
@@ -1770,7 +1771,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.white12),
       ),
-      child: Icon(
+      child: UlvenikIcon.fromMaterial(
         session.status == SessionStatus.draft
             ? Icons.edit_outlined
             : Icons.landscape_outlined,
@@ -1879,7 +1880,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, size: 13, color: AppColors.secondaryTextStoneGrey),
+        UlvenikIcon.fromMaterial(icon, size: 13, color: AppColors.secondaryTextStoneGrey),
         const SizedBox(width: 3),
         Text(label,
             style: const TextStyle(
@@ -1913,7 +1914,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 10, color: AppColors.secondaryTextStoneGrey),
+          UlvenikIcon.fromMaterial(icon, size: 10, color: AppColors.secondaryTextStoneGrey),
           const SizedBox(width: 3),
           Text(count,
               style: const TextStyle(
@@ -1956,7 +1957,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.white12),
             ),
-            child: const Icon(Icons.bookmark_border_outlined,
+            child: const UlvenikIcon(UlvenikIcons.skills,
                 color: AppColors.primaryForestGreen, size: 32),
           ),
           const SizedBox(height: 24),
@@ -2177,7 +2178,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                           ),
                           const Spacer(),
                           if (isSelected)
-                            const Icon(Icons.check_circle,
+                            const UlvenikIcon(UlvenikIcons.completed,
                                 color: AppColors.primaryForestGreen, size: 20),
                         ],
                       ),

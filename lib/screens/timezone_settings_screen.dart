@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -438,8 +439,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(returnValue),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
@@ -512,8 +512,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(
-                Icons.access_time_rounded,
+              const UlvenikIcon(UlvenikIcons.trainingTime,
                 size: 21,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -590,8 +589,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
         ),
         child: Row(
           children: [
-            const Icon(
-              Icons.language_rounded,
+            const UlvenikIcon(UlvenikIcons.overflowMenu,
               size: 20,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -649,8 +647,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.search_rounded,
+          const UlvenikIcon(UlvenikIcons.search,
             size: 19,
             color: AppColors.secondaryTextStoneGrey,
           ),
@@ -697,8 +694,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
               behavior: HitTestBehavior.opaque,
               child: const Padding(
                 padding: EdgeInsets.all(4),
-                child: Icon(
-                  Icons.close_rounded,
+                child: UlvenikIcon(UlvenikIcons.back,
                   size: 17,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -907,8 +903,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                             ),
                             if (isSelected) ...[
                               const SizedBox(height: 4),
-                              const Icon(
-                                Icons.check_rounded,
+                              const UlvenikIcon(UlvenikIcons.completed,
                                 size: 16,
                                 color: AppColors.primaryForestGreen,
                               ),
@@ -929,8 +924,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                             ),
                             if (isSelected) ...[
                               const SizedBox(width: 8),
-                              const Icon(
-                                Icons.check_rounded,
+                              const UlvenikIcon(UlvenikIcons.completed,
                                 size: 17,
                                 color: AppColors.primaryForestGreen,
                               ),

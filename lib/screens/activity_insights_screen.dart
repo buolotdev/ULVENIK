@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../widgets/custom_snackbar.dart';
 import 'record_session_screen.dart';
@@ -325,7 +326,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                     shape: BoxShape.circle,
                     border: _hairlineBorder,
                   ),
-                  child: Icon(
+                  child: UlvenikIcon.fromMaterial(
                     achieved ? Icons.emoji_events : Icons.lock,
                     color: achieved ? _mint : _stoneGrey,
                     size: 26,
@@ -479,7 +480,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _mint),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _mint),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: GestureDetector(
@@ -510,7 +511,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
         centerTitle: true,
         actions: [
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert, color: _mint),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -567,7 +568,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 value: 'toggle',
                 child: Row(
                   children: [
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _isEmpty ? Icons.insights : Icons.hourglass_empty,
                       color: _mint,
                       size: 18,
@@ -584,7 +585,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 value: 'record',
                 child: Row(
                   children: [
-                    Icon(Icons.add_circle_outline, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.add, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Record Session', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -594,7 +595,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 value: 'stats',
                 child: Row(
                   children: [
-                    Icon(Icons.bar_chart, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.progress, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Activity Statistics', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -604,7 +605,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 value: 'goals',
                 child: Row(
                   children: [
-                    Icon(Icons.flag, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.goals, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Activity Goals', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -614,7 +615,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 value: 'share',
                 child: Row(
                   children: [
-                    Icon(Icons.share, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Share Insights', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -624,7 +625,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 value: 'export',
                 child: Row(
                   children: [
-                    Icon(Icons.file_download, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Analytics', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1229,7 +1230,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                   shape: BoxShape.circle,
                   border: achieved ? null : _hairlineBorder,
                 ),
-                child: Icon(
+                child: UlvenikIcon.fromMaterial(
                   achieved ? Icons.emoji_events : Icons.lock,
                   color: achieved ? _mint : _stoneGrey,
                   size: 20,
@@ -1369,7 +1370,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, color: _mint, size: 20),
+        UlvenikIcon.fromMaterial(icon, color: _mint, size: 20),
         const SizedBox(width: 12),
         Expanded(child: richText),
       ],
@@ -1397,7 +1398,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.calendar_today_outlined,
+                UlvenikIcon(UlvenikIcons.calendar,
                     color: _stoneGrey, size: 14),
                 SizedBox(width: 8),
                 Text(
@@ -1427,8 +1428,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
             ),
           ),
           child: const Center(
-            child: Icon(
-              Icons.trending_up,
+            child: UlvenikIcon(UlvenikIcons.progress,
               color: _mint,
               size: 38,
             ),
@@ -1490,7 +1490,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.play_arrow, size: 16, color: _offWhite),
+                UlvenikIcon(UlvenikIcons.play, size: 16, color: _offWhite),
                 SizedBox(width: 8),
                 Text(
                   'Record Session',
@@ -1500,7 +1500,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                   ),
                 ),
                 SizedBox(width: 6),
-                Icon(Icons.arrow_forward, size: 16, color: _offWhite),
+                UlvenikIcon(UlvenikIcons.details, size: 16, color: _offWhite),
               ],
             ),
           ),

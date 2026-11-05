@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -188,8 +189,7 @@ class _RecordCompetitionResultScreenState
                       ),
                     ),
                     trailing: active
-                        ? const Icon(
-                            Icons.check_circle_rounded,
+                        ? const UlvenikIcon(UlvenikIcons.completed,
                             color: Color(0xFF95D3BB),
                             size: 20,
                           )
@@ -272,8 +272,7 @@ class _RecordCompetitionResultScreenState
                       ),
                     ),
                     trailing: active
-                        ? const Icon(
-                            Icons.check_rounded,
+                        ? const UlvenikIcon(UlvenikIcons.completed,
                             color: Color(0xFF95D3BB),
                           )
                         : null,
@@ -698,8 +697,7 @@ class _RecordCompetitionResultScreenState
                   ),
                 ),
                 if (widget.competition == null)
-                  const Icon(
-                    Icons.unfold_more_rounded,
+                  const UlvenikIcon(UlvenikIcons.sort,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 18,
                   ),
@@ -821,8 +819,7 @@ class _RecordCompetitionResultScreenState
                                 fontFamily: 'Inter',
                               ),
                             ),
-                            const Icon(
-                              Icons.keyboard_arrow_down_rounded,
+                            const UlvenikIcon(UlvenikIcons.sort,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 20,
                             ),
@@ -1031,7 +1028,7 @@ class _RecordCompetitionResultScreenState
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.add, color: Color(0xFF95D3BB), size: 18),
+                UlvenikIcon(UlvenikIcons.add, color: Color(0xFF95D3BB), size: 18),
                 SizedBox(width: 6),
                 Text(
                   'Add Qualification',
@@ -1066,7 +1063,7 @@ class _RecordCompetitionResultScreenState
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.add, color: Color(0xFF95D3BB), size: 18),
+                UlvenikIcon(UlvenikIcons.add, color: Color(0xFF95D3BB), size: 18),
                 SizedBox(width: 6),
                 Text(
                   'Add Award',
@@ -1124,8 +1121,7 @@ class _RecordCompetitionResultScreenState
           const SizedBox(width: 8),
           GestureDetector(
             onTap: onRemove,
-            child: const Icon(
-              Icons.close_rounded,
+            child: const UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 16,
             ),
@@ -1198,8 +1194,7 @@ class _RecordCompetitionResultScreenState
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.attach_file_rounded,
+                UlvenikIcon(UlvenikIcons.training,
                   color: Color(0xFF95D3BB),
                   size: 18,
                 ),
@@ -1236,8 +1231,7 @@ class _RecordCompetitionResultScreenState
                   ),
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.description_outlined,
+                      const UlvenikIcon(UlvenikIcons.training,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 21,
                       ),
@@ -1271,8 +1265,7 @@ class _RecordCompetitionResultScreenState
                         onTap: () {
                           setState(() => _attachments.removeAt(i));
                         },
-                        child: const Icon(
-                          Icons.close_rounded,
+                        child: const UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 18,
                         ),

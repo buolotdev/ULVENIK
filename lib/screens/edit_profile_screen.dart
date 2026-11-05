@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -368,8 +369,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                       IconButton(
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        icon: const Icon(
-                          Icons.close_rounded,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 20,
                         ),
@@ -406,7 +406,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ),
                               ),
                             ),
-                            Icon(
+                            UlvenikIcon.fromMaterial(
                               option == current
                                   ? Icons.check_circle_rounded
                                   : Icons.radio_button_unchecked_rounded,
@@ -757,8 +757,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       IconButton(
                         onPressed: _handleBackAttempt,
-                        icon: const Icon(
-                          Icons.chevron_left,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 26,
                         ),
@@ -1000,8 +999,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    const Icon(
-                                      Icons.mail_outline_rounded,
+                                    const UlvenikIcon(UlvenikIcons.notifications,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 20,
                                     ),
@@ -1063,8 +1061,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         ],
                                       ),
                                     ),
-                                    const Icon(
-                                      Icons.chevron_right_rounded,
+                                    const UlvenikIcon(UlvenikIcons.details,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 19,
                                     ),
@@ -1085,8 +1082,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    const Icon(
-                                      Icons.lock_outline_rounded,
+                                    const UlvenikIcon(UlvenikIcons.overflowMenu,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 20,
                                     ),
@@ -1119,8 +1115,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         ],
                                       ),
                                     ),
-                                    const Icon(
-                                      Icons.chevron_right_rounded,
+                                    const UlvenikIcon(UlvenikIcons.details,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 19,
                                     ),
@@ -1320,8 +1315,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ],
                     ),
                   ),
-                  const Icon(
-                    Icons.keyboard_arrow_down_rounded,
+                  const UlvenikIcon(UlvenikIcons.sort,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 22,
                   ),

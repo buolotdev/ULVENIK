@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/app_colors.dart';
 import 'weight_tracker_screen.dart';
@@ -184,7 +185,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.chevron_left, color: AppColors.secondaryTextStoneGrey, size: 28),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 28),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
       title: const Text(
@@ -198,16 +199,16 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       centerTitle: false,
       actions: [
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showFilterOptionsSheet,
         ),
         IconButton(
-          icon: const Icon(Icons.ios_share, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showShareAccessSheet,
         ),
         IconButton(
           tooltip: 'Toggle empty / populated state',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on,
             color: _isEmpty ? AppColors.secondaryTextStoneGrey : _mint,
             size: 26,
@@ -298,8 +299,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 ),
               ],
             ),
-            const Icon(
-              Icons.unfold_more,
+            const UlvenikIcon(UlvenikIcons.sort,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
@@ -325,9 +325,9 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 width: size,
                 height: size,
                 fit: BoxFit.cover,
-                errorBuilder: (c, e, s) => Icon(Icons.pets, size: size * 0.5, color: _mint),
+                errorBuilder: (c, e, s) => UlvenikIcon(UlvenikIcons.dogs, size: size * 0.5, color: _mint),
               )
-            : Icon(Icons.pets, size: size * 0.5, color: _mint),
+            : UlvenikIcon(UlvenikIcons.dogs, size: size * 0.5, color: _mint),
       ),
     );
   }
@@ -565,7 +565,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                   color: AppColors.secondaryTextStoneGrey,
                 ),
               ),
-              Icon(Icons.monitor_weight_outlined, size: 20, color: AppColors.secondaryTextStoneGrey),
+              UlvenikIcon(UlvenikIcons.exercises, size: 20, color: AppColors.secondaryTextStoneGrey),
             ],
           ),
           const SizedBox(height: 16),
@@ -951,7 +951,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               children: [
                 Row(
                   children: [
-                    Icon(icon, size: 18, color: iconColor),
+                    UlvenikIcon.fromMaterial(icon, size: 18, color: iconColor),
                     const SizedBox(width: 6),
                     Text(
                       title,
@@ -963,7 +963,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                     ),
                   ],
                 ),
-                const Icon(Icons.chevron_right, size: 16, color: AppColors.secondaryTextStoneGrey),
+                const UlvenikIcon(UlvenikIcons.details, size: 16, color: AppColors.secondaryTextStoneGrey),
               ],
             ),
             const SizedBox(height: 10),
@@ -1255,7 +1255,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                       shape: BoxShape.circle,
                       color: const Color(0xFF323533),
                     ),
-                    child: Icon(e.icon, size: 16, color: _mint),
+                    child: UlvenikIcon.fromMaterial(e.icon, size: 16, color: _mint),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -1338,7 +1338,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               ),
               child: Column(
                 children: const [
-                  Icon(Icons.picture_as_pdf, size: 24, color: AppColors.primaryTextOffWhite),
+                  UlvenikIcon(UlvenikIcons.training, size: 24, color: AppColors.primaryTextOffWhite),
                   SizedBox(height: 8),
                   Text(
                     'PDF Report',
@@ -1368,7 +1368,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               ),
               child: Column(
                 children: const [
-                  Icon(Icons.share, size: 24, color: AppColors.primaryTextOffWhite),
+                  UlvenikIcon(UlvenikIcons.overflowMenu, size: 24, color: AppColors.primaryTextOffWhite),
                   SizedBox(height: 8),
                   Text(
                     'Share Access',
@@ -1463,8 +1463,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.ssid_chart,
+              child: const UlvenikIcon(UlvenikIcons.progress,
                 size: 38,
                 color: _mint,
               ),
@@ -1512,7 +1511,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.add, color: AppColors.primaryTextOffWhite, size: 18),
+                  UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 18),
                   SizedBox(width: 8),
                   Text(
                     'Add Health Record',
@@ -1598,7 +1597,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
           ),
         ),
         IconButton(
-          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(ctx),
         ),
       ],
@@ -1662,7 +1661,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                               ],
                             ),
                           ),
-                          if (isSelected) const Icon(Icons.check_circle, color: _mint, size: 20),
+                          if (isSelected) const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20),
                         ],
                       ),
                     ),
@@ -1768,7 +1767,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                   width: double.infinity,
                   child: ElevatedButton.icon(
                     onPressed: () => Navigator.pop(ctx),
-                    icon: const Icon(Icons.download, size: 18),
+                    icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
                     label: const Text('Export PDF Report'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _forest,
@@ -1788,7 +1787,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         children: [
-          const Icon(Icons.check_circle, size: 18, color: _mint),
+          const UlvenikIcon(UlvenikIcons.completed, size: 18, color: _mint),
           const SizedBox(width: 10),
           Text(label, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
         ],
@@ -1820,7 +1819,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                   ),
                   child: Row(
                     children: const [
-                      Icon(Icons.link, size: 20, color: _mint),
+                      UlvenikIcon(UlvenikIcons.details, size: 20, color: _mint),
                       SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -1918,7 +1917,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
         ),
         child: Row(
           children: [
-            Icon(icon, color: _mint, size: 22),
+            UlvenikIcon.fromMaterial(icon, color: _mint, size: 22),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -1929,7 +1928,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, size: 18, color: AppColors.secondaryTextStoneGrey),
+            const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 
@@ -307,7 +308,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                 ),
                 const SizedBox(height: 12),
                 ListTile(
-                  leading: const Icon(Icons.edit_outlined, color: _sage),
+                  leading: const UlvenikIcon(UlvenikIcons.edit, color: _sage),
                   title: Text(
                     'Edit Homework Instructions',
                     style: GoogleFonts.inter(
@@ -323,7 +324,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                 ),
                 ListTile(
                   leading:
-                      const Icon(Icons.note_add_outlined, color: _sage),
+                      const UlvenikIcon(UlvenikIcons.recordSession, color: _sage),
                   title: Text(
                     'Add Shared Client / Trainer Note',
                     style: GoogleFonts.inter(
@@ -338,7 +339,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.restart_alt_rounded, color: _sage),
+                  leading: const UlvenikIcon(UlvenikIcons.history, color: _sage),
                   title: Text(
                     'Reset Rep Progress to 0 / 12',
                     style: GoogleFonts.inter(
@@ -555,8 +556,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                                   _adjustReps(-1);
                                   setModalState(() {});
                                 },
-                                icon: const Icon(
-                                  Icons.remove_circle_outline,
+                                icon: const UlvenikIcon(UlvenikIcons.back,
                                   color: _textSecondary,
                                 ),
                               ),
@@ -574,8 +574,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                                   _adjustReps(1);
                                   setModalState(() {});
                                 },
-                                icon: const Icon(
-                                  Icons.add_circle_outline,
+                                icon: const UlvenikIcon(UlvenikIcons.add,
                                   color: Color(0xFF5DC49E),
                                 ),
                               ),
@@ -602,7 +601,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                           _toggleExerciseDone(ex);
                           Navigator.of(ctx).pop();
                         },
-                        icon: Icon(
+                        icon: UlvenikIcon.fromMaterial(
                           ex.isDone ? Icons.undo : Icons.check_rounded,
                           size: 18,
                         ),
@@ -908,7 +907,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                         color: _bg,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Icon(icon, color: _sage, size: 20),
+                      child: UlvenikIcon.fromMaterial(icon, color: _sage, size: 20),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -1151,8 +1150,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
         children: [
           IconButton(
             onPressed: _popWithResult,
-            icon: const Icon(
-              Icons.chevron_left,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _textPrimary,
               size: 26,
             ),
@@ -1173,8 +1171,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
           ),
           IconButton(
             onPressed: _showOverflowMenu,
-            icon: const Icon(
-              Icons.more_vert,
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
               color: _textSecondary,
               size: 21,
             ),
@@ -1327,7 +1324,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.pets, size: 12, color: _sage),
+                              const UlvenikIcon(UlvenikIcons.dogs, size: 12, color: _sage),
                               const SizedBox(width: 6),
                               Text(
                                 dog,
@@ -1366,7 +1363,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                 ),
               ),
               onPressed: _toggleMarkComplete,
-              icon: Icon(
+              icon: UlvenikIcon.fromMaterial(
                 _isComplete ? Icons.replay_rounded : Icons.check_rounded,
                 size: 18,
               ),
@@ -1653,8 +1650,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
               ),
-              child: const Icon(
-                Icons.description_outlined,
+              child: const UlvenikIcon(UlvenikIcons.training,
                 color: _sage,
                 size: 20,
               ),
@@ -1708,7 +1704,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
               ),
             ),
             const SizedBox(width: 10),
-            const Icon(Icons.chevron_right, color: _textSecondary, size: 20),
+            const UlvenikIcon(UlvenikIcons.details, color: _textSecondary, size: 20),
           ],
         ),
       ),
@@ -1750,7 +1746,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                   ),
                 ),
                 child: ex.isDone
-                    ? const Icon(Icons.check, size: 14, color: _textPrimary)
+                    ? const UlvenikIcon(UlvenikIcons.completed, size: 14, color: _textPrimary)
                     : null,
               ),
             ),
@@ -1785,7 +1781,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: _textSecondary, size: 20),
+            const UlvenikIcon(UlvenikIcons.details, color: _textSecondary, size: 20),
           ],
         ),
       ),
@@ -1859,8 +1855,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.play_arrow_rounded,
+                        const UlvenikIcon(UlvenikIcons.play,
                           color: _sage,
                           size: 20,
                         ),
@@ -1875,8 +1870,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                           ),
                       ],
                     )
-                  : const Icon(
-                      Icons.description_outlined,
+                  : const UlvenikIcon(UlvenikIcons.training,
                       color: _sage,
                       size: 20,
                     ),
@@ -1905,7 +1899,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: _textSecondary, size: 20),
+            const UlvenikIcon(UlvenikIcons.details, color: _textSecondary, size: 20),
           ],
         ),
       ),
@@ -2022,7 +2016,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                         ),
                       ),
                       onPressed: _showAddFeedbackSheet,
-                      icon: const Icon(Icons.add, size: 18),
+                      icon: const UlvenikIcon(UlvenikIcons.add, size: 18),
                       label: Text(
                         'Add Feedback',
                         style: GoogleFonts.inter(
@@ -2144,8 +2138,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                           color: _bg,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Icon(
-                          Icons.play_arrow_rounded,
+                        child: const UlvenikIcon(UlvenikIcons.play,
                           color: _sage,
                           size: 17,
                         ),
@@ -2227,8 +2220,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
                       color: _bg,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(
-                      Icons.insert_drive_file_outlined,
+                    child: const UlvenikIcon(UlvenikIcons.training,
                       color: _sage,
                       size: 16,
                     ),

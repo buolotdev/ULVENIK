@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -153,7 +154,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          icon: const Icon(Icons.copy_rounded, size: 16),
+                          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 16),
                           label: const Text('Copy Email'),
                         ),
                       ),
@@ -177,8 +178,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          icon: const Icon(
-                            Icons.chat_bubble_outline_rounded,
+                          icon: const UlvenikIcon(UlvenikIcons.notifications,
                             size: 16,
                           ),
                           label: const Text('Contact Form'),
@@ -215,8 +215,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                   const SizedBox(width: 4),
                   IconButton(
                     onPressed: () => Navigator.of(context).maybePop(),
-                    icon: const Icon(
-                      Icons.chevron_left,
+                    icon: const UlvenikIcon(UlvenikIcons.back,
                       color: _stoneGrey,
                       size: 26,
                     ),
@@ -257,8 +256,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                   height: 28,
                   fit: BoxFit.contain,
                   color: _sageCrest,
-                  errorBuilder: (_, _, _) => const Icon(
-                    Icons.terrain_rounded,
+                  errorBuilder: (_, _, _) => const UlvenikIcon(UlvenikIcons.timeline,
                     color: _sageCrest,
                     size: 30,
                   ),
@@ -735,8 +733,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
             ),
             child: Column(
               children: [
-                const Icon(
-                  Icons.favorite_border_rounded,
+                const UlvenikIcon(UlvenikIcons.health,
                   color: _stoneGrey,
                   size: 22,
                 ),
@@ -814,7 +811,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Row(
           children: [
-            Icon(icon, color: _stoneGrey, size: 19),
+            UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 19),
             const SizedBox(width: 14),
             Expanded(
               child: Text(
@@ -838,8 +835,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
               ),
               const SizedBox(width: 8),
             ],
-            const Icon(
-              Icons.chevron_right,
+            const UlvenikIcon(UlvenikIcons.details,
               color: _stoneGrey,
               size: 18,
             ),

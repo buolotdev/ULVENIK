@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/change_photo_bottom_sheet.dart';
 import '../widgets/custom_snackbar.dart';
@@ -158,8 +159,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                         onPressed: () => Navigator.of(context).maybePop(
                           _currentAssetPath,
                         ),
-                        icon: const Icon(
-                          Icons.arrow_back_rounded,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                           size: 22,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
@@ -178,8 +178,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                       ),
                       IconButton(
                         onPressed: _openModalPhotoSheet,
-                        icon: const Icon(
-                          Icons.more_horiz_rounded,
+                        icon: const UlvenikIcon(UlvenikIcons.more,
                           size: 22,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
@@ -252,8 +251,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                           height: 46,
                           child: ElevatedButton.icon(
                             onPressed: _openModalPhotoSheet,
-                            icon: const Icon(
-                              Icons.photo_camera_outlined,
+                            icon: const UlvenikIcon(UlvenikIcons.play,
                               size: 18,
                             ),
                             label: const Text(
@@ -283,8 +281,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                               assetPath: _currentAssetPath,
                               fromCamera: false,
                             ),
-                            icon: const Icon(
-                              Icons.crop_rounded,
+                            icon: const UlvenikIcon(UlvenikIcons.edit,
                               size: 18,
                               color: AppColors.secondaryTextStoneGrey,
                             ),
@@ -417,8 +414,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
-                            Icons.arrow_back_rounded,
+                          UlvenikIcon(UlvenikIcons.back,
                             size: 18,
                             color: AppColors.primaryTextOffWhite,
                           ),
@@ -506,8 +502,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                                   ),
                                 ),
                                 alignment: Alignment.center,
-                                child: const Icon(
-                                  Icons.photo_camera_outlined,
+                                child: const UlvenikIcon(UlvenikIcons.play,
                                   size: 16,
                                   color: Color(0xFFD5D8D4),
                                 ),
@@ -550,8 +545,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                             assetPath: 'assets/images/photo_viewer_1.jpg',
                             fromCamera: true,
                           ),
-                          icon: const Icon(
-                            Icons.photo_camera_outlined,
+                          icon: const UlvenikIcon(UlvenikIcons.play,
                             size: 18,
                             color: Color(0xFFC7CCC8),
                           ),
@@ -593,8 +587,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(
-                                  Icons.image_outlined,
+                                UlvenikIcon(UlvenikIcons.play,
                                   size: 18,
                                   color: Color(0xFFC7CCC8),
                                 ),

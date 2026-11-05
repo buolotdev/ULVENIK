@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -157,7 +158,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         IconButton(
-          icon: const Icon(Icons.menu, color: AppColors.primaryTextOffWhite),
+          icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),
           onPressed: () {},
@@ -170,8 +171,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
               'assets/images/white_mountain_only.png',
               height: 22,
               fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) => const Icon(
-                Icons.terrain_rounded,
+              errorBuilder: (context, error, stackTrace) => const UlvenikIcon(UlvenikIcons.timeline,
                 color: AppColors.primaryTextOffWhite,
                 size: 22,
               ),
@@ -306,7 +306,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: iconColor.withValues(alpha: 0.3)),
               ),
-              child: Icon(icon, color: iconColor, size: 20),
+              child: UlvenikIcon.fromMaterial(icon, color: iconColor, size: 20),
             ),
             const SizedBox(height: 12),
             Text(
@@ -374,7 +374,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
         ),
         child: Column(
           children: [
-            Icon(icon, color: AppColors.primaryForestGreen, size: 24),
+            UlvenikIcon.fromMaterial(icon, color: AppColors.primaryForestGreen, size: 24),
             const SizedBox(height: 8),
             Text(
               title,
@@ -411,7 +411,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
           ),
           child: Column(
             children: [
-              Icon(icon, color: AppColors.secondarySage, size: 32),
+              UlvenikIcon.fromMaterial(icon, color: AppColors.secondarySage, size: 32),
               const SizedBox(height: 16),
               Text(
                 message,
@@ -466,8 +466,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
               ),
             ),
           if (actionIcon != null)
-            Icon(
-              actionIcon,
+            UlvenikIcon.fromMaterial(actionIcon,
               color: AppColors.primaryForestGreen,
               size: 20,
             ),
@@ -534,7 +533,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
             // Left Border Line
             Container(width: 2, color: color),
             const SizedBox(width: 14),
-            Icon(icon, color: color, size: 20),
+            UlvenikIcon.fromMaterial(icon, color: color, size: 20),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -823,7 +822,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.white12),
             ),
-            child: Icon(icon, size: 12, color: iconColor),
+            child: UlvenikIcon.fromMaterial(icon, size: 12, color: iconColor),
           ),
         ),
         Row(

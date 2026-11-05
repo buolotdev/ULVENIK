@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ulvenik_icon.dart';
 import '../screens/homepage_screen.dart';
 import '../screens/main_layout.dart';
 import '../screens/more_page_screen.dart';
@@ -51,40 +52,35 @@ class UlvenikBottomNav extends StatelessWidget {
               _buildItem(
                 context,
                 tab: UlvenikNavTab.home,
-                icon: Icons.home_outlined,
-                activeIcon: Icons.home,
+                iconKey: UlvenikIcons.home,
                 label: 'Home',
                 onTap: () => _navigateToTab(context, UlvenikNavTab.home),
               ),
               _buildItem(
                 context,
                 tab: UlvenikNavTab.dogs,
-                icon: Icons.pets_outlined,
-                activeIcon: Icons.pets,
+                iconKey: UlvenikIcons.dogs,
                 label: 'Dogs',
                 onTap: () => _navigateToTab(context, UlvenikNavTab.dogs),
               ),
               _buildItem(
                 context,
                 tab: UlvenikNavTab.training,
-                icon: Icons.fitness_center_outlined,
-                activeIcon: Icons.fitness_center,
+                iconKey: UlvenikIcons.training,
                 label: 'Training',
                 onTap: () => _navigateToTab(context, UlvenikNavTab.training),
               ),
               _buildItem(
                 context,
                 tab: UlvenikNavTab.timeline,
-                icon: Icons.history_outlined,
-                activeIcon: Icons.history,
+                iconKey: UlvenikIcons.timeline,
                 label: 'Timeline',
                 onTap: () => _navigateToTab(context, UlvenikNavTab.timeline),
               ),
               _buildItem(
                 context,
                 tab: UlvenikNavTab.more,
-                icon: Icons.menu,
-                activeIcon: Icons.menu,
+                iconKey: UlvenikIcons.more,
                 label: 'More',
                 onTap: () => _navigateToTab(context, UlvenikNavTab.more),
               ),
@@ -132,8 +128,7 @@ class UlvenikBottomNav extends StatelessWidget {
   Widget _buildItem(
     BuildContext context, {
     required UlvenikNavTab tab,
-    required IconData icon,
-    required IconData activeIcon,
+    required String iconKey,
     required String label,
     required VoidCallback onTap,
   }) {
@@ -146,8 +141,8 @@ class UlvenikBottomNav extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              isSelected ? activeIcon : icon,
+            UlvenikIcon(
+              iconKey,
               color: isSelected ? _mint : _stoneGrey,
               size: 22,
             ),

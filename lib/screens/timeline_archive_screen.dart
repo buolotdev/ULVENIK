@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'timeline_screen.dart';
 import 'timeline_statistics_screen.dart';
 import 'timeline_export_screen.dart';
@@ -276,7 +277,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 ),
               ),
               const SizedBox(height: 20),
-              const Icon(Icons.restore, color: _mint, size: 40),
+              const UlvenikIcon(UlvenikIcons.history, color: _mint, size: 40),
               const SizedBox(height: 14),
               Text(
                 'Restore ${selected.length} Events?',
@@ -415,7 +416,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
     final bool isSelected = _sortOrder == label;
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: Icon(
+      leading: UlvenikIcon.fromMaterial(
         isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
         color: isSelected ? _mint : _stoneGrey,
         size: 20,
@@ -590,7 +591,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
       ),
       title: Text(name, style: const TextStyle(color: _offWhite, fontWeight: FontWeight.bold)),
       subtitle: Text(subtitle, style: const TextStyle(color: _stoneGrey, fontSize: 12)),
-      trailing: isSelected ? const Icon(Icons.check, color: _mint) : null,
+      trailing: isSelected ? const UlvenikIcon(UlvenikIcons.completed, color: _mint) : null,
       onTap: () {
         setState(() => _selectedDog = name);
         Navigator.pop(ctx);
@@ -621,7 +622,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
       elevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _offWhite),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite),
         onPressed: () {
           if (Navigator.canPop(context)) {
             Navigator.pop(context);
@@ -645,7 +646,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
       actions: [
         IconButton(
           tooltip: 'Toggle Empty/Populated State',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmptyState ? Icons.visibility : Icons.visibility_off_outlined,
             color: _mint,
             size: 20,
@@ -660,7 +661,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
           },
         ),
         PopupMenuButton<String>(
-          icon: const Icon(Icons.more_vert, color: _stoneGrey),
+          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -709,7 +710,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'toggle',
               child: Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     _isEmptyState ? Icons.check_circle_outline : Icons.highlight_off,
                     color: _mint,
                     size: 18,
@@ -727,7 +728,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 value: 'filter',
                 child: Row(
                   children: [
-                    Icon(Icons.filter_list, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Filter by Category', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -737,7 +738,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 value: 'select_all',
                 child: Row(
                   children: [
-                    Icon(Icons.select_all, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Select All Events', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -747,7 +748,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 value: 'deselect_all',
                 child: Row(
                   children: [
-                    Icon(Icons.deselect, color: _stoneGrey, size: 18),
+                    UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
                     SizedBox(width: 10),
                     Text('Deselect All', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -758,7 +759,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'dog',
               child: Row(
                 children: [
-                  Icon(Icons.pets, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.dogs, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Switch Canine', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -769,7 +770,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'favourites',
               child: Row(
                 children: [
-                  Icon(Icons.favorite, color: Color(0xFFB8920A), size: 18),
+                  UlvenikIcon(UlvenikIcons.health, color: Color(0xFFB8920A), size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Favourites', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -779,7 +780,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'settings',
               child: Row(
                 children: [
-                  Icon(Icons.settings_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Settings', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -789,7 +790,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'insights',
               child: Row(
                 children: [
-                  Icon(Icons.lightbulb_outline, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.notifications, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Insights', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -799,7 +800,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'stats',
               child: Row(
                 children: [
-                  Icon(Icons.insights, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Statistics', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -809,7 +810,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
               value: 'export',
               child: Row(
                 children: [
-                  Icon(Icons.file_download_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Export', style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
@@ -837,8 +838,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 border: Border.all(color: _cardBorder),
               ),
               child: const Center(
-                child: Icon(
-                  Icons.archive_outlined,
+                child: UlvenikIcon(UlvenikIcons.skills,
                   size: 44,
                   color: _stoneGrey,
                 ),
@@ -890,7 +890,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.arrow_back, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 18),
                     SizedBox(width: 8),
                     Text(
                       'Return to Timeline',
@@ -1007,7 +1007,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 ],
               ),
             ),
-            const Icon(Icons.swap_horiz, color: _mint, size: 20),
+            const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 20),
           ],
         ),
       ),
@@ -1213,18 +1213,18 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(vertical: 14),
-          prefixIcon: const Icon(Icons.search, color: _stoneGrey, size: 20),
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           hintText: 'Search archive...',
           hintStyle: const TextStyle(color: _stoneGrey, fontSize: 14),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
                   onPressed: () {
                     _searchController.clear();
                     setState(() => _searchQuery = '');
                   },
                 )
-              : const Icon(Icons.mic_none, color: _stoneGrey, size: 20),
+              : const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey, size: 20),
         ),
       ),
     );
@@ -1276,7 +1276,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                 ),
               ),
               const SizedBox(width: 4),
-              const Icon(Icons.arrow_drop_down, color: _stoneGrey, size: 18),
+              const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 18),
             ],
           ),
         ),
@@ -1321,7 +1321,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
             padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
             child: Row(
               children: [
-                Icon(Icons.file_download_outlined, color: _offWhite, size: 16),
+                UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 16),
                 SizedBox(width: 4),
                 Text(
                   'Export',
@@ -1348,7 +1348,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
             ),
             child: const Row(
               children: [
-                Icon(Icons.restore, color: _mint, size: 15),
+                UlvenikIcon(UlvenikIcons.history, color: _mint, size: 15),
                 SizedBox(width: 6),
                 Text(
                   'Restore',
@@ -1441,7 +1441,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                         color: item.categoryColor.withValues(alpha: 0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(item.icon, color: item.categoryColor, size: 18),
+                      child: UlvenikIcon.fromMaterial(item.icon, color: item.categoryColor, size: 18),
                     ),
                     const SizedBox(width: 12),
 
@@ -1473,7 +1473,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                           const SizedBox(height: 6),
                           Row(
                             children: [
-                              const Icon(Icons.archive_outlined, color: _stoneGrey, size: 13),
+                              const UlvenikIcon(UlvenikIcons.skills, color: _stoneGrey, size: 13),
                               const SizedBox(width: 4),
                               Text(
                                 'Archived ${item.archivedDate}',
@@ -1492,7 +1492,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                     // Checkbox
                     GestureDetector(
                       onTap: () => _toggleSelection(item),
-                      child: Icon(
+                      child: UlvenikIcon.fromMaterial(
                         item.isSelected
                             ? Icons.check_circle
                             : Icons.radio_button_unchecked,
@@ -1556,7 +1556,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.description_outlined, color: _mint, size: 18),
+                        const UlvenikIcon(UlvenikIcons.training, color: _mint, size: 18),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Column(
@@ -1601,7 +1601,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                       children: [
                         Row(
                           children: [
-                            const Icon(Icons.info_outline, color: _stoneGrey, size: 14),
+                            const UlvenikIcon(UlvenikIcons.notifications, color: _stoneGrey, size: 14),
                             const SizedBox(width: 6),
                             Text(
                               item.orphanedWarning!,
@@ -1645,7 +1645,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.restore, color: _mint, size: 13),
+                              UlvenikIcon(UlvenikIcons.history, color: _mint, size: 13),
                               SizedBox(width: 4),
                               Text(
                                 'Restore',
@@ -1676,7 +1676,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
       child: Center(
         child: Column(
           children: [
-            const Icon(Icons.search_off, size: 48, color: _stoneGrey),
+            const UlvenikIcon(UlvenikIcons.search, size: 48, color: _stoneGrey),
             const SizedBox(height: 12),
             const Text(
               'No matches found',
@@ -1763,7 +1763,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          UlvenikIcon.fromMaterial(
             icon,
             color: isSelected ? _mint : _stoneGrey,
             size: 22,

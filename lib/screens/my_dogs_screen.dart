@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'dogs_all_workspaces_screen.dart';
@@ -127,8 +128,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
-                              Icons.pets,
+                            const UlvenikIcon(UlvenikIcons.dogs,
                               size: 48,
                               color: AppColors.secondarySage, // Light green paw
                             ),
@@ -156,7 +156,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                               onPressed: () {
                                 AppSnackbar.show(context, message: 'Add dog coming soon', type: SnackbarType.info);
                               },
-                              icon: const Icon(Icons.add, size: 20),
+                              icon: const UlvenikIcon(UlvenikIcons.add, size: 20),
                               label: const Text('Add Dog'),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primaryForestGreen,
@@ -184,7 +184,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
           AppSnackbar.show(context, message: 'Add dog coming soon', type: SnackbarType.info);
         },
         backgroundColor: AppColors.primaryForestGreen,
-        child: const Icon(Icons.add, color: AppColors.primaryTextOffWhite),
+        child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
       ),
     );
   }
@@ -212,7 +212,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
           Row(
             children: [
               IconButton(
-                icon: const Icon(Icons.grid_view_rounded, color: AppColors.primaryTextOffWhite),
+                icon: const UlvenikIcon(UlvenikIcons.progress, color: AppColors.primaryTextOffWhite),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -224,7 +224,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
               ),
               if (_hasData)
                 IconButton(
-                  icon: const Icon(Icons.notifications_outlined, color: AppColors.primaryTextOffWhite),
+                  icon: const UlvenikIcon(UlvenikIcons.notifications, color: AppColors.primaryTextOffWhite),
                   onPressed: () {
                     AppSnackbar.show(context, message: 'Notifications coming soon', type: SnackbarType.info);
                   },
@@ -248,8 +248,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          const Icon(
-            Icons.search,
+          const UlvenikIcon(UlvenikIcons.search,
             color: AppColors.secondaryTextStoneGrey,
             size: 20,
           ),
@@ -300,7 +299,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: isPrimary ? AppColors.primaryForestGreen : Colors.white12),
         ),
-        child: Icon(
+        child: UlvenikIcon.fromMaterial(
           icon,
           color: isPrimary ? AppColors.primaryTextOffWhite : AppColors.primaryTextOffWhite,
           size: 20,
@@ -585,8 +584,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                     const Spacer(),
                     Row(
                       children: [
-                        const Icon(
-                          Icons.schedule,
+                        const UlvenikIcon(UlvenikIcons.trainingTime,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 14,
                         ),
@@ -615,8 +613,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
     return Container(
       color: const Color(0xFF2E312F), // inverse-on-surface roughly
       child: const Center(
-        child: Icon(
-          Icons.pets,
+        child: UlvenikIcon(UlvenikIcons.dogs,
           color: AppColors.secondaryTextStoneGrey,
           size: 40,
         ),

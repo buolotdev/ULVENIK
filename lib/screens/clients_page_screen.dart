@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -469,7 +470,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                       ),
                     ),
                     trailing: selected
-                        ? const Icon(Icons.check_rounded,
+                        ? const UlvenikIcon(UlvenikIcons.completed,
                             color: _mint, size: 20)
                         : null,
                   );
@@ -507,7 +508,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 ),
                 const SizedBox(height: 10),
                 ListTile(
-                  leading: const Icon(Icons.visibility_outlined,
+                  leading: const UlvenikIcon(UlvenikIcons.details,
                       color: _textPrimary),
                   title: Text(
                     'View ${client.fullName}',
@@ -519,7 +520,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.edit_outlined, color: _mint),
+                  leading: const UlvenikIcon(UlvenikIcons.edit, color: _mint),
                   title: const Text(
                     'Edit Client Details',
                     style: TextStyle(color: _textPrimary),
@@ -530,7 +531,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: UlvenikIcon.fromMaterial(
                     isFav ? Icons.star_rounded : Icons.star_border_rounded,
                     color: _gold,
                   ),
@@ -550,7 +551,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.sticky_note_2_outlined,
+                  leading: const UlvenikIcon(UlvenikIcons.training,
                       color: _textSecondary),
                   title: const Text(
                     'Open Client Notes',
@@ -566,7 +567,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.archive_outlined,
+                  leading: const UlvenikIcon(UlvenikIcons.skills,
                       color: _terracotta),
                   title: Text(
                     client.status == 'Archived'
@@ -599,7 +600,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
         foregroundColor: _textPrimary,
         elevation: 4,
         shape: const CircleBorder(),
-        child: const Icon(Icons.add_rounded, size: 28),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 28),
       ),
       body: SafeArea(
         child: ValueListenableBuilder<List<TrainerClient>>(
@@ -667,8 +668,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 26,
             ),
@@ -694,8 +694,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             tooltip: 'Search clients',
             visualDensity: VisualDensity.compact,
             onPressed: () => _searchFocusNode.requestFocus(),
-            icon: const Icon(
-              Icons.search_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.search,
               color: _textSecondary,
               size: 21,
             ),
@@ -707,8 +706,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(
-                  Icons.tune_rounded,
+                const UlvenikIcon(UlvenikIcons.sort,
                   color: _textSecondary,
                   size: 21,
                 ),
@@ -743,8 +741,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             tooltip: 'Sort clients',
             visualDensity: VisualDensity.compact,
             onPressed: _showSortBottomSheet,
-            icon: const Icon(
-              Icons.swap_vert_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.sort,
               color: _textSecondary,
               size: 21,
             ),
@@ -753,8 +750,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             tooltip: 'Add Client',
             visualDensity: VisualDensity.compact,
             onPressed: _openAddClient,
-            icon: const Icon(
-              Icons.add_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.add,
               color: _textSecondary,
               size: 23,
             ),
@@ -774,7 +770,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.search_rounded, color: _textSecondary, size: 19),
+          const UlvenikIcon(UlvenikIcons.search, color: _textSecondary, size: 19),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -808,8 +804,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 _searchFocusNode.unfocus();
               }
             },
-            child: const Icon(
-              Icons.close_rounded,
+            child: const UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 18,
             ),
@@ -866,8 +861,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   ),
                   if (active) ...[
                     const SizedBox(width: 6),
-                    const Icon(
-                      Icons.close_rounded,
+                    const UlvenikIcon(UlvenikIcons.back,
                       color: _mint,
                       size: 13,
                     ),
@@ -1010,7 +1004,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: fg, size: 19),
+            UlvenikIcon.fromMaterial(icon, color: fg, size: 19),
             const SizedBox(height: 6),
             Text(
               label,
@@ -1091,8 +1085,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                         ),
                         alignment: Alignment.center,
                         child: isInactive
-                            ? const Icon(
-                                Icons.person_outline_rounded,
+                            ? const UlvenikIcon(UlvenikIcons.overflowMenu,
                                 color: _textSecondary,
                                 size: 22,
                               )
@@ -1118,8 +1111,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                               shape: BoxShape.circle,
                               border: Border.all(color: _border),
                             ),
-                            child: const Icon(
-                              Icons.star_rounded,
+                            child: const UlvenikIcon(UlvenikIcons.goals,
                               color: _gold,
                               size: 11.5,
                             ),
@@ -1146,8 +1138,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          const Icon(
-                            Icons.pets_rounded,
+                          const UlvenikIcon(UlvenikIcons.dogs,
                             color: _sage,
                             size: 13,
                           ),
@@ -1174,8 +1165,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   behavior: HitTestBehavior.opaque,
                   child: const Padding(
                     padding: EdgeInsets.only(left: 8, bottom: 8),
-                    child: Icon(
-                      Icons.more_horiz_rounded,
+                    child: UlvenikIcon(UlvenikIcons.more,
                       color: _textSecondary,
                       size: 18,
                     ),
@@ -1188,7 +1178,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             const SizedBox(height: 12),
             Row(
               children: [
-                Icon(
+                UlvenikIcon.fromMaterial(
                   isInactive
                       ? Icons.event_busy_outlined
                       : Icons.calendar_today_outlined,
@@ -1235,8 +1225,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             const SizedBox(height: 7),
             Row(
               children: [
-                const Icon(
-                  Icons.access_time_rounded,
+                const UlvenikIcon(UlvenikIcons.trainingTime,
                   color: _sageIcon,
                   size: 14,
                 ),
@@ -1273,7 +1262,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                     });
                   },
                   behavior: HitTestBehavior.opaque,
-                  child: Icon(
+                  child: UlvenikIcon.fromMaterial(
                     isSwipedOpen
                         ? Icons.chevron_left_rounded
                         : Icons.chevron_right_rounded,
@@ -1446,8 +1435,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                     shape: BoxShape.circle,
                     border: Border.all(color: _border),
                   ),
-                  child: const Icon(
-                    Icons.group_add_outlined,
+                  child: const UlvenikIcon(UlvenikIcons.add,
                     color: _sage,
                     size: 24,
                   ),
@@ -1490,7 +1478,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  icon: const Icon(Icons.person_add_alt_1_outlined, size: 17),
+                  icon: const UlvenikIcon(UlvenikIcons.add, size: 17),
                   label: const Text(
                     'Add Client',
                     style: TextStyle(

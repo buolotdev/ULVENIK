@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -523,8 +524,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                         ),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.person_outline_rounded,
+                            const UlvenikIcon(UlvenikIcons.overflowMenu,
                               color: _sageIcon,
                               size: 19,
                             ),
@@ -706,7 +706,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                               ),
                             ),
                           ),
-                          Icon(
+                          UlvenikIcon.fromMaterial(
                             selected
                                 ? Icons.radio_button_checked_rounded
                                 : Icons.radio_button_off_rounded,
@@ -874,8 +874,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                     if (canPop)
                       IconButton(
                         onPressed: () => Navigator.of(context).maybePop(),
-                        icon: const Icon(
-                          Icons.chevron_left,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 26,
                         ),
@@ -896,8 +895,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                     IconButton(
                       onPressed: _openEditProfile,
                       tooltip: 'Edit Profile',
-                      icon: const Icon(
-                        Icons.edit_outlined,
+                      icon: const UlvenikIcon(UlvenikIcons.edit,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 20,
                       ),
@@ -1548,7 +1546,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, color: _sageIcon, size: 16),
+              UlvenikIcon.fromMaterial(icon, color: _sageIcon, size: 16),
               const SizedBox(width: 7),
               Text(
                 label,
@@ -1588,8 +1586,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   color: _streakIconBg,
                   borderRadius: BorderRadius.circular(11),
                 ),
-                child: const Icon(
-                  Icons.local_fire_department_outlined,
+                child: const UlvenikIcon(UlvenikIcons.overflowMenu,
                   color: _sageIcon,
                   size: 22,
                 ),
@@ -1632,8 +1629,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 ),
               ),
               const SizedBox(width: 2),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _mint,
                 size: 17,
               ),
@@ -1744,8 +1740,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Icon(
-                      Icons.chevron_right_rounded,
+                    UlvenikIcon(UlvenikIcons.details,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 19,
                     ),
@@ -1809,7 +1804,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
           child: Row(
             children: [
-              Icon(icon, color: _sageIcon, size: 20),
+              UlvenikIcon.fromMaterial(icon, color: _sageIcon, size: 20),
               const SizedBox(width: 14),
               Expanded(
                 child: Column(
@@ -1839,8 +1834,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 ),
               ),
               const SizedBox(width: 8),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 19,
               ),
@@ -1900,8 +1894,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(sheetCtx).pop(),
-                    icon: const Icon(
-                      Icons.close_rounded,
+                    icon: const UlvenikIcon(UlvenikIcons.back,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -1939,7 +1932,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
         child: Row(
           children: [
-            Icon(icon, color: color ?? _sageIcon, size: 20),
+            UlvenikIcon.fromMaterial(icon, color: color ?? _sageIcon, size: 20),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -1952,8 +1945,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 ),
               ),
             ),
-            const Icon(
-              Icons.chevron_right_rounded,
+            const UlvenikIcon(UlvenikIcons.details,
               color: AppColors.secondaryTextStoneGrey,
               size: 18,
             ),
@@ -2091,8 +2083,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
               const SizedBox(height: 16),
               Row(
                 children: [
-                  const Icon(
-                    Icons.local_fire_department_rounded,
+                  const UlvenikIcon(UlvenikIcons.overflowMenu,
                     color: _mint,
                     size: 22,
                   ),
@@ -2110,8 +2101,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(
-                      Icons.close_rounded,
+                    icon: const UlvenikIcon(UlvenikIcons.back,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -2236,7 +2226,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: widget.onRecordQuickSession,
-                  icon: const Icon(Icons.add_task_rounded, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.recordSession, size: 18),
                   label: const Text(
                     'Record Quick Session (+1 Day Streak)',
                     style: TextStyle(

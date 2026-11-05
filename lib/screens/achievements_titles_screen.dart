@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -524,8 +525,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
@@ -551,8 +551,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
           ),
           IconButton(
             onPressed: _openFilterSheet,
-            icon: Icon(
-              Icons.filter_alt_outlined,
+            icon: UlvenikIcon(UlvenikIcons.sort,
               color: _hasActiveFilter ? _mint : _offWhite,
               size: 22,
             ),
@@ -560,8 +559,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
           ),
           IconButton(
             onPressed: _openSortSheet,
-            icon: Icon(
-              Icons.filter_list_rounded,
+            icon: UlvenikIcon(UlvenikIcons.sort,
               color: _sortMode != 'Newest First' ? _mint : _stone,
               size: 22,
             ),
@@ -587,7 +585,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
       ),
       child: Row(
         children: [
-          const Icon(Icons.tune_rounded, color: _mint, size: 16),
+          const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -776,7 +774,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Row(
                 children: [
-                  Icon(leadingIcon, color: _stone, size: 19),
+                  UlvenikIcon.fromMaterial(leadingIcon, color: _stone, size: 19),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
@@ -810,7 +808,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     isOpen
                         ? Icons.keyboard_arrow_up_rounded
                         : Icons.keyboard_arrow_down_rounded,
@@ -893,7 +891,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                 color: _forest.withValues(alpha: 0.16),
                 borderRadius: BorderRadius.circular(11),
               ),
-              child: Icon(icon, color: _greenAccent, size: 20),
+              child: UlvenikIcon.fromMaterial(icon, color: _greenAccent, size: 20),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -955,8 +953,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.description_outlined,
+                              UlvenikIcon(UlvenikIcons.training,
                                 color: _greenAccent,
                                 size: 13,
                               ),
@@ -993,8 +990,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
               ),
             ),
             const SizedBox(width: 8),
-            const Icon(
-              Icons.chevron_right_rounded,
+            const UlvenikIcon(UlvenikIcons.details,
               color: _stone,
               size: 19,
             ),
@@ -1021,7 +1017,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.add_rounded, color: _greenAccent, size: 20),
+              UlvenikIcon(UlvenikIcons.add, color: _greenAccent, size: 20),
               SizedBox(width: 8),
               Text(
                 'Add Custom Achievement',
@@ -1055,7 +1051,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
           ),
           child: const Row(
             children: [
-              Icon(Icons.ios_share_rounded, color: _stone, size: 19),
+              UlvenikIcon(UlvenikIcons.overflowMenu, color: _stone, size: 19),
               SizedBox(width: 12),
               Expanded(
                 child: Text(
@@ -1068,7 +1064,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                   ),
                 ),
               ),
-              Icon(Icons.chevron_right_rounded, color: _stone, size: 19),
+              UlvenikIcon(UlvenikIcons.details, color: _stone, size: 19),
             ],
           ),
         ),
@@ -1124,8 +1120,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                             color: _forest.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: const Icon(
-                            Icons.emoji_events_outlined,
+                          child: const UlvenikIcon(UlvenikIcons.goals,
                             color: _mint,
                             size: 22,
                           ),
@@ -1288,7 +1283,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        icon: const Icon(Icons.verified_outlined, size: 18),
+                        icon: const UlvenikIcon(UlvenikIcons.completed, size: 18),
                         label: Text(
                           item.hasCertificate
                               ? 'Share Verified Title & Certificate'
@@ -1507,7 +1502,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                       ),
                     ),
                     trailing: sel
-                        ? const Icon(Icons.check_rounded, color: _mint)
+                        ? const UlvenikIcon(UlvenikIcons.completed, color: _mint)
                         : null,
                     onTap: () {
                       Navigator.pop(ctx);
@@ -1879,7 +1874,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                             ),
                             child: Row(
                               children: [
-                                Icon(
+                                UlvenikIcon.fromMaterial(
                                   active
                                       ? Icons.radio_button_checked_rounded
                                       : Icons.radio_button_off_rounded,
@@ -1925,7 +1920,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        icon: const Icon(Icons.ios_share_rounded, size: 18),
+                        icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
                         label: const Text(
                           'Export & Share Report',
                           style: TextStyle(

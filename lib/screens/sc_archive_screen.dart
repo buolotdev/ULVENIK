@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'sc_settings_screen.dart';
 
 enum ArchiveCategory { activity, template }
@@ -164,7 +165,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
-            const Icon(Icons.unarchive_outlined, color: _mint, size: 24),
+            const UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 24),
             const SizedBox(width: 10),
             const Expanded(
               child: Text(
@@ -225,7 +226,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
-            const Icon(Icons.warning_amber_rounded, color: _errorRed, size: 24),
+            const UlvenikIcon(UlvenikIcons.notifications, color: _errorRed, size: 24),
             const SizedBox(width: 10),
             const Expanded(
               child: Text(
@@ -326,7 +327,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
           bottom: BorderSide(color: Color(0x14FFFFFF), width: 1),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _mint),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _mint),
           tooltip: 'Back',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
@@ -351,7 +352,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
             tooltip: _isEmptyState
                 ? 'Switch to Populated Archive'
                 : 'Switch to Empty Archive',
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _isEmptyState ? Icons.inventory_2_outlined : Icons.inventory_2,
               color: _mint,
               size: 22,
@@ -361,7 +362,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
             },
           ),
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert, color: _stoneGrey),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey),
             tooltip: 'Options',
             color: _carbon,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -393,7 +394,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                 value: 'toggle',
                 child: Row(
                   children: [
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _isEmptyState ? Icons.visibility : Icons.visibility_off,
                       color: _mint,
                       size: 18,
@@ -411,7 +412,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                   value: 'restore_all',
                   child: Row(
                     children: [
-                      Icon(Icons.unarchive_outlined, color: _mint, size: 18),
+                      UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
                       SizedBox(width: 10),
                       Text('Restore All Items', style: TextStyle(color: _offWhite, fontSize: 13)),
                     ],
@@ -421,7 +422,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                   value: 'empty_all',
                   child: Row(
                     children: [
-                      Icon(Icons.delete_sweep_outlined, color: _errorRed, size: 18),
+                      UlvenikIcon(UlvenikIcons.back, color: _errorRed, size: 18),
                       SizedBox(width: 10),
                       Text('Empty Entire Archive', style: TextStyle(color: _errorRed, fontSize: 13)),
                     ],
@@ -432,7 +433,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                 value: 'reset',
                 child: Row(
                   children: [
-                    Icon(Icons.restart_alt, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.history, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Reset Demo Data', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -442,7 +443,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                 value: 'settings',
                 child: Row(
                   children: [
-                    Icon(Icons.settings_outlined, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('S & C Settings', style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600)),
                   ],
@@ -530,10 +531,10 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
         style: const TextStyle(color: _offWhite, fontSize: 14),
         decoration: InputDecoration(
           border: InputBorder.none,
-          prefixIcon: const Icon(Icons.search, color: _stoneGrey, size: 20),
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
                   onPressed: () {
                     _searchController.clear();
                   },
@@ -576,7 +577,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
             children: [
               const Row(
                 children: [
-                  Icon(Icons.inventory_2_outlined, color: _mint, size: 16),
+                  UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 16),
                   SizedBox(width: 8),
                   Text(
                     'ARCHIVE RETENTION IMPACT',
@@ -738,8 +739,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                 AnimatedRotation(
                   turns: isExpanded ? 0 : -0.25,
                   duration: const Duration(milliseconds: 200),
-                  child: const Icon(
-                    Icons.expand_more,
+                  child: const UlvenikIcon(UlvenikIcons.sort,
                     color: _muted,
                     size: 22,
                   ),
@@ -799,7 +799,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                   ),
                 ),
                 child: Center(
-                  child: Icon(item.icon, color: _mint, size: 20),
+                  child: UlvenikIcon.fromMaterial(item.icon, color: _mint, size: 20),
                 ),
               ),
               const SizedBox(width: 12),
@@ -842,8 +842,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
               ),
 
               // Archive Box Icon on right
-              const Icon(
-                Icons.inventory_2_outlined,
+              const UlvenikIcon(UlvenikIcons.skills,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -906,7 +905,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
         padding: const EdgeInsets.symmetric(vertical: 40),
         child: Column(
           children: [
-            const Icon(Icons.search_off, color: _stoneGrey, size: 48),
+            const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 48),
             const SizedBox(height: 12),
             const Text(
               'No archived items found',
@@ -952,8 +951,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                 ),
               ),
               child: const Center(
-                child: Icon(
-                  Icons.archive_outlined,
+                child: UlvenikIcon(UlvenikIcons.skills,
                   color: _mint,
                   size: 40,
                 ),
@@ -997,7 +995,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
               ),
-              icon: const Icon(Icons.arrow_back, size: 18),
+              icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
               label: const Text(
                 'Return to Dashboard',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
@@ -1011,7 +1009,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
             // Demo Shortcut to Populated State
             TextButton.icon(
               style: TextButton.styleFrom(foregroundColor: _mint),
-              icon: const Icon(Icons.visibility, size: 16),
+              icon: const UlvenikIcon(UlvenikIcons.details, size: 16),
               label: const Text(
                 'View Populated State (Demo Data)',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),

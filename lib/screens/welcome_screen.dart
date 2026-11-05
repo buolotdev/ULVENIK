@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import 'login_screen.dart';
 import 'register_screen.dart';
@@ -191,7 +192,7 @@ class WelcomeScreen extends StatelessWidget {
             label,
             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
           ),
-          const Icon(Icons.arrow_forward, size: 20),
+          const UlvenikIcon(UlvenikIcons.details, size: 20),
         ],
       ),
     );
@@ -221,7 +222,7 @@ class WelcomeScreen extends StatelessWidget {
             label,
             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
           ),
-          const Icon(Icons.arrow_forward, size: 20),
+          const UlvenikIcon(UlvenikIcons.details, size: 20),
         ],
       ),
     );
@@ -252,7 +253,7 @@ class WelcomeScreen extends StatelessWidget {
           else if (icon != null)
             Padding(
               padding: const EdgeInsets.only(top: 2),
-              child: Icon(icon, size: 24),
+              child: UlvenikIcon.fromMaterial(icon, size: 24),
             ),
           const SizedBox(width: 8),
           Text(

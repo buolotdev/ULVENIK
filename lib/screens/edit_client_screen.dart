@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'trainer_dashboard_screen.dart';
@@ -390,8 +391,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(
-                        Icons.close,
+                      icon: const UlvenikIcon(UlvenikIcons.back,
                         color: AppColors.secondaryTextStoneGrey,
                       ),
                       onPressed: () => Navigator.pop(ctx),
@@ -424,8 +424,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                           ),
                         ),
                         trailing: isSelected
-                            ? const Icon(
-                                Icons.check_circle_rounded,
+                            ? const UlvenikIcon(UlvenikIcons.completed,
                                 color: AppColors.primaryForestGreen,
                                 size: 20,
                               )
@@ -484,8 +483,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                 ),
                 const SizedBox(height: 20),
                 ListTile(
-                  leading: const Icon(
-                    Icons.camera_alt_outlined,
+                  leading: const UlvenikIcon(UlvenikIcons.play,
                     color: AppColors.primaryForestGreen,
                   ),
                   title: const Text(
@@ -503,8 +501,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(
-                    Icons.photo_library_outlined,
+                  leading: const UlvenikIcon(UlvenikIcons.play,
                     color: AppColors.infoAlpineBlue,
                   ),
                   title: const Text(
@@ -522,8 +519,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(
-                    Icons.delete_outline,
+                  leading: const UlvenikIcon(UlvenikIcons.back,
                     color: AppColors.errorDestructive,
                   ),
                   title: const Text(
@@ -760,8 +756,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                                 width: 1.5,
                               ),
                             ),
-                            child: const Icon(
-                              Icons.camera_alt_rounded,
+                            child: const UlvenikIcon(UlvenikIcons.play,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 15,
                             ),
@@ -971,8 +966,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                               ),
                             ],
                           ),
-                          const Icon(
-                            Icons.chevron_right_rounded,
+                          const UlvenikIcon(UlvenikIcons.details,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 20,
                           ),
@@ -1034,8 +1028,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                     ),
                     child: const Row(
                       children: [
-                        Icon(
-                          Icons.info_outline_rounded,
+                        UlvenikIcon(UlvenikIcons.notifications,
                           color: AppColors.infoAlpineBlue,
                           size: 18,
                         ),
@@ -1448,7 +1441,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: 13, color: AppColors.secondaryTextStoneGrey),
+              UlvenikIcon.fromMaterial(icon, size: 13, color: AppColors.secondaryTextStoneGrey),
               const SizedBox(width: 4),
               Text(
                 badgeText,
@@ -1480,7 +1473,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
         Row(
           children: [
             if (icon != null) ...[
-              Icon(icon, size: 16, color: AppColors.secondaryTextStoneGrey),
+              UlvenikIcon.fromMaterial(icon, size: 16, color: AppColors.secondaryTextStoneGrey),
               const SizedBox(width: 6),
             ],
             Text(
@@ -1539,7 +1532,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
       child: Row(
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 18, color: AppColors.secondaryTextStoneGrey),
+            UlvenikIcon.fromMaterial(icon, size: 18, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(width: 12),
           ],
           Expanded(

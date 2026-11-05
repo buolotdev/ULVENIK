@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/app_colors.dart';
 
@@ -417,7 +418,7 @@ class _HealthReportsTimelineScreenState
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _mint),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _mint),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
       title: const Text('Health History',
@@ -425,7 +426,7 @@ class _HealthReportsTimelineScreenState
       centerTitle: false,
       actions: [
         IconButton(
-          icon: Icon(_showSearch ? Icons.search_off : Icons.search,
+          icon: UlvenikIcon.fromMaterial(_showSearch ? Icons.search_off : Icons.search,
               color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: () {
             if (_isEmpty) setState(() => _isEmpty = false);
@@ -439,16 +440,16 @@ class _HealthReportsTimelineScreenState
           },
         ),
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showFilterSheet,
         ),
         IconButton(
-          icon: const Icon(Icons.share_outlined, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showShareSheet,
         ),
         IconButton(
           tooltip: 'Toggle empty / populated',
-          icon: Icon(_isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on,
+          icon: UlvenikIcon.fromMaterial(_isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on,
               color: _isEmpty ? AppColors.secondaryTextStoneGrey : _mint, size: 26),
           onPressed: () {
             setState(() => _isEmpty = !_isEmpty);
@@ -514,7 +515,7 @@ class _HealthReportsTimelineScreenState
           width: size,
           height: size,
           fit: BoxFit.cover,
-          errorBuilder: (c, e, s) => Icon(Icons.pets, size: size * 0.5, color: _mint),
+          errorBuilder: (c, e, s) => UlvenikIcon(UlvenikIcons.dogs, size: size * 0.5, color: _mint),
         ),
       ),
     );
@@ -546,7 +547,7 @@ class _HealthReportsTimelineScreenState
               ],
             ),
           ),
-          const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+          const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
         ]),
       ),
     );
@@ -573,7 +574,7 @@ class _HealthReportsTimelineScreenState
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(icon, size: 20, color: iconColor),
+            UlvenikIcon.fromMaterial(icon, size: 20, color: iconColor),
             const SizedBox(height: 10),
             value,
             const SizedBox(height: 2),
@@ -693,7 +694,7 @@ class _HealthReportsTimelineScreenState
             children: [
               Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     isWeight ? Icons.show_chart_rounded : Icons.bar_chart_rounded,
                     color: _mint,
                     size: 18,
@@ -803,7 +804,7 @@ class _HealthReportsTimelineScreenState
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.filter_alt_outlined, size: 13, color: _mint),
+                        UlvenikIcon(UlvenikIcons.sort, size: 13, color: _mint),
                         SizedBox(width: 4),
                         Text(
                           'View',
@@ -1061,7 +1062,7 @@ class _HealthReportsTimelineScreenState
               child: Row(mainAxisSize: MainAxisSize.min, children: [
                 Text(label, style: const TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w500)),
                 const SizedBox(width: 4),
-                const Icon(Icons.close, size: 16, color: _mint),
+                const UlvenikIcon(UlvenikIcons.back, size: 16, color: _mint),
               ]),
             ),
           ),
@@ -1093,7 +1094,7 @@ class _HealthReportsTimelineScreenState
               Text('Add Filter',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500)),
               SizedBox(width: 4),
-              Icon(Icons.add, size: 16, color: AppColors.secondaryTextStoneGrey),
+              UlvenikIcon(UlvenikIcons.add, size: 16, color: AppColors.secondaryTextStoneGrey),
             ]),
           ),
         ),
@@ -1110,7 +1111,7 @@ class _HealthReportsTimelineScreenState
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Row(children: [
-        const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+        const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
         const SizedBox(width: 10),
         Expanded(
           child: TextField(
@@ -1134,7 +1135,7 @@ class _HealthReportsTimelineScreenState
               _searchController.clear();
               setState(() => _query = '');
             },
-            child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+            child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
           ),
       ]),
     );
@@ -1249,7 +1250,7 @@ class _HealthReportsTimelineScreenState
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(e.type.icon,
+                  UlvenikIcon.fromMaterial(e.type.icon,
                       size: 20,
                       color: isCondition ? _red : (highlight ? _mint : AppColors.secondaryTextStoneGrey)),
                   const SizedBox(width: 10),
@@ -1305,7 +1306,7 @@ class _HealthReportsTimelineScreenState
             Text(label,
                 style: const TextStyle(
                     color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
-            if (arrow) const Icon(Icons.arrow_forward, size: 18, color: AppColors.primaryTextOffWhite),
+            if (arrow) const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.primaryTextOffWhite),
           ],
         ),
       ),
@@ -1330,7 +1331,7 @@ class _HealthReportsTimelineScreenState
                 color: AppColors.cardsCarbon,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
-              child: const Icon(Icons.favorite_border, color: _mint, size: 52),
+              child: const UlvenikIcon(UlvenikIcons.health, color: _mint, size: 52),
             ),
           ),
           const SizedBox(height: 24),
@@ -1371,7 +1372,7 @@ class _HealthReportsTimelineScreenState
                     color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           ),
           IconButton(
-            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
             onPressed: () => Navigator.pop(ctx),
           ),
         ],
@@ -1680,7 +1681,7 @@ class _HealthReportsTimelineScreenState
                               border: Border.all(color: _forest),
                             ),
                             child: Row(children: [
-                              const Icon(Icons.check_circle, color: _mint),
+                              const UlvenikIcon(UlvenikIcons.completed, color: _mint),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text('$format ready to share.',
@@ -1742,7 +1743,7 @@ class _HealthReportsTimelineScreenState
                             ],
                           ),
                         ),
-                        if (sel) const Icon(Icons.check_circle, color: _mint, size: 20),
+                        if (sel) const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20),
                       ]),
                     ),
                   );

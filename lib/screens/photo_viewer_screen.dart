@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -379,7 +380,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 const SizedBox(height: 16),
                 const Row(
                   children: [
-                    Icon(Icons.camera_outlined, color: _forest, size: 20),
+                    UlvenikIcon(UlvenikIcons.play, color: _forest, size: 20),
                     SizedBox(width: 8),
                     Text(
                       'EXIF & Capture Metadata',
@@ -615,7 +616,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 const SizedBox(height: 10),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.edit_note_rounded, color: _offWhite),
+                  leading: const UlvenikIcon(UlvenikIcons.edit, color: _offWhite),
                   title: const Text(
                     'Edit Photo Notes',
                     style: TextStyle(fontFamily: 'Inter', color: _offWhite),
@@ -627,7 +628,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.info_outline_rounded, color: _offWhite),
+                  leading: const UlvenikIcon(UlvenikIcons.notifications, color: _offWhite),
                   title: const Text(
                     'View EXIF & Camera Info',
                     style: TextStyle(fontFamily: 'Inter', color: _offWhite),
@@ -639,7 +640,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.zoom_in_rounded, color: _offWhite),
+                  leading: const UlvenikIcon(UlvenikIcons.details, color: _offWhite),
                   title: Text(
                     _isZoomed ? 'Reset Photo Zoom (1×)' : 'Zoom In Photo (2.2×)',
                     style: const TextStyle(fontFamily: 'Inter', color: _offWhite),
@@ -860,8 +861,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
               children: [
                 IconButton(
                   onPressed: () => Navigator.of(context).maybePop(),
-                  icon: const Icon(
-                    Icons.chevron_left_rounded,
+                  icon: const UlvenikIcon(UlvenikIcons.back,
                     color: _offWhite,
                     size: 26,
                   ),
@@ -883,8 +883,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 ),
                 IconButton(
                   onPressed: _showOverflowSheet,
-                  icon: const Icon(
-                    Icons.more_vert_rounded,
+                  icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                     color: _offWhite,
                     size: 20,
                   ),
@@ -902,8 +901,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
               child: Center(
                 child: IconButton(
                   onPressed: () => _goToSlide(_currentIndex - 1),
-                  icon: Icon(
-                    Icons.chevron_left_rounded,
+                  icon: UlvenikIcon(UlvenikIcons.back,
                     color: _offWhite.withValues(alpha: 0.72),
                     size: 28,
                   ),
@@ -920,8 +918,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
               child: Center(
                 child: IconButton(
                   onPressed: () => _goToSlide(_currentIndex + 1),
-                  icon: Icon(
-                    Icons.chevron_right_rounded,
+                  icon: UlvenikIcon(UlvenikIcons.details,
                     color: _offWhite.withValues(alpha: 0.72),
                     size: 28,
                   ),
@@ -1012,8 +1009,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.info_outline_rounded,
+                    UlvenikIcon(UlvenikIcons.notifications,
                       size: 14,
                       color: _stoneGrey.withValues(alpha: 0.85),
                     ),
@@ -1156,7 +1152,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: iconColor, size: 21),
+            UlvenikIcon.fromMaterial(icon, color: iconColor, size: 21),
             const SizedBox(height: 6),
             Text(
               label,
@@ -1201,8 +1197,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
           ),
           child: Row(
             children: [
-              const Icon(
-                Icons.description_outlined,
+              const UlvenikIcon(UlvenikIcons.training,
                 color: _stoneGrey,
                 size: 21,
               ),
@@ -1232,8 +1227,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/app_colors.dart';
 
@@ -338,7 +339,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: AppColors.secondaryTextStoneGrey, size: 22),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 22),
         onPressed: () => Navigator.of(context).maybePop(),
         tooltip: 'Back',
       ),
@@ -355,7 +356,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
       actions: [
         // Search quick trigger
         IconButton(
-          icon: const Icon(Icons.search, color: AppColors.primaryTextOffWhite, size: 20),
+          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 20),
           tooltip: 'Search Sessions',
           onPressed: () {
             if (_isEmpty) {
@@ -366,13 +367,13 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         ),
         // Filter options sheet
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 20),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.primaryTextOffWhite, size: 20),
           tooltip: 'Filter Options',
           onPressed: _showFilterOptionsModal,
         ),
         // Empty / Populated Toggle (Interactive testing switcher)
         IconButton(
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on,
             color: _isEmpty ? AppColors.secondaryTextStoneGrey : const Color(0xFF95D3BB),
             size: 26,
@@ -382,7 +383,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         ),
         // Add Session
         IconButton(
-          icon: const Icon(Icons.add, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 22),
           tooltip: 'Record Session',
           onPressed: _showAddSessionModal,
         ),
@@ -470,7 +471,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   errorBuilder: (context, error, stackTrace) => Container(
                     color: const Color(0xFF2E6B57),
                     alignment: Alignment.center,
-                    child: const Icon(Icons.pets, size: 20, color: Color(0xFF95D3BB)),
+                    child: const UlvenikIcon(UlvenikIcons.dogs, size: 20, color: Color(0xFF95D3BB)),
                   ),
                 ),
               ),
@@ -498,7 +499,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -677,7 +678,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                     letterSpacing: 0.6,
                   ),
                 ),
-                Icon(icon, size: 15, color: AppColors.secondaryTextStoneGrey),
+                UlvenikIcon.fromMaterial(icon, size: 15, color: AppColors.secondaryTextStoneGrey),
               ],
             ),
             valueWidget,
@@ -731,7 +732,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       ),
                     ),
                     SizedBox(width: 4),
-                    Icon(Icons.refresh, size: 12, color: AppColors.secondaryTextStoneGrey),
+                    UlvenikIcon(UlvenikIcons.history, size: 12, color: AppColors.secondaryTextStoneGrey),
                   ],
                 ),
               ),
@@ -1005,7 +1006,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -1043,7 +1044,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   _searchQuery = '';
                 });
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -1090,7 +1091,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             ),
             child: Column(
               children: [
-                const Icon(Icons.search_off, size: 36, color: AppColors.secondaryTextStoneGrey),
+                const UlvenikIcon(UlvenikIcons.search, size: 36, color: AppColors.secondaryTextStoneGrey),
                 const SizedBox(height: 12),
                 const Text(
                   'No matching sessions found',
@@ -1184,7 +1185,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                     children: [
                       Row(
                         children: [
-                          Icon(typeIcon, size: 16, color: iconColor),
+                          UlvenikIcon.fromMaterial(typeIcon, size: 16, color: iconColor),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
@@ -1231,7 +1232,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.medical_services_outlined, size: 13, color: AppColors.errorDestructive),
+                  const UlvenikIcon(UlvenikIcons.health, size: 13, color: AppColors.errorDestructive),
                   const SizedBox(width: 6),
                   Text(
                     session.conditionTag,
@@ -1305,7 +1306,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         ),
         child: Row(
           children: const [
-            Icon(Icons.add, color: Color(0xFFAAE9D0), size: 20),
+            UlvenikIcon(UlvenikIcons.add, color: Color(0xFFAAE9D0), size: 20),
             SizedBox(width: 8),
             Text(
               'Record Session',
@@ -1316,7 +1317,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
               ),
             ),
             Spacer(),
-            Icon(Icons.arrow_forward, color: Color(0xFFAAE9D0), size: 18),
+            UlvenikIcon(UlvenikIcons.details, color: Color(0xFFAAE9D0), size: 18),
           ],
         ),
       ),
@@ -1368,7 +1369,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                     ],
                   ),
                 ),
-                const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
+                const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),
@@ -1384,8 +1385,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 color: AppColors.cardsCarbon,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08), width: 1.5),
               ),
-              child: const Icon(
-                Icons.waves,
+              child: const UlvenikIcon(UlvenikIcons.health,
                 color: Color(0xFF95D3BB),
                 size: 38,
               ),
@@ -1452,7 +1452,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             height: size,
             color: const Color(0xFF2E6B57),
             alignment: Alignment.center,
-            child: Icon(Icons.pets, size: size * 0.55, color: const Color(0xFF95D3BB)),
+            child: UlvenikIcon(UlvenikIcons.dogs, size: size * 0.55, color: const Color(0xFF95D3BB)),
           ),
         ),
       ),
@@ -1512,7 +1512,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1818,7 +1818,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1898,7 +1898,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                             children: [
                               const Padding(
                                 padding: EdgeInsets.only(top: 5, right: 8),
-                                child: Icon(Icons.check_circle, size: 14, color: Color(0xFF95D3BB)),
+                                child: UlvenikIcon(UlvenikIcons.completed, size: 14, color: Color(0xFF95D3BB)),
                               ),
                               Expanded(
                                 child: Text(ex, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
@@ -1975,7 +1975,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 13, color: const Color(0xFF95D3BB)),
+          UlvenikIcon.fromMaterial(icon, size: 13, color: const Color(0xFF95D3BB)),
           const SizedBox(width: 6),
           Text(text, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 11, fontWeight: FontWeight.w500)),
         ],
@@ -2041,7 +2041,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                             ),
                           ),
                           if (isSelected)
-                            const Icon(Icons.check_circle, color: Color(0xFF95D3BB), size: 20),
+                            const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB), size: 20),
                         ],
                       ),
                     ),
@@ -2084,7 +2084,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(tab, style: TextStyle(color: isSelected ? const Color(0xFF95D3BB) : AppColors.primaryTextOffWhite, fontSize: 14)),
-                    trailing: isSelected ? const Icon(Icons.check, color: Color(0xFF95D3BB)) : null,
+                    trailing: isSelected ? const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB)) : null,
                     onTap: () {
                       setState(() => _selectedFilterTab = tab);
                       Navigator.pop(ctx);

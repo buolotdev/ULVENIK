@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'rewards_management_screen.dart';
@@ -203,8 +204,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                       behavior: HitTestBehavior.opaque,
                       child: const Padding(
                         padding: EdgeInsets.all(4),
-                        child: Icon(
-                          Icons.close_rounded,
+                        child: UlvenikIcon(UlvenikIcons.back,
                           size: 20,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
@@ -572,7 +572,7 @@ class _RewardTypePill extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            UlvenikIcon.fromMaterial(
               icon,
               size: 16,
               color: isSelected
@@ -593,8 +593,7 @@ class _RewardTypePill extends StatelessWidget {
             ),
             if (isSelected) ...[
               const SizedBox(width: 7),
-              const Icon(
-                Icons.check_rounded,
+              const UlvenikIcon(UlvenikIcons.completed,
                 size: 15,
                 color: AppColors.primaryForestGreen,
               ),

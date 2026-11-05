@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'timeline_statistics_screen.dart';
 import 'timeline_favourites_screen.dart';
 import 'timeline_archive_screen.dart';
@@ -169,7 +170,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -206,7 +207,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                       style: const TextStyle(color: _stoneGrey, fontSize: 12),
                     ),
                     trailing: isSelected
-                        ? const Icon(Icons.check_circle, color: _mint, size: 20)
+                        ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
                         : null,
                     onTap: () {
                       setState(() {
@@ -278,7 +279,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
       backgroundColor: _obsidian,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _whiteText, size: 22),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _whiteText, size: 22),
         onPressed: () => Navigator.pop(context),
       ),
       title: const Text(
@@ -292,7 +293,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
       centerTitle: true,
       actions: [
         PopupMenuButton<String>(
-          icon: const Icon(Icons.more_vert, color: _whiteText, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _whiteText, size: 22),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -325,7 +326,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
               value: 'toggle_state',
               child: Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     _isEmpty ? Icons.file_download_outlined : Icons.hourglass_empty,
                     color: _mint,
                     size: 18,
@@ -342,7 +343,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
               value: 'favourites',
               child: Row(
                 children: [
-                  Icon(Icons.favorite, color: Color(0xFFB8920A), size: 18),
+                  UlvenikIcon(UlvenikIcons.health, color: Color(0xFFB8920A), size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Favourites', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -352,7 +353,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
               value: 'archive',
               child: Row(
                 children: [
-                  Icon(Icons.archive_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Archive', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -362,7 +363,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
               value: 'switch_dog',
               child: Row(
                 children: [
-                  Icon(Icons.pets, color: _stoneGrey, size: 18),
+                  UlvenikIcon(UlvenikIcons.dogs, color: _stoneGrey, size: 18),
                   SizedBox(width: 10),
                   Text('Switch Dog Profile', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -372,7 +373,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
               value: 'statistics',
               child: Row(
                 children: [
-                  Icon(Icons.insights_outlined, color: _stoneGrey, size: 18),
+                  UlvenikIcon(UlvenikIcons.progress, color: _stoneGrey, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Statistics', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -546,7 +547,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Row(
           children: [
-            Icon(icon, color: isSelected ? _mint : _stoneGrey, size: 20),
+            UlvenikIcon.fromMaterial(icon, color: isSelected ? _mint : _stoneGrey, size: 20),
             const SizedBox(width: 14),
             Expanded(
               child: Text(
@@ -755,7 +756,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: _carbonBorder),
                     ),
-                    child: const Icon(Icons.picture_as_pdf_outlined, color: _mint, size: 22),
+                    child: const UlvenikIcon(UlvenikIcons.training, color: _mint, size: 22),
                   ),
                   const SizedBox(width: 14),
                   const Expanded(
@@ -804,7 +805,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: _carbonBorder),
                     ),
-                    child: const Icon(Icons.table_chart_outlined, color: _stoneGrey, size: 22),
+                    child: const UlvenikIcon(UlvenikIcons.training, color: _stoneGrey, size: 22),
                   ),
                   const SizedBox(width: 14),
                   const Expanded(
@@ -853,8 +854,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Large Document Outline Icon
-                Icon(
-                  Icons.article_outlined,
+                UlvenikIcon(UlvenikIcons.training,
                   size: 58,
                   color: _stoneGrey.withValues(alpha: 0.8),
                 ),
@@ -909,7 +909,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                           ),
                         ),
                         SizedBox(width: 6),
-                        Icon(Icons.arrow_forward, size: 16),
+                        UlvenikIcon(UlvenikIcons.details, size: 16),
                       ],
                     ),
                   ),
@@ -982,8 +982,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Icon(
-                    Icons.file_download_outlined,
+                  UlvenikIcon(UlvenikIcons.overflowMenu,
                     size: 18,
                     color: isEnabled ? Colors.white : const Color(0xFF5D6468),
                   ),
@@ -1042,7 +1041,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          UlvenikIcon.fromMaterial(
             icon,
             color: isActive ? _mint : _stoneGrey,
             size: 22,
@@ -1143,7 +1142,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
                     color: _forestGreen.withValues(alpha: 0.25),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(
+                  child: UlvenikIcon.fromMaterial(
                     _isComplete ? Icons.check_circle_outline : Icons.file_download,
                     color: _mint,
                     size: 24,
@@ -1195,7 +1194,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
               ),
               child: Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     widget.format == 'pdf'
                         ? Icons.picture_as_pdf_outlined
                         : Icons.table_chart_outlined,
@@ -1269,7 +1268,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: const Icon(Icons.share, size: 18),
+                      icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
                       label: const Text('Share File', style: TextStyle(fontWeight: FontWeight.w700)),
                     ),
                   ),

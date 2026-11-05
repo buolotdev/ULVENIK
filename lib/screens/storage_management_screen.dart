@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'offline_mode_screen.dart';
@@ -326,8 +327,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                             ),
                             child: Row(
                               children: [
-                                const Icon(
-                                  Icons.videocam_outlined,
+                                const UlvenikIcon(UlvenikIcons.play,
                                   color: _forest,
                                   size: 20,
                                 ),
@@ -374,8 +374,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                                       type: SnackbarType.info,
                                     );
                                   },
-                                  icon: const Icon(
-                                    Icons.delete_outline_rounded,
+                                  icon: const UlvenikIcon(UlvenikIcons.back,
                                     color: _destructiveText,
                                     size: 19,
                                   ),
@@ -443,8 +442,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                 const SizedBox(height: 16),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.videocam_outlined,
+                  leading: const UlvenikIcon(UlvenikIcons.play,
                     color: _forest,
                   ),
                   title: const Text(
@@ -464,8 +462,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                       color: _stoneGrey,
                     ),
                   ),
-                  trailing: const Icon(
-                    Icons.chevron_right_rounded,
+                  trailing: const UlvenikIcon(UlvenikIcons.details,
                     color: _stoneGrey,
                   ),
                   onTap: () {
@@ -476,8 +473,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                 Container(height: 1, color: _cardBorder),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.wifi_off_rounded,
+                  leading: const UlvenikIcon(UlvenikIcons.overflowMenu,
                     color: _alpineBlue,
                   ),
                   title: const Text(
@@ -497,8 +493,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                       color: _stoneGrey,
                     ),
                   ),
-                  trailing: const Icon(
-                    Icons.chevron_right_rounded,
+                  trailing: const UlvenikIcon(UlvenikIcons.details,
                     color: _stoneGrey,
                   ),
                   onTap: () {
@@ -703,8 +698,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(4),
-              child: Icon(
-                Icons.chevron_left_rounded,
+              child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
                 size: 26,
               ),
@@ -895,43 +889,43 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
       (
         'Dog Photos',
         _photosMb,
-        const Icon(Icons.image_outlined, color: _stoneGrey, size: 19),
+        const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey, size: 19),
         false,
       ),
       (
         'Videos',
         _videosMb,
-        const Icon(Icons.videocam_outlined, color: _stoneGrey, size: 19),
+        const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey, size: 19),
         true,
       ),
       (
         'Training Records',
         _trainingRecordsMb,
-        const Icon(Icons.fitness_center_rounded, color: _stoneGrey, size: 18),
+        const UlvenikIcon(UlvenikIcons.exercises, color: _stoneGrey, size: 18),
         false,
       ),
       (
         'S&C Records',
         _scRecordsMb,
-        const Icon(Icons.monitor_heart_outlined, color: _stoneGrey, size: 19),
+        const UlvenikIcon(UlvenikIcons.health, color: _stoneGrey, size: 19),
         false,
       ),
       (
         'Health Records',
         _healthRecordsMb,
-        const Icon(Icons.favorite_border_rounded, color: _stoneGrey, size: 19),
+        const UlvenikIcon(UlvenikIcons.health, color: _stoneGrey, size: 19),
         false,
       ),
       (
         'Timeline',
         _timelineMb,
-        const Icon(Icons.timeline_rounded, color: _stoneGrey, size: 19),
+        const UlvenikIcon(UlvenikIcons.timeline, color: _stoneGrey, size: 19),
         false,
       ),
       (
         'Documents & Attachments',
         _documentsMb,
-        const Icon(Icons.description_outlined, color: _stoneGrey, size: 19),
+        const UlvenikIcon(UlvenikIcons.training, color: _stoneGrey, size: 19),
         false,
       ),
       (
@@ -1020,8 +1014,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                         ),
                         if (r.$4) ...[
                           const SizedBox(width: 8),
-                          const Icon(
-                            Icons.chevron_right_rounded,
+                          const UlvenikIcon(UlvenikIcons.details,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -1089,8 +1082,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                 ),
               ),
               onPressed: _clearCache,
-              icon: const Icon(
-                Icons.cleaning_services_outlined,
+              icon: const UlvenikIcon(UlvenikIcons.health,
                 color: _forest,
                 size: 17,
               ),
@@ -1136,7 +1128,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
           ),
           child: Row(
             children: [
-              const Icon(Icons.download_rounded, color: _stoneGrey, size: 20),
+              const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 20),
               const SizedBox(width: 14),
               const Expanded(
                 child: Column(
@@ -1174,8 +1166,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                 ),
               ),
               const SizedBox(width: 6),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1222,7 +1213,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
               onPressed: _optimiseStorage,
               icon: RotationTransition(
                 turns: _optimiseSpinController,
-                child: const Icon(Icons.autorenew_rounded, size: 19),
+                child: const UlvenikIcon(UlvenikIcons.history, size: 19),
               ),
               label: Text(
                 _isOptimising ? 'Optimising Storage…' : 'Optimise Storage',
@@ -1316,8 +1307,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
               ),
               child: const Row(
                 children: [
-                  Icon(
-                    Icons.delete_outline_rounded,
+                  UlvenikIcon(UlvenikIcons.back,
                     color: _destructiveText,
                     size: 20,
                   ),

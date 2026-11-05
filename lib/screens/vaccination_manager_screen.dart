@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 
 enum VaccineStatus { current, dueSoon, overdue, expired }
@@ -260,8 +261,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
             child: Row(
               children: [
                 const SizedBox(width: 12),
-                const Icon(
-                  Icons.search,
+                const UlvenikIcon(UlvenikIcons.search,
                   color: Color(0xFF95D3BB),
                   size: 20,
                 ),
@@ -312,8 +312,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                           color: Colors.white.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(
-                          Icons.close,
+                        child: const UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 14,
                         ),
@@ -400,7 +399,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: AppColors.secondaryTextStoneGrey, size: 24),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
       title: const Text(
@@ -416,7 +415,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
         // Search icon toggle
         IconButton(
           tooltip: _isSearching ? 'Close Search' : 'Search Vaccines',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isSearching ? Icons.search_off : Icons.search,
             color: _isSearching ? const Color(0xFF95D3BB) : AppColors.secondaryTextStoneGrey,
             size: 24,
@@ -434,13 +433,13 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
         // Filter modal
         IconButton(
           tooltip: 'Filters & Preferences',
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 24),
           onPressed: _showFilterPreferencesModal,
         ),
         // Quick State Toggle (Populated / Empty)
         IconButton(
           tooltip: _isEmpty ? 'Switch to Populated' : 'Switch to Empty',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on_outlined,
             color: _isEmpty ? AppColors.secondaryTextStoneGrey : const Color(0xFF95D3BB),
             size: 26,
@@ -452,7 +451,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
         // Add Button
         IconButton(
           tooltip: 'Add Vaccination',
-          icon: const Icon(Icons.add_circle, color: Color(0xFF95D3BB), size: 26),
+          icon: const UlvenikIcon(UlvenikIcons.add, color: Color(0xFF95D3BB), size: 26),
           onPressed: _showAddVaccineModal,
         ),
         const SizedBox(width: 4),
@@ -588,7 +587,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                   color: AppColors.cardsCarbon,
                   border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
                 ),
-                child: const Icon(Icons.add, color: AppColors.secondaryTextStoneGrey, size: 24),
+                child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.secondaryTextStoneGrey, size: 24),
               ),
               const SizedBox(height: 6),
               const Text(
@@ -631,7 +630,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => Container(
                   color: const Color(0xFF2E6B57),
-                  child: const Icon(Icons.pets, color: Colors.white, size: 20),
+                  child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 20),
                 ),
               ),
             ),
@@ -675,7 +674,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
   Widget _buildEmptyBentoMetric(IconData icon, String count, String label) {
     return Column(
       children: [
-        Icon(icon, color: AppColors.secondaryTextStoneGrey, size: 16),
+        UlvenikIcon.fromMaterial(icon, color: AppColors.secondaryTextStoneGrey, size: 16),
         const SizedBox(height: 4),
         Text(
           count,
@@ -710,8 +709,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
             shape: BoxShape.circle,
             border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
           ),
-          child: const Icon(
-            Icons.shield_outlined,
+          child: const UlvenikIcon(UlvenikIcons.overflowMenu,
             color: Color(0xFF95D3BB),
             size: 32,
           ),
@@ -758,7 +756,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                Icon(Icons.vaccines_outlined, color: Colors.white, size: 18),
+                UlvenikIcon(UlvenikIcons.health, color: Colors.white, size: 18),
                 SizedBox(width: 8),
                 Text(
                   'Add Vaccination',
@@ -769,7 +767,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                   ),
                 ),
                 SizedBox(width: 6),
-                Icon(Icons.arrow_forward, color: Colors.white, size: 16),
+                UlvenikIcon(UlvenikIcons.details, color: Colors.white, size: 16),
               ],
             ),
           ),
@@ -805,7 +803,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                   width: 44,
                   height: 44,
                   color: const Color(0xFF2E6B57),
-                  child: const Icon(Icons.pets, color: Colors.white, size: 20),
+                  child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 20),
                 ),
               ),
             ),
@@ -833,7 +831,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 22),
+            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 22),
           ],
         ),
       ),
@@ -927,7 +925,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(icon, color: iconColor ?? AppColors.secondaryTextStoneGrey, size: 20),
+                    UlvenikIcon.fromMaterial(icon, color: iconColor ?? AppColors.secondaryTextStoneGrey, size: 20),
                     const SizedBox(height: 6),
                     Text(
                       count,
@@ -1160,7 +1158,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                       color: iconCircleBg,
                       border: iconBorder,
                     ),
-                    child: Icon(vax.icon, color: iconColor, size: 20),
+                    child: UlvenikIcon.fromMaterial(vax.icon, color: iconColor, size: 20),
                   ),
                   const SizedBox(width: 14),
                   Expanded(
@@ -1188,7 +1186,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                       ],
                     ),
                   ),
-                  const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
+                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
                 ],
               ),
             ),
@@ -1205,7 +1203,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
       child: Center(
         child: Column(
           children: [
-            const Icon(Icons.vaccines_outlined, size: 36, color: AppColors.secondaryTextStoneGrey),
+            const UlvenikIcon(UlvenikIcons.health, size: 36, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(height: 12),
             Text(
               _searchQuery.isNotEmpty
@@ -1242,7 +1240,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     _searchQuery = '';
                   });
                 },
-                icon: const Icon(Icons.clear, size: 16),
+                icon: const UlvenikIcon(UlvenikIcons.back, size: 16),
                 label: const Text('Reset Search', style: TextStyle(fontWeight: FontWeight.w600)),
               ),
             ],
@@ -1257,7 +1255,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
       backgroundColor: const Color(0xFF2E6B57),
       elevation: 4,
       onPressed: _showAddVaccineModal,
-      child: const Icon(Icons.add, color: Colors.white, size: 28),
+      child: const UlvenikIcon(UlvenikIcons.add, color: Colors.white, size: 28),
     );
   }
 
@@ -1302,7 +1300,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1341,7 +1339,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 ),
                 child: Row(
                   children: const [
-                    Icon(Icons.check_circle_outline, color: Color(0xFF95D3BB), size: 18),
+                    UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB), size: 18),
                     SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -1424,7 +1422,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1553,7 +1551,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1599,7 +1597,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      icon: const Icon(Icons.delete_outline, size: 18),
+                      icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
                       label: const Text('Delete'),
                       onPressed: () {
                         setState(() {
@@ -1618,7 +1616,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-                      icon: const Icon(Icons.refresh, size: 18, color: Colors.white),
+                      icon: const UlvenikIcon(UlvenikIcons.history, size: 18, color: Colors.white),
                       label: const Text('Renew Dose', style: TextStyle(color: Colors.white)),
                       onPressed: () {
                         Navigator.pop(ctx);
@@ -1668,7 +1666,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w700),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1709,7 +1707,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                                 width: 36,
                                 height: 36,
                                 color: const Color(0xFF2E6B57),
-                                child: const Icon(Icons.pets, color: Colors.white, size: 18),
+                                child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 18),
                               ),
                             ),
                           ),
@@ -1734,7 +1732,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                             ),
                           ),
                           if (isSelected)
-                            const Icon(Icons.check_circle, color: Color(0xFF95D3BB), size: 22),
+                            const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB), size: 22),
                         ],
                       ),
                     ),
@@ -1798,7 +1796,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w700),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -589,7 +590,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                               Navigator.of(ctx).pop();
                               _duplicateReport(report);
                             },
-                            icon: const Icon(Icons.copy_rounded, size: 17),
+                            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 17),
                             label: const Text('Copy'),
                           ),
                         ),
@@ -610,8 +611,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                               Navigator.of(ctx).pop();
                               _confirmDeleteReport(report);
                             },
-                            icon: const Icon(
-                              Icons.delete_outline_rounded,
+                            icon: const UlvenikIcon(UlvenikIcons.back,
                               size: 18,
                             ),
                             label: const Text('Delete'),
@@ -642,8 +642,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                             type: SnackbarType.success,
                           );
                         },
-                        icon: const Icon(
-                          Icons.picture_as_pdf_outlined,
+                        icon: const UlvenikIcon(UlvenikIcons.training,
                           size: 18,
                         ),
                         label: const Text(
@@ -933,7 +932,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
         foregroundColor: _textPrimary,
         elevation: 4,
         shape: const CircleBorder(),
-        child: const Icon(Icons.add_rounded, size: 28),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 28),
       ),
       body: SafeArea(
         bottom: false,
@@ -1020,8 +1019,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.arrow_back_rounded,
+                      UlvenikIcon(UlvenikIcons.back,
                         color: _textSecondary,
                         size: 18,
                       ),
@@ -1058,8 +1056,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                   IconButton(
                     onPressed: () => _searchFocusNode.requestFocus(),
                     visualDensity: VisualDensity.compact,
-                    icon: const Icon(
-                      Icons.search_rounded,
+                    icon: const UlvenikIcon(UlvenikIcons.search,
                       color: _textSecondary,
                       size: 21,
                     ),
@@ -1067,8 +1064,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                   IconButton(
                     onPressed: _openFilterSheet,
                     visualDensity: VisualDensity.compact,
-                    icon: Icon(
-                      Icons.tune_rounded,
+                    icon: UlvenikIcon(UlvenikIcons.sort,
                       color: _hasActiveFilters ? _mintBright : _textSecondary,
                       size: 21,
                     ),
@@ -1093,8 +1089,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.search_rounded,
+          const UlvenikIcon(UlvenikIcons.search,
             size: 18,
             color: _textSecondary,
           ),
@@ -1218,8 +1213,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                 Positioned(
                   top: 10,
                   right: 10,
-                  child: Icon(
-                    Icons.swipe_left_outlined,
+                  child: UlvenikIcon(UlvenikIcons.overflowMenu,
                     size: 15,
                     color: _textSecondary.withValues(alpha: 0.65),
                   ),
@@ -1227,7 +1221,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(icon, size: 19, color: accentColor),
+                  UlvenikIcon.fromMaterial(icon, size: 19, color: accentColor),
                   const SizedBox(height: 6),
                   Text(
                     label,
@@ -1276,8 +1270,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                 if (!isSwiped) ...[
                   Padding(
                     padding: const EdgeInsets.only(top: 2),
-                    child: Icon(
-                      Icons.description_outlined,
+                    child: UlvenikIcon(UlvenikIcons.training,
                       color: _sage,
                       size: 20,
                     ),
@@ -1307,8 +1300,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                       });
                     },
                     behavior: HitTestBehavior.opaque,
-                    child: const Icon(
-                      Icons.chevron_right_rounded,
+                    child: const UlvenikIcon(UlvenikIcons.details,
                       color: _textSecondary,
                       size: 19,
                     ),
@@ -1429,8 +1421,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
       ),
       child: Column(
         children: [
-          const Icon(
-            Icons.description_outlined,
+          const UlvenikIcon(UlvenikIcons.training,
             color: _sage,
             size: 32,
           ),

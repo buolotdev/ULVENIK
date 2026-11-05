@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -399,8 +400,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                 const SizedBox(height: 12),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.open_in_new_rounded,
+                  leading: const UlvenikIcon(UlvenikIcons.details,
                     color: Color(0xFF95D3BB),
                   ),
                   title: const Text(
@@ -424,7 +424,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Icon(
+                  leading: UlvenikIcon.fromMaterial(
                     sport.isArchived
                         ? Icons.unarchive_outlined
                         : Icons.archive_outlined,
@@ -487,8 +487,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                               color: AppColors.primaryForestGreen.withValues(alpha: 0.3),
                             ),
                           ),
-                          child: const Icon(
-                            Icons.emoji_events_outlined,
+                          child: const UlvenikIcon(UlvenikIcons.goals,
                             size: 32,
                             color: AppColors.primaryForestGreen,
                           ),
@@ -582,7 +581,7 @@ class _MySportsScreenState extends State<MySportsScreen>
             ),
           );
         },
-        child: const Icon(Icons.add, size: 28),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 28),
       ),
       body: SafeArea(
         bottom: false,
@@ -675,8 +674,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                 Navigator.of(context).pop();
               }
             },
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
@@ -707,7 +705,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                 }
               });
             },
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _searchVisible ? Icons.close : Icons.search,
               color: _searchVisible
                   ? const Color(0xFF95D3BB)
@@ -719,8 +717,7 @@ class _MySportsScreenState extends State<MySportsScreen>
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: _openFilterSheet,
-            icon: Icon(
-              Icons.filter_list_rounded,
+            icon: UlvenikIcon(UlvenikIcons.sort,
               color: hasActiveFilter
                   ? const Color(0xFF95D3BB)
                   : AppColors.secondaryTextStoneGrey,
@@ -738,8 +735,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                 ),
               );
             },
-            icon: const Icon(
-              Icons.add,
+            icon: const UlvenikIcon(UlvenikIcons.add,
               color: AppColors.secondaryTextStoneGrey,
               size: 23,
             ),
@@ -775,8 +771,7 @@ class _MySportsScreenState extends State<MySportsScreen>
             fontSize: 13.5,
             fontFamily: 'Inter',
           ),
-          prefixIcon: const Icon(
-            Icons.search,
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search,
             color: AppColors.secondaryTextStoneGrey,
             size: 19,
           ),
@@ -1241,8 +1236,7 @@ class _MySportsScreenState extends State<MySportsScreen>
               const SizedBox(height: 12),
               Row(
                 children: [
-                  const Icon(
-                    Icons.access_time_rounded,
+                  const UlvenikIcon(UlvenikIcons.trainingTime,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 15,
                   ),
@@ -1257,8 +1251,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                       ),
                     ),
                   ),
-                  const Icon(
-                    Icons.chevron_right_rounded,
+                  const UlvenikIcon(UlvenikIcons.details,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 19,
                   ),
@@ -1313,7 +1306,7 @@ class _MySportsScreenState extends State<MySportsScreen>
       ),
       child: Column(
         children: [
-          Icon(
+          UlvenikIcon.fromMaterial(
             isArchivedView
                 ? Icons.inventory_2_outlined
                 : Icons.sports_score_rounded,

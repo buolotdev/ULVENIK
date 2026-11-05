@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -242,8 +243,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         color: _forest.withValues(alpha: 0.22),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
-                        Icons.verified_user_rounded,
+                      child: const UlvenikIcon(UlvenikIcons.completed,
                         color: _sageMint,
                         size: 22,
                       ),
@@ -409,8 +409,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 26,
             ),
@@ -446,8 +445,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             shape: BoxShape.circle,
             border: Border.all(color: _cardBorder),
           ),
-          child: const Icon(
-            Icons.shield_outlined,
+          child: const UlvenikIcon(UlvenikIcons.overflowMenu,
             color: _stoneGrey,
             size: 22,
           ),
@@ -659,8 +657,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.smartphone_rounded,
+              const UlvenikIcon(UlvenikIcons.overflowMenu,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -755,7 +752,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         suffixIcon: GestureDetector(
           onTap: onToggleObscure,
           behavior: HitTestBehavior.opaque,
-          child: Icon(
+          child: UlvenikIcon.fromMaterial(
             obscure
                 ? Icons.visibility_outlined
                 : Icons.visibility_off_outlined,
@@ -784,8 +781,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ),
           ),
           child: Center(
-            child: Icon(
-              Icons.check_rounded,
+            child: UlvenikIcon(UlvenikIcons.completed,
               size: 10,
               color: itemColor,
             ),
@@ -822,8 +818,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         children: [
           Padding(
             padding: EdgeInsets.only(top: 1),
-            child: Icon(
-              Icons.info_outline_rounded,
+            child: UlvenikIcon(UlvenikIcons.notifications,
               size: 18,
               color: _alpineBlue,
             ),

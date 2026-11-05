@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/app_colors.dart';
 
@@ -510,7 +511,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Color(0xFF7A8F7A), size: 24),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: Color(0xFF7A8F7A), size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
       title: const Text(
@@ -524,7 +525,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       centerTitle: false,
       actions: [
         IconButton(
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _showSearch ? Icons.search_off : Icons.search,
             color: const Color(0xFF2E6B57),
             size: 24,
@@ -541,16 +542,16 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
           },
         ),
         IconButton(
-          icon: const Icon(Icons.tune, color: Color(0xFF2E6B57), size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: Color(0xFF2E6B57), size: 24),
           onPressed: _showTuneFilterSheet,
         ),
         IconButton(
-          icon: const Icon(Icons.add, color: Color(0xFF2E6B57), size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.add, color: Color(0xFF2E6B57), size: 24),
           onPressed: _showAddProcedureSheet,
         ),
         IconButton(
           tooltip: 'Toggle empty / populated state',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on,
             color: _isEmpty ? AppColors.secondaryTextStoneGrey : _mint,
             size: 26,
@@ -659,8 +660,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 ),
               ],
             ),
-            const Icon(
-              Icons.expand_more,
+            const UlvenikIcon(UlvenikIcons.sort,
               color: Color(0xFF7A8F7A),
               size: 22,
             ),
@@ -686,14 +686,12 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 width: size,
                 height: size,
                 fit: BoxFit.cover,
-                errorBuilder: (c, e, s) => Icon(
-                  Icons.pets,
+                errorBuilder: (c, e, s) => UlvenikIcon(UlvenikIcons.dogs,
                   size: size * 0.55,
                   color: _mint,
                 ),
               )
-            : Icon(
-                Icons.pets,
+            : UlvenikIcon(UlvenikIcons.dogs,
                 size: size * 0.55,
                 color: _mint,
               ),
@@ -866,7 +864,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       ),
       child: Row(
         children: [
-          const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -890,7 +888,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 _searchController.clear();
                 setState(() => _searchQuery = '');
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -920,7 +918,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
             children: [
               Row(
                 children: [
-                  const Icon(Icons.trending_up, color: _mint, size: 18),
+                  const UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                   const SizedBox(width: 8),
                   const Text(
                     'TPLO RECOVERY TRAJECTORY',
@@ -1290,8 +1288,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                                 ],
                               ),
                             ),
-                            const Icon(
-                              Icons.chevron_right,
+                            const UlvenikIcon(UlvenikIcons.details,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 20,
                             ),
@@ -1406,8 +1403,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                       ],
                     ),
                   ),
-                  const Icon(
-                    Icons.chevron_right,
+                  const UlvenikIcon(UlvenikIcons.details,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 20,
                   ),
@@ -1471,8 +1467,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                       ],
                     ),
                   ),
-                  const Icon(
-                    Icons.chevron_right,
+                  const UlvenikIcon(UlvenikIcons.details,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 20,
                   ),
@@ -1490,7 +1485,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.attachment, size: 12, color: AppColors.secondaryTextStoneGrey),
+                      const UlvenikIcon(UlvenikIcons.training, size: 12, color: AppColors.secondaryTextStoneGrey),
                       const SizedBox(width: 4),
                       Text(
                         'Attachments (${p.attachmentCount})',
@@ -1600,7 +1595,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
         children: [
           Row(
             children: [
-              const Icon(Icons.schedule, size: 14, color: _mint),
+              const UlvenikIcon(UlvenikIcons.trainingTime, size: 14, color: _mint),
               const SizedBox(width: 8),
               Text(
                 timeText,
@@ -1654,7 +1649,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 14, color: AppColors.secondaryTextStoneGrey),
+            UlvenikIcon.fromMaterial(icon, size: 14, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(width: 6),
             Text(
               label,
@@ -1788,7 +1783,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                     ),
                   ),
                   SizedBox(width: 4),
-                  Icon(Icons.arrow_forward, size: 16, color: _forest),
+                  UlvenikIcon(UlvenikIcons.details, size: 16, color: _forest),
                 ],
               ),
             ),
@@ -1808,7 +1803,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       ),
       child: Column(
         children: [
-          const Icon(Icons.search_off, size: 36, color: AppColors.secondaryTextStoneGrey),
+          const UlvenikIcon(UlvenikIcons.search, size: 36, color: AppColors.secondaryTextStoneGrey),
           const SizedBox(height: 12),
           const Text(
             'No procedures match your filter.',
@@ -1843,7 +1838,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.add, color: AppColors.backgroundObsidian, size: 20),
+            UlvenikIcon(UlvenikIcons.add, color: AppColors.backgroundObsidian, size: 20),
             SizedBox(width: 8),
             Text(
               'Add Procedure',
@@ -1924,8 +1919,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 border: Border.all(color: Colors.white.withValues(alpha: 0.18), width: 1.5),
               ),
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.add,
+              child: const UlvenikIcon(UlvenikIcons.add,
                 size: 30,
                 color: AppColors.primaryTextOffWhite,
               ),
@@ -1973,7 +1967,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.add, color: AppColors.primaryTextOffWhite, size: 18),
+                  UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 18),
                   SizedBox(width: 6),
                   Text(
                     'Add Procedure',
@@ -1985,7 +1979,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                     ),
                   ),
                   SizedBox(width: 4),
-                  Icon(Icons.arrow_forward, color: AppColors.primaryTextOffWhite, size: 18),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.primaryTextOffWhite, size: 18),
                 ],
               ),
             ),
@@ -2048,7 +2042,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
           ),
         ),
         IconButton(
-          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(ctx),
         ),
       ],
@@ -2126,7 +2120,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                               ],
                             ),
                           ),
-                          if (isSelected) const Icon(Icons.check_circle, color: _mint, size: 20),
+                          if (isSelected) const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20),
                         ],
                       ),
                     ),
@@ -2236,7 +2230,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                             Navigator.pop(ctx);
                             _showFullTimelineSheet(p);
                           },
-                          icon: const Icon(Icons.history, size: 18),
+                          icon: const UlvenikIcon(UlvenikIcons.history, size: 18),
                           label: const Text('View Timeline'),
                           style: OutlinedButton.styleFrom(
                             foregroundColor: _mint,
@@ -2249,7 +2243,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                       Expanded(
                         child: ElevatedButton.icon(
                           onPressed: () => Navigator.pop(ctx),
-                          icon: const Icon(Icons.check, size: 18),
+                          icon: const UlvenikIcon(UlvenikIcons.completed, size: 18),
                           label: const Text('Done'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: _forest,
@@ -2322,7 +2316,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
+                          UlvenikIcon.fromMaterial(
                             m.isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
                             color: m.isCompleted ? _mint : AppColors.secondaryTextStoneGrey,
                             size: 20,
@@ -2819,7 +2813,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                   ),
                   child: const Row(
                     children: [
-                      Icon(Icons.calendar_today, color: _mint, size: 20),
+                      UlvenikIcon(UlvenikIcons.calendar, color: _mint, size: 20),
                       SizedBox(width: 12),
                       Expanded(
                         child: Column(
@@ -2842,7 +2836,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                   ),
                   child: const Row(
                     children: [
-                      Icon(Icons.calendar_today, color: _alpineBlue, size: 20),
+                      UlvenikIcon(UlvenikIcons.calendar, color: _alpineBlue, size: 20),
                       SizedBox(width: 12),
                       Expanded(
                         child: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -907,7 +908,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                         color: accent.withValues(alpha: 0.2),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(
+                      child: UlvenikIcon.fromMaterial(
                         _categoryIcon(item.category),
                         color: accent,
                         size: 20,
@@ -988,7 +989,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                             type: SnackbarType.info,
                           );
                         },
-                        icon: const Icon(Icons.delete_outline_rounded, size: 18),
+                        icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
                         label: const Text(
                           'Delete',
                           style: TextStyle(
@@ -1034,7 +1035,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                             type: SnackbarType.success,
                           );
                         },
-                        icon: Icon(
+                        icon: UlvenikIcon.fromMaterial(
                           item.isCompleted
                               ? Icons.replay_rounded
                               : Icons.check_circle_outline_rounded,
@@ -1171,7 +1172,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Icon(
+                                    UlvenikIcon.fromMaterial(
                                       _categoryIcon(cat),
                                       size: 14,
                                       color: color,
@@ -1515,7 +1516,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
         foregroundColor: _offWhite,
         elevation: 4,
         shape: const CircleBorder(),
-        child: const Icon(Icons.add_rounded, size: 28),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 28),
       ),
       body: SafeArea(
         bottom: false,
@@ -1589,8 +1590,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 28,
             ),
@@ -1617,7 +1617,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                 if (!_searchVisible) _searchController.clear();
               });
             },
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _searchVisible ? Icons.close_rounded : Icons.search_rounded,
               color: _searchVisible ? _mint : _stoneGrey,
               size: 21,
@@ -1628,8 +1628,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
             children: [
               IconButton(
                 onPressed: _openFilterSheet,
-                icon: Icon(
-                  Icons.tune_rounded,
+                icon: UlvenikIcon(UlvenikIcons.sort,
                   color: hasActiveCategory ? _mint : _stoneGrey,
                   size: 21,
                 ),
@@ -1677,8 +1676,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
             fontSize: 13.5,
             color: _stoneGrey.withValues(alpha: 0.65),
           ),
-          prefixIcon: const Icon(
-            Icons.search_rounded,
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search,
             size: 18,
             color: _stoneGrey,
           ),
@@ -1775,8 +1773,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                       fit: BoxFit.cover,
                       errorBuilder: (_, _, _) => Container(
                         color: _carbon,
-                        child: const Icon(
-                          Icons.pets_rounded,
+                        child: const UlvenikIcon(UlvenikIcons.dogs,
                           color: _mint,
                           size: 20,
                         ),
@@ -1825,8 +1822,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     color: Colors.white.withValues(alpha: 0.12),
                   ),
                 ),
-                child: const Icon(
-                  Icons.add_rounded,
+                child: const UlvenikIcon(UlvenikIcons.add,
                   size: 18,
                   color: _stoneGrey,
                 ),
@@ -1883,8 +1879,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(6),
-              child: Icon(
-                Icons.chevron_left_rounded,
+              child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -1926,8 +1921,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(6),
-              child: Icon(
-                Icons.chevron_right_rounded,
+              child: UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -2364,7 +2358,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     DateTime(_selectedDate.year, _selectedDate.month, 1);
               });
             },
-            icon: const Icon(Icons.chevron_left_rounded, color: _stoneGrey),
+            icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey),
           ),
           Column(
             children: [
@@ -2398,7 +2392,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     DateTime(_selectedDate.year, _selectedDate.month, 1);
               });
             },
-            icon: const Icon(Icons.chevron_right_rounded, color: _stoneGrey),
+            icon: const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey),
           ),
         ],
       ),
@@ -2666,7 +2660,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                           color: _obsidian.withValues(alpha: 0.45),
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(
+                        child: UlvenikIcon.fromMaterial(
                           _categoryIcon(item.category),
                           size: 17,
                           color: item.category == _EventCategory.training
@@ -2723,8 +2717,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                         ),
                       ),
                       const SizedBox(width: 6),
-                      const Icon(
-                        Icons.chevron_right_rounded,
+                      const UlvenikIcon(UlvenikIcons.details,
                         color: _stoneGrey,
                         size: 18,
                       ),
@@ -2831,7 +2824,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                 ),
               ),
               const SizedBox(width: 10),
-              Icon(
+              UlvenikIcon.fromMaterial(
                 upcomingIcon,
                 size: 18,
                 color: accent,
@@ -2877,8 +2870,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 18,
               ),

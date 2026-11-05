@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -179,8 +180,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(4),
-              child: Icon(
-                Icons.chevron_left_rounded,
+              child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
                 size: 26,
               ),
@@ -623,8 +623,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                         color: _forest,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
-                        Icons.check_rounded,
+                      child: const UlvenikIcon(UlvenikIcons.completed,
                         color: _offWhite,
                         size: 11.5,
                       ),
@@ -726,8 +725,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                           ),
                         ),
                         if (selected)
-                          const Icon(
-                            Icons.check_rounded,
+                          const UlvenikIcon(UlvenikIcons.completed,
                             color: _forest,
                             size: 19,
                           ),
@@ -748,7 +746,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
       (
         'Comfortable',
         'Recommended',
-        const Icon(Icons.grid_view_outlined, color: _stoneGrey, size: 19),
+        const UlvenikIcon(UlvenikIcons.progress, color: _stoneGrey, size: 19),
       ),
       (
         'Compact',
@@ -823,8 +821,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                           ),
                         ),
                         if (selected)
-                          const Icon(
-                            Icons.check_rounded,
+                          const UlvenikIcon(UlvenikIcons.completed,
                             color: _forest,
                             size: 19,
                           ),
@@ -850,7 +847,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.star_border_rounded, color: _stoneGrey, size: 20),
+          const UlvenikIcon(UlvenikIcons.goals, color: _stoneGrey, size: 20),
           const SizedBox(width: 14),
           const Expanded(
             child: Column(
@@ -901,7 +898,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.back_hand_outlined, color: _stoneGrey, size: 19),
+          const UlvenikIcon(UlvenikIcons.exercises, color: _stoneGrey, size: 19),
           const SizedBox(width: 14),
           const Expanded(
             child: Column(
@@ -959,7 +956,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.replay_rounded, color: _destructiveText, size: 18),
+              UlvenikIcon(UlvenikIcons.history, color: _destructiveText, size: 18),
               SizedBox(width: 8),
               Text(
                 'Reset Appearance Settings',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import 'login_screen.dart';
 
@@ -88,8 +89,7 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                     scale: _scaleAnimation.value,
                     child: Opacity(
                       opacity: (_scaleAnimation.value * 2).clamp(0.0, 1.0),
-                      child: const Icon(
-                        Icons.check_circle_outline,
+                      child: const UlvenikIcon(UlvenikIcons.completed,
                         size: 72,
                         color: AppColors.primaryForestGreen,
                       ),
@@ -151,8 +151,7 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                       children: [
                         Row(
                           children: [
-                            const Icon(
-                              Icons.check,
+                            const UlvenikIcon(UlvenikIcons.completed,
                               size: 18,
                               color: AppColors.primaryForestGreen,
                             ),

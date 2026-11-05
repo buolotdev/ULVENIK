@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 /// Strength & Conditioning Settings Screen
@@ -232,7 +233,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                           ),
                         ),
                         trailing: isSelected
-                            ? const Icon(Icons.check, color: _mint, size: 18)
+                            ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 18)
                             : null,
                         onTap: () {
                           setState(() => _defaultActivity = item);
@@ -321,7 +322,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                           ),
                         ),
                         trailing: isSelected
-                            ? const Icon(Icons.check, color: _mint, size: 18)
+                            ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 18)
                             : null,
                         onTap: () {
                           setState(() => _defaultSortOrder = item);
@@ -410,7 +411,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                           ),
                         ),
                         trailing: isSelected
-                            ? const Icon(Icons.check, color: _mint, size: 18)
+                            ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 18)
                             : null,
                         onTap: () {
                           setState(() => _defaultFilter = item);
@@ -500,7 +501,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                           ),
                         ),
                         trailing: isSelected
-                            ? const Icon(Icons.check, color: _mint, size: 18)
+                            ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 18)
                             : null,
                         onTap: () {
                           setState(() {
@@ -532,7 +533,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
-            const Icon(Icons.warning_amber_rounded, color: _errorRed, size: 24),
+            const UlvenikIcon(UlvenikIcons.notifications, color: _errorRed, size: 24),
             const SizedBox(width: 10),
             const Expanded(
               child: Text(
@@ -590,7 +591,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
         ),
       ),
       child: isChecked
-          ? const Icon(Icons.check, size: 14, color: Colors.white)
+          ? const UlvenikIcon(UlvenikIcons.completed, size: 14, color: Colors.white)
           : null,
     );
   }
@@ -611,7 +612,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
           bottom: BorderSide(color: Color(0x14FFFFFF), width: 1),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite, size: 20),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 20),
           tooltip: 'Back',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
@@ -641,7 +642,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                         key: ValueKey('saved'),
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.check, size: 14, color: _mint),
+                          UlvenikIcon(UlvenikIcons.completed, size: 14, color: _mint),
                           SizedBox(width: 4),
                           Text(
                             'Saved',
@@ -864,7 +865,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.delete_outline, color: _errorRed, size: 20),
+                    UlvenikIcon(UlvenikIcons.back, color: _errorRed, size: 20),
                     SizedBox(width: 8),
                     Text(
                       'Reset Strength & Conditioning Settings',
@@ -929,7 +930,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         child: Row(
           children: [
-            Icon(icon, color: _stoneGrey, size: 20),
+            UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 20),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -950,7 +951,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
               ),
             ),
             const SizedBox(width: 4),
-            const Icon(Icons.chevron_right, color: _stoneGrey, size: 16),
+            const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 16),
           ],
         ),
       ),
@@ -977,7 +978,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
           children: [
             Padding(
               padding: EdgeInsets.only(top: subtitle != null ? 2 : 0),
-              child: Icon(icon, color: _stoneGrey, size: 20),
+              child: UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 20),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -1035,7 +1036,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
             children: [
               Row(
                 children: [
-                  const Icon(Icons.show_chart, color: _mint, size: 18),
+                  const UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                   const SizedBox(width: 8),
                   Text(
                     'LIVE CHART PREVIEW (${_defaultDateRange.toUpperCase()})',
@@ -1049,7 +1050,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                 ],
               ),
               IconButton(
-                icon: const Icon(Icons.replay, color: _stoneGrey, size: 18),
+                icon: const UlvenikIcon(UlvenikIcons.history, color: _stoneGrey, size: 18),
                 tooltip: 'Replay Animation',
                 onPressed: () {
                   _chartAnimController.reset();

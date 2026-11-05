@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/app_colors.dart';
 import 'goals_list_screen.dart';
@@ -78,7 +79,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
               color: AppColors.cardsCarbon,
               border: Border.all(color: Colors.white12),
             ),
-            child: const Icon(Icons.bar_chart, color: Color(0xFF95d3bb), size: 32),
+            child: const UlvenikIcon(UlvenikIcons.progress, color: Color(0xFF95d3bb), size: 32),
           ),
           const SizedBox(height: 24),
           const Text(
@@ -152,7 +153,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                     mainAxisSize: MainAxisSize.min,
                     children: ['Lifetime', 'This Year', 'Last 6 Months', 'This Month'].map((tf) => ListTile(
                       title: Text(tf, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
-                      trailing: _selectedTimeframe == tf ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
+                      trailing: _selectedTimeframe == tf ? const UlvenikIcon(UlvenikIcons.completed, color: AppColors.primaryForestGreen) : null,
                       onTap: () {
                         setState(() => _selectedTimeframe = tf);
                         Navigator.pop(ctx);
@@ -173,7 +174,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                 children: [
                   Text(_selectedTimeframe, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                   const SizedBox(width: 4),
-                  const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 18),
+                  const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 18),
                 ],
               ),
             ),
@@ -285,7 +286,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                 ),
                 child: Row(
                   children: const [
-                    Icon(Icons.trending_up, color: Color(0xFF2e6b57), size: 16),
+                    UlvenikIcon(UlvenikIcons.progress, color: Color(0xFF2e6b57), size: 16),
                     SizedBox(width: 4),
                     Text('▲ 14%', style: TextStyle(color: Color(0xFF2e6b57), fontSize: 13, fontWeight: FontWeight.w500)),
                   ],

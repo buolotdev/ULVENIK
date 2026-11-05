@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -162,8 +163,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                       ),
                     ),
                     trailing: selected
-                        ? const Icon(
-                            Icons.check_rounded,
+                        ? const UlvenikIcon(UlvenikIcons.completed,
                             color: _mint,
                             size: 20,
                           )
@@ -240,8 +240,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 26,
             ),
@@ -266,8 +265,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
             tooltip: 'Export Analytics',
             visualDensity: VisualDensity.compact,
             onPressed: _shareAnalytics,
-            icon: const Icon(
-              Icons.ios_share_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
               color: _stoneGrey,
               size: 19,
             ),
@@ -276,8 +274,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
             tooltip: 'Filter Timeframe',
             visualDensity: VisualDensity.compact,
             onPressed: _showFilterSheet,
-            icon: const Icon(
-              Icons.tune_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.sort,
               color: _stoneGrey,
               size: 20,
             ),
@@ -674,7 +671,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           const SizedBox(height: 14),
           Row(
             children: const [
-              Icon(Icons.circle, color: _mintAccent, size: 7),
+              UlvenikIcon(UlvenikIcons.completed, color: _mintAccent, size: 7),
               SizedBox(width: 7),
               Expanded(
                 child: Text(
@@ -686,7 +683,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                   ),
                 ),
               ),
-              Icon(Icons.circle, color: _alpineBlue, size: 7),
+              UlvenikIcon(UlvenikIcons.completed, color: _alpineBlue, size: 7),
               SizedBox(width: 7),
               Expanded(
                 child: Text(
@@ -703,7 +700,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           const SizedBox(height: 8),
           Row(
             children: const [
-              Icon(Icons.circle, color: Color(0xFFB45353), size: 7),
+              UlvenikIcon(UlvenikIcons.completed, color: Color(0xFFB45353), size: 7),
               SizedBox(width: 7),
               Expanded(
                 child: Text(
@@ -715,7 +712,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                   ),
                 ),
               ),
-              Icon(Icons.circle, color: Color(0xFF5A6560), size: 7),
+              UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF5A6560), size: 7),
               SizedBox(width: 7),
               Expanded(
                 child: Text(
@@ -751,8 +748,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: const [
-                    Icon(
-                      Icons.access_time_rounded,
+                    UlvenikIcon(UlvenikIcons.trainingTime,
                       color: Color(0xFF8BB8D6),
                       size: 12,
                     ),
@@ -973,7 +969,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           const SizedBox(height: 14),
           Row(
             children: const [
-              Icon(Icons.horizontal_rule_rounded, color: _forest, size: 16),
+              UlvenikIcon(UlvenikIcons.back, color: _forest, size: 16),
               SizedBox(width: 5),
               Text(
                 'Training Activity',
@@ -984,7 +980,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                 ),
               ),
               SizedBox(width: 16),
-              Icon(Icons.more_horiz_rounded, color: _alpineBlue, size: 16),
+              UlvenikIcon(UlvenikIcons.more, color: _alpineBlue, size: 16),
               SizedBox(width: 5),
               Text(
                 'Homework Submissions',

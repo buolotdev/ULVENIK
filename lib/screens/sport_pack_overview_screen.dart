@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -730,8 +731,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                               ),
                             ),
                             if (selected)
-                              const Icon(
-                                Icons.check_circle_rounded,
+                              const UlvenikIcon(UlvenikIcons.completed,
                                 color: Color(0xFF95D3BB),
                                 size: 20,
                               ),
@@ -882,7 +882,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   color: AppColors.primaryForestGreen.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(icon, color: const Color(0xFF95D3BB), size: 20),
+                child: UlvenikIcon.fromMaterial(icon, color: const Color(0xFF95D3BB), size: 20),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -910,8 +910,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 20,
               ),
@@ -958,7 +957,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: AppColors.cardBorder),
                       ),
-                      child: Icon(
+                      child: UlvenikIcon.fromMaterial(
                         item.kind == 'Award'
                             ? Icons.star_border_rounded
                             : Icons.emoji_events_outlined,
@@ -1109,8 +1108,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                               color: AppColors.primaryForestGreen.withValues(alpha: 0.3),
                             ),
                           ),
-                          child: const Icon(
-                            Icons.emoji_events_outlined,
+                          child: const UlvenikIcon(UlvenikIcons.goals,
                             size: 32,
                             color: AppColors.primaryForestGreen,
                           ),
@@ -1209,7 +1207,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
         elevation: 4,
         shape: const CircleBorder(),
         onPressed: _openQuickActionsMenu,
-        child: const Icon(Icons.add, size: 28),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 28),
       ),
       body: SafeArea(
         child: Column(
@@ -1329,8 +1327,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                 Navigator.of(context).pop();
               }
             },
-            icon: const Icon(
-              Icons.arrow_back,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
@@ -1360,7 +1357,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                 }
               });
             },
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _searchActive ? Icons.close : Icons.search,
               color: _searchActive
                   ? const Color(0xFF95D3BB)
@@ -1378,8 +1375,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                 ),
               );
             },
-            icon: const Icon(
-              Icons.add,
+            icon: const UlvenikIcon(UlvenikIcons.add,
               color: AppColors.secondaryTextStoneGrey,
               size: 24,
             ),
@@ -1415,8 +1411,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
             fontSize: 13.5,
             fontFamily: 'Inter',
           ),
-          prefixIcon: const Icon(
-            Icons.search,
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search,
             color: AppColors.secondaryTextStoneGrey,
             size: 19,
           ),
@@ -1479,8 +1474,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ),
                 ),
                 const SizedBox(width: 2),
-                const Icon(
-                  Icons.chevron_right_rounded,
+                const UlvenikIcon(UlvenikIcons.details,
                   color: AppColors.infoAlpineBlue,
                   size: 16,
                 ),
@@ -1559,8 +1553,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 22,
               ),
@@ -1791,8 +1784,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ),
                   _buildSportPill(sport.tag),
                   const SizedBox(width: 8),
-                  const Icon(
-                    Icons.chevron_right_rounded,
+                  const UlvenikIcon(UlvenikIcons.details,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 20,
                   ),
@@ -1823,8 +1815,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    const Icon(
-                      Icons.calendar_today_outlined,
+                    const UlvenikIcon(UlvenikIcons.calendar,
                       size: 13.5,
                       color: AppColors.secondaryTextStoneGrey,
                     ),
@@ -1935,8 +1926,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                           ),
                         ),
                         const SizedBox(width: 6),
-                        const Icon(
-                          Icons.chevron_right_rounded,
+                        const UlvenikIcon(UlvenikIcons.details,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 20,
                         ),
@@ -1981,7 +1971,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ),
                   child: Row(
                     children: [
-                      Icon(
+                      UlvenikIcon.fromMaterial(
                         item.icon,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 17,
@@ -2047,7 +2037,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: AppColors.cardBorder),
                 ),
-                child: Icon(
+                child: UlvenikIcon.fromMaterial(
                   qual.kind == 'Award'
                       ? Icons.star_border_rounded
                       : Icons.emoji_events_outlined,
@@ -2099,8 +2089,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 20,
               ),

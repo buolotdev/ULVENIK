@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_colors.dart';
 import 'register_screen.dart';
@@ -179,8 +180,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                             shape: BoxShape.circle,
                           ),
                           alignment: Alignment.center,
-                          child: const Icon(
-                            Icons.arrow_back,
+                          child: const UlvenikIcon(UlvenikIcons.back,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 20,
                           ),
@@ -319,7 +319,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   suffixIcon: IconButton(
-                                    icon: Icon(
+                                    icon: UlvenikIcon.fromMaterial(
                                       _obscurePassword ? Icons.visibility : Icons.visibility_off,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 20,

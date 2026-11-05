@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/animated_progress_bar.dart';
 import '../widgets/custom_snackbar.dart';
@@ -36,8 +37,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   color: AppColors.primaryForestGreen.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.archive_outlined,
+                child: const UlvenikIcon(UlvenikIcons.skills,
                   color: AppColors.primaryForestGreen,
                   size: 24,
                 ),
@@ -122,8 +122,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   color: const Color(0xFFBA1A1A).withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.delete_outline,
+                child: const UlvenikIcon(UlvenikIcons.back,
                   color: Color(0xFFFFB4AB),
                   size: 24,
                 ),
@@ -160,7 +159,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   children: [
                     const Row(
                       children: [
-                        Icon(Icons.warning_amber_rounded, size: 16, color: Color(0xFFFFB4AB)),
+                        UlvenikIcon(UlvenikIcons.notifications, size: 16, color: Color(0xFFFFB4AB)),
                         SizedBox(width: 8),
                         Text(
                           'WILL BE DELETED',
@@ -187,7 +186,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     ),
                     const Row(
                       children: [
-                        Icon(Icons.check_circle_outline, size: 16, color: AppColors.primaryForestGreen),
+                        UlvenikIcon(UlvenikIcons.completed, size: 16, color: AppColors.primaryForestGreen),
                         SizedBox(width: 8),
                         Text(
                           'WILL NOT BE DELETED',
@@ -409,7 +408,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                             fontSize: 14,
                             fontWeight: FontWeight.w500)),
                     trailing: rate == currentRate
-                        ? const Icon(Icons.check, color: AppColors.primaryForestGreen, size: 20)
+                        ? const UlvenikIcon(UlvenikIcons.completed, color: AppColors.primaryForestGreen, size: 20)
                         : null,
                     onTap: () {
                       setState(() {
@@ -444,7 +443,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const Icon(Icons.edit_outlined, color: AppColors.primaryTextOffWhite),
+                leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
                 title: const Text('Edit Exercise', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -452,7 +451,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.archive_outlined, color: AppColors.primaryForestGreen),
+                leading: const UlvenikIcon(UlvenikIcons.skills, color: AppColors.primaryForestGreen),
                 title: const Text('Archive Exercise', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -460,7 +459,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.delete_outline, color: Color(0xFFFFB4AB)),
+                leading: const UlvenikIcon(UlvenikIcons.back, color: Color(0xFFFFB4AB)),
                 title: const Text('Delete Exercise', style: TextStyle(color: Color(0xFFFFB4AB))),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -483,7 +482,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.primaryForestGreen),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryForestGreen),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
@@ -497,7 +496,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_horiz, color: AppColors.primaryTextOffWhite),
+            icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
             onPressed: _showMoreMenu,
           ),
         ],
@@ -655,7 +654,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 color: isPrimary ? color.withValues(alpha: 0.5) : Colors.white12,
               ),
             ),
-            child: Icon(icon, color: color, size: 28),
+            child: UlvenikIcon.fromMaterial(icon, color: color, size: 28),
           ),
           const SizedBox(height: 8),
           Text(
@@ -709,7 +708,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                       borderRadius: BorderRadius.circular(4),
                       border: Border.all(color: Colors.white12),
                     ),
-                    child: const Icon(Icons.hub_outlined, color: AppColors.secondaryTextStoneGrey, size: 22),
+                    child: const UlvenikIcon(UlvenikIcons.timeline, color: AppColors.secondaryTextStoneGrey, size: 22),
                   ),
                   const SizedBox(width: 16),
                   const Expanded(
@@ -735,7 +734,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                       ],
                     ),
                   ),
-                  const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                 ],
               ),
             ),
@@ -767,7 +766,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 onTap: _updateGoalProgress,
                 child: const Row(
                   children: [
-                    Icon(Icons.edit_outlined, size: 14, color: AppColors.secondarySage),
+                    UlvenikIcon(UlvenikIcons.edit, size: 14, color: AppColors.secondarySage),
                     SizedBox(width: 4),
                     Text(
                       'Update Progress',
@@ -1009,7 +1008,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+            const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
           ],
         ),
       ),

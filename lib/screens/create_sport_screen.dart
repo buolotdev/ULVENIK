@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -146,7 +147,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
                             .withValues(alpha: 0.18),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(
+                      child: UlvenikIcon.fromMaterial(
                         opt.$1,
                         color: const Color(0xFF95D3BB),
                         size: 19,
@@ -485,7 +486,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
                                 .withValues(alpha: 0.35),
                       ),
                       child: Center(
-                        child: Icon(
+                        child: UlvenikIcon.fromMaterial(
                           _selectedPhotoEmblem ?? Icons.camera_alt_outlined,
                           color: _selectedPhotoEmblem != null
                               ? const Color(0xFF95D3BB)

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -603,7 +604,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 color: _forest.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(icon, color: const Color(0xFF95D3BB), size: 20),
+              child: UlvenikIcon.fromMaterial(icon, color: const Color(0xFF95D3BB), size: 20),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -631,8 +632,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 ],
               ),
             ),
-            const Icon(
-              Icons.add_circle_outline_rounded,
+            const UlvenikIcon(UlvenikIcons.add,
               color: _forest,
               size: 20,
             ),
@@ -767,8 +767,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
         children: [
           IconButton(
             onPressed: () => Navigator.maybePop(context),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
@@ -1032,7 +1031,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
       ),
       child: Row(
         children: [
-          Icon(
+          UlvenikIcon.fromMaterial(
             _wifiOnly ? Icons.wifi_rounded : Icons.cell_tower_rounded,
             color: _wifiOnly ? const Color(0xFF95D3BB) : _stoneGrey,
             size: 18,
@@ -1095,7 +1094,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.add_rounded, color: Color(0xFF95D3BB), size: 15),
+                  UlvenikIcon(UlvenikIcons.add, color: Color(0xFF95D3BB), size: 15),
                   SizedBox(width: 3),
                   Text(
                     'Add Media',
@@ -1184,7 +1183,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
         color: _iconBoxBg,
         borderRadius: BorderRadius.circular(11),
       ),
-      child: Icon(
+      child: UlvenikIcon.fromMaterial(
         icon,
         color: isFailed
             ? _destructive
@@ -1209,7 +1208,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
             }
           });
         },
-        child: Icon(
+        child: UlvenikIcon.fromMaterial(
           checked ? Icons.check_circle_rounded : Icons.radio_button_unchecked,
           color: checked ? _forest : _stoneGrey,
           size: 20,
@@ -1313,7 +1312,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(4),
-                      child: Icon(
+                      child: UlvenikIcon.fromMaterial(
                         isPaused
                             ? Icons.play_arrow_outlined
                             : Icons.pause_rounded,
@@ -1327,8 +1326,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                     onTap: () => _cancelSingleItem(item),
                     child: const Padding(
                       padding: EdgeInsets.all(4),
-                      child: Icon(
-                        Icons.close_rounded,
+                      child: UlvenikIcon(UlvenikIcons.back,
                         color: _stoneGrey,
                         size: 17,
                       ),
@@ -1468,8 +1466,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 onTap: () => _cancelSingleItem(item),
                 child: const Padding(
                   padding: EdgeInsets.all(4),
-                  child: Icon(
-                    Icons.close_rounded,
+                  child: UlvenikIcon(UlvenikIcons.back,
                     color: _stoneGrey,
                     size: 17,
                   ),
@@ -1596,8 +1593,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(4),
-                        child: Icon(
-                          Icons.refresh_rounded,
+                        child: UlvenikIcon(UlvenikIcons.history,
                           color: _destructive,
                           size: 18,
                         ),
@@ -1608,8 +1604,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                       onTap: () => _cancelSingleItem(item),
                       child: const Padding(
                         padding: EdgeInsets.all(4),
-                        child: Icon(
-                          Icons.close_rounded,
+                        child: UlvenikIcon(UlvenikIcons.back,
                           color: _stoneGrey,
                           size: 17,
                         ),
@@ -1698,8 +1693,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
               ],
             ),
           ),
-          const Icon(
-            Icons.check_circle_outline_rounded,
+          const UlvenikIcon(UlvenikIcons.completed,
             color: _forest,
             size: 20,
           ),
@@ -1714,8 +1708,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
       child: Center(
         child: Column(
           children: [
-            Icon(
-              Icons.cloud_done_outlined,
+            UlvenikIcon(UlvenikIcons.overflowMenu,
               color: _forest.withValues(alpha: 0.8),
               size: 42,
             ),

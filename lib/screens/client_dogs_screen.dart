@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -190,7 +191,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
             elevation: 4,
             shape: const CircleBorder(),
             onPressed: () => _showAddDogSheet(client),
-            child: const Icon(Icons.add, size: 26),
+            child: const UlvenikIcon(UlvenikIcons.add, size: 26),
           );
         },
       ),
@@ -266,8 +267,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 26,
             ),
@@ -289,8 +289,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
             tooltip: 'Add Dog',
             visualDensity: VisualDensity.compact,
             onPressed: () => _showAddDogSheet(client),
-            icon: const Icon(
-              Icons.add_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.add,
               color: _textSecondary,
               size: 24,
             ),
@@ -443,7 +442,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    const Icon(Icons.flash_on_rounded, color: _greenAccent, size: 14),
+                    const UlvenikIcon(UlvenikIcons.skills, color: _greenAccent, size: 14),
                     const SizedBox(width: 5),
                     Text(
                       streakText,
@@ -457,7 +456,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                     const SizedBox(width: 10),
                     const Text('•', style: TextStyle(color: _textSecondary, fontSize: 12)),
                     const SizedBox(width: 10),
-                    const Icon(Icons.access_time_rounded, color: _sage, size: 13),
+                    const UlvenikIcon(UlvenikIcons.trainingTime, color: _sage, size: 13),
                     const SizedBox(width: 4),
                     Text(
                       lastActivity,
@@ -470,7 +469,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                     const SizedBox(width: 10),
                     const Text('•', style: TextStyle(color: _textSecondary, fontSize: 12)),
                     const SizedBox(width: 10),
-                    const Icon(Icons.flag_outlined, color: _sage, size: 13),
+                    const UlvenikIcon(UlvenikIcons.goals, color: _sage, size: 13),
                     const SizedBox(width: 4),
                     Text(
                       goalsText,
@@ -507,8 +506,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                             fontFamily: 'Inter',
                           ),
                         ),
-                        Icon(
-                          Icons.chevron_right_rounded,
+                        UlvenikIcon(UlvenikIcons.details,
                           color: _textSecondary,
                           size: 16,
                         ),

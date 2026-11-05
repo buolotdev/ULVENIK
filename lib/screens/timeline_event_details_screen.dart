@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'session_details_screen.dart';
 import 'vet_visits_screen.dart';
@@ -120,7 +121,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               top: 10,
               right: 10,
               child: IconButton(
-                icon: const Icon(Icons.close, color: _offWhite, size: 24),
+                icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
                 onPressed: () => Navigator.pop(ctx),
               ),
             ),
@@ -207,7 +208,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _secondary),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _secondary),
         onPressed: () => Navigator.maybePop(context),
       ),
       title: GestureDetector(
@@ -225,7 +226,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
       centerTitle: true,
       actions: [
         PopupMenuButton<String>(
-          icon: const Icon(Icons.more_horiz, color: _secondary, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.more, color: _secondary, size: 24),
           color: _carbon,
           onSelected: (val) {
             if (val == 'toggle_variant') {
@@ -243,7 +244,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               value: 'toggle_variant',
               child: Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     _variant == TimelineEventVariant.training
                         ? Icons.medical_services_outlined
                         : Icons.fitness_center_outlined,
@@ -264,7 +265,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               value: 'toggle_graph',
               child: Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     _showGraph ? Icons.timeline : Icons.show_chart,
                     color: _mint,
                     size: 18,
@@ -281,7 +282,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               value: 'star_toggle',
               child: Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     _isStarFavorite ? Icons.star : Icons.star_border,
                     color: _mint,
                     size: 18,
@@ -298,7 +299,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               value: 'view_original',
               child: Row(
                 children: [
-                  Icon(Icons.open_in_new, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.details, color: _mint, size: 18),
                   SizedBox(width: 8),
                   Text('View Original Record',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -342,7 +343,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                       shape: BoxShape.circle,
                       border: Border.all(color: const Color(0x14FFFFFF), width: 1),
                     ),
-                    child: Icon(
+                    child: UlvenikIcon.fromMaterial(
                       isTraining ? Icons.fitness_center : Icons.medical_services,
                       color: isTraining ? _alpineBlue : _error,
                       size: 20,
@@ -420,7 +421,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                     )
                   else
                     IconButton(
-                      icon: Icon(
+                      icon: UlvenikIcon.fromMaterial(
                         _isStarFavorite ? Icons.star : Icons.star_border,
                         color: _mint,
                         size: 20,
@@ -455,7 +456,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
           // Metadata Rows (Date, Time, Dog, Location)
           Row(
             children: [
-              const Icon(Icons.calendar_today, color: _secondary, size: 15),
+              const UlvenikIcon(UlvenikIcons.calendar, color: _secondary, size: 15),
               const SizedBox(width: 6),
               Text(
                 isTraining ? 'Aug 21, 2024' : 'Wed 20 Aug',
@@ -464,7 +465,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               const SizedBox(width: 10),
               Container(width: 3, height: 3, decoration: const BoxDecoration(color: Color(0x38FFFFFF), shape: BoxShape.circle)),
               const SizedBox(width: 10),
-              const Icon(Icons.schedule, color: _secondary, size: 15),
+              const UlvenikIcon(UlvenikIcons.trainingTime, color: _secondary, size: 15),
               const SizedBox(width: 6),
               Text(
                 isTraining ? '07:30 AM' : '09:30 AM',
@@ -476,7 +477,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
 
           Row(
             children: [
-              const Icon(Icons.pets, color: _secondary, size: 15),
+              const UlvenikIcon(UlvenikIcons.dogs, color: _secondary, size: 15),
               const SizedBox(width: 6),
               Text(
                 isTraining ? 'Fenrir' : 'Atlas',
@@ -485,7 +486,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               const SizedBox(width: 10),
               Container(width: 3, height: 3, decoration: const BoxDecoration(color: Color(0x38FFFFFF), shape: BoxShape.circle)),
               const SizedBox(width: 10),
-              const Icon(Icons.location_on, color: _secondary, size: 15),
+              const UlvenikIcon(UlvenikIcons.timeline, color: _secondary, size: 15),
               const SizedBox(width: 6),
               InkWell(
                 onTap: () {},
@@ -523,7 +524,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.open_in_new, size: 18),
+            UlvenikIcon(UlvenikIcons.details, size: 18),
             SizedBox(width: 8),
             Text(
               'View Original Record',
@@ -534,7 +535,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               ),
             ),
             SizedBox(width: 6),
-            Icon(Icons.arrow_forward, size: 16),
+            UlvenikIcon(UlvenikIcons.details, size: 16),
           ],
         ),
       ),
@@ -635,7 +636,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
             children: [
               Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     isTraining ? Icons.monitor_heart : Icons.show_chart,
                     color: _mint,
                     size: 16,
@@ -653,7 +654,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                 ],
               ),
               IconButton(
-                icon: const Icon(Icons.refresh, color: _stoneGrey, size: 16),
+                icon: const UlvenikIcon(UlvenikIcons.history, color: _stoneGrey, size: 16),
                 tooltip: 'Replay Telemetry',
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
@@ -927,7 +928,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               children: [
                 Row(
                   children: [
-                    Icon(item['icon'] as IconData, color: _secondary, size: 18),
+                    UlvenikIcon.fromMaterial(item['icon'] as IconData, color: _secondary, size: 18),
                     const SizedBox(width: 10),
                     Text(
                       item['label'] as String,
@@ -1114,7 +1115,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                                   color: Colors.black54,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(Icons.photo, color: _offWhite, size: 14),
+                                child: const UlvenikIcon(UlvenikIcons.play, color: _offWhite, size: 14),
                               ),
                             ),
                           ],
@@ -1171,7 +1172,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                                 shape: BoxShape.circle,
                                 border: Border.all(color: const Color(0x24FFFFFF)),
                               ),
-                              child: const Icon(Icons.play_arrow, color: _offWhite, size: 20),
+                              child: const UlvenikIcon(UlvenikIcons.play, color: _offWhite, size: 20),
                             ),
                             Positioned(
                               bottom: 6,
@@ -1281,7 +1282,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                       shape: BoxShape.circle,
                       border: Border.all(color: const Color(0x14FFFFFF)),
                     ),
-                    child: Icon(it['icon'] as IconData, color: it['color'] as Color, size: 16),
+                    child: UlvenikIcon.fromMaterial(it['icon'] as IconData, color: it['color'] as Color, size: 16),
                   ),
                   title: Text(
                     it['title'] as String,
@@ -1295,7 +1296,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                     it['sub'] as String,
                     style: const TextStyle(color: _stoneGrey, fontSize: 11),
                   ),
-                  trailing: const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
+                  trailing: const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 18),
                   onTap: () {},
                 ),
               );
@@ -1350,7 +1351,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                     children: [
                       const Row(
                         children: [
-                          Icon(Icons.arrow_back, color: _secondary, size: 14),
+                          UlvenikIcon(UlvenikIcons.back, color: _secondary, size: 14),
                           SizedBox(width: 4),
                           Text(
                             'Previous Event',
@@ -1410,7 +1411,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                             style: TextStyle(color: _stoneGrey, fontSize: 11),
                           ),
                           SizedBox(width: 4),
-                          Icon(Icons.arrow_forward, color: _secondary, size: 14),
+                          UlvenikIcon(UlvenikIcons.details, color: _secondary, size: 14),
                         ],
                       ),
                       const SizedBox(height: 2),
@@ -1474,7 +1475,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            UlvenikIcon.fromMaterial(
               icon,
               color: isActive ? _mint : _stoneGrey,
               size: 22,

@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -275,8 +276,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 ),
                 const SizedBox(height: 12),
                 ListTile(
-                  leading: const Icon(
-                    Icons.edit_outlined,
+                  leading: const UlvenikIcon(UlvenikIcons.edit,
                     color: AppColors.primaryTextOffWhite,
                   ),
                   title: const Text(
@@ -293,7 +293,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   },
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: UlvenikIcon.fromMaterial(
                     sport.isArchived
                         ? Icons.unarchive_outlined
                         : Icons.archive_outlined,
@@ -313,8 +313,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   },
                 ),
                 ListTile(
-                  leading: const Icon(
-                    Icons.delete_outline_rounded,
+                  leading: const UlvenikIcon(UlvenikIcons.back,
                     color: Color(0xFFB55454),
                   ),
                   title: const Text(
@@ -1420,8 +1419,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                               ),
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons.add,
+                                  UlvenikIcon(UlvenikIcons.add,
                                     size: 16,
                                     color: AppColors.primaryForestGreen,
                                   ),
@@ -1499,8 +1497,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 Navigator.of(context).pop();
               }
             },
-            icon: const Icon(
-              Icons.arrow_back,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
@@ -1521,8 +1518,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
           ),
           IconButton(
             onPressed: () => _openOverflowMenu(sport),
-            icon: const Icon(
-              Icons.more_horiz_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.more,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
@@ -1679,7 +1675,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
             height: 44,
             child: ElevatedButton.icon(
               onPressed: _openRecordSessionSheet,
-              icon: const Icon(Icons.play_arrow_rounded, size: 20),
+              icon: const UlvenikIcon(UlvenikIcons.play, size: 20),
               label: const Text(
                 'Record Training Session',
                 style: TextStyle(
@@ -1894,8 +1890,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                           ],
                         ),
                       ),
-                      const Icon(
-                        Icons.chevron_right_rounded,
+                      const UlvenikIcon(UlvenikIcons.details,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 19,
                       ),
@@ -2018,8 +2013,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                         ],
                       ),
                     ),
-                    const Icon(
-                      Icons.chevron_right_rounded,
+                    const UlvenikIcon(UlvenikIcons.details,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 19,
                     ),
@@ -2158,8 +2152,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   ),
                   child: Row(
                     children: [
-                      const Icon(
-                        Icons.emoji_events_outlined,
+                      const UlvenikIcon(UlvenikIcons.goals,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 16,
                       ),
@@ -2207,8 +2200,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const Icon(
-                        Icons.chevron_right_rounded,
+                      const UlvenikIcon(UlvenikIcons.details,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 17,
                       ),
@@ -2586,7 +2578,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   ),
                   child: Row(
                     children: [
-                      Icon(
+                      UlvenikIcon.fromMaterial(
                         item.$1,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 18,
@@ -2603,8 +2595,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                           ),
                         ),
                       ),
-                      const Icon(
-                        Icons.chevron_right_rounded,
+                      const UlvenikIcon(UlvenikIcons.details,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 19,
                       ),
@@ -2679,8 +2670,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 ),
               ),
             ),
-            Icon(
-              Icons.chevron_right_rounded,
+            UlvenikIcon(UlvenikIcons.details,
               color: chevronColor,
               size: 19,
             ),

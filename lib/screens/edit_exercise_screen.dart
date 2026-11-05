@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -60,7 +61,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
           ),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.secondaryTextStoneGrey),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(context),
         ),
         bottom: PreferredSize(
@@ -226,7 +227,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
               for (final skill in _availableSkills)
                 ListTile(
                   title: Text(skill, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
-                  trailing: _parentSkill == skill ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
+                  trailing: _parentSkill == skill ? const UlvenikIcon(UlvenikIcons.completed, color: AppColors.primaryForestGreen) : null,
                   onTap: () {
                     Navigator.pop(context);
                     if (skill != _parentSkill) {
@@ -267,7 +268,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
               ),
             ),
             const SizedBox(width: 8),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 22),
+            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 22),
           ],
         ),
       ),
@@ -299,7 +300,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                   : null,
             ),
             child: !_hasCustomImage
-                ? const Icon(Icons.image_outlined, color: AppColors.secondaryTextStoneGrey)
+                ? const UlvenikIcon(UlvenikIcons.play, color: AppColors.secondaryTextStoneGrey)
                 : null,
           ),
           const SizedBox(width: 16),
@@ -387,7 +388,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                         const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () => _removeTag(tag),
-                          child: const Icon(Icons.close, size: 14, color: AppColors.secondaryTextStoneGrey),
+                          child: const UlvenikIcon(UlvenikIcons.back, size: 14, color: AppColors.secondaryTextStoneGrey),
                         ),
                       ],
                     ),

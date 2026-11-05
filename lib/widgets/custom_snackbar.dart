@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 
 enum SnackbarType { error, success, warning, info }
@@ -285,7 +286,7 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
                             shape: BoxShape.circle,
                           ),
                           child: Center(
-                            child: Icon(
+                            child: UlvenikIcon.fromMaterial(
                               _icon,
                               color: Colors.white,
                               size: 26,

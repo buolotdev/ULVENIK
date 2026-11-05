@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -505,8 +506,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.error_outline_rounded,
+          const UlvenikIcon(UlvenikIcons.notifications,
             color: Color(0xFFE07A7A),
             size: 18,
           ),
@@ -774,7 +774,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _weatherAutoDetect
                           ? Icons.lock_outline_rounded
                           : Icons.lock_open_rounded,
@@ -842,7 +842,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: _stone, size: 15.5),
+        UlvenikIcon.fromMaterial(icon, color: _stone, size: 15.5),
         const SizedBox(width: 8),
         Flexible(
           child: RichText(
@@ -934,8 +934,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               ),
             ),
             if (showChevron)
-              const Icon(
-                Icons.keyboard_arrow_down_rounded,
+              const UlvenikIcon(UlvenikIcons.sort,
                 color: _stone,
                 size: 19,
               ),
@@ -983,8 +982,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                 ),
               ),
             ),
-            const Icon(
-              Icons.keyboard_arrow_down_rounded,
+            const UlvenikIcon(UlvenikIcons.sort,
               color: _stone,
               size: 19,
             ),
@@ -1128,8 +1126,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.track_changes_rounded,
+                  const UlvenikIcon(UlvenikIcons.goals,
                     color: _stone,
                     size: 17,
                   ),
@@ -1145,8 +1142,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                       ),
                     ),
                   ),
-                  const Icon(
-                    Icons.chevron_right_rounded,
+                  const UlvenikIcon(UlvenikIcons.details,
                     color: _stone,
                     size: 19,
                   ),
@@ -1219,8 +1215,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.fitness_center_rounded,
+                  const UlvenikIcon(UlvenikIcons.exercises,
                     color: _stone,
                     size: 16,
                   ),
@@ -1250,8 +1245,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                       ],
                     ),
                   ),
-                  const Icon(
-                    Icons.chevron_right_rounded,
+                  const UlvenikIcon(UlvenikIcons.details,
                     color: _stone,
                     size: 19,
                   ),
@@ -1384,7 +1378,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
           children: [
             Row(
               children: [
-                Icon(icon, color: _stone, size: 17),
+                UlvenikIcon.fromMaterial(icon, color: _stone, size: 17),
                 const SizedBox(width: 11),
                 Text(
                   title,
@@ -1430,8 +1424,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                   ),
                   const SizedBox(width: 6),
                 ],
-                const Icon(
-                  Icons.chevron_right_rounded,
+                const UlvenikIcon(UlvenikIcons.details,
                   color: _stone,
                   size: 19,
                 ),
@@ -1527,8 +1520,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.notifications_none_rounded,
+              const UlvenikIcon(UlvenikIcons.notifications,
                 color: _stone,
                 size: 18,
               ),
@@ -1628,7 +1620,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
           const SizedBox(width: 6),
           GestureDetector(
             onTap: onRemove,
-            child: const Icon(Icons.close_rounded, color: _stone, size: 15),
+            child: const UlvenikIcon(UlvenikIcons.back, color: _stone, size: 15),
           ),
         ],
       ),
@@ -1722,8 +1714,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                         ),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.pets_outlined,
+                            const UlvenikIcon(UlvenikIcons.dogs,
                               color: _mint,
                               size: 18,
                             ),
@@ -1740,8 +1731,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                               ),
                             ),
                             if (sel)
-                              const Icon(
-                                Icons.check_circle_rounded,
+                              const UlvenikIcon(UlvenikIcons.completed,
                                 color: _mint,
                                 size: 19,
                               ),
@@ -1842,8 +1832,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                                     ),
                                   ),
                                   if (sel)
-                                    const Icon(
-                                      Icons.check_circle_rounded,
+                                    const UlvenikIcon(UlvenikIcons.completed,
                                       color: _mint,
                                       size: 19,
                                     ),
@@ -1955,7 +1944,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                             ),
                             child: Row(
                               children: [
-                                Icon(
+                                UlvenikIcon.fromMaterial(
                                   checked
                                       ? Icons.check_box_rounded
                                       : Icons.check_box_outline_blank_rounded,
@@ -2083,8 +2072,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                         ),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.attach_file_rounded,
+                            const UlvenikIcon(UlvenikIcons.training,
                               color: _mint,
                               size: 18,
                             ),

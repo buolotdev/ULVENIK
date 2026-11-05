@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'document_viewer_screen.dart';
@@ -335,7 +336,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: _cardBorder),
                     ),
-                    child: Icon(
+                    child: UlvenikIcon.fromMaterial(
                       isGoal ? Icons.gps_fixed_rounded : Icons.pets_outlined,
                       color: _sage,
                       size: 22,
@@ -574,8 +575,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                       ),
                     ),
                     trailing: selected
-                        ? const Icon(
-                            Icons.check_rounded,
+                        ? const UlvenikIcon(UlvenikIcons.completed,
                             color: Color(0xFF95D3BB),
                             size: 20,
                           )
@@ -639,8 +639,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.maybePop(context),
-            icon: const Icon(
-              Icons.arrow_back_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 24,
             ),
@@ -668,8 +667,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                 }
               });
             },
-            icon: Icon(
-              Icons.search_rounded,
+            icon: UlvenikIcon(UlvenikIcons.search,
               color: _showSearchBar ? const Color(0xFF95D3BB) : _stoneGrey,
               size: 23,
             ),
@@ -677,8 +675,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
           IconButton(
             tooltip: 'Sort & filter',
             onPressed: _showSortAndFilterSheet,
-            icon: Icon(
-              Icons.tune_rounded,
+            icon: UlvenikIcon(UlvenikIcons.sort,
               color: _selectedDog != 'All Dogs'
                   ? const Color(0xFF95D3BB)
                   : _stoneGrey,
@@ -714,8 +711,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
               fontSize: 13,
               fontFamily: 'Inter',
             ),
-            prefixIcon: const Icon(
-              Icons.search_rounded,
+            prefixIcon: const UlvenikIcon(UlvenikIcons.search,
               color: _stoneGrey,
               size: 19,
             ),
@@ -725,8 +721,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                       _searchController.clear();
                       setState(() => _searchQuery = '');
                     },
-                    icon: const Icon(
-                      Icons.close_rounded,
+                    icon: const UlvenikIcon(UlvenikIcons.back,
                       color: _stoneGrey,
                       size: 16,
                     ),
@@ -801,7 +796,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.star_border_rounded, color: _favGold, size: 18),
+          const UlvenikIcon(UlvenikIcons.goals, color: _favGold, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -906,8 +901,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
             ),
             const Padding(
               padding: EdgeInsets.only(right: 12),
-              child: Icon(
-                Icons.chevron_right_rounded,
+              child: UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -938,8 +932,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                   color: Colors.black.withValues(alpha: 0.55),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.play_arrow_rounded,
+                child: const UlvenikIcon(UlvenikIcons.play,
                   color: _offWhite,
                   size: 18,
                 ),
@@ -964,7 +957,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
       innerContent = Container(
         color: _thumbDark,
         child: Center(
-          child: Icon(iconData, color: _sage, size: 28),
+          child: UlvenikIcon.fromMaterial(iconData, color: _sage, size: 28),
         ),
       );
     }
@@ -989,8 +982,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                 onTap: () => _unfavouriteItem(item),
                 child: const Padding(
                   padding: EdgeInsets.all(2),
-                  child: Icon(
-                    Icons.favorite_rounded,
+                  child: UlvenikIcon(UlvenikIcons.health,
                     color: _favGold,
                     size: 17,
                   ),
@@ -1017,8 +1009,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                 color: _favGold.withValues(alpha: 0.14),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.favorite_border_rounded,
+              child: const UlvenikIcon(UlvenikIcons.health,
                 color: _favGold,
                 size: 28,
               ),

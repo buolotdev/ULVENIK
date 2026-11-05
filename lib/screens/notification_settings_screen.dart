@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 
@@ -295,8 +296,7 @@ class _NotificationSettingsScreenState
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(4),
-              child: Icon(
-                Icons.chevron_left_rounded,
+              child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
                 size: 26,
               ),
@@ -631,8 +631,7 @@ class _NotificationSettingsScreenState
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             child: Row(
               children: [
-                const Icon(
-                  Icons.nightlight_outlined,
+                const UlvenikIcon(UlvenikIcons.overflowMenu,
                   color: _stoneGrey,
                   size: 19,
                 ),
@@ -792,7 +791,7 @@ class _NotificationSettingsScreenState
                       ),
                       child: Row(
                         children: [
-                          Icon(s.$2, color: _stoneGrey, size: 19),
+                          UlvenikIcon.fromMaterial(s.$2, color: _stoneGrey, size: 19),
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
@@ -806,8 +805,7 @@ class _NotificationSettingsScreenState
                             ),
                           ),
                           if (selected)
-                            const Icon(
-                              Icons.check_rounded,
+                            const UlvenikIcon(UlvenikIcons.completed,
                               color: _forest,
                               size: 19,
                             ),
@@ -839,8 +837,7 @@ class _NotificationSettingsScreenState
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.music_note_outlined,
+                    UlvenikIcon(UlvenikIcons.play,
                       color: _stoneGrey.withValues(alpha: 0.55),
                       size: 19,
                     ),
@@ -885,8 +882,7 @@ class _NotificationSettingsScreenState
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.notifications_none_rounded,
+          const UlvenikIcon(UlvenikIcons.notifications,
             color: _stoneGrey,
             size: 20,
           ),
@@ -944,7 +940,7 @@ class _NotificationSettingsScreenState
           ),
           child: const Row(
             children: [
-              Icon(Icons.schedule_rounded, color: _stoneGrey, size: 20),
+              UlvenikIcon(UlvenikIcons.trainingTime, color: _stoneGrey, size: 20),
               SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -971,7 +967,7 @@ class _NotificationSettingsScreenState
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right_rounded, color: _stoneGrey, size: 20),
+              UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 20),
             ],
           ),
         ),
@@ -996,7 +992,7 @@ class _NotificationSettingsScreenState
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.sync_rounded, color: _destructiveText, size: 18),
+              UlvenikIcon(UlvenikIcons.history, color: _destructiveText, size: 18),
               SizedBox(width: 8),
               Text(
                 'Reset Notification Settings',
@@ -1100,7 +1096,7 @@ class _NotificationSettingsScreenState
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
         child: Row(
           children: [
-            Icon(
+            UlvenikIcon.fromMaterial(
               icon,
               color: _stoneGrey,
               size: 18,
@@ -1146,7 +1142,7 @@ class _NotificationSettingsScreenState
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
         child: Row(
           children: [
-            Icon(icon, color: _stoneGrey, size: 18),
+            UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 18),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -1194,7 +1190,7 @@ class _NotificationSettingsScreenState
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
           child: Row(
             children: [
-              Icon(icon, color: _stoneGrey, size: 18),
+              UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 18),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
@@ -1217,8 +1213,7 @@ class _NotificationSettingsScreenState
                 ),
               ),
               const SizedBox(width: 6),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1291,7 +1286,7 @@ class _NotificationSettingsScreenState
                       ),
                     ),
                     trailing: active
-                        ? const Icon(Icons.check_rounded, color: _forest)
+                        ? const UlvenikIcon(UlvenikIcons.completed, color: _forest)
                         : null,
                     onTap: () {
                       onSelect(opt);

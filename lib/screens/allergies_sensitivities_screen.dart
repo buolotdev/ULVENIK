@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/app_colors.dart';
 
@@ -323,7 +324,7 @@ class _AllergiesSensitivitiesScreenState
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Color(0xFF95D3BB), size: 22),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: Color(0xFF95D3BB), size: 22),
         onPressed: () => Navigator.of(context).maybePop(),
         tooltip: 'Back',
       ),
@@ -339,7 +340,7 @@ class _AllergiesSensitivitiesScreenState
       centerTitle: false,
       actions: [
         IconButton(
-          icon: const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           tooltip: 'Search Allergies',
           onPressed: () {
             if (_isEmpty) _toggleEmptyState(false);
@@ -347,13 +348,13 @@ class _AllergiesSensitivitiesScreenState
           },
         ),
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 20),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
           tooltip: 'Filter Allergies',
           onPressed: _showFilterOptionsModal,
         ),
         // Toggle State Button (Populated / Empty)
         IconButton(
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on,
             color: _isEmpty ? AppColors.secondaryTextStoneGrey : const Color(0xFF95D3BB),
             size: 26,
@@ -362,7 +363,7 @@ class _AllergiesSensitivitiesScreenState
           onPressed: () => _toggleEmptyState(!_isEmpty),
         ),
         IconButton(
-          icon: const Icon(Icons.add, color: Color(0xFF95D3BB), size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.add, color: Color(0xFF95D3BB), size: 22),
           tooltip: 'Add Allergy or Sensitivity',
           onPressed: _showAddAllergyModal,
         ),
@@ -464,7 +465,7 @@ class _AllergiesSensitivitiesScreenState
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: Color(0xFFB6CCB5), size: 22),
+            const UlvenikIcon(UlvenikIcons.details, color: Color(0xFFB6CCB5), size: 22),
           ],
         ),
       ),
@@ -584,7 +585,7 @@ class _AllergiesSensitivitiesScreenState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (icon != null)
-                      Icon(icon, size: 16, color: AppColors.secondaryTextStoneGrey),
+                      UlvenikIcon.fromMaterial(icon, size: 16, color: AppColors.secondaryTextStoneGrey),
                     Text(
                       valueText,
                       style: TextStyle(
@@ -670,7 +671,7 @@ class _AllergiesSensitivitiesScreenState
                       ),
                     ),
                     SizedBox(width: 4),
-                    Icon(Icons.refresh, size: 12, color: AppColors.secondaryTextStoneGrey),
+                    UlvenikIcon(UlvenikIcons.history, size: 12, color: AppColors.secondaryTextStoneGrey),
                   ],
                 ),
               ),
@@ -970,7 +971,7 @@ class _AllergiesSensitivitiesScreenState
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -1008,7 +1009,7 @@ class _AllergiesSensitivitiesScreenState
                   _searchQuery = '';
                 });
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -1139,7 +1140,7 @@ class _AllergiesSensitivitiesScreenState
                               color: const Color(0xFF111412),
                               border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
                             ),
-                            child: Icon(typeIcon, size: 18, color: AppColors.secondaryTextStoneGrey),
+                            child: UlvenikIcon.fromMaterial(typeIcon, size: 18, color: AppColors.secondaryTextStoneGrey),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
@@ -1324,7 +1325,7 @@ class _AllergiesSensitivitiesScreenState
           children: [
             Row(
               children: [
-                Icon(typeIcon, color: AppColors.secondaryTextStoneGrey, size: 20),
+                UlvenikIcon.fromMaterial(typeIcon, color: AppColors.secondaryTextStoneGrey, size: 20),
                 const SizedBox(width: 12),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1398,7 +1399,7 @@ class _AllergiesSensitivitiesScreenState
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Icon(Icons.add, color: Color(0xFFF5F6F2), size: 20),
+              UlvenikIcon(UlvenikIcons.add, color: Color(0xFFF5F6F2), size: 20),
               SizedBox(width: 8),
               Text(
                 'Add Allergy or Sensitivity',
@@ -1460,7 +1461,7 @@ class _AllergiesSensitivitiesScreenState
                     ],
                   ),
                 ),
-                const Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+                const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),
@@ -1476,8 +1477,7 @@ class _AllergiesSensitivitiesScreenState
                 color: AppColors.cardsCarbon,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08), width: 1.5),
               ),
-              child: const Icon(
-                Icons.shield_outlined,
+              child: const UlvenikIcon(UlvenikIcons.overflowMenu,
                 color: Color(0xFF95D3BB),
                 size: 38,
               ),
@@ -1532,7 +1532,7 @@ class _AllergiesSensitivitiesScreenState
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Icon(Icons.add, color: Color(0xFFF5F6F2), size: 20),
+                  UlvenikIcon(UlvenikIcons.add, color: Color(0xFFF5F6F2), size: 20),
                   SizedBox(width: 8),
                   Text(
                     'Add Allergy or Sensitivity',
@@ -1576,7 +1576,7 @@ class _AllergiesSensitivitiesScreenState
             height: size,
             color: const Color(0xFF2E6B57),
             alignment: Alignment.center,
-            child: Icon(Icons.pets, size: size * 0.55, color: const Color(0xFF95D3BB)),
+            child: UlvenikIcon(UlvenikIcons.dogs, size: size * 0.55, color: const Color(0xFF95D3BB)),
           ),
         ),
       ),
@@ -1639,7 +1639,7 @@ class _AllergiesSensitivitiesScreenState
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1826,7 +1826,7 @@ class _AllergiesSensitivitiesScreenState
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1876,7 +1876,7 @@ class _AllergiesSensitivitiesScreenState
                       children: [
                         Row(
                           children: const [
-                            Icon(Icons.warning_amber_rounded, color: Color(0xFFFFB4AB), size: 18),
+                            UlvenikIcon(UlvenikIcons.notifications, color: Color(0xFFFFB4AB), size: 18),
                             SizedBox(width: 8),
                             Text(
                               'EMERGENCY ACTION PROTOCOL',
@@ -2093,7 +2093,7 @@ class _AllergiesSensitivitiesScreenState
                             ),
                           ),
                           if (isSelected)
-                            const Icon(Icons.check_circle, color: Color(0xFF95D3BB), size: 20),
+                            const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB), size: 20),
                         ],
                       ),
                     ),
@@ -2133,7 +2133,7 @@ class _AllergiesSensitivitiesScreenState
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(tab, style: TextStyle(color: isSelected ? const Color(0xFF95D3BB) : AppColors.primaryTextOffWhite, fontSize: 14)),
-                    trailing: isSelected ? const Icon(Icons.check, color: Color(0xFF95D3BB)) : null,
+                    trailing: isSelected ? const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB)) : null,
                     onTap: () {
                       setState(() => _selectedFilter = tab);
                       Navigator.pop(ctx);

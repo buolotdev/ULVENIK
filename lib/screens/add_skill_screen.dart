@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -88,8 +89,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                   color: const Color(0xFFE07070).withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.warning_amber_rounded,
+                child: const UlvenikIcon(UlvenikIcons.notifications,
                   color: Color(0xFFE07070),
                   size: 24,
                 ),
@@ -295,7 +295,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Colors.white12),
                         ),
-                        child: const Icon(Icons.photo_camera_outlined,
+                        child: const UlvenikIcon(UlvenikIcons.play,
                             color: AppColors.secondaryTextStoneGrey, size: 24),
                       ),
                       const SizedBox(width: 16),
@@ -365,7 +365,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.save_outlined,
+                          UlvenikIcon(UlvenikIcons.overflowMenu,
                               color: _canSave
                                   ? AppColors.primaryTextOffWhite
                                   : AppColors.secondaryTextStoneGrey,
@@ -518,7 +518,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.add, color: AppColors.primaryForestGreen, size: 20),
+                icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen, size: 20),
                 onPressed: () => _addTag(_tagController.text),
               ),
             ],
@@ -555,7 +555,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
           const SizedBox(width: 4),
           GestureDetector(
             onTap: () => _removeTag(label),
-            child: const Icon(Icons.close,
+            child: const UlvenikIcon(UlvenikIcons.back,
                 size: 14, color: AppColors.secondaryTextStoneGrey),
           ),
         ],
@@ -589,7 +589,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon,
+              UlvenikIcon.fromMaterial(icon,
                   size: 16,
                   color: isPrimary
                       ? AppColors.primaryForestGreen

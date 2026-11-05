@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import 'two_factor_setup_screen.dart';
 import '../widgets/custom_snackbar.dart';
@@ -116,8 +117,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
           const Spacer(flex: 1),
           
           // Icon & Heading
-          const Icon(
-            Icons.mail_outline,
+          const UlvenikIcon(UlvenikIcons.notifications,
             size: 64,
             color: AppColors.primaryForestGreen,
           ),
@@ -161,8 +161,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
                   children: [
                     Row(
                       children: [
-                        const Icon(
-                          Icons.schedule,
+                        const UlvenikIcon(UlvenikIcons.trainingTime,
                           size: 16,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
@@ -230,7 +229,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
           // Actions
           ElevatedButton.icon(
             onPressed: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
-            icon: const Icon(Icons.mark_email_unread_outlined, size: 20),
+            icon: const UlvenikIcon(UlvenikIcons.notifications, size: 20),
             label: const Text('Open Email App'),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primaryForestGreen,
@@ -286,7 +285,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
               ] else ...[
                 TextButton.icon(
                   onPressed: _startTimer,
-                  icon: const Icon(Icons.refresh_rounded, size: 16),
+                  icon: const UlvenikIcon(UlvenikIcons.history, size: 16),
                   label: const Text(
                     'Resend Verification Email',
                     style: TextStyle(
@@ -363,8 +362,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
                 child: child,
               );
             },
-            child: const Icon(
-              Icons.check_circle_outline,
+            child: const UlvenikIcon(UlvenikIcons.completed,
               size: 64,
               color: AppColors.primaryForestGreen,
             ),
@@ -406,8 +404,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
               children: [
                 Row(
                   children: [
-                    const Icon(
-                      Icons.check,
+                    const UlvenikIcon(UlvenikIcons.completed,
                       size: 16,
                       color: AppColors.primaryForestGreen,
                     ),

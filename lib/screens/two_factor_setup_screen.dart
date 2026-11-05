@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -213,8 +214,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(
-                          Icons.close,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
                         onPressed: () => Navigator.pop(ctx),
@@ -246,7 +246,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                       filled: true,
                       fillColor: AppColors.backgroundObsidian,
                       suffixIcon: IconButton(
-                        icon: Icon(
+                        icon: UlvenikIcon.fromMaterial(
                           obscure
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
@@ -332,8 +332,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
         backgroundColor: AppColors.backgroundObsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
+          icon: const UlvenikIcon(UlvenikIcons.back,
             color: AppColors.primaryTextOffWhite,
             size: 18,
           ),
@@ -417,8 +416,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                             children: [
                               const Row(
                                 children: [
-                                  Icon(
-                                    Icons.shield_outlined,
+                                  UlvenikIcon(UlvenikIcons.overflowMenu,
                                     color: AppColors.secondaryTextStoneGrey,
                                     size: 20,
                                   ),
@@ -499,8 +497,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           ListTile(
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
-                            leading: const Icon(
-                              Icons.phone_android_rounded,
+                            leading: const UlvenikIcon(UlvenikIcons.overflowMenu,
                               color: AppColors.secondarySage,
                             ),
                             title: const Text(
@@ -539,8 +536,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 8),
-                                const Icon(
-                                  Icons.chevron_right_rounded,
+                                const UlvenikIcon(UlvenikIcons.details,
                                   color: AppColors.secondaryTextStoneGrey,
                                   size: 20,
                                 ),
@@ -552,8 +548,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           ListTile(
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
-                            leading: const Icon(
-                              Icons.key_rounded,
+                            leading: const UlvenikIcon(UlvenikIcons.overflowMenu,
                               color: AppColors.secondaryTextStoneGrey,
                             ),
                             title: const Text(
@@ -611,7 +606,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                   ),
                 ),
                 onPressed: _startSetupFlow,
-                icon: const Icon(Icons.shield_outlined, size: 20),
+                icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 20),
                 label: const Text(
                   'Set Up Two-Factor Authentication',
                   style: TextStyle(
@@ -745,8 +740,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           ),
                         ),
                         onPressed: _requestViewRecoveryCodes,
-                        icon: const Icon(
-                          Icons.lock_open_rounded,
+                        icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                           color: AppColors.secondarySage,
                           size: 18,
                         ),
@@ -789,8 +783,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                               ),
                             ),
                           ),
-                          const Icon(
-                            Icons.check,
+                          const UlvenikIcon(UlvenikIcons.completed,
                             size: 14,
                             color: AppColors.secondarySage,
                           ),
@@ -818,8 +811,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                               type: SnackbarType.success,
                             );
                           },
-                          icon: const Icon(
-                            Icons.copy_rounded,
+                          icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             size: 16,
                             color: AppColors.secondaryTextStoneGrey,
                           ),
@@ -851,8 +843,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                               type: SnackbarType.info,
                             );
                           },
-                          icon: const Icon(
-                            Icons.download_rounded,
+                          icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             size: 16,
                             color: AppColors.secondaryTextStoneGrey,
                           ),
@@ -884,8 +875,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                               type: SnackbarType.info,
                             );
                           },
-                          icon: const Icon(
-                            Icons.print_rounded,
+                          icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             size: 16,
                             color: AppColors.secondaryTextStoneGrey,
                           ),
@@ -936,7 +926,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           horizontal: 16, vertical: 12),
                       child: Row(
                         children: [
-                          Icon(
+                          UlvenikIcon.fromMaterial(
                             dev['name']!.contains('Mac')
                                 ? Icons.laptop_mac_rounded
                                 : Icons.phone_iphone_rounded,
@@ -1123,7 +1113,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                   ),
                 )
               : (isActive
-                  ? const Icon(Icons.check,
+                  ? const UlvenikIcon(UlvenikIcons.completed,
                       size: 16, color: AppColors.primaryTextOffWhite)
                   : null),
         ),
@@ -1209,8 +1199,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Colors.white, width: 3),
                         ),
-                        child: const Icon(
-                          Icons.lock_outline,
+                        child: const UlvenikIcon(UlvenikIcons.overflowMenu,
                           color: AppColors.primaryTextOffWhite,
                           size: 22,
                         ),
@@ -1271,8 +1260,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           type: SnackbarType.success,
                         );
                       },
-                      icon: const Icon(
-                        Icons.copy_outlined,
+                      icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                         size: 18,
                         color: AppColors.secondaryTextStoneGrey,
                       ),
@@ -1330,8 +1318,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.history_rounded,
+                    UlvenikIcon(UlvenikIcons.history,
                       size: 14,
                       color: AppColors.secondaryTextStoneGrey,
                     ),
@@ -1415,8 +1402,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
             ),
             child: const Column(
               children: [
-                Icon(
-                  Icons.verified_user_rounded,
+                UlvenikIcon(UlvenikIcons.completed,
                   size: 48,
                   color: AppColors.primaryForestGreen,
                 ),
@@ -1547,7 +1533,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                       type: SnackbarType.success,
                     );
                   },
-                  icon: const Icon(Icons.copy_rounded, size: 16),
+                  icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 16),
                   label: const Text(
                     'Copy All Codes',
                     style: TextStyle(

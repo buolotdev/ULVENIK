@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -244,7 +245,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.medication_outlined, size: 14, color: Color(0xFF95d3bb)),
+                      UlvenikIcon(UlvenikIcons.health, size: 14, color: Color(0xFF95d3bb)),
                       SizedBox(width: 6),
                       Text(
                         'Medications',
@@ -255,7 +256,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                         ),
                       ),
                       SizedBox(width: 4),
-                      Icon(Icons.check, size: 14, color: Color(0xFF95d3bb)),
+                      UlvenikIcon(UlvenikIcons.completed, size: 14, color: Color(0xFF95d3bb)),
                     ],
                   ),
                 ),
@@ -385,7 +386,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                     fontSize: 14,
                   ),
                 ),
-                const Icon(Icons.calendar_month_outlined, color: AppColors.secondaryTextStoneGrey, size: 20),
+                const UlvenikIcon(UlvenikIcons.scheduledTraining, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),
@@ -475,7 +476,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.upload_file_outlined, color: AppColors.secondaryTextStoneGrey, size: 28),
+                  UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 28),
                   SizedBox(height: 8),
                   Text(
                     'Add photos or documents',
@@ -518,7 +519,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: AppColors.secondaryTextStoneGrey, size: 20),
+            UlvenikIcon.fromMaterial(icon, color: AppColors.secondaryTextStoneGrey, size: 20),
             const SizedBox(height: 6),
             Text(
               label,
@@ -638,7 +639,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
           ),
           elevation: 0,
         ),
-        icon: const Icon(Icons.save_outlined, size: 18),
+        icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
         label: const Text('Save Health Record', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
       ),
     );
@@ -719,7 +720,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
               value: items.contains(value) ? value : items.first,
               isExpanded: true,
               dropdownColor: AppColors.cardsCarbon,
-              icon: const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+              icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
               style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
               items: items.map((String item) {
                 return DropdownMenuItem<String>(
@@ -727,7 +728,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                   child: Row(
                     children: [
                       if (icon != null) ...[
-                        Icon(icon, size: 20, color: AppColors.secondaryTextStoneGrey),
+                        UlvenikIcon.fromMaterial(icon, size: 20, color: AppColors.secondaryTextStoneGrey),
                         const SizedBox(width: 8),
                       ],
                       Text(item),
@@ -774,7 +775,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                   '${_selectedDate.month.toString().padLeft(2, '0')}/${_selectedDate.day.toString().padLeft(2, '0')}/${_selectedDate.year}',
                   style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                 ),
-                const Icon(Icons.calendar_month_outlined, color: AppColors.secondaryTextStoneGrey, size: 20),
+                const UlvenikIcon(UlvenikIcons.scheduledTraining, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),
@@ -814,7 +815,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                   _selectedTime.format(context),
                   style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                 ),
-                const Icon(Icons.schedule_outlined, color: AppColors.secondaryTextStoneGrey, size: 20),
+                const UlvenikIcon(UlvenikIcons.trainingTime, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),

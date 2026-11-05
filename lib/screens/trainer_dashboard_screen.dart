@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -1181,7 +1182,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        icon: const Icon(Icons.person_outline, size: 17),
+                        icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 17),
                         label: const Text('Client Profile'),
                       ),
                     ),
@@ -1204,7 +1205,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        icon: const Icon(Icons.pets_outlined, size: 17),
+                        icon: const UlvenikIcon(UlvenikIcons.dogs, size: 17),
                         label: const Text('Dog Profile'),
                       ),
                     ),
@@ -1227,7 +1228,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        icon: const Icon(Icons.sticky_note_2_outlined, size: 17),
+                        icon: const UlvenikIcon(UlvenikIcons.training, size: 17),
                         label: const Text('Client Notes'),
                       ),
                     ),
@@ -1257,7 +1258,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        icon: Icon(
+                        icon: UlvenikIcon.fromMaterial(
                           item.resolved
                               ? Icons.replay_rounded
                               : Icons.check_rounded,
@@ -1363,7 +1364,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    icon: const Icon(Icons.play_arrow_rounded, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.play, size: 20),
                     label: const Text(
                       'Record Session',
                       style: TextStyle(fontWeight: FontWeight.w600),
@@ -1534,8 +1535,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         fontSize: 12,
                       ),
                     ),
-                    trailing: const Icon(
-                      Icons.play_circle_outline_rounded,
+                    trailing: const UlvenikIcon(UlvenikIcons.play,
                       color: _mintBright,
                       size: 20,
                     ),
@@ -1792,8 +1792,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         fontSize: 12,
                       ),
                     ),
-                    trailing: const Icon(
-                      Icons.chevron_right_rounded,
+                    trailing: const UlvenikIcon(UlvenikIcons.details,
                       color: _textSecondary,
                       size: 18,
                     ),
@@ -1898,8 +1897,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
               behavior: HitTestBehavior.opaque,
               child: const Padding(
                 padding: EdgeInsets.only(right: 10),
-                child: Icon(
-                  Icons.arrow_back_ios_new_rounded,
+                child: UlvenikIcon(UlvenikIcons.back,
                   color: _textPrimary,
                   size: 18,
                 ),
@@ -1924,15 +1922,14 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
             onPressed: () {
               _searchFocusNode.requestFocus();
             },
-            icon: const Icon(Icons.search_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.search,
                 color: _textSecondary, size: 22),
           ),
           IconButton(
             tooltip: 'Analytics',
             visualDensity: VisualDensity.compact,
             onPressed: _openTrainerAnalytics,
-            icon: const Icon(
-              Icons.bar_chart_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.progress,
               color: _textSecondary,
               size: 21,
             ),
@@ -1944,8 +1941,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(
-                  Icons.notifications_none_rounded,
+                const UlvenikIcon(UlvenikIcons.notifications,
                   color: _textSecondary,
                   size: 22,
                 ),
@@ -1969,8 +1965,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
             tooltip: 'Workspace Settings',
             visualDensity: VisualDensity.compact,
             onPressed: _openWorkspaceSettings,
-            icon: const Icon(
-              Icons.settings_outlined,
+            icon: const UlvenikIcon(UlvenikIcons.sort,
               color: _textSecondary,
               size: 20,
             ),
@@ -2022,8 +2017,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             width: 1.2,
                           ),
                         ),
-                        child: const Icon(
-                          Icons.account_circle_outlined,
+                        child: const UlvenikIcon(UlvenikIcons.overflowMenu,
                           color: _textSecondary,
                           size: 24,
                         ),
@@ -2080,8 +2074,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                           ],
                         ),
                       ),
-                      const Icon(
-                        Icons.chevron_right_rounded,
+                      const UlvenikIcon(UlvenikIcons.details,
                         color: _textSecondary,
                         size: 20,
                       ),
@@ -2209,7 +2202,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
       ),
       child: Row(
         children: [
-          const Icon(Icons.search_rounded, color: _textSecondary, size: 19),
+          const UlvenikIcon(UlvenikIcons.search, color: _textSecondary, size: 19),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -2241,8 +2234,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                 setState(() => _searchQuery = '');
                 _searchFocusNode.unfocus();
               },
-              child: const Icon(
-                Icons.close_rounded,
+              child: const UlvenikIcon(UlvenikIcons.back,
                 color: _textSecondary,
                 size: 18,
               ),
@@ -2350,8 +2342,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                           ],
                         ),
                       ),
-                      const Icon(
-                        Icons.chevron_right_rounded,
+                      const UlvenikIcon(UlvenikIcons.details,
                         color: _textSecondary,
                         size: 18,
                       ),
@@ -2431,7 +2422,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                   ),
                                 ),
                                 const SizedBox(width: 10),
-                                Icon(
+                                UlvenikIcon.fromMaterial(
                                   item.icon,
                                   color: _textSecondary,
                                   size: 18,
@@ -2480,8 +2471,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                   ),
                                 ),
                                 const SizedBox(width: 2),
-                                const Icon(
-                                  Icons.chevron_right_rounded,
+                                const UlvenikIcon(UlvenikIcons.details,
                                   color: _textSecondary,
                                   size: 16,
                                 ),
@@ -2573,8 +2563,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                   Row(
                                     children: [
                                       if (lesson.hasLocationPin) ...[
-                                        const Icon(
-                                          Icons.location_on_outlined,
+                                        const UlvenikIcon(UlvenikIcons.timeline,
                                           color: _textSecondary,
                                           size: 13.5,
                                         ),
@@ -2633,8 +2622,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         ),
                       ),
                       SizedBox(width: 5),
-                      Icon(
-                        Icons.arrow_forward_rounded,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: _mintBright,
                         size: 15,
                       ),
@@ -2779,7 +2767,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
     required VoidCallback onTap,
     bool rotateIcon = false,
   }) {
-    final iconWidget = Icon(icon, color: _sage, size: 20);
+    final iconWidget = UlvenikIcon.fromMaterial(icon, color: _sage, size: 20);
     return Material(
       color: _tileBg,
       borderRadius: BorderRadius.circular(12),
@@ -2894,8 +2882,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                               ),
                               if (entry.hasPersonalBestStar) ...[
                                 const SizedBox(width: 6),
-                                const Icon(
-                                  Icons.star_border_rounded,
+                                const UlvenikIcon(UlvenikIcons.goals,
                                   color: _forest,
                                   size: 15,
                                 ),
@@ -2938,8 +2925,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         ),
                       ),
                       SizedBox(width: 5),
-                      Icon(
-                        Icons.arrow_forward_rounded,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: _mintBright,
                         size: 15,
                       ),

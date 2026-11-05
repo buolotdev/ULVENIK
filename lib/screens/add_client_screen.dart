@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -162,7 +163,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                       ),
                     ),
                     trailing: selected
-                        ? const Icon(Icons.check_rounded,
+                        ? const UlvenikIcon(UlvenikIcons.completed,
                             color: _greenHeader, size: 20)
                         : null,
                   );
@@ -556,7 +557,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             onTap: () => setState(() => _addressExpanded = !_addressExpanded),
             child: Row(
               children: [
-                const Icon(Icons.location_on_outlined, color: _sage, size: 17),
+                const UlvenikIcon(UlvenikIcons.timeline, color: _sage, size: 17),
                 const SizedBox(width: 8),
                 const Text(
                   'Add Address',
@@ -577,7 +578,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   ),
                 ),
                 const Spacer(),
-                Icon(
+                UlvenikIcon.fromMaterial(
                   _addressExpanded
                       ? Icons.keyboard_arrow_up_rounded
                       : Icons.keyboard_arrow_down_rounded,
@@ -635,8 +636,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                         fontFamily: 'Inter',
                       ),
                     ),
-                    const Icon(
-                      Icons.chevron_right_rounded,
+                    const UlvenikIcon(UlvenikIcons.details,
                       color: _textSecondary,
                       size: 18,
                     ),
@@ -663,7 +663,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
         children: [
           Row(
             children: const [
-              Icon(Icons.lock_outline_rounded, color: _sage, size: 15),
+              UlvenikIcon(UlvenikIcons.overflowMenu, color: _sage, size: 15),
               SizedBox(width: 7),
               Text(
                 'Private to you only',
@@ -728,7 +728,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                Icon(Icons.info_outline_rounded, color: _alpineBlue, size: 15),
+                UlvenikIcon(UlvenikIcons.notifications, color: _alpineBlue, size: 15),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -886,7 +886,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Row(
         children: [
-          Icon(icon, color: _sage, size: 18),
+          UlvenikIcon.fromMaterial(icon, color: _sage, size: 18),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -942,7 +942,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 3),
-                child: Icon(Icons.mail_outline_rounded, color: _sage, size: 18),
+                child: UlvenikIcon(UlvenikIcons.notifications, color: _sage, size: 18),
               ),
               const SizedBox(width: 10),
               const Expanded(
@@ -1066,7 +1066,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
         children: [
           Row(
             children: [
-              const Icon(Icons.location_on_outlined, color: _sage, size: 18),
+              const UlvenikIcon(UlvenikIcons.timeline, color: _sage, size: 18),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -1146,7 +1146,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
         Row(
           children: [
             if (icon != null) ...[
-              Icon(icon, color: _sage, size: 16),
+              UlvenikIcon.fromMaterial(icon, color: _sage, size: 16),
               const SizedBox(width: 8),
             ] else if (indentWithoutIcon) ...[
               const SizedBox(width: 24),

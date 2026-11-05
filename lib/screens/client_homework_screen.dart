@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'homework_details_screen.dart';
@@ -657,7 +658,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
                         ),
                         IconButton(
                           onPressed: () => Navigator.of(ctx).pop(),
-                          icon: const Icon(Icons.close, color: _textSecondary),
+                          icon: const UlvenikIcon(UlvenikIcons.back, color: _textSecondary),
                         ),
                       ],
                     ),
@@ -734,8 +735,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
                               label: 'Target Due Date',
                               hint: 'e.g. 30 Nov',
                             ).copyWith(
-                              suffixIcon: const Icon(
-                                Icons.calendar_today_outlined,
+                              suffixIcon: const UlvenikIcon(UlvenikIcons.calendar,
                                 size: 16,
                                 color: _sage,
                               ),
@@ -766,8 +766,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    Icons.priority_high_rounded,
+                                  UlvenikIcon(UlvenikIcons.notifications,
                                     size: 17,
                                     color: highPriority
                                         ? _crimsonText
@@ -1031,7 +1030,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
           elevation: 6,
           shape: const CircleBorder(),
           onPressed: () => _showAssignOrEditHomeworkSheet(),
-          child: const Icon(Icons.add, color: _textPrimary, size: 28),
+          child: const UlvenikIcon(UlvenikIcons.add, color: _textPrimary, size: 28),
         ),
       ),
       body: SafeArea(
@@ -1088,8 +1087,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _textPrimary,
               size: 25,
             ),
@@ -1108,7 +1106,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: () => _searchFocusNode.requestFocus(),
-            icon: const Icon(Icons.search, color: _sage, size: 22),
+            icon: const UlvenikIcon(UlvenikIcons.search, color: _sage, size: 22),
           ),
           IconButton(
             visualDensity: VisualDensity.compact,
@@ -1116,7 +1114,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(Icons.filter_list, color: _sage, size: 22),
+                const UlvenikIcon(UlvenikIcons.sort, color: _sage, size: 22),
                 Positioned(
                   right: -2,
                   top: -2,
@@ -1137,7 +1135,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: () => _showAssignOrEditHomeworkSheet(),
-            icon: const Icon(Icons.add, color: _sage, size: 24),
+            icon: const UlvenikIcon(UlvenikIcons.add, color: _sage, size: 24),
           ),
         ],
       ),
@@ -1154,7 +1152,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.search, color: _sage, size: 18),
+          const UlvenikIcon(UlvenikIcons.search, color: _sage, size: 18),
           const SizedBox(width: 10),
           Expanded(
             child: Container(
@@ -1277,7 +1275,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.filter_alt_outlined, color: _sage, size: 16),
+          const UlvenikIcon(UlvenikIcons.sort, color: _sage, size: 16),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -1349,7 +1347,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       ),
       child: Column(
         children: [
-          const Icon(Icons.assignment_turned_in_outlined,
+          const UlvenikIcon(UlvenikIcons.exercises,
               color: _sage, size: 32),
           const SizedBox(height: 10),
           Text(
@@ -1618,8 +1616,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
                             ),
                           ),
                         ),
-                        const Icon(
-                          Icons.chevron_right,
+                        const UlvenikIcon(UlvenikIcons.details,
                           color: _sage,
                           size: 18,
                         ),
@@ -1741,8 +1738,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
-            Icons.local_offer_outlined,
+          const UlvenikIcon(UlvenikIcons.skills,
             size: 12,
             color: _sage,
           ),
@@ -1782,7 +1778,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: iconColor, size: 17),
+            UlvenikIcon.fromMaterial(icon, color: iconColor, size: 17),
             const SizedBox(height: 4),
             Text(
               label,

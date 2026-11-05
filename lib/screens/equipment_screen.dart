@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import 'record_session_screen.dart';
 import 'sc_archive_screen.dart';
@@ -343,7 +344,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
               final isSel = _currentSort == opt['value'];
               return ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: Icon(opt['icon'] as IconData, color: isSel ? _mint : _stoneGrey),
+                leading: UlvenikIcon.fromMaterial(opt['icon'] as IconData, color: isSel ? _mint : _stoneGrey),
                 title: Text(
                   opt['label'] as String,
                   style: TextStyle(
@@ -353,7 +354,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   ),
                 ),
                 trailing: isSel
-                    ? const Icon(Icons.check, color: _mint, size: 20)
+                    ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
                     : null,
                 onTap: () {
                   setState(() => _currentSort = opt['value'] as String);
@@ -489,7 +490,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                         border: _hairlineBorder,
                       ),
                       child: Center(
-                        child: Icon(item.icon, color: _mint, size: 26),
+                        child: UlvenikIcon.fromMaterial(item.icon, color: _mint, size: 26),
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -537,7 +538,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(
+                      icon: UlvenikIcon.fromMaterial(
                         item.isFavorite ? Icons.star : Icons.star_border,
                         color: item.isFavorite ? _mint : _stoneGrey,
                         size: 26,
@@ -620,7 +621,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.sync_alt, size: 12, color: _mint.withValues(alpha: 0.8)),
+                    UlvenikIcon(UlvenikIcons.history, size: 12, color: _mint.withValues(alpha: 0.8)),
                     const SizedBox(width: 5),
                     const Text(
                       'Shared across Training, S&C and Sport sessions',
@@ -699,7 +700,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.play_arrow, size: 16),
+                            UlvenikIcon(UlvenikIcons.play, size: 16),
                             SizedBox(width: 4),
                             Text('Use in Session', style: TextStyle(fontWeight: FontWeight.w600)),
                           ],
@@ -845,7 +846,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                         value: category,
                         dropdownColor: _carbon,
                         isExpanded: true,
-                        icon: const Icon(Icons.keyboard_arrow_down, color: _mint),
+                        icon: const UlvenikIcon(UlvenikIcons.sort, color: _mint),
                         style: const TextStyle(color: _offWhite, fontSize: 14),
                         items: [
                           'Harnesses & Vests',
@@ -1136,7 +1137,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _mint),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _mint),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: GestureDetector(
@@ -1154,7 +1155,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         centerTitle: true,
         actions: [
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert, color: _mint),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -1188,7 +1189,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 value: 'toggle',
                 child: Row(
                   children: [
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _isEmpty ? Icons.inventory_2 : Icons.hourglass_empty,
                       color: _mint,
                       size: 18,
@@ -1205,7 +1206,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 value: 'add',
                 child: Row(
                   children: [
-                    Icon(Icons.add_circle_outline, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.add, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Add New Equipment', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1215,7 +1216,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 value: 'sort',
                 child: Row(
                   children: [
-                    Icon(Icons.sort, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.sort, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Sort Equipment', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1225,7 +1226,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 value: 'filter',
                 child: Row(
                   children: [
-                    Icon(Icons.filter_list, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.sort, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Filter by Category', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1235,7 +1236,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 value: 'export',
                 child: Row(
                   children: [
-                    Icon(Icons.file_download, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Inventory', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1245,7 +1246,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 value: 'archive',
                 child: Row(
                   children: [
-                    Icon(Icons.inventory_2_outlined, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('View Archive', style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600)),
                   ],
@@ -1289,7 +1290,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
               foregroundColor: _offWhite,
               elevation: 4,
               shape: const CircleBorder(),
-              child: const Icon(Icons.add, size: 28),
+              child: const UlvenikIcon(UlvenikIcons.add, size: 28),
             ),
     );
   }
@@ -1312,10 +1313,10 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         decoration: InputDecoration(
           hintText: 'Search equipment...',
           hintStyle: const TextStyle(color: _stoneGrey, fontSize: 14),
-          prefixIcon: const Icon(Icons.search, color: _stoneGrey, size: 20),
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
                   onPressed: () {
                     _searchCtrl.clear();
                   },
@@ -1401,7 +1402,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(Icons.sort, color: _stoneGrey, size: 15),
+                                const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 15),
                                 const SizedBox(width: 4),
                                 Text(
                                   _currentSort,
@@ -1444,8 +1445,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                                     ),
                                   ),
                                 ],
-                                Icon(
-                                  Icons.filter_list,
+                                UlvenikIcon(UlvenikIcons.sort,
                                   color: isFiltered ? _offWhite : _stoneGrey,
                                   size: 15,
                                 ),
@@ -1498,7 +1498,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                       onTap: () {
                         setState(() => _selectedCategory = 'All Types');
                       },
-                      child: const Icon(Icons.close, color: _mint, size: 14),
+                      child: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 14),
                     ),
                   ],
                 ),
@@ -1539,7 +1539,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     ),
                   ),
                   SizedBox(width: 4),
-                  Icon(Icons.arrow_drop_down, color: _mint, size: 16),
+                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
                 ],
               ),
             ),
@@ -1590,7 +1590,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.search_off, color: _stoneGrey, size: 48),
+            const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 48),
             const SizedBox(height: 12),
             const Text(
               'No equipment found',
@@ -1642,7 +1642,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 border: _hairlineBorder,
               ),
               child: Center(
-                child: Icon(
+                child: UlvenikIcon.fromMaterial(
                   item.icon,
                   color: _mint,
                   size: 24,
@@ -1701,7 +1701,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   onTap: () => _toggleFavorite(item),
                   child: Padding(
                     padding: const EdgeInsets.all(6),
-                    child: Icon(
+                    child: UlvenikIcon.fromMaterial(
                       item.isFavorite ? Icons.star : Icons.star_border,
                       color: item.isFavorite ? _mint : _stoneGrey,
                       size: 20,
@@ -1709,8 +1709,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   ),
                 ),
                 const SizedBox(width: 2),
-                const Icon(
-                  Icons.chevron_right,
+                const UlvenikIcon(UlvenikIcons.details,
                   color: _mint,
                   size: 20,
                 ),
@@ -1743,8 +1742,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
             ),
           ),
           child: const Center(
-            child: Icon(
-              Icons.fitness_center,
+            child: UlvenikIcon(UlvenikIcons.exercises,
               color: _mint,
               size: 38,
             ),
@@ -1797,7 +1795,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.add, size: 18, color: _offWhite),
+                UlvenikIcon(UlvenikIcons.add, size: 18, color: _offWhite),
                 SizedBox(width: 8),
                 Text(
                   'Create Equipment',
@@ -1807,7 +1805,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   ),
                 ),
                 SizedBox(width: 6),
-                Icon(Icons.arrow_forward, size: 16, color: _offWhite),
+                UlvenikIcon(UlvenikIcons.details, size: 16, color: _offWhite),
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ulvenik_icon.dart';
 import '../screens/image_editor_screen.dart';
 import '../theme/app_colors.dart';
 
@@ -304,7 +305,7 @@ class ChangePhotoBottomSheet extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 4),
           child: Row(
             children: [
-              Icon(icon, size: 20, color: iconColor),
+              UlvenikIcon.fromMaterial(icon, size: 20, color: iconColor),
               const SizedBox(width: 16),
               Expanded(
                 child: Text(

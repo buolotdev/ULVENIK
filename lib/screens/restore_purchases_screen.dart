@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -172,8 +173,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(6),
-              child: Icon(
-                Icons.arrow_back_rounded,
+              child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
                 size: 21,
               ),
@@ -353,8 +353,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                   ],
                 ),
                 if (_phase != _RestorePhase.scanning)
-                  Icon(
-                    Icons.unfold_more_rounded,
+                  UlvenikIcon(UlvenikIcons.sort,
                     size: 18,
                     color: _stoneGrey.withValues(alpha: 0.6),
                   ),
@@ -396,8 +395,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(
-            Icons.check_rounded,
+          UlvenikIcon(UlvenikIcons.completed,
             color: isVerified ? _forest : _sageMint,
             size: 16,
           ),
@@ -469,7 +467,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
         ),
         child: const Row(
           children: [
-            Icon(Icons.support_agent_rounded, color: _sageMint, size: 19),
+            UlvenikIcon(UlvenikIcons.notifications, color: _sageMint, size: 19),
             SizedBox(width: 12),
             Expanded(
               child: Text(
@@ -482,7 +480,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                 ),
               ),
             ),
-            Icon(Icons.chevron_right_rounded, color: _stoneGrey, size: 18),
+            UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 18),
           ],
         ),
       ),
@@ -625,7 +623,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                         color: _offWhite,
                       ),
                     ),
-                    trailing: Icon(
+                    trailing: UlvenikIcon.fromMaterial(
                       _platform == p
                           ? Icons.radio_button_checked_rounded
                           : Icons.radio_button_off_rounded,
@@ -730,8 +728,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                             type: SnackbarType.info,
                           );
                         },
-                        child: const Icon(
-                          Icons.copy_rounded,
+                        child: const UlvenikIcon(UlvenikIcons.overflowMenu,
                           color: _forest,
                           size: 18,
                         ),

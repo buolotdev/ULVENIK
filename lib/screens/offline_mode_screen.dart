@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 
@@ -369,8 +370,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(4),
-              child: Icon(
-                Icons.chevron_left_rounded,
+              child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
                 size: 26,
               ),
@@ -572,7 +572,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
       ),
       child: Row(
         children: [
-          const Icon(Icons.wifi_off_rounded, color: _stoneGrey, size: 20),
+          const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 20),
           const SizedBox(width: 14),
           const Expanded(
             child: Column(
@@ -652,7 +652,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                   ),
                   child: Row(
                     children: [
-                      Icon(item.$1, color: _stoneGrey, size: 19),
+                      UlvenikIcon.fromMaterial(item.$1, color: _stoneGrey, size: 19),
                       const SizedBox(width: 14),
                       Expanded(
                         child: Text(
@@ -750,8 +750,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                             ),
                           ),
                           if (selected)
-                            const Icon(
-                              Icons.check_rounded,
+                            const UlvenikIcon(UlvenikIcons.completed,
                               color: _forest,
                               size: 19,
                             ),
@@ -805,7 +804,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                 ),
               ),
               onPressed: _downloadLatestData,
-              icon: const Icon(Icons.download_rounded, size: 19),
+              icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 19),
               label: Text(
                 _isDownloading
                     ? 'Downloading (${(_downloadProgress * 100).round()}%)…'
@@ -890,7 +889,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                       ),
                       child: Row(
                         children: [
-                          Icon(
+                          UlvenikIcon.fromMaterial(
                             it.$2,
                             color: isSelected ? it.$3 : _stoneGrey,
                             size: 19,
@@ -1024,8 +1023,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
           ),
           child: const Row(
             children: [
-              Icon(
-                Icons.delete_outline_rounded,
+              UlvenikIcon(UlvenikIcons.back,
                 color: _destructiveText,
                 size: 20,
               ),

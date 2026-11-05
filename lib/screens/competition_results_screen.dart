@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -440,8 +441,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _stone,
               size: 28,
             ),
@@ -526,8 +526,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             const SizedBox(height: 6),
             Row(
               children: [
-                const Icon(
-                  Icons.calendar_today_outlined,
+                const UlvenikIcon(UlvenikIcons.calendar,
                   color: _stone,
                   size: 13.5,
                 ),
@@ -864,7 +863,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           const SizedBox(height: 12),
           Row(
             children: [
-              const Icon(Icons.tag_rounded, color: _muted, size: 16),
+              const UlvenikIcon(UlvenikIcons.skills, color: _muted, size: 16),
               const SizedBox(width: 8),
               const Text(
                 'Percentage',
@@ -911,8 +910,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           const SizedBox(height: 12),
           Row(
             children: [
-              const Icon(
-                Icons.workspace_premium_outlined,
+              const UlvenikIcon(UlvenikIcons.goals,
                 color: _greenAccent,
                 size: 19,
               ),
@@ -966,7 +964,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
   }) {
     return Row(
       children: [
-        Icon(icon, color: _muted, size: 16),
+        UlvenikIcon.fromMaterial(icon, color: _muted, size: 16),
         const SizedBox(width: 8),
         Text(
           label,
@@ -1088,8 +1086,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                             });
                             _animController.forward(from: 0.3);
                           },
-                          child: const Icon(
-                            Icons.close_rounded,
+                          child: const UlvenikIcon(UlvenikIcons.back,
                             color: _muted,
                             size: 16,
                           ),
@@ -1174,7 +1171,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.add_rounded, color: _greenAccent, size: 18),
+                    UlvenikIcon(UlvenikIcons.add, color: _greenAccent, size: 18),
                     SizedBox(width: 6),
                     Text(
                       'Add Section Score',
@@ -1394,7 +1391,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
     return Row(
       children: [
         if (icon != null) ...[
-          Icon(icon, color: _muted, size: 15.5),
+          UlvenikIcon.fromMaterial(icon, color: _muted, size: 15.5),
           const SizedBox(width: 8),
         ],
         Text(
@@ -1477,7 +1474,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                       ),
                       const SizedBox(width: 7),
                     ],
-                    Icon(aw.icon, color: _stone, size: 15),
+                    UlvenikIcon.fromMaterial(aw.icon, color: _stone, size: 15),
                     const SizedBox(width: 7),
                     Text(
                       aw.label,
@@ -1491,8 +1488,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                     const SizedBox(width: 8),
                     GestureDetector(
                       onTap: () => setState(() => _awards.removeAt(i)),
-                      child: const Icon(
-                        Icons.close_rounded,
+                      child: const UlvenikIcon(UlvenikIcons.back,
                         color: _muted,
                         size: 15,
                       ),
@@ -1511,7 +1507,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.add_rounded, color: _greenAccent, size: 18),
+                UlvenikIcon(UlvenikIcons.add, color: _greenAccent, size: 18),
                 SizedBox(width: 6),
                 Text(
                   'Add Award',
@@ -1569,15 +1565,13 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                               removed.dispose();
                             });
                           },
-                          child: const Icon(
-                            Icons.close_rounded,
+                          child: const UlvenikIcon(UlvenikIcons.back,
                             color: _muted,
                             size: 16,
                           ),
                         )
                       else
-                        const Icon(
-                          Icons.close_rounded,
+                        const UlvenikIcon(UlvenikIcons.back,
                           color: _muted,
                           size: 16,
                         ),
@@ -1656,7 +1650,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.add_rounded, color: _greenAccent, size: 18),
+                UlvenikIcon(UlvenikIcons.add, color: _greenAccent, size: 18),
                 SizedBox(width: 6),
                 Text(
                   'Add Judge',
@@ -1819,8 +1813,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                                 errorBuilder: (context, error, stackTrace) =>
                                     Container(
                                   color: _forest.withValues(alpha: 0.35),
-                                  child: const Icon(
-                                    Icons.image_outlined,
+                                  child: const UlvenikIcon(UlvenikIcons.play,
                                     color: _offWhite,
                                   ),
                                 ),
@@ -1883,7 +1876,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13.5),
         child: Row(
           children: [
-            Icon(icon, color: _stone, size: 19),
+            UlvenikIcon.fromMaterial(icon, color: _stone, size: 19),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -1910,7 +1903,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right_rounded, color: _stone, size: 19),
+            const UlvenikIcon(UlvenikIcons.details, color: _stone, size: 19),
           ],
         ),
       ),
@@ -2172,8 +2165,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                               ),
                             ),
                             if (sel)
-                              const Icon(
-                                Icons.check_circle_rounded,
+                              const UlvenikIcon(UlvenikIcons.completed,
                                 color: _mint,
                                 size: 19,
                               ),

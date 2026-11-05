@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -407,8 +408,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                     ),
                   ),
                   trailing: selected
-                      ? const Icon(
-                          Icons.check_rounded,
+                      ? const UlvenikIcon(UlvenikIcons.completed,
                           color: Color(0xFF95D3BB),
                           size: 20,
                         )
@@ -468,8 +468,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.maybePop(context),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 28,
             ),
@@ -507,8 +506,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                     fontSize: 14,
                     fontFamily: 'Inter',
                   ),
-                  prefixIcon: const Icon(
-                    Icons.search_rounded,
+                  prefixIcon: const UlvenikIcon(UlvenikIcons.search,
                     color: _stoneGrey,
                     size: 20,
                   ),
@@ -518,8 +516,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                             _searchController.clear();
                             setState(() => _query = '');
                           },
-                          icon: const Icon(
-                            Icons.close_rounded,
+                          icon: const UlvenikIcon(UlvenikIcons.back,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -731,8 +728,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                       ),
                     ),
                     const SizedBox(width: 6),
-                    const Icon(
-                      Icons.dehaze_rounded,
+                    const UlvenikIcon(UlvenikIcons.more,
                       color: _stoneGrey,
                       size: 16,
                     ),
@@ -805,8 +801,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(
-                          Icons.history_rounded,
+                        const UlvenikIcon(UlvenikIcons.history,
                           color: _stoneGrey,
                           size: 14,
                         ),
@@ -848,8 +843,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
-                      Icons.insert_drive_file_outlined,
+                    const UlvenikIcon(UlvenikIcons.training,
                       color: _stoneGrey,
                       size: 28,
                     ),
@@ -904,8 +898,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                         type: SnackbarType.info,
                       );
                     },
-                    child: const Icon(
-                      Icons.favorite_rounded,
+                    child: const UlvenikIcon(UlvenikIcons.health,
                       color: _favGold,
                       size: 15,
                     ),
@@ -953,8 +946,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                     color: Colors.black.withValues(alpha: 0.48),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.play_arrow_outlined,
+                  child: const UlvenikIcon(UlvenikIcons.play,
                     color: _offWhite,
                     size: 21,
                   ),
@@ -992,8 +984,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                   onTap: () {
                     setState(() => item.isFavourite = !item.isFavourite);
                   },
-                  child: const Icon(
-                    Icons.favorite_rounded,
+                  child: const UlvenikIcon(UlvenikIcons.health,
                     color: _favGold,
                     size: 16,
                   ),
@@ -1054,8 +1045,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
               (term) => ListTile(
                 contentPadding: EdgeInsets.zero,
                 dense: true,
-                leading: const Icon(
-                  Icons.history_rounded,
+                leading: const UlvenikIcon(UlvenikIcons.history,
                   color: _stoneGrey,
                   size: 19,
                 ),
@@ -1068,8 +1058,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                   ),
                 ),
                 trailing: IconButton(
-                  icon: const Icon(
-                    Icons.close_rounded,
+                  icon: const UlvenikIcon(UlvenikIcons.back,
                     color: _stoneGrey,
                     size: 16,
                   ),
@@ -1141,8 +1130,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
-              Icons.search_off_rounded,
+            const UlvenikIcon(UlvenikIcons.search,
               color: _stoneGrey,
               size: 44,
             ),

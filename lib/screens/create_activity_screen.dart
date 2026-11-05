@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'activity_library_screen.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -183,7 +184,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back, color: _sage, size: 24),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: _sage, size: 24),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     onPressed: () => Navigator.of(context).maybePop(),
@@ -198,7 +199,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.refresh, color: _stoneGrey, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.history, color: _stoneGrey, size: 20),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     tooltip: 'Reset form',
@@ -317,7 +318,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
               ),
               suffixIcon: _nameController.text.isNotEmpty
                   ? IconButton(
-                      icon: const Icon(Icons.close, size: 16, color: _stoneGrey),
+                      icon: const UlvenikIcon(UlvenikIcons.back, size: 16, color: _stoneGrey),
                       onPressed: () => _nameController.clear(),
                     )
                   : null,
@@ -481,7 +482,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                   children: [
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Icon(Icons.search, size: 18, color: _stoneGrey),
+                      child: UlvenikIcon(UlvenikIcons.search, size: 18, color: _stoneGrey),
                     ),
                     Expanded(
                       child: TextField(
@@ -498,7 +499,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                     ),
                     if (_iconSearchController.text.isNotEmpty)
                       IconButton(
-                        icon: const Icon(Icons.close, size: 16, color: _stoneGrey),
+                        icon: const UlvenikIcon(UlvenikIcons.back, size: 16, color: _stoneGrey),
                         onPressed: () => _iconSearchController.clear(),
                       ),
                   ],
@@ -546,7 +547,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                             ),
                           ),
                           child: Center(
-                            child: Icon(
+                            child: UlvenikIcon.fromMaterial(
                               icon,
                               color: isSelected ? _mint : _sage,
                               size: 22,
@@ -578,7 +579,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                         ),
                       ),
                       SizedBox(width: 4),
-                      Icon(Icons.chevron_right, size: 16, color: _sage),
+                      UlvenikIcon(UlvenikIcons.details, size: 16, color: _sage),
                     ],
                   ),
                 ),
@@ -651,8 +652,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                       ),
                       child: isSelected
                           ? const Center(
-                              child: Icon(
-                                Icons.check,
+                              child: UlvenikIcon(UlvenikIcons.completed,
                                 size: 18,
                                 color: _offWhite,
                               ),
@@ -682,7 +682,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                         ),
                       ),
                       SizedBox(width: 6),
-                      Icon(Icons.palette_outlined, size: 16, color: _sage),
+                      UlvenikIcon(UlvenikIcons.edit, size: 16, color: _sage),
                     ],
                   ),
                 ),
@@ -798,7 +798,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close,
+                          icon: const UlvenikIcon(UlvenikIcons.back,
                               size: 18, color: _stoneGrey),
                           tooltip: 'Remove metric',
                           padding: EdgeInsets.zero,
@@ -827,7 +827,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                     ),
                   ),
                   onPressed: _showAddMetricSheet,
-                  icon: const Icon(Icons.add, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.add, size: 18),
                   label: const Text(
                     '+ Add Metric',
                     style: TextStyle(
@@ -901,7 +901,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: _stoneGrey),
+                        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
                         onPressed: () => Navigator.pop(ctx),
@@ -1138,7 +1138,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
         children: [
           Row(
             children: [
-              Icon(
+              UlvenikIcon.fromMaterial(
                 _isFavourite ? Icons.star : Icons.star_border,
                 color: _isFavourite ? _amber : _stoneGrey,
                 size: 22,
@@ -1292,7 +1292,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                       style: const TextStyle(color: _offWhite, fontSize: 13),
                       decoration: const InputDecoration(
                         prefixIcon:
-                            Icon(Icons.search, size: 18, color: _stoneGrey),
+                            UlvenikIcon(UlvenikIcons.search, size: 18, color: _stoneGrey),
                         hintText: 'Search canine exercise icons...',
                         hintStyle: TextStyle(color: _stoneGrey, fontSize: 13),
                         border: InputBorder.none,
@@ -1349,7 +1349,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                UlvenikIcon.fromMaterial(
                                   icon,
                                   color: isSelected ? _mint : _sage,
                                   size: 26,
@@ -1465,8 +1465,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                       ),
                       child: isSelected
                           ? const Center(
-                              child: Icon(
-                                Icons.check,
+                              child: UlvenikIcon(UlvenikIcons.completed,
                                 color: _offWhite,
                                 size: 20,
                               ),

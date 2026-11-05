@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 
 import 'package:fl_chart/fl_chart.dart';
 
@@ -628,7 +629,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     ),
 
-                    child: const Icon(Icons.settings_backup_restore, color: _mint, size: 20),
+                    child: const UlvenikIcon(UlvenikIcons.history, color: _mint, size: 20),
 
                   ),
 
@@ -812,7 +813,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                                   children: [
 
-                                    const Icon(Icons.check_circle, color: _mint, size: 18),
+                                    const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 18),
 
                                     const SizedBox(width: 10),
 
@@ -1094,7 +1095,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     children: [
 
-                      const Icon(Icons.attach_file, color: _muted, size: 16),
+                      const UlvenikIcon(UlvenikIcons.training, color: _muted, size: 16),
 
                       const SizedBox(width: 4),
 
@@ -1142,7 +1143,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                   },
 
-                  icon: const Icon(Icons.settings_backup_restore, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.history, size: 18),
 
                   label: const Text('Restore to Active Health Records'),
 
@@ -1298,7 +1299,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     trailing: isSelected
 
-                        ? const Icon(Icons.check_circle, color: _mint, size: 20)
+                        ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
 
                         : (dog.hasRecords
 
@@ -1670,7 +1671,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
         leading: IconButton(
 
-          icon: const Icon(Icons.arrow_back, color: _sage),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _sage),
 
           onPressed: () => Navigator.of(context).maybePop(),
 
@@ -1702,7 +1703,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
             tooltip: 'Search Records',
 
-            icon: const Icon(Icons.search, color: _sage),
+            icon: const UlvenikIcon(UlvenikIcons.search, color: _sage),
 
             onPressed: () {
 
@@ -1730,7 +1731,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
             tooltip: 'Filter & Sort',
 
-            icon: const Icon(Icons.tune, color: _sage),
+            icon: const UlvenikIcon(UlvenikIcons.sort, color: _sage),
 
             onPressed: _showSortFilterSheet,
 
@@ -1742,7 +1743,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
             tooltip: _isEmpty ? 'Switch to Populated Archive' : 'Switch to Empty Archive',
 
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
 
               _isEmpty ? Icons.inventory_2_outlined : Icons.inventory_2,
 
@@ -2024,7 +2025,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
             ),
 
-            const Icon(Icons.expand_more, color: _sage, size: 22),
+            const UlvenikIcon(UlvenikIcons.sort, color: _sage, size: 22),
 
           ],
 
@@ -2239,7 +2240,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                   const SizedBox(width: 2),
 
-                  const Icon(Icons.arrow_drop_down, color: _muted, size: 16),
+                  const UlvenikIcon(UlvenikIcons.sort, color: _muted, size: 16),
 
                 ],
 
@@ -2277,7 +2278,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
               children: [
 
-                const Icon(Icons.search_off, color: _muted, size: 36),
+                const UlvenikIcon(UlvenikIcons.search, color: _muted, size: 36),
 
                 const SizedBox(height: 12),
 
@@ -2377,7 +2378,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
       children: [
 
-        Icon(icon, color: _sage, size: 20),
+        UlvenikIcon.fromMaterial(icon, color: _sage, size: 20),
 
         const SizedBox(width: 8),
 
@@ -2951,13 +2952,13 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
           hintStyle: const TextStyle(color: _muted, fontSize: 13),
 
-          prefixIcon: const Icon(Icons.search, color: _muted, size: 20),
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _muted, size: 20),
 
           suffixIcon: _searchQuery.isNotEmpty
 
               ? IconButton(
 
-                  icon: const Icon(Icons.clear, color: _muted, size: 16),
+                  icon: const UlvenikIcon(UlvenikIcons.back, color: _muted, size: 16),
 
                   onPressed: () {
 
@@ -3049,7 +3050,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                       onTap: () => setState(() => _selectedCategories.remove(cat)),
 
-                      child: const Icon(Icons.close, color: _sage, size: 14),
+                      child: const UlvenikIcon(UlvenikIcons.back, color: _sage, size: 14),
 
                     ),
 
@@ -3091,7 +3092,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                 children: [
 
-                  Icon(Icons.add, color: _muted, size: 14),
+                  UlvenikIcon(UlvenikIcons.add, color: _muted, size: 14),
 
                   SizedBox(width: 4),
 
@@ -3177,7 +3178,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     ),
 
-                    child: Icon(record.icon, color: _sage, size: 20),
+                    child: UlvenikIcon.fromMaterial(record.icon, color: _sage, size: 20),
 
                   ),
 
@@ -3257,7 +3258,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                           children: [
 
-                            Icon(
+                            UlvenikIcon.fromMaterial(
 
                               record.attachmentsCount > 0 ? Icons.attachment : Icons.attachment,
 
@@ -3349,7 +3350,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                         children: [
 
-                          Icon(Icons.settings_backup_restore, color: _offWhite, size: 15),
+                          UlvenikIcon(UlvenikIcons.history, color: _offWhite, size: 15),
 
                           SizedBox(width: 6),
 
@@ -3429,7 +3430,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
             children: [
 
-              Icon(Icons.search, color: _muted, size: 20),
+              UlvenikIcon(UlvenikIcons.search, color: _muted, size: 20),
 
               SizedBox(width: 10),
 
@@ -3471,7 +3472,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
             ),
 
-            child: const Icon(Icons.inventory_2_outlined, color: _mint, size: 36),
+            child: const UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 36),
 
           ),
 
@@ -3623,7 +3624,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     SizedBox(width: 8),
 
-                    Icon(Icons.arrow_forward, color: _offWhite, size: 16),
+                    UlvenikIcon(UlvenikIcons.details, color: _offWhite, size: 16),
 
                   ],
 
@@ -3725,7 +3726,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
           children: [
 
-            Icon(
+            UlvenikIcon.fromMaterial(
 
               icon,
 

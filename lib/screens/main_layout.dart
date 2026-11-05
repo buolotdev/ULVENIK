@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'homepage_screen.dart';
 import 'my_dogs_screen.dart';
 import 'training_screen.dart';
@@ -137,17 +138,17 @@ class _MainLayoutState extends State<MainLayout> {
       ),
       child: Row(
         children: [
-          _buildNavItem(0, Icons.home_outlined, Icons.home, 'Home'),
-          _buildNavItem(1, Icons.pets_outlined, Icons.pets, 'Dogs'),
-          _buildNavItem(2, Icons.fitness_center_outlined, Icons.fitness_center, 'Training'),
-          _buildNavItem(3, Icons.event_note_outlined, Icons.event_note, 'Timeline'),
-          _buildNavItem(4, Icons.more_horiz_outlined, Icons.more_horiz, 'More'),
+          _buildNavItem(0, UlvenikIcons.home, 'Home'),
+          _buildNavItem(1, UlvenikIcons.dogs, 'Dogs'),
+          _buildNavItem(2, UlvenikIcons.training, 'Training'),
+          _buildNavItem(3, UlvenikIcons.timeline, 'Timeline'),
+          _buildNavItem(4, UlvenikIcons.more, 'More'),
         ],
       ),
     );
   }
 
-  Widget _buildNavItem(int index, IconData inactiveIcon, IconData activeIcon, String label) {
+  Widget _buildNavItem(int index, String iconKey, String label) {
     final isActive = _currentIndex == index;
 
     return Expanded(
@@ -183,8 +184,8 @@ class _MainLayoutState extends State<MainLayout> {
                   scale: isActive ? 1.15 : 1.0,
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeOutBack,
-                  child: Icon(
-                    isActive ? activeIcon : inactiveIcon,
+                  child: UlvenikIcon(
+                    iconKey,
                     color: isActive
                         ? AppColors.primaryForestGreen
                         : AppColors.secondaryTextStoneGrey,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/animated_progress_bar.dart';
 import '../widgets/custom_snackbar.dart';
@@ -43,8 +44,7 @@ class GoalDetailsScreen extends StatelessWidget {
                   color: AppColors.primaryForestGreen.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.archive_outlined,
+                child: const UlvenikIcon(UlvenikIcons.skills,
                   color: AppColors.primaryForestGreen,
                   size: 24,
                 ),
@@ -129,8 +129,7 @@ class GoalDetailsScreen extends StatelessWidget {
                   color: const Color(0xFFBA1A1A).withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.delete_outline,
+                child: const UlvenikIcon(UlvenikIcons.back,
                   color: Color(0xFFFFB4AB),
                   size: 24,
                 ),
@@ -167,7 +166,7 @@ class GoalDetailsScreen extends StatelessWidget {
                   children: [
                     const Row(
                       children: [
-                        Icon(Icons.check_circle_outline, size: 16, color: AppColors.primaryForestGreen),
+                        UlvenikIcon(UlvenikIcons.completed, size: 16, color: AppColors.primaryForestGreen),
                         SizedBox(width: 8),
                         Text(
                           'WILL NOT BE DELETED',
@@ -194,7 +193,7 @@ class GoalDetailsScreen extends StatelessWidget {
                     ),
                     const Row(
                       children: [
-                        Icon(Icons.warning_amber_rounded, size: 16, color: Color(0xFFFFB4AB)),
+                        UlvenikIcon(UlvenikIcons.notifications, size: 16, color: Color(0xFFFFB4AB)),
                         SizedBox(width: 8),
                         Text(
                           'WILL BE PERMANENTLY REMOVED',
@@ -273,7 +272,7 @@ class GoalDetailsScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const Icon(Icons.archive_outlined, color: AppColors.primaryForestGreen),
+                leading: const UlvenikIcon(UlvenikIcons.skills, color: AppColors.primaryForestGreen),
                 title: const Text('Archive Goal', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -281,7 +280,7 @@ class GoalDetailsScreen extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.delete_outline, color: Color(0xFFFFB4AB)),
+                leading: const UlvenikIcon(UlvenikIcons.back, color: Color(0xFFFFB4AB)),
                 title: const Text('Delete Goal', style: TextStyle(color: Color(0xFFFFB4AB))),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -306,7 +305,7 @@ class GoalDetailsScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, size: 20, color: AppColors.primaryTextOffWhite),
+          icon: const UlvenikIcon(UlvenikIcons.back, size: 20, color: AppColors.primaryTextOffWhite),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
@@ -319,7 +318,7 @@ class GoalDetailsScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert, color: AppColors.primaryTextOffWhite),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
             onPressed: () => _showManagementMenu(context),
           ),
         ],
@@ -502,7 +501,7 @@ class GoalDetailsScreen extends StatelessWidget {
             children: [
               Row(
                 children: const [
-                  Icon(Icons.calendar_today, color: AppColors.secondaryTextStoneGrey, size: 16),
+                  UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 16),
                   SizedBox(width: 8),
                   Text('Due Date', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                 ],

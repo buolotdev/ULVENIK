@@ -1,5 +1,6 @@
 import 'activity_library_screen.dart';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../widgets/custom_snackbar.dart';
 import 'record_session_screen.dart';
@@ -360,7 +361,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
         scrolledUnderElevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
           onPressed: () => Navigator.of(context).maybePop(),
           tooltip: 'Back',
         ),
@@ -395,7 +396,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
             tooltip: _isEmpty
                 ? 'Switch to Populated State'
                 : 'Switch to Empty State',
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _isEmpty ? Icons.analytics_outlined : Icons.analytics,
               color: _mint,
               size: 22,
@@ -403,7 +404,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
             onPressed: _toggleState,
           ),
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert, color: _stoneGrey, size: 22),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 22),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -444,7 +445,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                 value: 'toggle',
                 child: Row(
                   children: [
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _isEmpty ? Icons.bar_chart : Icons.hourglass_empty,
                       color: _mint,
                       size: 18,
@@ -463,7 +464,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                 value: 'insights',
                 child: Row(
                   children: [
-                    Icon(Icons.insights, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Activity Insights', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w600)),
                   ],
@@ -473,7 +474,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                 value: 'record',
                 child: Row(
                   children: [
-                    Icon(Icons.add_circle_outline, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.add, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Record New Session', style: TextStyle(color: _offWhite)),
                   ],
@@ -483,7 +484,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                 value: 'export',
                 child: Row(
                   children: [
-                    Icon(Icons.file_download, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Analytics Report', style: TextStyle(color: _offWhite)),
                   ],
@@ -493,7 +494,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                 value: 'share',
                 child: Row(
                   children: [
-                    Icon(Icons.share, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Share Statistics', style: TextStyle(color: _offWhite)),
                   ],
@@ -1225,7 +1226,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.play_arrow, size: 20),
+                  UlvenikIcon(UlvenikIcons.play, size: 20),
                   SizedBox(width: 6),
                   Text(
                     'Record Session',
@@ -1235,7 +1236,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                     ),
                   ),
                   SizedBox(width: 6),
-                  Icon(Icons.arrow_forward, size: 16),
+                  UlvenikIcon(UlvenikIcons.details, size: 16),
                 ],
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -190,7 +191,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                             backgroundColor: _forest,
                             foregroundColor: _textPrimary,
                           ),
-                          icon: const Icon(Icons.add_rounded),
+                          icon: const UlvenikIcon(UlvenikIcons.add),
                         ),
                       ],
                     ),
@@ -531,7 +532,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                               color: _forest.withValues(alpha: 0.2),
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(qual.icon, color: _mintBright, size: 20),
+                            child: UlvenikIcon.fromMaterial(qual.icon, color: _mintBright, size: 20),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
@@ -629,7 +630,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    icon: const Icon(Icons.copy_rounded, size: 17),
+                    icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 17),
                     label: const Text('Copy Verification Reference'),
                   ),
                 ),
@@ -828,8 +829,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 26,
             ),
@@ -851,8 +851,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
             tooltip: 'Edit Trainer Profile',
             visualDensity: VisualDensity.compact,
             onPressed: () => _openEditIdentitySheet(business),
-            icon: const Icon(
-              Icons.edit_outlined,
+            icon: const UlvenikIcon(UlvenikIcons.edit,
               color: _textSecondary,
               size: 20,
             ),
@@ -934,8 +933,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                         shape: BoxShape.circle,
                         border: Border.all(color: _forest, width: 1.8),
                       ),
-                      child: const Icon(
-                        Icons.person_rounded,
+                      child: const UlvenikIcon(UlvenikIcons.overflowMenu,
                         color: _sage,
                         size: 36,
                       ),
@@ -1184,7 +1182,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                   ),
                   Row(
                     children: [
-                      Icon(Icons.add, size: 16, color: _mintBright),
+                      UlvenikIcon(UlvenikIcons.add, size: 16, color: _mintBright),
                       SizedBox(width: 4),
                       Text(
                         'Add Bio',
@@ -1273,7 +1271,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                   ),
                   Row(
                     children: [
-                      Icon(Icons.add, size: 16, color: _mintBright),
+                      UlvenikIcon(UlvenikIcons.add, size: 16, color: _mintBright),
                       SizedBox(width: 4),
                       Text(
                         'Add',
@@ -1394,7 +1392,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                   ),
                   Row(
                     children: [
-                      Icon(Icons.add, size: 16, color: _mintBright),
+                      UlvenikIcon(UlvenikIcons.add, size: 16, color: _mintBright),
                       SizedBox(width: 4),
                       Text(
                         'Add',
@@ -1436,7 +1434,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(bottom: 16),
-                            child: Icon(q.icon, color: _sage, size: 20),
+                            child: UlvenikIcon.fromMaterial(q.icon, color: _sage, size: 20),
                           ),
                           const SizedBox(width: 12),
                           Expanded(
@@ -1478,8 +1476,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: const [
-                                Icon(
-                                  Icons.description_outlined,
+                                UlvenikIcon(UlvenikIcons.training,
                                   color: Color(0xFF428E70),
                                   size: 14,
                                 ),
@@ -1496,8 +1493,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                               ],
                             )
                           else
-                            const Icon(
-                              Icons.check_circle_outline_rounded,
+                            const UlvenikIcon(UlvenikIcons.completed,
                               color: _sage,
                               size: 20,
                             ),
@@ -1564,7 +1560,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                   ),
                   Row(
                     children: [
-                      Icon(Icons.add, size: 16, color: _mintBright),
+                      UlvenikIcon(UlvenikIcons.add, size: 16, color: _mintBright),
                       SizedBox(width: 4),
                       Text(
                         'Add',
@@ -1703,7 +1699,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                   ),
                   Row(
                     children: [
-                      Icon(Icons.add, size: 16, color: _mintBright),
+                      UlvenikIcon(UlvenikIcons.add, size: 16, color: _mintBright),
                       SizedBox(width: 4),
                       Text(
                         'Add',
@@ -1776,7 +1772,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Row(
           children: [
-            Icon(icon, color: _sage, size: 19),
+            UlvenikIcon.fromMaterial(icon, color: _sage, size: 19),
             const SizedBox(width: 14),
             Expanded(
               child: Text(
@@ -1789,8 +1785,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                 ),
               ),
             ),
-            const Icon(
-              Icons.chevron_right_rounded,
+            const UlvenikIcon(UlvenikIcons.details,
               color: _textSecondary,
               size: 18,
             ),

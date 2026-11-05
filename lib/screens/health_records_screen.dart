@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'add_health_record_screen.dart';
@@ -35,7 +36,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         backgroundColor: AppColors.backgroundObsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: AppColors.secondarySage, size: 28),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondarySage, size: 28),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: const Text(
@@ -50,24 +51,24 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: AppColors.secondarySage),
+            icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondarySage),
             onPressed: () => AppSnackbar.show(context, message: 'Search functionality coming soon', type: SnackbarType.info),
           ),
           IconButton(
-            icon: const Icon(Icons.tune, color: AppColors.secondarySage),
+            icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondarySage),
             onPressed: () => AppSnackbar.show(context, message: 'Filter options coming soon', type: SnackbarType.info),
           ),
           IconButton(
-            icon: const Icon(Icons.add, color: Color(0xFF2e6b57)),
+            icon: const UlvenikIcon(UlvenikIcons.add, color: Color(0xFF2e6b57)),
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddHealthRecordScreen())),
           ),
           IconButton(
             tooltip: 'Health Archive',
-            icon: const Icon(Icons.inventory_2_outlined, color: AppColors.secondarySage),
+            icon: const UlvenikIcon(UlvenikIcons.skills, color: AppColors.secondarySage),
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthArchiveScreen())),
           ),
           IconButton(
-            icon: const Icon(Icons.more_vert, color: AppColors.secondarySage),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondarySage),
             onPressed: () {
               setState(() {
                 _isEmpty = !_isEmpty;
@@ -110,7 +111,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
               backgroundColor: const Color(0xFF2e6b57),
               foregroundColor: AppColors.primaryTextOffWhite,
               elevation: 0,
-              child: const Icon(Icons.add),
+              child: const UlvenikIcon(UlvenikIcons.add),
             ),
     );
   }
@@ -141,7 +142,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         child: Row(
           children: [
             if (!isActive) ...[
-              Icon(icon, size: 14, color: AppColors.secondaryTextStoneGrey),
+              UlvenikIcon.fromMaterial(icon, size: 14, color: AppColors.secondaryTextStoneGrey),
               const SizedBox(width: 6),
             ],
             Text(
@@ -218,7 +219,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
           ],
         ),
       ),
@@ -264,7 +265,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
       child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(icon, color: AppColors.secondarySage, size: 20),
+        UlvenikIcon.fromMaterial(icon, color: AppColors.secondarySage, size: 20),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
@@ -308,16 +309,16 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
       decoration: InputDecoration(
         hintText: 'Search records...',
         hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
-        prefixIcon: const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey),
+        prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey),
         suffixIcon: _searchController.text.isNotEmpty 
             ? IconButton(
-                icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                 onPressed: () {
                   _searchController.clear();
                   setState(() {});
                 },
               )
-            : const Icon(Icons.mic, color: AppColors.secondaryTextStoneGrey),
+            : const UlvenikIcon(UlvenikIcons.play, color: AppColors.secondaryTextStoneGrey),
         filled: true,
         fillColor: AppColors.cardsCarbon,
         contentPadding: const EdgeInsets.symmetric(vertical: 10),
@@ -371,7 +372,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 _activeFilters.remove(label);
               });
             },
-            child: const Icon(Icons.close, size: 16, color: AppColors.secondarySage),
+            child: const UlvenikIcon(UlvenikIcons.back, size: 16, color: AppColors.secondarySage),
           ),
         ],
       ),
@@ -457,7 +458,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(icon, color: AppColors.secondarySage, size: 24),
+                UlvenikIcon.fromMaterial(icon, color: AppColors.secondarySage, size: 24),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
@@ -516,7 +517,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.attachment, size: 14, color: AppColors.secondaryTextStoneGrey),
+                            const UlvenikIcon(UlvenikIcons.training, size: 14, color: AppColors.secondaryTextStoneGrey),
                             const SizedBox(width: 4),
                             Text(
                               '$attachments attachments',
@@ -537,7 +538,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                   alignment: Alignment.center,
                   child: Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+                    child: UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                   ),
                 ),
               ],
@@ -637,7 +638,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(icon, color: const Color(0xFF95d3bb), size: 24),
+        UlvenikIcon.fromMaterial(icon, color: const Color(0xFF95d3bb), size: 24),
         const SizedBox(height: 8),
         Text(
           label,
@@ -665,7 +666,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
             border: Border.all(color: Colors.white12),
           ),
           child: const Center(
-            child: Icon(Icons.medical_services_outlined, color: Color(0xFF95d3bb), size: 32),
+            child: UlvenikIcon(UlvenikIcons.health, color: Color(0xFF95d3bb), size: 32),
           ),
         ),
         const SizedBox(height: 24),
@@ -707,12 +708,12 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.add, size: 20),
+                    UlvenikIcon(UlvenikIcons.add, size: 20),
                     SizedBox(width: 8),
                     Text('Add Health Record', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                   ],
                 ),
-                Icon(Icons.arrow_forward, size: 20),
+                UlvenikIcon(UlvenikIcons.details, size: 20),
               ],
             ),
           ),

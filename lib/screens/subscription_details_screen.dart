@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -221,8 +222,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(6),
-              child: Icon(
-                Icons.chevron_left_rounded,
+              child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
                 size: 24,
               ),
@@ -246,8 +246,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(6),
-              child: Icon(
-                Icons.help_outline_rounded,
+              child: UlvenikIcon(UlvenikIcons.notifications,
                 color: _stoneGrey,
                 size: 21,
               ),
@@ -387,8 +386,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                     color: _forest,
                   ),
                 ),
-                Icon(
-                  Icons.open_in_new_rounded,
+                UlvenikIcon(UlvenikIcons.details,
                   color: _forest,
                   size: 18,
                 ),
@@ -410,7 +408,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.local_offer_rounded, color: _forest, size: 17),
+          const UlvenikIcon(UlvenikIcons.skills, color: _forest, size: 17),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -486,7 +484,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                   border: Border.all(color: _cardBorder, width: 1),
                 ),
                 alignment: Alignment.center,
-                child: Icon(pack.icon, color: _stoneGrey, size: 18),
+                child: UlvenikIcon.fromMaterial(pack.icon, color: _stoneGrey, size: 18),
               ),
               _buildStatusPill(label: 'ACTIVE', color: _forest),
             ],
@@ -543,8 +541,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                       ),
                     ),
                     SizedBox(width: 2),
-                    Icon(
-                      Icons.chevron_right_rounded,
+                    UlvenikIcon(UlvenikIcons.details,
                       color: _stoneGrey,
                       size: 16,
                     ),
@@ -580,7 +577,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                   border: Border.all(color: _cardBorder, width: 1),
                 ),
                 alignment: Alignment.center,
-                child: Icon(pack.icon, color: _stoneGrey, size: 19),
+                child: UlvenikIcon.fromMaterial(pack.icon, color: _stoneGrey, size: 19),
               ),
               const SizedBox(width: 14),
               Text(
@@ -724,8 +721,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 2),
-          child: Icon(
-            Icons.check_rounded,
+          child: UlvenikIcon(UlvenikIcons.completed,
             color: checkColor,
             size: 15,
           ),
@@ -834,7 +830,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
           child: Row(
             children: [
-              Icon(icon, color: _stoneGrey, size: 20),
+              UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 20),
               const SizedBox(width: 14),
               Expanded(
                 child: Column(
@@ -861,8 +857,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                   ],
                 ),
               ),
-              Icon(
-                Icons.chevron_right_rounded,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey.withValues(alpha: 0.65),
                 size: 19,
               ),
@@ -1125,7 +1120,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                     color: _offWhite,
                   ),
                 ),
-                Icon(
+                UlvenikIcon.fromMaterial(
                   selected
                       ? Icons.radio_button_checked_rounded
                       : Icons.radio_button_off_rounded,

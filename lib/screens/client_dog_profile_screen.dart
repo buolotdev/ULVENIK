@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -399,8 +400,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                     IconButton(
                       tooltip: 'Back',
                       onPressed: () => Navigator.of(context).maybePop(),
-                      icon: const Icon(
-                        Icons.chevron_left_rounded,
+                      icon: const UlvenikIcon(UlvenikIcons.back,
                         color: _textPrimary,
                         size: 26,
                       ),
@@ -420,8 +420,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                     IconButton(
                       tooltip: 'More Options',
                       onPressed: () => _showTopContextualSheet(client, dog),
-                      icon: const Icon(
-                        Icons.more_vert_rounded,
+                      icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                         color: _textPrimary,
                         size: 21,
                       ),
@@ -468,7 +467,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          UlvenikIcon.fromMaterial(
                             _selectedAccessLevel == 'VIEW ONLY'
                                 ? Icons.lock_outline_rounded
                                 : Icons.lock_open_rounded,
@@ -563,7 +562,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            icon: const Icon(Icons.play_arrow_outlined, size: 21),
+            icon: const UlvenikIcon(UlvenikIcons.play, size: 21),
             label: const Text(
               'Start Training Session',
               style: TextStyle(
@@ -597,8 +596,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            icon: const Icon(
-              Icons.fitness_center_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.exercises,
               color: _greenAccent,
               size: 17,
             ),
@@ -872,7 +870,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: _sage, size: 17),
+            UlvenikIcon.fromMaterial(icon, color: _sage, size: 17),
             const SizedBox(height: 10),
             Text(
               value,
@@ -1025,7 +1023,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(item.$1, color: _sage, size: 20),
+                            UlvenikIcon.fromMaterial(item.$1, color: _sage, size: 20),
                             const SizedBox(height: 7),
                             Text(
                               item.$2,
@@ -1105,7 +1103,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                             : const Color(0xFF22272A),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Icon(
+                      child: UlvenikIcon.fromMaterial(
                         item.$1,
                         color: item.$2 ? _greenAccent : _sage,
                         size: 18,
@@ -1137,8 +1135,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                         ],
                       ),
                     ),
-                    const Icon(
-                      Icons.chevron_right_rounded,
+                    const UlvenikIcon(UlvenikIcons.details,
                       color: _textSecondary,
                       size: 18,
                     ),
@@ -1169,8 +1166,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                   ),
                 ),
                 SizedBox(width: 4),
-                Icon(
-                  Icons.arrow_forward_rounded,
+                UlvenikIcon(UlvenikIcons.details,
                   color: _textSecondary,
                   size: 14,
                 ),
@@ -1225,8 +1221,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                             ),
                           ),
                         ),
-                        const Icon(
-                          Icons.chevron_right_rounded,
+                        const UlvenikIcon(UlvenikIcons.details,
                           color: _textSecondary,
                           size: 18,
                         ),
@@ -1322,8 +1317,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                   ),
                 ),
                 SizedBox(width: 4),
-                Icon(
-                  Icons.arrow_forward_rounded,
+                UlvenikIcon(UlvenikIcons.details,
                   color: _textSecondary,
                   size: 14,
                 ),
@@ -1388,8 +1382,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                   ),
                 ),
                 SizedBox(width: 4),
-                Icon(
-                  Icons.arrow_forward_rounded,
+                UlvenikIcon(UlvenikIcons.details,
                   color: _textSecondary,
                   size: 14,
                 ),
@@ -1467,8 +1460,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                             color: Colors.white.withValues(alpha: 0.28),
                           ),
                         ),
-                        child: const Icon(
-                          Icons.play_arrow_rounded,
+                        child: const UlvenikIcon(UlvenikIcons.play,
                           color: Colors.white,
                           size: 20,
                         ),
@@ -1582,8 +1574,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: _forest.withValues(alpha: 0.4)),
                                 ),
-                                child: const Icon(
-                                  Icons.health_and_safety_outlined,
+                                child: const UlvenikIcon(UlvenikIcons.health,
                                   color: _mintBright,
                                   size: 22,
                                 ),
@@ -1614,7 +1605,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                             ],
                           ),
                           IconButton(
-                            icon: const Icon(Icons.edit_outlined, color: _mintBright),
+                            icon: const UlvenikIcon(UlvenikIcons.edit, color: _mintBright),
                             tooltip: 'Edit Safety Information',
                             onPressed: () {
                               Navigator.pop(ctx);
@@ -1634,8 +1625,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(
-                              Icons.info_outline_rounded,
+                            const UlvenikIcon(UlvenikIcons.notifications,
                               color: _alpineBlue,
                               size: 18,
                             ),
@@ -1711,7 +1701,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                             Navigator.pop(ctx);
                             _openEditHealthSafetySheet();
                           },
-                          icon: const Icon(Icons.edit_outlined, color: _mintBright, size: 18),
+                          icon: const UlvenikIcon(UlvenikIcons.edit, color: _mintBright, size: 18),
                           label: const Text(
                             'Edit Health & Safety Notes',
                             style: TextStyle(
@@ -1775,7 +1765,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: _textSecondary),
+                      icon: const UlvenikIcon(UlvenikIcons.back, color: _textSecondary),
                       onPressed: () => Navigator.pop(ctx),
                     ),
                   ],
@@ -1906,7 +1896,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         children: [
           Row(
             children: [
-              Icon(icon, color: iconColor, size: 16),
+              UlvenikIcon.fromMaterial(icon, color: iconColor, size: 16),
               const SizedBox(width: 8),
               Text(
                 title,
@@ -2012,8 +2002,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                   ),
                 ),
                 SizedBox(width: 4),
-                Icon(
-                  Icons.arrow_forward_rounded,
+                UlvenikIcon(UlvenikIcons.details,
                   color: _textSecondary,
                   size: 14,
                 ),
@@ -2033,7 +2022,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
   }) {
     return Row(
       children: [
-        Icon(icon, color: _sage, size: 16),
+        UlvenikIcon.fromMaterial(icon, color: _sage, size: 16),
         const SizedBox(width: 10),
         Expanded(
           child: Text(
@@ -2076,8 +2065,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.lock_open_rounded,
+                  const UlvenikIcon(UlvenikIcons.overflowMenu,
                     color: _sage,
                     size: 16,
                   ),
@@ -2165,8 +2153,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(top: 1),
-                      child: Icon(
-                        Icons.info_outline_rounded,
+                      child: UlvenikIcon(UlvenikIcons.notifications,
                         color: _alpineBlue,
                         size: 16,
                       ),
@@ -2215,8 +2202,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                   ),
                 ),
                 SizedBox(width: 4),
-                Icon(
-                  Icons.arrow_forward_rounded,
+                UlvenikIcon(UlvenikIcons.details,
                   color: _textSecondary,
                   size: 14,
                 ),
@@ -2335,7 +2321,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
         child: Row(
           children: [
-            Icon(icon, color: ic, size: 18),
+            UlvenikIcon.fromMaterial(icon, color: ic, size: 18),
             const SizedBox(width: 14),
             Expanded(
               child: Text(
@@ -2349,8 +2335,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
               ),
             ),
             if (showChevron)
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _textSecondary,
                 size: 18,
               ),

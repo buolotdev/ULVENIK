@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 
 class ImageEditorResult {
@@ -270,8 +271,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                                     ),
                                   )
                                 else
-                                  const Icon(
-                                    Icons.chevron_right_rounded,
+                                  const UlvenikIcon(UlvenikIcons.details,
                                     color: Color(0xFFA7B0AB),
                                     size: 20,
                                   ),
@@ -309,8 +309,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
         errorBuilder: (_, _, _) => Container(
           color: const Color(0xFF1A2421),
           alignment: Alignment.center,
-          child: const Icon(
-            Icons.person_rounded,
+          child: const UlvenikIcon(UlvenikIcons.overflowMenu,
             color: Color(0xFF95D3BB),
             size: 42,
           ),
@@ -513,8 +512,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                                   _EditorToolButton(
                                     label: 'Reset',
                                     onTap: _resetAdjustments,
-                                    icon: Icon(
-                                      Icons.replay_rounded,
+                                    icon: UlvenikIcon(UlvenikIcons.history,
                                       size: 22,
                                       color: _hasAdjustments
                                           ? const Color(0xFFF5F6F2)
@@ -522,8 +520,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                                     ),
                                   ),
                                   const SizedBox(width: 20),
-                                  const Icon(
-                                    Icons.zoom_in_rounded,
+                                  const UlvenikIcon(UlvenikIcons.details,
                                     size: 21,
                                     color: Color(0xFFA7B0AB),
                                   ),

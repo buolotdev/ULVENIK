@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'activity_details_screen.dart';
 import 'create_activity_screen.dart';
@@ -438,7 +439,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                   ),
                 ),
                 trailing: isSelected
-                    ? const Icon(Icons.check, color: _mint)
+                    ? const UlvenikIcon(UlvenikIcons.completed, color: _mint)
                     : null,
                 contentPadding: EdgeInsets.zero,
                 onTap: () {
@@ -466,7 +467,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
         backgroundColor: _obsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _mint),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _mint),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: const Text(
@@ -483,7 +484,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
           // Animated Graph Toggle
           IconButton(
             tooltip: _showChart ? 'Hide Volume Chart' : 'Show Volume Chart',
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _showChart ? Icons.bar_chart : Icons.bar_chart_outlined,
               color: _showChart ? _mint : _muted,
             ),
@@ -502,7 +503,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
             tooltip: _isEmpty
                 ? 'Switch to Populated Library'
                 : 'Switch to Empty Library',
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _isEmpty ? Icons.fitness_center_outlined : Icons.fitness_center,
               color: _mint,
             ),
@@ -523,7 +524,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
         foregroundColor: _offWhite,
         elevation: 6,
         shape: const CircleBorder(),
-        child: const Icon(Icons.add, size: 26),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 26),
       ),
     );
   }
@@ -540,8 +541,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
           children: [
             Transform.rotate(
               angle: -math.pi / 4,
-              child: const Icon(
-                Icons.fitness_center,
+              child: const UlvenikIcon(UlvenikIcons.exercises,
                 size: 48,
                 color: _mint,
               ),
@@ -583,7 +583,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.add, size: 20),
+                    UlvenikIcon(UlvenikIcons.add, size: 20),
                     SizedBox(width: 8),
                     Text(
                       'Create Activity',
@@ -593,7 +593,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                       ),
                     ),
                     SizedBox(width: 6),
-                    Icon(Icons.arrow_forward, size: 18),
+                    UlvenikIcon(UlvenikIcons.details, size: 18),
                   ],
                 ),
               ),
@@ -665,10 +665,10 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
         decoration: InputDecoration(
           hintText: 'Search activities...',
           hintStyle: const TextStyle(color: _muted, fontSize: 14),
-          prefixIcon: const Icon(Icons.search, color: _mint, size: 20),
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _mint, size: 20),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.clear, color: _muted, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.back, color: _muted, size: 18),
                   onPressed: () => _searchController.clear(),
                 )
               : null,
@@ -749,7 +749,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                     ),
                   ),
                   const SizedBox(width: 4),
-                  const Icon(Icons.arrow_drop_down, color: _mint, size: 18),
+                  const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
                 ],
               ),
             ),
@@ -809,7 +809,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.touch_app, color: _mint, size: 14),
+                    UlvenikIcon(UlvenikIcons.details, color: _mint, size: 14),
                     SizedBox(width: 4),
                     Text(
                       'Interactive',
@@ -1023,7 +1023,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                       borderRadius: BorderRadius.circular(10),
                       border: _hairlineBorder,
                     ),
-                    child: Icon(act.icon, color: _mint, size: 22),
+                    child: UlvenikIcon.fromMaterial(act.icon, color: _mint, size: 22),
                   ),
                   const SizedBox(width: 14),
                   // Details
@@ -1050,7 +1050,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                               borderRadius: BorderRadius.circular(12),
                               child: const Padding(
                                 padding: EdgeInsets.all(4),
-                                child: Icon(Icons.star, color: _mint, size: 20),
+                                child: UlvenikIcon(UlvenikIcons.goals, color: _mint, size: 20),
                               ),
                             ),
                           ],
@@ -1171,7 +1171,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                       borderRadius: BorderRadius.circular(10),
                       border: _hairlineBorder,
                     ),
-                    child: Icon(act.icon, color: _mint, size: 22),
+                    child: UlvenikIcon.fromMaterial(act.icon, color: _mint, size: 22),
                   ),
                   const SizedBox(width: 14),
                   // Title & Meta
@@ -1214,7 +1214,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                     borderRadius: BorderRadius.circular(16),
                     child: Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Icon(
+                      child: UlvenikIcon.fromMaterial(
                         act.isFavourite ? Icons.star : Icons.star_border,
                         color: act.isFavourite ? _mint : _muted,
                         size: 20,
@@ -1222,8 +1222,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                     ),
                   ),
                   const SizedBox(width: 2),
-                  const Icon(
-                    Icons.chevron_right,
+                  const UlvenikIcon(UlvenikIcons.details,
                     color: _muted,
                     size: 18,
                   ),

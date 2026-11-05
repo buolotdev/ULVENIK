@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'trainer_dashboard_screen.dart';
@@ -479,8 +480,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: _forest),
                       ),
-                      child: const Icon(
-                        Icons.verified_user_outlined,
+                      child: const UlvenikIcon(UlvenikIcons.completed,
                         color: Color(0xFF429679),
                         size: 20,
                       ),
@@ -720,8 +720,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.chevron_left,
+                  const UlvenikIcon(UlvenikIcons.back,
                     color: _textSecondary,
                     size: 23,
                   ),
@@ -794,8 +793,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
         children: [
           Column(
             children: [
-              const Icon(
-                Icons.verified_user_outlined,
+              const UlvenikIcon(UlvenikIcons.completed,
                 color: _sage,
                 size: 21,
               ),
@@ -932,7 +930,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
+                UlvenikIcon.fromMaterial(
                   icon,
                   size: 19,
                   color: selected ? const Color(0xFF429679) : _textSecondary,
@@ -988,7 +986,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 10),
             child: Row(
               children: [
-                Icon(section.icon, color: _sage, size: 18),
+                UlvenikIcon.fromMaterial(section.icon, color: _sage, size: 18),
                 const SizedBox(width: 10),
                 Text(
                   section.title,
@@ -1087,8 +1085,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
         children: [
           const Padding(
             padding: EdgeInsets.only(top: 1),
-            child: Icon(
-              Icons.privacy_tip_outlined,
+            child: UlvenikIcon(UlvenikIcons.overflowMenu,
               color: _infoBlue,
               size: 16,
             ),

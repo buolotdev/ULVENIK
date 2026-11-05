@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -285,8 +286,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                               children: [
                                 IconButton(
                                   onPressed: () => Navigator.pop(ctx),
-                                  icon: const Icon(
-                                    Icons.fullscreen_exit_rounded,
+                                  icon: const UlvenikIcon(UlvenikIcons.details,
                                     color: _offWhite,
                                   ),
                                 ),
@@ -333,7 +333,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                                         color: _offWhite.withValues(alpha: 0.65),
                                       ),
                                     ),
-                                    child: Icon(
+                                    child: UlvenikIcon.fromMaterial(
                                       _isPlaying
                                           ? Icons.pause_rounded
                                           : Icons.play_arrow_outlined,
@@ -477,7 +477,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                 const SizedBox(height: 12),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.edit_note_rounded, color: _offWhite),
+                  leading: const UlvenikIcon(UlvenikIcons.edit, color: _offWhite),
                   title: const Text(
                     'Edit Session Notes',
                     style: TextStyle(fontFamily: 'Inter', color: _offWhite),
@@ -489,7 +489,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.speed_rounded, color: _offWhite),
+                  leading: const UlvenikIcon(UlvenikIcons.progress, color: _offWhite),
                   title: Text(
                     'Cycle Playback Speed ($_speedLabel)',
                     style: const TextStyle(fontFamily: 'Inter', color: _offWhite),
@@ -501,7 +501,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Icon(
+                  leading: UlvenikIcon.fromMaterial(
                     _showChrome
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined,
@@ -713,8 +713,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 26,
             ),
@@ -722,8 +721,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
           ),
           IconButton(
             onPressed: _showOverflowMenu,
-            icon: const Icon(
-              Icons.more_vert_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
               color: _stoneGrey,
               size: 20,
             ),
@@ -790,7 +788,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                             width: 1.2,
                           ),
                         ),
-                        child: Icon(
+                        child: UlvenikIcon.fromMaterial(
                           _isPlaying
                               ? Icons.pause_rounded
                               : Icons.play_arrow_outlined,
@@ -876,7 +874,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                               horizontal: 8,
                               vertical: 4,
                             ),
-                            child: Icon(
+                            child: UlvenikIcon.fromMaterial(
                               _isMuted
                                   ? Icons.volume_off_outlined
                                   : Icons.volume_up_outlined,
@@ -914,8 +912,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                               horizontal: 6,
                               vertical: 4,
                             ),
-                            child: Icon(
-                              Icons.crop_free_rounded,
+                            child: UlvenikIcon(UlvenikIcons.edit,
                               color: _offWhite.withValues(alpha: 0.9),
                               size: 17,
                             ),
@@ -1134,7 +1131,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: iconColor, size: 21),
+            UlvenikIcon.fromMaterial(icon, color: iconColor, size: 21),
             const SizedBox(height: 6),
             Text(
               label,
@@ -1179,8 +1176,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
           ),
           child: Row(
             children: [
-              const Icon(
-                Icons.description_outlined,
+              const UlvenikIcon(UlvenikIcons.training,
                 color: _stoneGrey,
                 size: 21,
               ),
@@ -1210,8 +1206,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -1320,8 +1315,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
               child: Stack(
                 children: [
                   Center(
-                    child: Icon(
-                      Icons.play_arrow_outlined,
+                    child: UlvenikIcon(UlvenikIcons.play,
                       color: _stoneGrey.withValues(alpha: 0.55),
                       size: 30,
                     ),

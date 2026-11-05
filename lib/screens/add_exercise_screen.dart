@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -100,8 +101,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                   color: const Color(0xFFE07070).withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.warning_amber_rounded,
+                child: const UlvenikIcon(UlvenikIcons.notifications,
                   color: Color(0xFFE07070),
                   size: 24,
                 ),
@@ -225,13 +225,13 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.psychology_outlined, size: 18, color: AppColors.secondaryTextStoneGrey),
+                          const UlvenikIcon(UlvenikIcons.skills, size: 18, color: AppColors.secondaryTextStoneGrey),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(widget.parentSkill,
                                 style: const TextStyle(fontSize: 15, color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w500)),
                           ),
-                          const Icon(Icons.lock_outline, size: 18, color: Colors.white30),
+                          const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18, color: Colors.white30),
                         ],
                       ),
                       const SizedBox(height: 6),
@@ -295,8 +295,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                                   errorBuilder: (_, _, _) => Container(
                                     color: Colors.white10,
                                     alignment: Alignment.center,
-                                    child: const Icon(
-                                      Icons.fitness_center_rounded,
+                                    child: const UlvenikIcon(UlvenikIcons.exercises,
                                       size: 20,
                                       color: Colors.white38,
                                     ),
@@ -340,7 +339,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.add_photo_alternate_outlined, size: 18, color: AppColors.primaryTextOffWhite),
+                                UlvenikIcon(UlvenikIcons.recordSession, size: 18, color: AppColors.primaryTextOffWhite),
                                 SizedBox(width: 8),
                                 Text('Use Custom Image',
                                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.primaryTextOffWhite)),
@@ -476,7 +475,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
           ),
           child: Row(
             children: [
-              const Icon(Icons.sell_outlined, size: 16, color: AppColors.secondaryTextStoneGrey),
+              const UlvenikIcon(UlvenikIcons.skills, size: 16, color: AppColors.secondaryTextStoneGrey),
               const SizedBox(width: 8),
               Expanded(
                 child: TextField(
@@ -501,7 +500,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.add, color: AppColors.primaryForestGreen, size: 20),
+                icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen, size: 20),
                 onPressed: () => _addTag(_tagController.text),
               ),
             ],
@@ -533,7 +532,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(inherited ? Icons.lock_outline : Icons.sell_outlined,
+            UlvenikIcon.fromMaterial(inherited ? Icons.lock_outline : Icons.sell_outlined,
                 size: 13, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(width: 4),
             Text(label,
@@ -544,7 +543,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
               const SizedBox(width: 4),
               GestureDetector(
                 onTap: () => setState(() => _tags.remove(label)),
-                child: const Icon(Icons.close, size: 14, color: AppColors.secondaryTextStoneGrey),
+                child: const UlvenikIcon(UlvenikIcons.back, size: 14, color: AppColors.secondaryTextStoneGrey),
               ),
             ],
           ],

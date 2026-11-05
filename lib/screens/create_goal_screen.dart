@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 
@@ -68,7 +69,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, size: 20, color: AppColors.primaryTextOffWhite),
+          icon: const UlvenikIcon(UlvenikIcons.back, size: 20, color: AppColors.primaryTextOffWhite),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
@@ -178,7 +179,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                     contentPadding: EdgeInsets.zero,
                     title: Text(d['name'] as String, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w500)),
                     subtitle: Text(d['breed'] as String, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-                    trailing: _selectedDog == d['name'] ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
+                    trailing: _selectedDog == d['name'] ? const UlvenikIcon(UlvenikIcons.completed, color: AppColors.primaryForestGreen) : null,
                     onTap: () {
                       setState(() {
                         _selectedDog = d['name'] as String;
@@ -195,7 +196,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                       contentPadding: EdgeInsets.zero,
                       title: Text(d['name'] as String, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w500)),
                       subtitle: Text('${d['breed']} • Client Dog', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-                      trailing: _selectedDog == d['name'] ? const Icon(Icons.check, color: Color(0xFFD99B4B)) : null,
+                      trailing: _selectedDog == d['name'] ? const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFFD99B4B)) : null,
                       onTap: () {
                         setState(() {
                           _selectedDog = d['name'] as String;
@@ -278,7 +279,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                       ],
                     ),
                   ),
-                  const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+                  const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
                 ],
               ),
             ),
@@ -404,7 +405,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.bolt, color: Color(0xFF95d3bb), size: 24),
+                  const UlvenikIcon(UlvenikIcons.skills, color: Color(0xFF95d3bb), size: 24),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
@@ -417,7 +418,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                       ],
                     ),
                   ),
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     _isAutomaticTracking ? Icons.radio_button_checked : Icons.radio_button_unchecked,
                     color: _isAutomaticTracking ? const Color(0xFF95d3bb) : AppColors.secondaryTextStoneGrey,
                   ),
@@ -431,7 +432,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  const Icon(Icons.pan_tool_outlined, color: AppColors.secondaryTextStoneGrey, size: 24),
+                  const UlvenikIcon(UlvenikIcons.exercises, color: AppColors.secondaryTextStoneGrey, size: 24),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
@@ -442,7 +443,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                       ],
                     ),
                   ),
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     !_isAutomaticTracking ? Icons.radio_button_checked : Icons.radio_button_unchecked,
                     color: !_isAutomaticTracking ? const Color(0xFF95d3bb) : AppColors.secondaryTextStoneGrey,
                   ),
@@ -474,7 +475,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
                 Text('Training Sessions', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
-                Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+                UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
               ],
             ),
           ),
@@ -497,7 +498,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                         color: AppColors.backgroundObsidian,
                         border: Border.all(color: Colors.white12),
                       ),
-                      child: const Icon(Icons.remove, color: AppColors.secondaryTextStoneGrey, size: 18),
+                      child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
                     ),
                   ),
                   SizedBox(
@@ -518,7 +519,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                         color: AppColors.backgroundObsidian,
                         border: Border.all(color: Colors.white12),
                       ),
-                      child: const Icon(Icons.add, color: AppColors.secondaryTextStoneGrey, size: 18),
+                      child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.secondaryTextStoneGrey, size: 18),
                     ),
                   ),
                 ],
@@ -545,7 +546,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Icon(Icons.add, color: Color(0xFF2e6b57), size: 18),
+            UlvenikIcon(UlvenikIcons.add, color: Color(0xFF2e6b57), size: 18),
             SizedBox(width: 8),
             Text('Link a Record', style: TextStyle(color: Color(0xFF2e6b57), fontSize: 13, fontWeight: FontWeight.w500)),
           ],
@@ -608,7 +609,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
           children: [
             Row(
               children: [
-                Icon(icon, color: AppColors.secondaryTextStoneGrey, size: 20),
+                UlvenikIcon.fromMaterial(icon, color: AppColors.secondaryTextStoneGrey, size: 20),
                 const SizedBox(width: 12),
                 Text(label, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
               ],
@@ -617,7 +618,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
               children: [
                 Text(value, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
                 const SizedBox(width: 4),
-                const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
+                const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ],

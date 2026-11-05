@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import 'activity_insights_screen.dart';
 
@@ -296,7 +297,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                     children: [
                       const Row(
                         children: [
-                          Icon(Icons.calendar_today,
+                          UlvenikIcon(UlvenikIcons.calendar,
                               color: _stoneGrey, size: 16),
                           SizedBox(width: 8),
                           Text('Target Date',
@@ -567,7 +568,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _stoneGrey),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -585,7 +586,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       child: Row(
                         children: [
-                          const Icon(Icons.check_circle, color: _forest, size: 22),
+                          const UlvenikIcon(UlvenikIcons.completed, color: _forest, size: 22),
                           const SizedBox(width: 14),
                           Expanded(
                             child: Column(
@@ -654,7 +655,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         scrolledUnderElevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
           onPressed: () => Navigator.of(context).maybePop(),
           tooltip: 'Back',
         ),
@@ -688,7 +689,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
             tooltip: _isEmpty
                 ? 'Switch to Populated State'
                 : 'Switch to Empty State',
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _isEmpty ? Icons.flag : Icons.outlined_flag,
               color: _mint,
               size: 22,
@@ -696,7 +697,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
             onPressed: _toggleState,
           ),
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_horiz, color: _stoneGrey, size: 22),
+            icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 22),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -723,7 +724,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                 value: 'toggle',
                 child: Row(
                   children: [
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _isEmpty ? Icons.flag : Icons.hourglass_empty,
                       color: _mint,
                       size: 18,
@@ -740,7 +741,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                 value: 'insights',
                 child: Row(
                   children: [
-                    Icon(Icons.insights, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Activity Insights', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w600)),
                   ],
@@ -750,7 +751,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                 value: 'create',
                 child: Row(
                   children: [
-                    Icon(Icons.add, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.add, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Create Goal', style: TextStyle(color: _offWhite)),
                   ],
@@ -768,7 +769,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
               foregroundColor: _offWhite,
               elevation: 4,
               shape: const CircleBorder(),
-              child: const Icon(Icons.add, size: 28),
+              child: const UlvenikIcon(UlvenikIcons.add, size: 28),
             ),
       body: SingleChildScrollView(
         child: Padding(
@@ -841,7 +842,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                 ),
               ),
               SizedBox(width: 4),
-              Icon(Icons.arrow_forward, color: _forest, size: 14),
+              UlvenikIcon(UlvenikIcons.details, color: _forest, size: 14),
             ],
           ),
         ),
@@ -1074,8 +1075,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 child: Row(
                   children: [
-                    const Icon(
-                      Icons.check_circle,
+                    const UlvenikIcon(UlvenikIcons.completed,
                       color: _forest,
                       size: 20,
                     ),
@@ -1210,8 +1210,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
               ),
             ),
             child: const Center(
-              child: Icon(
-                Icons.adjust,
+              child: UlvenikIcon(UlvenikIcons.goals,
                 color: _mint,
                 size: 32,
               ),
@@ -1264,7 +1263,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.add, size: 20),
+                UlvenikIcon(UlvenikIcons.add, size: 20),
                 SizedBox(width: 8),
                 Text(
                   'Create Goal',

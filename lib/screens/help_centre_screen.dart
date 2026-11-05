@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -787,8 +788,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                         padding: const EdgeInsets.fromLTRB(20, 16, 16, 8),
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.menu_book_outlined,
+                            const UlvenikIcon(UlvenikIcons.training,
                               color: _mint,
                               size: 20,
                             ),
@@ -806,8 +806,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                             ),
                             IconButton(
                               onPressed: () => Navigator.of(ctx).pop(),
-                              icon: const Icon(
-                                Icons.close_rounded,
+                              icon: const UlvenikIcon(UlvenikIcons.back,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
@@ -928,7 +927,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                             ),
                                           ),
                                           const SizedBox(width: 10),
-                                          Icon(
+                                          UlvenikIcon.fromMaterial(
                                             expanded
                                                 ? Icons.keyboard_arrow_up_rounded
                                                 : Icons
@@ -1061,7 +1060,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                 });
                                 setModalState(() {});
                               },
-                              icon: Icon(
+                              icon: UlvenikIcon.fromMaterial(
                                 isBookmarked
                                     ? Icons.bookmark_rounded
                                     : Icons.bookmark_border_rounded,
@@ -1083,16 +1082,14 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                   type: SnackbarType.success,
                                 );
                               },
-                              icon: const Icon(
-                                Icons.copy_rounded,
+                              icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                                 color: _stoneGrey,
                                 size: 18,
                               ),
                             ),
                             IconButton(
                               onPressed: () => Navigator.of(ctx).pop(),
-                              icon: const Icon(
-                                Icons.close_rounded,
+                              icon: const UlvenikIcon(UlvenikIcons.back,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
@@ -1210,8 +1207,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Icon(
-                                    Icons.tips_and_updates_outlined,
+                                  const UlvenikIcon(UlvenikIcons.notifications,
                                     color: _mint,
                                     size: 18,
                                   ),
@@ -1285,7 +1281,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                                     ),
                                                   ),
                                                 ),
-                                                Icon(
+                                                UlvenikIcon.fromMaterial(
                                                   open
                                                       ? Icons
                                                           .keyboard_arrow_up_rounded
@@ -1370,8 +1366,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Icon(
-                                                  Icons.thumb_up_alt_outlined,
+                                                UlvenikIcon(UlvenikIcons.goals,
                                                   size: 16,
                                                   color: helpfulVote == true
                                                       ? _offWhite
@@ -1428,8 +1423,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Icon(
-                                                  Icons.thumb_down_alt_outlined,
+                                                UlvenikIcon(UlvenikIcons.goals,
                                                   size: 16,
                                                   color: helpfulVote == false
                                                       ? _offWhite
@@ -1486,8 +1480,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                                 BorderRadius.circular(10),
                                           ),
                                         ),
-                                        icon: const Icon(
-                                          Icons.chat_bubble_outline_rounded,
+                                        icon: const UlvenikIcon(UlvenikIcons.notifications,
                                           size: 16,
                                         ),
                                         label: const Text(
@@ -1554,8 +1547,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                   const SizedBox(width: 4),
                   IconButton(
                     onPressed: () => Navigator.of(context).maybePop(),
-                    icon: const Icon(
-                      Icons.chevron_left,
+                    icon: const UlvenikIcon(UlvenikIcons.back,
                       color: _stoneGrey,
                       size: 26,
                     ),
@@ -1601,8 +1593,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                prefixIcon: const Icon(
-                  Icons.search,
+                prefixIcon: const UlvenikIcon(UlvenikIcons.search,
                   color: _stoneGrey,
                   size: 19,
                 ),
@@ -1612,8 +1603,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                           _searchController.clear();
                           setState(() => _searchQuery = '');
                         },
-                        icon: const Icon(
-                          Icons.close_rounded,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                           color: _stoneGrey,
                           size: 18,
                         ),
@@ -1765,8 +1755,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                             children: [
                               Row(
                                 children: [
-                                  const Icon(
-                                    Icons.help_outline_rounded,
+                                  const UlvenikIcon(UlvenikIcons.notifications,
                                     color: _stoneGrey,
                                     size: 18,
                                   ),
@@ -1783,7 +1772,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                     ),
                                   ),
                                   const SizedBox(width: 8),
-                                  Icon(
+                                  UlvenikIcon.fromMaterial(
                                     expanded
                                         ? Icons.keyboard_arrow_up_rounded
                                         : Icons.keyboard_arrow_down_rounded,
@@ -1852,8 +1841,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                           ),
                           child: Row(
                             children: [
-                              const Icon(
-                                Icons.trending_up_rounded,
+                              const UlvenikIcon(UlvenikIcons.progress,
                                 color: _stoneGrey,
                                 size: 18,
                               ),
@@ -1894,8 +1882,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              const Icon(
-                                Icons.chevron_right,
+                              const UlvenikIcon(UlvenikIcons.details,
                                 color: _stoneGrey,
                                 size: 18,
                               ),
@@ -1919,8 +1906,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
             const SizedBox(height: 10),
             _buildArticleGroupCard(
               items: gettingStartedItems,
-              leadingBuilder: () => const Icon(
-                Icons.school_outlined,
+              leadingBuilder: () => const UlvenikIcon(UlvenikIcons.training,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1934,8 +1920,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
             const SizedBox(height: 10),
             _buildArticleGroupCard(
               items: accountItems,
-              leadingBuilder: () => const Icon(
-                Icons.person_outline_rounded,
+              leadingBuilder: () => const UlvenikIcon(UlvenikIcons.overflowMenu,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1951,8 +1936,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
               items: trainingHealthItems,
               leadingBuilder: () => Transform.rotate(
                 angle: 0.785,
-                child: const Icon(
-                  Icons.fitness_center_rounded,
+                child: const UlvenikIcon(UlvenikIcons.exercises,
                   color: _stoneGrey,
                   size: 17,
                 ),
@@ -1967,8 +1951,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
             const SizedBox(height: 10),
             _buildArticleGroupCard(
               items: troubleshootingItems,
-              leadingBuilder: () => const Icon(
-                Icons.sync_rounded,
+              leadingBuilder: () => const UlvenikIcon(UlvenikIcons.history,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1982,8 +1965,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
             const SizedBox(height: 10),
             _buildArticleGroupCard(
               items: privacySecurityItems,
-              leadingBuilder: () => const Icon(
-                Icons.shield_outlined,
+              leadingBuilder: () => const UlvenikIcon(UlvenikIcons.overflowMenu,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -2002,8 +1984,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
               ),
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.search_off_rounded,
+                  const UlvenikIcon(UlvenikIcons.search,
                     color: _stoneGrey,
                     size: 32,
                   ),
@@ -2112,7 +2093,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(icon, color: _stoneGrey, size: 20),
+              UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 20),
               Text(
                 label,
                 style: const TextStyle(
@@ -2187,8 +2168,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Icon(
-                        Icons.chevron_right,
+                      const UlvenikIcon(UlvenikIcons.details,
                         color: _stoneGrey,
                         size: 18,
                       ),

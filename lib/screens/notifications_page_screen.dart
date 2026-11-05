@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -275,7 +276,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                               shape: BoxShape.circle,
                               border: Border.all(color: AppColors.cardBorder),
                             ),
-                            child: Icon(
+                            child: UlvenikIcon.fromMaterial(
                               item.icon,
                               color: _sageText,
                               size: 20,
@@ -309,8 +310,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                           ),
                           IconButton(
                             onPressed: () => Navigator.of(sheetCtx).pop(),
-                            icon: const Icon(
-                              Icons.close_rounded,
+                            icon: const UlvenikIcon(UlvenikIcons.back,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 20,
                             ),
@@ -391,7 +391,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                                 _toggleReadState(item);
                                 setModalState(() {});
                               },
-                              icon: Icon(
+                              icon: UlvenikIcon.fromMaterial(
                                 item.isUnread
                                     ? Icons.mark_email_read_outlined
                                     : Icons.mark_email_unread_outlined,
@@ -425,7 +425,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                                 Navigator.of(sheetCtx).pop();
                                 _archiveOrRestoreItem(item);
                               },
-                              icon: Icon(
+                              icon: UlvenikIcon.fromMaterial(
                                 item.isArchived
                                     ? Icons.unarchive_outlined
                                     : Icons.archive_outlined,
@@ -494,8 +494,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                     if (canPop)
                       IconButton(
                         onPressed: () => Navigator.of(context).maybePop(),
-                        icon: const Icon(
-                          Icons.chevron_left,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 26,
                         ),
@@ -527,8 +526,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                         }
                       },
                       tooltip: 'Search Notifications',
-                      icon: Icon(
-                        Icons.search,
+                      icon: UlvenikIcon(UlvenikIcons.search,
                         color: _showSearch
                             ? _mint
                             : AppColors.secondaryTextStoneGrey,
@@ -542,8 +540,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                         });
                       },
                       tooltip: 'Filter Categories',
-                      icon: Icon(
-                        Icons.tune_rounded,
+                      icon: UlvenikIcon(UlvenikIcons.sort,
                         color: (_showCategoryTabs || _selectedCategory != 'All')
                             ? _mint
                             : AppColors.secondaryTextStoneGrey,
@@ -578,8 +575,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                       ),
                       child: Row(
                         children: [
-                          const Icon(
-                            Icons.search,
+                          const UlvenikIcon(UlvenikIcons.search,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 18,
                           ),
@@ -617,8 +613,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                                   _searchQuery = '';
                                 });
                               },
-                              child: const Icon(
-                                Icons.close_rounded,
+                              child: const UlvenikIcon(UlvenikIcons.back,
                                 color: AppColors.secondaryTextStoneGrey,
                                 size: 18,
                               ),
@@ -850,8 +845,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.done_all_rounded,
+                const UlvenikIcon(UlvenikIcons.completed,
                   color: _mintBright,
                   size: 16,
                 ),
@@ -887,8 +881,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: const [
-                Icon(
-                  Icons.tune_rounded,
+                UlvenikIcon(UlvenikIcons.sort,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 15,
                 ),
@@ -987,7 +980,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
         alignment: Alignment.centerLeft,
         child: Row(
           children: [
-            Icon(
+            UlvenikIcon.fromMaterial(
               item.isUnread
                   ? Icons.mark_email_read_outlined
                   : Icons.mark_email_unread_outlined,
@@ -1024,7 +1017,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
               ),
             ),
             const SizedBox(width: 8),
-            Icon(
+            UlvenikIcon.fromMaterial(
               item.isArchived
                   ? Icons.unarchive_outlined
                   : Icons.archive_outlined,
@@ -1078,7 +1071,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                       color: Colors.white.withValues(alpha: 0.1),
                     ),
                   ),
-                  child: Icon(
+                  child: UlvenikIcon.fromMaterial(
                     item.icon,
                     color: _sageText,
                     size: 19,
@@ -1131,8 +1124,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                   ),
                 ),
                 const SizedBox(width: 6),
-                const Icon(
-                  Icons.chevron_right_rounded,
+                const UlvenikIcon(UlvenikIcons.details,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 18,
                 ),
@@ -1155,8 +1147,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
       ),
       child: Column(
         children: [
-          const Icon(
-            Icons.notifications_paused_outlined,
+          const UlvenikIcon(UlvenikIcons.notifications,
             color: AppColors.secondaryTextStoneGrey,
             size: 30,
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 
@@ -246,8 +247,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                         const SizedBox(height: 16),
                         Row(
                           children: [
-                            const Icon(
-                              Icons.lightbulb_outline_rounded,
+                            const UlvenikIcon(UlvenikIcons.notifications,
                               color: _mint,
                               size: 20,
                             ),
@@ -265,8 +265,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                             ),
                             IconButton(
                               onPressed: () => Navigator.of(ctx).pop(),
-                              icon: const Icon(
-                                Icons.close_rounded,
+                              icon: const UlvenikIcon(UlvenikIcons.back,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
@@ -600,8 +599,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              icon: Icon(
-                                Icons.thumb_up_outlined,
+                              icon: UlvenikIcon(UlvenikIcons.goals,
                                 size: 17,
                                 color: item.hasVoted ? _mint : _stoneGrey,
                               ),
@@ -656,8 +654,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                   const SizedBox(width: 4),
                   IconButton(
                     onPressed: () => Navigator.of(context).maybePop(),
-                    icon: const Icon(
-                      Icons.chevron_left,
+                    icon: const UlvenikIcon(UlvenikIcons.back,
                       color: _stoneGrey,
                       size: 26,
                     ),
@@ -694,8 +691,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.lightbulb_outline_rounded,
+                UlvenikIcon(UlvenikIcons.notifications,
                   color: _stoneGrey,
                   size: 21,
                 ),
@@ -744,8 +740,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                prefixIcon: const Icon(
-                  Icons.search,
+                prefixIcon: const UlvenikIcon(UlvenikIcons.search,
                   color: _stoneGrey,
                   size: 19,
                 ),
@@ -755,8 +750,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           _searchController.clear();
                           setState(() => _searchQuery = '');
                         },
-                        icon: const Icon(
-                          Icons.close_rounded,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                           color: _stoneGrey,
                           size: 18,
                         ),
@@ -859,8 +853,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.lightbulb_outline_rounded,
+                        UlvenikIcon(UlvenikIcons.notifications,
                           color: _offWhite,
                           size: 19,
                         ),
@@ -924,8 +917,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           ),
                           child: Row(
                             children: [
-                              const Icon(
-                                Icons.assignment_outlined,
+                              const UlvenikIcon(UlvenikIcons.exercises,
                                 color: _stoneGrey,
                                 size: 19,
                               ),
@@ -960,8 +952,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                               const SizedBox(width: 8),
                               _buildStatusPill(item.status),
                               const SizedBox(width: 8),
-                              const Icon(
-                                Icons.chevron_right,
+                              const UlvenikIcon(UlvenikIcons.details,
                                 color: _stoneGrey,
                                 size: 18,
                               ),
@@ -993,8 +984,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
               ),
               child: Column(
                 children: [
-                  const Icon(
-                    Icons.search_off_rounded,
+                  const UlvenikIcon(UlvenikIcons.search,
                     color: _stoneGrey,
                     size: 28,
                   ),
@@ -1095,8 +1085,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
-                            Icons.thumb_up_outlined,
+                          UlvenikIcon(UlvenikIcons.goals,
                             size: 16,
                             color: item.hasVoted ? _votedGreen : _stoneGrey,
                           ),
@@ -1112,8 +1101,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           ),
                           if (item.hasVoted) ...[
                             const SizedBox(width: 6),
-                            const Icon(
-                              Icons.check_rounded,
+                            const UlvenikIcon(UlvenikIcons.completed,
                               size: 15,
                               color: _votedGreen,
                             ),

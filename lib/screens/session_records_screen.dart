@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'record_session_screen.dart';
@@ -141,7 +142,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
         elevation: 4,
         shape: const CircleBorder(),
         onPressed: _openRecordSession,
-        child: const Icon(Icons.add, size: 26),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 26),
       ),
       body: SafeArea(
         child: ValueListenableBuilder<List<TrainerClient>>(
@@ -210,8 +211,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 26,
             ),
@@ -244,7 +244,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
             tooltip: 'Search',
             visualDensity: VisualDensity.compact,
             onPressed: () => setState(() => _isSearching = !_isSearching),
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _isSearching ? Icons.close_rounded : Icons.search_rounded,
               color: _textSecondary,
               size: 22,
@@ -254,8 +254,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
             tooltip: 'Filter',
             visualDensity: VisualDensity.compact,
             onPressed: () {},
-            icon: const Icon(
-              Icons.tune_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.sort,
               color: _textSecondary,
               size: 20,
             ),
@@ -284,8 +283,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
               border: Border.all(color: _border),
             ),
             alignment: Alignment.center,
-            child: const Icon(
-              Icons.person_outline_rounded,
+            child: const UlvenikIcon(UlvenikIcons.overflowMenu,
               color: _textSecondary,
               size: 16,
             ),
@@ -410,7 +408,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.location_on_outlined, color: _sage, size: 12),
+                          const UlvenikIcon(UlvenikIcons.timeline, color: _sage, size: 12),
                           const SizedBox(width: 3),
                           Text(
                             r.location,
@@ -447,7 +445,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: const [
-                              Icon(Icons.assignment_turned_in_outlined,
+                              UlvenikIcon(UlvenikIcons.exercises,
                                   color: _greenAccent, size: 12),
                               SizedBox(width: 4),
                               Text(
@@ -467,8 +465,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                 ],
               ),
             ),
-            const Icon(
-              Icons.chevron_right_rounded,
+            const UlvenikIcon(UlvenikIcons.details,
               color: _textSecondary,
               size: 18,
             ),

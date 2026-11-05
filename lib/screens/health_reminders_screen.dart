@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/app_colors.dart';
 import 'medication_manager_screen.dart';
@@ -412,7 +413,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
         duration: const Duration(seconds: 2),
         content: Row(
           children: [
-            Icon(
+            UlvenikIcon.fromMaterial(
               item.isCompleted ? Icons.check_circle : Icons.undo,
               color: item.isCompleted ? _mint : AppColors.primaryTextOffWhite,
               size: 20,
@@ -461,7 +462,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               const SizedBox(height: 16),
               Row(
                 children: [
-                  const Icon(Icons.snooze, color: _mint, size: 22),
+                  const UlvenikIcon(UlvenikIcons.notifications, color: _mint, size: 22),
                   const SizedBox(width: 10),
                   Text(
                     'Snooze Reminder',
@@ -547,7 +548,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
+            const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -623,7 +624,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
                           onPressed: () => Navigator.pop(modalCtx),
                         ),
                       ],
@@ -703,7 +704,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                               ),
                               child: Row(
                                 children: [
-                                  const Icon(Icons.calendar_today, size: 16, color: _mint),
+                                  const UlvenikIcon(UlvenikIcons.calendar, size: 16, color: _mint),
                                   const SizedBox(width: 8),
                                   Expanded(
                                     child: Text(
@@ -738,7 +739,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                               ),
                               child: Row(
                                 children: [
-                                  const Icon(Icons.schedule, size: 16, color: _mint),
+                                  const UlvenikIcon(UlvenikIcons.trainingTime, size: 16, color: _mint),
                                   const SizedBox(width: 8),
                                   Expanded(
                                     child: Text(
@@ -810,7 +811,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                       width: double.infinity,
                       height: 48,
                       child: ElevatedButton.icon(
-                        icon: const Icon(Icons.add_alert, size: 18),
+                        icon: const UlvenikIcon(UlvenikIcons.notifications, size: 18),
                         label: const Text(
                           'Save Reminder',
                           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
@@ -932,7 +933,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                           backgroundImage:
                               dog.avatarUrl != null ? NetworkImage(dog.avatarUrl!) : null,
                           child: dog.avatarUrl == null
-                              ? const Icon(Icons.pets, color: _mint, size: 20)
+                              ? const UlvenikIcon(UlvenikIcons.dogs, color: _mint, size: 20)
                               : null,
                         ),
                         const SizedBox(width: 12),
@@ -976,7 +977,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                             ],
                           ),
                         ),
-                        if (isSelected) const Icon(Icons.check_circle, color: _mint, size: 20),
+                        if (isSelected) const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20),
                       ],
                     ),
                   ),
@@ -1003,7 +1004,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               foregroundColor: AppColors.primaryTextOffWhite,
               elevation: 4,
               onPressed: _showCreateReminderSheet,
-              child: const Icon(Icons.notifications_active, size: 24),
+              child: const UlvenikIcon(UlvenikIcons.notifications, size: 24),
             ),
       body: SafeArea(
         child: _isEmpty ? _buildEmptyState() : _buildPopulatedState(),
@@ -1017,7 +1018,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
       elevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _sage),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _sage),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
       title: _showSearch
@@ -1043,7 +1044,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
             ),
       actions: [
         IconButton(
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _showSearch ? Icons.close : Icons.search,
             color: _showSearch ? _mint : _forest,
             size: 20,
@@ -1062,7 +1063,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
         ),
         IconButton(
           tooltip: 'Toggle empty / populated',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on,
             color: _isEmpty ? AppColors.secondaryTextStoneGrey : _mint,
             size: 26,
@@ -1075,7 +1076,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
           },
         ),
         IconButton(
-          icon: const Icon(Icons.add, color: _forest, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.add, color: _forest, size: 24),
           onPressed: _showCreateReminderSheet,
         ),
         const SizedBox(width: 4),
@@ -1159,7 +1160,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                     : null,
               ),
               child: _dog.avatarUrl == null
-                  ? const Icon(Icons.pets, color: _mint, size: 20)
+                  ? const UlvenikIcon(UlvenikIcons.dogs, color: _mint, size: 20)
                   : null,
             ),
             const SizedBox(width: 12),
@@ -1185,7 +1186,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: _sage),
+            const UlvenikIcon(UlvenikIcons.sort, color: _sage),
           ],
         ),
       ),
@@ -1292,7 +1293,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                     fontSize: 12,
                   ),
                 ),
-                Icon(icon, color: iconColor, size: 16),
+                UlvenikIcon.fromMaterial(icon, color: iconColor, size: 16),
               ],
             ),
             const SizedBox(height: 2),
@@ -1339,8 +1340,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   color: _viewMode == 0 ? _forest : Colors.transparent,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Icon(
-                  Icons.format_list_bulleted,
+                child: UlvenikIcon(UlvenikIcons.training,
                   size: 18,
                   color: _viewMode == 0 ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
                 ),
@@ -1358,8 +1358,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   color: _viewMode == 1 ? _forest : Colors.transparent,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Icon(
-                  Icons.calendar_month,
+                child: UlvenikIcon(UlvenikIcons.scheduledTraining,
                   size: 18,
                   color: _viewMode == 1 ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
                 ),
@@ -1462,7 +1461,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.trending_up, color: _mint, size: 14),
+                    UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 14),
                     SizedBox(width: 4),
                     Text(
                       '+8% vs last wk',
@@ -1695,7 +1694,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
         ),
         child: Column(
           children: [
-            const Icon(Icons.filter_list_off, color: AppColors.secondaryTextStoneGrey, size: 36),
+            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 36),
             const SizedBox(height: 12),
             const Text(
               'No matching reminders',
@@ -1788,7 +1787,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   ),
                 ),
                 const Spacer(),
-                Icon(
+                UlvenikIcon.fromMaterial(
                   _completedExpanded ? Icons.expand_less : Icons.expand_more,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 20,
@@ -1900,7 +1899,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                               borderRadius: BorderRadius.circular(8),
                               child: Padding(
                                 padding: const EdgeInsets.all(4),
-                                child: Icon(
+                                child: UlvenikIcon.fromMaterial(
                                   isVaccine ? Icons.vaccines_outlined : Icons.medication_outlined,
                                   color: accentColor,
                                   size: 22,
@@ -2028,7 +2027,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               borderRadius: BorderRadius.circular(8),
               child: Padding(
                 padding: const EdgeInsets.all(4),
-                child: Icon(item.category.icon, color: _sage, size: 20),
+                child: UlvenikIcon.fromMaterial(item.category.icon, color: _sage, size: 20),
               ),
             ),
           ),
@@ -2105,7 +2104,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               borderRadius: BorderRadius.circular(8),
               child: Padding(
                 padding: const EdgeInsets.all(4),
-                child: Icon(item.category.icon, color: AppColors.secondaryTextStoneGrey, size: 20),
+                child: UlvenikIcon.fromMaterial(item.category.icon, color: AppColors.secondaryTextStoneGrey, size: 20),
               ),
             ),
           ),
@@ -2139,7 +2138,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 shape: BoxShape.circle,
                 color: _forest,
               ),
-              child: const Icon(Icons.check, color: AppColors.primaryTextOffWhite, size: 14),
+              child: const UlvenikIcon(UlvenikIcons.completed, color: AppColors.primaryTextOffWhite, size: 14),
             ),
           ),
           const SizedBox(width: 12),
@@ -2205,7 +2204,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                         backgroundImage:
                             _dog.avatarUrl != null ? NetworkImage(_dog.avatarUrl!) : null,
                         child: _dog.avatarUrl == null
-                            ? const Icon(Icons.pets, color: _mint, size: 12)
+                            ? const UlvenikIcon(UlvenikIcons.dogs, color: _mint, size: 12)
                             : null,
                       ),
                       const SizedBox(width: 8),
@@ -2218,7 +2217,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey, size: 16),
+                      const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 16),
                     ],
                   ),
                 ),
@@ -2239,11 +2238,11 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                         color: _forest,
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: const Icon(Icons.format_list_bulleted, size: 16, color: AppColors.primaryTextOffWhite),
+                      child: const UlvenikIcon(UlvenikIcons.training, size: 16, color: AppColors.primaryTextOffWhite),
                     ),
                     Container(
                       padding: const EdgeInsets.all(4),
-                      child: const Icon(Icons.calendar_month, size: 16, color: AppColors.secondaryTextStoneGrey),
+                      child: const UlvenikIcon(UlvenikIcons.scheduledTraining, size: 16, color: AppColors.secondaryTextStoneGrey),
                     ),
                   ],
                 ),
@@ -2296,8 +2295,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 color: const Color(0xFF1A1F22),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
-              child: const Icon(
-                Icons.notifications_none,
+              child: const UlvenikIcon(UlvenikIcons.notifications,
                 size: 38,
                 color: _mint,
               ),
@@ -2343,14 +2341,14 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.add_alert, size: 18),
+                UlvenikIcon(UlvenikIcons.notifications, size: 18),
                 SizedBox(width: 8),
                 Text(
                   'Create Reminder',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(width: 8),
-                Icon(Icons.arrow_forward, size: 16),
+                UlvenikIcon(UlvenikIcons.details, size: 16),
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'rewards_management_screen.dart';
@@ -280,8 +281,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                       behavior: HitTestBehavior.opaque,
                       child: const Padding(
                         padding: EdgeInsets.all(4),
-                        child: Icon(
-                          Icons.close_rounded,
+                        child: UlvenikIcon(UlvenikIcons.back,
                           size: 20,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
@@ -591,8 +591,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
-                            Icons.delete_outline_rounded,
+                          UlvenikIcon(UlvenikIcons.back,
                             size: 16,
                             color: AppColors.errorDestructive,
                           ),
@@ -666,8 +665,7 @@ class _EditRewardTypePill extends StatelessWidget {
             ),
             if (isSelected) ...[
               const SizedBox(width: 6),
-              const Icon(
-                Icons.check_rounded,
+              const UlvenikIcon(UlvenikIcons.completed,
                 size: 14,
                 color: AppColors.primaryForestGreen,
               ),
@@ -697,8 +695,7 @@ class _EditDashedNewTypePill extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.add_rounded,
+              UlvenikIcon(UlvenikIcons.add,
                 size: 15,
                 color: AppColors.primaryForestGreen,
               ),

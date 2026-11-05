@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'about_ulvenik_screen.dart';
@@ -197,8 +198,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.account_circle_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -207,8 +207,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.photo_camera_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.play,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -217,8 +216,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.mail_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -231,8 +229,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.lock_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -245,8 +242,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.download_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -259,8 +255,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.delete_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.back,
                             color: _destructiveText,
                             size: 20,
                           ),
@@ -280,8 +275,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.credit_card_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -295,8 +289,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.receipt_long_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.training,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -309,8 +302,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.refresh_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.history,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -329,8 +321,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.notifications_none_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -340,8 +331,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.palette_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.edit,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -351,8 +341,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.language_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -371,8 +360,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.location_on_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.timeline,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -391,8 +379,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.access_time_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.trainingTime,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -411,8 +398,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.calendar_today_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.calendar,
                             color: _stoneGrey,
                             size: 19,
                           ),
@@ -427,8 +413,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         _buildMenuRow(
                           iconWidget: Transform.rotate(
                             angle: -math.pi / 4,
-                            child: const Icon(
-                              Icons.straighten_rounded,
+                            child: const UlvenikIcon(UlvenikIcons.exercises,
                               color: _stoneGrey,
                               size: 20,
                             ),
@@ -449,8 +434,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.cloud_upload_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -460,8 +444,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.arrow_circle_down_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.details,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -470,8 +453,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.folder_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -487,8 +469,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.help_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -501,8 +482,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.mode_comment_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 19,
                           ),
@@ -515,8 +495,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.bug_report_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -529,8 +508,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.lightbulb_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -549,8 +527,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.info_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -563,8 +540,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.auto_awesome_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.skills,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -577,8 +553,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.shield_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -591,8 +566,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.description_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.training,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -605,8 +579,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.description_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.training,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -677,8 +650,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                 behavior: HitTestBehavior.opaque,
                 child: const Padding(
                   padding: EdgeInsets.all(4),
-                  child: Icon(
-                    Icons.chevron_left_rounded,
+                  child: UlvenikIcon(UlvenikIcons.back,
                     color: _offWhite,
                     size: 26,
                   ),
@@ -932,7 +904,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(icon, color: _sage, size: 18),
+              UlvenikIcon.fromMaterial(icon, color: _sage, size: 18),
               const SizedBox(height: 8),
               Text(
                 valueText,
@@ -1045,8 +1017,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1156,8 +1127,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                           ),
                           child: Row(
                             children: [
-                              const Icon(
-                                Icons.devices_rounded,
+                              const UlvenikIcon(UlvenikIcons.overflowMenu,
                                 color: _sage,
                                 size: 20,
                               ),

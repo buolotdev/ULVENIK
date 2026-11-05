@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -281,8 +282,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                       ),
                       child: const Row(
                         children: [
-                          Icon(
-                            Icons.check_circle_outline_rounded,
+                          UlvenikIcon(UlvenikIcons.completed,
                             color: _forest,
                             size: 20,
                           ),
@@ -329,7 +329,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                             ),
                             child: Row(
                               children: [
-                                Icon(
+                                UlvenikIcon.fromMaterial(
                                   checked
                                       ? Icons.check_circle_rounded
                                       : Icons.radio_button_unchecked,
@@ -518,8 +518,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
         children: [
           IconButton(
             onPressed: () => Navigator.maybePop(context),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
@@ -701,7 +700,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, color: _stoneGrey, size: 22),
+        UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 22),
         const SizedBox(height: 10),
         Text(
           value,
@@ -823,7 +822,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
         ),
         child: Row(
           children: [
-            Icon(icon, color: _stoneGrey, size: 22),
+            UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 22),
             const SizedBox(width: 14),
             Expanded(
               child: Column(
@@ -941,7 +940,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
           const SizedBox(height: 12),
           Row(
             children: [
-              Icon(
+              UlvenikIcon.fromMaterial(
                 _optimiseDeviceStorage
                     ? Icons.check_circle_outline_rounded
                     : Icons.schedule_rounded,
@@ -1047,8 +1046,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                           ),
                         ),
                         selected
-                            ? const Icon(
-                                Icons.check_rounded,
+                            ? const UlvenikIcon(UlvenikIcons.completed,
                                 color: _forest,
                                 size: 20,
                               )
@@ -1154,8 +1152,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                     ),
                   ),
                   SizedBox(width: 4),
-                  Icon(
-                    Icons.arrow_forward_rounded,
+                  UlvenikIcon(UlvenikIcons.details,
                     color: _forest,
                     size: 16,
                   ),

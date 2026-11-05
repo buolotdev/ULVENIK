@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'add_health_record_screen.dart';
 import 'weight_tracker_screen.dart';
@@ -196,7 +197,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                       style: const TextStyle(color: _muted, fontSize: 12),
                     ),
                     trailing: isSelected
-                        ? const Icon(Icons.check_circle, color: _mint, size: 20)
+                        ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
                         : (d.hasData
                             ? null
                             : Container(
@@ -266,7 +267,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                   ),
                   const Spacer(),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _muted, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: _muted, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -356,7 +357,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
         backgroundColor: _obsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: _muted, size: 28),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _muted, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: const Text(
@@ -372,7 +373,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
         actions: [
           IconButton(
             tooltip: 'Search Records',
-            icon: const Icon(Icons.search, color: _muted),
+            icon: const UlvenikIcon(UlvenikIcons.search, color: _muted),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -385,7 +386,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
           // Toggle State Button (Populated vs Empty)
           IconButton(
             tooltip: _isEmpty ? 'Switch to Populated Dashboard' : 'Switch to Empty Dashboard',
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _isEmpty ? Icons.check_circle_outline : Icons.check_circle,
               color: _mint,
             ),
@@ -399,7 +400,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
           ),
           IconButton(
             tooltip: 'Options',
-            icon: const Icon(Icons.more_horiz, color: _muted),
+            icon: const UlvenikIcon(UlvenikIcons.more, color: _muted),
             onPressed: _showDogSelectorSheet,
           ),
         ],
@@ -461,7 +462,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.add, color: _offWhite, size: 20),
+                          UlvenikIcon(UlvenikIcons.add, color: _offWhite, size: 20),
                           SizedBox(width: 8),
                           Text(
                             'Add Health Record',
@@ -537,7 +538,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: _muted, size: 22),
+            const UlvenikIcon(UlvenikIcons.sort, color: _muted, size: 22),
           ],
         ),
       ),
@@ -690,7 +691,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: iconColor ?? _muted, size: 20),
+            UlvenikIcon.fromMaterial(icon, color: iconColor ?? _muted, size: 20),
             const SizedBox(height: 6),
             Text(
               value,
@@ -1076,7 +1077,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(icon, color: accentColor, size: 20),
+                    UlvenikIcon.fromMaterial(icon, color: accentColor, size: 20),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Column(
@@ -1113,7 +1114,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                         ],
                       ),
                     ),
-                    const Icon(Icons.chevron_right, color: _muted, size: 20),
+                    const UlvenikIcon(UlvenikIcons.details, color: _muted, size: 20),
                   ],
                 ),
               ),
@@ -1143,7 +1144,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                   color: _surfaceDeep,
                   border: _hairlineBorder,
                 ),
-                child: const Icon(Icons.favorite_outline, color: _mint, size: 34),
+                child: const UlvenikIcon(UlvenikIcons.health, color: _mint, size: 34),
               ),
               const SizedBox(height: 18),
               const Text(
@@ -1199,7 +1200,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.add, color: _offWhite, size: 18),
+                          UlvenikIcon(UlvenikIcons.add, color: _offWhite, size: 18),
                           SizedBox(width: 8),
                           Text(
                             'Add First Health Record',
@@ -1210,7 +1211,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                             ),
                           ),
                           SizedBox(width: 8),
-                          Icon(Icons.arrow_forward, color: _offWhite, size: 16),
+                          UlvenikIcon(UlvenikIcons.details, color: _offWhite, size: 16),
                         ],
                       ),
                     ),
@@ -1331,7 +1332,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 borderRadius: BorderRadius.circular(8),
                 border: _hairlineBorder,
               ),
-              child: Icon(icon, color: _muted, size: 20),
+              child: UlvenikIcon.fromMaterial(icon, color: _muted, size: 20),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -1350,7 +1351,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: _muted, size: 20),
+            const UlvenikIcon(UlvenikIcons.details, color: _muted, size: 20),
           ],
         ),
       ),
@@ -1395,7 +1396,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            UlvenikIcon.fromMaterial(
               icon,
               color: isSelected ? _mint : _muted,
               size: 22,

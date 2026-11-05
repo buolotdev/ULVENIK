@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -245,8 +246,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(returnSummary),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
@@ -315,8 +315,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 6),
-            child: Icon(
-              Icons.calendar_month_outlined,
+            child: UlvenikIcon(UlvenikIcons.scheduledTraining,
               size: 22,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -376,8 +375,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
         ),
         child: Row(
           children: [
-            const Icon(
-              Icons.language_rounded,
+            const UlvenikIcon(UlvenikIcons.overflowMenu,
               size: 20,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -553,8 +551,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
                         ),
                       if (isSelected) ...[
                         if (trailingText != null) const SizedBox(width: 10),
-                        const Icon(
-                          Icons.check_rounded,
+                        const UlvenikIcon(UlvenikIcons.completed,
                           size: 18,
                           color: AppColors.primaryForestGreen,
                         ),

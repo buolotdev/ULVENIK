@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/password_strength_indicator.dart';
 import 'password_updated_screen.dart';
@@ -167,9 +168,9 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(color: AppColors.primaryForestGreen),
                         ),
-                        prefixIcon: const Icon(Icons.lock_outline, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        prefixIcon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 20),
                         suffixIcon: IconButton(
-                          icon: Icon(
+                          icon: UlvenikIcon.fromMaterial(
                             _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 20,
@@ -230,9 +231,9 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(color: AppColors.primaryForestGreen),
                         ),
-                        prefixIcon: const Icon(Icons.lock_outline, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        prefixIcon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 20),
                         suffixIcon: IconButton(
-                          icon: Icon(
+                          icon: UlvenikIcon.fromMaterial(
                             _obscureConfirm ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 20,

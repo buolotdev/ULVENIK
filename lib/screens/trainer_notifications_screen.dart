@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import 'client_profile_screen.dart';
 import 'homework_details_screen.dart';
@@ -47,8 +48,7 @@ class _TrainerNotificationsScreenState
         backgroundColor: _obsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
+          icon: const UlvenikIcon(UlvenikIcons.back,
             color: _offWhite,
             size: 18,
           ),
@@ -291,7 +291,7 @@ class _TrainerNotificationsScreenState
                           ),
                           const SizedBox(width: 8),
                         ],
-                        Icon(icon, color: _mint, size: 16),
+                        UlvenikIcon.fromMaterial(icon, color: _mint, size: 16),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -396,7 +396,7 @@ class _TrainerNotificationsScreenState
                 ),
                 const SizedBox(width: 8),
               ],
-              Icon(icon, color: _stoneGrey, size: 16),
+              UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 16),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(

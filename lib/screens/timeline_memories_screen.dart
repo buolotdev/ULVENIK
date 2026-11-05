@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'timeline_event_details_screen.dart';
@@ -367,7 +368,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
       scrolledUnderElevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: const Icon(Icons.chevron_left, color: _stoneGrey, size: 26),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 26),
         onPressed: () => Navigator.maybePop(context),
       ),
       title: const Text(
@@ -382,11 +383,11 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
       actions: [
         IconButton(
           tooltip: 'Filter & Display Options',
-          icon: const Icon(Icons.tune, color: _stoneGrey, size: 20),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 20),
           onPressed: _showFilterCategoriesSheet,
         ),
         PopupMenuButton<String>(
-          icon: const Icon(Icons.more_horiz, color: _stoneGrey, size: 20),
+          icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 20),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
@@ -470,7 +471,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.filter_alt_outlined, color: _mint, size: 16),
+          const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -526,8 +527,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: const Color(0x18FFFFFF)),
               ),
-              child: const Icon(
-                Icons.history_toggle_off,
+              child: const UlvenikIcon(UlvenikIcons.history,
                 color: _sage,
                 size: 32,
               ),
@@ -584,7 +584,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                     ),
                   ),
                   SizedBox(width: 8),
-                  Icon(Icons.arrow_forward, size: 17),
+                  UlvenikIcon(UlvenikIcons.details, size: 17),
                 ],
               ),
             ),
@@ -603,7 +603,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.auto_awesome_outlined,
+                    const UlvenikIcon(UlvenikIcons.skills,
                         color: _sage, size: 15),
                     const SizedBox(width: 8),
                     const Expanded(
@@ -743,7 +743,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                             ),
                           ),
                           const SizedBox(width: 4),
-                          Icon(
+                          UlvenikIcon.fromMaterial(
                             _expandThisMonth
                                 ? Icons.keyboard_arrow_up
                                 : Icons.keyboard_arrow_down,
@@ -979,7 +979,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                           ),
                         ),
                         SizedBox(width: 6),
-                        Icon(Icons.arrow_forward, size: 16),
+                        UlvenikIcon(UlvenikIcons.details, size: 16),
                       ],
                     ),
                   ),
@@ -991,7 +991,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.share_outlined, color: _mint, size: 15),
+                        UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 15),
                         SizedBox(width: 6),
                         Text(
                           'Share This Memory',
@@ -1067,7 +1067,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                         fit: BoxFit.cover,
                         errorBuilder: (_, _, _) => Container(
                           color: _iconBoxBg,
-                          child: Icon(Icons.photo_outlined,
+                          child: UlvenikIcon(UlvenikIcons.play,
                               color: item.categoryColor, size: 22),
                         ),
                       ),
@@ -1081,7 +1081,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                       color: _iconBoxBg,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Icon(
+                    child: UlvenikIcon.fromMaterial(
                       item.icon ?? Icons.flag_outlined,
                       color: item.iconColor ?? item.categoryColor,
                       size: 22,
@@ -1095,7 +1095,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                       Row(
                         children: [
                           if (item.isMilestoneHeaderIcon)
-                            const Icon(Icons.emoji_events_outlined,
+                            const UlvenikIcon(UlvenikIcons.goals,
                                 color: _stoneGrey, size: 12)
                           else ...[
                             Container(
@@ -1156,7 +1156,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Icon(
+                UlvenikIcon.fromMaterial(
                   item.isBookmarked ? Icons.bookmark : Icons.chevron_right,
                   color: item.isBookmarked ? _gold : _stoneGrey,
                   size: 18,
@@ -1249,7 +1249,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.filter_list, color: textColor, size: 17),
+                  UlvenikIcon(UlvenikIcons.sort, color: textColor, size: 17),
                   const SizedBox(width: 8),
                   Text(
                     _isEmptyState ? 'Filter' : 'Filter Categories',
@@ -1275,7 +1275,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.calendar_today_outlined,
+                  UlvenikIcon(UlvenikIcons.calendar,
                       color: textColor, size: 15),
                   const SizedBox(width: 8),
                   Text(
@@ -1414,8 +1414,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 final selected = _selectedYear == yr;
                 return ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Icon(
-                    Icons.calendar_month_outlined,
+                  leading: UlvenikIcon(UlvenikIcons.scheduledTraining,
                     color: selected ? _mint : _stoneGrey,
                     size: 20,
                   ),
@@ -1428,7 +1427,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                     ),
                   ),
                   trailing: selected
-                      ? const Icon(Icons.check, color: _mint, size: 18)
+                      ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 18)
                       : null,
                   onTap: () {
                     setState(() {
@@ -1491,7 +1490,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: Icon(
+                  icon: UlvenikIcon.fromMaterial(
                     item.isBookmarked ? Icons.bookmark : Icons.bookmark_border,
                     color: item.isBookmarked ? _gold : _stoneGrey,
                   ),
@@ -1621,7 +1620,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               const SizedBox(height: 12),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.link, color: _mint),
+                leading: const UlvenikIcon(UlvenikIcons.details, color: _mint),
                 title: const Text('Copy Memory Card Link',
                     style: TextStyle(color: _offWhite, fontSize: 14)),
                 onTap: () {
@@ -1633,7 +1632,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.download_outlined, color: _mint),
+                leading: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint),
                 title: const Text('Save Story Card to Device',
                     style: TextStyle(color: _offWhite, fontSize: 14)),
                 onTap: () {

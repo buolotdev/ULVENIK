@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -339,8 +340,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(_currentCountry.name),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
@@ -532,8 +532,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.search_rounded,
+          const UlvenikIcon(UlvenikIcons.search,
             size: 19,
             color: AppColors.secondaryTextStoneGrey,
           ),
@@ -573,8 +572,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
               behavior: HitTestBehavior.opaque,
               child: const Padding(
                 padding: EdgeInsets.all(4),
-                child: Icon(
-                  Icons.close_rounded,
+                child: UlvenikIcon(UlvenikIcons.back,
                   size: 17,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -643,8 +641,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
         ),
         child: Column(
           children: [
-            const Icon(
-              Icons.public_off_rounded,
+            const UlvenikIcon(UlvenikIcons.overflowMenu,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
@@ -755,8 +752,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                         ),
                       ),
                       if (isSelected)
-                        const Icon(
-                          Icons.check_rounded,
+                        const UlvenikIcon(UlvenikIcons.completed,
                           size: 19,
                           color: AppColors.primaryForestGreen,
                         ),

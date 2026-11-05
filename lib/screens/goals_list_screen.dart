@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/animated_progress_bar.dart';
 import '../widgets/custom_snackbar.dart';
@@ -46,7 +47,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
         backgroundColor: AppColors.backgroundObsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: AppColors.primaryTextOffWhite),
+          icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
           onPressed: () {
             if (Navigator.canPop(context)) {
               Navigator.pop(context);
@@ -61,8 +62,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
               'assets/images/white_mountain_only.png',
               height: 20,
               fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) => const Icon(
-                Icons.terrain_rounded,
+              errorBuilder: (context, error, stackTrace) => const UlvenikIcon(UlvenikIcons.timeline,
                 color: AppColors.primaryTextOffWhite,
                 size: 20,
               ),
@@ -81,7 +81,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.person_outline, color: AppColors.primaryTextOffWhite),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
             onPressed: () {},
           ),
         ],
@@ -137,7 +137,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF2e6b57), // primary container
-        child: const Icon(Icons.add, color: AppColors.primaryTextOffWhite),
+        child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) => const CreateGoalScreen()));
         },
@@ -239,7 +239,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
             color: AppColors.cardsCarbon,
             border: Border.all(color: Colors.white12),
           ),
-          child: const Icon(Icons.track_changes, color: AppColors.secondaryTextStoneGrey, size: 32),
+          child: const UlvenikIcon(UlvenikIcons.goals, color: AppColors.secondaryTextStoneGrey, size: 32),
         ),
       ),
       const SizedBox(height: 24),
@@ -386,7 +386,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
         decoration: InputDecoration(
           hintText: 'Search goals...',
           hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
-          prefixIcon: const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           border: InputBorder.none,
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
@@ -464,7 +464,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
                   ],
                 ),
               ),
-              const Icon(Icons.more_vert, color: AppColors.secondaryTextStoneGrey, size: 20),
+              const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 20),
             ],
           ),
           const SizedBox(height: 16),
@@ -526,7 +526,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white12),
               ),
-              child: const Icon(Icons.check, color: AppColors.secondaryTextStoneGrey, size: 16),
+              child: const UlvenikIcon(UlvenikIcons.completed, color: AppColors.secondaryTextStoneGrey, size: 16),
             ),
           ),
         ],
@@ -568,7 +568,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const Icon(Icons.warning_amber_rounded, color: Color(0xFFffb4ab), size: 14),
+                    const UlvenikIcon(UlvenikIcons.notifications, color: Color(0xFFffb4ab), size: 14),
                     const SizedBox(width: 4),
                     Text(subtitle, style: const TextStyle(color: Color(0xFFffb4ab), fontSize: 12)),
                   ],
@@ -587,7 +587,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white12),
               ),
-              child: const Icon(Icons.check, color: AppColors.secondaryTextStoneGrey, size: 16),
+              child: const UlvenikIcon(UlvenikIcons.completed, color: AppColors.secondaryTextStoneGrey, size: 16),
             ),
           ),
         ],
@@ -623,7 +623,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
               ],
             ),
           ),
-          const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
+          const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
         ],
       ),
       ),
@@ -655,7 +655,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: AppColors.secondaryTextStoneGrey, size: 18),
+          UlvenikIcon.fromMaterial(icon, color: AppColors.secondaryTextStoneGrey, size: 18),
           const SizedBox(width: 8),
           Text(label, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
           const SizedBox(width: 8),

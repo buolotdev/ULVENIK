@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 
@@ -381,7 +382,7 @@ class _CertificatesDocumentsScreenState
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close,
+                      icon: const UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey),
                       onPressed: () => Navigator.pop(ctx),
                     ),
@@ -430,8 +431,7 @@ class _CertificatesDocumentsScreenState
                             ),
                           ),
                           if (isSelected)
-                            const Icon(
-                              Icons.check_circle_rounded,
+                            const UlvenikIcon(UlvenikIcons.completed,
                               color: AppColors.primaryForestGreen,
                               size: 20,
                             ),
@@ -614,8 +614,7 @@ class _CertificatesDocumentsScreenState
                           borderRadius: BorderRadius.circular(14),
                           border: Border.all(color: AppColors.cardBorder),
                         ),
-                        child: const Icon(
-                          Icons.description_outlined,
+                        child: const UlvenikIcon(UlvenikIcons.training,
                           color: AppColors.primaryForestGreen,
                           size: 30,
                         ),
@@ -691,8 +690,7 @@ class _CertificatesDocumentsScreenState
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.verified_rounded,
+                              UlvenikIcon(UlvenikIcons.completed,
                                 color: AppColors.infoAlpineBlue,
                                 size: 13,
                               ),
@@ -750,8 +748,7 @@ class _CertificatesDocumentsScreenState
                               ),
                             );
                           },
-                          icon: const Icon(
-                            Icons.download_rounded,
+                          icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: AppColors.primaryForestGreen,
                             size: 18,
                           ),
@@ -790,7 +787,7 @@ class _CertificatesDocumentsScreenState
                               ),
                             );
                           },
-                          icon: const Icon(Icons.fullscreen_rounded, size: 20),
+                          icon: const UlvenikIcon(UlvenikIcons.details, size: 20),
                           label: const Text(
                             'View Full',
                             style: TextStyle(
@@ -814,7 +811,7 @@ class _CertificatesDocumentsScreenState
                         Navigator.pop(ctx);
                         _confirmDeleteDocument(item);
                       },
-                      icon: const Icon(Icons.delete_outline, size: 18),
+                      icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
                       label: const Text(
                         'Delete Document',
                         style: TextStyle(
@@ -968,7 +965,7 @@ class _CertificatesDocumentsScreenState
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close,
+                          icon: const UlvenikIcon(UlvenikIcons.back,
                               color: AppColors.secondaryTextStoneGrey),
                           onPressed: () => Navigator.pop(ctx),
                         ),
@@ -1134,8 +1131,7 @@ class _CertificatesDocumentsScreenState
                       ),
                       child: const Row(
                         children: [
-                          Icon(
-                            Icons.upload_file_rounded,
+                          UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: AppColors.primaryForestGreen,
                             size: 28,
                           ),
@@ -1165,8 +1161,7 @@ class _CertificatesDocumentsScreenState
                               ],
                             ),
                           ),
-                          Icon(
-                            Icons.check_circle_rounded,
+                          UlvenikIcon(UlvenikIcons.completed,
                             color: AppColors.primaryForestGreen,
                             size: 20,
                           ),
@@ -1260,8 +1255,7 @@ class _CertificatesDocumentsScreenState
         backgroundColor: AppColors.backgroundObsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
+          icon: const UlvenikIcon(UlvenikIcons.back,
             color: AppColors.primaryTextOffWhite,
             size: 20,
           ),
@@ -1278,7 +1272,7 @@ class _CertificatesDocumentsScreenState
         ),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _isSearchVisible ? Icons.search_off_rounded : Icons.search_rounded,
               color: _isSearchVisible
                   ? AppColors.primaryForestGreen
@@ -1295,15 +1289,13 @@ class _CertificatesDocumentsScreenState
             },
           ),
           IconButton(
-            icon: const Icon(
-              Icons.tune_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.sort,
               color: AppColors.primaryTextOffWhite,
             ),
             onPressed: _showFilterModal,
           ),
           IconButton(
-            icon: const Icon(
-              Icons.add_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.add,
               color: AppColors.primaryTextOffWhite,
               size: 26,
             ),
@@ -1337,14 +1329,12 @@ class _CertificatesDocumentsScreenState
                       fontSize: 14,
                       fontFamily: 'Inter',
                     ),
-                    prefixIcon: const Icon(
-                      Icons.search_rounded,
+                    prefixIcon: const UlvenikIcon(UlvenikIcons.search,
                       color: AppColors.secondaryTextStoneGrey,
                     ),
                     suffixIcon: _searchQuery.isNotEmpty
                         ? IconButton(
-                            icon: const Icon(
-                              Icons.close_rounded,
+                            icon: const UlvenikIcon(UlvenikIcons.back,
                               color: AppColors.secondaryTextStoneGrey,
                             ),
                             onPressed: () {
@@ -1453,8 +1443,7 @@ class _CertificatesDocumentsScreenState
                             ),
                           ),
                           const SizedBox(width: 4),
-                          const Icon(
-                            Icons.keyboard_arrow_down_rounded,
+                          const UlvenikIcon(UlvenikIcons.sort,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 18,
                           ),
@@ -1473,8 +1462,7 @@ class _CertificatesDocumentsScreenState
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
-                            Icons.folder_open_rounded,
+                          UlvenikIcon(UlvenikIcons.overflowMenu,
                             size: 64,
                             color: AppColors.secondaryTextStoneGrey
                                 .withValues(alpha: 0.5),
@@ -1549,7 +1537,7 @@ class _CertificatesDocumentsScreenState
         foregroundColor: Colors.white,
         elevation: 4,
         onPressed: _showAddDocumentSheet,
-        child: const Icon(Icons.add_rounded, size: 28),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 28),
       ),
       bottomNavigationBar: const UlvenikBottomNav(
         activeTab: UlvenikNavTab.dogs,
@@ -1593,8 +1581,7 @@ class _CertificatesDocumentsScreenState
                             children: [
                               Container(
                                 color: const Color(0xFF1E2824),
-                                child: const Icon(
-                                  Icons.shield_outlined,
+                                child: const UlvenikIcon(UlvenikIcons.overflowMenu,
                                   color: AppColors.primaryForestGreen,
                                   size: 26,
                                 ),
@@ -1603,8 +1590,7 @@ class _CertificatesDocumentsScreenState
                           ),
                         )
                       : const Center(
-                          child: Icon(
-                            Icons.description_outlined,
+                          child: UlvenikIcon(UlvenikIcons.training,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 24,
                           ),
@@ -1697,8 +1683,7 @@ class _CertificatesDocumentsScreenState
                 ),
 
                 const SizedBox(width: 8),
-                const Icon(
-                  Icons.chevron_right_rounded,
+                const UlvenikIcon(UlvenikIcons.details,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 20,
                 ),

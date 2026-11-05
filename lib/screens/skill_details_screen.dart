@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -229,7 +230,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                             fontSize: 14,
                             fontWeight: FontWeight.w500)),
                     trailing: opt.$1 == session.rating
-                        ? Icon(Icons.check, color: opt.$3, size: 20)
+                        ? UlvenikIcon(UlvenikIcons.completed, color: opt.$3, size: 20)
                         : null,
                     onTap: () {
                       setState(() => session.rating = opt.$1);
@@ -313,7 +314,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             top: topSafe + 4,
             left: 4,
             child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextOffWhite),
+              icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite),
               onPressed: () => Navigator.pop(context),
             ),
           ),
@@ -415,7 +416,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                   color: color.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(icon, color: color, size: 20),
+                child: UlvenikIcon.fromMaterial(icon, color: color, size: 20),
               ),
               const SizedBox(height: 8),
               Text(
@@ -443,7 +444,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 onTap: _showProgressDialog,
                 child: const Row(
                   children: [
-                    Icon(Icons.edit_outlined, size: 14, color: AppColors.secondarySage),
+                    UlvenikIcon(UlvenikIcons.edit, size: 14, color: AppColors.secondarySage),
                     SizedBox(width: 4),
                     Text('Update Progress',
                         style: TextStyle(
@@ -520,7 +521,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               const Text('Exercises', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
               TextButton.icon(
                 onPressed: () => _openAddExercise(context),
-                icon: const Icon(Icons.add, size: 16, color: AppColors.primaryForestGreen),
+                icon: const UlvenikIcon(UlvenikIcons.add, size: 16, color: AppColors.primaryForestGreen),
                 label: const Text('Add', style: TextStyle(color: AppColors.primaryForestGreen, fontSize: 13, fontWeight: FontWeight.w500)),
                 style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
               ),
@@ -564,7 +565,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                   Text(subtitle, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                 ],
               ),
-              const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
+              const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
             ],
           ),
         ),
@@ -624,11 +625,11 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                     ),
                     child: Row(
                       children: [
-                        Icon(isGreat ? Icons.star : Icons.remove, size: 13, color: isGreat ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey),
+                        UlvenikIcon.fromMaterial(isGreat ? Icons.star : Icons.remove, size: 13, color: isGreat ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey),
                         const SizedBox(width: 4),
                         Text(sess.rating, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: isGreat ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey)),
                         const SizedBox(width: 4),
-                        const Icon(Icons.arrow_drop_down, size: 14, color: AppColors.secondaryTextStoneGrey),
+                        const UlvenikIcon(UlvenikIcons.sort, size: 14, color: AppColors.secondaryTextStoneGrey),
                       ],
                     ),
                   ),
@@ -639,11 +640,11 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               const SizedBox(height: 4),
               Row(
                 children: [
-                  const Icon(Icons.timer_outlined, size: 14, color: AppColors.secondaryTextStoneGrey),
+                  const UlvenikIcon(UlvenikIcons.trainingTime, size: 14, color: AppColors.secondaryTextStoneGrey),
                   const SizedBox(width: 4),
                   Text(sess.time, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                   const SizedBox(width: 16),
-                  const Icon(Icons.park_outlined, size: 14, color: AppColors.secondaryTextStoneGrey),
+                  const UlvenikIcon(UlvenikIcons.timeline, size: 14, color: AppColors.secondaryTextStoneGrey),
                   const SizedBox(width: 4),
                   Text(sess.location, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                 ],
@@ -712,7 +713,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.white12),
                       ),
-                      child: const Icon(Icons.play_arrow, color: Colors.white, size: 18),
+                      child: const UlvenikIcon(UlvenikIcons.play, color: Colors.white, size: 18),
                     ),
                   ),
                 ),
@@ -735,7 +736,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               const Text('Notes', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
               TextButton.icon(
                 onPressed: () => _toast(context, 'Edit notes'),
-                icon: const Icon(Icons.edit, size: 16, color: AppColors.secondarySage),
+                icon: const UlvenikIcon(UlvenikIcons.edit, size: 16, color: AppColors.secondarySage),
                 label: const Text('Edit', style: TextStyle(color: AppColors.secondarySage, fontSize: 13, fontWeight: FontWeight.w500)),
                 style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'activity_library_screen.dart';
 import 'record_session_screen.dart';
 import 'export_screen.dart';
@@ -316,7 +317,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
               final isSel = _currentSort == opt['value'];
               return ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: Icon(opt['icon'] as IconData, color: isSel ? _mint : _stoneGrey),
+                leading: UlvenikIcon.fromMaterial(opt['icon'] as IconData, color: isSel ? _mint : _stoneGrey),
                 title: Text(
                   opt['label'] as String,
                   style: TextStyle(
@@ -325,7 +326,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                     fontSize: 14,
                   ),
                 ),
-                trailing: isSel ? const Icon(Icons.check, color: _mint, size: 20) : null,
+                trailing: isSel ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20) : null,
                 onTap: () {
                   setState(() => _currentSort = opt['value'] as String);
                   Navigator.pop(ctx);
@@ -480,7 +481,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                         border: _hairlineBorder,
                       ),
                       child: const Center(
-                        child: Icon(Icons.description_outlined, color: _mint, size: 24),
+                        child: UlvenikIcon(UlvenikIcons.training, color: _mint, size: 24),
                       ),
                     ),
                     const SizedBox(width: 14),
@@ -499,7 +500,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                           const SizedBox(height: 4),
                           Row(
                             children: [
-                              Icon(item.activityIcon, color: _mint, size: 14),
+                              UlvenikIcon.fromMaterial(item.activityIcon, color: _mint, size: 14),
                               const SizedBox(width: 6),
                               Text(
                                 item.activityName,
@@ -515,7 +516,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(
+                      icon: UlvenikIcon.fromMaterial(
                         item.isFavorite ? Icons.star : Icons.star_border,
                         color: item.isFavorite ? _mint : _stoneGrey,
                         size: 24,
@@ -651,7 +652,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.play_arrow, size: 16),
+                            UlvenikIcon(UlvenikIcons.play, size: 16),
                             SizedBox(width: 6),
                             Text('Record Session', style: TextStyle(fontWeight: FontWeight.w600)),
                           ],
@@ -750,7 +751,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                         value: activity,
                         dropdownColor: _carbon,
                         isExpanded: true,
-                        icon: const Icon(Icons.keyboard_arrow_down, color: _mint),
+                        icon: const UlvenikIcon(UlvenikIcons.sort, color: _mint),
                         style: const TextStyle(color: _offWhite, fontSize: 14),
                         items: [
                           'Treadmill Running',
@@ -1000,7 +1001,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _mint),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _mint),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: GestureDetector(
@@ -1018,7 +1019,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         centerTitle: true,
         actions: [
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_horiz, color: _mint),
+            icon: const UlvenikIcon(UlvenikIcons.more, color: _mint),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -1058,7 +1059,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'toggle',
                 child: Row(
                   children: [
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _isEmpty ? Icons.view_list : Icons.hourglass_empty,
                       color: _mint,
                       size: 18,
@@ -1075,7 +1076,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'create',
                 child: Row(
                   children: [
-                    Icon(Icons.add_circle_outline, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.add, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Create New Template', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1085,7 +1086,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'sort',
                 child: Row(
                   children: [
-                    Icon(Icons.sort, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.sort, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Sort Templates', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1095,7 +1096,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'filter',
                 child: Row(
                   children: [
-                    Icon(Icons.filter_list, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.sort, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Filter by Activity', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1105,7 +1106,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'export',
                 child: Row(
                   children: [
-                    Icon(Icons.file_download, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Templates', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1115,7 +1116,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'archive',
                 child: Row(
                   children: [
-                    Icon(Icons.inventory_2_outlined, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('View Archive', style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600)),
                   ],
@@ -1125,7 +1126,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 value: 'settings',
                 child: Row(
                   children: [
-                    Icon(Icons.settings_outlined, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.sort, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('S & C Settings', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -1167,7 +1168,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         foregroundColor: _offWhite,
         elevation: 4,
         shape: const CircleBorder(),
-        child: const Icon(Icons.add, size: 28),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 28),
       ),
     );
   }
@@ -1190,17 +1191,17 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         decoration: InputDecoration(
           hintText: 'Search templates...',
           hintStyle: const TextStyle(color: _stoneGrey, fontSize: 14),
-          prefixIcon: const Icon(Icons.search, color: _stoneGrey, size: 20),
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           suffixIcon: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (_searchQuery.isNotEmpty)
                 IconButton(
-                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
                   onPressed: () => _searchCtrl.clear(),
                 ),
               IconButton(
-                icon: const Icon(Icons.mic_none, color: _stoneGrey, size: 20),
+                icon: const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey, size: 20),
                 tooltip: 'Voice Search',
                 onPressed: () {},
               ),
@@ -1295,7 +1296,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 3),
-                                const Icon(Icons.arrow_drop_down, color: _stoneGrey, size: 16),
+                                const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 16),
                               ],
                             ),
                           ),
@@ -1338,8 +1339,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 4),
-                                Icon(
-                                  Icons.tune,
+                                UlvenikIcon(UlvenikIcons.sort,
                                   color: isFiltered ? _mint : _stoneGrey,
                                   size: 14,
                                 ),
@@ -1384,7 +1384,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                       onTap: () {
                         setState(() => _selectedActivityFilter = 'All Activities');
                       },
-                      child: const Icon(Icons.close, color: _mint, size: 14),
+                      child: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 14),
                     ),
                   ],
                 ),
@@ -1408,7 +1408,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.search_off, color: _stoneGrey, size: 48),
+            const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 48),
             const SizedBox(height: 12),
             const Text(
               'No templates match search',
@@ -1453,8 +1453,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             // Row 1: Document icon + Title + Star
             Row(
               children: [
-                const Icon(
-                  Icons.description_outlined,
+                const UlvenikIcon(UlvenikIcons.training,
                   color: _stoneGrey,
                   size: 20,
                 ),
@@ -1475,7 +1474,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   onTap: () => _toggleFavorite(item),
                   child: Padding(
                     padding: const EdgeInsets.all(4),
-                    child: Icon(
+                    child: UlvenikIcon.fromMaterial(
                       item.isFavorite ? Icons.star : Icons.star_border,
                       color: item.isFavorite ? _mint : _stoneGrey,
                       size: 20,
@@ -1497,7 +1496,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(item.activityIcon, color: _mint, size: 14),
+                  UlvenikIcon.fromMaterial(item.activityIcon, color: _mint, size: 14),
                   const SizedBox(width: 6),
                   Text(
                     item.activityName,
@@ -1565,7 +1564,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.play_arrow, size: 18, color: _offWhite),
+                    UlvenikIcon(UlvenikIcons.play, size: 18, color: _offWhite),
                     SizedBox(width: 8),
                     Text(
                       'Record Session',
@@ -1605,8 +1604,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             ),
           ),
           child: const Center(
-            child: Icon(
-              Icons.bolt,
+            child: UlvenikIcon(UlvenikIcons.skills,
               color: _mint,
               size: 40,
             ),
@@ -1659,7 +1657,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.add, size: 18, color: _offWhite),
+                UlvenikIcon(UlvenikIcons.add, size: 18, color: _offWhite),
                 SizedBox(width: 8),
                 Text(
                   'Create Template',
@@ -1669,7 +1667,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   ),
                 ),
                 SizedBox(width: 6),
-                Icon(Icons.arrow_forward, size: 16, color: _offWhite),
+                UlvenikIcon(UlvenikIcons.details, size: 16, color: _offWhite),
               ],
             ),
           ),

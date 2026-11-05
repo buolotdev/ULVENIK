@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'timeline_event_details_screen.dart';
 import 'timeline_filters_screen.dart';
@@ -481,7 +482,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _mint, size: 22),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 22),
         onPressed: () => Navigator.maybePop(context),
       ),
       title: const Text(
@@ -513,7 +514,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         ),
         // Filter / Search Shortcut
         IconButton(
-          icon: const Icon(Icons.search, color: _stoneGrey, size: 20),
+          icon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           tooltip: 'Search Timeline',
           onPressed: () {
             Navigator.push(
@@ -526,7 +527,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         ),
         // Timeline Statistics Shortcut
         IconButton(
-          icon: const Icon(Icons.insights_outlined, color: _stoneGrey, size: 20),
+          icon: const UlvenikIcon(UlvenikIcons.progress, color: _stoneGrey, size: 20),
           tooltip: 'Timeline Statistics',
           onPressed: () {
             Navigator.push(
@@ -539,7 +540,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         ),
         // More Options
         PopupMenuButton<String>(
-          icon: const Icon(Icons.more_horiz, color: _stoneGrey, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 22),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -573,7 +574,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               value: 'statistics',
               child: Row(
                 children: [
-                  Icon(Icons.insights_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Statistics',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -584,7 +585,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               value: 'switch_dog',
               child: Row(
                 children: [
-                  const Icon(Icons.pets, color: _mint, size: 18),
+                  const UlvenikIcon(UlvenikIcons.dogs, color: _mint, size: 18),
                   const SizedBox(width: 10),
                   Text('Dog: $_selectedDog',
                       style: const TextStyle(color: _offWhite, fontSize: 13)),
@@ -595,7 +596,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               value: 'filters',
               child: Row(
                 children: [
-                  Icon(Icons.tune, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Filters',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -606,7 +607,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               value: 'reset_month',
               child: Row(
                 children: [
-                  Icon(Icons.calendar_month, color: _alpineBlue, size: 18),
+                  UlvenikIcon(UlvenikIcons.scheduledTraining, color: _alpineBlue, size: 18),
                   SizedBox(width: 10),
                   Text('View 14 Aug (Populated)',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -617,7 +618,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               value: 'empty_test',
               child: Row(
                 children: [
-                  Icon(Icons.event_busy, color: _errorLight, size: 18),
+                  UlvenikIcon(UlvenikIcons.calendar, color: _errorLight, size: 18),
                   SizedBox(width: 10),
                   Text('View 20 Aug (Empty State)',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -735,14 +736,14 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.chevron_left,
+                    icon: const UlvenikIcon(UlvenikIcons.back,
                         color: _stoneGrey, size: 22),
                     onPressed: () => _changeMonth(-1),
                     splashRadius: 18,
                     visualDensity: VisualDensity.compact,
                   ),
                   IconButton(
-                    icon: const Icon(Icons.chevron_right,
+                    icon: const UlvenikIcon(UlvenikIcons.details,
                         color: _stoneGrey, size: 22),
                     onPressed: () => _changeMonth(1),
                     splashRadius: 18,
@@ -917,7 +918,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                     ),
                   ),
                   SizedBox(width: 4),
-                  Icon(Icons.arrow_forward, color: _mint, size: 14),
+                  UlvenikIcon(UlvenikIcons.details, color: _mint, size: 14),
                 ],
               ),
             ),
@@ -1081,7 +1082,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                 shape: BoxShape.circle,
                 border: Border.all(color: _forest.withValues(alpha: 0.4)),
               ),
-              child: const Icon(Icons.event_busy, color: _mint, size: 22),
+              child: const UlvenikIcon(UlvenikIcons.calendar, color: _mint, size: 22),
             ),
             const SizedBox(height: 12),
             const Text(
@@ -1187,7 +1188,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                     ],
                   ),
                 ),
-                const Icon(Icons.chevron_right, color: _muted, size: 20),
+                const UlvenikIcon(UlvenikIcons.details, color: _muted, size: 20),
               ],
             ),
           ),
@@ -1220,7 +1221,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: const Icon(Icons.chevron_left, color: _stoneGrey, size: 20),
+                icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 20),
                 onPressed: () => _changeWeek(-1),
                 splashRadius: 18,
                 visualDensity: VisualDensity.compact,
@@ -1236,7 +1237,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               ),
               IconButton(
                 icon:
-                    const Icon(Icons.chevron_right, color: _stoneGrey, size: 20),
+                    const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 20),
                 onPressed: () => _changeWeek(1),
                 splashRadius: 18,
                 visualDensity: VisualDensity.compact,
@@ -1608,7 +1609,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          const Icon(Icons.location_on,
+                          const UlvenikIcon(UlvenikIcons.timeline,
                               color: _muted, size: 14),
                           const SizedBox(width: 4),
                           Text(
@@ -1652,7 +1653,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: const Icon(Icons.chevron_left, color: _stoneGrey, size: 22),
+            icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 22),
             onPressed: () => _changeDay(-1),
             splashRadius: 18,
             visualDensity: VisualDensity.compact,
@@ -1691,7 +1692,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             ],
           ),
           IconButton(
-            icon: const Icon(Icons.chevron_right, color: _stoneGrey, size: 22),
+            icon: const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 22),
             onPressed: () => _changeDay(1),
             splashRadius: 18,
             visualDensity: VisualDensity.compact,
@@ -1716,7 +1717,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         children: [
           const Row(
             children: [
-              Icon(Icons.analytics, color: _mint, size: 20),
+              UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 20),
               SizedBox(width: 8),
               Text(
                 'Daily Summary',
@@ -1809,7 +1810,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                 shape: BoxShape.circle,
                 border: Border.all(color: _forest.withValues(alpha: 0.5)),
               ),
-              child: const Icon(Icons.event_busy, color: _mint, size: 22),
+              child: const UlvenikIcon(UlvenikIcons.calendar, color: _mint, size: 22),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -1986,7 +1987,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                             children: [
                               Row(
                                 children: [
-                                  Icon(icon, color: color, size: 14),
+                                  UlvenikIcon.fromMaterial(icon, color: color, size: 14),
                                   const SizedBox(width: 6),
                                   Text(
                                     category,
@@ -2062,7 +2063,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) => Container(
             color: _surfaceVariant,
-            child: const Icon(Icons.image, color: _muted),
+            child: const UlvenikIcon(UlvenikIcons.play, color: _muted),
           ),
         ),
       ),
@@ -2081,7 +2082,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
       child: Stack(
         children: [
           const Center(
-            child: Icon(Icons.play_circle_outline, color: _offWhite, size: 28),
+            child: UlvenikIcon(UlvenikIcons.play, color: _offWhite, size: 28),
           ),
           Positioned(
             bottom: 4,
@@ -2125,7 +2126,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             children: [
               Row(
                 children: [
-                  const Icon(Icons.bar_chart, color: _mint, size: 18),
+                  const UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                   const SizedBox(width: 8),
                   Text(
                     title,
@@ -2506,7 +2507,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         subtitle: Text(breed,
             style: const TextStyle(color: _stoneGrey, fontSize: 12)),
         trailing: isSelected
-            ? const Icon(Icons.check_circle, color: _mint, size: 20)
+            ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
             : null,
         onTap: onTap,
       ),
@@ -2524,7 +2525,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
       foregroundColor: _offWhite,
       elevation: 2,
       shape: const CircleBorder(),
-      child: const Icon(Icons.add, size: 26),
+      child: const UlvenikIcon(UlvenikIcons.add, size: 26),
     );
   }
 
@@ -2563,7 +2564,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                   color: _alpineBlue.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.fitness_center,
+                child: const UlvenikIcon(UlvenikIcons.exercises,
                     color: _alpineBlue, size: 20),
               ),
               title: const Text('Training Session',
@@ -2584,7 +2585,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child:
-                    const Icon(Icons.local_hospital, color: _errorLight, size: 20),
+                    const UlvenikIcon(UlvenikIcons.health, color: _errorLight, size: 20),
               ),
               title: const Text('Health Record',
                   style: TextStyle(color: _offWhite, fontSize: 14)),
@@ -2644,7 +2645,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          UlvenikIcon.fromMaterial(
             icon,
             color: isActive ? _mint : _muted,
             size: 22,

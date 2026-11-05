@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -253,8 +254,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.chevron_left_rounded,
+                      UlvenikIcon(UlvenikIcons.back,
                         size: 24,
                         color: AppColors.secondaryTextStoneGrey,
                       ),
@@ -293,8 +293,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.add_rounded,
+                      UlvenikIcon(UlvenikIcons.add,
                         size: 18,
                         color: AppColors.primaryForestGreen,
                       ),
@@ -335,8 +334,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
         children: [
           Padding(
             padding: EdgeInsets.only(top: 2),
-            child: Icon(
-              Icons.info_outline_rounded,
+            child: UlvenikIcon(UlvenikIcons.notifications,
               size: 18,
               color: AppColors.infoAlpineBlue,
             ),
@@ -473,8 +471,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
                 behavior: HitTestBehavior.opaque,
                 child: const Padding(
                   padding: EdgeInsets.all(4),
-                  child: Icon(
-                    Icons.delete_outline_rounded,
+                  child: UlvenikIcon(UlvenikIcons.back,
                     size: 19,
                     color: AppColors.secondarySage,
                   ),
@@ -502,8 +499,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
           child: const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.add_rounded,
+              UlvenikIcon(UlvenikIcons.add,
                 size: 18,
                 color: AppColors.primaryForestGreen,
               ),
@@ -649,8 +645,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                     ),
                     GestureDetector(
                       onTap: () => Navigator.of(context).maybePop(),
-                      child: const Icon(
-                        Icons.close_rounded,
+                      child: const UlvenikIcon(UlvenikIcons.back,
                         size: 20,
                         color: AppColors.secondaryTextStoneGrey,
                       ),

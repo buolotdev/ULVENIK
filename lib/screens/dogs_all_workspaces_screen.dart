@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import 'dog_profile_screen.dart';
 import 'image_editor_screen.dart';
@@ -138,7 +139,7 @@ class _DogsAllWorkspacesScreenState extends State<DogsAllWorkspacesScreen> {
                         ),
                       );
                     },
-                    icon: const Icon(Icons.crop, size: 18, color: AppColors.primaryTextOffWhite),
+                    icon: const UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.primaryTextOffWhite),
                     label: const Text('Advanced Crop & Zoom Editor', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Colors.white24),
@@ -224,7 +225,7 @@ class _DogsAllWorkspacesScreenState extends State<DogsAllWorkspacesScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => AppSnackbar.show(context, message: 'Add dog to workspace coming soon', type: SnackbarType.info),
         backgroundColor: AppColors.primaryForestGreen,
-        child: const Icon(Icons.add, color: AppColors.primaryTextOffWhite),
+        child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
       ),
     );
   }
@@ -311,7 +312,7 @@ class _DogsAllWorkspacesScreenState extends State<DogsAllWorkspacesScreen> {
         ),
         child: Row(
           children: [
-            const Icon(Icons.verified_outlined, size: 14, color: Color(0xFF95D3BB)),
+            const UlvenikIcon(UlvenikIcons.completed, size: 14, color: Color(0xFF95D3BB)),
             const SizedBox(width: 6),
             Expanded(
               child: Text(
@@ -324,7 +325,7 @@ class _DogsAllWorkspacesScreenState extends State<DogsAllWorkspacesScreen> {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            const Icon(Icons.chevron_right, size: 14, color: AppColors.secondaryTextStoneGrey),
+            const UlvenikIcon(UlvenikIcons.details, size: 14, color: AppColors.secondaryTextStoneGrey),
           ],
         ),
       ),
@@ -484,7 +485,7 @@ class _DogsAllWorkspacesScreenState extends State<DogsAllWorkspacesScreen> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: const [
-                      Icon(Icons.crop, size: 12, color: AppColors.primaryTextOffWhite),
+                      UlvenikIcon(UlvenikIcons.edit, size: 12, color: AppColors.primaryTextOffWhite),
                       SizedBox(width: 4),
                       Text(
                         'Reposition',

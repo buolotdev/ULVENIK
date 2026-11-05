@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 
 enum VetVisitStatus { completed, upcoming, cancelled }
@@ -261,7 +262,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextOffWhite, size: 24),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite, size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
       title: const Text(
@@ -278,7 +279,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         // Search Icon (focuses search)
         IconButton(
           tooltip: 'Search Visits',
-          icon: const Icon(Icons.search, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: () {
             if (_isEmpty) {
               setState(() => _isEmpty = false);
@@ -289,13 +290,13 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         // Filter list preferences modal
         IconButton(
           tooltip: 'Filter Options',
-          icon: const Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: _showFilterPreferencesModal,
         ),
         // Quick State Toggle (Populated / Empty)
         IconButton(
           tooltip: _isEmpty ? 'Preview Populated' : 'Preview Empty',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on_outlined,
             color: _isEmpty ? AppColors.secondaryTextStoneGrey : const Color(0xFF95D3BB),
             size: 26,
@@ -307,7 +308,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         // Add Visit (+)
         IconButton(
           tooltip: 'Add Vet Visit',
-          icon: const Icon(Icons.add, color: AppColors.primaryTextOffWhite, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 24),
           onPressed: _showAddVisitModal,
         ),
         const SizedBox(width: 4),
@@ -412,7 +413,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -552,7 +553,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: const Color(0xFF2E6B57), size: 22),
+          UlvenikIcon.fromMaterial(icon, color: const Color(0xFF2E6B57), size: 22),
           const SizedBox(height: 6),
           Text(
             value,
@@ -598,7 +599,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Row(
             children: [
-              const Icon(Icons.search, color: Color(0xFF7A8F7A), size: 20),
+              const UlvenikIcon(UlvenikIcons.search, color: Color(0xFF7A8F7A), size: 20),
               const SizedBox(width: 8),
               Expanded(
                 child: TextField(
@@ -639,7 +640,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   },
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4),
-                    child: Icon(Icons.close, color: Color(0xFF7A8F7A), size: 18),
+                    child: UlvenikIcon(UlvenikIcons.back, color: Color(0xFF7A8F7A), size: 18),
                   ),
                 ),
               const SizedBox(width: 4),
@@ -656,7 +657,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                     }
                   });
                 },
-                child: const Icon(Icons.mic, color: Color(0xFF7A8F7A), size: 20),
+                child: const UlvenikIcon(UlvenikIcons.play, color: Color(0xFF7A8F7A), size: 20),
               ),
             ],
           ),
@@ -752,7 +753,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
           const SizedBox(width: 6),
           GestureDetector(
             onTap: onRemove,
-            child: const Icon(Icons.close, color: Color(0xFF7A8F7A), size: 16),
+            child: const UlvenikIcon(UlvenikIcons.back, color: Color(0xFF7A8F7A), size: 16),
           ),
         ],
       ),
@@ -825,7 +826,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   ),
                 ),
                 const SizedBox(width: 4),
-                const Icon(Icons.swap_vert, color: AppColors.secondaryTextStoneGrey, size: 16),
+                const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 16),
               ],
             ),
           ),
@@ -933,7 +934,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
               ),
               child: Row(
                 children: [
-                  Icon(visit.categoryIcon, color: AppColors.secondaryTextStoneGrey, size: 18),
+                  UlvenikIcon.fromMaterial(visit.categoryIcon, color: AppColors.secondaryTextStoneGrey, size: 18),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -985,7 +986,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   else if (visit.hasReminder)
                     const Row(
                       children: [
-                        Icon(Icons.notifications, color: Color(0xFF95D3BB), size: 16),
+                        UlvenikIcon(UlvenikIcons.notifications, color: Color(0xFF95D3BB), size: 16),
                         SizedBox(width: 6),
                         Text(
                           'Reminder set',
@@ -1006,7 +1007,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                         fontStyle: FontStyle.italic,
                       ),
                     ),
-                  const Icon(Icons.chevron_right, color: Color(0xFF7A8F7A), size: 20),
+                  const UlvenikIcon(UlvenikIcons.details, color: Color(0xFF7A8F7A), size: 20),
                 ],
               ),
             ),
@@ -1028,7 +1029,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
       child: Center(
         child: Column(
           children: [
-            const Icon(Icons.medical_services_outlined, size: 40, color: AppColors.secondaryTextStoneGrey),
+            const UlvenikIcon(UlvenikIcons.health, size: 40, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(height: 12),
             const Text(
               'No visits found matching your filters',
@@ -1062,7 +1063,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   _searchQuery = '';
                 });
               },
-              icon: const Icon(Icons.clear, size: 16),
+              icon: const UlvenikIcon(UlvenikIcons.back, size: 16),
               label: const Text('Reset All Filters'),
             ),
           ],
@@ -1095,7 +1096,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(Icons.add, color: Colors.white, size: 22),
+            UlvenikIcon(UlvenikIcons.add, color: Colors.white, size: 22),
             Text(
               'Add Vet Visit',
               style: TextStyle(
@@ -1104,7 +1105,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Icon(Icons.arrow_forward, color: Colors.white, size: 22),
+            UlvenikIcon(UlvenikIcons.details, color: Colors.white, size: 22),
           ],
         ),
       ),
@@ -1135,8 +1136,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
-              child: const Icon(
-                Icons.medical_services_outlined,
+              child: const UlvenikIcon(UlvenikIcons.health,
                 size: 36,
                 color: Color(0xFF95D3BB),
               ),
@@ -1187,14 +1187,14 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.add, size: 20),
+                    UlvenikIcon(UlvenikIcons.add, size: 20),
                     SizedBox(width: 8),
                     Text(
                       'Add Vet Visit',
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(width: 8),
-                    Icon(Icons.arrow_forward, size: 18),
+                    UlvenikIcon(UlvenikIcons.details, size: 18),
                   ],
                 ),
               ),
@@ -1240,7 +1240,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                      icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                       onPressed: () => Navigator.pop(ctx),
                     ),
                   ],
@@ -1292,7 +1292,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                             ),
                           ),
                           if (isSelected)
-                            const Icon(Icons.check_circle, color: Color(0xFF95D3BB), size: 20),
+                            const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB), size: 20),
                         ],
                       ),
                     ),
@@ -1336,7 +1336,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1491,7 +1491,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1538,7 +1538,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                             });
                             Navigator.pop(ctx);
                           },
-                          icon: const Icon(Icons.delete_outline, size: 18),
+                          icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
                           label: const Text('Delete Visit'),
                         ),
                       ),
@@ -1557,7 +1557,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                             });
                             Navigator.pop(ctx);
                           },
-                          icon: Icon(visit.hasReminder ? Icons.notifications_off : Icons.notifications_active, size: 18),
+                          icon: UlvenikIcon.fromMaterial(visit.hasReminder ? Icons.notifications_off : Icons.notifications_active, size: 18),
                           label: Text(visit.hasReminder ? 'Mute Alert' : 'Set Alert'),
                         ),
                       ),
@@ -1637,7 +1637,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1780,7 +1780,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                                       _formatDate(visitDate),
                                       style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
                                     ),
-                                    const Icon(Icons.calendar_today, size: 16, color: Color(0xFF95D3BB)),
+                                    const UlvenikIcon(UlvenikIcons.calendar, size: 16, color: Color(0xFF95D3BB)),
                                   ],
                                 ),
                               ),
@@ -1925,7 +1925,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
             height: size,
             color: const Color(0xFF2E6B57),
             alignment: Alignment.center,
-            child: Icon(Icons.pets, color: Colors.white, size: size * 0.5),
+            child: UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: size * 0.5),
           ),
         ),
       ),

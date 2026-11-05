@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'timeline_calendar_screen.dart';
 import 'record_session_screen.dart';
@@ -180,7 +181,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -203,8 +204,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: isSelected ? _forestGreen : _carbon,
-                      child: Icon(
-                        Icons.pets,
+                      child: UlvenikIcon(UlvenikIcons.dogs,
                         color: isSelected ? _mint : _stoneGrey,
                         size: 20,
                       ),
@@ -221,7 +221,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                       style: const TextStyle(color: _stoneGrey, fontSize: 12),
                     ),
                     trailing: isSelected
-                        ? const Icon(Icons.check_circle, color: _mint, size: 20)
+                        ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
                         : null,
                     onTap: () {
                       setState(() {
@@ -267,7 +267,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                       color: _forestGreen.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Icon(Icons.insights, color: _mint, size: 24),
+                    child: const UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 24),
                   ),
                   const SizedBox(width: 14),
                   const Text(
@@ -317,7 +317,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         children: [
-          Icon(icon, color: _mint, size: 18),
+          UlvenikIcon.fromMaterial(icon, color: _mint, size: 18),
           const SizedBox(width: 10),
           Text(title, style: const TextStyle(color: _whiteText, fontSize: 13)),
         ],
@@ -343,7 +343,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       backgroundColor: _obsidian,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _whiteText, size: 22),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _whiteText, size: 22),
         onPressed: () => Navigator.pop(context),
       ),
       title: const Text(
@@ -357,7 +357,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       centerTitle: true,
       actions: [
         PopupMenuButton<String>(
-          icon: const Icon(Icons.more_vert, color: _whiteText, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _whiteText, size: 22),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -412,7 +412,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'toggle_state',
               child: Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     _isEmpty ? Icons.bar_chart : Icons.hourglass_empty,
                     color: _mint,
                     size: 18,
@@ -429,7 +429,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'favourites',
               child: Row(
                 children: [
-                  Icon(Icons.favorite, color: Color(0xFFB8920A), size: 18),
+                  UlvenikIcon(UlvenikIcons.health, color: Color(0xFFB8920A), size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Favourites', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -439,7 +439,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'archive',
               child: Row(
                 children: [
-                  Icon(Icons.archive_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Archive', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -449,7 +449,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'settings',
               child: Row(
                 children: [
-                  Icon(Icons.settings_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Settings', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -459,7 +459,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'insights',
               child: Row(
                 children: [
-                  Icon(Icons.lightbulb_outline, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.notifications, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Insights', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -469,7 +469,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'export',
               child: Row(
                 children: [
-                  Icon(Icons.file_download_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Export', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -479,7 +479,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'switch_dog',
               child: Row(
                 children: [
-                  Icon(Icons.pets, color: _stoneGrey, size: 18),
+                  UlvenikIcon(UlvenikIcons.dogs, color: _stoneGrey, size: 18),
                   SizedBox(width: 10),
                   Text('Switch Dog Profile', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -489,7 +489,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'calendar',
               child: Row(
                 children: [
-                  Icon(Icons.calendar_month, color: _stoneGrey, size: 18),
+                  UlvenikIcon(UlvenikIcons.scheduledTraining, color: _stoneGrey, size: 18),
                   SizedBox(width: 10),
                   Text('Open Timeline Calendar', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -499,7 +499,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               value: 'learn',
               child: Row(
                 children: [
-                  Icon(Icons.info_outline, color: _stoneGrey, size: 18),
+                  UlvenikIcon(UlvenikIcons.notifications, color: _stoneGrey, size: 18),
                   SizedBox(width: 10),
                   Text('About Timeline', style: TextStyle(color: _whiteText, fontSize: 13)),
                 ],
@@ -574,7 +574,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.swap_horiz, color: _mint, size: 16),
+                        UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
                         SizedBox(width: 4),
                         Text(
                           'Switch',
@@ -741,7 +741,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: iconColor, size: 20),
+          UlvenikIcon.fromMaterial(icon, color: iconColor, size: 20),
           const SizedBox(height: 12),
           Text(
             metric,
@@ -1282,8 +1282,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     color: _forestGreen.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.bar_chart_rounded,
+                  child: const UlvenikIcon(UlvenikIcons.progress,
                     color: _mint,
                     size: 46,
                   ),
@@ -1334,7 +1333,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.add, color: Colors.white, size: 18),
+                        UlvenikIcon(UlvenikIcons.add, color: Colors.white, size: 18),
                         SizedBox(width: 8),
                         Text(
                           'Add a Record',
@@ -1344,7 +1343,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                           ),
                         ),
                         SizedBox(width: 6),
-                        Icon(Icons.arrow_forward, color: Colors.white, size: 16),
+                        UlvenikIcon(UlvenikIcons.details, color: Colors.white, size: 16),
                       ],
                     ),
                   ),
@@ -1367,7 +1366,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-          icon: const Icon(Icons.chevron_left, color: _stoneGrey, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 24),
           onPressed: () {
             setState(() {
               _emptyStateWeekStart =
@@ -1396,7 +1395,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
           ],
         ),
         IconButton(
-          icon: const Icon(Icons.chevron_right, color: _stoneGrey, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 24),
           onPressed: () {
             setState(() {
               _emptyStateWeekStart =
@@ -1522,7 +1521,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          UlvenikIcon.fromMaterial(
             icon,
             color: isActive ? _mint : _stoneGrey,
             size: 22,

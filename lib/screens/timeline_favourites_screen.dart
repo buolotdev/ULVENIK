@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'timeline_screen.dart';
 import 'timeline_event_details_screen.dart';
 import 'timeline_statistics_screen.dart';
@@ -287,7 +288,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
     final bool isSelected = _sortOrder == label;
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: Icon(
+      leading: UlvenikIcon.fromMaterial(
         isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
         color: isSelected ? _mint : _stoneGrey,
         size: 20,
@@ -449,7 +450,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
       elevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _offWhite),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite),
         onPressed: () {
           if (Navigator.canPop(context)) {
             Navigator.pop(context);
@@ -474,7 +475,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
       actions: [
         IconButton(
           tooltip: 'Toggle Empty/Populated State',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmptyState ? Icons.visibility : Icons.visibility_off_outlined,
             color: _mint,
             size: 20,
@@ -489,7 +490,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
           },
         ),
         PopupMenuButton<String>(
-          icon: const Icon(Icons.more_vert, color: _stoneGrey),
+          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -549,7 +550,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
               value: 'toggle',
               child: Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     _isEmptyState ? Icons.check_circle_outline : Icons.highlight_off,
                     color: _mint,
                     size: 18,
@@ -566,7 +567,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
               value: 'sport_pack',
               child: Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     _hasSportPack ? Icons.emoji_events : Icons.emoji_events_outlined,
                     color: _mint,
                     size: 18,
@@ -583,7 +584,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
               value: 'restore',
               child: Row(
                 children: [
-                  Icon(Icons.refresh, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.history, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Restore All Favourites',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -595,7 +596,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
               value: 'archive',
               child: Row(
                 children: [
-                  Icon(Icons.archive_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Archive',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -606,7 +607,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
               value: 'settings',
               child: Row(
                 children: [
-                  Icon(Icons.settings_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Settings',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -617,7 +618,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
               value: 'insights',
               child: Row(
                 children: [
-                  Icon(Icons.lightbulb_outline, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.notifications, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Insights',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -628,7 +629,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
               value: 'stats',
               child: Row(
                 children: [
-                  Icon(Icons.insights, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Statistics',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -639,7 +640,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
               value: 'export',
               child: Row(
                 children: [
-                  Icon(Icons.file_download_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Export',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -650,7 +651,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
               value: 'dashboard',
               child: Row(
                 children: [
-                  Icon(Icons.space_dashboard_outlined, color: _mint, size: 18),
+                  UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                   SizedBox(width: 10),
                   Text('Timeline Dashboard',
                       style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -679,8 +680,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                 border: Border.all(color: _cardBorder),
               ),
               child: const Center(
-                child: Icon(
-                  Icons.favorite_border,
+                child: UlvenikIcon(UlvenikIcons.health,
                   size: 44,
                   color: _stoneGrey,
                 ),
@@ -742,7 +742,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                       ),
                     ),
                     SizedBox(width: 8),
-                    Icon(Icons.arrow_forward, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.details, color: _offWhite, size: 18),
                   ],
                 ),
               ),
@@ -822,18 +822,18 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(vertical: 14),
-          prefixIcon: const Icon(Icons.search, color: _stoneGrey, size: 20),
+          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           hintText: 'Search favourites...',
           hintStyle: const TextStyle(color: _stoneGrey, fontSize: 14),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
                   onPressed: () {
                     _searchController.clear();
                     setState(() => _searchQuery = '');
                   },
                 )
-              : const Icon(Icons.mic_none, color: _stoneGrey, size: 20),
+              : const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey, size: 20),
         ),
       ),
     );
@@ -1042,7 +1042,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                 const SizedBox(width: 4),
                 GestureDetector(
                   onTap: () => setState(() => _selectedCategoryFilter = null),
-                  child: const Icon(Icons.close, color: _stoneGrey, size: 14),
+                  child: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 14),
                 ),
               ],
             ),
@@ -1059,7 +1059,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.filter_list, color: _mint, size: 13),
+                UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 13),
                 SizedBox(width: 4),
                 Text(
                   'All Categories',
@@ -1138,7 +1138,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                 ),
               ),
               const SizedBox(width: 4),
-              const Icon(Icons.swap_vert, color: _mint, size: 16),
+              const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
             ],
           ),
         ),
@@ -1152,7 +1152,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
       child: Center(
         child: Column(
           children: [
-            const Icon(Icons.search_off, size: 48, color: _stoneGrey),
+            const UlvenikIcon(UlvenikIcons.search, size: 48, color: _stoneGrey),
             const SizedBox(height: 12),
             const Text(
               'No matches found',
@@ -1240,7 +1240,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                     ),
                     GestureDetector(
                       onTap: () => _toggleFavourite(item),
-                      child: Icon(
+                      child: UlvenikIcon.fromMaterial(
                         item.isFavourited ? Icons.favorite : Icons.favorite_border,
                         color: item.isFavourited ? _favouriteGold : _stoneGrey,
                         size: 20,
@@ -1281,7 +1281,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                   children: [
                     // Media badges
                     if (item.photoCount > 0) ...[
-                      const Icon(Icons.camera_alt_outlined, color: _stoneGrey, size: 15),
+                      const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey, size: 15),
                       const SizedBox(width: 4),
                       Text(
                         '${item.photoCount}',
@@ -1290,7 +1290,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                       const SizedBox(width: 14),
                     ],
                     if (item.videoCount > 0) ...[
-                      const Icon(Icons.videocam_outlined, color: _stoneGrey, size: 16),
+                      const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey, size: 16),
                       const SizedBox(width: 4),
                       Text(
                         '${item.videoCount}',
@@ -1299,7 +1299,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                       const SizedBox(width: 14),
                     ],
                     if (item.trophyCount != null) ...[
-                      const Icon(Icons.emoji_events_outlined, color: _stoneGrey, size: 15),
+                      const UlvenikIcon(UlvenikIcons.goals, color: _stoneGrey, size: 15),
                       const SizedBox(width: 4),
                       Text(
                         '${item.trophyCount}',
@@ -1308,20 +1308,20 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                       const SizedBox(width: 14),
                     ],
                     if (item.hasLink) ...[
-                      const Icon(Icons.link, color: _stoneGrey, size: 16),
+                      const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 16),
                       const SizedBox(width: 14),
                     ],
                     if (item.hasDocument) ...[
-                      const Icon(Icons.description_outlined, color: _stoneGrey, size: 15),
+                      const UlvenikIcon(UlvenikIcons.training, color: _stoneGrey, size: 15),
                       const SizedBox(width: 14),
                     ],
                     if (item.hasLocation) ...[
-                      const Icon(Icons.location_on_outlined, color: _stoneGrey, size: 15),
+                      const UlvenikIcon(UlvenikIcons.timeline, color: _stoneGrey, size: 15),
                       const SizedBox(width: 14),
                     ],
 
                     const Spacer(),
-                    const Icon(Icons.chevron_right, color: _stoneGrey, size: 18),
+                    const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 18),
                   ],
                 ),
               ],
@@ -1349,7 +1349,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.sort, color: _stoneGrey, size: 16),
+                    UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 16),
                     SizedBox(width: 6),
                     Text(
                       'Sort',
@@ -1374,7 +1374,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.tune, color: _stoneGrey, size: 16),
+                    UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 16),
                     SizedBox(width: 6),
                     Text(
                       'Filter',
@@ -1454,7 +1454,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          UlvenikIcon.fromMaterial(
             icon,
             color: isSelected ? _mint : _stoneGrey,
             size: 22,

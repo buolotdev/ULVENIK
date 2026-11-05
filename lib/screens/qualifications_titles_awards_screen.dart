@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -548,8 +549,7 @@ class _QualificationsTitlesAwardsScreenState
           backgroundColor: _forest,
           elevation: 4,
           shape: const CircleBorder(),
-          child: const Icon(
-            Icons.add_rounded,
+          child: const UlvenikIcon(UlvenikIcons.add,
             color: _offWhite,
             size: 28,
           ),
@@ -640,7 +640,7 @@ class _QualificationsTitlesAwardsScreenState
                             vertical: 8,
                           ),
                         ),
-                        icon: const Icon(Icons.history_rounded, size: 16),
+                        icon: const UlvenikIcon(UlvenikIcons.history, size: 16),
                         label: Text(
                           'Show $archivedHiddenCount earlier 2024 qualifications & awards',
                           style: const TextStyle(
@@ -668,8 +668,7 @@ class _QualificationsTitlesAwardsScreenState
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _stone,
               size: 28,
             ),
@@ -700,7 +699,7 @@ class _QualificationsTitlesAwardsScreenState
                 }
               });
             },
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _searchVisible ? Icons.close_rounded : Icons.search_rounded,
               color: _searchVisible ? _mint : _stone,
               size: 23,
@@ -712,8 +711,7 @@ class _QualificationsTitlesAwardsScreenState
             children: [
               IconButton(
                 onPressed: _openFilterSheet,
-                icon: Icon(
-                  Icons.filter_list_rounded,
+                icon: UlvenikIcon(UlvenikIcons.sort,
                   color: _hasActiveFilter ? _mint : _stone,
                   size: 23,
                 ),
@@ -764,14 +762,14 @@ class _QualificationsTitlesAwardsScreenState
               fontSize: 13.5,
               fontFamily: 'Inter',
             ),
-            prefixIcon: const Icon(Icons.search_rounded, color: _stone, size: 19),
+            prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stone, size: 19),
             suffixIcon: _searchQuery.isNotEmpty
                 ? IconButton(
                     onPressed: () {
                       _searchController.clear();
                       setState(() => _searchQuery = '');
                     },
-                    icon: const Icon(Icons.clear_rounded, color: _stone, size: 18),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: _stone, size: 18),
                   )
                 : null,
             border: InputBorder.none,
@@ -910,7 +908,7 @@ class _QualificationsTitlesAwardsScreenState
       ),
       child: Row(
         children: [
-          const Icon(Icons.tune_rounded, color: _mint, size: 16),
+          const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -964,7 +962,7 @@ class _QualificationsTitlesAwardsScreenState
                   color: _iconBox,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(
+                child: UlvenikIcon.fromMaterial(
                   item.leadingIcon,
                   color: _stone,
                   size: 22,
@@ -1010,8 +1008,7 @@ class _QualificationsTitlesAwardsScreenState
                 ),
               ),
               const SizedBox(width: 8),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _stone,
                 size: 20,
               ),
@@ -1080,8 +1077,7 @@ class _QualificationsTitlesAwardsScreenState
               color: _iconBox,
               borderRadius: BorderRadius.circular(14),
             ),
-            child: const Icon(
-              Icons.emoji_events_outlined,
+            child: const UlvenikIcon(UlvenikIcons.goals,
               color: _stone,
               size: 26,
             ),
@@ -1641,8 +1637,7 @@ class _QualificationsTitlesAwardsScreenState
                                 ),
                                 child: Row(
                                   children: [
-                                    const Icon(
-                                      Icons.calendar_today_outlined,
+                                    const UlvenikIcon(UlvenikIcons.calendar,
                                       color: _stone,
                                       size: 16,
                                     ),
@@ -1911,7 +1906,7 @@ class _QualificationsTitlesAwardsScreenState
               value: value,
               isExpanded: true,
               dropdownColor: _card,
-              icon: const Icon(Icons.keyboard_arrow_down_rounded, color: _stone),
+              icon: const UlvenikIcon(UlvenikIcons.sort, color: _stone),
               style: const TextStyle(
                 color: _offWhite,
                 fontSize: 13.5,
@@ -2012,7 +2007,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
                     borderRadius: BorderRadius.circular(13),
                     border: Border.all(color: _mint.withValues(alpha: 0.35)),
                   ),
-                  child: Icon(item.leadingIcon, color: _mint, size: 24),
+                  child: UlvenikIcon.fromMaterial(item.leadingIcon, color: _mint, size: 24),
                 ),
                 const SizedBox(width: 14),
                 Expanded(
@@ -2195,8 +2190,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(
-                    Icons.rate_review_outlined,
+                  const UlvenikIcon(UlvenikIcons.edit,
                     color: _alpineBlue,
                     size: 17,
                   ),
@@ -2232,8 +2226,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
                 padding: const EdgeInsets.only(bottom: 6),
                 child: Row(
                   children: [
-                    const Icon(
-                      Icons.check_circle_rounded,
+                    const UlvenikIcon(UlvenikIcons.completed,
                       color: _mint,
                       size: 16,
                     ),
@@ -2310,7 +2303,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
               height: 46,
               child: ElevatedButton.icon(
                 onPressed: widget.onShare,
-                icon: const Icon(Icons.ios_share_rounded, size: 18),
+                icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
                 label: const Text(
                   'Share Official Qualification Summary',
                   style: TextStyle(

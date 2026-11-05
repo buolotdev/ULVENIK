@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 
 enum InjuryStatus { active, recovering, resolved }
@@ -248,7 +249,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextOffWhite, size: 24),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite, size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
       title: const Text(
@@ -265,7 +266,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
         // Search Icon
         IconButton(
           tooltip: 'Search Records',
-          icon: const Icon(Icons.search, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: () {
             if (_isEmpty) setState(() => _isEmpty = false);
             _searchFocusNode.requestFocus();
@@ -274,13 +275,13 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
         // Filter / Tune
         IconButton(
           tooltip: 'Filter Options',
-          icon: const Icon(Icons.tune, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: _showFilterPreferencesModal,
         ),
         // State Toggle (Populated / Empty)
         IconButton(
           tooltip: _isEmpty ? 'Preview Populated' : 'Preview Empty',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on_outlined,
             color: _isEmpty ? AppColors.secondaryTextStoneGrey : const Color(0xFF95D3BB),
             size: 26,
@@ -292,7 +293,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
         // Add Record (+)
         IconButton(
           tooltip: 'Add Injury',
-          icon: const Icon(Icons.add, color: AppColors.primaryTextOffWhite, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 24),
           onPressed: _showAddInjuryModal,
         ),
         const SizedBox(width: 4),
@@ -387,7 +388,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                         ),
                       ),
                       const SizedBox(width: 4),
-                      Icon(
+                      UlvenikIcon.fromMaterial(
                         _seeAllResolved ? Icons.expand_less : Icons.arrow_forward,
                         size: 14,
                         color: const Color(0xFF95D3BB),
@@ -459,7 +460,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+            const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -608,7 +609,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(icon, color: AppColors.secondaryTextStoneGrey, size: 22),
+          UlvenikIcon.fromMaterial(icon, color: AppColors.secondaryTextStoneGrey, size: 22),
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -655,7 +656,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -688,7 +689,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                   _searchQuery = '';
                 });
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
           const SizedBox(width: 6),
           InkWell(
@@ -703,7 +704,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                 }
               });
             },
-            child: const Icon(Icons.mic, color: AppColors.secondaryTextStoneGrey, size: 20),
+            child: const UlvenikIcon(UlvenikIcons.play, color: AppColors.secondaryTextStoneGrey, size: 20),
           ),
         ],
       ),
@@ -742,7 +743,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                   const SizedBox(width: 6),
                   GestureDetector(
                     onTap: () => setState(() => _selectedStatusFilter = null),
-                    child: const Icon(Icons.close, color: Color(0xFF95D3BB), size: 16),
+                    child: const UlvenikIcon(UlvenikIcons.back, color: Color(0xFF95D3BB), size: 16),
                   ),
                 ],
               ),
@@ -917,7 +918,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey, size: 20),
+                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
                 ],
               ),
             ),
@@ -961,7 +962,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const Icon(Icons.check_circle, color: AppColors.secondaryTextStoneGrey, size: 18),
+                        const UlvenikIcon(UlvenikIcons.completed, color: AppColors.secondaryTextStoneGrey, size: 18),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -1040,7 +1041,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.add, color: Color(0xFFAAE9D0), size: 20),
+            UlvenikIcon(UlvenikIcons.add, color: Color(0xFFAAE9D0), size: 20),
             SizedBox(width: 8),
             Text(
               'Add Injury',
@@ -1051,7 +1052,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
               ),
             ),
             SizedBox(width: 6),
-            Icon(Icons.arrow_forward, color: Color(0xFFAAE9D0), size: 18),
+            UlvenikIcon(UlvenikIcons.details, color: Color(0xFFAAE9D0), size: 18),
           ],
         ),
       ),
@@ -1082,8 +1083,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
-              child: const Icon(
-                Icons.healing_outlined,
+              child: const UlvenikIcon(UlvenikIcons.health,
                 size: 36,
                 color: Color(0xFF95D3BB),
               ),
@@ -1134,14 +1134,14 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.add, size: 20),
+                    UlvenikIcon(UlvenikIcons.add, size: 20),
                     SizedBox(width: 8),
                     Text(
                       'Add Injury',
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(width: 8),
-                    Icon(Icons.arrow_forward, size: 18),
+                    UlvenikIcon(UlvenikIcons.details, size: 18),
                   ],
                 ),
               ),
@@ -1187,7 +1187,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                      icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                       onPressed: () => Navigator.pop(ctx),
                     ),
                   ],
@@ -1239,7 +1239,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                             ),
                           ),
                           if (isSelected)
-                            const Icon(Icons.check_circle, color: Color(0xFF95D3BB), size: 20),
+                            const UlvenikIcon(UlvenikIcons.completed, color: Color(0xFF95D3BB), size: 20),
                         ],
                       ),
                     ),
@@ -1292,7 +1292,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1380,7 +1380,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                                 });
                                 Navigator.pop(ctx);
                               },
-                              icon: const Icon(Icons.delete_outline, size: 18),
+                              icon: const UlvenikIcon(UlvenikIcons.back, size: 18),
                               label: const Text('Delete'),
                             ),
                           ),
@@ -1401,7 +1401,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                                 });
                                 Navigator.pop(ctx);
                               },
-                              icon: const Icon(Icons.check_circle_outline, size: 18),
+                              icon: const UlvenikIcon(UlvenikIcons.completed, size: 18),
                               label: const Text('Mark Resolved'),
                             ),
                           ),
@@ -1481,7 +1481,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                            icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1611,7 +1611,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(_formatDate(injuryDate), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
-                                    const Icon(Icons.calendar_today, size: 16, color: Color(0xFF95D3BB)),
+                                    const UlvenikIcon(UlvenikIcons.calendar, size: 16, color: Color(0xFF95D3BB)),
                                   ],
                                 ),
                               ),
@@ -1741,7 +1741,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1842,7 +1842,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
             height: size,
             color: const Color(0xFF2E6B57),
             alignment: Alignment.center,
-            child: Icon(Icons.pets, color: Colors.white, size: size * 0.5),
+            child: UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: size * 0.5),
           ),
         ),
       ),

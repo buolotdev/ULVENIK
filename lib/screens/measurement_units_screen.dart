@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -439,8 +440,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
               ),
               const SizedBox(width: 10),
               if (isSelected)
-                const Icon(
-                  Icons.check_rounded,
+                const UlvenikIcon(UlvenikIcons.completed,
                   size: 20,
                   color: AppColors.primaryForestGreen,
                 ),
@@ -536,8 +536,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(savedSummary),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
@@ -743,8 +742,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                   ),
                 ),
                 if (isSelected)
-                  const Icon(
-                    Icons.check_rounded,
+                  const UlvenikIcon(UlvenikIcons.completed,
                     size: 16,
                     color: Color(0xFF56A98B),
                   ),
@@ -798,8 +796,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             Container(height: 1, color: AppColors.cardBorder),
             _buildCategoryRow(
-              leading: const Icon(
-                Icons.straighten_rounded,
+              leading: const UlvenikIcon(UlvenikIcons.exercises,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -815,8 +812,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             _buildCategoryGroupHeader('ACTIVITY'),
             _buildCategoryRow(
-              leading: const Icon(
-                Icons.route_outlined,
+              leading: const UlvenikIcon(UlvenikIcons.timeline,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -832,8 +828,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             Container(height: 1, color: AppColors.cardBorder),
             _buildCategoryRow(
-              leading: const Icon(
-                Icons.near_me_outlined,
+              leading: const UlvenikIcon(UlvenikIcons.timeline,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -849,8 +844,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             Container(height: 1, color: AppColors.cardBorder),
             _buildCategoryRow(
-              leading: const Icon(
-                Icons.access_time_rounded,
+              leading: const UlvenikIcon(UlvenikIcons.trainingTime,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -866,8 +860,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             _buildCategoryGroupHeader('ENVIRONMENT'),
             _buildCategoryRow(
-              leading: const Icon(
-                Icons.water_drop_outlined,
+              leading: const UlvenikIcon(UlvenikIcons.health,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -963,8 +956,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                 ],
               ),
               const SizedBox(width: 6),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),

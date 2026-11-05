@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'skill_details_screen.dart';
@@ -251,7 +252,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 12)),
                     trailing: d.name == _dog.name
-                        ? const Icon(Icons.check,
+                        ? const UlvenikIcon(UlvenikIcons.completed,
                             color: AppColors.primaryForestGreen)
                         : null,
                     onTap: () {
@@ -331,7 +332,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                 child: const SizedBox(
                   width: 56,
                   height: 56,
-                  child: Icon(Icons.add,
+                  child: UlvenikIcon(UlvenikIcons.add,
                       color: AppColors.primaryTextOffWhite, size: 28),
                 ),
               ),
@@ -357,7 +358,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: const Icon(Icons.chevron_left,
+                icon: const UlvenikIcon(UlvenikIcons.back,
                     color: AppColors.secondaryTextStoneGrey, size: 28),
                 onPressed: () => Navigator.of(context).maybePop(),
               ),
@@ -376,7 +377,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                         letterSpacing: -0.3)),
               ),
               IconButton(
-                icon: const Icon(Icons.more_horiz,
+                icon: const UlvenikIcon(UlvenikIcons.more,
                     color: AppColors.secondaryTextStoneGrey),
                 onPressed: () =>
                     _toast('Skill options coming soon', SnackbarType.info),
@@ -442,7 +443,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                   ],
                 ),
               ),
-              const Icon(Icons.unfold_more,
+              const UlvenikIcon(UlvenikIcons.sort,
                   color: AppColors.secondaryTextStoneGrey),
             ],
           ),
@@ -512,7 +513,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.search,
+          const UlvenikIcon(UlvenikIcons.search,
               color: AppColors.secondaryTextStoneGrey, size: 22),
           const SizedBox(width: 10),
           Expanded(
@@ -538,7 +539,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
           if (_query.isNotEmpty)
             GestureDetector(
               onTap: _search.clear,
-              child: const Icon(Icons.close,
+              child: const UlvenikIcon(UlvenikIcons.back,
                   size: 18, color: AppColors.secondaryTextStoneGrey),
             ),
         ],
@@ -624,7 +625,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600)),
                         ),
-                        const Icon(Icons.chevron_right,
+                        const UlvenikIcon(UlvenikIcons.details,
                             size: 20,
                             color: AppColors.secondaryTextStoneGrey),
                       ],
@@ -688,7 +689,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
   Widget _thumb(_Skill s) {
     final fallback = Container(
       color: AppColors.backgroundObsidian,
-      child: Icon(s.fallbackIcon,
+      child: UlvenikIcon.fromMaterial(s.fallbackIcon,
           size: 28, color: AppColors.secondaryTextStoneGrey),
     );
     return Container(
@@ -726,7 +727,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 12, color: color),
+          UlvenikIcon.fromMaterial(icon, size: 12, color: color),
           const SizedBox(width: 4),
           Text(label,
               style: TextStyle(
@@ -757,7 +758,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.white12),
             ),
-            child: const Icon(Icons.layers_outlined,
+            child: const UlvenikIcon(UlvenikIcons.skills,
                 size: 30, color: AppColors.primaryForestGreen),
           ),
           const SizedBox(height: 20),
@@ -798,7 +799,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                                 fontWeight: FontWeight.w600)),
                       ),
                       SizedBox(width: 8),
-                      Icon(Icons.arrow_forward,
+                      UlvenikIcon(UlvenikIcons.details,
                           size: 18, color: AppColors.primaryTextOffWhite),
                     ],
                   ),
@@ -816,7 +817,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       padding: const EdgeInsets.symmetric(vertical: 40),
       child: Column(
         children: [
-          Icon(Icons.search_off,
+          UlvenikIcon(UlvenikIcons.search,
               size: 40,
               color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5)),
           const SizedBox(height: 12),

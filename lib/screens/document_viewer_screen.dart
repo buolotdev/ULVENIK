@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -639,7 +640,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       ),
                       IconButton(
                         onPressed: () => Navigator.pop(ctx),
-                        icon: const Icon(Icons.close, color: _offWhite),
+                        icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite),
                       ),
                     ],
                   ),
@@ -698,8 +699,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       color: _forest.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(
-                      Icons.description_outlined,
+                    child: const UlvenikIcon(UlvenikIcons.training,
                       color: Color(0xFF95D3BB),
                       size: 22,
                     ),
@@ -822,7 +822,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const Icon(Icons.search, color: _offWhite),
+                leading: const UlvenikIcon(UlvenikIcons.search, color: _offWhite),
                 title: const Text(
                   'Search in Document',
                   style: TextStyle(color: _offWhite, fontFamily: 'Inter'),
@@ -833,7 +833,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 },
               ),
               ListTile(
-                leading: Icon(
+                leading: UlvenikIcon.fromMaterial(
                   _isCurrentPageBookmarked
                       ? Icons.bookmark_rounded
                       : Icons.bookmark_border_rounded,
@@ -861,7 +861,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.edit_note_rounded, color: _offWhite),
+                leading: const UlvenikIcon(UlvenikIcons.edit, color: _offWhite),
                 title: const Text(
                   'Edit Notes',
                   style: TextStyle(color: _offWhite, fontFamily: 'Inter'),
@@ -872,7 +872,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.print_outlined, color: _offWhite),
+                leading: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite),
                 title: const Text(
                   'Export & Print Certified PDF',
                   style: TextStyle(color: _offWhite, fontFamily: 'Inter'),
@@ -1046,8 +1046,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
               children: [
                 IconButton(
                   onPressed: () => Navigator.maybePop(context),
-                  icon: const Icon(
-                    Icons.chevron_left_rounded,
+                  icon: const UlvenikIcon(UlvenikIcons.back,
                     color: _offWhite,
                     size: 28,
                   ),
@@ -1077,8 +1076,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       }
                     });
                   },
-                  icon: Icon(
-                    Icons.search_rounded,
+                  icon: UlvenikIcon(UlvenikIcons.search,
                     color: _showSearchBar ? const Color(0xFF95D3BB) : _offWhite,
                     size: 21,
                   ),
@@ -1086,8 +1084,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 IconButton(
                   tooltip: 'More options',
                   onPressed: _showMoreMenu,
-                  icon: const Icon(
-                    Icons.more_vert_rounded,
+                  icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                     color: _offWhite,
                     size: 21,
                   ),
@@ -1136,8 +1133,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                     left: 4,
                     child: IconButton(
                       onPressed: () => _goToPage(_pageIndex - 1),
-                      icon: Icon(
-                        Icons.chevron_left_rounded,
+                      icon: UlvenikIcon(UlvenikIcons.back,
                         color: _offWhite.withValues(alpha: 0.85),
                         size: 28,
                       ),
@@ -1150,8 +1146,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                     right: 4,
                     child: IconButton(
                       onPressed: () => _goToPage(_pageIndex + 1),
-                      icon: Icon(
-                        Icons.chevron_right_rounded,
+                      icon: UlvenikIcon(UlvenikIcons.details,
                         color: _offWhite.withValues(alpha: 0.85),
                         size: 28,
                       ),
@@ -1180,8 +1175,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(
-                                Icons.zoom_in_rounded,
+                              const UlvenikIcon(UlvenikIcons.details,
                                 color: _offWhite,
                                 size: 13,
                               ),
@@ -1209,7 +1203,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: _cardBorder),
                           ),
-                          child: Icon(
+                          child: UlvenikIcon.fromMaterial(
                             _isCurrentPageBookmarked
                                 ? Icons.bookmark_rounded
                                 : Icons.bookmark_border_rounded,
@@ -1402,8 +1396,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
             const Divider(color: Color(0xFFD6DDD8), height: 12),
             Row(
               children: [
-                const Icon(
-                  Icons.verified_outlined,
+                const UlvenikIcon(UlvenikIcons.completed,
                   size: 12,
                   color: _forest,
                 ),
@@ -1510,8 +1503,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                         fontSize: 12.5,
                         fontFamily: 'Inter',
                       ),
-                      prefixIcon: const Icon(
-                        Icons.search_rounded,
+                      prefixIcon: const UlvenikIcon(UlvenikIcons.search,
                         color: _stoneGrey,
                         size: 18,
                       ),
@@ -1522,8 +1514,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                                 _searchController.clear();
                                 setState(() => _searchQuery = '');
                               },
-                              icon: const Icon(
-                                Icons.close_rounded,
+                              icon: const UlvenikIcon(UlvenikIcons.back,
                                 color: _stoneGrey,
                                 size: 16,
                               ),
@@ -1565,8 +1556,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
               IconButton(
                 visualDensity: VisualDensity.compact,
                 onPressed: matches.isEmpty ? null : () => _stepSearchMatch(-1),
-                icon: Icon(
-                  Icons.keyboard_arrow_up_rounded,
+                icon: UlvenikIcon(UlvenikIcons.sort,
                   color: matches.isEmpty
                       ? _stoneGrey.withValues(alpha: 0.4)
                       : _offWhite,
@@ -1575,8 +1565,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
               IconButton(
                 visualDensity: VisualDensity.compact,
                 onPressed: matches.isEmpty ? null : () => _stepSearchMatch(1),
-                icon: Icon(
-                  Icons.keyboard_arrow_down_rounded,
+                icon: UlvenikIcon(UlvenikIcons.sort,
                   color: matches.isEmpty
                       ? _stoneGrey.withValues(alpha: 0.4)
                       : _offWhite,
@@ -1683,8 +1672,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       ),
                       if (isBookmarked) ...[
                         const SizedBox(width: 4),
-                        const Icon(
-                          Icons.bookmark_rounded,
+                        const UlvenikIcon(UlvenikIcons.skills,
                           size: 13,
                           color: _favGold,
                         ),
@@ -1762,8 +1750,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
               ),
               Row(
                 children: [
-                  Icon(
-                    Icons.verified_user_outlined,
+                  UlvenikIcon(UlvenikIcons.completed,
                     size: 14,
                     color: _alpineBlue.withValues(alpha: 0.9),
                   ),
@@ -1905,7 +1892,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: iconColor, size: 21),
+            UlvenikIcon.fromMaterial(icon, color: iconColor, size: 21),
             const SizedBox(height: 5),
             Text(
               label,
@@ -1947,8 +1934,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         ),
         child: Row(
           children: [
-            const Icon(
-              Icons.description_outlined,
+            const UlvenikIcon(UlvenikIcons.training,
               color: _stoneGrey,
               size: 22,
             ),
@@ -1978,8 +1964,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 ],
               ),
             ),
-            const Icon(
-              Icons.chevron_right_rounded,
+            const UlvenikIcon(UlvenikIcons.details,
               color: _stoneGrey,
               size: 20,
             ),
@@ -2106,8 +2091,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                         ),
                       ),
                       if (doc.isFavourite)
-                        const Icon(
-                          Icons.favorite_rounded,
+                        const UlvenikIcon(UlvenikIcons.health,
                           size: 12,
                           color: Color(0xFFEAB308),
                         ),

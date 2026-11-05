@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'timeline_event_details_screen.dart';
@@ -371,7 +372,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
       scrolledUnderElevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: const Icon(Icons.chevron_left, color: _stoneGrey, size: 26),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 26),
         onPressed: () => Navigator.maybePop(context),
       ),
       title: const Text(
@@ -386,7 +387,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
       actions: [
         IconButton(
           tooltip: 'Select Comparison Windows',
-          icon: Icon(
+          icon: UlvenikIcon.fromMaterial(
             _isEmptyState ? Icons.tune : Icons.filter_list,
             color: _stoneGrey,
             size: 20,
@@ -394,7 +395,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
           onPressed: _showChangeDatesSheet,
         ),
         PopupMenuButton<String>(
-          icon: const Icon(Icons.more_horiz, color: _stoneGrey, size: 20),
+          icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 20),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
@@ -625,8 +626,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                                 fontFamily: 'Inter',
                               ),
                             ),
-                            Icon(
-                              Icons.edit_outlined,
+                            UlvenikIcon(UlvenikIcons.edit,
                               color: accentColor.withValues(alpha: 0.85),
                               size: 14,
                             ),
@@ -1024,7 +1024,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(icon, color: _sage, size: 17),
+              UlvenikIcon.fromMaterial(icon, color: _sage, size: 17),
               const SizedBox(width: 9),
               Expanded(
                 child: Text(
@@ -1310,7 +1310,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
         children: [
           Row(
             children: [
-              const Icon(Icons.show_chart, color: _sage, size: 17),
+              const UlvenikIcon(UlvenikIcons.progress, color: _sage, size: 17),
               const SizedBox(width: 8),
               const Expanded(
                 child: Text(
@@ -1633,7 +1633,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                     ),
                   ),
                   const SizedBox(width: 4),
-                  Icon(Icons.arrow_forward, color: accent, size: 13),
+                  UlvenikIcon(UlvenikIcons.details, color: accent, size: 13),
                 ],
               ),
             ),
@@ -1712,7 +1712,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                     ),
                   ),
                   SizedBox(width: 8),
-                  Icon(Icons.arrow_forward, size: 17),
+                  UlvenikIcon(UlvenikIcons.details, size: 17),
                 ],
               ),
             ),
@@ -1737,8 +1737,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                       color: const Color(0xFF272B29),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Icon(
-                      Icons.auto_graph,
+                    child: const UlvenikIcon(UlvenikIcons.progress,
                       color: _alpineBlue,
                       size: 18,
                     ),
@@ -1800,7 +1799,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.calendar_today_outlined,
+                UlvenikIcon(UlvenikIcons.calendar,
                     color: _stoneGrey, size: 15),
                 SizedBox(width: 7),
                 Text(
@@ -1829,8 +1828,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.ios_share,
+                UlvenikIcon(UlvenikIcons.overflowMenu,
                   color: _isEmptyState
                       ? _stoneGrey.withValues(alpha: 0.45)
                       : _periodAGreen,
@@ -1897,8 +1895,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               for (final p in _periods)
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Icon(
-                    Icons.date_range_outlined,
+                  leading: UlvenikIcon(UlvenikIcons.calendar,
                     color: isPeriodA ? _periodAGreen : _alpineBlue,
                     size: 20,
                   ),
@@ -1916,7 +1913,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                   ),
                   trailing: ((isPeriodA && _periodAId == p.id) ||
                           (!isPeriodA && _periodBId == p.id))
-                      ? const Icon(Icons.check_circle, color: _mint, size: 19)
+                      ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 19)
                       : null,
                   onTap: () {
                     Navigator.pop(ctx);
@@ -1982,7 +1979,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               ])
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.compare_arrows,
+                  leading: const UlvenikIcon(UlvenikIcons.history,
                       color: _mint, size: 20),
                   title: Text(
                     preset,
@@ -1993,7 +1990,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                     ),
                   ),
                   trailing: _activePreset == preset && !_isEmptyState
-                      ? const Icon(Icons.check, color: _mint, size: 18)
+                      ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 18)
                       : null,
                   onTap: () {
                     Navigator.pop(ctx);
@@ -2044,7 +2041,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               const SizedBox(height: 12),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.picture_as_pdf_outlined,
+                leading: const UlvenikIcon(UlvenikIcons.training,
                     color: _mint, size: 21),
                 title: const Text(
                   'Coach & Physio PDF Comparison Report',
@@ -2069,7 +2066,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.table_rows_outlined,
+                leading: const UlvenikIcon(UlvenikIcons.training,
                     color: _alpineBlue, size: 21),
                 title: const Text(
                   'Export Raw CSV Metrics',

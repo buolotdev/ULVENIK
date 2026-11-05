@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'activity_library_screen.dart';
 import 'record_session_screen.dart';
@@ -301,7 +302,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
         backgroundColor: _obsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _sage),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _sage),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: Text(
@@ -319,7 +320,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
             tooltip: _isEmpty
                 ? 'Switch to Populated State'
                 : 'Switch to Empty State',
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _isEmpty ? Icons.fitness_center_outlined : Icons.fitness_center,
               color: _mint,
             ),
@@ -332,7 +333,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
             },
           ),
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert, color: _sage),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _sage),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -488,7 +489,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
         foregroundColor: _offWhite,
         elevation: 6,
         shape: const CircleBorder(),
-        child: const Icon(Icons.add, size: 26),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 26),
       ),
     );
   }
@@ -518,7 +519,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                   borderRadius: BorderRadius.circular(10),
                   border: _hairlineBorder,
                 ),
-                child: Icon(_act.icon, color: _sage, size: 28),
+                child: UlvenikIcon.fromMaterial(_act.icon, color: _sage, size: 28),
               ),
               const SizedBox(width: 14),
               Expanded(
@@ -750,7 +751,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.touch_app, color: _mint, size: 14),
+                    UlvenikIcon(UlvenikIcons.details, color: _mint, size: 14),
                     SizedBox(width: 4),
                     Text(
                       'Interactive',
@@ -937,7 +938,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                     ),
                   ),
                   SizedBox(width: 4),
-                  Icon(Icons.arrow_forward, color: _mint, size: 14),
+                  UlvenikIcon(UlvenikIcons.details, color: _mint, size: 14),
                 ],
               ),
             ),
@@ -1002,8 +1003,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) =>
-                                              const Icon(
-                                        Icons.pool,
+                                              const UlvenikIcon(UlvenikIcons.exercises,
                                         color: _sage,
                                         size: 22,
                                       ),
@@ -1013,8 +1013,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                                 ],
                               )
                             : const Center(
-                                child: Icon(
-                                  Icons.pool,
+                                child: UlvenikIcon(UlvenikIcons.exercises,
                                   color: _sage,
                                   size: 22,
                                 ),
@@ -1039,7 +1038,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                                 Row(
                                   children: List.generate(5, (starIdx) {
                                     final isFilled = starIdx < sess.rating;
-                                    return Icon(
+                                    return UlvenikIcon.fromMaterial(
                                       isFilled ? Icons.star : Icons.star_border,
                                       color: _mint,
                                       size: 14,
@@ -1063,8 +1062,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                               const SizedBox(height: 4),
                               Row(
                                 children: [
-                                  const Icon(
-                                    Icons.photo_camera,
+                                  const UlvenikIcon(UlvenikIcons.play,
                                     color: _sage,
                                     size: 13,
                                   ),
@@ -1083,7 +1081,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Icon(Icons.chevron_right, color: _sage, size: 20),
+                      const UlvenikIcon(UlvenikIcons.details, color: _sage, size: 20),
                     ],
                   ),
                 ),
@@ -1112,8 +1110,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
               color: _surfaceHigh,
               border: _hairlineBorder,
             ),
-            child: const Icon(
-              Icons.timer_outlined,
+            child: const UlvenikIcon(UlvenikIcons.trainingTime,
               color: _mint,
               size: 32,
             ),
@@ -1151,7 +1148,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              icon: const Icon(Icons.play_arrow, size: 20),
+              icon: const UlvenikIcon(UlvenikIcons.play, size: 20),
               label: const Text(
                 'Record First Session',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
@@ -1176,7 +1173,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                     ),
                   ),
                   SizedBox(width: 4),
-                  Icon(Icons.arrow_forward, size: 16, color: _mint),
+                  UlvenikIcon(UlvenikIcons.details, size: 16, color: _mint),
                 ],
               ),
             ),

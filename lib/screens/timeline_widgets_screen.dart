@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 
@@ -371,7 +372,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
       scrolledUnderElevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _stoneGrey, size: 22),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 22),
         onPressed: () => Navigator.maybePop(context),
       ),
       title: const Text(
@@ -385,7 +386,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
       ),
       actions: [
         PopupMenuButton<String>(
-          icon: const Icon(Icons.more_horiz, color: _stoneGrey, size: 21),
+          icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 21),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
@@ -503,7 +504,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.aspect_ratio, color: _mint, size: 15),
+                  const UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 15),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -604,7 +605,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
         children: [
           Row(
             children: [
-              const Icon(Icons.grid_view_outlined,
+              const UlvenikIcon(UlvenikIcons.progress,
                   color: _stoneGrey, size: 17),
               const SizedBox(width: 8),
               const Text(
@@ -987,7 +988,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.check, size: 13),
+                                    UlvenikIcon(UlvenikIcons.completed, size: 13),
                                     SizedBox(width: 5),
                                     Text(
                                       'Added',
@@ -997,7 +998,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                                       ),
                                     ),
                                     SizedBox(width: 4),
-                                    Icon(Icons.check, size: 11),
+                                    UlvenikIcon(UlvenikIcons.completed, size: 11),
                                   ],
                                 ),
                               )
@@ -1026,7 +1027,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.add, size: 15),
+                                    UlvenikIcon(UlvenikIcons.add, size: 15),
                                     SizedBox(width: 4),
                                     Text(
                                       'Add',
@@ -1093,7 +1094,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.local_fire_department_outlined,
+            const UlvenikIcon(UlvenikIcons.overflowMenu,
                 color: _sageOlive, size: 15),
             Text(
               '${(days * p).round()}',
@@ -1183,7 +1184,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
               children: [
                 Row(
                   children: [
-                    Icon(Icons.circle, color: _alpineBlue, size: 6),
+                    UlvenikIcon(UlvenikIcons.completed, color: _alpineBlue, size: 6),
                     SizedBox(width: 5),
                     Text(
                       'Recall Drill',
@@ -1282,12 +1283,12 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
             const SizedBox(height: 6),
             const Row(
               children: [
-                Icon(Icons.circle, color: _alpineBlue, size: 5),
+                UlvenikIcon(UlvenikIcons.completed, color: _alpineBlue, size: 5),
                 SizedBox(width: 4),
                 Text('Train',
                     style: TextStyle(color: _stoneGrey, fontSize: 8.5)),
                 SizedBox(width: 8),
-                Icon(Icons.circle, color: _bronze, size: 5),
+                UlvenikIcon(UlvenikIcons.completed, color: _bronze, size: 5),
                 SizedBox(width: 4),
                 Text('S&C', style: TextStyle(color: _stoneGrey, fontSize: 8.5)),
               ],
@@ -1380,7 +1381,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.notifications_none,
+                    const UlvenikIcon(UlvenikIcons.notifications,
                         color: _healthRed, size: 11),
                     const SizedBox(width: 5),
                     Expanded(
@@ -1494,7 +1495,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: _cardBorder),
                         ),
-                        child: const Icon(Icons.photo_camera_outlined,
+                        child: const UlvenikIcon(UlvenikIcons.play,
                             color: _stoneGrey, size: 11),
                       ),
                     ),
@@ -1515,7 +1516,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
               color: _carbon,
               border: Border.all(color: _cardBorder),
             ),
-            child: const Icon(Icons.play_arrow, color: _emeraldText, size: 20),
+            child: const UlvenikIcon(UlvenikIcons.play, color: _emeraldText, size: 20),
           ),
         );
     }
@@ -1578,8 +1579,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                         color: const Color(0xFF161B1D),
                         border: Border.all(color: _cardBorder),
                       ),
-                      child: const Icon(
-                        Icons.grid_view_rounded,
+                      child: const UlvenikIcon(UlvenikIcons.progress,
                         color: _sageOlive,
                         size: 30,
                       ),
@@ -1596,8 +1596,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                         color: _carbon,
                         border: Border.all(color: _cardBorder),
                       ),
-                      child: const Icon(
-                        Icons.add,
+                      child: const UlvenikIcon(UlvenikIcons.add,
                         color: _sageOlive,
                         size: 14,
                       ),
@@ -1648,7 +1647,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.add, size: 18),
+                    UlvenikIcon(UlvenikIcons.add, size: 18),
                     SizedBox(width: 8),
                     Text(
                       'Add Widget',
@@ -1659,7 +1658,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                       ),
                     ),
                     SizedBox(width: 8),
-                    Icon(Icons.chevron_right, size: 18),
+                    UlvenikIcon(UlvenikIcons.details, size: 18),
                   ],
                 ),
               ),
@@ -1772,8 +1771,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.refresh,
+                    UlvenikIcon(UlvenikIcons.history,
                       color: _isEmptyState
                           ? _stoneGrey.withValues(alpha: 0.45)
                           : _stoneGrey,
@@ -1806,7 +1804,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.add, color: _emeraldText, size: 17),
+                    UlvenikIcon(UlvenikIcons.add, color: _emeraldText, size: 17),
                     SizedBox(width: 5),
                     Text(
                       'Add Widget',
@@ -2123,7 +2121,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                   for (final w in active)
                     ListTile(
                       contentPadding: EdgeInsets.zero,
-                      leading: const Icon(Icons.drag_indicator,
+                      leading: const UlvenikIcon(UlvenikIcons.sort,
                           color: _stoneGrey, size: 19),
                       title: Text(
                         w.title.replaceAll('\n', ' '),
@@ -2138,7 +2136,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                             const TextStyle(color: _stoneGrey, fontSize: 11.5),
                       ),
                       trailing: IconButton(
-                        icon: const Icon(Icons.remove_circle_outline,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                             color: _healthRed, size: 19),
                         onPressed: () {
                           setModalState(() => w.isAdded = false);

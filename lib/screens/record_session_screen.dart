@@ -1,5 +1,6 @@
 import 'activity_library_screen.dart';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import 'session_details_screen.dart';
 
@@ -467,7 +468,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                             color: _forestGreen.withValues(alpha: 0.3),
                             shape: BoxShape.circle,
                           ),
-                          child: Icon(act['icon'] as IconData,
+                          child: UlvenikIcon.fromMaterial(act['icon'] as IconData,
                               color: _mint, size: 20),
                         ),
                         const SizedBox(width: 12),
@@ -494,7 +495,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                           ),
                         ),
                         if (isSelected)
-                          const Icon(Icons.check_circle,
+                          const UlvenikIcon(UlvenikIcons.completed,
                               color: _mint, size: 20),
                       ],
                     ),
@@ -572,7 +573,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _mint, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 24),
           onPressed: () => Navigator.of(context).maybePop(),
           tooltip: 'Back',
         ),
@@ -711,7 +712,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   color: _forestGreen,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(_activityIcon, color: _offWhite, size: 22),
+                child: UlvenikIcon.fromMaterial(_activityIcon, color: _offWhite, size: 22),
               ),
               const SizedBox(width: 14),
               Column(
@@ -781,7 +782,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                       children: [
                         const Row(
                           children: [
-                            Icon(Icons.calendar_today,
+                            UlvenikIcon(UlvenikIcons.calendar,
                                 color: _outline, size: 18),
                             SizedBox(width: 8),
                             Text(
@@ -799,7 +800,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                                   color: _offWhite, fontSize: 14),
                             ),
                             const SizedBox(width: 4),
-                            const Icon(Icons.chevron_right,
+                            const UlvenikIcon(UlvenikIcons.details,
                                 color: _outline, size: 18),
                           ],
                         ),
@@ -819,7 +820,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                       children: [
                         const Row(
                           children: [
-                            Icon(Icons.schedule, color: _outline, size: 18),
+                            UlvenikIcon(UlvenikIcons.trainingTime, color: _outline, size: 18),
                             SizedBox(width: 8),
                             Text(
                               'Start Time',
@@ -836,7 +837,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                                   color: _offWhite, fontSize: 14),
                             ),
                             const SizedBox(width: 4),
-                            const Icon(Icons.chevron_right,
+                            const UlvenikIcon(UlvenikIcons.details,
                                 color: _outline, size: 18),
                           ],
                         ),
@@ -856,7 +857,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                       children: [
                         const Row(
                           children: [
-                            Icon(Icons.update, color: _outline, size: 18),
+                            UlvenikIcon(UlvenikIcons.history, color: _outline, size: 18),
                             SizedBox(width: 8),
                             Text(
                               'End Time',
@@ -873,7 +874,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                                   color: _offWhite, fontSize: 14),
                             ),
                             const SizedBox(width: 4),
-                            const Icon(Icons.chevron_right,
+                            const UlvenikIcon(UlvenikIcons.details,
                                 color: _outline, size: 18),
                           ],
                         ),
@@ -1161,7 +1162,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 3),
-                  child: Icon(
+                  child: UlvenikIcon.fromMaterial(
                     isFilled ? Icons.star : Icons.star_border,
                     color: isFilled ? _mint : _outline,
                     size: 24,
@@ -1192,7 +1193,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
             children: [
               const Row(
                 children: [
-                  Icon(Icons.edit, size: 16, color: _stoneGrey),
+                  UlvenikIcon(UlvenikIcons.edit, size: 16, color: _stoneGrey),
                   SizedBox(width: 6),
                   Text(
                     'Notes',
@@ -1262,7 +1263,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   ),
                 ),
                 ListTile(
-                  leading: const Icon(Icons.camera_alt_outlined, color: _mint),
+                  leading: const UlvenikIcon(UlvenikIcons.play, color: _mint),
                   title: const Text('Capture with Camera',
                       style: TextStyle(
                           color: _offWhite, fontWeight: FontWeight.w600)),
@@ -1288,7 +1289,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.photo_library_outlined, color: _sage),
+                  leading: const UlvenikIcon(UlvenikIcons.play, color: _sage),
                   title: const Text('Choose from Library',
                       style: TextStyle(
                           color: _offWhite, fontWeight: FontWeight.w600)),
@@ -1351,7 +1352,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   ),
                 ),
                 ListTile(
-                  leading: const Icon(Icons.videocam_outlined, color: _mint),
+                  leading: const UlvenikIcon(UlvenikIcons.play, color: _mint),
                   title: const Text('Record with Camera',
                       style: TextStyle(
                           color: _offWhite, fontWeight: FontWeight.w600)),
@@ -1377,7 +1378,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.video_library_outlined, color: _sage),
+                  leading: const UlvenikIcon(UlvenikIcons.play, color: _sage),
                   title: const Text('Choose from Library',
                       style: TextStyle(
                           color: _offWhite, fontWeight: FontWeight.w600)),
@@ -1440,7 +1441,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
-                icon: const Icon(Icons.add_photo_alternate, size: 18),
+                icon: const UlvenikIcon(UlvenikIcons.recordSession, size: 18),
                 label: const Text('Add Photo',
                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
               ),
@@ -1459,7 +1460,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
-                icon: const Icon(Icons.video_call, size: 18),
+                icon: const UlvenikIcon(UlvenikIcons.play, size: 18),
                 label: const Text('Add Video',
                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
               ),
@@ -1494,7 +1495,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                     child: Stack(
                       children: [
                         Center(
-                          child: Icon(
+                          child: UlvenikIcon.fromMaterial(
                             hasAttachment
                                 ? (isVid
                                     ? Icons.play_circle_outline
@@ -1520,7 +1521,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                                   color: Colors.black54,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(Icons.close,
+                                child: const UlvenikIcon(UlvenikIcons.back,
                                     size: 14, color: _offWhite),
                               ),
                             ),
@@ -1581,7 +1582,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                     ),
                   ),
                   child: const Center(
-                    child: Icon(Icons.add, color: _mint, size: 22),
+                    child: UlvenikIcon(UlvenikIcons.add, color: _mint, size: 22),
                   ),
                 ),
                 const SizedBox(width: 14),
@@ -1620,7 +1621,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                       ),
                     ),
                     SizedBox(width: 4),
-                    Icon(Icons.arrow_forward, color: _mint, size: 16),
+                    UlvenikIcon(UlvenikIcons.details, color: _mint, size: 16),
                   ],
                 ),
               ],
@@ -1661,7 +1662,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   padding: EdgeInsets.symmetric(vertical: 6),
                   child: Row(
                     children: [
-                      Icon(Icons.calendar_today, color: _outline, size: 18),
+                      UlvenikIcon(UlvenikIcons.calendar, color: _outline, size: 18),
                       SizedBox(width: 12),
                       Text(
                         'Today',
@@ -1687,7 +1688,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.schedule, color: _outline, size: 18),
+                          UlvenikIcon(UlvenikIcons.trainingTime, color: _outline, size: 18),
                           SizedBox(width: 12),
                           Text(
                             '08:00',
@@ -1755,7 +1756,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
           ),
           child: const Column(
             children: [
-              Icon(Icons.tune, color: _outlineVariant, size: 28),
+              UlvenikIcon(UlvenikIcons.sort, color: _outlineVariant, size: 28),
               SizedBox(height: 10),
               Text(
                 'Custom Metrics Locked',
@@ -1815,7 +1816,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   5,
                   (_) => const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 3),
-                    child: Icon(Icons.star_border, color: _outlineVariant, size: 22),
+                    child: UlvenikIcon(UlvenikIcons.goals, color: _outlineVariant, size: 22),
                   ),
                 ),
               ),
@@ -1866,7 +1867,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.check, size: 20, fontWeight: FontWeight.bold),
+                    UlvenikIcon(UlvenikIcons.completed, size: 20, fontWeight: FontWeight.bold),
                     SizedBox(width: 8),
                     Text(
                       'Save Session',
@@ -1876,7 +1877,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                       ),
                     ),
                     Spacer(),
-                    Icon(Icons.arrow_forward, size: 20),
+                    UlvenikIcon(UlvenikIcons.details, size: 20),
                   ],
                 ),
               ),

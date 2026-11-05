@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
+import '../widgets/ulvenik_icon.dart';
 
 class _SkillSlice {
   final String name;
@@ -487,7 +488,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
                       ),
                     ),
                     trailing: selected
-                        ? const Icon(Icons.check_circle,
+                        ? const UlvenikIcon(UlvenikIcons.completed,
                             color: _neonMint, size: 20)
                         : null,
                     onTap: () {
@@ -558,10 +559,10 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
             child: Container(
               margin: const EdgeInsets.only(right: 8),
               padding: const EdgeInsets.all(4),
-              child: const Icon(
-                Icons.chevron_left,
+              child: const UlvenikIcon(
+                UlvenikIcons.back,
                 color: _textPrimary,
-                size: 26,
+                size: 24,
               ),
             ),
           ),
@@ -600,8 +601,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
                   ),
                 ),
                 const SizedBox(width: 6),
-                const Icon(
-                  Icons.keyboard_arrow_down_rounded,
+                const UlvenikIcon(UlvenikIcons.sort,
                   color: _textSecondary,
                   size: 16,
                 ),
@@ -678,6 +678,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
           children: [
             Expanded(
               child: _buildSparkMetricCard(
+                iconKey: UlvenikIcons.trainingTime,
                 label: 'Total Training Time',
                 value: _scaledDuration(data.totalTime),
                 delta: data.timeDelta,
@@ -687,6 +688,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
             const SizedBox(width: 12),
             Expanded(
               child: _buildSparkMetricCard(
+                iconKey: UlvenikIcons.training,
                 label: 'Sessions',
                 value: _scaledSessions(data.sessions),
                 delta: data.sessionsDelta,
@@ -707,13 +709,23 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Training Frequency',
-                      style: GoogleFonts.inter(
-                        color: _textSecondary,
-                        fontSize: 12.5,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    Row(
+                      children: [
+                        const UlvenikIcon(UlvenikIcons.scheduledTraining, size: 18, color: _neonMint),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Training Frequency',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.inter(
+                              color: _textSecondary,
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -745,13 +757,23 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Goals Completed',
-                      style: GoogleFonts.inter(
-                        color: _textSecondary,
-                        fontSize: 12.5,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    Row(
+                      children: [
+                        const UlvenikIcon(UlvenikIcons.goals, size: 18, color: _neonMint),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Goals Completed',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.inter(
+                              color: _textSecondary,
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 8),
                     AnimatedBuilder(
@@ -816,6 +838,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
   }
 
   Widget _buildSparkMetricCard({
+    required String iconKey,
     required String label,
     required String value,
     required String delta,
@@ -828,15 +851,23 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: GoogleFonts.inter(
-              color: _textSecondary,
-              fontSize: 12.5,
-              fontWeight: FontWeight.w500,
-            ),
+          Row(
+            children: [
+              UlvenikIcon(iconKey, size: 18, color: _neonMint),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                    color: _textSecondary,
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           Text(
@@ -895,13 +926,20 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Training Time',
-                style: GoogleFonts.inter(
-                  color: _textPrimary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const UlvenikIcon(UlvenikIcons.progress, size: 18, color: _neonMint),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Training Time',
+                    style: GoogleFonts.inter(
+                      color: _textPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
               ),
               Text(
                 _showTrendTooltip
@@ -984,13 +1022,20 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Top Skills',
-                style: GoogleFonts.inter(
-                  color: _textPrimary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const UlvenikIcon(UlvenikIcons.skills, size: 18, color: _neonMint),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Top Skills',
+                    style: GoogleFonts.inter(
+                      color: _textPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
               ),
               Text(
                 'By time spent',
@@ -1135,13 +1180,20 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Your Consistency',
-                style: GoogleFonts.inter(
-                  color: _textPrimary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const UlvenikIcon(UlvenikIcons.scheduledTraining, size: 18, color: _neonMint),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Your Consistency',
+                    style: GoogleFonts.inter(
+                      color: _textPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
               ),
               Text(
                 '$activeDays / ${data.heatmapLevels.length} days',
@@ -1242,7 +1294,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const Icon(Icons.close, size: 14, color: _textSecondary),
+                  const UlvenikIcon(UlvenikIcons.back, size: 14, color: _textSecondary),
                 ],
               ),
             ),

@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -553,8 +554,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _stone,
               size: 28,
             ),
@@ -580,8 +580,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
             children: [
               IconButton(
                 onPressed: _openCalendarAndScopeSheet,
-                icon: Icon(
-                  Icons.calendar_today_outlined,
+                icon: UlvenikIcon(UlvenikIcons.calendar,
                   color: hasCustomScope ? _mint : _stone,
                   size: 20,
                 ),
@@ -604,8 +603,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
           ),
           IconButton(
             onPressed: _openExportShareSheet,
-            icon: const Icon(
-              Icons.ios_share_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
               color: _stone,
               size: 21,
             ),
@@ -674,7 +672,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
       ),
       child: Row(
         children: [
-          const Icon(Icons.filter_alt_outlined, color: _mint, size: 16),
+          const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 16),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -850,7 +848,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 2),
-                    child: Icon(
+                    child: UlvenikIcon.fromMaterial(
                       icon,
                       color: _stone,
                       size: 19,
@@ -968,7 +966,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                       ),
                     ),
                     const SizedBox(width: 4),
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _showHoursLineMode
                           ? Icons.bar_chart_rounded
                           : Icons.show_chart_rounded,
@@ -1014,8 +1012,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                   ),
                   GestureDetector(
                     onTap: () => setState(() => _touchedMonthIndex = null),
-                    child: const Icon(
-                      Icons.close_rounded,
+                    child: const UlvenikIcon(UlvenikIcons.back,
                       color: _stone,
                       size: 15,
                     ),
@@ -1538,8 +1535,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      icon: const Icon(
-                        Icons.date_range_outlined,
+                      icon: const UlvenikIcon(UlvenikIcons.calendar,
                         color: _mint,
                         size: 18,
                       ),
@@ -1711,7 +1707,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                 color: _forest.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(icon, color: _mint, size: 20),
+              child: UlvenikIcon.fromMaterial(icon, color: _mint, size: 20),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -1739,7 +1735,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right_rounded, color: _stone, size: 20),
+            const UlvenikIcon(UlvenikIcons.details, color: _stone, size: 20),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 /// Result returned when filters are applied
@@ -461,7 +462,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _stoneGrey, size: 24),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 24),
         onPressed: () => Navigator.maybePop(context),
       ),
       title: const Text(
@@ -541,7 +542,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
         ),
         child: const Row(
           children: [
-            Icon(Icons.info_outline, size: 16, color: _stoneGrey),
+            UlvenikIcon(UlvenikIcons.notifications, size: 16, color: _stoneGrey),
             SizedBox(width: 8),
             Text(
               'No active filters — showing all timeline events',
@@ -585,8 +586,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                   borderRadius: BorderRadius.circular(9999),
                   child: const Padding(
                     padding: EdgeInsets.all(2),
-                    child: Icon(
-                      Icons.close,
+                    child: UlvenikIcon(UlvenikIcons.back,
                       color: Color(0xFF7A8F7A),
                       size: 16,
                     ),
@@ -633,7 +633,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                       ),
                     ),
                     const SizedBox(width: 6),
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _isSavedFiltersExpanded
                           ? Icons.expand_less
                           : Icons.expand_more,
@@ -650,7 +650,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   child: Row(
                     children: [
-                      Icon(Icons.bookmark_add_outlined,
+                      UlvenikIcon(UlvenikIcons.add,
                           color: _mint, size: 14),
                       SizedBox(width: 4),
                       Text(
@@ -688,8 +688,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                     Expanded(
                       child: Row(
                         children: [
-                          const Icon(
-                            Icons.filter_list,
+                          const UlvenikIcon(UlvenikIcons.sort,
                             color: Color(0xFF7A8F7A),
                             size: 22,
                           ),
@@ -827,7 +826,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                     letterSpacing: 0.8,
                   ),
                 ),
-                Icon(
+                UlvenikIcon.fromMaterial(
                   _isCategoriesExpanded
                       ? Icons.expand_less
                       : Icons.expand_more,
@@ -1026,7 +1025,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                       ),
                     ),
                     const SizedBox(width: 6),
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _showAnalyticsChart
                           ? Icons.expand_less
                           : Icons.expand_more,
@@ -1276,7 +1275,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                     ),
                   ],
                 ),
-                Icon(
+                UlvenikIcon.fromMaterial(
                   _isDateRangeExpanded
                       ? Icons.expand_less
                       : Icons.expand_more,
@@ -1384,7 +1383,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                     ),
                   ],
                 ),
-                Icon(
+                UlvenikIcon.fromMaterial(
                   _isDogsExpanded ? Icons.expand_less : Icons.expand_more,
                   color: _stoneGrey,
                   size: 20,

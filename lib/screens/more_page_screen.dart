@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'about_ulvenik_screen.dart';
@@ -256,8 +257,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.account_circle_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -273,8 +273,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.notifications_none_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -305,8 +304,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.credit_card_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -322,7 +320,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: Icon(
+                          iconWidget: UlvenikIcon.fromMaterial(
                             widget.isCloudSyncAvailable
                                 ? Icons.cloud_sync_outlined
                                 : Icons.storage_outlined,
@@ -353,8 +351,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.support_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -363,8 +360,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.chat_bubble_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -373,8 +369,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.info_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -390,8 +385,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.person_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -405,8 +399,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.settings_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.sort,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -419,8 +412,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.notifications_active_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -433,8 +425,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.search_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.search,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -450,8 +441,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.calendar_month_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.scheduledTraining,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -464,8 +454,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.photo_library_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.play,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -481,8 +470,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.emoji_events_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.goals,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -498,8 +486,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.folder_shared_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -513,8 +500,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.badge_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -528,8 +514,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.description_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.training,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -546,8 +531,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.tune_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.sort,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -563,8 +547,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.redeem_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.goals,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -583,8 +566,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.public_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -597,8 +579,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.translate_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -611,8 +592,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.straighten_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.exercises,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -625,8 +605,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.schedule_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.trainingTime,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -639,8 +618,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.travel_explore_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.timeline,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -659,8 +637,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.help_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -673,8 +650,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.mail_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -687,8 +663,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.bug_report_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -701,8 +676,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.lightbulb_outline_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -715,8 +689,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.auto_awesome_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.skills,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -729,8 +702,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.shield_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -743,8 +715,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.description_outlined,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.training,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -757,8 +728,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(
-                            Icons.code_rounded,
+                          iconWidget: const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -802,8 +772,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                 behavior: HitTestBehavior.opaque,
                 child: const Padding(
                   padding: EdgeInsets.all(4),
-                  child: Icon(
-                    Icons.chevron_left_rounded,
+                  child: UlvenikIcon(UlvenikIcons.back,
                     color: _offWhite,
                     size: 26,
                   ),
@@ -911,8 +880,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                   ],
                 ),
               ),
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -1041,8 +1009,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                 trailingBadge,
                 const SizedBox(width: 8),
               ],
-              const Icon(
-                Icons.chevron_right_rounded,
+              const UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -1194,7 +1161,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                       ),
                       child: Row(
                         children: [
-                          Icon(
+                          UlvenikIcon.fromMaterial(
                             _emailVerified
                                 ? Icons.verified_rounded
                                 : Icons.mark_email_unread_outlined,
@@ -1271,8 +1238,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                       ),
                       child: Row(
                         children: [
-                          const Icon(
-                            Icons.fingerprint_rounded,
+                          const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 22,
                           ),
@@ -1384,7 +1350,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                             ),
                             child: Row(
                               children: [
-                                Icon(
+                                UlvenikIcon.fromMaterial(
                                   selected
                                       ? Icons.check_circle_rounded
                                       : Icons.radio_button_unchecked_rounded,
@@ -1813,7 +1779,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
         ),
         child: Row(
           children: [
-            Icon(icon, color: _forest, size: 22),
+            UlvenikIcon.fromMaterial(icon, color: _forest, size: 22),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -1840,8 +1806,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                 ],
               ),
             ),
-            const Icon(
-              Icons.chevron_right_rounded,
+            const UlvenikIcon(UlvenikIcons.details,
               color: _stoneGrey,
               size: 20,
             ),

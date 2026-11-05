@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -560,8 +561,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
@@ -599,8 +599,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
         children: [
           Row(
             children: [
-              Icon(
-                Icons.cloud_download_outlined,
+              UlvenikIcon(UlvenikIcons.overflowMenu,
                 color: _sageMint,
                 size: 21,
               ),
@@ -659,7 +658,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
+                UlvenikIcon.fromMaterial(
                   _allSelected
                       ? Icons.check_box_rounded
                       : Icons.check_box_outlined,
@@ -719,7 +718,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
               ),
               child: Row(
                 children: [
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     group.icon,
                     color: _sageMint,
                     size: 19,
@@ -781,7 +780,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Icon(
+                  UlvenikIcon.fromMaterial(
                     isExpanded
                         ? Icons.keyboard_arrow_up_rounded
                         : Icons.keyboard_arrow_down_rounded,
@@ -856,8 +855,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                 ),
               ),
               child: checked
-                  ? const Icon(
-                      Icons.check_rounded,
+                  ? const UlvenikIcon(UlvenikIcons.completed,
                       size: 14,
                       color: _offWhite,
                     )
@@ -934,7 +932,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 2),
-              child: Icon(
+              child: UlvenikIcon.fromMaterial(
                 icon,
                 color: selected ? _sageMint : _stoneGrey,
                 size: 18,
@@ -1349,8 +1347,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.lock_outline_rounded,
+                const UlvenikIcon(UlvenikIcons.overflowMenu,
                   color: _sageMint,
                   size: 19,
                 ),
@@ -1456,7 +1453,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                             _obscureArchivePassword = !_obscureArchivePassword;
                           });
                         },
-                        icon: Icon(
+                        icon: UlvenikIcon.fromMaterial(
                           _obscureArchivePassword
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
@@ -1566,8 +1563,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                     color: _forest.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(
-                    Icons.task_alt_rounded,
+                  child: const UlvenikIcon(UlvenikIcons.exercises,
                     color: _sageMint,
                     size: 21,
                   ),
@@ -1643,7 +1639,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                     type: SnackbarType.success,
                   );
                 },
-                icon: Icon(
+                icon: UlvenikIcon.fromMaterial(
                   _archiveDownloaded
                       ? Icons.check_circle_outline_rounded
                       : Icons.download_rounded,
@@ -1686,7 +1682,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                         type: SnackbarType.info,
                       );
                     },
-                    icon: const Icon(Icons.link_rounded, size: 17),
+                    icon: const UlvenikIcon(UlvenikIcons.details, size: 17),
                     label: const Text(
                       'Copy 48h Link',
                       style: TextStyle(
@@ -1709,7 +1705,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                       ),
                     ),
                     onPressed: _startExportGeneration,
-                    icon: const Icon(Icons.refresh_rounded, size: 17),
+                    icon: const UlvenikIcon(UlvenikIcons.history, size: 17),
                     label: const Text(
                       'Rebuild Export',
                       style: TextStyle(

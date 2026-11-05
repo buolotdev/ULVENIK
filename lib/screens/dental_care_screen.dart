@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 
 enum DentalKind { professional, homeCare, activeIssue }
@@ -210,7 +211,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _mint, size: 22),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 22),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
       title: const Text('Dental Care',
@@ -218,24 +219,24 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
       centerTitle: false,
       actions: [
         IconButton(
-          icon: const Icon(Icons.search, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: () {
             if (_isEmpty) _setEmpty(false);
             _searchFocusNode.requestFocus();
           },
         ),
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.sort, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: _showFilterSheet,
         ),
         IconButton(
           tooltip: 'Toggle empty / populated',
-          icon: Icon(_isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on,
+          icon: UlvenikIcon.fromMaterial(_isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on,
               color: _isEmpty ? AppColors.secondaryTextStoneGrey : _mint, size: 26),
           onPressed: () => _setEmpty(!_isEmpty),
         ),
         IconButton(
-          icon: const Icon(Icons.add, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: _showAddSheet,
         ),
         const SizedBox(width: 4),
@@ -323,7 +324,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
               ],
             ),
           ),
-          const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+          const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
         ],
       ),
     );
@@ -345,7 +346,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
           height: size,
           fit: BoxFit.cover,
           errorBuilder: (c, e, s) =>
-              Icon(Icons.pets, size: size * 0.5, color: _mint),
+              UlvenikIcon(UlvenikIcons.dogs, size: size * 0.5, color: _mint),
         ),
       ),
     );
@@ -480,7 +481,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -504,7 +505,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                 _searchController.clear();
                 setState(() => _searchQuery = '');
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -601,7 +602,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
   Widget _recordFooter(DentalRecord r, bool isIssue) {
     if (r.kind == DentalKind.homeCare) {
       return Row(children: const [
-        Icon(Icons.description_outlined, size: 14, color: AppColors.secondaryTextStoneGrey),
+        UlvenikIcon(UlvenikIcons.training, size: 14, color: AppColors.secondaryTextStoneGrey),
         SizedBox(width: 4),
         Text('Notes added', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
       ]);
@@ -614,7 +615,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
           if (r.followUpRequired) ...[
             const SizedBox(height: 4),
             Row(children: const [
-              Icon(Icons.warning_amber_rounded, size: 14, color: _red),
+              UlvenikIcon(UlvenikIcons.notifications, size: 14, color: _red),
               SizedBox(width: 4),
               Text('Follow-up required', style: TextStyle(color: _red, fontSize: 12)),
             ]),
@@ -635,7 +636,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
         )),
         if (r.nextCheck != null)
           Row(mainAxisSize: MainAxisSize.min, children: [
-            const Icon(Icons.event, size: 14, color: _mint),
+            const UlvenikIcon(UlvenikIcons.calendar, size: 14, color: _mint),
             const SizedBox(width: 4),
             Text('Next check: ${_fmt(r.nextCheck!)}', style: const TextStyle(color: _mint, fontSize: 12)),
           ]),
@@ -686,7 +687,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                       child: Row(mainAxisSize: MainAxisSize.min, children: [
                         if (done) const Padding(
                           padding: EdgeInsets.only(right: 6),
-                          child: Icon(Icons.check, size: 14, color: _mint),
+                          child: UlvenikIcon(UlvenikIcons.completed, size: 14, color: _mint),
                         ),
                         Text(t,
                             style: TextStyle(
@@ -713,7 +714,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: AppColors.primaryTextOffWhite, size: 20),
+            UlvenikIcon.fromMaterial(icon, color: AppColors.primaryTextOffWhite, size: 20),
             const SizedBox(width: 8),
             Text(label,
                 style: const TextStyle(
@@ -751,7 +752,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                     ],
                   ),
                 ),
-                const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+                const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey),
               ]),
             ),
           ),
@@ -765,7 +766,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                 color: AppColors.cardsCarbon,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
-              child: const Icon(Icons.sentiment_satisfied_alt_outlined, color: _mint, size: 44),
+              child: const UlvenikIcon(UlvenikIcons.goals, color: _mint, size: 44),
             ),
           ),
           const SizedBox(height: 24),
@@ -819,7 +820,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                   color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         ),
         IconButton(
-          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(ctx),
         ),
       ],
@@ -1130,7 +1131,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                       contentPadding: EdgeInsets.zero,
                       title: Text(f,
                           style: TextStyle(color: f == _filter ? _mint : AppColors.primaryTextOffWhite, fontSize: 14)),
-                      trailing: f == _filter ? const Icon(Icons.check, color: _mint) : null,
+                      trailing: f == _filter ? const UlvenikIcon(UlvenikIcons.completed, color: _mint) : null,
                       onTap: () {
                         setState(() => _filter = f);
                         Navigator.pop(ctx);
@@ -1186,7 +1187,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                             ],
                           ),
                         ),
-                        if (sel) const Icon(Icons.check_circle, color: _mint, size: 20),
+                        if (sel) const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20),
                       ]),
                     ),
                   );

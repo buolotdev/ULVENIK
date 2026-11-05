@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -454,8 +455,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                       ),
                     ),
                     trailing: selected
-                        ? const Icon(
-                            Icons.check_rounded,
+                        ? const UlvenikIcon(UlvenikIcons.completed,
                             color: Color(0xFF95D3BB),
                             size: 20,
                           )
@@ -646,7 +646,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                           ),
                           child: Column(
                             children: [
-                              Icon(
+                              UlvenikIcon.fromMaterial(
                                 idx == 2
                                     ? Icons.folder_outlined
                                     : Icons.image_outlined,
@@ -817,8 +817,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                         type: SnackbarType.warning,
                       );
                     },
-                    icon: const Icon(
-                      Icons.delete_outline_rounded,
+                    icon: const UlvenikIcon(UlvenikIcons.back,
                       color: _stoneGrey,
                     ),
                   ),
@@ -875,7 +874,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                               color: _forest.withValues(alpha: 0.18),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Icon(
+                            child: UlvenikIcon.fromMaterial(
                               icon,
                               color: const Color(0xFF95D3BB),
                               size: 20,
@@ -928,8 +927,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                             ),
                           ),
                           const SizedBox(width: 6),
-                          const Icon(
-                            Icons.chevron_right_rounded,
+                          const UlvenikIcon(UlvenikIcons.details,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -987,8 +985,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.maybePop(context),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
@@ -1016,8 +1013,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                 }
               });
             },
-            icon: Icon(
-              Icons.search_rounded,
+            icon: UlvenikIcon(UlvenikIcons.search,
               color: _showSearchBar ? const Color(0xFF95D3BB) : _stoneGrey,
               size: 23,
             ),
@@ -1025,8 +1021,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
           IconButton(
             tooltip: 'Sort & filter collections',
             onPressed: _showSortAndFilterSheet,
-            icon: Icon(
-              Icons.drag_handle_rounded,
+            icon: UlvenikIcon(UlvenikIcons.sort,
               color: _selectedDogFilter != 'All Dogs'
                   ? const Color(0xFF95D3BB)
                   : _stoneGrey,
@@ -1036,8 +1031,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
           IconButton(
             tooltip: 'Create collection',
             onPressed: _showCreateCollectionSheet,
-            icon: const Icon(
-              Icons.add_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.add,
               color: _stoneGrey,
               size: 25,
             ),
@@ -1074,8 +1068,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                   fontSize: 13,
                   fontFamily: 'Inter',
                 ),
-                prefixIcon: const Icon(
-                  Icons.search_rounded,
+                prefixIcon: const UlvenikIcon(UlvenikIcons.search,
                   color: _stoneGrey,
                   size: 19,
                 ),
@@ -1085,8 +1078,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                           _searchController.clear();
                           setState(() => _searchQuery = '');
                         },
-                        icon: const Icon(
-                          Icons.close_rounded,
+                        icon: const UlvenikIcon(UlvenikIcons.back,
                           color: _stoneGrey,
                           size: 17,
                         ),
@@ -1186,16 +1178,14 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                         album.coverAsset!,
                         fit: BoxFit.cover,
                         errorBuilder: (_, _, _) => const Center(
-                          child: Icon(
-                            Icons.folder_outlined,
+                          child: UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _stoneGrey,
                             size: 28,
                           ),
                         ),
                       )
                     : const Center(
-                        child: Icon(
-                          Icons.folder_outlined,
+                        child: UlvenikIcon(UlvenikIcons.overflowMenu,
                           color: _stoneGrey,
                           size: 28,
                         ),
@@ -1238,8 +1228,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
             ),
             const Padding(
               padding: EdgeInsets.only(right: 14),
-              child: Icon(
-                Icons.chevron_right_rounded,
+              child: UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 22,
               ),
@@ -1257,7 +1246,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.folder_off_outlined, color: _stoneGrey, size: 40),
+            const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 40),
             const SizedBox(height: 12),
             const Text(
               'No matching collections',

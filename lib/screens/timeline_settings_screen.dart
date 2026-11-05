@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'timeline_screen.dart';
 import 'timeline_dashboard_screen.dart';
 import 'homepage_screen.dart';
@@ -138,7 +139,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
                 final bool isSelected = opt == currentVal;
                 return ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: Icon(
+                  leading: UlvenikIcon.fromMaterial(
                     isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
                     color: isSelected ? _mint : _stoneGrey,
                     size: 20,
@@ -197,7 +198,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
         ),
         title: const Row(
           children: [
-            Icon(Icons.refresh, color: _destructive, size: 22),
+            UlvenikIcon(UlvenikIcons.history, color: _destructive, size: 22),
             SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -308,7 +309,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite),
           onPressed: () {
             if (Navigator.canPop(context)) {
               Navigator.pop(context);
@@ -758,7 +759,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.refresh, color: _destructive, size: 18),
+                      UlvenikIcon(UlvenikIcons.history, color: _destructive, size: 18),
                       SizedBox(width: 8),
                       Text(
                         'Reset Timeline Settings',
@@ -811,7 +812,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               child: Row(
                 children: [
-                  Icon(icon, color: isExpanded ? _mint : _offWhite, size: 20),
+                  UlvenikIcon.fromMaterial(icon, color: isExpanded ? _mint : _offWhite, size: 20),
                   const SizedBox(width: 12),
                   Text(
                     title,
@@ -836,8 +837,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
                     turns: isExpanded ? 0.5 : 0.0,
                     duration: const Duration(milliseconds: 260),
                     curve: Curves.easeInOutCubic,
-                    child: const Icon(
-                      Icons.keyboard_arrow_down,
+                    child: const UlvenikIcon(UlvenikIcons.sort,
                       color: _stoneGrey,
                       size: 18,
                     ),
@@ -885,7 +885,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 2),
-              child: Icon(icon, color: _stoneGrey, size: 18),
+              child: UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 18),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -943,7 +943,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 2),
-            child: Icon(icon, color: _stoneGrey, size: 18),
+            child: UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 18),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -1047,7 +1047,7 @@ class _TimelineSettingsScreenState extends State<TimelineSettingsScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          UlvenikIcon.fromMaterial(
             icon,
             color: isSelected ? _mint : _stoneGrey,
             size: 22,

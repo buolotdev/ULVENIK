@@ -1,6 +1,7 @@
 import 'media_library_screen.dart';
 import 'sport_pack_overview_screen.dart';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import 'skills_list_screen.dart';
 import 'goals_list_screen.dart';
@@ -93,12 +94,12 @@ class _DogProfileScreenState extends State<DogProfileScreen>
       pinned: true,
       backgroundColor: AppColors.backgroundObsidian,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: AppColors.primaryTextOffWhite),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite),
         onPressed: () => Navigator.pop(context),
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.more_vert, color: AppColors.primaryTextOffWhite),
+          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
           onPressed: () => setState(() => _hasData = !_hasData), // Toggle for testing
         ),
       ],
@@ -186,7 +187,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: AppColors.secondaryTextStoneGrey),
+          UlvenikIcon.fromMaterial(icon, size: 14, color: AppColors.secondaryTextStoneGrey),
           const SizedBox(width: 4),
           Text(
             text,
@@ -213,7 +214,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 12, color: const Color(0xFF95d3bb)),
+          UlvenikIcon.fromMaterial(icon, size: 12, color: const Color(0xFF95d3bb)),
           const SizedBox(width: 4),
           Text(
             text,
@@ -225,7 +226,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
             ),
           ),
           const SizedBox(width: 2),
-          const Icon(Icons.chevron_right, size: 14, color: Color(0xFF95d3bb)),
+          const UlvenikIcon(UlvenikIcons.details, size: 14, color: Color(0xFF95d3bb)),
         ],
       ),
     );
@@ -280,7 +281,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   color: AppColors.primaryForestGreen.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.layers_outlined,
+                child: const UlvenikIcon(UlvenikIcons.skills,
                     size: 20, color: AppColors.primaryForestGreen),
               ),
               const SizedBox(width: 12),
@@ -302,7 +303,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_right,
+              const UlvenikIcon(UlvenikIcons.details,
                   color: AppColors.secondaryTextStoneGrey),
             ],
           ),
@@ -353,7 +354,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
       ),
       child: Column(
         children: [
-          Icon(icon, size: 28, color: AppColors.secondarySage),
+          UlvenikIcon.fromMaterial(icon, size: 28, color: AppColors.secondarySage),
           const SizedBox(height: 16),
           Text(
             title,
@@ -519,7 +520,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                 color: Color(0xFF323533), // surface-variant
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.play_arrow, size: 18, color: AppColors.primaryTextOffWhite),
+              child: const UlvenikIcon(UlvenikIcons.play, size: 18, color: AppColors.primaryTextOffWhite),
             ),
           ],
         ),
@@ -552,7 +553,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                 ),
               ),
               SizedBox(width: 4),
-              Icon(Icons.arrow_forward, size: 14, color: AppColors.primaryForestGreen),
+              UlvenikIcon(UlvenikIcons.details, size: 14, color: AppColors.primaryForestGreen),
             ],
           ),
         ],
@@ -583,7 +584,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: iconColor),
+          UlvenikIcon.fromMaterial(icon, size: 20, color: iconColor),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -655,7 +656,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
             color: Colors.white12,
             margin: const EdgeInsets.symmetric(horizontal: 12),
           ),
-          Icon(icon, size: 16, color: AppColors.secondaryTextStoneGrey),
+          UlvenikIcon.fromMaterial(icon, size: 16, color: AppColors.secondaryTextStoneGrey),
           const SizedBox(width: 8),
           Text(
             title,
@@ -692,7 +693,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Training Drills', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                    Icon(Icons.fitness_center, size: 20, color: AppColors.primaryForestGreen),
+                    UlvenikIcon(UlvenikIcons.exercises, size: 20, color: AppColors.primaryForestGreen),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -700,7 +701,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                 const SizedBox(height: 16),
                 ElevatedButton.icon(
                   onPressed: () => AppSnackbar.show(context, message: 'Record Training Session coming soon', type: SnackbarType.info),
-                  icon: const Icon(Icons.add, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.add, size: 18),
                   label: const Text('Record Training Session'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
@@ -739,7 +740,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Strength & Conditioning', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                    Icon(Icons.water, size: 20, color: Color(0xFF5D8FAF)),
+                    UlvenikIcon(UlvenikIcons.health, size: 20, color: Color(0xFF5D8FAF)),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -749,7 +750,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   children: [
                     Expanded(
                       child: ElevatedButton.icon(
-                        icon: const Icon(Icons.fitness_center, size: 18),
+                        icon: const UlvenikIcon(UlvenikIcons.exercises, size: 18),
                         label: const Text('Open S&C Dashboard'),
                         onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StrengthConditioningDashboardScreen())),
                         style: ElevatedButton.styleFrom(
@@ -763,7 +764,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                     const SizedBox(width: 12),
                     Expanded(
                       child: OutlinedButton.icon(
-                        icon: const Icon(Icons.add, size: 18, color: Color(0xFF95D3BB)),
+                        icon: const UlvenikIcon(UlvenikIcons.add, size: 18, color: Color(0xFF95D3BB)),
                         label: const Text('Record S&C', style: TextStyle(color: Color(0xFF95D3BB))),
                         onPressed: () => AppSnackbar.show(context, message: 'Record S&C Session coming soon', type: SnackbarType.info),
                         style: OutlinedButton.styleFrom(
@@ -803,7 +804,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Health Overview', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                    Icon(Icons.monitor_heart_outlined, size: 22, color: Color(0xFF95D3BB)),
+                    UlvenikIcon(UlvenikIcons.health, size: 22, color: Color(0xFF95D3BB)),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -819,13 +820,13 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                       child: const Text('Open Health Dashboard'),
                     ),
                     OutlinedButton.icon(
-                      icon: const Icon(Icons.medical_services_outlined, size: 18, color: Color(0xFF95D3BB)),
+                      icon: const UlvenikIcon(UlvenikIcons.health, size: 18, color: Color(0xFF95D3BB)),
                       label: const Text('Health Categories', style: TextStyle(color: Color(0xFF95D3BB))),
                       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthScreen())),
                       style: OutlinedButton.styleFrom(side: const BorderSide(color: Color(0xFF95D3BB))),
                     ),
                     OutlinedButton.icon(
-                      icon: const Icon(Icons.analytics_outlined, size: 18, color: Color(0xFF95D3BB)),
+                      icon: const UlvenikIcon(UlvenikIcons.progress, size: 18, color: Color(0xFF95D3BB)),
                       label: const Text('Health Stats', style: TextStyle(color: Color(0xFF95D3BB))),
                       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthStatisticsScreen())),
                       style: OutlinedButton.styleFrom(side: const BorderSide(color: Color(0xFF95D3BB))),
@@ -860,7 +861,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Sport Pack · Competitions & Trials', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                    Icon(Icons.emoji_events_outlined, size: 22, color: AppColors.secondarySage),
+                    UlvenikIcon(UlvenikIcons.goals, size: 22, color: AppColors.secondarySage),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -868,7 +869,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                 const SizedBox(height: 16),
                 ElevatedButton.icon(
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SportPackOverviewScreen())),
-                  icon: const Icon(Icons.military_tech_outlined, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.goals, size: 18),
                   label: const Text('Open Sport Pack Overview'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
@@ -905,7 +906,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Media & Highlights', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                    Icon(Icons.photo_library_outlined, size: 22, color: Color(0xFF95D3BB)),
+                    UlvenikIcon(UlvenikIcons.play, size: 22, color: Color(0xFF95D3BB)),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -913,7 +914,7 @@ class _DogProfileScreenState extends State<DogProfileScreen>
                 const SizedBox(height: 16),
                 ElevatedButton.icon(
                   onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MediaLibraryScreen())),
-                  icon: const Icon(Icons.photo_camera_back_outlined, size: 18),
+                  icon: const UlvenikIcon(UlvenikIcons.play, size: 18),
                   label: const Text('Open Dog Media Library'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,

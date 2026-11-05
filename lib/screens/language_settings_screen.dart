@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -241,8 +242,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                         color: AppColors.secondaryTextStoneGrey,
                       ),
                     ),
-                    trailing: const Icon(
-                      Icons.notifications_none_rounded,
+                    trailing: const UlvenikIcon(UlvenikIcons.notifications,
                       color: AppColors.primaryForestGreen,
                       size: 20,
                     ),
@@ -315,8 +315,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
           IconButton(
             onPressed: () =>
                 Navigator.of(context).maybePop(_currentLanguage.nativeTitle),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
@@ -392,8 +391,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 3),
-                child: Icon(
-                  Icons.language_rounded,
+                child: UlvenikIcon(UlvenikIcons.overflowMenu,
                   size: 21,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -507,8 +505,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
         ),
         child: Row(
           children: [
-            const Icon(
-              Icons.smartphone_rounded,
+            const UlvenikIcon(UlvenikIcons.overflowMenu,
               size: 20,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -566,8 +563,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.search_rounded,
+          const UlvenikIcon(UlvenikIcons.search,
             size: 19,
             color: AppColors.secondaryTextStoneGrey,
           ),
@@ -607,8 +603,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
               behavior: HitTestBehavior.opaque,
               child: const Padding(
                 padding: EdgeInsets.all(4),
-                child: Icon(
-                  Icons.close_rounded,
+                child: UlvenikIcon(UlvenikIcons.back,
                   size: 17,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -728,8 +723,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                         ),
                       ),
                       if (isSelected)
-                        const Icon(
-                          Icons.check_rounded,
+                        const UlvenikIcon(UlvenikIcons.completed,
                           size: 19,
                           color: AppColors.primaryForestGreen,
                         ),

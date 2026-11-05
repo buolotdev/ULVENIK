@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'activity_library_screen.dart';
 import 'activity_details_screen.dart';
@@ -260,7 +261,7 @@ class _StrengthConditioningDashboardScreenState
                       style: const TextStyle(color: _muted, fontSize: 12),
                     ),
                     trailing: isSelected
-                        ? const Icon(Icons.check_circle, color: _mint, size: 20)
+                        ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
                         : (d.hasData
                             ? null
                             : Container(
@@ -409,7 +410,7 @@ class _StrengthConditioningDashboardScreenState
                         ),
                       ),
                       SizedBox(width: 4),
-                      Icon(Icons.arrow_forward, color: _mint, size: 14),
+                      UlvenikIcon(UlvenikIcons.details, color: _mint, size: 14),
                     ],
                   ),
                 ),
@@ -445,7 +446,7 @@ class _StrengthConditioningDashboardScreenState
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8)),
                       ),
-                      icon: const Icon(Icons.play_arrow, size: 18),
+                      icon: const UlvenikIcon(UlvenikIcons.play, size: 18),
                       label: const Text('Start Session',
                           style: TextStyle(fontWeight: FontWeight.w600)),
                     ),
@@ -536,7 +537,7 @@ class _StrengthConditioningDashboardScreenState
         backgroundColor: _obsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _muted),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _muted),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: const Text(
@@ -552,7 +553,7 @@ class _StrengthConditioningDashboardScreenState
         actions: [
           IconButton(
             tooltip: 'Search Activities',
-            icon: const Icon(Icons.search, color: _muted),
+            icon: const UlvenikIcon(UlvenikIcons.search, color: _muted),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -566,7 +567,7 @@ class _StrengthConditioningDashboardScreenState
             tooltip: _isEmpty
                 ? 'Switch to Populated S&C'
                 : 'Switch to Empty S&C',
-            icon: Icon(
+            icon: UlvenikIcon.fromMaterial(
               _isEmpty ? Icons.fitness_center_outlined : Icons.fitness_center,
               color: _mint,
             ),
@@ -580,7 +581,7 @@ class _StrengthConditioningDashboardScreenState
           ),
           IconButton(
             tooltip: 'Export Data',
-            icon: const Icon(Icons.ios_share, color: _mint),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _mint),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -591,7 +592,7 @@ class _StrengthConditioningDashboardScreenState
           ),
           IconButton(
             tooltip: 'Archive',
-            icon: const Icon(Icons.inventory_2_outlined, color: _mint),
+            icon: const UlvenikIcon(UlvenikIcons.skills, color: _mint),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -602,7 +603,7 @@ class _StrengthConditioningDashboardScreenState
           ),
           IconButton(
             tooltip: 'S & C Settings',
-            icon: const Icon(Icons.settings_outlined, color: _mint),
+            icon: const UlvenikIcon(UlvenikIcons.sort, color: _mint),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -613,7 +614,7 @@ class _StrengthConditioningDashboardScreenState
           ),
           PopupMenuButton<String>(
             tooltip: 'Options',
-            icon: const Icon(Icons.more_vert, color: _muted),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _muted),
             color: _carbon,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             onSelected: (val) {
@@ -644,7 +645,7 @@ class _StrengthConditioningDashboardScreenState
                 value: 'settings',
                 child: Row(
                   children: [
-                    Icon(Icons.settings_outlined, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('S & C Settings', style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600)),
                   ],
@@ -654,7 +655,7 @@ class _StrengthConditioningDashboardScreenState
                 value: 'dog',
                 child: Row(
                   children: [
-                    Icon(Icons.pets, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.dogs, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Switch Dog Profile', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -664,7 +665,7 @@ class _StrengthConditioningDashboardScreenState
                 value: 'export',
                 child: Row(
                   children: [
-                    Icon(Icons.ios_share, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Data', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -674,7 +675,7 @@ class _StrengthConditioningDashboardScreenState
                 value: 'archive',
                 child: Row(
                   children: [
-                    Icon(Icons.inventory_2_outlined, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.skills, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('View Archive', style: TextStyle(color: _offWhite, fontSize: 13)),
                   ],
@@ -709,7 +710,7 @@ class _StrengthConditioningDashboardScreenState
         foregroundColor: _offWhite,
         elevation: 6,
         shape: const CircleBorder(),
-        child: const Icon(Icons.add, size: 26),
+        child: const UlvenikIcon(UlvenikIcons.add, size: 26),
       ),
     );
   }
@@ -769,7 +770,7 @@ class _StrengthConditioningDashboardScreenState
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: _muted, size: 20),
+            const UlvenikIcon(UlvenikIcons.sort, color: _muted, size: 20),
           ],
         ),
       ),
@@ -807,7 +808,7 @@ class _StrengthConditioningDashboardScreenState
                   onTap: _openCreateActivityScreen,
                   child: const Row(
                     children: [
-                      Icon(Icons.add_circle_outline, color: _mint, size: 14),
+                      UlvenikIcon(UlvenikIcons.add, color: _mint, size: 14),
                       SizedBox(width: 4),
                       Text(
                         'New',
@@ -840,7 +841,7 @@ class _StrengthConditioningDashboardScreenState
                         ),
                       ),
                       SizedBox(width: 4),
-                      Icon(Icons.arrow_forward, color: _mint, size: 14),
+                      UlvenikIcon(UlvenikIcons.details, color: _mint, size: 14),
                     ],
                   ),
                 ),
@@ -935,7 +936,7 @@ class _StrengthConditioningDashboardScreenState
         children: [
           Row(
             children: [
-              Icon(icon, color: _muted, size: 16),
+              UlvenikIcon.fromMaterial(icon, color: _muted, size: 16),
               const SizedBox(width: 6),
               Text(
                 label,
@@ -1331,7 +1332,7 @@ class _StrengthConditioningDashboardScreenState
         Center(
           child: Transform.rotate(
             angle: 0.785, // 45 degrees
-            child: const Icon(Icons.fitness_center, color: _mint, size: 40),
+            child: const UlvenikIcon(UlvenikIcons.exercises, color: _mint, size: 40),
           ),
         ),
         const SizedBox(height: 18),
@@ -1389,7 +1390,7 @@ class _StrengthConditioningDashboardScreenState
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.add, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.add, color: _offWhite, size: 18),
                     SizedBox(width: 8),
                     Text(
                       'Create Activity',
@@ -1401,7 +1402,7 @@ class _StrengthConditioningDashboardScreenState
                       ),
                     ),
                     SizedBox(width: 8),
-                    Icon(Icons.arrow_forward, color: _offWhite, size: 16),
+                    UlvenikIcon(UlvenikIcons.details, color: _offWhite, size: 16),
                   ],
                 ),
               ),

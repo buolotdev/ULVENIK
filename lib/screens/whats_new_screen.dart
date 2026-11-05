@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -336,8 +337,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                       padding: const EdgeInsets.fromLTRB(20, 18, 16, 12),
                       child: Row(
                         children: [
-                          const Icon(
-                            Icons.auto_awesome_outlined,
+                          const UlvenikIcon(UlvenikIcons.skills,
                             color: _mint,
                             size: 20,
                           ),
@@ -399,16 +399,14 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                               );
                             },
                             tooltip: 'Copy release notes',
-                            icon: const Icon(
-                              Icons.copy_rounded,
+                            icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 19,
                             ),
                           ),
                           IconButton(
                             onPressed: () => Navigator.of(sheetCtx).pop(),
-                            icon: const Icon(
-                              Icons.close_rounded,
+                            icon: const UlvenikIcon(UlvenikIcons.back,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 21,
                             ),
@@ -485,7 +483,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                                   });
                                   setModalState(() {});
                                 },
-                                icon: Icon(
+                                icon: UlvenikIcon.fromMaterial(
                                   isAck
                                       ? Icons.check_circle_rounded
                                       : Icons.check_circle_outline_rounded,
@@ -556,7 +554,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            UlvenikIcon.fromMaterial(
               selected
                   ? Icons.thumb_up_alt_rounded
                   : Icons.thumb_up_off_alt_outlined,
@@ -631,8 +629,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                   children: [
                     IconButton(
                       onPressed: () => Navigator.of(context).maybePop(),
-                      icon: const Icon(
-                        Icons.chevron_left,
+                      icon: const UlvenikIcon(UlvenikIcons.back,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 26,
                       ),
@@ -663,8 +660,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                         }
                       },
                       tooltip: 'Search & Filter Releases',
-                      icon: Icon(
-                        Icons.search,
+                      icon: UlvenikIcon(UlvenikIcons.search,
                         color: (_showFilterBar || isFiltering)
                             ? _mint
                             : AppColors.secondaryTextStoneGrey,
@@ -804,8 +800,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                 ),
                 child: Column(
                   children: [
-                    const Icon(
-                      Icons.manage_search_rounded,
+                    const UlvenikIcon(UlvenikIcons.search,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 30,
                     ),
@@ -878,8 +873,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.auto_awesome_outlined,
+              const UlvenikIcon(UlvenikIcons.skills,
                 color: _mint,
                 size: 19,
               ),
@@ -965,8 +959,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                     ),
                   ),
                   SizedBox(width: 4),
-                  Icon(
-                    Icons.chevron_right,
+                  UlvenikIcon(UlvenikIcons.details,
                     color: _mint,
                     size: 17,
                   ),
@@ -990,8 +983,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: Row(
         children: [
-          const Icon(
-            Icons.search,
+          const UlvenikIcon(UlvenikIcons.search,
             color: AppColors.secondaryTextStoneGrey,
             size: 18,
           ),
@@ -1033,8 +1025,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                   _searchQuery = '';
                 });
               },
-              child: const Icon(
-                Icons.close_rounded,
+              child: const UlvenikIcon(UlvenikIcons.back,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 18,
               ),
@@ -1095,7 +1086,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                         ),
                       ),
                       const SizedBox(width: 6),
-                      Icon(
+                      UlvenikIcon.fromMaterial(
                         isExpanded
                             ? Icons.keyboard_arrow_up_rounded
                             : Icons.keyboard_arrow_down_rounded,
@@ -1150,7 +1141,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
         children: [
           Row(
             children: [
-              Icon(
+              UlvenikIcon.fromMaterial(
                 section.icon,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 14,
@@ -1290,8 +1281,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                       ),
                     )
                   else
-                    const Icon(
-                      Icons.check_circle_outline_rounded,
+                    const UlvenikIcon(UlvenikIcons.completed,
                       color: _statusGreen,
                       size: 18,
                     ),

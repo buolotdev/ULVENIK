@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 
@@ -314,7 +315,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
                     const SizedBox(height: 16),
                     Row(
                       children: [
-                        Icon(_recordIcon(item.type), color: _sage, size: 17),
+                        UlvenikIcon.fromMaterial(_recordIcon(item.type), color: _sage, size: 17),
                         const SizedBox(width: 7),
                         Expanded(
                           child: Text(
@@ -972,7 +973,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
                       ),
                       child: Row(
                         children: [
-                          Icon(_recordIcon(item.type), color: _sage, size: 16),
+                          UlvenikIcon.fromMaterial(_recordIcon(item.type), color: _sage, size: 16),
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
@@ -1028,7 +1029,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
                         ),
                       );
                     },
-                    icon: const Icon(Icons.picture_as_pdf_outlined, size: 18),
+                    icon: const UlvenikIcon(UlvenikIcons.training, size: 18),
                     label: Text(
                       'Export & Send Consolidated PDF',
                       style: GoogleFonts.inter(
@@ -1155,7 +1156,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
           elevation: 6,
           shape: const CircleBorder(),
           onPressed: _showShareNewRecordSheet,
-          child: const Icon(Icons.add, color: _textPrimary, size: 28),
+          child: const UlvenikIcon(UlvenikIcons.add, color: _textPrimary, size: 28),
         ),
       ),
       body: SafeArea(
@@ -1234,8 +1235,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const Icon(
-              Icons.chevron_left,
+            icon: const UlvenikIcon(UlvenikIcons.back,
               color: _textPrimary,
               size: 25,
             ),
@@ -1254,7 +1254,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: () => _searchFocusNode.requestFocus(),
-            icon: const Icon(Icons.search, color: _sage, size: 21),
+            icon: const UlvenikIcon(UlvenikIcons.search, color: _sage, size: 21),
           ),
           IconButton(
             visualDensity: VisualDensity.compact,
@@ -1262,7 +1262,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(Icons.filter_alt_outlined, color: _sage, size: 21),
+                const UlvenikIcon(UlvenikIcons.sort, color: _sage, size: 21),
                 Positioned(
                   right: -1,
                   top: -1,
@@ -1281,7 +1281,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: _showShareNewRecordSheet,
-            icon: const Icon(Icons.add, color: _sage, size: 23),
+            icon: const UlvenikIcon(UlvenikIcons.add, color: _sage, size: 23),
           ),
         ],
       ),
@@ -1298,7 +1298,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.search, color: _sage, size: 18),
+          const UlvenikIcon(UlvenikIcons.search, color: _sage, size: 18),
           const SizedBox(width: 10),
           Expanded(
             child: Container(
@@ -1489,7 +1489,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
           children: [
             Row(
               children: [
-                Icon(_recordIcon(item.type), color: _sage, size: 16),
+                UlvenikIcon.fromMaterial(_recordIcon(item.type), color: _sage, size: 16),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -1528,7 +1528,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.pets, size: 11.5, color: _sage),
+                  const UlvenikIcon(UlvenikIcons.dogs, size: 11.5, color: _sage),
                   const SizedBox(width: 6),
                   Text(
                     item.dogLabel,
@@ -1559,7 +1559,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
                     ),
                   ),
                 ),
-                const Icon(Icons.chevron_right, color: _sage, size: 17),
+                const UlvenikIcon(UlvenikIcons.details, color: _sage, size: 17),
               ],
             ),
           ],
@@ -1675,7 +1675,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: iconColor, size: 17),
+            UlvenikIcon.fromMaterial(icon, color: iconColor, size: 17),
             const SizedBox(height: 4),
             Text(
               label,
@@ -1928,8 +1928,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
                         color: Colors.white.withValues(alpha: 0.07),
                       ),
                     ),
-                    child: const Icon(
-                      Icons.description_outlined,
+                    child: const UlvenikIcon(UlvenikIcons.training,
                       color: _sage,
                       size: 20,
                     ),

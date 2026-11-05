@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -291,8 +292,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
             behavior: HitTestBehavior.opaque,
             child: const Padding(
               padding: EdgeInsets.all(6),
-              child: Icon(
-                Icons.chevron_left_rounded,
+              child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
                 size: 24,
               ),
@@ -325,8 +325,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(
-                    Icons.tune_rounded,
+                  child: UlvenikIcon(UlvenikIcons.sort,
                     color: _showFilters ? _offWhite : _stoneGrey,
                     size: 20,
                   ),
@@ -633,7 +632,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                   border: Border.all(color: _cardBorder, width: 1),
                 ),
                 alignment: Alignment.center,
-                child: Icon(
+                child: UlvenikIcon.fromMaterial(
                   tx.icon,
                   color: _sage,
                   size: 18,
@@ -660,8 +659,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                         ),
                         if (isDownloaded) ...[
                           const SizedBox(width: 6),
-                          const Icon(
-                            Icons.download_done_rounded,
+                          const UlvenikIcon(UlvenikIcons.overflowMenu,
                             color: _forest,
                             size: 14,
                           ),
@@ -723,8 +721,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                 ],
               ),
               const SizedBox(width: 8),
-              Icon(
-                Icons.chevron_right_rounded,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey.withValues(alpha: 0.55),
                 size: 18,
               ),
@@ -746,8 +743,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
       ),
       child: Column(
         children: [
-          const Icon(
-            Icons.receipt_long_outlined,
+          const UlvenikIcon(UlvenikIcons.training,
             color: _stoneGrey,
             size: 32,
           ),
@@ -850,7 +846,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                             shape: BoxShape.circle,
                             border: Border.all(color: _cardBorder),
                           ),
-                          child: Icon(tx.icon, color: _sage, size: 20),
+                          child: UlvenikIcon.fromMaterial(tx.icon, color: _sage, size: 20),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
@@ -1009,7 +1005,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                                   color: _offWhite,
                                 ),
                               )
-                            : Icon(
+                            : UlvenikIcon.fromMaterial(
                                 downloadedInSheet
                                     ? Icons.check_circle_outline_rounded
                                     : Icons.picture_as_pdf_outlined,
@@ -1055,7 +1051,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                                 type: SnackbarType.info,
                               );
                             },
-                            icon: const Icon(Icons.copy_rounded, size: 16),
+                            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 16),
                             label: const Text(
                               'Copy ID',
                               style: TextStyle(
@@ -1087,7 +1083,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                                 type: SnackbarType.success,
                               );
                             },
-                            icon: const Icon(Icons.mail_outline_rounded, size: 16),
+                            icon: const UlvenikIcon(UlvenikIcons.notifications, size: 16),
                             label: const Text(
                               'Email Copy',
                               style: TextStyle(
@@ -1326,7 +1322,7 @@ class _AnnualSpendSheetContentState extends State<_AnnualSpendSheetContent>
                   ),
                 ),
                 onPressed: widget.onExportStatement,
-                icon: const Icon(Icons.download_rounded, size: 18),
+                icon: const UlvenikIcon(UlvenikIcons.overflowMenu, size: 18),
                 label: const Text(
                   'Export Annual Statement (CSV)',
                   style: TextStyle(

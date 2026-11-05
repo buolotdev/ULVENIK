@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'timeline_event_details_screen.dart';
 import 'timeline_filters_screen.dart';
@@ -394,7 +395,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: _mint, size: 22),
+        icon: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 22),
         onPressed: () => Navigator.maybePop(context),
       ),
       titleSpacing: 0,
@@ -413,7 +414,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Icon(Icons.search, color: _stoneGrey, size: 20),
+              child: UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
             ),
             Expanded(
               child: TextField(
@@ -453,7 +454,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
             ),
             if (isSearching)
               IconButton(
-                icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
+                icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 18),
                 onPressed: _clearSearch,
               ),
           ],
@@ -463,7 +464,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
         if (isSearching)
           IconButton(
             tooltip: 'Filter Timeline',
-            icon: const Icon(Icons.tune, color: _mint, size: 22),
+            icon: const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 22),
             onPressed: () async {
               await Navigator.push(
                 context,
@@ -635,7 +636,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.bookmark, color: _forest, size: 20),
+                          const UlvenikIcon(UlvenikIcons.skills, color: _forest, size: 20),
                           const SizedBox(width: 12),
                           Text(
                             term,
@@ -647,7 +648,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                           ),
                         ],
                       ),
-                      const Icon(Icons.chevron_right, color: _mint, size: 20),
+                      const UlvenikIcon(UlvenikIcons.details, color: _mint, size: 20),
                     ],
                   ),
                 ),
@@ -722,7 +723,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                         borderRadius: BorderRadius.circular(6),
                         child: Row(
                           children: [
-                            const Icon(Icons.schedule, color: _mint, size: 20),
+                            const UlvenikIcon(UlvenikIcons.trainingTime, color: _mint, size: 20),
                             const SizedBox(width: 12),
                             Text(
                               term,
@@ -737,7 +738,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: _mint, size: 16),
+                      icon: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 16),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
                       onPressed: () {
@@ -882,7 +883,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                             ),
                           ),
                           const SizedBox(width: 4),
-                          const Icon(Icons.swap_vert, color: _stoneGrey, size: 16),
+                          const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 16),
                         ],
                       ),
                     ),
@@ -902,7 +903,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                   ),
                   child: Column(
                     children: [
-                      const Icon(Icons.search_off, color: _stoneGrey, size: 36),
+                      const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 36),
                       const SizedBox(height: 12),
                       Text(
                         'No results found for "$_currentQuery"',
@@ -946,7 +947,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.bookmark_outline, color: _stoneGrey, size: 20),
+                          const UlvenikIcon(UlvenikIcons.skills, color: _stoneGrey, size: 20),
                           const SizedBox(width: 10),
                           Text(
                             'Save "$_currentQuery" as a saved search',
@@ -1106,7 +1107,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                       ),
                     ),
                     const SizedBox(width: 6),
-                    Icon(
+                    UlvenikIcon.fromMaterial(
                       _showInteractiveChart ? Icons.expand_less : Icons.expand_more,
                       color: _stoneGrey,
                       size: 18,
@@ -1277,7 +1278,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                 color: _surfaceVariant,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(item.icon, color: item.iconColor, size: 20),
+              child: UlvenikIcon.fromMaterial(item.icon, color: item.iconColor, size: 20),
             ),
             const SizedBox(width: 12),
 

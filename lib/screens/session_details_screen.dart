@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import 'activity_details_screen.dart';
 import 'record_session_screen.dart';
@@ -439,7 +440,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     color: _forest.withValues(alpha: 0.3),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.construction, color: _mint, size: 20),
+                  child: const UlvenikIcon(UlvenikIcons.sort, color: _mint, size: 20),
                 ),
                 const SizedBox(width: 14),
                 Column(
@@ -542,7 +543,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _stoneGrey),
+                    icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -575,15 +576,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) => Container(
                                 color: _carbon,
-                                child: const Icon(Icons.photo, color: _stoneGrey),
+                                child: const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey),
                               ),
                             ),
                             if (item.isVideo)
                               Container(
                                 color: Colors.black38,
                                 child: const Center(
-                                  child: Icon(
-                                    Icons.play_circle_fill,
+                                  child: UlvenikIcon(UlvenikIcons.play,
                                     color: _mint,
                                     size: 28,
                                   ),
@@ -618,7 +618,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
         scrolledUnderElevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: _offWhite, size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
           onPressed: () => Navigator.of(context).maybePop(),
           tooltip: 'Back',
         ),
@@ -633,7 +633,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
         ),
         actions: [
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert, color: _stoneGrey, size: 22),
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 22),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -690,7 +690,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'templates',
                 child: Row(
                   children: [
-                    Icon(Icons.description, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.training, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Session Templates', style: TextStyle(color: _offWhite, fontWeight: FontWeight.w600)),
                   ],
@@ -700,7 +700,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'equipment',
                 child: Row(
                   children: [
-                    Icon(Icons.fitness_center, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.exercises, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Equipment Gear', style: TextStyle(color: _offWhite)),
                   ],
@@ -710,7 +710,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'insights',
                 child: Row(
                   children: [
-                    Icon(Icons.insights, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Activity Insights', style: TextStyle(color: _offWhite)),
                   ],
@@ -720,7 +720,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'stats',
                 child: Row(
                   children: [
-                    Icon(Icons.analytics, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Activity Statistics', style: TextStyle(color: _offWhite)),
                   ],
@@ -730,7 +730,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'edit',
                 child: Row(
                   children: [
-                    Icon(Icons.edit, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.edit, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('Edit Session', style: TextStyle(color: _offWhite)),
                   ],
@@ -740,7 +740,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'share',
                 child: Row(
                   children: [
-                    Icon(Icons.share, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Share Session', style: TextStyle(color: _offWhite)),
                   ],
@@ -750,7 +750,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'duplicate',
                 child: Row(
                   children: [
-                    Icon(Icons.copy, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Save as Template', style: TextStyle(color: _offWhite)),
                   ],
@@ -760,7 +760,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'export',
                 child: Row(
                   children: [
-                    Icon(Icons.file_download, color: _offWhite, size: 18),
+                    UlvenikIcon(UlvenikIcons.overflowMenu, color: _offWhite, size: 18),
                     SizedBox(width: 10),
                     Text('Export Data', style: TextStyle(color: _offWhite)),
                   ],
@@ -770,7 +770,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'archive',
                 child: Row(
                   children: [
-                    Icon(Icons.inventory_2_outlined, color: _mint, size: 18),
+                    UlvenikIcon(UlvenikIcons.skills, color: _mint, size: 18),
                     SizedBox(width: 10),
                     Text('View Archive', style: TextStyle(color: _mint, fontWeight: FontWeight.w600)),
                   ],
@@ -781,7 +781,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 value: 'delete',
                 child: Row(
                   children: [
-                    Icon(Icons.delete_outline, color: _errorRed, size: 18),
+                    UlvenikIcon(UlvenikIcons.back, color: _errorRed, size: 18),
                     SizedBox(width: 10),
                     Text('Delete Session', style: TextStyle(color: _errorRed)),
                   ],
@@ -871,7 +871,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.timer_outlined, color: _mint, size: 28),
+              const UlvenikIcon(UlvenikIcons.trainingTime, color: _mint, size: 28),
               const SizedBox(width: 8),
               Text(
                 widget.durationText,
@@ -903,7 +903,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 2),
-                    child: Icon(
+                    child: UlvenikIcon.fromMaterial(
                       isFilled ? Icons.star : Icons.star_border,
                       color: isFilled ? _mint : _stoneGrey,
                       size: 20,
@@ -984,8 +984,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const Icon(
-                        Icons.chevron_right,
+                      const UlvenikIcon(UlvenikIcons.details,
                         color: _stoneGrey,
                         size: 18,
                       ),
@@ -1298,7 +1297,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                         ),
                       ),
                       SizedBox(width: 4),
-                      Icon(Icons.arrow_forward_ios, color: _mint, size: 10),
+                      UlvenikIcon(UlvenikIcons.details, color: _mint, size: 10),
                     ],
                   ),
                 ),
@@ -1339,8 +1338,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           children: [
             Row(
               children: [
-                const Icon(
-                  Icons.construction,
+                const UlvenikIcon(UlvenikIcons.sort,
                   color: _stoneGrey,
                   size: 20,
                 ),
@@ -1355,8 +1353,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 ),
               ],
             ),
-            const Icon(
-              Icons.chevron_right,
+            const UlvenikIcon(UlvenikIcons.details,
               color: _stoneGrey,
               size: 18,
             ),
@@ -1432,15 +1429,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Container(
                         color: _carbon,
-                        child: const Icon(Icons.photo, color: _stoneGrey),
+                        child: const UlvenikIcon(UlvenikIcons.play, color: _stoneGrey),
                       ),
                     ),
                     if (item.isVideo)
                       Container(
                         color: Colors.black26,
                         child: const Center(
-                          child: Icon(
-                            Icons.play_circle_fill,
+                          child: UlvenikIcon(UlvenikIcons.play,
                             color: _mint,
                             size: 32,
                           ),
@@ -1482,7 +1478,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.edit, size: 18),
+                UlvenikIcon(UlvenikIcons.edit, size: 18),
                 SizedBox(width: 8),
                 Text(
                   'Edit Session',
@@ -1576,7 +1572,7 @@ class _MediaLightboxViewerState extends State<_MediaLightboxViewer> {
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.white),
+          icon: const UlvenikIcon(UlvenikIcons.back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -1630,7 +1626,7 @@ class _MediaLightboxViewerState extends State<_MediaLightboxViewer> {
                                 color: Colors.black54,
                                 shape: BoxShape.circle,
                               ),
-                              child: Icon(
+                              child: UlvenikIcon.fromMaterial(
                                 _isPlaying
                                     ? Icons.pause_circle_filled
                                     : Icons.play_circle_fill,
