@@ -15,9 +15,9 @@ class AddClientScreen extends StatefulWidget {
 }
 
 class _AddClientScreenState extends State<AddClientScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #101214
-  static const Color _cardBg = AppColors.cardsCarbon; // #1A1F22
-  static const Color _forest = AppColors.primaryForestGreen; // #2E6B57
+  static const Color _bg = AppColors.backgroundObsidian; // #121212
+  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
+  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
   static const Color _greenHeader = Color(0xFF3E8C6F);
   static const Color _sage = AppColors.secondarySage; // #7A8F7A
   static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
@@ -430,19 +430,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
               fontFamily: 'Inter',
             ),
           ),
-          GestureDetector(
-            onTap: _submitCreateClient,
-            behavior: HitTestBehavior.opaque,
-            child: const Text(
-              'Save',
-              style: TextStyle(
-                color: _greenHeader,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Inter',
-              ),
-            ),
-          ),
+          const SizedBox(width: 40),
         ],
       ),
     );

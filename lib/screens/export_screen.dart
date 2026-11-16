@@ -56,11 +56,11 @@ class ExportScreen extends StatefulWidget {
 class _ExportScreenState extends State<ExportScreen>
     with SingleTickerProviderStateMixin {
   // ─── Theme Colors (Faithful to Figma & Ulvenik Design Tokens) ───────────────
-  static const _obsidian = Color(0xFF101214);
+  static const _obsidian = Color(0xFF121212);
   static const _surface = Color(0xFF111412);
-  static const _carbon = Color(0xFF1A1F22);
+  static const _carbon = Color(0xFF1C1C1C);
   static const _surfaceHigh = Color(0xFF272B29);
-  static const _forest = Color(0xFF2E6B57);
+  static const _forest = Color(0xFF2F5D50);
   static const _mint = Color(0xFF95D3BB);
   static const _offWhite = Color(0xFFF5F6F2);
   static const _stoneGrey = Color(0xFFA7B0AB);
@@ -1783,7 +1783,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
             child: LinearProgressIndicator(
               value: _progress,
               backgroundColor: const Color(0xFF272B29),
-              color: const Color(0xFF2E6B57),
+              color: const Color(0xFF2F5D50),
               minHeight: 6,
             ),
           ),

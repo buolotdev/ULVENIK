@@ -12,11 +12,11 @@ class CreateActivityScreen extends StatefulWidget {
 
 class _CreateActivityScreenState extends State<CreateActivityScreen> {
   // Scandinavian Obsidian / Carbon Dark Palette
-  static const _obsidian = Color(0xFF101214);
-  static const _carbon = Color(0xFF1A1F22);
+  static const _obsidian = Color(0xFF121212);
+  static const _carbon = Color(0xFF1C1C1C);
   static const _surfaceContainer = Color(0xFF1D201F);
   static const _surfaceHigh = Color(0xFF272B29);
-  static const _forestGreen = Color(0xFF2E6B57);
+  static const _forestGreen = Color(0xFF2F5D50);
   static const _mint = Color(0xFF95D3BB);
   static const _sage = Color(0xFFB6CCB5);
   static const _alpineBlue = Color(0xFF5D8FAF);

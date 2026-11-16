@@ -15,8 +15,8 @@ class SCSettingsScreen extends StatefulWidget {
 class _SCSettingsScreenState extends State<SCSettingsScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens ──────────────────────────────────────────────────────────
-  static const Color _obsidian = Color(0xFF101214);
-  static const Color _carbon = Color(0xFF1A1F22);
+  static const Color _obsidian = Color(0xFF121212);
+  static const Color _carbon = Color(0xFF1C1C1C);
   static const Color _offWhite = Color(0xFFF5F6F2);
   static const Color _stoneGrey = Color(0xFFA7B0AB);
   static const Color _mint = Color(0xFF95D3BB);

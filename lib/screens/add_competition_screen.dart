@@ -13,9 +13,9 @@ class AddCompetitionScreen extends StatefulWidget {
 }
 
 class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #101214
-  static const Color _card = AppColors.cardsCarbon; // #1A1F22
-  static const Color _forest = AppColors.primaryForestGreen; // #2E6B57
+  static const Color _bg = AppColors.backgroundObsidian; // #121212
+  static const Color _card = AppColors.cardsCarbon; // #1C1C1C
+  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
   static const Color _stone = AppColors.secondaryTextStoneGrey; // #A7B0AB
@@ -471,24 +471,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               fontFamily: 'Inter',
             ),
           ),
-          GestureDetector(
-            onTap: _submitCompetition,
-            behavior: HitTestBehavior.opaque,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                'Save',
-                style: TextStyle(
-                  color: ready
-                      ? const Color(0xFF3E8E72)
-                      : _forest.withValues(alpha: 0.55),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'Inter',
-                ),
-              ),
-            ),
-          ),
+          const SizedBox(width: 40),
         ],
       ),
     );

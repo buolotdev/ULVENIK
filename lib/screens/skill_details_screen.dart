@@ -6,10 +6,18 @@ import '../widgets/custom_snackbar.dart';
 import 'add_exercise_screen.dart';
 import 'exercise_details_screen.dart';
 import '../widgets/animated_progress_bar.dart';
+import '../widgets/session_rating.dart';
+import 'training_screen.dart' show openNewTrainingSession, TrainingSessionStore, SessionStatus;
+import 'training_session_screen.dart';
+import 'goals_list_screen.dart';
+import 'photo_viewer_screen.dart';
+import 'video_viewer_screen.dart';
+import 'media_library_screen.dart';
+import 'cover_photo_editor_screen.dart';
 
 class _SkillSessionRecord {
   final String date;
-  String rating;
+  SessionRating? rating;
   final String title;
   final String time;
   final String location;
@@ -25,8 +33,9 @@ class _SkillSessionRecord {
 
 class SkillDetailsScreen extends StatefulWidget {
   final String skillName;
+  final String dogName;
 
-  const SkillDetailsScreen({super.key, required this.skillName});
+  const SkillDetailsScreen({super.key, required this.skillName, this.dogName = 'Murphy'});
 
   @override
   State<SkillDetailsScreen> createState() => _SkillDetailsScreenState();
@@ -34,18 +43,24 @@ class SkillDetailsScreen extends StatefulWidget {
 
 class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
   double _goalProgress = 0.70;
+  String _notes =
+      'Currently responding well to the whistle, but environmental distractions (especially other dogs playing) are still causing hesitation. Need to increase reward value in high-distraction scenarios and work more on intermediate distances before pushing range.';
+  CoverCrop _coverCrop = CoverCrop.none;
+  static const _moss = Color(0xFF5E7D68); // muted forest green
+  static const _coverUrl =
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDY3-D7uDa6UVSFWdzwIDiVgIXMfrPq8xUIF00RNYpeYcXHFhC4SIwPHWloidY-mly7XhrzMlw_zKvuxoL8dKgv5lgSNs6NzNoBS3gKFBJOk7eDPxyPazW65y37IPvR7GaJrb1ceoTA7VocVqJbNN_Gj1ovA89vv5JgFL6W3163VK2DHOqk9jLb1SBRLCYOk-z9QQupHmc0yYEvGZzG6vN3p2yszP28oURDUoFUFvvy55R49XWjzv0';
 
   final List<_SkillSessionRecord> _sessions = [
     _SkillSessionRecord(
       date: '22 JULY 2026',
-      rating: 'GREAT',
+      rating: SessionRating.excellent,
       title: 'Emergency Recall',
       time: '15m',
       location: 'Woods',
     ),
     _SkillSessionRecord(
       date: '20 JULY 2026',
-      rating: 'NEUTRAL',
+      rating: SessionRating.mixed,
       title: 'Recall Through Distractions',
       time: '20m',
       location: 'Park',
@@ -100,7 +115,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 ),
                 const SizedBox(height: 6),
                 const Text(
-                  'Set your dog\'s progress based on your training records and observations. Ulvenik progress is handler-recorded, never judged automatically.',
+                  'Update your dog\'s progress based on your own assessment.',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 13,
@@ -112,19 +127,30 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'Handler-Assessed Progress',
+                      'Progress',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text(
-                      '${(tempVal * 100).round()}%',
-                      style: const TextStyle(
-                        color: AppColors.primaryForestGreen,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                    // Tap the percentage to type an exact value (0-100).
+                    InkWell(
+                      borderRadius: BorderRadius.circular(8),
+                      onTap: () async {
+                        final v = await _askPercent((tempVal * 100).round());
+                        if (v != null) setSheetState(() => tempVal = v / 100);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        child: Text(
+                          '${(tempVal * 100).round()}%',
+                          style: const TextStyle(
+                            color: AppColors.primaryTextOffWhite,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -140,7 +166,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                     value: tempVal,
                     min: 0.0,
                     max: 1.0,
-                    divisions: 20,
+                    divisions: 100,
                     onChanged: (v) => setSheetState(() => tempVal = v),
                   ),
                 ),
@@ -172,76 +198,222 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
     );
   }
 
-  void _editSessionRating(_SkillSessionRecord session) {
-    showModalBottomSheet(
+  Future<int?> _askPercent(int current) {
+    final ctrl = TextEditingController(text: '$current');
+    return showDialog<int>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.cardsCarbon,
+        title: const Text('Exact progress', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+        content: TextField(
+          controller: ctrl,
+          autofocus: true,
+          keyboardType: TextInputType.number,
+          style: const TextStyle(color: AppColors.primaryTextOffWhite),
+          decoration: const InputDecoration(suffixText: '%', hintText: '0-100'),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () {
+              final v = int.tryParse(ctrl.text.trim());
+              Navigator.pop(ctx, v?.clamp(0, 100));
+            },
+            child: const Text('Done'),
+          ),
+        ],
+      ),
+    ).whenComplete(ctrl.dispose);
+  }
+
+  void _openSkillMenu() {
+    showModalBottomSheet<void>(
       context: context,
       backgroundColor: AppColors.cardsCarbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (ctx) => SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 36,
-                  height: 4,
-                  margin: const EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            ListTile(
+              leading: const UlvenikIcon(UlvenikIcons.edit, size: 22, color: AppColors.primaryTextOffWhite),
+              title: const Text('Edit Skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              subtitle: const Text('Name, description, photo and notes',
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+              onTap: () {
+                Navigator.pop(ctx);
+                _editNotes();
+              },
+            ),
+            ListTile(
+              leading: const SizedBox(width: 22),
+              title: const Text('Archive Skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              onTap: () {
+                Navigator.pop(ctx);
+                _confirm(
+                  title: 'Archive Skill?',
+                  message:
+                      'This skill will be removed from your active skills, along with its linked exercises. Your training history will be preserved, and you can restore the skill at any time.',
+                  action: 'Archive Skill',
+                  destructive: false,
+                  done: 'Skill archived',
+                );
+              },
+            ),
+            ListTile(
+              leading: const SizedBox(width: 22),
+              title: const Text('Delete Skill', style: TextStyle(color: Color(0xFFE08A8A))),
+              onTap: () {
+                Navigator.pop(ctx);
+                _confirm(
+                  title: 'Delete Skill?',
+                  message:
+                      'This skill and its linked exercises will be permanently deleted. Your previous training sessions and their records will remain intact.',
+                  action: 'Delete Skill',
+                  destructive: true,
+                  done: 'Skill deleted',
+                );
+              },
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  void _confirm({
+    required String title,
+    required String message,
+    required String action,
+    required bool destructive,
+    required String done,
+  }) {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Text(title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 10),
+            Text(message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
+            const SizedBox(height: 22),
+            SizedBox(
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(ctx);
+                  _toast(context, done);
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: destructive ? const Color(0xD98B3A3A) : AppColors.primaryForestGreen,
+                  foregroundColor: AppColors.primaryTextOffWhite,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                child: Text(action, style: const TextStyle(fontWeight: FontWeight.w600)),
+              ),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 50,
+              child: OutlinedButton(
+                onPressed: () => Navigator.pop(ctx),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: AppColors.primaryTextOffWhite,
+                  side: const BorderSide(color: Colors.white24),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                child: const Text('Cancel'),
+              ),
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _editNotes() async {
+    final ctrl = TextEditingController(text: _notes);
+    final v = await showModalBottomSheet<String>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(ctx).bottom),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+            child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+              const Text('Skill notes',
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 12),
+              TextField(
+                controller: ctrl,
+                autofocus: true,
+                minLines: 3,
+                maxLines: 8,
+                style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                decoration: InputDecoration(
+                  hintText: 'Add training cues, observations or reminders...',
+                  filled: true,
+                  fillColor: AppColors.backgroundObsidian,
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+                ),
+              ),
+              const SizedBox(height: 14),
+              SizedBox(
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(ctx, ctrl.text.trim()),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryForestGreen,
+                    foregroundColor: AppColors.primaryTextOffWhite,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
+                  child: const Text('Save', style: TextStyle(fontWeight: FontWeight.w600)),
                 ),
               ),
-              const Text(
-                'Handler Session Rating',
-                style: TextStyle(
-                  color: AppColors.primaryTextOffWhite,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                'Select your evaluation for this session. Ulvenik ratings reflect your own assessment rather than automated judging.',
-                style: TextStyle(
-                  color: AppColors.secondaryTextStoneGrey,
-                  fontSize: 13,
-                  height: 1.4,
-                ),
-              ),
-              const SizedBox(height: 16),
-              ...[
-                ('GREAT', '★ Great — High responsiveness & focus', AppColors.primaryForestGreen),
-                ('GOOD', '● Good — Executed with minor handler support', AppColors.secondarySage),
-                ('NEUTRAL', '– Neutral — Met baseline criteria', AppColors.secondaryTextStoneGrey),
-                ('NEEDS WORK', '▲ Needs Work — Distracted or inconsistent', const Color(0xFFD99B4B)),
-              ].map((opt) => ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(opt.$2,
-                        style: TextStyle(
-                            color: opt.$1 == session.rating
-                                ? opt.$3
-                                : AppColors.primaryTextOffWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500)),
-                    trailing: opt.$1 == session.rating
-                        ? Icon(Icons.check, color: opt.$3, size: 20)
-                        : null,
-                    onTap: () {
-                      setState(() => session.rating = opt.$1);
-                      Navigator.pop(ctx);
-                      _toast(context, 'Rating updated to ${opt.$1} (Handler recorded)');
-                    },
-                  )),
-            ],
+            ]),
           ),
         ),
       ),
+    );
+    ctrl.dispose();
+    if (v != null && mounted) setState(() => _notes = v);
+  }
+
+  Future<void> _editCover() async {
+    final r = await Navigator.push<CoverCrop>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CoverPhotoEditorScreen(image: const NetworkImage(_coverUrl), dogName: widget.skillName, initial: _coverCrop),
+      ),
+    );
+    if (r != null && mounted) setState(() => _coverCrop = r);
+  }
+
+  void _openSession(_SkillSessionRecord sess) {
+    final all = TrainingSessionStore.sessionsNotifier.value.where((x) => x.status == SessionStatus.completed).toList();
+    if (all.isEmpty) return;
+    final match = all.firstWhere((x) => x.title == sess.title, orElse: () => all.first);
+    Navigator.push(context, MaterialPageRoute(builder: (_) => TrainingSessionScreen(session: match)));
+  }
+
+  void _editSessionRating(_SkillSessionRecord session) {
+    showSessionRatingSheet(
+      context,
+      current: session.rating,
+      onChanged: (r) => setState(() => session.rating = r),
     );
   }
 
@@ -287,9 +459,10 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
         children: [
           // Full bleed image
           Positioned.fill(
-            child: Image.network(
-              'https://lh3.googleusercontent.com/aida-public/AB6AXuDY3-D7uDa6UVSFWdzwIDiVgIXMfrPq8xUIF00RNYpeYcXHFhC4SIwPHWloidY-mly7XhrzMlw_zKvuxoL8dKgv5lgSNs6NzNoBS3gKFBJOk7eDPxyPazW65y37IPvR7GaJrb1ceoTA7VocVqJbNN_Gj1ovA89vv5JgFL6W3163VK2DHOqk9jLb1SBRLCYOk-z9QQupHmc0yYEvGZzG6vN3p2yszP28oURDUoFUFvvy55R49XWjzv0',
-              fit: BoxFit.cover,
+            child: CroppedCover(
+              image: const NetworkImage(_coverUrl),
+              crop: _coverCrop,
+              placeholder: const ColoredBox(color: AppColors.cardsCarbon),
             ),
           ),
           // Bottom-up gradient fading into app background
@@ -318,6 +491,28 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               onPressed: () => Navigator.pop(context),
             ),
           ),
+          Positioned(
+            top: topSafe + 4,
+            right: 4,
+            child: IconButton(
+              tooltip: 'Skill options',
+              icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
+              onPressed: _openSkillMenu,
+            ),
+          ),
+          Positioned(
+            top: topSafe + 56,
+            right: 10,
+            child: Material(
+              color: const Color(0x99121212),
+              shape: const CircleBorder(),
+              child: IconButton(
+                tooltip: 'Edit cover photo',
+                icon: const UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.primaryTextOffWhite),
+                onPressed: _editCover,
+              ),
+            ),
+          ),
           // Text content pinned to bottom
           Positioned(
             left: 20,
@@ -326,14 +521,6 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    _tag('FOUNDATION'),
-                    const SizedBox(width: 8),
-                    _tag('OUTDOOR'),
-                  ],
-                ),
-                const SizedBox(height: 12),
                 Text(
                   widget.skillName,
                   style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
@@ -351,36 +538,15 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
     );
   }
 
-  Widget _tag(String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon.withValues(alpha: 0.5),
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          color: AppColors.secondaryTextStoneGrey,
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.5,
-        ),
-      ),
-    );
-  }
 
   Widget _buildQuickActions(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          Expanded(child: _actionBtn(context, Icons.play_arrow, 'Record', true)),
+          Expanded(child: _actionBtn(context, Icons.note_add_outlined, 'Record Session', true)),
           const SizedBox(width: 12),
           Expanded(child: _actionBtn(context, Icons.add, 'Add Exercise', false)),
-          const SizedBox(width: 12),
-          Expanded(child: _actionBtn(context, Icons.edit, 'Edit', false)),
         ],
       ),
     );
@@ -396,6 +562,8 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
         onTap: () {
           if (label == 'Add Exercise') {
             _openAddExercise(context);
+          } else if (label == 'Record Session') {
+            openNewTrainingSession(context, dogName: 'Koda');
           } else {
             _toast(context, '$label tapped');
           }
@@ -440,18 +608,19 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Current Goal', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
-              GestureDetector(
+              InkWell(
+                borderRadius: BorderRadius.circular(8),
                 onTap: _showProgressDialog,
-                child: const Row(
-                  children: [
-                    UlvenikIcon(UlvenikIcons.edit, size: 14, color: AppColors.secondarySage),
-                    SizedBox(width: 4),
-                    Text('Update Progress',
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.secondarySage)),
-                  ],
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  child: Row(
+                    children: [
+                      UlvenikIcon(UlvenikIcons.edit, size: 16, color: _moss),
+                      SizedBox(width: 6),
+                      Text('Update Progress',
+                          style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600, color: _moss)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -476,7 +645,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                         children: [
                           Text('Reliable Off-Lead Recall', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
                           SizedBox(height: 4),
-                          Text('Target: 95% success rate in high-distraction environments.', style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
+                          Text('Target: 95% success', style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                         ],
                       ),
                     ),
@@ -497,11 +666,23 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('PROGRESS (USER-RECORDED)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
+                    const Text('PROGRESS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
                     AnimatedPercentText(value: _goalProgress, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.primaryForestGreen)),
                   ],
                 ),
               ],
+            ),
+          ),
+          // Shown because this skill has more than one active goal.
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => GoalsListScreen(dogName: widget.dogName)),
+              ),
+              style: TextButton.styleFrom(foregroundColor: AppColors.secondaryTextStoneGrey, padding: const EdgeInsets.symmetric(horizontal: 4)),
+              child: const Text('View All Goals ›', style: TextStyle(fontSize: 13)),
             ),
           ),
         ],
@@ -528,9 +709,9 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             ],
           ),
           const SizedBox(height: 12),
-          _exerciseCard(context, 'Emergency Recall (Whistle)', '24 Sessions total'),
+          _exerciseCard(context, 'Emergency Recall (Whistle)', 'Last trained yesterday'),
           const SizedBox(height: 8),
-          _exerciseCard(context, 'Recall Through Distractions', '12 Sessions total'),
+          _exerciseCard(context, 'Recall Through Distractions', 'Last trained 3 days ago'),
         ],
       ),
     );
@@ -545,7 +726,11 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ExerciseDetailsScreen()),
+            MaterialPageRoute(builder: (context) => ExerciseDetailsScreen(
+                  exerciseName: title,
+                  skillName: widget.skillName,
+                  dogName: widget.dogName,
+                )),
           );
         },
         child: Container(
@@ -579,13 +764,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Recent Sessions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
-              Text('Handler-assessed', style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
-            ],
-          ),
+          const Text('Recent Sessions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
           const SizedBox(height: 12),
           ..._sessions.map((sess) => Padding(
                 padding: const EdgeInsets.only(bottom: 12),
@@ -597,13 +776,12 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
   }
 
   Widget _sessionCard(_SkillSessionRecord sess) {
-    final isGreat = sess.rating == 'GREAT';
     return Material(
       color: AppColors.cardsCarbon,
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        onTap: () => _editSessionRating(sess),
+        onTap: () => _openSession(sess),
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -617,22 +795,14 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(sess.date, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: isGreat ? AppColors.primaryForestGreen.withValues(alpha: 0.15) : Colors.white10,
-                      borderRadius: BorderRadius.circular(4),
+                  Row(mainAxisSize: MainAxisSize.min, children: [
+                    SessionRatingBadge(
+                      rating: sess.rating,
+                      onTap: () => _editSessionRating(sess),
                     ),
-                    child: Row(
-                      children: [
-                        UlvenikIcon.fromMaterial(isGreat ? Icons.star : Icons.remove, size: 13, color: isGreat ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey),
-                        const SizedBox(width: 4),
-                        Text(sess.rating, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: isGreat ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey)),
-                        const SizedBox(width: 4),
-                        const Icon(Icons.arrow_drop_down, size: 14, color: AppColors.secondaryTextStoneGrey),
-                      ],
-                    ),
-                  ),
+                    const SizedBox(width: 6),
+                    const UlvenikIcon(UlvenikIcons.details, size: 16, color: AppColors.secondaryTextStoneGrey),
+                  ]),
                 ],
               ),
               const SizedBox(height: 8),
@@ -660,9 +830,16 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Text('Media', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(children: [
+            const Expanded(child: Text('Media', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white))),
+            TextButton(
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MediaLibraryScreen())),
+              style: TextButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite.withValues(alpha: 0.85)),
+              child: const Text('View All', style: TextStyle(fontSize: 13)),
+            ),
+          ]),
         ),
         const SizedBox(height: 12),
         SizedBox(
@@ -687,7 +864,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
 
   Widget _mediaThumb(BuildContext context, String url, bool isVideo) {
     return GestureDetector(
-      onTap: () => _toast(context, 'View media'),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => isVideo ? VideoViewerScreen(title: widget.skillName) : const PhotoViewerScreen())),
       child: Container(
         width: 120,
         height: 120,
@@ -735,7 +912,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             children: [
               const Text('Notes', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
               TextButton.icon(
-                onPressed: () => _toast(context, 'Edit notes'),
+                onPressed: _editNotes,
                 icon: const UlvenikIcon(UlvenikIcons.edit, size: 16, color: AppColors.secondarySage),
                 label: const Text('Edit', style: TextStyle(color: AppColors.secondarySage, fontSize: 13, fontWeight: FontWeight.w500)),
                 style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
@@ -750,9 +927,9 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.white12),
             ),
-            child: const Text(
-              'Currently responding well to the whistle, but environmental distractions (especially other dogs playing) are still causing hesitation. Need to increase reward value in high-distraction scenarios and work more on intermediate distances before pushing range.',
-              style: TextStyle(fontSize: 14, color: AppColors.secondaryTextStoneGrey, height: 1.5),
+            child: Text(
+              _notes.isEmpty ? 'No notes yet' : _notes,
+              style: const TextStyle(fontSize: 14, color: AppColors.secondaryTextStoneGrey, height: 1.5),
             ),
           ),
         ],

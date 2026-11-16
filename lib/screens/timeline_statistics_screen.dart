@@ -33,19 +33,19 @@ class TimelineStatisticsScreen extends StatefulWidget {
 class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
     with TickerProviderStateMixin {
   // Theme Palette (Exact Ulvenik Obsidian & Carbon luxury design tokens)
-  static const Color _obsidian = Color(0xFF101214);
-  static const Color _carbon = Color(0xFF1A1F22);
+  static const Color _obsidian = Color(0xFF121212);
+  static const Color _carbon = Color(0xFF1C1C1C);
   static const Color _carbonBorder = Color(0xFF272B29);
   static const Color _cardBadgeBg = Color(0xFF272B29);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _forestGreen = Color(0xFF2E6B57);
+  static const Color _forestGreen = Color(0xFF2F5D50);
   static const Color _whiteText = Color(0xFFE1E3E0);
   static const Color _stoneGrey = Color(0xFFA7B0AB);
 
   // Category Colors
   static const Color _catTraining = Color(0xFF5D8FAF); // Alpine Blue
   static const Color _catHealth = Color(0xFF8D504A); // Muted Red / Coral
-  static const Color _catComp = Color(0xFF2E6B57); // Forest Mint
+  static const Color _catComp = Color(0xFF2F5D50); // Forest Mint
   static const Color _catSC = Color(0xFFC28A47); // Amber / Conditioning
   static const Color _catGoals = Color(0xFFB8920A); // Gold / Goals
   static const Color _catMedia = Color(0xFF7A5BAF); // Violet / Media

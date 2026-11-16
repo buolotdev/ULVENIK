@@ -76,11 +76,11 @@ class _TimelineSmartCollectionsScreenState
     extends State<TimelineSmartCollectionsScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens (Exact from Figma SVGs) ─────────────────────────────────
-  static const Color _obsidian = Color(0xFF101214);
+  static const Color _obsidian = Color(0xFF121212);
   static const Color _appBarBg = Color(0xFF131719);
-  static const Color _carbon = Color(0xFF1A1F22);
+  static const Color _carbon = Color(0xFF1C1C1C);
   static const Color _darkSurface = Color(0xFF111412);
-  static const Color _forest = Color(0xFF2E6B57);
+  static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _sage = Color(0xFFB6CCB5);
   static const Color _alpineBlue = Color(0xFF5D8FAF);
@@ -1139,7 +1139,7 @@ class _TimelineSmartCollectionsScreenState
                             end: Alignment.bottomCenter,
                             colors: [
                               Color(0xFF13171A),
-                              Color(0xFF1A1F22),
+                              Color(0xFF1C1C1C),
                             ],
                           ),
                         ),

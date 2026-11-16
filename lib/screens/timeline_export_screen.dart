@@ -26,11 +26,11 @@ class TimelineExportScreen extends StatefulWidget {
 class _TimelineExportScreenState extends State<TimelineExportScreen>
     with SingleTickerProviderStateMixin {
   // Exact Ulvenik Obsidian & Carbon luxury palette
-  static const Color _obsidian = Color(0xFF101214);
-  static const Color _carbon = Color(0xFF1A1F22);
+  static const Color _obsidian = Color(0xFF121212);
+  static const Color _carbon = Color(0xFF1C1C1C);
   static const Color _carbonBorder = Color(0xFF272B29);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _forestGreen = Color(0xFF2E6B57);
+  static const Color _forestGreen = Color(0xFF2F5D50);
   static const Color _whiteText = Color(0xFFE1E3E0);
   static const Color _stoneGrey = Color(0xFFA7B0AB);
 
@@ -1082,10 +1082,10 @@ class _ExportProgressModal extends StatefulWidget {
 }
 
 class _ExportProgressModalState extends State<_ExportProgressModal> {
-  static const Color _obsidian = Color(0xFF101214);
+  static const Color _obsidian = Color(0xFF121212);
   static const Color _carbonBorder = Color(0xFF272B29);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _forestGreen = Color(0xFF2E6B57);
+  static const Color _forestGreen = Color(0xFF2F5D50);
   static const Color _whiteText = Color(0xFFE1E3E0);
   static const Color _stoneGrey = Color(0xFFA7B0AB);
 

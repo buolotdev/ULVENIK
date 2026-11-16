@@ -244,7 +244,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
           Container(
             height: 48,
             decoration: BoxDecoration(
-              color: const Color(0xFF1A1F22),
+              color: const Color(0xFF1C1C1C),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
                 color: const Color(0xFF95D3BB).withValues(alpha: 0.4),
@@ -347,7 +347,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
-                color: const Color(0xFF2E6B57).withValues(alpha: 0.18),
+                color: const Color(0xFF2F5D50).withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(6),
                 border: Border.all(
                   color: const Color(0xFF95D3BB).withValues(alpha: 0.25),
@@ -619,7 +619,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: isSelected ? const Color(0xFF2E6B57) : Colors.transparent,
+                color: isSelected ? const Color(0xFF2F5D50) : Colors.transparent,
                 width: 2,
               ),
             ),
@@ -629,7 +629,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 avatarUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => Container(
-                  color: const Color(0xFF2E6B57),
+                  color: const Color(0xFF2F5D50),
                   child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 20),
                 ),
               ),
@@ -743,11 +743,11 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             decoration: BoxDecoration(
-              color: const Color(0xFF2E6B57),
+              color: const Color(0xFF2F5D50),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF2E6B57).withValues(alpha: 0.3),
+                  color: const Color(0xFF2F5D50).withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -802,7 +802,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 errorBuilder: (context, error, stackTrace) => Container(
                   width: 44,
                   height: 44,
-                  color: const Color(0xFF2E6B57),
+                  color: const Color(0xFF2F5D50),
                   child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 20),
                 ),
               ),
@@ -1024,7 +1024,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2E6B57),
+                    backgroundColor: const Color(0xFF2F5D50),
                     foregroundColor: const Color(0xFF95D3BB),
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -1065,9 +1065,9 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 duration: const Duration(milliseconds: 200),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
-                  color: isSelected ? const Color(0xFF2E6B57) : AppColors.cardsCarbon,
+                  color: isSelected ? const Color(0xFF2F5D50) : AppColors.cardsCarbon,
                   border: Border.all(
-                    color: isSelected ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+                    color: isSelected ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
                     width: 1,
                   ),
                   borderRadius: BorderRadius.circular(20),
@@ -1116,11 +1116,11 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
     } else if (vax.status == VaccineStatus.dueSoon) {
       iconCircleBg = AppColors.backgroundObsidian;
       iconColor = const Color(0xFF95D3BB);
-      iconBorder = Border.all(color: const Color(0xFF2E6B57));
+      iconBorder = Border.all(color: const Color(0xFF2F5D50));
     } else {
-      iconCircleBg = const Color(0xFF2E6B57);
+      iconCircleBg = const Color(0xFF2F5D50);
       iconColor = Colors.white;
-      iconBorder = Border.all(color: const Color(0xFF2E6B57));
+      iconBorder = Border.all(color: const Color(0xFF2F5D50));
     }
 
     return InkWell(
@@ -1227,7 +1227,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
               TextButton.icon(
                 style: TextButton.styleFrom(
                   foregroundColor: const Color(0xFF95D3BB),
-                  backgroundColor: const Color(0xFF1A1F22),
+                  backgroundColor: const Color(0xFF1C1C1C),
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -1252,7 +1252,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
 
   Widget _buildFab() {
     return FloatingActionButton(
-      backgroundColor: const Color(0xFF2E6B57),
+      backgroundColor: const Color(0xFF2F5D50),
       elevation: 4,
       onPressed: _showAddVaccineModal,
       child: const UlvenikIcon(UlvenikIcons.add, color: Colors.white, size: 28),
@@ -1333,9 +1333,9 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2E6B57).withValues(alpha: 0.15),
+                  color: const Color(0xFF2F5D50).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: const Color(0xFF2E6B57).withValues(alpha: 0.3)),
+                  border: Border.all(color: const Color(0xFF2F5D50).withValues(alpha: 0.3)),
                 ),
                 child: Row(
                   children: const [
@@ -1355,7 +1355,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2E6B57),
+                    backgroundColor: const Color(0xFF2F5D50),
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
@@ -1475,7 +1475,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                         Switch(
                           value: isCoreVaccine,
                           activeThumbColor: const Color(0xFF95D3BB),
-                          activeTrackColor: const Color(0xFF2E6B57),
+                          activeTrackColor: const Color(0xFF2F5D50),
                           onChanged: (val) => setModalState(() => isCoreVaccine = val),
                         ),
                       ],
@@ -1485,7 +1485,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2E6B57),
+                          backgroundColor: const Color(0xFF2F5D50),
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
@@ -1612,7 +1612,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                   Expanded(
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF2E6B57),
+                        backgroundColor: const Color(0xFF2F5D50),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
@@ -1687,10 +1687,10 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? const Color(0xFF2E6B57).withValues(alpha: 0.15)
+                            ? const Color(0xFF2F5D50).withValues(alpha: 0.15)
                             : AppColors.cardsCarbon,
                         border: Border.all(
-                          color: isSelected ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+                          color: isSelected ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -1706,7 +1706,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                               errorBuilder: (context, error, stackTrace) => Container(
                                 width: 36,
                                 height: 36,
-                                color: const Color(0xFF2E6B57),
+                                color: const Color(0xFF2F5D50),
                                 child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 18),
                               ),
                             ),
@@ -1762,7 +1762,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
               const Text('To register another canine, navigate to the Dogs tab and select Add Dog.', textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
               const SizedBox(height: 20),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2E6B57)),
+                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2F5D50)),
                 onPressed: () => Navigator.pop(ctx),
                 child: const Text('Understood', style: TextStyle(color: Colors.white)),
               ),
@@ -1816,8 +1816,8 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: !_isEmpty ? const Color(0xFF2E6B57).withValues(alpha: 0.2) : AppColors.cardsCarbon,
-                          border: Border.all(color: !_isEmpty ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08)),
+                          color: !_isEmpty ? const Color(0xFF2F5D50).withValues(alpha: 0.2) : AppColors.cardsCarbon,
+                          border: Border.all(color: !_isEmpty ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08)),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -1838,8 +1838,8 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: _isEmpty ? const Color(0xFF2E6B57).withValues(alpha: 0.2) : AppColors.cardsCarbon,
-                          border: Border.all(color: _isEmpty ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08)),
+                          color: _isEmpty ? const Color(0xFF2F5D50).withValues(alpha: 0.2) : AppColors.cardsCarbon,
+                          border: Border.all(color: _isEmpty ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08)),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(

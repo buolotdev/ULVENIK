@@ -1,5 +1,7 @@
 import 'activity_library_screen.dart';
 import 'package:flutter/material.dart';
+import '../widgets/session_rating.dart';
+import '../widgets/session_items_picker.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import 'session_details_screen.dart';
@@ -26,10 +28,10 @@ class RecordSessionScreen extends StatefulWidget {
 
 class _RecordSessionScreenState extends State<RecordSessionScreen> {
   // Scandinavian Obsidian / Carbon Dark Theme
-  static const _obsidian = Color(0xFF101214);
-  static const _carbon = Color(0xFF1A1F22);
+  static const _obsidian = Color(0xFF121212);
+  static const _carbon = Color(0xFF1C1C1C);
   static const _surfaceHigh = Color(0xFF272B29);
-  static const _forestGreen = Color(0xFF2E6B57);
+  static const _forestGreen = Color(0xFF2F5D50);
   static const _mint = Color(0xFF95D3BB);
   static const _sage = Color(0xFFB6CCB5);
   static const _stoneGrey = Color(0xFFA7B0AB);
@@ -58,7 +60,9 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
   List<Map<String, String>> _recordedCustomMetrics = [];
 
   // Rating & Notes
-  int _rating = 4; // 0 to 5 stars (default 4/5 as per design)
+  int _rating = 0; // Optional: 0 = not rated, 1-4 = Needs Work..Excellent (see SessionRating)
+  List<String> _rewards = [];
+  List<String> _equipment = [];
   final TextEditingController _notesController = TextEditingController();
 
   // Media attachments
@@ -654,6 +658,20 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   _buildRatingCard(),
                   const SizedBox(height: 24),
 
+                  // Optional, session-wide; same fields as Training.
+                  SessionItemsField(
+                    kind: SessionItemKind.rewards,
+                    selected: _rewards,
+                    onChanged: (v) => setState(() => _rewards = v),
+                  ),
+                  const SizedBox(height: 10),
+                  SessionItemsField(
+                    kind: SessionItemKind.equipment,
+                    selected: _equipment,
+                    onChanged: (v) => setState(() => _equipment = v),
+                  ),
+                  const SizedBox(height: 24),
+
                   _buildNotesCard(),
                   const SizedBox(height: 24),
 
@@ -1128,51 +1146,9 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
   }
 
   Widget _buildRatingCard() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: _carbon,
-        borderRadius: BorderRadius.circular(8),
-        border: _hairlineBorder,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            'Rate this session',
-            style: TextStyle(
-              color: _stoneGrey,
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Row(
-            children: List.generate(5, (index) {
-              final starNum = index + 1;
-              final isFilled = _rating >= starNum;
-              return InkWell(
-                onTap: () {
-                  setState(() {
-                    if (_rating == starNum) {
-                      _rating = starNum - 1;
-                    } else {
-                      _rating = starNum;
-                    }
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 3),
-                  child: UlvenikIcon.fromMaterial(
-                    isFilled ? Icons.star : Icons.star_border,
-                    color: isFilled ? _mint : _outline,
-                    size: 24,
-                  ),
-                ),
-              );
-            }),
-          ),
-        ],
-      ),
+    return SessionRatingField(
+      value: SessionRating.fromScore(_rating),
+      onChanged: (r) => setState(() => _rating = r?.score ?? 0),
     );
   }
 
@@ -1780,51 +1756,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
   }
 
   Widget _buildLockedRatingSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'RATING',
-          style: TextStyle(
-            color: _stoneGrey,
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.8,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: _carbon,
-            borderRadius: BorderRadius.circular(8),
-            border: _hairlineBorder,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Performance Rating',
-                style: TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Row(
-                children: List.generate(
-                  5,
-                  (_) => const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 3),
-                    child: Icon(Icons.star_border, color: _outlineVariant, size: 22),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+    return const SessionRatingField(value: null, label: 'Session rating');
   }
 
   // ==========================================
@@ -1867,7 +1799,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.check, size: 20, fontWeight: FontWeight.bold),
+                    UlvenikIcon(UlvenikIcons.save, size: 20),
                     SizedBox(width: 8),
                     Text(
                       'Save Session',

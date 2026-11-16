@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_logo.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import 'login_screen.dart';
@@ -71,12 +72,7 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
               Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                    'assets/images/brand.png',
-                    width: 72,
-                    height: 72,
-                    errorBuilder: (_, error, stackTrace) => const SizedBox(height: 72),
-                  ),
+                  child: const UlvenikLogo.full(width: 150),
                 ),
               ),
               const SizedBox(height: 48),

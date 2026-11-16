@@ -4,9 +4,22 @@ import '../theme/app_colors.dart';
 import '../widgets/animated_progress_bar.dart';
 import '../widgets/custom_snackbar.dart';
 import 'edit_exercise_screen.dart';
+import 'skill_details_screen.dart';
+import 'training_screen.dart' show openNewTrainingSession;
 
 class ExerciseDetailsScreen extends StatefulWidget {
-  const ExerciseDetailsScreen({super.key});
+  final String exerciseName;
+  final String skillName;
+  final String dogName;
+  final String description;
+
+  const ExerciseDetailsScreen({
+    super.key,
+    this.exerciseName = 'Emergency Recall',
+    this.skillName = 'Recall',
+    this.dogName = 'Koda',
+    this.description = '',
+  });
 
   @override
   State<ExerciseDetailsScreen> createState() => _ExerciseDetailsScreenState();
@@ -14,8 +27,15 @@ class ExerciseDetailsScreen extends StatefulWidget {
 
 class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
   double _goalProgress = 0.55;
-  int _session1SuccessRate = 90;
-  int _session2SuccessRate = 75;
+  bool _showAll = false;
+  late String _name = widget.exerciseName;
+  final List<_ExSession> _sessions = [
+    _ExSession('JUL', '22', 'Forest Trail Alpha', 90),
+    _ExSession('JUL', '15', 'Open Field Training', 75),
+    _ExSession('JUL', '08', 'Riverside Walk', 80),
+    _ExSession('JUN', '30', 'Park Distractions', 70),
+    _ExSession('JUN', '21', 'Back Garden', 85),
+  ];
 
   void _showArchiveDialog() {
     showModalBottomSheet(
@@ -53,7 +73,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
               ),
               const SizedBox(height: 8),
               const Text(
-                'Archiving "Retrieve & Hold" will hide it from your active exercises. Historical session data will remain intact and you can restore it at any time.',
+                'This exercise will be removed from your active exercises. Your training history will be preserved, and you can restore it at any time.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -138,7 +158,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
               ),
               const SizedBox(height: 8),
               const Text(
-                'This action is permanent and cannot be undone. Please review what will happen if you proceed.',
+                'This exercise will be permanently deleted. Your previous training sessions and their records will remain intact.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -176,7 +196,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     const Padding(
                       padding: EdgeInsets.only(left: 24),
                       child: Text(
-                        'Exercise definition and parameters\nAssociated tags and categories',
+                        'The exercise and its description',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
                       ),
                     ),
@@ -203,7 +223,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     const Padding(
                       padding: EdgeInsets.only(left: 24),
                       child: Text(
-                        '47 past session records\nHistorical chart data',
+                        'Past session records\nHistorical chart data',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
                       ),
                     ),
@@ -288,7 +308,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 ),
                 const SizedBox(height: 6),
                 const Text(
-                  'Enter your recorded progress towards this goal. Ulvenik progression is handler-recorded rather than automated.',
+                  'Update your dog’s progress based on your own assessment.',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 13,
@@ -299,7 +319,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Handler Recorded Completion',
+                    const Text('Progress',
                         style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
                     Text(
                       '${(tempVal * 100).round()}%',
@@ -354,75 +374,83 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
     );
   }
 
-  void _editSessionSuccessRate(int sessionIndex) {
-    int currentRate = sessionIndex == 1 ? _session1SuccessRate : _session2SuccessRate;
+  void _editSessionSuccessRate(int index) {
+    final ctrl = TextEditingController(text: '${_sessions[index].rate}');
+    String? error;
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       backgroundColor: AppColors.cardsCarbon,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 36,
-                  height: 4,
-                  margin: const EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setSheet) => SafeArea(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(20, 16, 20, 20 + MediaQuery.of(ctx).viewInsets.bottom),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 36,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 16),
+                    decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)),
                   ),
                 ),
-              ),
-              const Text(
-                'Record Session Success Rate',
-                style: TextStyle(
-                  color: AppColors.primaryTextOffWhite,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                const Text('Success Rate',
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                const SizedBox(height: 6),
+                const Text(
+                  'Enter your own assessment for this session, from 0 to 100.',
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
                 ),
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                'Select your recorded success rate for this session based on your criteria. Ulvenik does not judge performance automatically.',
-                style: TextStyle(
-                  color: AppColors.secondaryTextStoneGrey,
-                  fontSize: 13,
-                  height: 1.4,
+                const SizedBox(height: 16),
+                TextField(
+                  controller: ctrl,
+                  autofocus: true,
+                  keyboardType: TextInputType.number,
+                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16),
+                  decoration: InputDecoration(
+                    suffixText: '%',
+                    errorText: error,
+                    filled: true,
+                    fillColor: AppColors.backgroundObsidian,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Colors.white12)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              ...[100, 95, 90, 85, 80, 75, 60, 50].map((rate) => ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('$rate% Success Rate',
-                        style: TextStyle(
-                            color: rate == currentRate
-                                ? AppColors.primaryForestGreen
-                                : AppColors.primaryTextOffWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500)),
-                    trailing: rate == currentRate
-                        ? const Icon(Icons.check, color: AppColors.primaryForestGreen, size: 20)
-                        : null,
-                    onTap: () {
-                      setState(() {
-                        if (sessionIndex == 1) {
-                          _session1SuccessRate = rate;
-                        } else {
-                          _session2SuccessRate = rate;
-                        }
-                      });
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      final v = int.tryParse(ctrl.text.trim());
+                      if (v == null || v < 0 || v > 100) {
+                        setSheet(() => error = 'Enter a number from 0 to 100.');
+                        return;
+                      }
+                      setState(() => _sessions[index].rate = v);
                       Navigator.pop(ctx);
-                      AppSnackbar.show(context, message: 'Session success rate updated to $rate%', type: SnackbarType.success);
+                      AppSnackbar.show(context, message: 'Success rate saved', type: SnackbarType.success);
                     },
-                  )),
-            ],
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryForestGreen,
+                      foregroundColor: AppColors.primaryTextOffWhite,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      elevation: 0,
+                    ),
+                    child: const Text('Save', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -445,9 +473,19 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
               ListTile(
                 leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
                 title: const Text('Edit Exercise', style: TextStyle(color: AppColors.primaryTextOffWhite)),
-                onTap: () {
+                onTap: () async {
                   Navigator.pop(ctx);
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => const EditExerciseScreen()));
+                  final renamed = await Navigator.push<String>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => EditExerciseScreen(
+                        exerciseName: _name,
+                        skillName: widget.skillName,
+                        description: widget.description,
+                      ),
+                    ),
+                  );
+                  if (renamed != null && mounted) setState(() => _name = renamed);
                 },
               ),
               ListTile(
@@ -477,21 +515,17 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundObsidian,
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.backgroundObsidian,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryForestGreen),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Ulvenik',
-          style: TextStyle(
-            color: AppColors.primaryTextOffWhite,
-            fontSize: 22,
-            fontWeight: FontWeight.w700,
-          ),
+          'Exercise Details',
+          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
         actions: [
@@ -507,8 +541,8 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildHero(),
-            _buildQuickActions(),
-            const Divider(color: Colors.white12, height: 1),
+            _buildNameDescription(),
+            _buildRecordButton(),
             const SizedBox(height: 24),
             _buildSkillHierarchy(),
             const SizedBox(height: 24),
@@ -521,16 +555,17 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
     );
   }
 
-  // ── Hero Section ────────────────────────────────────────────────────────
+  // ── Cover ───────────────────────────────────────────────────────────────
   Widget _buildHero() {
     return SizedBox(
-      height: 320,
+      height: 220,
       child: Stack(
         fit: StackFit.expand,
         children: [
           Image.network(
             'https://lh3.googleusercontent.com/aida-public/AB6AXuBueCszLZ4HtZ9M8HO3ajK-D7RVLePGO2p2cqumBTDbbBUi4X_X1He-g6FrOROixcqUzW7MapbW9AlSSQHDVNujmiZLFIysng7iR2whfwOa0cP64tvjziDDCtwFCI59RLZ37QWpxecCzsOz4CZrdSkyIMJrTm_UmC93oAkUWWqXdEC4fvZs2aHZtNQl8nwfLJ4r2Ank5s9fc4RBlO-Zto84JCiTghI0CUn3E-M4TSO3O_t_l1Ybw6c',
             fit: BoxFit.cover,
+            errorBuilder: (_, _, _) => const ColoredBox(color: AppColors.cardsCarbon),
           ),
           Container(
             decoration: BoxDecoration(
@@ -539,37 +574,11 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 end: Alignment.bottomCenter,
                 colors: [
                   AppColors.backgroundObsidian.withValues(alpha: 0.0),
-                  AppColors.backgroundObsidian.withValues(alpha: 0.5),
+                  AppColors.backgroundObsidian.withValues(alpha: 0.6),
                   AppColors.backgroundObsidian,
                 ],
-                stops: const [0.0, 0.6, 1.0],
+                stops: const [0.0, 0.7, 1.0],
               ),
-            ),
-          ),
-          Positioned(
-            left: 20,
-            bottom: 20,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Emergency Recall',
-                  style: TextStyle(
-                    color: AppColors.primaryTextOffWhite,
-                    fontSize: 28,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    _buildChip('FOUNDATION'),
-                    const SizedBox(width: 8),
-                    _buildChip('OUTDOOR'),
-                  ],
-                ),
-              ],
             ),
           ),
         ],
@@ -577,96 +586,50 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
     );
   }
 
-  Widget _buildChip(String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon.withValues(alpha: 0.5),
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          color: AppColors.secondaryTextStoneGrey,
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 1.0,
-        ),
-      ),
-    );
-  }
-
-  // ── Quick Actions ───────────────────────────────────────────────────────
-  Widget _buildQuickActions() {
+  Widget _buildNameDescription() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      padding: const EdgeInsets.fromLTRB(20, 4, 20, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildActionIcon(
-            icon: Icons.fiber_manual_record,
-            label: 'RECORD',
-            color: AppColors.primaryForestGreen,
-            onTap: () {
-              AppSnackbar.show(context, message: 'Record session coming soon', type: SnackbarType.info);
-            },
+          Text(
+            _name,
+            style: const TextStyle(
+              color: AppColors.primaryTextOffWhite,
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.5,
+            ),
           ),
-          _buildActionIcon(
-            icon: Icons.edit_outlined,
-            label: 'EDIT',
-            color: AppColors.secondaryTextStoneGrey,
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const EditExerciseScreen()));
-            },
-          ),
-          _buildActionIcon(
-            icon: Icons.psychology_outlined,
-            label: 'SKILL',
-            color: AppColors.secondaryTextStoneGrey,
-            onTap: () {
-              AppSnackbar.show(context, message: 'Skill progress coming soon', type: SnackbarType.info);
-            },
-          ),
+          if (widget.description.trim().isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Text(
+              widget.description,
+              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45),
+            ),
+          ],
         ],
       ),
     );
   }
 
-  Widget _buildActionIcon({
-    required IconData icon,
-    required String label,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    final isPrimary = color == AppColors.primaryForestGreen;
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            width: 64,
-            height: 64,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isPrimary ? color.withValues(alpha: 0.1) : AppColors.cardsCarbon,
-              border: Border.all(
-                color: isPrimary ? color.withValues(alpha: 0.5) : Colors.white12,
-              ),
-            ),
-            child: UlvenikIcon.fromMaterial(icon, color: color, size: 28),
+  // ── Record Session (single button) ──────────────────────────────────────
+  Widget _buildRecordButton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: SizedBox(
+        height: 52,
+        child: ElevatedButton.icon(
+          onPressed: () => openNewTrainingSession(context, dogName: widget.dogName),
+          icon: const UlvenikIcon(UlvenikIcons.recordSession, size: 20),
+          label: const Text('Record Session', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primaryForestGreen,
+            foregroundColor: AppColors.primaryTextOffWhite,
+            elevation: 0,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(
-              color: isPrimary ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 1.0,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -680,17 +643,16 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
         children: [
           const Text(
             'Linked Skill',
-            style: TextStyle(
-              color: AppColors.primaryTextOffWhite,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
           GestureDetector(
-            onTap: () {
-              AppSnackbar.show(context, message: 'Skill progress coming soon', type: SnackbarType.info);
-            },
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => SkillDetailsScreen(skillName: widget.skillName, dogName: widget.dogName),
+              ),
+            ),
             child: Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -708,28 +670,25 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                       borderRadius: BorderRadius.circular(4),
                       border: Border.all(color: Colors.white12),
                     ),
-                    child: const Icon(Icons.hub_outlined, color: AppColors.secondaryTextStoneGrey, size: 22),
+                    child: const Padding(
+                      padding: EdgeInsets.all(11),
+                      child: UlvenikIcon(UlvenikIcons.skills, color: AppColors.secondarySage),
+                    ),
                   ),
                   const SizedBox(width: 16),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Recall',
-                          style: TextStyle(
-                            color: AppColors.primaryTextOffWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          widget.skillName,
+                          style: const TextStyle(
+                              color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(height: 2),
+                        const SizedBox(height: 2),
                         Text(
-                          'Tap to view skill progress',
-                          style: TextStyle(
-                            color: AppColors.secondaryTextStoneGrey,
-                            fontSize: 12,
-                          ),
+                          'View ${widget.skillName}',
+                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
                         ),
                       ],
                     ),
@@ -756,11 +715,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
             children: [
               const Text(
                 'Active Goal',
-                style: TextStyle(
-                  color: AppColors.primaryTextOffWhite,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
               ),
               GestureDetector(
                 onTap: _updateGoalProgress,
@@ -770,11 +725,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     SizedBox(width: 4),
                     Text(
                       'Update Progress',
-                      style: TextStyle(
-                        color: AppColors.secondarySage,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: TextStyle(color: AppColors.secondarySage, fontSize: 12, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -801,12 +752,10 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                         child: Text(
                           'Emergency Recall at 50m with distraction',
                           style: TextStyle(
-                            color: AppColors.primaryTextOffWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
+                              color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                       ),
+                      const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
@@ -837,11 +786,10 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Started 12 Jun • Handler Assessed',
-                        style: TextStyle(
-                          color: AppColors.secondaryTextStoneGrey,
-                          fontSize: 12,
+                      const Expanded(
+                        child: Text(
+                          'Started 12 Jun',
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
                         ),
                       ),
                       Text(
@@ -866,71 +814,40 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
 
   // ── Recent Sessions ─────────────────────────────────────────────────────
   Widget _buildRecentSessions() {
+    final shown = _showAll ? _sessions : _sessions.take(3).toList();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Recent Sessions',
-                style: TextStyle(
-                  color: AppColors.primaryTextOffWhite,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  AppSnackbar.show(context, message: 'View All coming soon', type: SnackbarType.info);
-                },
-                child: const Text(
-                  'VIEW ALL',
-                  style: TextStyle(
-                    color: AppColors.primaryForestGreen,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.0,
-                  ),
-                ),
-              ),
-            ],
+          Text(
+            _showAll ? 'All Sessions' : 'Recent Sessions',
+            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
-          _buildSessionCard(
-            month: 'JUL',
-            day: '22',
-            title: 'Forest Trail Alpha',
-            successRate: '$_session1SuccessRate%',
-            indicatorColor: AppColors.primaryForestGreen,
-            onTap: () => _editSessionSuccessRate(1),
-          ),
-          const SizedBox(height: 12),
-          _buildSessionCard(
-            month: 'JUL',
-            day: '15',
-            title: 'Open Field Training',
-            successRate: '$_session2SuccessRate%',
-            indicatorColor: const Color(0xFF3a4e3c),
-            onTap: () => _editSessionSuccessRate(2),
-          ),
+          for (final s in shown) ...[
+            _buildSessionCard(s, _sessions.indexOf(s)),
+            const SizedBox(height: 12),
+          ],
+          if (_sessions.length > 3)
+            Center(
+              child: TextButton(
+                onPressed: () => setState(() => _showAll = !_showAll),
+                child: Text(
+                  _showAll ? 'Show Fewer' : 'View All Sessions',
+                  style: const TextStyle(
+                      color: AppColors.primaryForestGreen, fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
         ],
       ),
     );
   }
 
-  Widget _buildSessionCard({
-    required String month,
-    required String day,
-    required String title,
-    required String successRate,
-    required Color indicatorColor,
-    required VoidCallback onTap,
-  }) {
+  Widget _buildSessionCard(_ExSession s, int index) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => _editSessionSuccessRate(index),
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -951,23 +868,15 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    month,
-                    style: const TextStyle(
-                      color: AppColors.secondaryTextStoneGrey,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 1.0,
-                    ),
-                  ),
-                  Text(
-                    day,
-                    style: const TextStyle(
-                      color: AppColors.primaryTextOffWhite,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  Text(s.month,
+                      style: const TextStyle(
+                          color: AppColors.secondaryTextStoneGrey,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1.0)),
+                  Text(s.day,
+                      style: const TextStyle(
+                          color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 ],
               ),
             ),
@@ -976,35 +885,12 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: AppColors.primaryTextOffWhite,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  Text(s.title,
+                      style: const TextStyle(
+                          color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: indicatorColor,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Success Rate: $successRate',
-                        style: const TextStyle(
-                          color: AppColors.secondaryTextStoneGrey,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
+                  Text('Success Rate: ${s.rate}%',
+                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                 ],
               ),
             ),
@@ -1014,4 +900,12 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
       ),
     );
   }
+}
+
+class _ExSession {
+  final String month;
+  final String day;
+  final String title;
+  int rate;
+  _ExSession(this.month, this.day, this.title, this.rate);
 }

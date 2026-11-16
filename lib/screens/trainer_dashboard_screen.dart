@@ -868,10 +868,10 @@ class TrainerDashboardScreen extends StatefulWidget {
 
 class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #101214
-  static const Color _cardBg = AppColors.cardsCarbon; // #1A1F22
+  static const Color _bg = AppColors.backgroundObsidian; // #121212
+  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
   static const Color _tileBg = Color(0xFF212629);
-  static const Color _forest = AppColors.primaryForestGreen; // #2E6B57
+  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
   static const Color _mintBright = Color(0xFFB1F0D6);
   static const Color _sage = Color(0xFFB6CCB5);
   static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF

@@ -27,7 +27,7 @@ extension ProcedureStatusX on ProcedureStatus {
   Color get color {
     switch (this) {
       case ProcedureStatus.recovering:
-        return const Color(0xFF2E6B57); // Primary brand green
+        return const Color(0xFF2F5D50); // Primary brand green
       case ProcedureStatus.rehabilitation:
         return const Color(0xFF95D3BB); // Mint
       case ProcedureStatus.fullyRecovered:
@@ -135,7 +135,7 @@ class SurgeryProceduresScreen extends StatefulWidget {
 class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
     with SingleTickerProviderStateMixin {
   static const _mint = Color(0xFF95D3BB);
-  static const _forest = Color(0xFF2E6B57);
+  static const _forest = Color(0xFF2F5D50);
   static const _errorMuted = Color(0xFF8B3A3A);
   static const _alpineBlue = Color(0xFF5D8FAF);
 
@@ -527,7 +527,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
         IconButton(
           icon: UlvenikIcon.fromMaterial(
             _showSearch ? Icons.search_off : Icons.search,
-            color: const Color(0xFF2E6B57),
+            color: const Color(0xFF2F5D50),
             size: 24,
           ),
           onPressed: () {
@@ -542,11 +542,11 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
           },
         ),
         IconButton(
-          icon: const Icon(Icons.tune, color: Color(0xFF2E6B57), size: 24),
+          icon: const Icon(Icons.tune, color: Color(0xFF2F5D50), size: 24),
           onPressed: _showTuneFilterSheet,
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.add, color: Color(0xFF2E6B57), size: 24),
+          icon: const UlvenikIcon(UlvenikIcons.add, color: Color(0xFF2F5D50), size: 24),
           onPressed: _showAddProcedureSheet,
         ),
         IconButton(

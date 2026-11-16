@@ -1,624 +1,744 @@
 import 'package:flutter/material.dart';
+import '../data/sample_data.dart';
 import '../widgets/ulvenik_icon.dart';
-import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
-import 'dogs_all_workspaces_screen.dart';
+import '../theme/app_colors.dart';
 import 'dog_profile_screen.dart';
+import 'notifications_page_screen.dart';
 
+enum _DogSort { alphabetical, recentlyActive }
+
+enum _ActivityFilter { any, last7, last30 }
+
+/// Dogs (Dogs & Goals handover, sections 01-03).
+///
+/// One screen titled "Dogs" with two groups: My Dogs and (Trainer Pack only)
+/// Client Dogs. Compact List View by default plus a wide-photo Card View; the
+/// toggle changes presentation only and is remembered. Search, Filter and a
+/// single Add action stay fixed while the list scrolls. No promotional or
+/// subscription banners.
 class MyDogsScreen extends StatefulWidget {
-  const MyDogsScreen({super.key});
+  final bool hasTrainerPack;
+  final bool? initialCardView;
+
+  const MyDogsScreen({super.key, this.hasTrainerPack = true, this.initialCardView});
 
   @override
   State<MyDogsScreen> createState() => _MyDogsScreenState();
 }
 
 class _MyDogsScreenState extends State<MyDogsScreen> {
-  // Toggle this to test Empty vs Populated states!
-  bool _hasData = true;
-  int _selectedWorkspace = 0; // 0: My Dogs (Core), 1: Sport Dogs (Sport Pack), 2: Client Dogs (Trainer Pack)
+  // Remembers the last chosen layout for the rest of the app session.
+  static bool _rememberedCardView = false;
 
+  bool _hasData = true; // demo toggle: double-tap the "Dogs" title
+  bool _clientGroup = false;
+  late bool _cardView = widget.initialCardView ?? _rememberedCardView;
+  final bool _hasUnreadNotifications = true;
+
+  final _searchController = TextEditingController();
+  String _query = '';
+  final Set<String> _breeds = {};
+  String? _sex; // null = any
+  _ActivityFilter _activity = _ActivityFilter.any;
+  _DogSort _sort = _DogSort.alphabetical;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  bool get _hasActiveFilters =>
+      _breeds.isNotEmpty || _sex != null || _activity != _ActivityFilter.any || _sort != _DogSort.alphabetical;
+
+  List<DogInfo> get _groupDogs => _clientGroup ? SampleData.clientDogs : SampleData.myDogs;
+
+  List<DogInfo> get _visibleDogs {
+    final q = _query.trim().toLowerCase();
+    final now = DateTime.now();
+    final list = _groupDogs.where((d) {
+      if (q.isNotEmpty && !d.name.toLowerCase().contains(q) && !d.breed.toLowerCase().contains(q)) return false;
+      if (_breeds.isNotEmpty && !_breeds.contains(d.breed)) return false;
+      if (_sex != null && d.sex != _sex) return false;
+      if (_activity != _ActivityFilter.any) {
+        final days = _activity == _ActivityFilter.last7 ? 7 : 30;
+        if (d.lastActive == null || now.difference(d.lastActive!).inDays > days) return false;
+      }
+      return true;
+    }).toList();
+    if (_sort == _DogSort.alphabetical) {
+      list.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+    } else {
+      list.sort((a, b) {
+        if (a.lastActive == null && b.lastActive == null) return a.name.compareTo(b.name);
+        if (a.lastActive == null) return 1;
+        if (b.lastActive == null) return -1;
+        return b.lastActive!.compareTo(a.lastActive!);
+      });
+    }
+    return list;
+  }
+
+  void _setView(bool card) {
+    setState(() {
+      _cardView = card;
+      _rememberedCardView = card;
+    });
+  }
+
+  void _clearFilters() {
+    setState(() {
+      _breeds.clear();
+      _sex = null;
+      _activity = _ActivityFilter.any;
+      _sort = _DogSort.alphabetical;
+    });
+  }
+
+  void _openDog(DogInfo dog) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => DogProfileScreen(dogName: dog.name)));
+  }
+
+  void _addDog() {
+    AppSnackbar.show(
+      context,
+      message: 'Create Dog Profile is not part of this build yet.',
+      type: SnackbarType.info,
+    );
+  }
+
+  // ── Filter sheet ────────────────────────────────────────────────────────
+  void _openFilters() {
+    final breeds = (_groupDogs.map((d) => d.breed).toSet().toList()..sort());
+    final draftBreeds = {..._breeds};
+    String? draftSex = _sex;
+    var draftActivity = _activity;
+    var draftSort = _sort;
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setSheet) {
+          Widget chip(String label, bool selected, VoidCallback onTap) => _Chip(label: label, selected: selected, onTap: onTap);
+          Widget heading(String text, {String? icon}) => Padding(
+                padding: const EdgeInsets.only(top: 18, bottom: 10),
+                child: Row(children: [
+                  if (icon != null) ...[
+                    UlvenikIcon(icon, size: 16, color: AppColors.secondaryTextStoneGrey),
+                    const SizedBox(width: 6),
+                  ],
+                  Text(text, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
+                ]),
+              );
+          return SafeArea(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.85),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 36, height: 4,
+                        decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text('Filter & sort',
+                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                    heading('Breed'),
+                    Wrap(spacing: 8, runSpacing: 8, children: [
+                      for (final b in breeds)
+                        chip(b, draftBreeds.contains(b), () => setSheet(() {
+                              draftBreeds.contains(b) ? draftBreeds.remove(b) : draftBreeds.add(b);
+                            })),
+                    ]),
+                    heading('Sex'),
+                    Wrap(spacing: 8, children: [
+                      chip('Any', draftSex == null, () => setSheet(() => draftSex = null)),
+                      chip('Male', draftSex == 'Male', () => setSheet(() => draftSex = 'Male')),
+                      chip('Female', draftSex == 'Female', () => setSheet(() => draftSex = 'Female')),
+                    ]),
+                    heading('Recent activity'),
+                    Wrap(spacing: 8, runSpacing: 8, children: [
+                      chip('Any time', draftActivity == _ActivityFilter.any, () => setSheet(() => draftActivity = _ActivityFilter.any)),
+                      chip('Last 7 days', draftActivity == _ActivityFilter.last7, () => setSheet(() => draftActivity = _ActivityFilter.last7)),
+                      chip('Last 30 days', draftActivity == _ActivityFilter.last30, () => setSheet(() => draftActivity = _ActivityFilter.last30)),
+                    ]),
+                    heading('Sort', icon: UlvenikIcons.sort),
+                    Wrap(spacing: 8, runSpacing: 8, children: [
+                      chip('Alphabetical', draftSort == _DogSort.alphabetical, () => setSheet(() => draftSort = _DogSort.alphabetical)),
+                      chip('Most recently active', draftSort == _DogSort.recentlyActive,
+                          () => setSheet(() => draftSort = _DogSort.recentlyActive)),
+                    ]),
+                    const SizedBox(height: 24),
+                    Row(children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 48,
+                          child: OutlinedButton(
+                            onPressed: () => setSheet(() {
+                              draftBreeds.clear();
+                              draftSex = null;
+                              draftActivity = _ActivityFilter.any;
+                              draftSort = _DogSort.alphabetical;
+                            }),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: AppColors.primaryTextOffWhite,
+                              side: const BorderSide(color: Colors.white24),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            ),
+                            child: const Text('Clear Filters'),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: SizedBox(
+                          height: 48,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                _breeds
+                                  ..clear()
+                                  ..addAll(draftBreeds);
+                                _sex = draftSex;
+                                _activity = draftActivity;
+                                _sort = draftSort;
+                              });
+                              Navigator.pop(ctx);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primaryForestGreen,
+                              foregroundColor: AppColors.primaryTextOffWhite,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            ),
+                            child: const Text('Apply'),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // ── Build ───────────────────────────────────────────────────────────────
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundObsidian,
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildHeader(),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: 24),
-                    
-                    if (_hasData) ...[
-                      // Workspace Pills (Linked to Subscriptions: Core, Sport Pack, Trainer Pack)
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            _buildWorkspacePill(0, 'My Dogs', '6', 'Core'),
-                            const SizedBox(width: 8),
-                            _buildWorkspacePill(1, 'Sport Dogs', '3', 'Sport Pack'),
-                            const SizedBox(width: 8),
-                            _buildWorkspacePill(2, 'Client Dogs', '1', 'Trainer Pack'),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      
-                      // Search & Actions Row
-                      Row(
-                        children: [
-                          Expanded(child: _buildSearchBar()),
-                          const SizedBox(width: 12),
-                          _buildIconButton(Icons.tune, onTap: () {
-                            AppSnackbar.show(context, message: 'Filter coming soon', type: SnackbarType.info);
-                          }),
-                          const SizedBox(width: 12),
-                          _buildIconButton(Icons.add, isPrimary: true, onTap: () {
-                            AppSnackbar.show(context, message: 'Add dog coming soon', type: SnackbarType.info);
-                          }),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
-                      
-                      // Populated List
-                      Expanded(
-                        child: _selectedWorkspace == 1
-                            ? _buildSportDogsList()
-                            : _selectedWorkspace == 2
-                                ? _buildClientDogsList()
-                                : ListView(
-                                    padding: const EdgeInsets.only(bottom: 100),
-                                    children: [
-                                      _buildDogCard(
-                                        name: 'Murphy',
-                                        details: 'Golden Retriever · 4 yrs · Male',
-                                        activity: 'Obedience · 2 hrs ago',
-                                        imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDAm6Qjx7r8IjMbUPAoPZtLHLuvG0GSyXyqNYoE-0HvkL8R0uhRqzAJo_IppFqkRZBUCIxwx_3DkTS4wwh3N2HO0mGuLtzrdN0LrtKI6IeWju_DR5KZ5RlBnWoTDSUEt2FYMzjNLNcwt6GWeEOnLyHpsSF0KVQmVQ98Mpd5SIk2NoCP5PUwyYhXrhnZdD80Ah582bGM_kFuz7Z7DQoRmDKYzIqnKSgMYx8MPX4YMiDSzEnfyRyHxdQ',
-                                      ),
-                                      const SizedBox(height: 12),
-                                      _buildDogCard(
-                                        name: 'Bella',
-                                        details: 'Belgian Malinois · 2 yrs · Female',
-                                        activity: 'Agility · Yesterday',
-                                        imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_FGLheOQECXltZJ7TsUvazbqLiSre1yRRKuQezkUBBZQ72U7xo9pc_zOrINWFZo7mLR2Ml-xjS2Z8_yKiR8etkKnpixjmkyGf5DtZF637KRF0kKrTTdiJ8u__KVQnHJ65-PQgSPDIQh8eLlq1BHg9yEN2POU9Xfc1RSkS8yEXEGlkysd7ZGtZLiWvC9iVPdKV30xIgiL3ooXAxC9Z0iLRQxJkidNmE7oJrDOQA7GdhUFY_apTsHQ',
-                                      ),
-                                      const SizedBox(height: 12),
-                                      _buildDogCard(
-                                        name: 'Monty',
-                                        details: 'Mixed Breed · 1 yr · Male',
-                                        activity: 'No activity yet',
-                                      ),
-                                      const SizedBox(height: 12),
-                                      _buildDogCard(
-                                        name: 'Luna',
-                                        details: 'Border Collie · 5 yrs · Female',
-                                        activity: 'Herding · 3 days ago',
-                                        imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD-dBzJ3N-iY9n3LL7Zjg-9n9zNG8t0rH2uPeaa4gsfQeqLIyVQ9EfpR71y6T19BFQFcx2pR9R0b-D2q9nV9zEk-1GGDSB3MyGVoEfUgINo-TBo_H7kxre8TJ3nJtnamMVrZHYDCh3yFMH9hhETUUce8CvddXDdjljTpk4DRmnO7MPoXouW9jaMcJZiL9iR3sPBW056jR8HpE4xVtatKp4IOVIwTtw0dPKosa_kZxvey903ZD03YVA',
-                                      ),
-                                      const SizedBox(height: 12),
-                                      _buildDogCard(
-                                        name: 'Axel',
-                                        details: 'Dutch Shepherd · 3 yrs · Male',
-                                        activity: 'Tracking · 1 week ago',
-                                        imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDvoTz5a9TC8u0P6-Md-scQcGedKfr4MXS6Ie8LAbxJyqbiVSDXuswe5WMfqrcXgK1s_YinkrDcT3cJA9UGsimRU0FgiHrxtMc0wZsYzNUajf_uPPHrYen5iRNaMD4_V7SkMj-abO0YqW5ydXjqfTvaWiimGC222XSr8xkdo8-ZRh9wtLIghLjSVf6OlVKj43jAkmQ98l9R9zgAoO7JzPugZGsSnyF6j8IkQjXebvcBQa3Th9WsTbE',
-                                      ),
-                                      const SizedBox(height: 12),
-                                      _buildDogCard(
-                                        name: 'Nova',
-                                        details: 'German Shepherd · 6 mos · Female',
-                                        activity: 'No activity yet',
-                                      ),
-                                    ],
-                                  ),
-                      ),
-                    ] else ...[
-                      // Search Row (Empty State)
-                      GestureDetector(
-                        onDoubleTap: () => setState(() => _hasData = !_hasData),
-                        child: _buildSearchBar(),
-                      ),
-                      
-                      // Empty State Content
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const UlvenikIcon(UlvenikIcons.dogs,
-                              size: 48,
-                              color: AppColors.secondarySage, // Light green paw
-                            ),
-                            const SizedBox(height: 24),
-                            const Text(
-                              'No dogs added yet',
-                              style: TextStyle(
-                                color: AppColors.primaryTextOffWhite,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            const Text(
-                              'Add your first dog to start recording their\njourney with Ulvenik.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: AppColors.secondaryTextStoneGrey,
-                                fontSize: 14,
-                                height: 1.5,
-                              ),
-                            ),
-                            const SizedBox(height: 32),
-                            ElevatedButton.icon(
-                              onPressed: () {
-                                AppSnackbar.show(context, message: 'Add dog coming soon', type: SnackbarType.info);
-                              },
-                              icon: const UlvenikIcon(UlvenikIcons.add, size: 20),
-                              label: const Text('Add Dog'),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.primaryForestGreen,
-                                foregroundColor: AppColors.primaryTextOffWhite,
-                                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(24),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 80), // offset for visual center
-                          ],
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          AppSnackbar.show(context, message: 'Add dog coming soon', type: SnackbarType.info);
-        },
-        backgroundColor: AppColors.primaryForestGreen,
-        child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
-      ),
-    );
-  }
-
-  // ── Header ──────────────────────────────────────────────────────────────
-  Widget _buildHeader() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.white12)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            'Dogs',
-            style: TextStyle(
-              color: AppColors.primaryTextOffWhite,
-              fontSize: 28,
-              fontWeight: FontWeight.w700,
-              letterSpacing: -0.5,
-            ),
-          ),
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.grid_view_rounded, color: AppColors.primaryTextOffWhite),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DogsAllWorkspacesScreen(),
-                    ),
-                  );
-                },
-              ),
-              if (_hasData)
-                IconButton(
-                  icon: const UlvenikIcon(UlvenikIcons.notifications, color: AppColors.primaryTextOffWhite),
-                  onPressed: () {
-                    AppSnackbar.show(context, message: 'Notifications coming soon', type: SnackbarType.info);
-                  },
-                ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ── Search & Actions ────────────────────────────────────────────────────
-  Widget _buildSearchBar() {
-    return Container(
-      height: 40,
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white12),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Row(
-        children: [
-          const UlvenikIcon(UlvenikIcons.search,
-            color: AppColors.secondaryTextStoneGrey,
-            size: 20,
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                inputDecorationTheme: const InputDecorationTheme(
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                ),
-              ),
-              child: TextField(
-                textAlignVertical: TextAlignVertical.center,
-                style: const TextStyle(
-                  color: AppColors.primaryTextOffWhite,
-                  fontSize: 14,
-                ),
-                decoration: const InputDecoration(
-                  hintText: 'Search dogs...',
-                  hintStyle: TextStyle(
-                    color: AppColors.secondaryTextStoneGrey,
-                    fontSize: 14,
-                  ),
-                  border: OutlineInputBorder(borderSide: BorderSide.none),
-                  enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                  isDense: true,
-                  contentPadding: EdgeInsets.only(bottom: 2),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildIconButton(IconData icon, {bool isPrimary = false, VoidCallback? onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 40,
-        width: 40,
-        decoration: BoxDecoration(
-          color: isPrimary ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: isPrimary ? AppColors.primaryForestGreen : Colors.white12),
-        ),
-        child: UlvenikIcon.fromMaterial(
-          icon,
-          color: isPrimary ? AppColors.primaryTextOffWhite : AppColors.primaryTextOffWhite,
-          size: 20,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildWorkspacePill(int index, String title, String count, String subscriptionPack) {
-    final isSelected = _selectedWorkspace == index;
-    return GestureDetector(
-      onTap: () => setState(() => _selectedWorkspace = index),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-        decoration: BoxDecoration(
-          color: isSelected ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
-          border: Border.all(
-            color: isSelected ? AppColors.primaryForestGreen : Colors.white12,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: isSelected ? const Color(0xFFaae9d0) : AppColors.secondaryTextStoneGrey,
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(width: 6),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: isSelected ? const Color(0xFF95d3bb) : const Color(0xFF272b29),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                count,
-                style: TextStyle(
-                  color: isSelected ? AppColors.backgroundObsidian : AppColors.primaryTextOffWhite,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSportDogsList() {
-    return ListView(
-      padding: const EdgeInsets.only(bottom: 100),
-      children: [
-        _buildSportDogCard(
-          name: 'Murphy',
-          breed: 'Belgian Malinois',
-          tag: 'IGP',
-          imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCCHELrb1zJHxkzvLEcxc5HvIeblV8UqHIBdjT76A_6WiS7ACVJ8wyXhCuRGxZtDdmN-JgvEd9uu4WXCfbHMsH-ksGCxhXA_HSfDFN_V4mUIMU27LdUD2yvii3f4QbZ7AbSPbm1rNUrG-vFPgCB7t11yX4sDO24c8B615vQv6r27CXNpjn7yLJkHf2IbPmze0G4sIBhms3uObq8Fls9KVvr6PmsS78d2O8bsKacSjOvNsLGkPhoLhI',
-        ),
-        const SizedBox(height: 12),
-        _buildSportDogCard(
-          name: 'Rex',
-          breed: 'German Shepherd',
-          tag: 'IPO',
-          imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCHv0YwualhgVN8mZm71eYVCiefQjhLohQXvrajAJ2M5WeFJ1ZXvUkS4sE-61zydWeyqo98aMfnZ7OPklTsLqWODP4KAeinU4BpCIaEJPj2phE7Db1D_bcOSXYVcTrDMttNMfRvCeyiKI4FNLGeVxM1Aeg2nPbRTmedNZD7DIqSey3Mtwr3Z7RFmrYCVIQkw6waLI_5VIvF4hOQcqj8pgn3hy8_p-_-HKyS8kZe4EZUcVWsrndz_TY',
-        ),
-        const SizedBox(height: 12),
-        _buildSportDogCard(
-          name: 'Koda',
-          breed: 'Dutch Shepherd',
-          tag: 'Agility',
-          imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAFKOO8gb4AWaLg2qLsOdAQTzB6SsCO_QKNqK2eJLTRocSldxOEHALJ8tI9kAqM8ovNBIcPR5h4OVyx0MVW69rlcHCAHDJ8S_S8h2Na2cSVAoXBhMdes4q9GK_Uu_j6kmM_9IBq7Re2k3DIkQz3W0hjLlYDhUC-dJ1cyLwqSc3koHhLeATfkYApJXTGBflU--BJY-uskJ1QD1Vqo-yjQ7_jWWUPV8NPFe_mrxbEGwMdaW1QZn_6F5o',
-        ),
-      ],
-    );
-  }
-
-  Widget _buildClientDogsList() {
-    return ListView(
-      padding: const EdgeInsets.only(bottom: 100),
-      children: [
-        _buildDogCard(
-          name: 'Murphy',
-          details: 'Golden Retriever · 4 yrs · Male',
-          activity: 'Client: Olivia Reed · Session Tomorrow',
-          imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDAm6Qjx7r8IjMbUPAoPZtLHLuvG0GSyXyqNYoE-0HvkL8R0uhRqzAJo_IppFqkRZBUCIxwx_3DkTS4wwh3N2HO0mGuLtzrdN0LrtKI6IeWju_DR5KZ5RlBnWoTDSUEt2FYMzjNLNcwt6GWeEOnLyHpsSF0KVQmVQ98Mpd5SIk2NoCP5PUwyYhXrhnZdD80Ah582bGM_kFuz7Z7DQoRmDKYzIqnKSgMYx8MPX4YMiDSzEnfyRyHxdQ',
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSportDogCard({required String name, required String breed, required String tag, required String imageUrl}) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const DogProfileScreen()),
-        );
-      },
-      child: Container(
-        height: 176,
-        decoration: BoxDecoration(
-          color: AppColors.cardsCarbon,
-          border: Border.all(color: Colors.white12),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        clipBehavior: Clip.antiAlias,
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              height: 128,
-              child: Stack(
-                fit: StackFit.expand,
+            // Sticky controls: stay visible while the list scrolls.
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          AppColors.backgroundObsidian,
-                          Colors.transparent,
-                        ],
-                        stops: [0.0, 0.8],
+                  if (widget.hasTrainerPack && _hasData) ...[
+                    Wrap(spacing: 8, runSpacing: 8, children: [
+                      _GroupPill(
+                        label: 'My Dogs',
+                        count: SampleData.myDogs.length,
+                        selected: !_clientGroup,
+                        onTap: () => setState(() => _clientGroup = false),
                       ),
+                      _GroupPill(
+                        label: 'Client Dogs',
+                        count: SampleData.clientDogs.length,
+                        selected: _clientGroup,
+                        onTap: () => setState(() => _clientGroup = true),
+                      ),
+                    ]),
+                    const SizedBox(height: 12),
+                  ],
+                  Row(children: [
+                    Expanded(child: _buildSearchField()),
+                    const SizedBox(width: 10),
+                    _SquareButton(
+                      tooltip: 'Filter',
+                      onTap: _hasData ? _openFilters : null,
+                      badge: _hasActiveFilters,
+                      child: const Icon(Icons.tune, color: AppColors.primaryTextOffWhite, size: 20),
                     ),
-                  ),
+                    const SizedBox(width: 10),
+                    _SquareButton(
+                      tooltip: 'Add Dog',
+                      primary: true,
+                      onTap: _addDog,
+                      child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 20),
+                    ),
+                  ]),
                 ],
               ),
             ),
-            Positioned(
-              left: 16,
-              right: 16,
-              bottom: 16,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
+            Expanded(child: _hasData ? _buildDogList() : _buildEmpty()),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 10, 8, 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onDoubleTap: () => setState(() => _hasData = !_hasData),
+              child: const Text(
+                'Dogs',
+                style: TextStyle(
+                  color: AppColors.primaryTextOffWhite,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: -0.5,
+                ),
+              ),
+            ),
+          ),
+          if (_hasData)
+            _ViewToggle(cardView: _cardView, onChanged: _setView),
+          IconButton(
+            tooltip: 'Notifications & Reminders',
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsPageScreen())),
+            icon: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                const UlvenikIcon(UlvenikIcons.notifications, color: AppColors.primaryTextOffWhite, size: 24),
+                if (_hasUnreadNotifications)
+                  Positioned(
+                    right: 0,
+                    top: 0,
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF6FBF8E),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: AppColors.backgroundObsidian, width: 1.5),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSearchField() {
+    return SizedBox(
+      height: 44,
+      child: TextField(
+        controller: _searchController,
+        onChanged: (v) => setState(() => _query = v),
+        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+        decoration: InputDecoration(
+          hintText: 'Search name or breed',
+          hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+          filled: true,
+          fillColor: AppColors.cardsCarbon,
+          contentPadding: EdgeInsets.zero,
+          prefixIcon: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          ),
+          prefixIconConstraints: const BoxConstraints(minWidth: 44),
+          suffixIcon: _query.isEmpty
+              ? null
+              : IconButton(
+                  tooltip: 'Clear search',
+                  icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                  onPressed: () => setState(() {
+                    _searchController.clear();
+                    _query = '';
+                  }),
+                ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Colors.white12),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDogList() {
+    final dogs = _visibleDogs;
+    if (dogs.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('No matching dogs',
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 6),
+              const Text('Try another search or clear your filters.',
+                  textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+              if (_hasActiveFilters) ...[
+                const SizedBox(height: 12),
+                TextButton(onPressed: _clearFilters, child: const Text('Clear Filters')),
+              ],
+            ],
+          ),
+        ),
+      );
+    }
+    return ListView.separated(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
+      itemCount: dogs.length,
+      separatorBuilder: (_, _) => const SizedBox(height: 12),
+      itemBuilder: (_, i) => _cardView
+          ? _WideDogCard(dog: dogs[i], onTap: () => _openDog(dogs[i]))
+          : _ListDogCard(dog: dogs[i], onTap: () => _openDog(dogs[i])),
+    );
+  }
+
+  Widget _buildEmpty() {
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const UlvenikIcon(UlvenikIcons.dogs, size: 48, color: AppColors.secondarySage),
+            const SizedBox(height: 20),
+            const Text('No dogs added yet',
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 10),
+            const Text(
+              'Add your first dog to start recording their journey with Ulvenik.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: _addDog,
+              icon: const UlvenikIcon(UlvenikIcons.add, size: 20),
+              label: const Text('Add Dog'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryForestGreen,
+                foregroundColor: AppColors.primaryTextOffWhite,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                elevation: 0,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── Pieces ────────────────────────────────────────────────────────────────
+
+class _ViewToggle extends StatelessWidget {
+  final bool cardView;
+  final ValueChanged<bool> onChanged;
+  const _ViewToggle({required this.cardView, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    Widget seg(String icon, String label, bool selected, VoidCallback onTap) => Semantics(
+          button: true,
+          selected: selected,
+          label: label,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(8),
+            onTap: onTap,
+            child: Container(
+              width: 40,
+              height: 36,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: selected ? AppColors.primaryForestGreen : Colors.transparent,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: UlvenikIcon(icon,
+                  size: 18, color: selected ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey),
+            ),
+          ),
+        );
+    return Container(
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        color: AppColors.cardsCarbon,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.white12),
+      ),
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        seg(UlvenikIcons.listView, 'List view', !cardView, () => onChanged(false)),
+        seg(UlvenikIcons.cardView, 'Card view', cardView, () => onChanged(true)),
+      ]),
+    );
+  }
+}
+
+class _GroupPill extends StatelessWidget {
+  final String label;
+  final int count;
+  final bool selected;
+  final VoidCallback onTap;
+  const _GroupPill({required this.label, required this.count, required this.selected, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: selected ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
+          border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white12),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          '$label  $count',
+          style: TextStyle(
+            color: selected ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
+            fontSize: 13.5,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SquareButton extends StatelessWidget {
+  final Widget child;
+  final String tooltip;
+  final VoidCallback? onTap;
+  final bool primary;
+  final bool badge;
+  const _SquareButton({required this.child, required this.tooltip, this.onTap, this.primary = false, this.badge = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: Material(
+        color: primary ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
+        borderRadius: BorderRadius.circular(12),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: onTap,
+          child: Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: primary ? AppColors.primaryForestGreen : Colors.white12),
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                child,
+                if (badge)
+                  const Positioned(
+                    right: 9,
+                    top: 9,
+                    child: SizedBox(
+                      width: 7,
+                      height: 7,
+                      child: DecoratedBox(decoration: BoxDecoration(color: Color(0xFF6FBF8E), shape: BoxShape.circle)),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Chip extends StatelessWidget {
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+  const _Chip({required this.label, required this.selected, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: selected ? AppColors.primaryForestGreen : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white24),
+        ),
+        child: Text(label,
+            style: TextStyle(
+              color: selected ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            )),
+      ),
+    );
+  }
+}
+
+Widget _pawPlaceholder({double size = 32}) => Container(
+      color: const Color(0xFF26302C),
+      alignment: Alignment.center,
+      child: UlvenikIcon(UlvenikIcons.dogs, size: size, color: AppColors.secondarySage),
+    );
+
+/// Compact list card: square rounded photo, name, "breed · age · sex".
+class _ListDogCard extends StatelessWidget {
+  final DogInfo dog;
+  final VoidCallback onTap;
+  const _ListDogCard({required this.dog, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: AppColors.cardsCarbon,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: onTap,
+        child: Container(
+          height: 100,
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.white12),
+          ),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: SizedBox(
+                  width: 76,
+                  height: 76,
+                  child: dog.photoUrl == null
+                      ? _pawPlaceholder()
+                      : Image.network(dog.photoUrl!, fit: BoxFit.cover, errorBuilder: (_, _, _) => _pawPlaceholder()),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(dog.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                    const SizedBox(height: 4),
+                    Text(dog.details,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Wide card: full photo with an understated bottom gradient for legible text.
+class _WideDogCard extends StatelessWidget {
+  final DogInfo dog;
+  final VoidCallback onTap;
+  const _WideDogCard({required this.dog, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Material(
+        color: AppColors.cardsCarbon,
+        child: InkWell(
+          onTap: onTap,
+          child: SizedBox(
+            height: 176,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                dog.photoUrl == null
+                    ? _pawPlaceholder(size: 44)
+                    : Image.network(dog.photoUrl!, fit: BoxFit.cover, errorBuilder: (_, _, _) => _pawPlaceholder(size: 44)),
+                const DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [0.45, 1.0],
+                      colors: [Colors.transparent, Color(0xCC121212)],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 16,
+                  right: 16,
+                  bottom: 14,
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        name,
-                        style: const TextStyle(
-                          color: AppColors.primaryTextOffWhite,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        breed,
-                        style: const TextStyle(
-                          color: AppColors.secondaryTextStoneGrey,
-                          fontSize: 12,
-                        ),
-                      ),
+                      Text(dog.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w600)),
+                      const SizedBox(height: 2),
+                      Text(dog.details,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(color: Color(0xFFD5DAD7), fontSize: 13)),
                     ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                ),
+                Positioned.fill(
+                  child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: const Color(0xFF5D8FAF).withValues(alpha: 0.1),
-                      border: Border.all(color: const Color(0xFF5D8FAF).withValues(alpha: 0.3)),
-                      borderRadius: BorderRadius.circular(9999),
-                    ),
-                    child: Text(
-                      tag,
-                      style: const TextStyle(
-                        color: Color(0xFF5D8FAF),
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.5,
-                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: Colors.white12),
                     ),
                   ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // ── Dog Card ────────────────────────────────────────────────────────────
-  Widget _buildDogCard({
-    required String name,
-    required String details,
-    required String activity,
-    String? imageUrl,
-  }) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const DogProfileScreen()),
-        );
-      },
-      child: Container(
-        height: 100,
-        decoration: BoxDecoration(
-          color: AppColors.cardsCarbon,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.white12),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: Row(
-          children: [
-            // Image / Placeholder
-            SizedBox(
-              width: 100,
-              height: double.infinity,
-              child: imageUrl != null
-                  ? Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Image.network(
-                          imageUrl,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) => _buildDogPlaceholder(),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [
-                                Colors.transparent,
-                                AppColors.cardsCarbon.withValues(alpha: 0.8),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : _buildDogPlaceholder(),
-            ),
-            
-            // Content
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        color: AppColors.primaryTextOffWhite,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      details,
-                      style: const TextStyle(
-                        color: AppColors.secondaryTextStoneGrey,
-                        fontSize: 12,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const Spacer(),
-                    Row(
-                      children: [
-                        const UlvenikIcon(UlvenikIcons.trainingTime,
-                          color: AppColors.secondaryTextStoneGrey,
-                          size: 14,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          activity,
-                          style: const TextStyle(
-                            color: AppColors.secondaryTextStoneGrey,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-    ));
-  }
-
-  Widget _buildDogPlaceholder() {
-    return Container(
-      color: const Color(0xFF2E312F), // inverse-on-surface roughly
-      child: const Center(
-        child: UlvenikIcon(UlvenikIcons.dogs,
-          color: AppColors.secondaryTextStoneGrey,
-          size: 40,
+          ),
         ),
       ),
     );
   }
-
 }

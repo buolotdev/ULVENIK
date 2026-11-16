@@ -97,7 +97,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.dark(
-              primary: Color(0xFF2e6b57),
+              primary: Color(0xFF2F5D50),
               onPrimary: Colors.white,
               surface: AppColors.cardsCarbon,
               onSurface: AppColors.primaryTextOffWhite,
@@ -126,7 +126,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.dark(
-              primary: Color(0xFF2e6b57),
+              primary: Color(0xFF2F5D50),
               onPrimary: Colors.white,
               surface: AppColors.cardsCarbon,
               onSurface: AppColors.primaryTextOffWhite,
@@ -167,23 +167,6 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
           ),
         ),
         centerTitle: true,
-        actions: [
-          TextButton(
-            onPressed: _isFormValid
-                ? () {
-                    final nav = Navigator.of(context);
-                    AppSnackbar.show(context, message: 'Health Record Saved', type: SnackbarType.success);
-                    Future.delayed(const Duration(seconds: 1), () {
-                      if (mounted) nav.pop();
-                    });
-                  }
-                : null,
-            style: TextButton.styleFrom(
-              foregroundColor: _isFormValid ? const Color(0xFF2e6b57) : AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5),
-            ),
-            child: const Text('Save', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -238,9 +221,9 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2e6b57).withValues(alpha: 0.2),
+                    color: const Color(0xFF2F5D50).withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFF2e6b57)),
+                    border: Border.all(color: const Color(0xFF2F5D50)),
                   ),
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
@@ -432,7 +415,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFF2e6b57)),
+                borderSide: const BorderSide(color: Color(0xFF2F5D50)),
               ),
             ),
           ),
@@ -577,7 +560,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                   });
                 },
                 activeThumbColor: const Color(0xFF95d3bb),
-                activeTrackColor: const Color(0xFF2e6b57),
+                activeTrackColor: const Color(0xFF2F5D50),
               ),
             ],
           ),
@@ -598,7 +581,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                   onSelected: (val) {
                     if (val) setState(() => _reminderTiming = opt);
                   },
-                  selectedColor: const Color(0xFF2e6b57),
+                  selectedColor: const Color(0xFF2F5D50),
                   backgroundColor: AppColors.backgroundObsidian,
                   labelStyle: TextStyle(
                     color: selected ? Colors.white : AppColors.secondaryTextStoneGrey,
@@ -628,7 +611,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
               }
             : null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: _isFormValid ? const Color(0xFF2e6b57) : AppColors.cardsCarbon,
+          backgroundColor: _isFormValid ? const Color(0xFF2F5D50) : AppColors.cardsCarbon,
           foregroundColor: _isFormValid ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
           disabledBackgroundColor: AppColors.cardsCarbon,
           disabledForegroundColor: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5),
@@ -639,7 +622,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
           ),
           elevation: 0,
         ),
-        icon: const Icon(Icons.save_outlined, size: 18),
+        icon: const UlvenikIcon(UlvenikIcons.save, size: 18),
         label: const Text('Save Health Record', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
       ),
     );
@@ -680,7 +663,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Color(0xFF2e6b57)),
+              borderSide: const BorderSide(color: Color(0xFF2F5D50)),
             ),
           ),
         ),

@@ -52,9 +52,9 @@ class MediaSearchScreen extends StatefulWidget {
 }
 
 class _MediaSearchScreenState extends State<MediaSearchScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian; // #101214
-  static const Color _carbon = AppColors.cardsCarbon; // #1A1F22
-  static const Color _forest = AppColors.primaryForestGreen; // #2E6B57
+  static const Color _obsidian = AppColors.backgroundObsidian; // #121212
+  static const Color _carbon = AppColors.cardsCarbon; // #1C1C1C
+  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
   static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
   static const Color _stoneGrey = AppColors.secondaryTextStoneGrey; // #A7B0AB
   static const Color _cardBorder = AppColors.cardBorder;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
-import '../widgets/custom_snackbar.dart';
 import 'add_health_record_screen.dart';
 import 'health_record_details_screen.dart';
 import 'health_reminders_screen.dart';
@@ -51,15 +50,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondarySage),
-            onPressed: () => AppSnackbar.show(context, message: 'Search functionality coming soon', type: SnackbarType.info),
-          ),
-          IconButton(
-            icon: const Icon(Icons.tune, color: AppColors.secondarySage),
-            onPressed: () => AppSnackbar.show(context, message: 'Filter options coming soon', type: SnackbarType.info),
-          ),
-          IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.add, color: Color(0xFF2e6b57)),
+            icon: const UlvenikIcon(UlvenikIcons.add, color: Color(0xFF2F5D50)),
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddHealthRecordScreen())),
           ),
           IconButton(
@@ -108,7 +99,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           ? null
           : FloatingActionButton(
               onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddHealthRecordScreen())),
-              backgroundColor: const Color(0xFF2e6b57),
+              backgroundColor: const Color(0xFF2F5D50),
               foregroundColor: AppColors.primaryTextOffWhite,
               elevation: 0,
               child: const UlvenikIcon(UlvenikIcons.add),
@@ -136,7 +127,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isActive ? const Color(0xFF2e6b57) : Colors.transparent,
+          color: isActive ? const Color(0xFF2F5D50) : Colors.transparent,
           borderRadius: BorderRadius.circular(24),
         ),
         child: Row(
@@ -184,7 +175,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
               height: 48,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFF2e6b57), width: 2),
+                border: Border.all(color: const Color(0xFF2F5D50), width: 2),
                 image: DecorationImage(
                   image: NetworkImage(
                     _selectedDog == 'Koda' 
@@ -328,7 +319,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
-          borderSide: const BorderSide(color: Color(0xFF2e6b57)),
+          borderSide: const BorderSide(color: Color(0xFF2F5D50)),
         ),
       ),
     );
@@ -351,7 +342,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
     return Container(
       padding: const EdgeInsets.only(left: 16, right: 8, top: 6, bottom: 6),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFF2e6b57)),
+        border: Border.all(color: const Color(0xFF2F5D50)),
         borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
@@ -360,7 +351,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           Text(
             label,
             style: const TextStyle(
-              color: Color(0xFF2e6b57),
+              color: Color(0xFF2F5D50),
               fontSize: 13,
               fontWeight: FontWeight.w500,
             ),
@@ -396,9 +387,9 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           icon: Icons.vaccines_outlined,
           category: 'VACCINATION · 20 Apr 2025',
           status: 'Scheduled',
-          statusColor: const Color(0xFF2e6b57),
+          statusColor: const Color(0xFF2F5D50),
           statusBgColor: Colors.transparent,
-          statusBorderColor: const Color(0xFF2e6b57),
+          statusBorderColor: const Color(0xFF2F5D50),
           title: 'Rabies Booster — Due',
         ),
         _buildRecordCard(
@@ -406,7 +397,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           category: 'MEDICATION · 01 Feb 2025',
           status: 'Active',
           statusColor: AppColors.primaryTextOffWhite,
-          statusBgColor: const Color(0xFF2e6b57),
+          statusBgColor: const Color(0xFF2F5D50),
           title: 'Metacam 1.5mg — Daily',
           recordType: 'medication',
         ),
@@ -415,7 +406,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           category: 'INJURY · 28 Jan 2025',
           status: 'Active',
           statusColor: AppColors.primaryTextOffWhite,
-          statusBgColor: const Color(0xFF2e6b57),
+          statusBgColor: const Color(0xFF2F5D50),
           title: 'Left Paw Laceration',
         ),
       ],
@@ -579,7 +570,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: isSelected ? const Color(0xFF2e6b57) : Colors.transparent,
+              color: isSelected ? const Color(0xFF2F5D50) : Colors.transparent,
               width: 2,
             ),
           ),
@@ -697,7 +688,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           child: ElevatedButton(
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddHealthRecordScreen())),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF2e6b57),
+              backgroundColor: const Color(0xFF2F5D50),
               foregroundColor: AppColors.primaryTextOffWhite,
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

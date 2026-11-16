@@ -497,11 +497,11 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             decoration: BoxDecoration(
-              color: const Color(0xFF2E6B57),
+              color: const Color(0xFF2F5D50),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF2E6B57).withValues(alpha: 0.3),
+                  color: const Color(0xFF2F5D50).withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -552,7 +552,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFF2E6B57), width: 2),
+                border: Border.all(color: const Color(0xFF2F5D50), width: 2),
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
@@ -560,7 +560,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   _activeDog.avatarUrl,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Container(
-                    color: const Color(0xFF2E6B57),
+                    color: const Color(0xFF2F5D50),
                     child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 20),
                   ),
                 ),
@@ -724,7 +724,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
             child: Container(
               width: 3,
               decoration: BoxDecoration(
-                color: const Color(0xFF2E6B57),
+                color: const Color(0xFF2F5D50),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -737,7 +737,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   width: 36,
                   height: 36,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2E6B57).withValues(alpha: 0.15),
+                    color: const Color(0xFF2F5D50).withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
                   child: const UlvenikIcon(UlvenikIcons.notifications,
@@ -830,11 +830,11 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? const Color(0xFF2E6B57).withValues(alpha: 0.18)
+                      ? const Color(0xFF2F5D50).withValues(alpha: 0.18)
                       : AppColors.cardsCarbon,
                   border: Border.all(
                     color: isSelected
-                        ? const Color(0xFF2E6B57)
+                        ? const Color(0xFF2F5D50)
                         : Colors.white.withValues(alpha: 0.08),
                     width: isSelected ? 1.5 : 1,
                   ),
@@ -924,8 +924,8 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF2E6B57).withValues(alpha: 0.15),
-                    border: Border.all(color: const Color(0xFF2E6B57).withValues(alpha: 0.4)),
+                    color: const Color(0xFF2F5D50).withValues(alpha: 0.15),
+                    border: Border.all(color: const Color(0xFF2F5D50).withValues(alpha: 0.4)),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: const Text(
@@ -1263,7 +1263,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
 
   Widget _buildFab() {
     return FloatingActionButton(
-      backgroundColor: const Color(0xFF2E6B57),
+      backgroundColor: const Color(0xFF2F5D50),
       elevation: 4,
       onPressed: _showAddMedicationModal,
       child: const UlvenikIcon(UlvenikIcons.add, color: Colors.white, size: 28),
@@ -1391,7 +1391,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF2E6B57),
+                        backgroundColor: const Color(0xFF2F5D50),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
@@ -1469,10 +1469,10 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         margin: const EdgeInsets.only(bottom: 6),
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? const Color(0xFF2E6B57).withValues(alpha: 0.15)
+                              ? const Color(0xFF2F5D50).withValues(alpha: 0.15)
                               : AppColors.cardsCarbon,
                           border: Border.all(
-                            color: isSelected ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+                            color: isSelected ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -1640,7 +1640,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                             child: ChoiceChip(
                               label: Text(f),
                               selected: isSel,
-                              selectedColor: const Color(0xFF2E6B57),
+                              selectedColor: const Color(0xFF2F5D50),
                               backgroundColor: AppColors.cardsCarbon,
                               labelStyle: TextStyle(color: isSel ? Colors.white : AppColors.secondaryTextStoneGrey, fontSize: 12),
                               onSelected: (_) => setModalState(() => selectedForm = f),
@@ -1663,7 +1663,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                             child: ChoiceChip(
                               label: Text(fq),
                               selected: isSel,
-                              selectedColor: const Color(0xFF2E6B57),
+                              selectedColor: const Color(0xFF2F5D50),
                               backgroundColor: AppColors.cardsCarbon,
                               labelStyle: TextStyle(color: isSel ? Colors.white : AppColors.secondaryTextStoneGrey, fontSize: 12),
                               onSelected: (_) => setModalState(() => selectedFreq = fq),
@@ -1689,7 +1689,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2E6B57),
+                          backgroundColor: const Color(0xFF2F5D50),
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
@@ -1827,7 +1827,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     Expanded(
                       child: ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2E6B57),
+                          backgroundColor: const Color(0xFF2F5D50),
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
@@ -1909,10 +1909,10 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? const Color(0xFF2E6B57).withValues(alpha: 0.15)
+                            ? const Color(0xFF2F5D50).withValues(alpha: 0.15)
                             : AppColors.cardsCarbon,
                         border: Border.all(
-                          color: isSelected ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+                          color: isSelected ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -1928,7 +1928,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                               errorBuilder: (context, error, stackTrace) => Container(
                                 width: 36,
                                 height: 36,
-                                color: const Color(0xFF2E6B57),
+                                color: const Color(0xFF2F5D50),
                                 child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 18),
                               ),
                             ),
@@ -2018,8 +2018,8 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: !_isEmpty ? const Color(0xFF2E6B57).withValues(alpha: 0.2) : AppColors.cardsCarbon,
-                          border: Border.all(color: !_isEmpty ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08)),
+                          color: !_isEmpty ? const Color(0xFF2F5D50).withValues(alpha: 0.2) : AppColors.cardsCarbon,
+                          border: Border.all(color: !_isEmpty ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08)),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -2040,8 +2040,8 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: _isEmpty ? const Color(0xFF2E6B57).withValues(alpha: 0.2) : AppColors.cardsCarbon,
-                          border: Border.all(color: _isEmpty ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08)),
+                          color: _isEmpty ? const Color(0xFF2F5D50).withValues(alpha: 0.2) : AppColors.cardsCarbon,
+                          border: Border.all(color: _isEmpty ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08)),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -2058,7 +2058,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2E6B57),
+                    backgroundColor: const Color(0xFF2F5D50),
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),

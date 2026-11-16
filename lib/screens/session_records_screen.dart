@@ -45,9 +45,9 @@ class SessionRecordsScreen extends StatefulWidget {
 }
 
 class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #101214
-  static const Color _cardBg = AppColors.cardsCarbon; // #1A1F22
-  static const Color _forest = AppColors.primaryForestGreen; // #2E6B57
+  static const Color _bg = AppColors.backgroundObsidian; // #121212
+  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
+  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
   static const Color _greenAccent = Color(0xFF479A7B);
   static const Color _mintBright = Color(0xFFB1F0D6);
   static const Color _sage = AppColors.secondarySage; // #7A8F7A

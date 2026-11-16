@@ -1,267 +1,293 @@
 import 'package:flutter/material.dart';
-import '../widgets/ulvenik_icon.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../widgets/ulvenik_logo.dart';
+import '../widgets/custom_snackbar.dart';
 import '../theme/app_colors.dart';
 import 'login_screen.dart';
 import 'register_screen.dart';
-import '../widgets/custom_snackbar.dart';
+import 'privacy_policy_screen.dart';
+import 'terms_conditions_screen.dart';
 
-class WelcomeScreen extends StatelessWidget {
+/// Account entry after the introduction (Frontend Review v07, Screen 01).
+///
+/// Full logo as the focal point, "Every Session Counts." heading, matched
+/// Create Account / Log In buttons, "Or continue with" Apple / Google,
+/// discreet legal links and a subtle TRAIN • RECORD • PROGRESS footer.
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
+
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _fade =
+      AnimationController(vsync: this, duration: const Duration(milliseconds: 600))..forward();
+
+  @override
+  void dispose() {
+    _fade.dispose();
+    super.dispose();
+  }
+
+  void _open(Widget screen) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (_, _, _) => screen,
+        transitionsBuilder: (_, animation, _, child) => FadeTransition(
+          opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+          child: child,
+        ),
+        transitionDuration: const Duration(milliseconds: 350),
+      ),
+    );
+  }
+
+  void _providerUnavailable(String provider) {
+    AppSnackbar.show(
+      context,
+      message: '$provider sign-in isn\'t available in this build yet.',
+      type: SnackbarType.info,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundObsidian,
-      body: Stack(
-        children: [
-          // Faint Background Mountain Watermark
-          Positioned.fill(
-            child: Center(
-              child: Opacity(
-                opacity: 0.03, // Very faint
-                child: Image.asset(
-                  'assets/images/white_mountain_only.png',
-                  width: 300,
-                  fit: BoxFit.contain,
+      body: SafeArea(
+        child: FadeTransition(
+          opacity: CurvedAnimation(parent: _fade, curve: Curves.easeOut),
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Spacer(flex: 3),
+                      const Center(child: UlvenikLogo.full(width: 250)),
+                      const Spacer(flex: 2),
+                      const SizedBox(height: 24),
+                      const Text(
+                        'Every Session Counts.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.primaryTextOffWhite,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.5,
+                          height: 1.2,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Your training journey, all in one place.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 15, height: 1.4),
+                      ),
+                      const SizedBox(height: 36),
+                      _MainButton(
+                        label: 'Create Account',
+                        primary: true,
+                        onTap: () => _open(const RegisterScreen()),
+                      ),
+                      const SizedBox(height: 12),
+                      _MainButton(
+                        label: 'Log In',
+                        primary: false,
+                        onTap: () => _open(const LoginScreen()),
+                      ),
+                      const SizedBox(height: 28),
+                      const _OrDivider(label: 'Or continue with'),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _ProviderButton(
+                              asset: 'assets/icons/apple_logo.svg',
+                              label: 'Apple',
+                              tintWhite: true,
+                              onTap: () => _providerUnavailable('Apple'),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _ProviderButton(
+                              asset: 'assets/icons/google_logo.svg',
+                              label: 'Google',
+                              onTap: () => _providerUnavailable('Google'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+                      _LegalLinks(
+                        onTerms: () => _open(const TermsConditionsScreen()),
+                        onPrivacy: () => _open(const PrivacyPolicyScreen()),
+                      ),
+                      const Spacer(flex: 2),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'TRAIN  •  RECORD  •  PROGRESS',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0x80A7B0AB),
+                          fontSize: 11,
+                          letterSpacing: 3,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-          
-          SafeArea(
+        ),
+      ),
+    );
+  }
+}
+
+class _MainButton extends StatelessWidget {
+  final String label;
+  final bool primary;
+  final VoidCallback onTap;
+
+  const _MainButton({required this.label, required this.primary, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 54,
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primary ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
+          foregroundColor: AppColors.primaryTextOffWhite,
+          overlayColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+            side: primary ? BorderSide.none : const BorderSide(color: Colors.white12),
+          ),
+        ),
+        child: Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+      ),
+    );
+  }
+}
+
+class _OrDivider extends StatelessWidget {
+  final String label;
+  const _OrDivider({required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    final line = Expanded(child: Container(height: 1, color: Colors.white.withValues(alpha: 0.08)));
+    return Row(
+      children: [
+        line,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          child: Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+        ),
+        line,
+      ],
+    );
+  }
+}
+
+class _ProviderButton extends StatelessWidget {
+  final String asset;
+  final String label;
+  final bool tintWhite;
+  final VoidCallback onTap;
+
+  const _ProviderButton({
+    required this.asset,
+    required this.label,
+    required this.onTap,
+    this.tintWhite = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 52,
+      child: OutlinedButton(
+        onPressed: onTap,
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.primaryTextOffWhite,
+          backgroundColor: AppColors.cardsCarbon,
+          side: const BorderSide(color: Colors.white12),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              asset,
+              width: 20,
+              height: 20,
+              colorFilter: tintWhite ? const ColorFilter.mode(Colors.white, BlendMode.srcIn) : null,
+            ),
+            const SizedBox(width: 10),
+            Flexible(
+              child: Text(
+                label,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LegalLinks extends StatelessWidget {
+  final VoidCallback onTerms;
+  final VoidCallback onPrivacy;
+  const _LegalLinks({required this.onTerms, required this.onPrivacy});
+
+  @override
+  Widget build(BuildContext context) {
+    const style = TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5);
+    Widget link(String text, VoidCallback onTap) => Semantics(
+          link: true,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(6),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // Logo at the top
-                  Center(
-                    child: Image.asset(
-                      'assets/images/white_mountain_only.png',
-                      height: 80,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 64),
-                  
-                  // Headings
-                  const Center(
-                    child: Text(
-                      'THE JOURNEY BUILDS THE WOLF.',
-                      style: TextStyle(
-                        color: AppColors.primaryForestGreen,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 2.0,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Welcome to Ulvenik',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      color: AppColors.primaryTextOffWhite,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 32,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Choose how you\'d like to continue.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: AppColors.secondaryTextStoneGrey,
-                      fontSize: 15,
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 48),
-                  
-                  // Main Buttons
-                  _buildPrimaryButton(
-                    context: context,
-                    label: 'Create Account',
-                    onTap: () {
-                      Navigator.of(context).push(
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation, secondaryAnimation) => const RegisterScreen(),
-                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                            return FadeTransition(
-                              opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
-                              child: child,
-                            );
-                          },
-                          transitionDuration: const Duration(milliseconds: 400),
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  _buildSecondaryButton(
-                    context: context,
-                    label: 'Log In',
-                    onTap: () {
-                      Navigator.of(context).push(
-                        PageRouteBuilder(
-                          pageBuilder: (context, animation, secondaryAnimation) => const LoginScreen(),
-                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                            return FadeTransition(
-                              opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
-                              child: child,
-                            );
-                          },
-                          transitionDuration: const Duration(milliseconds: 400),
-                        ),
-                      );
-                    },
-                  ),
-                  
-                  const SizedBox(height: 32),
-                  
-                  // Divider
-                  Row(
-                    children: [
-                      Expanded(child: Container(height: 1, color: Colors.white.withOpacity(0.05))),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          'or continue with',
-                          style: TextStyle(
-                            color: AppColors.secondaryTextStoneGrey,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                      Expanded(child: Container(height: 1, color: Colors.white.withOpacity(0.05))),
-                    ],
-                  ),
-                  
-                  const SizedBox(height: 32),
-                  
-                  // Social Buttons
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildSocialButton(
-                          icon: Icons.apple,
-                          label: 'Apple',
-                          onTap: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: _buildSocialButton(
-                          // Using a generic 'G' or colorized icon for Google. We'll just use text 'G' as placeholder icon for now since standard material icons don't have a multi-colored Google logo.
-                          isGoogle: true,
-                          label: 'Google',
-                          onTap: () => AppSnackbar.show(context, message: 'Coming soon', type: SnackbarType.info),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+              child: Text(
+                text,
+                style: style.copyWith(
+                  color: AppColors.primaryTextOffWhite.withValues(alpha: 0.8),
+                  decoration: TextDecoration.underline,
+                  decorationColor: AppColors.secondaryTextStoneGrey,
+                ),
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPrimaryButton({
-    required BuildContext context,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return ElevatedButton(
-      onPressed: onTap,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryForestGreen,
-        foregroundColor: AppColors.primaryTextOffWhite,
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        elevation: 0,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-          ),
-          const UlvenikIcon(UlvenikIcons.details, size: 20),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSecondaryButton({
-    required BuildContext context,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return ElevatedButton(
-      onPressed: onTap,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.cardsCarbon,
-        foregroundColor: AppColors.primaryTextOffWhite,
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: Colors.white12),
-        ),
-        elevation: 0,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-          ),
-          const UlvenikIcon(UlvenikIcons.details, size: 20),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSocialButton({
-    IconData? icon,
-    bool isGoogle = false,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return TextButton(
-      onPressed: onTap,
-      style: TextButton.styleFrom(
-        backgroundColor: AppColors.backgroundObsidian,
-        foregroundColor: AppColors.primaryTextOffWhite,
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: Colors.white12),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (isGoogle)
-            Image.network('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/120px-Google_%22G%22_logo.svg.png', width: 20, height: 20)
-          else if (icon != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 2),
-              child: Icon(icon, size: 24),
-            ),
-          const SizedBox(width: 8),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
+        );
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        const Text('By continuing you agree to our', style: style),
+        link('Terms of Service', onTerms),
+        const Text('and', style: style),
+        link('Privacy Policy', onPrivacy),
+      ],
     );
   }
 }

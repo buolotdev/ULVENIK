@@ -610,7 +610,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
             decoration: BoxDecoration(
               color: AppColors.backgroundObsidian,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: const Color(0xFF2E6B57).withValues(alpha: 0.5)),
+              border: Border.all(color: const Color(0xFF2F5D50).withValues(alpha: 0.5)),
             ),
             child: Row(
               children: [
@@ -713,7 +713,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                               spots: spots,
                               isCurved: true,
                               curveSmoothness: 0.35,
-                              color: const Color(0xFF2E6B57),
+                              color: const Color(0xFF2F5D50),
                               barWidth: 2.8,
                               isStrokeCapRound: true,
                               belowBarData: BarAreaData(
@@ -722,8 +722,8 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    const Color(0xFF2E6B57).withValues(alpha: 0.35),
-                                    const Color(0xFF2E6B57).withValues(alpha: 0.0),
+                                    const Color(0xFF2F5D50).withValues(alpha: 0.35),
+                                    const Color(0xFF2F5D50).withValues(alpha: 0.0),
                                   ],
                                 ),
                               ),
@@ -733,7 +733,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                                   final isSelected = index == _selectedChartDayIndex;
                                   return FlDotCirclePainter(
                                     radius: isSelected ? 5.5 : 3.0,
-                                    color: isSelected ? const Color(0xFF95D3BB) : const Color(0xFF2E6B57),
+                                    color: isSelected ? const Color(0xFF95D3BB) : const Color(0xFF2F5D50),
                                     strokeWidth: isSelected ? 2.0 : 1.2,
                                     strokeColor: isSelected ? Colors.white : const Color(0xFF95D3BB),
                                   );
@@ -1284,11 +1284,11 @@ class _SupplementsScreenState extends State<SupplementsScreen>
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               decoration: BoxDecoration(
-                color: const Color(0xFF2E6B57),
+                color: const Color(0xFF2F5D50),
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF2E6B57).withValues(alpha: 0.3),
+                    color: const Color(0xFF2F5D50).withValues(alpha: 0.3),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -1329,7 +1329,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: const Color(0xFF2E6B57),
+        color: const Color(0xFF2F5D50),
         border: Border.all(color: const Color(0xFF95D3BB), width: 1.5),
       ),
       child: ClipRRect(
@@ -1342,7 +1342,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
           errorBuilder: (context, error, stackTrace) => Container(
             width: size,
             height: size,
-            color: const Color(0xFF2E6B57),
+            color: const Color(0xFF2F5D50),
             alignment: Alignment.center,
             child: UlvenikIcon(UlvenikIcons.dogs, size: size * 0.55, color: const Color(0xFF95D3BB)),
           ),
@@ -1446,7 +1446,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                           return ChoiceChip(
                             label: Text(_formatForm(f)),
                             selected: isSel,
-                            selectedColor: const Color(0xFF2E6B57),
+                            selectedColor: const Color(0xFF2F5D50),
                             backgroundColor: AppColors.backgroundObsidian,
                             labelStyle: TextStyle(
                               color: isSel ? const Color(0xFFAAE9D0) : AppColors.secondaryTextStoneGrey,
@@ -1508,7 +1508,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF2E6B57),
+                            color: const Color(0xFF2F5D50),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           alignment: Alignment.center,
@@ -1635,7 +1635,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF2E6B57),
+                          color: const Color(0xFF2F5D50),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         alignment: Alignment.center,
@@ -1766,7 +1766,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF2E6B57),
+                            backgroundColor: const Color(0xFF2F5D50),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
@@ -1893,10 +1893,10 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                       padding: const EdgeInsets.all(12),
                       margin: const EdgeInsets.only(bottom: 8),
                       decoration: BoxDecoration(
-                        color: isSelected ? const Color(0xFF2E6B57).withValues(alpha: 0.25) : AppColors.backgroundObsidian,
+                        color: isSelected ? const Color(0xFF2F5D50).withValues(alpha: 0.25) : AppColors.backgroundObsidian,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: isSelected ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.06),
+                          color: isSelected ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.06),
                         ),
                       ),
                       child: Row(

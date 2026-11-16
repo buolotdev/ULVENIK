@@ -17,9 +17,9 @@ class ClientsPageScreen extends StatefulWidget {
 }
 
 class _ClientsPageScreenState extends State<ClientsPageScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #101214
-  static const Color _cardBg = AppColors.cardsCarbon; // #1A1F22
-  static const Color _forest = AppColors.primaryForestGreen; // #2E6B57
+  static const Color _bg = AppColors.backgroundObsidian; // #121212
+  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
+  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _sage = Color(0xFFB6CCB5);
   static const Color _sageIcon = AppColors.secondarySage; // #7A8F7A

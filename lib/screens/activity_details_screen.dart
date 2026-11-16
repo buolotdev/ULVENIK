@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/session_rating.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'activity_library_screen.dart';
@@ -52,12 +53,12 @@ class ActivityDetailsScreen extends StatefulWidget {
 class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
     with SingleTickerProviderStateMixin {
   // Scandinavian Theme Palette
-  static const _obsidian = Color(0xFF101214);
-  static const _carbon = Color(0xFF1A1F22);
+  static const _obsidian = Color(0xFF121212);
+  static const _carbon = Color(0xFF1C1C1C);
   static const _surfaceHigh = Color(0xFF272B29);
   static const _surfaceContainer = Color(0xFF1D201F);
   static const _mint = Color(0xFF95D3BB);
-  static const _forest = Color(0xFF2E6B57);
+  static const _forest = Color(0xFF2F5D50);
   static const _offWhite = Color(0xFFF5F6F2);
   static const _muted = Color(0xFFA7B0AB);
   static const _sage = Color(0xFF7A8F7A);
@@ -119,7 +120,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
         date: '14 Aug',
         duration: '1h 20m',
         durationMinutes: 80,
-        rating: 4,
+        rating: 3, // Good
         notes: 'Felt strong, water temperature was perfect...',
         photoCount: 3,
         imageUrl:
@@ -130,7 +131,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
         date: '12 Aug',
         duration: '45m',
         durationMinutes: 45,
-        rating: 3,
+        rating: 2, // Mixed
         notes: 'Quick recovery swim, focused on technique.',
         photoCount: 0,
         imageUrl:
@@ -141,7 +142,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
         date: '10 Aug',
         duration: '2h 40m',
         durationMinutes: 160,
-        rating: 5,
+        rating: 4, // Excellent
         notes: 'Longest session to date. Pushed through the wall.',
         photoCount: 1,
         imageUrl: null, // Fallback icon in screenshot
@@ -151,7 +152,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
         date: '08 Aug',
         duration: '1h 05m',
         durationMinutes: 65,
-        rating: 3,
+        rating: 2, // Mixed
         notes: 'Choppy water today, tough conditions.',
         photoCount: 0,
         imageUrl:
@@ -179,7 +180,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
         date: result['date'] as String? ?? 'Today',
         duration: '${dur}m',
         durationMinutes: dur,
-        rating: result['rating'] as int? ?? 5,
+        rating: result['rating'] as int? ?? 0,
         notes: 'Consistent conditioning effort.',
       );
       setState(() {
@@ -1035,15 +1036,8 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                                     fontSize: 13,
                                   ),
                                 ),
-                                Row(
-                                  children: List.generate(5, (starIdx) {
-                                    final isFilled = starIdx < sess.rating;
-                                    return UlvenikIcon.fromMaterial(
-                                      isFilled ? Icons.star : Icons.star_border,
-                                      color: _mint,
-                                      size: 14,
-                                    );
-                                  }),
+                                SessionRatingBadge(
+                                  rating: SessionRating.fromScore(sess.rating),
                                 ),
                               ],
                             ),

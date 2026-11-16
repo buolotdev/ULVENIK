@@ -50,12 +50,12 @@ class EquipmentScreen extends StatefulWidget {
 
 class _EquipmentScreenState extends State<EquipmentScreen> {
   // Theme Color Palette
-  static const _obsidian = Color(0xFF101214);
-  static const _carbon = Color(0xFF1A1F22);
+  static const _obsidian = Color(0xFF121212);
+  static const _carbon = Color(0xFF1C1C1C);
   static const _surfaceHigh = Color(0xFF272B29);
   static const _surfaceVariant = Color(0xFF323533);
   static const _mint = Color(0xFF95D3BB);
-  static const _forest = Color(0xFF2E6B57);
+  static const _forest = Color(0xFF2F5D50);
   static const _offWhite = Color(0xFFF5F6F2);
   static const _stoneGrey = Color(0xFFA7B0AB);
   static const _outline = Color(0xFF89938E);

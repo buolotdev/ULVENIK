@@ -2,12 +2,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
-import '../widgets/custom_snackbar.dart';
 import 'training_session_screen.dart';
-import 'strength_conditioning_dashboard_screen.dart';
-import 'activity_library_screen.dart';
-import 'export_screen.dart';
-import 'rewards_management_screen.dart';
+import 'dog_profile_screen.dart';
+import 'goals_list_screen.dart' show DogPickerSheet;
 
 // ─── Computed Training Session Models & Store ────────────────────────────────
 
@@ -124,7 +121,7 @@ class TrainingSession {
   final String id;
   final String dogName;
   final String dogInitial;
-  final String dogCategory; // 'My Dogs', 'Sport Dogs', 'Client Dogs'
+  final String dogCategory; // 'My Dogs' or 'Client Dogs'
   final String title;
   final String dateLabel;
   final DateTime date;
@@ -491,7 +488,7 @@ class TrainingSessionStore {
           id: 's_jax_1',
           dogName: 'Jax',
           dogInitial: 'J',
-          dogCategory: 'Sport Dogs',
+          dogCategory: 'My Dogs',
           title: 'Focused Heelwork',
           dateLabel: '14 Sep · 17:10',
           date: DateTime(2026, 9, 14),
@@ -647,7 +644,7 @@ class TrainingSessionStore {
           id: 's_jax_2',
           dogName: 'Jax',
           dogInitial: 'J',
-          dogCategory: 'Sport Dogs',
+          dogCategory: 'My Dogs',
           title: 'Position Changes',
           dateLabel: '12 Sep · 18:00',
           date: DateTime(2026, 9, 12),
@@ -693,12 +690,12 @@ class TrainingSessionStore {
           dogColor: AppColors.infoAlpineBlue,
         ),
 
-        // ── Additional Workspace Records (Draft + Client/Sport Dogs) ──
+        // ── Additional Workspace Records (Draft + Client Dogs) ──
         TrainingSession(
           id: 's1',
           dogName: 'Rex',
           dogInitial: 'R',
-          dogCategory: 'Sport Dogs',
+          dogCategory: 'My Dogs',
           title: 'Tracking Session: Woodland Trail',
           dateLabel: 'Today · Incomplete',
           date: DateTime(2026, 9, 15),
@@ -806,7 +803,7 @@ class TrainingSessionStore {
           id: 's5',
           dogName: 'Rex',
           dogInitial: 'R',
-          dogCategory: 'Sport Dogs',
+          dogCategory: 'My Dogs',
           title: 'Protection Work: Sleeve Drive',
           dateLabel: '10 Sep · 17:00',
           date: DateTime(2026, 9, 10),
@@ -986,53 +983,42 @@ enum TrainingSubscriptionTier {
   complete,
 }
 
+enum _TrainingPeriod { lifetime, thisYear, last6Months, thisMonth }
+
+/// Training Sessions — bottom-nav Training (Bottom Nav Training handover).
+///
+/// Compact header with a faded, right-cropped Ulvenik mark; action stack
+/// Record Session (green) → Strength & Conditioning → Continue Draft (only
+/// when drafts exist); live search; All / My / Client Dogs; Date Range ·
+/// Lifetime; Recent Sessions with Newest / Oldest First by recorded date.
+/// No bell, Export, Activity Library or Rewards shortcuts (moved to More / the
+/// dog's S&C tab).
 class _TrainingScreenState extends State<TrainingScreen> {
-  bool _hasData = true;
+  bool _hasData = true; // demo toggle: double-tap the title
   int _activeFilter = 0;
   bool _sortNewest = true;
-  bool _videoPlaying = false;
+  _TrainingPeriod _period = _TrainingPeriod.lifetime;
 
-  // Subscription tier: adapts dog filters per client requirement
-  TrainingSubscriptionTier _subscriptionTier =
-      TrainingSubscriptionTier.complete;
+  // Subscription tier: Client Dogs only appear with access to client dogs.
+  final TrainingSubscriptionTier _subscriptionTier = TrainingSubscriptionTier.complete;
 
-  List<String> get _availableFilters {
-    switch (_subscriptionTier) {
-      case TrainingSubscriptionTier.coreOnly:
-        return const []; // Core only: no category filter needed
-      case TrainingSubscriptionTier.coreAndSport:
-        return const ['All Dogs', 'My Dogs', 'Sport Dogs'];
-      case TrainingSubscriptionTier.coreAndTrainer:
-        return const ['All Dogs', 'My Dogs', 'Client Dogs'];
-      case TrainingSubscriptionTier.complete:
-        return const ['All Dogs', 'My Dogs', 'Sport Dogs', 'Client Dogs'];
-    }
-  }
+  List<String> get _availableFilters => switch (_subscriptionTier) {
+        TrainingSubscriptionTier.coreOnly || TrainingSubscriptionTier.coreAndSport => const ['All Dogs', 'My Dogs'],
+        _ => const ['All Dogs', 'My Dogs', 'Client Dogs'],
+      };
 
-  // Active filter chips (date range; dog chips can also be added/cleared)
-  final List<String> _activeChips = ['Last 30 Days'];
+  String get _selectedFilter => _availableFilters[_activeFilter.clamp(0, _availableFilters.length - 1)];
 
-  static const Set<String> _knownDogNames = {
-    'Cooper',
-    'Jax',
-    'Lady',
-    'Rex',
-    'Murphy',
-    'Koda',
-  };
-
-  // Search
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
-  static const String _heroImage =
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAzU4TdlERYJVUgVdsr7lJ8DZFavYDTksXswDyQuEMLlNsKiXqJGjJad2zRGqd2ibKYehwzPDTAizHKzNhifbp44NfWAFL-Rl4zffvvhWUMt93n77tVP4tql3yPVRn8sNdzWjJLNSKuYVoDJXAnLeoqdAtzst_h1iNayOteb9nZ0HLwqIgjNL3zU2DYy8wU-k1SfK2rg8DPnSut9yIGwM0aDTFJGGUGg76OCK6Laj93d4g7ijmaPXU';
+  static const _months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   @override
   void initState() {
     super.initState();
     _searchController.addListener(() {
-      setState(() => _searchQuery = _searchController.text.toLowerCase());
+      setState(() => _searchQuery = _searchController.text.trim().toLowerCase());
     });
   }
 
@@ -1042,975 +1028,533 @@ class _TrainingScreenState extends State<TrainingScreen> {
     super.dispose();
   }
 
-  // ── Derived filtered + sorted session list ────────────────────────────────
+  // ── Derived data ──────────────────────────────────────────────────────────
+  DateTime _recordedAt(TrainingSession s) =>
+      DateTime(s.date.year, s.date.month, s.date.day, s.startTime.hour, s.startTime.minute);
+
+  String _periodLabel(_TrainingPeriod p) => switch (p) {
+        _TrainingPeriod.lifetime => 'Lifetime',
+        _TrainingPeriod.thisYear => 'This Year',
+        _TrainingPeriod.last6Months => 'Last 6 Months',
+        _TrainingPeriod.thisMonth => 'This Month',
+      };
+
+  bool _inPeriod(DateTime d) {
+    final now = DateTime.now();
+    return switch (_period) {
+      _TrainingPeriod.lifetime => true,
+      _TrainingPeriod.thisYear => d.year == now.year,
+      _TrainingPeriod.last6Months => !d.isBefore(DateTime(now.year, now.month - 6, now.day)),
+      _TrainingPeriod.thisMonth => d.year == now.year && d.month == now.month,
+    };
+  }
 
   List<TrainingSession> _filteredSessionsFrom(List<TrainingSession> all) {
-    final selectedFilter = _availableFilters.isNotEmpty
-        ? _availableFilters[
-            _activeFilter.clamp(0, _availableFilters.length - 1)]
-        : 'All Dogs';
-
     final list = all.where((s) {
-      // Category filter
-      if (selectedFilter != 'All Dogs' && s.dogCategory != selectedFilter) {
-        return false;
-      }
-      // Active chip dog filter
-      final chipDogs = _activeChips.where(_knownDogNames.contains).toList();
-      if (chipDogs.isNotEmpty && !chipDogs.contains(s.dogName)) return false;
-      // Search across session title, dog name, recorded skills, and exercises
+      if (s.status == SessionStatus.draft) return false; // drafts live under Continue Draft
+      if (_selectedFilter != 'All Dogs' && s.dogCategory != _selectedFilter) return false;
+      if (!_inPeriod(_recordedAt(s))) return false;
       if (_searchQuery.isNotEmpty) {
-        final matchesTitle = s.title.toLowerCase().contains(_searchQuery);
-        final matchesDog = s.dogName.toLowerCase().contains(_searchQuery);
-        final matchesSkill =
-            s.skillTags.any((t) => t.toLowerCase().contains(_searchQuery));
-        final matchesExercise = s.recordedSkills.any(
-          (sk) => sk.exercises
-              .any((ex) => ex.name.toLowerCase().contains(_searchQuery)),
-        );
-        return matchesTitle || matchesDog || matchesSkill || matchesExercise;
+        final q = _searchQuery;
+        return s.title.toLowerCase().contains(q) ||
+            s.dogName.toLowerCase().contains(q) ||
+            s.skillTags.any((t) => t.toLowerCase().contains(q)) ||
+            s.recordedSkills.any((sk) => sk.exercises.any((ex) => ex.name.toLowerCase().contains(q)));
       }
       return true;
     }).toList();
-
-    return _sortNewest ? list : list.reversed.toList();
+    list.sort((a, b) => _sortNewest ? _recordedAt(b).compareTo(_recordedAt(a)) : _recordedAt(a).compareTo(_recordedAt(b)));
+    return list;
   }
 
-  // ─────────────────────────────────────────────────────────────────────────
+  String _cardMeta(TrainingSession s) {
+    final d = _recordedAt(s);
+    final hm = '${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}';
+    return [s.dogName, '${d.day} ${_months[d.month - 1]}', hm, ?s.duration].join(' · ');
+  }
+
+  // ── Actions ───────────────────────────────────────────────────────────────
+  void _showNewSessionSheet() => openNewTrainingSession(context);
+
+  void _openSandC() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => DogPickerSheet(
+        selected: '',
+        hasTrainerPack: _availableFilters.contains('Client Dogs'),
+        onSelected: (dog) {
+          Navigator.pop(ctx);
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => DogProfileScreen(dogName: dog.name, initialTab: 'S&C'),
+          ));
+        },
+      ),
+    );
+  }
+
+  void _openDraft(TrainingSession draft) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => TrainingSessionScreen(session: draft)));
+  }
+
+  void _continueDraft(List<TrainingSession> drafts) {
+    if (drafts.length == 1) {
+      _openDraft(drafts.first);
+      return;
+    }
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => SafeArea(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.7),
+          child: ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+            children: [
+              const Text('Choose a Draft',
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 8),
+              for (final d in drafts)
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const UlvenikIcon(UlvenikIcons.play, size: 22, color: AppColors.secondarySage),
+                  title: Text(d.title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                  subtitle: Text('${d.dogName} · ${_cardMeta(d).split(' · ').skip(1).take(2).join(' · ')}',
+                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  trailing: const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    _openDraft(d);
+                  },
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _openPeriodSheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Text('Select Time Period',
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 8),
+            for (final p in _TrainingPeriod.values)
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(_periodLabel(p), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
+                trailing: _period == p ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
+                onTap: () {
+                  setState(() => _period = p);
+                  Navigator.pop(ctx);
+                },
+              ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  // ── Build ─────────────────────────────────────────────────────────────────
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<List<TrainingSession>>(
       valueListenable: TrainingSessionStore.sessionsNotifier,
       builder: (context, allSessions, _) {
+        final completed = allSessions.where((s) => s.status != SessionStatus.draft).toList();
         final filtered = _filteredSessionsFrom(allSessions);
-        final draftSession = allSessions
-            .where((s) => s.status == SessionStatus.draft)
-            .firstOrNull;
+        final drafts = (_hasData ? allSessions.where((s) => s.status == SessionStatus.draft).toList() : <TrainingSession>[])
+          ..sort((a, b) => _recordedAt(b).compareTo(_recordedAt(a)));
 
         return Scaffold(
           backgroundColor: AppColors.backgroundObsidian,
-          body: CustomScrollView(
-            slivers: [
-              _buildHero(),
-              SliverToBoxAdapter(
-                child: Padding(
+          body: SafeArea(
+            bottom: false,
+            child: ListView(
+              padding: const EdgeInsets.only(bottom: 100),
+              children: [
+                _buildHeader(),
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 20),
-                      _buildSearchBar(),
-                      const SizedBox(height: 20),
-                      _buildQuickActions(draftSession),
-                      const SizedBox(height: 20),
-                      _buildFilterPills(),
-                      const SizedBox(height: 16),
-                      if (_hasData && allSessions.isNotEmpty) ...[
-                        if (_activeChips.isNotEmpty) ...[
-                          _buildActiveChips(),
-                          const SizedBox(height: 20),
-                        ],
-                        _buildSessionListHeader(filtered.length),
-                        const SizedBox(height: 12),
-                        _buildSessionList(filtered),
-                      ] else
-                        _buildEmptyState(),
-                      const SizedBox(height: 100),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                    _ActionRow(
+                      label: 'Record Session',
+                      icon: UlvenikIcons.recordSession,
+                      primary: true,
+                      onTap: _showNewSessionSheet,
+                    ),
+                    const SizedBox(height: 10),
+                    _ActionRow(
+                      label: 'Strength & Conditioning',
+                      icon: UlvenikIcons.strengthConditioning,
+                      onTap: _openSandC,
+                    ),
+                    if (drafts.isNotEmpty) ...[
+                      const SizedBox(height: 10),
+                      _ActionRow(
+                        label: 'Continue Draft',
+                        icon: UlvenikIcons.play,
+                        onTap: () => _continueDraft(drafts),
+                      ),
                     ],
-                  ),
+                    const SizedBox(height: 16),
+                    _buildSearchBar(),
+                    const SizedBox(height: 14),
+                    _buildFilters(),
+                    const SizedBox(height: 20),
+                    if (_hasData && completed.isNotEmpty) ...[
+                      _buildSessionListHeader(),
+                      const SizedBox(height: 10),
+                      _buildSessionList(filtered),
+                    ] else
+                      _buildEmptyState(),
+                  ]),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
     );
   }
 
-  // ── Hero ──────────────────────────────────────────────────────────────────
-
-  Widget _buildHero() {
-    return SliverAppBar(
-      expandedHeight: 260,
-      pinned: false,
-      stretch: true,
-      backgroundColor: AppColors.backgroundObsidian,
-      automaticallyImplyLeading: false,
-      flexibleSpace: FlexibleSpaceBar(
-        stretchModes: const [StretchMode.zoomBackground],
-        background: Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.network(
-              _heroImage,
-              fit: BoxFit.cover,
-              errorBuilder: (_, _, _) =>
-                  Container(color: AppColors.cardsCarbon),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0x33101214), AppColors.backgroundObsidian],
-                ),
+  Widget _buildHeader() {
+    return SizedBox(
+      height: 116,
+      child: ClipRect(
+        child: Stack(children: [
+          // Original Ulvenik mark, large, faded and cropped at the right edge.
+          Positioned(
+            right: -70,
+            top: -14,
+            child: IgnorePointer(
+              child: Opacity(
+                opacity: 0.16,
+                child: Image.asset('assets/images/brand.png', width: 260, cacheWidth: 600, excludeFromSemantics: true),
               ),
             ),
-            // Top controls
-            Positioned(
-              top: 48,
-              left: 20,
-              right: 20,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const ExportScreen(),
-                        ),
-                      );
-                    },
-                    borderRadius: BorderRadius.circular(9999),
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: AppColors.cardsCarbon,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white12),
-                      ),
-                      child: const Icon(Icons.ios_share,
-                          color: AppColors.primaryTextOffWhite, size: 18),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Stack(
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: AppColors.cardsCarbon,
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white12),
-                        ),
-                        child: const UlvenikIcon(UlvenikIcons.notifications,
-                            color: AppColors.primaryTextOffWhite, size: 20),
-                      ),
-                      Positioned(
-                        top: 8,
-                        right: 9,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryForestGreen,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color: AppColors.backgroundObsidian,
-                                width: 1.5),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+          ),
+          Positioned(
+            left: 20,
+            right: 120,
+            bottom: 18,
+            child: GestureDetector(
+              onDoubleTap: () => setState(() => _hasData = !_hasData),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
+                const Text('Training Sessions',
+                    style: TextStyle(
+                        color: AppColors.primaryTextOffWhite, fontSize: 28, fontWeight: FontWeight.w700, letterSpacing: -0.5)),
+                const SizedBox(height: 2),
+                Text(_selectedFilter == 'All Dogs' ? 'Across all dogs' : _selectedFilter,
+                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 15)),
+              ]),
             ),
-            // Hero text — double tap to toggle state
-            Positioned(
-              bottom: 24,
-              left: 20,
-              right: 20,
-              child: GestureDetector(
-                onDoubleTap: () => setState(() => _hasData = !_hasData),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          final nextIndex = (_subscriptionTier.index + 1) %
-                              TrainingSubscriptionTier.values.length;
-                          _subscriptionTier =
-                              TrainingSubscriptionTier.values[nextIndex];
-                          _activeFilter = 0;
-                        });
-                        final tierLabel = switch (_subscriptionTier) {
-                          TrainingSubscriptionTier.coreOnly =>
-                            'Core only (No filter)',
-                          TrainingSubscriptionTier.coreAndSport =>
-                            'Core + Sport (All | My Dogs | Sport)',
-                          TrainingSubscriptionTier.coreAndTrainer =>
-                            'Core + Trainer (All | My Dogs | Client)',
-                          TrainingSubscriptionTier.complete =>
-                            'Complete (All | My Dogs | Sport | Client)',
-                        };
-                        AppSnackbar.show(context,
-                            message: 'Filter Mode: $tierLabel',
-                            type: SnackbarType.info);
-                      },
-                      child: const Text(
-                        'TRAINING',
-                        style: TextStyle(
-                          color: AppColors.secondaryTextStoneGrey,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 0.05,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    const Text(
-                      'Training Sessions',
-                      style: TextStyle(
-                        color: AppColors.primaryTextOffWhite,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    const Text(
-                      'Across all dogs',
-                      style: TextStyle(
-                          color: AppColors.secondaryTextStoneGrey,
-                          fontSize: 12),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ]),
       ),
     );
   }
-
-  // ── Search bar ────────────────────────────────────────────────────────────
 
   Widget _buildSearchBar() {
-    return Container(
+    return SizedBox(
       height: 48,
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white12),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 14),
-      child: Row(
-        children: [
-          const UlvenikIcon(UlvenikIcons.search,
-              color: AppColors.secondaryTextStoneGrey, size: 20),
-          const SizedBox(width: 12),
-          Expanded(
-            child: TextField(
-              controller: _searchController,
-              style: const TextStyle(
-                  color: AppColors.primaryTextOffWhite, fontSize: 14),
-              decoration: const InputDecoration(
-                hintText: 'Search sessions, dogs, skills...',
-                hintStyle: TextStyle(
-                    color: AppColors.secondaryTextStoneGrey, fontSize: 14),
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                isCollapsed: true,
-              ),
-            ),
+      child: TextField(
+        controller: _searchController,
+        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+        decoration: InputDecoration(
+          hintText: 'Search sessions, dogs or skills...',
+          hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14.5),
+          filled: true,
+          fillColor: AppColors.cardsCarbon,
+          contentPadding: EdgeInsets.zero,
+          prefixIcon: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14),
+            child: UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           ),
-          GestureDetector(
-            onTap: () => AppSnackbar.show(context,
-                message: 'Voice search coming soon', type: SnackbarType.info),
-            child: const Icon(Icons.mic_outlined,
-                color: AppColors.secondaryTextStoneGrey, size: 20),
-          ),
-        ],
+          prefixIconConstraints: const BoxConstraints(minWidth: 48),
+          suffixIcon: _searchQuery.isEmpty
+              ? null
+              : IconButton(
+                  tooltip: 'Clear search',
+                  icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                  onPressed: _searchController.clear,
+                ),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Colors.white12)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+        ),
       ),
     );
   }
 
-  // ── Quick actions ─────────────────────────────────────────────────────────
-
-  Widget _buildQuickActions(TrainingSession? draftSession) {
-    final hasDraft = _hasData && draftSession != null;
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: _buildQuickAction(
-                label: 'Record Session',
-                icon: Icons.add,
-                isPrimary: true,
-                onTap: _showNewSessionSheet,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: _buildQuickAction(
-                label: 'Strength & Conditioning',
-                icon: Icons.fitness_center,
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          const StrengthConditioningDashboardScreen(),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            Expanded(
-              child: _buildQuickAction(
-                label: 'Activity Library',
-                icon: Icons.list_alt,
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const ActivityLibraryScreen(),
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: _buildQuickAction(
-                label: hasDraft ? 'Continue Draft' : 'Recent Sessions',
-                icon: hasDraft ? Icons.edit_outlined : Icons.schedule_outlined,
-                hasDot: hasDraft,
-                onTap: () {
-                  if (hasDraft) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) =>
-                            TrainingSessionScreen(session: draftSession),
-                      ),
-                    );
-                  } else {
-                    setState(() {
-                      _sortNewest = true;
-                      _searchController.clear();
-                    });
-                    AppSnackbar.show(context,
-                        message: 'Showing most recent sessions',
-                        type: SnackbarType.info);
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            Expanded(
-              child: _buildQuickAction(
-                label: 'Rewards & Reinforcers',
-                icon: Icons.sports_baseball_outlined,
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const RewardsManagementScreen(),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildQuickAction({
-    required String label,
-    required IconData icon,
-    bool isPrimary = false,
-    bool hasDot = false,
-    VoidCallback? onTap,
-  }) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: onTap,
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              height: 44,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                color: isPrimary
-                    ? AppColors.primaryForestGreen
-                    : AppColors.cardsCarbon,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                    color: isPrimary
-                        ? AppColors.primaryForestGreen
-                        : Colors.white12),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  UlvenikIcon.fromMaterial(icon,
-                      size: 18,
-                      color: isPrimary
-                          ? AppColors.primaryTextOffWhite
-                          : AppColors.secondaryTextStoneGrey),
-                  const SizedBox(width: 6),
-                  Flexible(
-                    child: Text(
-                      label,
-                      style: const TextStyle(
-                        color: AppColors.primaryTextOffWhite,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        if (hasDot)
-          Positioned(
-            top: -3,
-            right: -3,
-            child: Container(
-              width: 10,
-              height: 10,
-              decoration: BoxDecoration(
-                color: AppColors.primaryForestGreen,
-                shape: BoxShape.circle,
-                border: Border.all(
-                    color: AppColors.backgroundObsidian, width: 1.5),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-
-  // ── Filter pills ──────────────────────────────────────────────────────────
-
-  Widget _buildFilterPills() {
-    if (_availableFilters.isEmpty) {
-      return const SizedBox.shrink();
-    }
-    return Wrap(
-      spacing: 8,
-      runSpacing: 10,
-      children: List.generate(_availableFilters.length, (i) {
-        final isActive = _activeFilter == i;
-        return GestureDetector(
+  Widget _buildFilters() {
+    final isLifetime = _period == _TrainingPeriod.lifetime;
+    return Wrap(spacing: 8, runSpacing: 10, children: [
+      for (var i = 0; i < _availableFilters.length; i++)
+        _Pill(
+          label: _availableFilters[i],
+          selected: _activeFilter == i,
           onTap: () => setState(() => _activeFilter = i),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: isActive
-                  ? AppColors.primaryForestGreen
-                  : AppColors.cardsCarbon,
-              borderRadius: BorderRadius.circular(9999),
-              border: Border.all(
-                  color:
-                      isActive ? AppColors.primaryForestGreen : Colors.white12),
-            ),
-            child: Text(
-              _availableFilters[i],
-              style: TextStyle(
-                color: isActive
-                    ? AppColors.primaryTextOffWhite
-                    : AppColors.secondaryTextStoneGrey,
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
+        ),
+      InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: _openPeriodSheet,
+        child: Container(
+          padding: EdgeInsets.only(left: 12, right: isLifetime ? 12 : 4, top: 6, bottom: 6),
+          decoration: BoxDecoration(
+            color: AppColors.cardsCarbon,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: isLifetime ? Colors.white12 : AppColors.primaryForestGreen),
+          ),
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
+            const UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
+            const SizedBox(width: 6),
+            Text('Date Range · ${_periodLabel(_period)}',
+                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
+            if (!isLifetime)
+              InkWell(
+                customBorder: const CircleBorder(),
+                onTap: () => setState(() => _period = _TrainingPeriod.lifetime),
+                child: const Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Icon(Icons.close, size: 15, color: AppColors.secondaryTextStoneGrey),
+                ),
               ),
-            ),
-          ),
-        );
-      }),
-    );
-  }
-
-  // ── Active chips ──────────────────────────────────────────────────────────
-
-  Widget _buildActiveChips() {
-    return Row(
-      children: [
-        Expanded(
-          child: Wrap(
-            spacing: 8,
-            runSpacing: 6,
-            children: _activeChips
-                .map((chip) => _buildChip(chip,
-                    onRemove: () => setState(() => _activeChips.remove(chip))))
-                .toList(),
-          ),
+          ]),
         ),
-        TextButton(
-          onPressed: () => setState(() => _activeChips.clear()),
-          child: const Text('Clear All',
-              style:
-                  TextStyle(color: AppColors.primaryForestGreen, fontSize: 12)),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildChip(String label, {required VoidCallback onRemove}) {
-    return Container(
-      padding: const EdgeInsets.only(left: 8, top: 4, bottom: 4, right: 4),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(
-            color: AppColors.primaryForestGreen.withValues(alpha: 0.5)),
-        borderRadius: BorderRadius.circular(4),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(label,
-              style: const TextStyle(
-                  color: AppColors.primaryTextOffWhite, fontSize: 12)),
-          const SizedBox(width: 4),
-          GestureDetector(
-            onTap: onRemove,
-            child: const Icon(Icons.close,
-                size: 14, color: AppColors.secondaryTextStoneGrey),
-          ),
-        ],
+    ]);
+  }
+
+  Widget _buildSessionListHeader() {
+    return Row(children: [
+      const Expanded(
+        child: Text('Recent Sessions',
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w600)),
       ),
-    );
-  }
-
-  // ── Session list header ───────────────────────────────────────────────────
-
-  Widget _buildSessionListHeader(int count) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            'RECENT SESSIONS ($count)',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              color: AppColors.secondaryTextStoneGrey,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.05,
-            ),
-          ),
+      TextButton.icon(
+        onPressed: () => setState(() => _sortNewest = !_sortNewest),
+        icon: AnimatedRotation(
+          turns: _sortNewest ? 0 : 0.5,
+          duration: const Duration(milliseconds: 250),
+          child: const UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
         ),
-        const SizedBox(width: 8),
-        GestureDetector(
-          onTap: () => setState(() => _sortNewest = !_sortNewest),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                _sortNewest ? 'Newest First' : 'Oldest First',
-                style: const TextStyle(
-                    color: AppColors.secondaryTextStoneGrey, fontSize: 12),
-              ),
-              const SizedBox(width: 4),
-              AnimatedRotation(
-                turns: _sortNewest ? 0 : 0.5,
-                duration: const Duration(milliseconds: 250),
-                child: const UlvenikIcon(UlvenikIcons.sort,
-                    size: 16, color: AppColors.secondaryTextStoneGrey),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+        label: Text(_sortNewest ? 'Newest First' : 'Oldest First',
+            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+      ),
+    ]);
   }
-
-  // ── Session list ──────────────────────────────────────────────────────────
 
   Widget _buildSessionList(List<TrainingSession> sessions) {
     if (sessions.isEmpty) {
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 40),
-        child: Center(
-          child: Column(
-            children: [
-              Icon(Icons.search_off,
-                  size: 40,
-                  color:
-                      AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5)),
-              const SizedBox(height: 12),
-              const Text(
-                'No sessions match your filters',
-                style: TextStyle(
-                    color: AppColors.secondaryTextStoneGrey, fontSize: 14),
-              ),
-              const SizedBox(height: 12),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    _activeFilter = 0;
-                    _activeChips.clear();
-                    _searchController.clear();
-                  });
-                },
-                child: const Text('Clear Filters',
-                    style: TextStyle(color: AppColors.primaryForestGreen)),
-              ),
-            ],
+        padding: const EdgeInsets.symmetric(vertical: 36),
+        child: Column(children: [
+          const Text('No sessions match your search or filters.',
+              textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+          const SizedBox(height: 8),
+          TextButton(
+            onPressed: () => setState(() {
+              _activeFilter = 0;
+              _period = _TrainingPeriod.lifetime;
+              _searchController.clear();
+            }),
+            child: const Text('Clear Filters', style: TextStyle(color: AppColors.primaryTextOffWhite)),
           ),
-        ),
+        ]),
       );
     }
-
-    return Column(
-      children: sessions
-          .map((s) => Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: _buildSessionCard(s),
-              ))
-          .toList(),
-    );
-  }
-
-  Widget _buildSessionCard(TrainingSession session) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => TrainingSessionScreen(session: session),
-          ),
+    return Column(children: [
+      for (final s in sessions) ...[
+        _SessionCard(
+          title: s.title,
+          meta: _cardMeta(s),
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => TrainingSessionScreen(session: s))),
         ),
-        borderRadius: BorderRadius.circular(16),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: AppColors.cardsCarbon,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.white12),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildCardThumbnail(session),
-              const SizedBox(width: 16),
-              Expanded(child: _buildCardContent(session)),
-              if (session.status == SessionStatus.draft) _buildDraftBadge(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCardThumbnail(TrainingSession session) {
-    if (session.thumbnailUrl != null) {
-      return GestureDetector(
-        onTap: () => setState(() => _videoPlaying = !_videoPlaying),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Stack(
-            children: [
-              SizedBox(
-                width: 72,
-                height: 72,
-                child: Image.network(
-                  session.thumbnailUrl!,
-                  fit: BoxFit.cover,
-                  color: Colors.black45,
-                  colorBlendMode: BlendMode.darken,
-                  errorBuilder: (_, _, _) =>
-                      Container(color: const Color(0xFF111412)),
-                ),
-              ),
-              Positioned.fill(
-                child: Center(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
-                    child: Container(
-                      key: ValueKey(_videoPlaying),
-                      padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                          color: Colors.black54, shape: BoxShape.circle),
-                      child: UlvenikIcon.fromMaterial(
-                        _videoPlaying ? Icons.pause : Icons.play_arrow,
-                        color: AppColors.primaryTextOffWhite,
-                        size: 18,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    // No thumbnail
-    return Container(
-      width: 72,
-      height: 72,
-      decoration: BoxDecoration(
-        color: const Color(0xFF111412),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white12),
-      ),
-      child: UlvenikIcon.fromMaterial(
-        session.status == SessionStatus.draft
-            ? Icons.edit_outlined
-            : Icons.landscape_outlined,
-        color: session.status == SessionStatus.draft
-            ? AppColors.secondaryTextStoneGrey
-            : AppColors.secondaryTextStoneGrey.withValues(alpha: 0.2),
-        size: session.status == SessionStatus.draft ? 28 : 36,
-      ),
-    );
-  }
-
-  Widget _buildCardContent(TrainingSession session) {
-    final hasStats =
-        session.duration != null || session.recordedSkills.isNotEmpty;
-    final recordedSkillTags = session.skillTags;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Dog row
-        Row(
-          children: [
-            Container(
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                color: session.dogColor.withValues(alpha: 0.2),
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white12),
-              ),
-              child: Center(
-                child: Text(
-                  session.dogInitial,
-                  style: TextStyle(
-                    color: session.dogColor,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 6),
-            Text(
-              session.dogName,
-              style: const TextStyle(
-                  color: AppColors.secondaryTextStoneGrey,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        Text(
-          session.title,
-          style: const TextStyle(
-              color: AppColors.primaryTextOffWhite,
-              fontSize: 16,
-              fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          session.dateLabel,
-          style: const TextStyle(
-              color: AppColors.secondaryTextStoneGrey, fontSize: 12),
-        ),
-        // Automatically calculated stats row (duration · distinct skills · distinct exercises)
-        if (hasStats) ...[
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 10,
-            runSpacing: 4,
-            children: [
-              if (session.duration != null)
-                _buildStat(Icons.schedule_outlined, session.duration!),
-              if (session.recordedSkills.isNotEmpty)
-                _buildStat(Icons.layers_outlined, session.formattedSkillCount),
-              if (session.recordedSkills.isNotEmpty)
-                _buildStat(Icons.repeat, session.formattedExerciseCount),
-            ],
-          ),
-        ],
-        // Skill tags automatically matching the skills recorded in this session
-        if (recordedSkillTags.isNotEmpty ||
-            session.photoCount != null ||
-            session.videoCount != null) ...[
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 4,
-            runSpacing: 4,
-            children: [
-              ...recordedSkillTags.map(_buildTag),
-              if (session.photoCount != null)
-                _buildMediaTag(
-                    Icons.photo_camera_outlined, '${session.photoCount}'),
-              if (session.videoCount != null)
-                _buildMediaTag(
-                    Icons.videocam_outlined, '${session.videoCount}'),
-            ],
-          ),
-        ],
+        const SizedBox(height: 10),
       ],
-    );
+    ]);
   }
-
-  Widget _buildStat(IconData icon, String label) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        UlvenikIcon.fromMaterial(icon, size: 13, color: AppColors.secondaryTextStoneGrey),
-        const SizedBox(width: 3),
-        Text(label,
-            style: const TextStyle(
-                color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-      ],
-    );
-  }
-
-  Widget _buildTag(String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-      decoration: BoxDecoration(
-        color: const Color(0xFF111412),
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(label,
-          style: const TextStyle(
-              color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
-    );
-  }
-
-  Widget _buildMediaTag(IconData icon, String count) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-      decoration: BoxDecoration(
-        color: const Color(0xFF111412),
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          UlvenikIcon.fromMaterial(icon, size: 10, color: AppColors.secondaryTextStoneGrey),
-          const SizedBox(width: 3),
-          Text(count,
-              style: const TextStyle(
-                  color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDraftBadge() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: const Color(0xFF8d504a),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: const Text(
-        'DRAFT',
-        style: TextStyle(
-            color: AppColors.primaryTextOffWhite,
-            fontSize: 9,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.8),
-      ),
-    );
-  }
-
-  // ── Empty state ───────────────────────────────────────────────────────────
 
   Widget _buildEmptyState() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 48),
-      child: Column(
-        children: [
-          Container(
-            width: 72,
-            height: 72,
-            decoration: BoxDecoration(
-              color: AppColors.cardsCarbon,
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white12),
+      padding: const EdgeInsets.symmetric(vertical: 40),
+      child: Column(children: [
+        const UlvenikIcon(UlvenikIcons.training, size: 36, color: AppColors.secondarySage),
+        const SizedBox(height: 16),
+        const Text('No sessions yet',
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+        const SizedBox(height: 8),
+        const Text("Record your first session to start building your dog's training history.",
+            textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5)),
+      ]),
+    );
+  }
+}
+
+class _ActionRow extends StatelessWidget {
+  final String label;
+  final String icon;
+  final bool primary;
+  final VoidCallback onTap;
+  const _ActionRow({required this.label, required this.icon, required this.onTap, this.primary = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: primary ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(14),
+        onTap: onTap,
+        child: Container(
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: primary ? AppColors.primaryForestGreen : Colors.white12),
+          ),
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            UlvenikIcon(icon, size: 24, color: primary ? AppColors.primaryTextOffWhite : const Color(0xFF6FBF8E)),
+            const SizedBox(width: 12),
+            Flexible(
+              child: Text(label,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
             ),
-            child: const Icon(Icons.bookmark_border_outlined,
-                color: AppColors.primaryForestGreen, size: 32),
-          ),
-          const SizedBox(height: 24),
-          const Text(
-            'No Sessions Yet',
-            style: TextStyle(
-                color: AppColors.primaryTextOffWhite,
-                fontSize: 20,
-                fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 12),
-          const Text(
-            "Start recording your first training\nsession to begin building your dog's\nlifelong training history.",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: AppColors.secondaryTextStoneGrey,
-                fontSize: 14,
-                height: 1.5),
-          ),
-          const SizedBox(height: 32),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: _showNewSessionSheet,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryForestGreen,
-                foregroundColor: AppColors.primaryTextOffWhite,
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                elevation: 0,
-              ),
-              child: const Text(
-                'Record Training Session',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-        ],
+          ]),
+        ),
       ),
     );
   }
+}
 
-  // ── New Session bottom sheet ───────────────────────────────────────────────
+class _Pill extends StatelessWidget {
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+  const _Pill({required this.label, required this.selected, required this.onTap});
 
-  void _showNewSessionSheet() {
+  @override
+  Widget build(BuildContext context) => InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+          decoration: BoxDecoration(
+            color: selected ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white12),
+          ),
+          child: Text(label,
+              style: TextStyle(
+                color: selected ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              )),
+        ),
+      );
+}
+
+/// Compact Training History card: title, dog · date · time · duration, chevron.
+class _SessionCard extends StatelessWidget {
+  final String title;
+  final String meta;
+  final VoidCallback onTap;
+  const _SessionCard({required this.title, required this.meta, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) => Material(
+        color: AppColors.cardsCarbon,
+        borderRadius: BorderRadius.circular(14),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(14),
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: Colors.white12)),
+            child: Row(children: [
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(title,
+                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15.5, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 4),
+                  Text(meta, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                ]),
+              ),
+              const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+            ]),
+          ),
+        ),
+      );
+}
+
+// ─── Shared New Training Session entry point ─────────────────────────────────
+
+const List<String> _shortMonths = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+];
+
+/// Default title when the user leaves Session Name blank (Training Tab v39):
+/// "Training Session · 7 Nov 2026".
+String defaultTrainingSessionTitle(DateTime d) =>
+    'Training Session · ${d.day} ${_shortMonths[d.month - 1]} ${d.year}';
+
+/// Opens the one shared New Training Session workflow used by the main
+/// Training tab, the dog profile, skill pages and exercise pages.
+///
+/// When [dogName] is supplied that dog is preselected and the dog picker is
+/// skipped; otherwise the user chooses the dog first.
+void openNewTrainingSession(
+  BuildContext context, {
+  String? dogName,
+  String dogCategory = 'My Dogs',
+}) {
+  if (dogName == null) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (context) => _NewSessionSheet(),
     );
+    return;
   }
+  final now = DateTime.now();
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) => TrainingSessionScreen(
+        session: TrainingSession(
+          id: 'session_${now.microsecondsSinceEpoch}',
+          dogName: dogName,
+          dogInitial: dogName.isEmpty ? '?' : dogName[0].toUpperCase(),
+          dogCategory: dogCategory,
+          title: defaultTrainingSessionTitle(now),
+          dateLabel: 'Today · Draft',
+          date: now,
+          startTime: TimeOfDay.now(),
+          status: SessionStatus.draft,
+          recordedSkills: const [],
+          notes: '',
+          dogColor: AppColors.secondarySage,
+        ),
+        isNewSession: true,
+      ),
+    ),
+  );
 }
 
 // ─── New Session bottom sheet ─────────────────────────────────────────────────
@@ -2035,7 +1579,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
       'name': 'Jax',
       'initial': 'J',
       'breed': 'Belgian Malinois',
-      'category': 'Sport Dogs',
+      'category': 'My Dogs',
       'color': AppColors.infoAlpineBlue,
     },
     {
@@ -2049,7 +1593,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
       'name': 'Rex',
       'initial': 'R',
       'breed': 'German Shepherd',
-      'category': 'Sport Dogs',
+      'category': 'My Dogs',
       'color': AppColors.secondarySage,
     },
     {
@@ -2201,7 +1745,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                               dogName: dog['name'] as String,
                               dogInitial: dog['initial'] as String,
                               dogCategory: dog['category'] as String,
-                              title: '${dog['name']} Training Session',
+                              title: defaultTrainingSessionTitle(now),
                               dateLabel: 'Today · Draft',
                               date: now,
                               startTime: start,

@@ -34,10 +34,68 @@ class UlvenikIcons {
   static const String details = 'details';
   static const String overflowMenu = 'overflow_menu';
 
+  // Added Nov 2026 from client-approved references (Training v34 p31,
+  // Dog Overview p4). Save / views / favourite follow the same line style.
+  static const String strengthConditioning = 'strength_conditioning';
+  static const String rewards = 'rewards';
+  static const String equipment = 'equipment';
+  static const String save = 'save';
+  static const String listView = 'list_view';
+  static const String cardView = 'card_view';
+  static const String favourite = 'favourite';
+  static const String favouriteFilled = 'favourite_filled';
+
   /// Path to the standalone SVG asset file in assets/icons/ulvenik/
   static String assetPath(String name) => 'assets/icons/ulvenik/$name.svg';
 
   static const Map<String, String> _svgStrings = {
+    strengthConditioning: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <g transform="rotate(45 12 12)"><path d="M8 12h8" /><rect x="5.6" y="9.2" width="2.4" height="5.6" rx=".9" /><rect x="16" y="9.2" width="2.4" height="5.6" rx=".9" /><path d="M3.6 10.9v2.2M20.4 10.9v2.2" /></g>
+  <g transform="rotate(-45 12 12)"><path d="M8 12h8" /><rect x="5.6" y="9.2" width="2.4" height="5.6" rx=".9" /><rect x="16" y="9.2" width="2.4" height="5.6" rx=".9" /><path d="M3.6 10.9v2.2M20.4 10.9v2.2" /></g>
+  </svg>''',
+
+    rewards: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="9.5" cy="14.5" r="6.5" />
+  <path d="M4.2 10.8c2.4 1.6 3.4 4.8 2.4 9" />
+  <path d="M14.8 18.2c-2.4-1.6-3.4-4.8-2.4-9" />
+  <path d="M14.2 9.8l1.9-1.9" />
+  <ellipse cx="18.3" cy="5.7" rx="1.7" ry="3.3" transform="rotate(45 18.3 5.7)" />
+  </svg>''',
+
+    equipment: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M10.4 3.5h3.2l4.6 14.5H5.8z" />
+  <path d="M8.6 9.2h6.8M7.3 13.4h9.4" />
+  <rect x="3" y="18" width="18" height="2.8" rx="1.4" />
+  </svg>''',
+
+    save: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M5 3.5h11.2l3.3 3.3V18.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2v-13a2 2 0 0 1 2-2z" transform="translate(.5 0)" />
+  <path d="M8.5 3.5v4.5h6V3.5" />
+  <rect x="7.5" y="13" width="10" height="7.5" rx="1" />
+  </svg>''',
+
+    listView: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3.5" y="5" width="3" height="3" rx=".6" />
+  <rect x="3.5" y="10.5" width="3" height="3" rx=".6" />
+  <rect x="3.5" y="16" width="3" height="3" rx=".6" />
+  <path d="M10 6.5h10.5M10 12h10.5M10 17.5h10.5" />
+  </svg>''',
+
+    cardView: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.8" />
+  <rect x="13" y="3.5" width="7.5" height="7.5" rx="1.8" />
+  <rect x="3.5" y="13" width="7.5" height="7.5" rx="1.8" />
+  <rect x="13" y="13" width="7.5" height="7.5" rx="1.8" />
+  </svg>''',
+
+    favourite: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 20s-7.5-4.6-8.9-9.4C2.2 7.5 4.2 4.5 7.4 4.5c2 0 3.5 1.2 4.6 2.8 1.1-1.6 2.6-2.8 4.6-2.8 3.2 0 5.2 3 4.3 6.1C19.5 15.4 12 20 12 20z" />
+  </svg>''',
+
+    favouriteFilled: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 20s-7.5-4.6-8.9-9.4C2.2 7.5 4.2 4.5 7.4 4.5c2 0 3.5 1.2 4.6 2.8 1.1-1.6 2.6-2.8 4.6-2.8 3.2 0 5.2 3 4.3 6.1C19.5 15.4 12 20 12 20z" />
+  </svg>''',
+
     add: '''<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M12 4v16M4 12h16" fill="none" />
   </svg>''',
@@ -196,7 +254,7 @@ class UlvenikIcons {
   /// Returns the SVG string for the given icon name, or null if not found.
   static String? getSvgString(String name) => _svgStrings[name];
 
-  /// List of all 27 official icon keys.
+  /// List of all official icon keys.
   static List<String> get allIcons => _svgStrings.keys.toList();
 
   /// Material icons that are semantically identical to an official guide icon.

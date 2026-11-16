@@ -553,7 +553,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          UlvenikIcon.fromMaterial(icon, color: const Color(0xFF2E6B57), size: 22),
+          UlvenikIcon.fromMaterial(icon, color: const Color(0xFF2F5D50), size: 22),
           const SizedBox(height: 6),
           Text(
             value,
@@ -593,7 +593,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
             color: AppColors.cardsCarbon,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: _searchFocusNode.hasFocus ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+              color: _searchFocusNode.hasFocus ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
             ),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -737,7 +737,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFF2E6B57)),
+        border: Border.all(color: const Color(0xFF2F5D50)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -767,10 +767,10 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF2E6B57) : AppColors.cardsCarbon,
+          color: isSelected ? const Color(0xFF2F5D50) : AppColors.cardsCarbon,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+            color: isSelected ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
           ),
         ),
         child: Text(
@@ -870,7 +870,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF2E6B57),
+                      color: const Color(0xFF2F5D50),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Text(
@@ -889,7 +889,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                     decoration: BoxDecoration(
                       color: AppColors.cardsCarbon,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: const Color(0xFF2E6B57)),
+                      border: Border.all(color: const Color(0xFF2F5D50)),
                     ),
                     child: const Text(
                       'UPCOMING',
@@ -968,7 +968,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                           width: 6,
                           height: 6,
                           decoration: const BoxDecoration(
-                            color: Color(0xFF2E6B57),
+                            color: Color(0xFF2F5D50),
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -1083,7 +1083,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         height: 56,
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          color: const Color(0xFF2E6B57),
+          color: const Color(0xFF2F5D50),
           borderRadius: BorderRadius.circular(14),
           boxShadow: [
             BoxShadow(
@@ -1178,7 +1178,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
               height: 48,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2E6B57),
+                  backgroundColor: const Color(0xFF2F5D50),
                   foregroundColor: Colors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
@@ -1259,7 +1259,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       margin: const EdgeInsets.only(bottom: 8),
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                       decoration: BoxDecoration(
-                        color: isSelected ? const Color(0xFF2E6B57).withValues(alpha: 0.25) : Colors.transparent,
+                        color: isSelected ? const Color(0xFF2F5D50).withValues(alpha: 0.25) : Colors.transparent,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: isSelected ? const Color(0xFF95D3BB) : Colors.white.withValues(alpha: 0.08),
@@ -1412,7 +1412,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2E6B57),
+                          backgroundColor: const Color(0xFF2F5D50),
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -1438,7 +1438,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF2E6B57) : AppColors.backgroundObsidian,
+          color: isSelected ? const Color(0xFF2F5D50) : AppColors.backgroundObsidian,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: isSelected ? const Color(0xFF95D3BB) : Colors.white.withValues(alpha: 0.1)),
         ),
@@ -1546,7 +1546,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       Expanded(
                         child: ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF2E6B57),
+                            backgroundColor: const Color(0xFF2F5D50),
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -1817,7 +1817,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                           Switch(
                             value: isCompleted,
                             activeThumbColor: const Color(0xFF95D3BB),
-                            activeTrackColor: const Color(0xFF2E6B57),
+                            activeTrackColor: const Color(0xFF2F5D50),
                             onChanged: (val) => setModalState(() => isCompleted = val),
                           ),
                         ],
@@ -1831,7 +1831,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                           Switch(
                             value: followUpRequired,
                             activeThumbColor: const Color(0xFF95D3BB),
-                            activeTrackColor: const Color(0xFF2E6B57),
+                            activeTrackColor: const Color(0xFF2F5D50),
                             onChanged: (val) => setModalState(() => followUpRequired = val),
                           ),
                         ],
@@ -1845,7 +1845,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                           Switch(
                             value: hasReminder,
                             activeThumbColor: const Color(0xFF95D3BB),
-                            activeTrackColor: const Color(0xFF2E6B57),
+                            activeTrackColor: const Color(0xFF2F5D50),
                             onChanged: (val) => setModalState(() => hasReminder = val),
                           ),
                         ],
@@ -1856,7 +1856,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF2E6B57),
+                            backgroundColor: const Color(0xFF2F5D50),
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -1910,8 +1910,8 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: const Color(0xFF2E6B57),
-        border: Border.all(color: const Color(0xFF2E6B57), width: 2),
+        color: const Color(0xFF2F5D50),
+        border: Border.all(color: const Color(0xFF2F5D50), width: 2),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(size / 2),
@@ -1923,7 +1923,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
           errorBuilder: (context, error, stackTrace) => Container(
             width: size,
             height: size,
-            color: const Color(0xFF2E6B57),
+            color: const Color(0xFF2F5D50),
             alignment: Alignment.center,
             child: UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: size * 0.5),
           ),

@@ -14,10 +14,10 @@ import 'my_dogs_screen.dart';
 import 'training_screen.dart';
 
 // ─── Design Tokens ──────────────────────────────────────────────────────────
-const Color _obsidian = Color(0xFF101214);
-const Color _carbon = Color(0xFF1A1F22);
+const Color _obsidian = Color(0xFF121212);
+const Color _carbon = Color(0xFF1C1C1C);
 const Color _cardBorder = Color(0x14FFFFFF);
-const Color _forest = Color(0xFF2E6B57);
+const Color _forest = Color(0xFF2F5D50);
 const Color _mint = Color(0xFFAAE9D0);
 const Color _sage = Color(0xFF7A8F7A);
 const Color _offWhite = Color(0xFFF5F6F2);

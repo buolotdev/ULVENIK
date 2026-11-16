@@ -99,11 +99,11 @@ class TimelineActivityMapScreen extends StatefulWidget {
 class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens (Exact from Figma SVGs) ─────────────────────────────────
-  static const Color _obsidian = Color(0xFF101214);
+  static const Color _obsidian = Color(0xFF121212);
   static const Color _appBarBg = Color(0xFF111417);
-  static const Color _carbon = Color(0xFF1A1F22);
+  static const Color _carbon = Color(0xFF1C1C1C);
   static const Color _panelBg = Color(0xFF15191C);
-  static const Color _forest = Color(0xFF2E6B57);
+  static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _sage = Color(0xFFB6CCB5);
   static const Color _alpineBlue = Color(0xFF5D8FAF);
@@ -3778,7 +3778,7 @@ class _SelectedSectorTopoPainter extends CustomPainter {
       canvas.drawPath(
         activeLoop,
         Paint()
-          ..color = const Color(0xFF2E6B57)
+          ..color = const Color(0xFF2F5D50)
           ..style = PaintingStyle.stroke
           ..strokeWidth = 2.4,
       );

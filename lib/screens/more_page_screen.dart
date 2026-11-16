@@ -41,9 +41,14 @@ import 'whats_new_screen.dart';
 class MorePageScreen extends StatefulWidget {
   final bool isCloudSyncAvailable;
 
+  /// 'account' | 'privacy' | 'subscription': opens that sheet straight away
+  /// (used by the new More hub) and returns when it is closed.
+  final String? openSheet;
+
   const MorePageScreen({
     super.key,
     this.isCloudSyncAvailable = true,
+    this.openSheet,
   });
 
   @override
@@ -51,9 +56,9 @@ class MorePageScreen extends StatefulWidget {
 }
 
 class _MorePageScreenState extends State<MorePageScreen> {
-  static const Color _obsidian = Color(0xFF101214);
-  static const Color _carbon = Color(0xFF1A1F22);
-  static const Color _forest = Color(0xFF2E6B57);
+  static const Color _obsidian = Color(0xFF121212);
+  static const Color _carbon = Color(0xFF1C1C1C);
+  static const Color _forest = Color(0xFF2F5D50);
   static const Color _sage = Color(0xFF7A8F7A);
   static const Color _offWhite = Color(0xFFF5F6F2);
   static const Color _stoneGrey = Color(0xFFA7B0AB);
@@ -75,6 +80,21 @@ class _MorePageScreenState extends State<MorePageScreen> {
   @override
   void initState() {
     super.initState();
+    final which = widget.openSheet;
+    if (which != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        if (!mounted) return;
+        switch (which) {
+          case 'account':
+            await _showAccountSettingsSheet();
+          case 'privacy':
+            await _showPrivacySecuritySheet();
+          default:
+            await _showSubscriptionSheet();
+        }
+        if (mounted) Navigator.of(context).pop();
+      });
+    }
     UlvenikBottomNav.globalMoreScreenBuilder = (_) => const MorePageScreen();
   }
 
@@ -1022,11 +1042,11 @@ class _MorePageScreenState extends State<MorePageScreen> {
 
   // ── Interactive Bottom Sheets for Account, Community & Support ──
 
-  void _showAccountSettingsSheet() {
+  Future<void> _showAccountSettingsSheet() async {
     final nameController = TextEditingController(text: _userName);
     final emailController = TextEditingController(text: _userEmail);
 
-    showModalBottomSheet<void>(
+    await showModalBottomSheet<void>(
       context: context,
       useRootNavigator: true,
       isScrollControlled: true,
@@ -1122,8 +1142,8 @@ class _MorePageScreenState extends State<MorePageScreen> {
     );
   }
 
-  void _showPrivacySecuritySheet() {
-    showModalBottomSheet<void>(
+  Future<void> _showPrivacySecuritySheet() async {
+    await showModalBottomSheet<void>(
       context: context,
       useRootNavigator: true,
       backgroundColor: _carbon,
@@ -1276,14 +1296,14 @@ class _MorePageScreenState extends State<MorePageScreen> {
     );
   }
 
-  void _showSubscriptionSheet() {
+  Future<void> _showSubscriptionSheet() async {
     final plans = [
       'Core + Trainer',
       'Core + Sport',
       'Complete',
       'Core',
     ];
-    showModalBottomSheet<void>(
+    await showModalBottomSheet<void>(
       context: context,
       useRootNavigator: true,
       backgroundColor: _carbon,

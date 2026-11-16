@@ -91,11 +91,11 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
   static const _mint = Color(0xFF95D3BB);
 
-  static const _forest = Color(0xFF2E6B57);
+  static const _forest = Color(0xFF2F5D50);
 
-  static const _carbon = Color(0xFF1A1F22);
+  static const _carbon = Color(0xFF1C1C1C);
 
-  static const _obsidian = Color(0xFF101214);
+  static const _obsidian = Color(0xFF121212);
 
   static const _surfaceHigh = Color(0xFF272B29);
 
@@ -3351,7 +3351,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
             gradient: const LinearGradient(
 
-              colors: [Color(0xFF2E6B57), Color(0xFF235445)],
+              colors: [Color(0xFF2F5D50), Color(0xFF235445)],
 
               begin: Alignment.topLeft,
 
@@ -3365,7 +3365,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               BoxShadow(
 
-                color: const Color(0xFF2E6B57).withValues(alpha: 0.25),
+                color: const Color(0xFF2F5D50).withValues(alpha: 0.25),
 
                 blurRadius: 8,
 
@@ -3767,7 +3767,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
             gradient: const LinearGradient(
 
-              colors: [Color(0xFF2E6B57), Color(0xFF235445)],
+              colors: [Color(0xFF2F5D50), Color(0xFF235445)],
 
               begin: Alignment.topLeft,
 
@@ -3781,7 +3781,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               BoxShadow(
 
-                color: const Color(0xFF2E6B57).withValues(alpha: 0.25),
+                color: const Color(0xFF2F5D50).withValues(alpha: 0.25),
 
                 blurRadius: 8,
 

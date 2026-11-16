@@ -440,14 +440,14 @@ class _HealthScreenState extends State<HealthScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         gradient: const LinearGradient(
-          colors: [Color(0xFF2E6B57), Color(0xFF215243)],
+          colors: [Color(0xFF2F5D50), Color(0xFF215243)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         border: Border.all(color: const Color(0xFF95D3BB).withValues(alpha: 0.15)),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF2E6B57).withValues(alpha: 0.25),
+            color: const Color(0xFF2F5D50).withValues(alpha: 0.25),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -574,7 +574,7 @@ class _HealthScreenState extends State<HealthScreen> {
           ElevatedButton(
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddHealthRecordScreen())),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF2e6b57),
+              backgroundColor: const Color(0xFF2F5D50),
               foregroundColor: AppColors.primaryTextOffWhite,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

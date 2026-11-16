@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import '../data/sample_data.dart';
 import '../widgets/ulvenik_icon.dart';
+import '../widgets/session_items_picker.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import 'training_screen.dart';
+import 'photo_viewer_screen.dart';
+import 'video_viewer_screen.dart';
 
 // ─── Local mutable working models for live session editing ───────────────────
 
@@ -94,8 +99,13 @@ class TrainingSessionScreen extends StatefulWidget {
 }
 
 class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
-  static const String _heroImage =
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAzU4TdlERYJVUgVdsr7lJ8DZFavYDTksXswDyQuEMLlNsKiXqJGjJad2zRGqd2ibKYehwzPDTAizHKzNhifbp44NfWAFL-Rl4zffvvhWUMt93n77tVP4tql3yPVRn8sNdzWjJLNSKuYVoDJXAnLeoqdAtzst_h1iNayOteb9nZ0HLwqIgjNL3zU2DYy8wU-k1SfK2rg8DPnSut9yIGwM0aDTFJGGUGg76OCK6Laj93d4g7ijmaPXU';
+  /// Header image precedence (Bottom Nav Training p5): first linked skill
+  /// with an image → the dog's profile photo → no banner. Skills have no
+  /// images in this build, so the dog photo is used when one exists.
+  String? get _headerImage {
+    final dogs = SampleData.dogs.where((d) => d.name == widget.session.dogName);
+    return dogs.isEmpty ? null : dogs.first.photoUrl;
+  }
 
   static const List<String> _mediaUrls = [
     'https://lh3.googleusercontent.com/aida-public/AB6AXuBIasfW7yL_aU7sEvfdTiSXGLyb1g20EsEgwDqN0nGfGaC7fTVx2awMtE-WmqwXNd-mmstruwNj9Vk_iRuftQc-CECnynNldoSGf02F4nPvtYQglgrokPude4MXwqkLcJqNbuJShM3nI_pZTOT1HfxVQaRto9uvMLijyjWQ8lWNc88MvxyAzq2jgkqtFhXpMmcG89Y2d9E0auqsoDo90lFX96iDqx5Oielv8Eaa1vt_Lkh_vXP0-D0',
@@ -151,34 +161,9 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     'Socialisation',
     'Club Night',
   ];
-
-  static const List<String> _equipmentOptions = [
-    'Long Line (10m)',
-    'Flat Collar',
-    'Harness',
-    'Clicker',
-    'Canvas Dummy (500g)',
-    'Position Box Marker',
-    'Boundary Mat',
-    'Bite Sleeve',
-    'Dumbbell',
-  ];
-
-  static const List<String> _rewardOptions = [
-    'High-Value Food',
-    'Tug Toy',
-    'Ball',
-    'Praise',
-    'Play',
-  ];
-
-  static const List<String> _tagOptions = [
-    '#ClubNight',
-    '#IGP3_Prep',
-    '#MorningSession',
-    '#Proofing',
-    '#FieldWork',
-  ];
+
+
+
 
   late TrainingSession _savedSnapshot;
   late SessionStatus _status;
@@ -1025,82 +1010,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     });
     if (_isDraft && !widget.isNewSession) _persistToStore();
   }
-
-  Future<void> _editChips(
-      String title,
-      List<String> options,
-      List<String> selected,
-      ValueChanged<List<String>> onDone) async {
-    final temp = List<String>.from(selected);
-    final all = {...options, ...selected}.toList();
-    final result = await showModalBottomSheet<List<String>>(
-      context: context,
-      backgroundColor: AppColors.cardsCarbon,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      builder: (c) => StatefulBuilder(
-        builder: (c, setSheet) => SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _sheetHandle(),
-                Text(title,
-                    style: _ts(
-                        18, AppColors.primaryTextOffWhite, FontWeight.w600)),
-                const SizedBox(height: 16),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 10,
-                  children: all.map((o) {
-                    final on = temp.contains(o);
-                    return GestureDetector(
-                      onTap: () =>
-                          setSheet(() => on ? temp.remove(o) : temp.add(o)),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 180),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 14, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: on
-                              ? AppColors.primaryForestGreen
-                                  .withValues(alpha: 0.25)
-                              : AppColors.backgroundObsidian,
-                          borderRadius: BorderRadius.circular(9999),
-                          border: Border.all(
-                              color: on
-                                  ? AppColors.primaryForestGreen
-                                  : Colors.white12),
-                        ),
-                        child: Text(o,
-                            style: _ts(
-                                13,
-                                on
-                                    ? AppColors.primaryTextOffWhite
-                                    : AppColors.secondaryTextStoneGrey)),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: _primaryBtn('Done', null, () => Navigator.pop(c, temp)),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-    if (result != null) {
-      setState(() => onDone(result));
-      _persistToStore();
-    }
-  }
+
 
   void _saveDraft() {
     _persistToStore(overrideStatus: SessionStatus.draft);
@@ -1186,32 +1096,42 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     }
   }
 
+  Future<void> _shareSession() async {
+    // Copies this session's app link. Links open once sharing is connected
+    // to the backend; nothing is published.
+    await Clipboard.setData(ClipboardData(text: 'ulvenik://sessions/${_savedSnapshot.id}'));
+    if (mounted) _toast('Share link copied', SnackbarType.success);
+  }
+
+  void _exportPdf() {
+    // No PDF engine is bundled yet, so never claim an export happened.
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (c) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            _sheetHandle(),
+            Text("Couldn't export PDF", style: _ts(18, AppColors.primaryTextOffWhite, FontWeight.w600)),
+            const SizedBox(height: 8),
+            Text('PDF export is not available in this build yet. Your session is unchanged.',
+                style: _ts(14, AppColors.secondaryTextStoneGrey, FontWeight.w400, 1.4)),
+            const SizedBox(height: 18),
+            _outlineBtn('Close', null, () => Navigator.pop(c)),
+          ]),
+        ),
+      ),
+    );
+  }
+
   void _showMore() {
+    // Approved menu (Bottom Nav Training p7): Share Session, Export as PDF,
+    // Delete Session, in that order. Duplicate Session removed.
     final items = <(IconData, String, VoidCallback)>[
-      (
-        Icons.copy_outlined,
-        'Duplicate Session',
-        () {
-          final copy = _buildUpdatedSession(overrideStatus: SessionStatus.draft)
-              .copyWith(
-            id: 'session_${DateTime.now().microsecondsSinceEpoch}',
-            title: '$_title (Copy)',
-            dateLabel: 'Today · Incomplete',
-          );
-          TrainingSessionStore.upsertSession(copy);
-          _toast('Session duplicated as a new draft', SnackbarType.success);
-        }
-      ),
-      (
-        Icons.ios_share_outlined,
-        'Share Session',
-        () => _toast('Share link copied', SnackbarType.info)
-      ),
-      (
-        Icons.picture_as_pdf_outlined,
-        'Export as PDF',
-        () => _toast('Export started', SnackbarType.info)
-      ),
+      (Icons.ios_share_outlined, 'Share Session', _shareSession),
+      (Icons.picture_as_pdf_outlined, 'Export as PDF', _exportPdf),
       (Icons.delete_outline, 'Delete Session', _confirmDelete),
     ];
     showModalBottomSheet(
@@ -1252,9 +1172,9 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final topSafe = MediaQuery.of(context).padding.top;
-    final heroH = (width * 0.6).clamp(200.0, 300.0) + topSafe * 0.5;
+    // Shallow banner so the title and Edit Session stay easy to reach.
+    final heroH = _headerImage == null ? topSafe + 60 : 170 + topSafe * 0.5;
     final preview = _buildUpdatedSession();
 
     return Scaffold(
@@ -1297,19 +1217,13 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.network(
-            _heroImage,
-            fit: BoxFit.cover,
-            errorBuilder: (c, e, s) => Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xFF1F3B33), Color(0xFF14201C)],
-                ),
-              ),
+          if (_headerImage != null)
+            Image.network(
+              _headerImage!,
+              fit: BoxFit.cover,
+              errorBuilder: (c, e, s) => const ColoredBox(color: AppColors.backgroundObsidian),
             ),
-          ),
+          if (_headerImage != null)
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -1581,6 +1495,25 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
         ..._skills.map(_buildEditableSkillCard),
         _dashedButton('Add Skill', Icons.add, _showAddSkillSheet),
         const SizedBox(height: 24),
+        // Optional, session-wide; identical behaviour in S&C recording.
+        SessionItemsField(
+          kind: SessionItemKind.rewards,
+          selected: _rewards,
+          onChanged: (v) {
+            setState(() => _rewards = v);
+            if (_isDraft && !widget.isNewSession) _persistToStore();
+          },
+        ),
+        const SizedBox(height: 10),
+        SessionItemsField(
+          kind: SessionItemKind.equipment,
+          selected: _equipment,
+          onChanged: (v) {
+            setState(() => _equipment = v);
+            if (_isDraft && !widget.isNewSession) _persistToStore();
+          },
+        ),
+        const SizedBox(height: 24),
         _label('SESSION NOTES'),
         const SizedBox(height: 8),
         _card(
@@ -1605,14 +1538,15 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             ),
           ),
         ),
-        const SizedBox(height: 28),
-        Center(
-          child: TextButton(
-            onPressed: _confirmDelete,
-            child: Text(_isDraft ? 'Delete Draft' : 'Delete Session',
-                style: _ts(13, const Color(0xFFB05A5A), FontWeight.w600)),
+        if (_isDraft) ...[
+          const SizedBox(height: 28),
+          Center(
+            child: TextButton(
+              onPressed: _confirmDelete,
+              child: Text('Delete Draft', style: _ts(13, const Color(0xFFB05A5A), FontWeight.w600)),
+            ),
           ),
-        ),
+        ],
       ],
     );
   }
@@ -1862,16 +1796,10 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       children: [
         _buildHeader(preview),
         const SizedBox(height: 20),
-        Row(
-          children: [
-            Expanded(
-              child: _primaryBtn('Edit Session', Icons.edit, _enterEditMode),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _outlineBtn('More Options', Icons.more_horiz, _showMore),
-            ),
-          ],
+        // One Edit Session entry point; the ⋮ menu holds the other actions.
+        SizedBox(
+          width: double.infinity,
+          child: _primaryBtn('Edit Session', Icons.edit, _enterEditMode),
         ),
         const SizedBox(height: 20),
         _card(
@@ -1916,23 +1844,6 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
           )
         else
           ..._skills.map(_buildCompletedSkillCard),
-        if (preview.skillTags.isNotEmpty) ...[
-          const SizedBox(height: 4),
-          _card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _label('SKILL TAGS'),
-                const SizedBox(height: 10),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: preview.skillTags.map(_miniTag).toList(),
-                ),
-              ],
-            ),
-          ),
-        ],
         const SizedBox(height: 24),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1963,51 +1874,45 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
         ),
         const SizedBox(height: 24),
         _buildMedia(),
-        const SizedBox(height: 24),
-        LayoutBuilder(builder: (context, c) {
-          final eq = _chipCard('EQUIPMENT USED', _equipment, () {
-            _editChips('Equipment used', _equipmentOptions, _equipment,
-                (v) => _equipment = v);
-          });
-          final rw = _chipCard('REWARDS USED', _rewards, () {
-            _editChips(
-                'Rewards used', _rewardOptions, _rewards, (v) => _rewards = v);
-          });
-          if (c.maxWidth >= 560) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: eq),
-                const SizedBox(width: 12),
-                Expanded(child: rw),
-              ],
-            );
-          }
-          return Column(children: [eq, const SizedBox(height: 12), rw]);
-        }),
+        // Rewards / Equipment: read-only here; change them with Edit Session.
+        if (_rewards.isNotEmpty) ...[
+          const SizedBox(height: 24),
+          _usedCard(SessionItemKind.rewards, _rewards),
+        ],
+        if (_equipment.isNotEmpty) ...[
+          const SizedBox(height: 12),
+          _usedCard(SessionItemKind.equipment, _equipment),
+        ],
         const SizedBox(height: 12),
-        _chipCard('TAGS', _sessionTags, () {
-          _editChips('Tags', _tagOptions, _sessionTags, (v) => _sessionTags = v);
-        }, square: true),
-        const SizedBox(height: 28),
-        Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 400),
-            child: SizedBox(
-              width: double.infinity,
-              child: _primaryBtn('Edit Session', null, _enterEditMode),
-            ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Center(
-          child: TextButton(
-            onPressed: _confirmDelete,
-            child: Text('Delete Session',
-                style: _ts(13, const Color(0xFFB05A5A), FontWeight.w600)),
-          ),
-        ),
       ],
+    );
+  }
+
+  Widget _usedCard(SessionItemKind kind, List<String> items) {
+    return SizedBox(
+      width: double.infinity,
+      child: _card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            UlvenikIcon(kind.icon, size: 18, color: AppColors.secondarySage),
+            const SizedBox(width: 8),
+            _label(kind.usedTitle.toUpperCase()),
+          ]),
+          const SizedBox(height: 12),
+          Wrap(spacing: 8, runSpacing: 8, children: [
+            for (final i in items)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: AppColors.backgroundObsidian,
+                  borderRadius: BorderRadius.circular(9999),
+                  border: Border.all(color: Colors.white12),
+                ),
+                child: Text(i, style: _ts(12.5, AppColors.primaryTextOffWhite)),
+              ),
+          ]),
+        ]),
+      ),
     );
   }
 
@@ -2110,19 +2015,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _label('MEDIA'),
-            GestureDetector(
-              onTap: () =>
-                  _toast('Media manager coming soon', SnackbarType.info),
-              child: Text('Manage Media',
-                  style:
-                      _ts(13, AppColors.primaryForestGreen, FontWeight.w600)),
-            ),
-          ],
-        ),
+        _label('MEDIA'),
         const SizedBox(height: 10),
         LayoutBuilder(builder: (context, c) {
           const gap = 8.0;
@@ -2135,11 +2028,11 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                 final url = _mediaUrls[i % _mediaUrls.length];
                 final isVideo = i == 0 || i == 3;
                 return GestureDetector(
-                  onTap: () => _toast(
-                      isVideo
-                          ? 'Video viewer coming soon'
-                          : 'Photo viewer coming soon',
-                      SnackbarType.info),
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => isVideo
+                        ? VideoViewerScreen(title: _title, dogName: widget.session.dogName)
+                        : const PhotoViewerScreen(),
+                  )),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: SizedBox(
@@ -2202,60 +2095,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       ],
     );
   }
-
-  Widget _chipCard(String title, List<String> chips, VoidCallback onEdit,
-      {bool square = false}) {
-    return SizedBox(
-      width: double.infinity,
-      child: _card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _label(title),
-                GestureDetector(
-                  onTap: onEdit,
-                  child: Text('Edit',
-                      style: _ts(
-                          13, AppColors.primaryForestGreen, FontWeight.w600)),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            chips.isEmpty
-                ? Text('None added',
-                    style: _ts(13, AppColors.secondaryTextStoneGrey))
-                : Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: chips
-                        .map((c) => Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: square
-                                    ? AppColors.cardsCarbon
-                                    : AppColors.backgroundObsidian,
-                                borderRadius:
-                                    BorderRadius.circular(square ? 6 : 9999),
-                                border: Border.all(color: Colors.white12),
-                              ),
-                              child: Text(c,
-                                  style: _ts(
-                                      12,
-                                      square
-                                          ? AppColors.secondaryTextStoneGrey
-                                          : AppColors.primaryTextOffWhite)),
-                            ))
-                        .toList(),
-                  ),
-          ],
-        ),
-      ),
-    );
-  }
+
 
   // ── Small building blocks ─────────────────────────────────────────────────
 

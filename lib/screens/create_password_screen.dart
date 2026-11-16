@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_logo.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/password_strength_indicator.dart';
@@ -88,12 +89,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
               Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                    'assets/images/brand.png',
-                    width: 80,
-                    height: 80,
-                    errorBuilder: (_, error, stackTrace) => const SizedBox(height: 80),
-                  ),
+                  child: const UlvenikLogo.full(width: 150),
                 ),
               ),
               const SizedBox(height: 32),

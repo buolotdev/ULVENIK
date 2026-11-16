@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_logo.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -150,23 +151,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                     // ── Circular Logo ─────────────────────────────────
                     _animated(
                       0,
-                      Container(
-                        width: 80,
-                        height: 80,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white12, width: 1),
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            'assets/images/brand.png',
-                            color: Colors.white70,
-                            fit: BoxFit.contain,
-                            errorBuilder: (_, __, ___) => const SizedBox(),
-                          ),
-                        ),
-                      ),
+                      const UlvenikLogo.full(width: 150),
                     ),
                     
                     const SizedBox(height: 32),

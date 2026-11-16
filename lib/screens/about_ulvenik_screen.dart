@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_logo.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../widgets/custom_snackbar.dart';
@@ -17,10 +18,9 @@ class AboutUlvenikScreen extends StatefulWidget {
 }
 
 class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
-  static const Color _obsidian = Color(0xFF101214);
-  static const Color _carbon = Color(0xFF1A1F22);
-  static const Color _forest = Color(0xFF2E6B57);
-  static const Color _sageCrest = Color(0xFF6B8F7E);
+  static const Color _obsidian = Color(0xFF121212);
+  static const Color _carbon = Color(0xFF1C1C1C);
+  static const Color _forest = Color(0xFF2F5D50);
   static const Color _offWhite = Color(0xFFF5F6F2);
   static const Color _stoneGrey = Color(0xFFA7B0AB);
   static const Color _cardBorder = Color(0x14FFFFFF);
@@ -250,17 +250,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
             ),
             child: Column(
               children: [
-                Image.asset(
-                  'assets/images/white_mountain_only.png',
-                  width: 58,
-                  height: 28,
-                  fit: BoxFit.contain,
-                  color: _sageCrest,
-                  errorBuilder: (_, _, _) => const Icon(Icons.terrain_rounded,
-                    color: _sageCrest,
-                    size: 30,
-                  ),
-                ),
+                const UlvenikLogo.full(width: 160),
                 const SizedBox(height: 16),
                 const Text(
                   'Ulvenik',

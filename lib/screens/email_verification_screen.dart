@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_logo.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import 'two_factor_setup_screen.dart';
@@ -106,12 +107,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
           const SizedBox(height: 32),
           // Logo
           Center(
-            child: Image.asset(
-              'assets/images/brand.png',
-              width: 72,
-              height: 72,
-              errorBuilder: (_, error, stackTrace) => const SizedBox(height: 72),
-            ),
+            child: const UlvenikLogo.full(width: 150),
           ),
           
           const Spacer(flex: 1),
@@ -341,12 +337,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen>
           const SizedBox(height: 32),
           // Logo
           Center(
-            child: Image.asset(
-              'assets/images/brand.png',
-              width: 72,
-              height: 72,
-              errorBuilder: (_, error, stackTrace) => const SizedBox(height: 72),
-            ),
+            child: const UlvenikLogo.full(width: 150),
           ),
           
           const Spacer(flex: 1),

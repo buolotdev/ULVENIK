@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ulvenik/widgets/ulvenik_icon.dart';
 
 void main() {
-  testWidgets('UlvenikIcon renders all 27 official icons and fromMaterial mapper', (tester) async {
+  testWidgets('UlvenikIcon renders all official icons and fromMaterial mapper', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
@@ -30,6 +30,6 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.byType(UlvenikIcon), findsNWidgets(27 + 5));
+    expect(find.byType(UlvenikIcon), findsNWidgets(UlvenikIcons.allIcons.length + 5));
   });
 }

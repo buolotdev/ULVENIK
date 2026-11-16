@@ -478,7 +478,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
           height: 52,
           decoration: BoxDecoration(
             color: AppColors.backgroundObsidian,
-            border: Border.all(color: const Color(0xFF2E6B57)),
+            border: Border.all(color: const Color(0xFF2F5D50)),
             borderRadius: BorderRadius.circular(10),
           ),
           child: const UlvenikIcon(UlvenikIcons.more,
@@ -516,11 +516,11 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             decoration: BoxDecoration(
-              color: const Color(0xFF2E6B57),
+              color: const Color(0xFF2F5D50),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF2E6B57).withValues(alpha: 0.3),
+                  color: const Color(0xFF2F5D50).withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -551,7 +551,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
 
   Widget _buildEmptyFab() {
     return FloatingActionButton(
-      backgroundColor: const Color(0xFF2E6B57),
+      backgroundColor: const Color(0xFF2F5D50),
       elevation: 4,
       onPressed: _showAddWeightModal,
       child: const UlvenikIcon(UlvenikIcons.add, color: Colors.white, size: 28),
@@ -580,7 +580,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
               padding: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFF2E6B57), width: 2),
+                border: Border.all(color: const Color(0xFF2F5D50), width: 2),
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
@@ -588,7 +588,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   _activeDog.avatarUrl,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Container(
-                    color: const Color(0xFF2E6B57),
+                    color: const Color(0xFF2F5D50),
                     child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 20),
                   ),
                 ),
@@ -844,11 +844,11 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? const Color(0xFF2E6B57).withValues(alpha: 0.15)
+                      ? const Color(0xFF2F5D50).withValues(alpha: 0.15)
                       : AppColors.cardsCarbon,
                   border: Border.all(
                     color: isSelected
-                        ? const Color(0xFF2E6B57)
+                        ? const Color(0xFF2F5D50)
                         : Colors.white.withValues(alpha: 0.08),
                     width: isSelected ? 1.5 : 1,
                   ),
@@ -1085,7 +1085,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                               spots: animatedSpots,
                               isCurved: true,
                               curveSmoothness: 0.35,
-                              color: const Color(0xFF2E6B57),
+                              color: const Color(0xFF2F5D50),
                               barWidth: 2.5,
                               isStrokeCapRound: true,
                               dotData: FlDotData(
@@ -1105,7 +1105,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                                       radius: 3.5,
                                       color: AppColors.cardsCarbon,
                                       strokeWidth: 2,
-                                      strokeColor: const Color(0xFF2E6B57),
+                                      strokeColor: const Color(0xFF2F5D50),
                                     );
                                   }
                                 },
@@ -1116,7 +1116,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    const Color(0xFF2E6B57).withValues(alpha: 0.28),
+                                    const Color(0xFF2F5D50).withValues(alpha: 0.28),
                                     Colors.transparent,
                                   ],
                                 ),
@@ -1343,8 +1343,8 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
 
     if (rec.deltaKg > 0.05) {
       badgeColor = const Color(0xFF95D3BB);
-      badgeBg = const Color(0xFF2E6B57).withValues(alpha: 0.15);
-      badgeBorder = const Color(0xFF2E6B57).withValues(alpha: 0.3);
+      badgeBg = const Color(0xFF2F5D50).withValues(alpha: 0.15);
+      badgeBorder = const Color(0xFF2F5D50).withValues(alpha: 0.3);
     } else if (rec.deltaKg < -0.05) {
       badgeColor = const Color(0xFFFFB4AB);
       badgeBg = const Color(0xFF8B3A3A).withValues(alpha: 0.15);
@@ -1487,10 +1487,10 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? const Color(0xFF2E6B57).withValues(alpha: 0.15)
+                            ? const Color(0xFF2F5D50).withValues(alpha: 0.15)
                             : AppColors.cardsCarbon,
                         border: Border.all(
-                          color: isSelected ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+                          color: isSelected ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -1506,7 +1506,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                               errorBuilder: (context, error, stackTrace) => Container(
                                 width: 36,
                                 height: 36,
-                                color: const Color(0xFF2E6B57),
+                                color: const Color(0xFF2F5D50),
                                 child: const UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: 18),
                               ),
                             ),
@@ -1679,7 +1679,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                             child: ChoiceChip(
                               label: Text('$score${score == 5 ? ' (Ideal)' : ''}'),
                               selected: isSelected,
-                              selectedColor: const Color(0xFF2E6B57),
+                              selectedColor: const Color(0xFF2F5D50),
                               backgroundColor: AppColors.cardsCarbon,
                               labelStyle: TextStyle(
                                 color: isSelected ? Colors.white : AppColors.secondaryTextStoneGrey,
@@ -1714,7 +1714,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Color(0xFF2E6B57)),
+                          borderSide: const BorderSide(color: Color(0xFF2F5D50)),
                         ),
                       ),
                     ),
@@ -1724,7 +1724,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2E6B57),
+                          backgroundColor: const Color(0xFF2F5D50),
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
@@ -1828,9 +1828,9 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF2E6B57).withValues(alpha: 0.15),
+                            color: const Color(0xFF2F5D50).withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(6),
-                            border: Border.all(color: const Color(0xFF2E6B57).withValues(alpha: 0.3)),
+                            border: Border.all(color: const Color(0xFF2F5D50).withValues(alpha: 0.3)),
                           ),
                           child: Text(
                             _formatDelta(record.deltaKg),
@@ -1918,7 +1918,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   Expanded(
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF2E6B57),
+                        backgroundColor: const Color(0xFF2F5D50),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
@@ -2065,7 +2065,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF2E6B57),
+                        backgroundColor: const Color(0xFF2F5D50),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
@@ -2147,10 +2147,10 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
                               color: !_usePounds
-                                  ? const Color(0xFF2E6B57).withValues(alpha: 0.2)
+                                  ? const Color(0xFF2F5D50).withValues(alpha: 0.2)
                                   : AppColors.cardsCarbon,
                               border: Border.all(
-                                color: !_usePounds ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+                                color: !_usePounds ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -2177,10 +2177,10 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
                               color: _usePounds
-                                  ? const Color(0xFF2E6B57).withValues(alpha: 0.2)
+                                  ? const Color(0xFF2F5D50).withValues(alpha: 0.2)
                                   : AppColors.cardsCarbon,
                               border: Border.all(
-                                color: _usePounds ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+                                color: _usePounds ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -2222,10 +2222,10 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
                               color: _sortNewestFirst
-                                  ? const Color(0xFF2E6B57).withValues(alpha: 0.2)
+                                  ? const Color(0xFF2F5D50).withValues(alpha: 0.2)
                                   : AppColors.cardsCarbon,
                               border: Border.all(
-                                color: _sortNewestFirst ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+                                color: _sortNewestFirst ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -2252,10 +2252,10 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
                               color: !_sortNewestFirst
-                                  ? const Color(0xFF2E6B57).withValues(alpha: 0.2)
+                                  ? const Color(0xFF2F5D50).withValues(alpha: 0.2)
                                   : AppColors.cardsCarbon,
                               border: Border.all(
-                                color: !_sortNewestFirst ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.08),
+                                color: !_sortNewestFirst ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.08),
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -2277,7 +2277,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF2E6B57),
+                        backgroundColor: const Color(0xFF2F5D50),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),

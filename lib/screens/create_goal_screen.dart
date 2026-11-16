@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
+import '../data/sample_data.dart';
 import '../widgets/ulvenik_icon.dart';
-import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
+import '../theme/app_colors.dart';
+import 'goals_list_screen.dart' show DogSquarePhoto, DogPickerSheet;
+import 'goal_details_screen.dart';
+import 'add_skill_screen.dart';
 
+/// Create / Edit Goal (Dogs & Goals handover, sections 07-09).
+///
+/// Dog preselected from where it was opened (My Dog / Client Dog label, no
+/// pack badges), required title, optional description, Training / S&C /
+/// Health categories (Sport only with the Sport Pack), Automatic or Manual
+/// tracking, a measurable target or open-ended goal, searchable record
+/// linking, optional priority (no default), due date, reminder (off by
+/// default) and notes. One Save Goal button at the bottom, disabled until
+/// the title is filled; saving opens the new Goal Details.
 class CreateGoalScreen extends StatefulWidget {
   final String? initialDogName;
   final bool initialIsClientDog;
   final bool hasSportPack;
   final bool hasTrainerPack;
+  final GoalInfo? editGoal;
 
   const CreateGoalScreen({
     super.key,
     this.initialDogName,
     this.initialIsClientDog = false,
-    this.hasSportPack = true,
+    this.hasSportPack = false,
     this.hasTrainerPack = true,
+    this.editGoal,
   });
 
   @override
@@ -22,639 +37,644 @@ class CreateGoalScreen extends StatefulWidget {
 }
 
 class _CreateGoalScreenState extends State<CreateGoalScreen> {
-  late String _selectedDog;
-  late bool _isClientDog;
-  late bool _hasSportPack;
-  late bool _hasTrainerPack;
+  static const _units = ['Sessions', 'Repetitions', 'Duration', 'Distance', 'Custom'];
+  static const _months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  String _selectedCategory = 'Training';
-  bool _isAutomaticTracking = true;
-  int _targetCount = 20;
-  String _selectedPriority = 'Medium';
+  late DogInfo _dog;
+  final _title = TextEditingController();
+  final _description = TextEditingController();
+  final _notes = TextEditingController();
+  final _targetValue = TextEditingController();
+  final _customUnit = TextEditingController();
 
-  final List<Map<String, dynamic>> _availableDogs = [
-    {'name': 'Arlo', 'breed': 'German Shepherd', 'isClient': false},
-    {'name': 'Nova', 'breed': 'Belgian Malinois', 'isClient': false},
-    {'name': 'Murphy', 'breed': 'Golden Retriever', 'isClient': true},
-    {'name': 'Bella', 'breed': 'Dutch Shepherd', 'isClient': true},
-  ];
+  String _category = 'Training';
+  GoalTracking _tracking = GoalTracking.automatic;
+  bool _openEnded = false;
+  String _unit = 'Sessions';
+  final List<String> _linked = [];
+  String? _priority; // no default
+  DateTime? _dueDate;
+  bool _reminder = false;
+  String _reminderTiming = 'On the due date';
+  bool _saving = false;
+
+  bool get _isEdit => widget.editGoal != null;
+  bool get _canSave => _title.text.trim().isNotEmpty && !_saving;
 
   @override
   void initState() {
     super.initState();
-    _selectedDog = widget.initialDogName ?? 'Arlo';
-    _isClientDog = widget.initialIsClientDog;
-    _hasSportPack = widget.hasSportPack;
-    _hasTrainerPack = widget.hasTrainerPack;
+    final e = widget.editGoal;
+    _dog = SampleData.dogNamed(e?.dogName ?? widget.initialDogName ?? SampleData.myDogs.first.name);
+    if (e != null) {
+      _title.text = e.title;
+      _description.text = e.description ?? '';
+      _notes.text = e.notes ?? '';
+      _category = e.category;
+      _tracking = e.tracking;
+      _openEnded = !e.isMeasurable;
+      if (e.isMeasurable) {
+        final known = _units.firstWhere((u) => e.targetUnit!.startsWith(u), orElse: () => 'Custom');
+        _unit = known;
+        if (known == 'Custom') _customUnit.text = e.targetUnit!;
+        final v = e.targetValue!;
+        _targetValue.text = v == v.roundToDouble() ? v.toInt().toString() : v.toString();
+      }
+      _linked.addAll(e.linkedRecords);
+      _priority = e.priority;
+      _dueDate = e.dueDate;
+    }
+    _title.addListener(() => setState(() {}));
   }
-
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _notesController = TextEditingController();
 
   @override
   void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
-    _notesController.dispose();
+    _title.dispose();
+    _description.dispose();
+    _notes.dispose();
+    _targetValue.dispose();
+    _customUnit.dispose();
     super.dispose();
   }
 
+  String _date(DateTime d) => '${d.day} ${_months[d.month - 1]} ${d.year}';
+
+  // ── Actions ─────────────────────────────────────────────────────────────
+  void _pickDog() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => DogPickerSheet(
+        selected: _dog.name,
+        hasTrainerPack: widget.hasTrainerPack,
+        onSelected: (d) {
+          Navigator.pop(ctx);
+          setState(() {
+            _dog = d;
+            _linked.clear(); // linked records belong to the selected dog
+          });
+        },
+      ),
+    );
+  }
+
+  Future<void> _pickDueDate() async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _dueDate ?? now,
+      firstDate: DateTime(now.year - 5),
+      lastDate: DateTime(now.year + 10),
+      builder: (ctx, child) => Theme(
+        data: Theme.of(ctx).copyWith(
+          colorScheme: const ColorScheme.dark(
+            primary: AppColors.primaryForestGreen,
+            surface: AppColors.cardsCarbon,
+            onSurface: AppColors.primaryTextOffWhite,
+          ),
+        ),
+        child: child!,
+      ),
+    );
+    if (picked != null) setState(() => _dueDate = picked);
+  }
+
+  void _openLinkRecords() {
+    final groups = <String, List<String>>{
+      'Skills': ['Recall', 'Heelwork', 'Retrieve'],
+      'Exercises': ['Emergency Recall', 'Recall Through Distractions', 'Focused Heelwork'],
+      'S&C activities': ['Swimming', 'Cavaletti Poles', 'Hill Work'],
+      'Health records': ['Weight', 'Body Condition'],
+      if (widget.hasSportPack) 'Sport skills': ['IGP Obedience', 'IGP Tracking'],
+    };
+    final draft = {..._linked};
+    var query = '';
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setSheet) {
+          final q = query.trim().toLowerCase();
+          return Padding(
+            padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(ctx).bottom),
+            child: SafeArea(
+              child: SizedBox(
+                height: MediaQuery.sizeOf(ctx).height * 0.8,
+                child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text('Link records for ${_dog.name}',
+                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                      const SizedBox(height: 4),
+                      const Text('Linking alone does not add progress. Only qualifying recorded sessions count.',
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                      const SizedBox(height: 12),
+                      TextField(
+                        onChanged: (v) => setSheet(() => query = v),
+                        style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                        decoration: InputDecoration(
+                          hintText: 'Search your records',
+                          prefixIcon: const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: UlvenikIcon(UlvenikIcons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
+                          ),
+                          prefixIconConstraints: const BoxConstraints(minWidth: 44),
+                          filled: true,
+                          fillColor: AppColors.backgroundObsidian,
+                          contentPadding: EdgeInsets.zero,
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+                        ),
+                      ),
+                    ]),
+                  ),
+                  Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      children: [
+                        for (final entry in groups.entries)
+                          if (entry.value.any((r) => q.isEmpty || r.toLowerCase().contains(q))) ...[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12, bottom: 2),
+                              child: Text(entry.key,
+                                  style: const TextStyle(
+                                      color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
+                            ),
+                            for (final r in entry.value.where((r) => q.isEmpty || r.toLowerCase().contains(q)))
+                              CheckboxListTile(
+                                contentPadding: EdgeInsets.zero,
+                                activeColor: AppColors.primaryForestGreen,
+                                value: draft.contains('$r (${_singular(entry.key)})'),
+                                title: Text(r, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                                onChanged: (v) => setSheet(() {
+                                  final key = '$r (${_singular(entry.key)})';
+                                  v == true ? draft.add(key) : draft.remove(key);
+                                }),
+                              ),
+                          ],
+                        TextButton.icon(
+                          onPressed: () => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const AddSkillScreen())),
+                          icon: const UlvenikIcon(UlvenikIcons.add, size: 18, color: AppColors.primaryTextOffWhite),
+                          label: const Text('Create a new skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        ),
+                        const SizedBox(height: 12),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
+                    child: SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _linked
+                              ..clear()
+                              ..addAll(draft);
+                          });
+                          Navigator.pop(ctx);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryForestGreen,
+                          foregroundColor: AppColors.primaryTextOffWhite,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                        child: Text(draft.isEmpty ? 'Done' : 'Done (${draft.length})'),
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  String _singular(String group) => switch (group) {
+        'Skills' => 'skill',
+        'Exercises' => 'exercise',
+        'S&C activities' => 'S&C activity',
+        'Health records' => 'health record',
+        _ => 'sport skill',
+      };
+
+  void _save() {
+    if (!_canSave) return;
+    String? unit;
+    num? value;
+    if (!_openEnded) {
+      value = num.tryParse(_targetValue.text.trim());
+      unit = _unit == 'Custom' ? _customUnit.text.trim() : _unit;
+      if (value == null || value <= 0 || unit.isEmpty) {
+        AppSnackbar.show(context,
+            message: 'Enter a target value and unit, or choose Open-ended.', type: SnackbarType.error);
+        return;
+      }
+    }
+    setState(() => _saving = true);
+    final goal = GoalInfo(
+      dogName: _dog.name,
+      title: _title.text.trim(),
+      category: _category,
+      tracking: _tracking,
+      targetUnit: unit,
+      targetValue: value,
+      current: widget.editGoal?.current ?? 0,
+      status: widget.editGoal?.status ?? GoalStatus.active,
+      priority: _priority,
+      dueDate: _dueDate,
+      description: _description.text.trim().isEmpty ? null : _description.text.trim(),
+      notes: _notes.text.trim().isEmpty ? null : _notes.text.trim(),
+      linkedRecords: List.of(_linked),
+    );
+    if (_isEdit) {
+      AppSnackbar.show(context, message: 'Goal updated', type: SnackbarType.success);
+      Navigator.pop(context);
+    } else {
+      AppSnackbar.show(context, message: 'Goal created', type: SnackbarType.success);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => GoalDetailsScreen.fromGoal(goal)));
+    }
+  }
+
+  // ── Build ───────────────────────────────────────────────────────────────
   @override
   Widget build(BuildContext context) {
+    final categories = [
+      ('Training', UlvenikIcons.training),
+      ('S&C', UlvenikIcons.strengthConditioning),
+      ('Health', UlvenikIcons.health),
+      if (widget.hasSportPack) ('Sport', null),
+    ];
     return Scaffold(
       backgroundColor: AppColors.backgroundObsidian,
       appBar: AppBar(
         backgroundColor: AppColors.backgroundObsidian,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, size: 20, color: AppColors.primaryTextOffWhite),
-          onPressed: () => Navigator.pop(context),
+          tooltip: 'Back',
+          icon: const UlvenikIcon(UlvenikIcons.back, size: 22, color: AppColors.primaryTextOffWhite),
+          onPressed: () => Navigator.maybePop(context),
         ),
-        title: const Text(
-          'Create Goal',
-          style: TextStyle(
-            color: AppColors.primaryTextOffWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              AppSnackbar.show(context, message: 'Goal saved', type: SnackbarType.success);
-              Navigator.pop(context);
-            },
-            child: const Text('Save', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
-          ),
+        title: Text(_isEdit ? 'Edit Goal' : 'Create Goal',
+            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        children: [
+          // Dog
+          _section('Dog', Material(
+            color: AppColors.backgroundObsidian,
+            borderRadius: BorderRadius.circular(12),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(12),
+              onTap: _isEdit ? null : _pickDog,
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.white12),
+                ),
+                child: Row(children: [
+                  DogSquarePhoto(dog: _dog, size: 40),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text(_dog.name,
+                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                      Text(_dog.isClient ? 'Client Dog' : 'My Dog',
+                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                    ]),
+                  ),
+                  if (!_isEdit) const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+                ]),
+              ),
+            ),
+          )),
+
+          // Title + description
+          _section('Goal title', _field(_title, 'e.g. Complete 20 Recall Sessions', maxLines: 1)),
+          _section('Description (optional)', _field(_description, 'Add details...', maxLines: 3)),
+
+          // Category
+          _section('Category', Wrap(spacing: 8, runSpacing: 8, children: [
+            for (final c in categories)
+              _Choice(
+                label: c.$1,
+                icon: c.$2,
+                selected: _category == c.$1,
+                onTap: () => setState(() => _category = c.$1),
+              ),
+          ])),
+
+          // Tracking
+          _section('Progress tracking', Column(children: [
+            _RadioRow(
+              title: 'Automatic',
+              subtitle: 'Progress updates automatically from qualifying linked sessions and activities.',
+              selected: _tracking == GoalTracking.automatic,
+              onTap: () => setState(() => _tracking = GoalTracking.automatic),
+            ),
+            const SizedBox(height: 8),
+            _RadioRow(
+              title: 'Manual',
+              subtitle: 'Track and update your progress manually.',
+              selected: _tracking == GoalTracking.manual,
+              onTap: () => setState(() => _tracking = GoalTracking.manual),
+            ),
+          ])),
+
+          // Target
+          _section('Target', Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Wrap(spacing: 8, children: [
+              _Choice(label: 'Measurable target', selected: !_openEnded, onTap: () => setState(() => _openEnded = false)),
+              _Choice(label: 'Open-ended', selected: _openEnded, onTap: () => setState(() => _openEnded = true)),
+            ]),
+            const SizedBox(height: 12),
+            if (_openEnded)
+              const Text('No numerical target. Add progress notes and mark the goal complete when you decide.',
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4))
+            else ...[
+              Wrap(spacing: 8, runSpacing: 8, children: [
+                for (final u in _units) _Choice(label: u, selected: _unit == u, onTap: () => setState(() => _unit = u)),
+              ]),
+              if (_unit == 'Custom') ...[
+                const SizedBox(height: 10),
+                _field(_customUnit, 'Unit name, e.g. Tracks', maxLines: 1),
+              ],
+              const SizedBox(height: 10),
+              _field(
+                _targetValue,
+                _unit == 'Duration' ? 'Target in minutes' : _unit == 'Distance' ? 'Target in km' : 'Target value',
+                maxLines: 1,
+                keyboard: const TextInputType.numberWithOptions(decimal: true),
+              ),
+            ],
+          ])),
+
+          // Link records
+          _section('Linked records', Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            if (_linked.isNotEmpty) ...[
+              Wrap(spacing: 8, runSpacing: 8, children: [
+                for (final r in _linked)
+                  InputChip(
+                    label: Text(r, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                    backgroundColor: AppColors.backgroundObsidian,
+                    side: const BorderSide(color: Colors.white24),
+                    deleteIconColor: AppColors.secondaryTextStoneGrey,
+                    onDeleted: () => setState(() => _linked.remove(r)),
+                  ),
+              ]),
+              const SizedBox(height: 10),
+            ],
+            SizedBox(
+              height: 46,
+              child: OutlinedButton(
+                onPressed: _openLinkRecords,
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: AppColors.primaryTextOffWhite,
+                  side: const BorderSide(color: Colors.white24),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                child: Text(_linked.isEmpty ? 'Link a Record' : 'Edit linked records'),
+              ),
+            ),
+          ])),
+
+          // Priority
+          _section('Priority (optional)', Wrap(spacing: 8, children: [
+            for (final p in const ['Low', 'Medium', 'High'])
+              _Choice(label: p, selected: _priority == p, onTap: () => setState(() => _priority = _priority == p ? null : p)),
+          ])),
+
+          // Due date + reminder
+          _section('Due date & reminder (optional)', Column(children: [
+            _SettingRow(
+              icon: UlvenikIcons.calendar,
+              label: 'Due date',
+              value: _dueDate == null ? 'None' : _date(_dueDate!),
+              onTap: _pickDueDate,
+              trailing: _dueDate == null
+                  ? null
+                  : IconButton(
+                      tooltip: 'Clear due date',
+                      icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                      onPressed: () => setState(() {
+                        _dueDate = null;
+                        _reminder = false;
+                      }),
+                    ),
+            ),
+            const Divider(color: Colors.white12, height: 1),
+            Row(children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 14),
+                child: UlvenikIcon(UlvenikIcons.notifications, size: 20, color: AppColors.secondaryTextStoneGrey),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const Text('Reminder', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
+                  if (_dueDate == null)
+                    const Text('Set a due date to add a reminder.',
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                ]),
+              ),
+              Switch(
+                value: _reminder,
+                activeThumbColor: AppColors.primaryTextOffWhite,
+                activeTrackColor: AppColors.primaryForestGreen,
+                onChanged: _dueDate == null ? null : (v) => setState(() => _reminder = v),
+              ),
+            ]),
+            if (_reminder)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Wrap(spacing: 8, runSpacing: 8, children: [
+                  for (final t in const ['On the due date', '1 day before', '1 week before'])
+                    _Choice(label: t, selected: _reminderTiming == t, onTap: () => setState(() => _reminderTiming = t)),
+                ]),
+              ),
+          ])),
+
+          // Notes
+          _section('Notes (optional)', _field(_notes, 'Anything else to remember...', maxLines: 3)),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildDogSelector(),
-            const SizedBox(height: 24),
-            _buildBasicInfoSection(),
-            const SizedBox(height: 24),
-            _buildCategorySection(),
-            const SizedBox(height: 24),
-            _buildTrackingModeSection(),
-            const SizedBox(height: 24),
-            _buildTargetSection(),
-            const SizedBox(height: 24),
-            _buildLinkRecordButton(),
-            const SizedBox(height: 24),
-            _buildPrioritySection(),
-            const SizedBox(height: 24),
-            _buildSettingsList(),
-            const SizedBox(height: 24),
-            _buildNotesSection(),
-            const SizedBox(height: 100), // padding for bottom button
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SizedBox(
-          width: double.infinity,
-          height: 52,
-          child: ElevatedButton(
-            onPressed: () {
-              AppSnackbar.show(context, message: 'Goal created!', type: SnackbarType.success);
-              Navigator.pop(context);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF2e6b57), // primary container
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              elevation: 0,
-            ),
-            child: const Text(
-              'Save Goal',
-              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showDogPicker() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: AppColors.cardsCarbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (ctx) => SafeArea(
+      bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 36,
-                  height: 4,
-                  margin: const EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
+          child: SizedBox(
+            height: 52,
+            child: ElevatedButton(
+              onPressed: _canSave ? _save : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryForestGreen,
+                foregroundColor: AppColors.primaryTextOffWhite,
+                disabledBackgroundColor: AppColors.primaryForestGreen.withValues(alpha: 0.35),
+                disabledForegroundColor: AppColors.primaryTextOffWhite.withValues(alpha: 0.6),
+                elevation: 0,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              const Text('Select Dog for Goal',
-                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
-              const SizedBox(height: 6),
-              const Text('Trainer Pack allows managing goals for both your own dogs and client dogs.',
-                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
-              const SizedBox(height: 16),
-              const Text('MY DOGS', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
-              const SizedBox(height: 8),
-              ..._availableDogs.where((d) => !(d['isClient'] as bool)).map((d) => ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(d['name'] as String, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w500)),
-                    subtitle: Text(d['breed'] as String, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-                    trailing: _selectedDog == d['name'] ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
-                    onTap: () {
-                      setState(() {
-                        _selectedDog = d['name'] as String;
-                        _isClientDog = false;
-                      });
-                      Navigator.pop(ctx);
-                    },
-                  )),
-              if (_hasTrainerPack) ...[
-                const SizedBox(height: 12),
-                const Text('CLIENT DOGS (TRAINER PACK)', style: TextStyle(color: Color(0xFFD99B4B), fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
-                const SizedBox(height: 8),
-                ..._availableDogs.where((d) => d['isClient'] as bool).map((d) => ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(d['name'] as String, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w500)),
-                      subtitle: Text('${d['breed']} • Client Dog', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-                      trailing: _selectedDog == d['name'] ? const Icon(Icons.check, color: Color(0xFFD99B4B)) : null,
-                      onTap: () {
-                        setState(() {
-                          _selectedDog = d['name'] as String;
-                          _isClientDog = true;
-                        });
-                        Navigator.pop(ctx);
-                      },
-                    )),
-              ],
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const UlvenikIcon(UlvenikIcons.save, size: 20),
+                const SizedBox(width: 8),
+                Text(_isEdit ? 'Save Changes' : 'Save Goal',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              ]),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _section(String label, Widget child) => Padding(
+        padding: const EdgeInsets.only(top: 14),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.cardsCarbon,
+            border: Border.all(color: Colors.white12),
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 10),
+            child,
+          ]),
+        ),
+      );
+
+  Widget _field(TextEditingController c, String hint, {int maxLines = 1, TextInputType? keyboard}) => TextField(
+        controller: c,
+        maxLines: maxLines,
+        minLines: 1,
+        keyboardType: keyboard,
+        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15),
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.7)),
+          filled: true,
+          fillColor: AppColors.backgroundObsidian,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+        ),
+      );
+}
+
+class _Choice extends StatelessWidget {
+  final String label;
+  final String? icon;
+  final bool selected;
+  final VoidCallback onTap;
+  const _Choice({required this.label, required this.selected, required this.onTap, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+          decoration: BoxDecoration(
+            color: selected ? AppColors.primaryForestGreen : Colors.transparent,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white24),
+          ),
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
+            if (icon != null) ...[
+              UlvenikIcon(icon!, size: 16, color: selected ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey),
+              const SizedBox(width: 6),
             ],
-          ),
+            Text(label,
+                style: TextStyle(
+                  color: selected ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w500,
+                )),
+          ]),
         ),
       ),
     );
   }
+}
 
-  Widget _buildDogSelector() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+class _RadioRow extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final bool selected;
+  final VoidCallback onTap;
+  const _RadioRow({required this.title, required this.subtitle, required this.selected, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: InkWell(
         borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('DOG', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.05)),
-              if (_hasTrainerPack)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: AppColors.secondarySage.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: const Text('TRAINER PACK', style: TextStyle(color: AppColors.secondarySage, fontSize: 10, fontWeight: FontWeight.w700)),
-                ),
-            ],
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: selected ? AppColors.primaryForestGreen.withValues(alpha: 0.15) : AppColors.backgroundObsidian,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white12),
           ),
-          const SizedBox(height: 10),
-          GestureDetector(
-            onTap: _showDogPicker,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              decoration: BoxDecoration(
-                color: AppColors.backgroundObsidian,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white12),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: _isClientDog ? const Color(0xFFD99B4B).withValues(alpha: 0.2) : AppColors.primaryForestGreen.withValues(alpha: 0.2),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      child: Text(
-                        _selectedDog.isNotEmpty ? _selectedDog[0] : '?',
-                        style: TextStyle(
-                          color: _isClientDog ? const Color(0xFFD99B4B) : AppColors.primaryForestGreen,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(_selectedDog, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
-                        Text(_isClientDog ? 'Client Dog · Trainer Pack' : 'My Dog · Core', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11)),
-                      ],
-                    ),
-                  ),
-                  const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
-                ],
-              ),
+          child: Row(children: [
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, fontWeight: FontWeight.w600)),
+                const SizedBox(height: 2),
+                Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, height: 1.35)),
+              ]),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBasicInfoSection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('GOAL TITLE', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.05)),
-          TextField(
-            controller: _titleController,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16),
-            decoration: const InputDecoration(
-              hintText: 'e.g. Complete 20 Recall Sessions',
-              hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 16),
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: 8),
-              isDense: true,
-            ),
-          ),
-          const Divider(color: Colors.white12, height: 16),
-          const SizedBox(height: 8),
-          const Text('DESCRIPTION', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.05)),
-          TextField(
-            controller: _descriptionController,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
-            maxLines: 2,
-            decoration: const InputDecoration(
-              hintText: 'Add details...',
-              hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: 8),
-              isDense: true,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCategorySection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('CATEGORY', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.05)),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _buildChoiceChip('Training', _selectedCategory == 'Training', (val) => setState(() => _selectedCategory = 'Training')),
-              _buildChoiceChip('S&C', _selectedCategory == 'S&C', (val) => setState(() => _selectedCategory = 'S&C')),
-              _buildChoiceChip('Health', _selectedCategory == 'Health', (val) => setState(() => _selectedCategory = 'Health')),
-              if (_hasSportPack)
-                _buildChoiceChip('Sport', _selectedCategory == 'Sport', (val) => setState(() => _selectedCategory = 'Sport')),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildChoiceChip(String label, bool isSelected, ValueChanged<bool> onSelected) {
-    return GestureDetector(
-      onTap: () => onSelected(!isSelected),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF2e6b57) : Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: isSelected ? const Color(0xFF2e6b57) : Colors.white12),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: isSelected ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-          ),
+            const SizedBox(width: 8),
+            Icon(selected ? Icons.radio_button_checked : Icons.radio_button_unchecked,
+                color: selected ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey, size: 22),
+          ]),
         ),
       ),
     );
   }
+}
 
-  Widget _buildTrackingModeSection() {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => setState(() => _isAutomaticTracking = true),
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.white12)),
-              ),
-              child: Row(
-                children: [
-                  const Icon(Icons.bolt, color: Color(0xFF95d3bb), size: 24),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Automatic', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500)),
-                        Text('Track based on recorded sessions', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-                        SizedBox(height: 2),
-                        Text('Calculates objective progress from your recorded sessions only, never automated judging.', style: TextStyle(color: Colors.white38, fontSize: 11)),
-                      ],
-                    ),
-                  ),
-                  UlvenikIcon.fromMaterial(
-                    _isAutomaticTracking ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-                    color: _isAutomaticTracking ? const Color(0xFF95d3bb) : AppColors.secondaryTextStoneGrey,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () => setState(() => _isAutomaticTracking = false),
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  const Icon(Icons.pan_tool_outlined, color: AppColors.secondaryTextStoneGrey, size: 24),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Manual', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500)),
-                        Text('Manually update progress', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-                      ],
-                    ),
-                  ),
-                  UlvenikIcon.fromMaterial(
-                    !_isAutomaticTracking ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-                    color: !_isAutomaticTracking ? const Color(0xFF95d3bb) : AppColors.secondaryTextStoneGrey,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+class _SettingRow extends StatelessWidget {
+  final String icon;
+  final String label;
+  final String value;
+  final VoidCallback onTap;
+  final Widget? trailing;
+  const _SettingRow({required this.icon, required this.label, required this.value, required this.onTap, this.trailing});
 
-  Widget _buildTargetSection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('TARGET', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.05)),
-          const SizedBox(height: 12),
-          GestureDetector(
-            onTap: () {},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text('Training Sessions', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
-                UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
-              ],
-            ),
-          ),
-          const Divider(color: Colors.white12, height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Count', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      if (_targetCount > 0) setState(() => _targetCount--);
-                    },
-                    child: Container(
-                      width: 32,
-                      height: 32,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.backgroundObsidian,
-                        border: Border.all(color: Colors.white12),
-                      ),
-                      child: const Icon(Icons.remove, color: AppColors.secondaryTextStoneGrey, size: 18),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 48,
-                    child: Text(
-                      '$_targetCount',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => _targetCount++),
-                    child: Container(
-                      width: 32,
-                      height: 32,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.backgroundObsidian,
-                        border: Border.all(color: Colors.white12),
-                      ),
-                      child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.secondaryTextStoneGrey, size: 18),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLinkRecordButton() {
-    return GestureDetector(
-      onTap: () {
-        AppSnackbar.show(context, message: 'Link record coming soon', type: SnackbarType.info);
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        decoration: BoxDecoration(
-          color: AppColors.cardsCarbon,
-          border: Border.all(color: Colors.white12),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            UlvenikIcon(UlvenikIcons.add, color: Color(0xFF2e6b57), size: 18),
-            SizedBox(width: 8),
-            Text('Link a Record', style: TextStyle(color: Color(0xFF2e6b57), fontSize: 13, fontWeight: FontWeight.w500)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPrioritySection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('PRIORITY', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.05)),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _buildChoiceChip('High', _selectedPriority == 'High', (val) => setState(() => _selectedPriority = 'High')),
-              _buildChoiceChip('Medium', _selectedPriority == 'Medium', (val) => setState(() => _selectedPriority = 'Medium')),
-              _buildChoiceChip('Low', _selectedPriority == 'Low', (val) => setState(() => _selectedPriority = 'Low')),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSettingsList() {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          _buildSettingsTile(icon: Icons.calendar_today, label: 'Due Date', value: 'Optional'),
-          const Divider(color: Colors.white12, height: 1),
-          _buildSettingsTile(icon: Icons.notifications_none, label: 'Reminder', value: 'None'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSettingsTile({required IconData icon, required String label, required String value}) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                UlvenikIcon.fromMaterial(icon, color: AppColors.secondaryTextStoneGrey, size: 20),
-                const SizedBox(width: 12),
-                Text(label, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
-              ],
-            ),
-            Row(
-              children: [
-                Text(value, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
-                const SizedBox(width: 4),
-                const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNotesSection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('NOTES', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.05)),
-          const SizedBox(height: 4),
-          TextField(
-            controller: _notesController,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
-            maxLines: 3,
-            decoration: const InputDecoration(
-              hintText: 'Additional details...',
-              hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: 8),
-              isDense: true,
-            ),
-          ),
-        ],
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(children: [
+          UlvenikIcon(icon, size: 20, color: AppColors.secondaryTextStoneGrey),
+          const SizedBox(width: 12),
+          Expanded(child: Text(label, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14))),
+          Text(value, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+          trailing ?? const SizedBox(width: 48, height: 48, child: Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey)),
+        ]),
       ),
     );
   }

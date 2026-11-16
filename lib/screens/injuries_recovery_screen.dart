@@ -769,7 +769,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF2E6B57) : AppColors.cardsCarbon,
+          color: isSelected ? const Color(0xFF2F5D50) : AppColors.cardsCarbon,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isSelected ? const Color(0xFF95D3BB) : Colors.white.withValues(alpha: 0.08),
@@ -1035,7 +1035,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       child: Container(
         height: 48,
         decoration: BoxDecoration(
-          color: const Color(0xFF2E6B57),
+          color: const Color(0xFF2F5D50),
           borderRadius: BorderRadius.circular(10),
         ),
         child: const Row(
@@ -1125,7 +1125,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
               height: 48,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2E6B57),
+                  backgroundColor: const Color(0xFF2F5D50),
                   foregroundColor: const Color(0xFFAAE9D0),
                   elevation: 0,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -1206,7 +1206,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       margin: const EdgeInsets.only(bottom: 8),
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                       decoration: BoxDecoration(
-                        color: isSelected ? const Color(0xFF2E6B57).withValues(alpha: 0.25) : Colors.transparent,
+                        color: isSelected ? const Color(0xFF2F5D50).withValues(alpha: 0.25) : Colors.transparent,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: isSelected ? const Color(0xFF95D3BB) : Colors.white.withValues(alpha: 0.08),
@@ -1340,7 +1340,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                                 setState(() {});
                               }
                             },
-                            selectedColor: const Color(0xFF2E6B57),
+                            selectedColor: const Color(0xFF2F5D50),
                             labelStyle: TextStyle(
                               color: isSelected ? Colors.white : AppColors.secondaryTextStoneGrey,
                               fontSize: 12,
@@ -1388,7 +1388,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                           Expanded(
                             child: ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF2E6B57),
+                                backgroundColor: const Color(0xFF2F5D50),
                                 foregroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(vertical: 12),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -1523,7 +1523,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                               child: ChoiceChip(
                                 label: Text(area, style: TextStyle(fontSize: 11, color: isSel ? Colors.white : AppColors.primaryTextOffWhite)),
                                 selected: isSel,
-                                selectedColor: const Color(0xFF2E6B57),
+                                selectedColor: const Color(0xFF2F5D50),
                                 backgroundColor: AppColors.backgroundObsidian,
                                 onSelected: (val) {
                                   if (val) setModalState(() => bodyAreaCtrl.text = area);
@@ -1667,7 +1667,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF2E6B57),
+                            backgroundColor: const Color(0xFF2F5D50),
                             foregroundColor: const Color(0xFFAAE9D0),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -1775,7 +1775,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2E6B57),
+                          backgroundColor: const Color(0xFF2F5D50),
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -1801,7 +1801,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF2E6B57) : AppColors.backgroundObsidian,
+          color: isSelected ? const Color(0xFF2F5D50) : AppColors.backgroundObsidian,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: isSelected ? const Color(0xFF95D3BB) : Colors.white.withValues(alpha: 0.1)),
         ),
@@ -1827,7 +1827,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: const Color(0xFF2E6B57),
+        color: const Color(0xFF2F5D50),
         border: Border.all(color: const Color(0xFF95D3BB), width: 1.5),
       ),
       child: ClipRRect(
@@ -1840,7 +1840,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
           errorBuilder: (context, error, stackTrace) => Container(
             width: size,
             height: size,
-            color: const Color(0xFF2E6B57),
+            color: const Color(0xFF2F5D50),
             alignment: Alignment.center,
             child: UlvenikIcon(UlvenikIcons.dogs, color: Colors.white, size: size * 0.5),
           ),

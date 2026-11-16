@@ -1,299 +1,166 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_logo.dart';
 import '../theme/app_colors.dart';
 import 'onboarding_screen.dart';
 
+/// Launch screen (client review 13 Nov 2026).
+///
+/// Shows the approved logo with "Train. Record. Progress." and an honest,
+/// indeterminate loading state. It moves on as soon as start-up work is
+/// finished (no artificial delay) and offers Try Again if that work fails.
+///
+/// Note: first-run vs returning signed-in routing needs saved session state,
+/// which the app does not have yet, so every launch currently continues to
+/// the introduction.
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  /// Start-up work to run before leaving the splash. Defaults to preloading
+  /// the brand and introduction images so the next screen appears complete.
+  final Future<void> Function(BuildContext context)? loader;
+
+  const SplashScreen({super.key, this.loader});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
-  late AnimationController _sequenceController;
-  late AnimationController _fillController;
-  late AnimationController _exitController;
+class _SplashScreenState extends State<SplashScreen> {
+  bool _failed = false;
+  bool _started = false;
 
-  // Logo reveal
-  late Animation<double> _logoBlur;
-  late Animation<double> _logoScale;
-  late Animation<double> _logoOpacity;
-
-  // Bar + text entrance
-  late Animation<double> _barOpacity;
-  late Animation<Offset> _barSlide;
-  late Animation<double> _textOpacity;
-  late Animation<Offset> _textSlide;
-
-  // Bar fill progress (0.0 to 1.0)
-  late Animation<double> _fillProgress;
-
-  late Animation<double> _logoExitScale;
-  late Animation<double> _logoExitOpacity;
-  late Animation<double> _uiExitOpacity;
-  late Animation<double> _exitBlur;
+  static const _startupImages = [
+    'assets/images/logo_full.png',
+    'assets/bg-images/onboarding_1.png',
+    'assets/bg-images/onboarding_2.png',
+    'assets/bg-images/onboarding_3.png',
+  ];
 
   @override
-  void initState() {
-    super.initState();
-
-    // ── Sequence: 2.4 seconds ─────────────────────────────────────────────
-    _sequenceController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2400),
-    );
-
-    _logoBlur = Tween<double>(begin: 24.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _sequenceController,
-        curve: const Interval(0.0, 0.75, curve: Curves.easeInOut), // 0-1800ms
-      ),
-    );
-
-    _logoScale = Tween<double>(begin: 0.84, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _sequenceController,
-        curve: const Interval(0.0, 0.80, curve: Curves.elasticOut), // 0-1920ms
-      ),
-    );
-
-    _logoOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _sequenceController,
-        curve: const Interval(0.0, 0.35, curve: Curves.easeIn), // 0-840ms
-      ),
-    );
-
-    _barOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _sequenceController,
-        curve: const Interval(0.65, 0.85, curve: Curves.easeOut), // 1560-2040ms
-      ),
-    );
-    _barSlide = Tween<Offset>(
-      begin: const Offset(0, 1.5),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _sequenceController,
-        curve: const Interval(0.65, 0.85, curve: Curves.easeOutCubic),
-      ),
-    );
-
-    _textOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _sequenceController,
-        curve: const Interval(0.80, 1.0, curve: Curves.easeOut), // 1920-2400ms
-      ),
-    );
-    _textSlide = Tween<Offset>(
-      begin: const Offset(0, 1.0),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _sequenceController,
-        curve: const Interval(0.80, 1.0, curve: Curves.easeOutCubic),
-      ),
-    );
-
-    _fillController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200), // 1.2s to fill
-    );
-    _fillProgress = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _fillController, curve: Curves.easeInOut),
-    );
-
-    // ── Exit Sequence: Zoom in ─────────────────────────────────────────────
-    _exitController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 450),
-    );
-
-    _logoExitScale = Tween<double>(begin: 1.0, end: 15.0).animate(
-      CurvedAnimation(
-        parent: _exitController,
-        curve: Curves.easeInExpo, // accelerates rapidly
-      ),
-    );
-
-    _exitBlur = Tween<double>(begin: 0.0, end: 40.0).animate(
-      CurvedAnimation(
-        parent: _exitController,
-        curve: Curves.easeIn, 
-      ),
-    );
-
-    _logoExitOpacity = Tween<double>(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _exitController,
-        curve: const Interval(0.5, 1.0, curve: Curves.easeOut), 
-      ),
-    );
-
-    _uiExitOpacity = Tween<double>(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _exitController,
-        curve: const Interval(0.0, 0.3, curve: Curves.easeOut), 
-      ),
-    );
-
-    _sequenceController.forward();
-
-    // Start filling when sequence completes
-    _sequenceController.addStatusListener((status) {
-      if (status == AnimationStatus.completed && mounted) {
-        _fillController.forward();
-      }
-    });
-
-    // Trigger exit animation when fill completes
-    _fillController.addStatusListener((status) {
-      if (status == AnimationStatus.completed && mounted) {
-        Future.delayed(const Duration(milliseconds: 100), () {
-          if (!mounted) return;
-          _exitController.forward();
-        });
-      }
-    });
-
-    // Trigger navigation
-    _exitController.addStatusListener((status) {
-      if (status == AnimationStatus.completed && mounted) {
-        Navigator.of(context).pushReplacement(
-          PageRouteBuilder(
-            pageBuilder: (_, animation, __) => const OnboardingScreen(),
-            transitionsBuilder: (_, animation, __, child) =>
-                FadeTransition(opacity: animation, child: child),
-            transitionDuration: const Duration(milliseconds: 400),
-          ),
-        );
-      }
-    });
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_started) {
+      _started = true;
+      _load();
+    }
   }
 
-  @override
-  void dispose() {
-    _sequenceController.dispose();
-    _fillController.dispose();
-    _exitController.dispose();
-    super.dispose();
+  Future<void> _defaultLoader(BuildContext context) async {
+    await Future.wait(_startupImages.map(
+      (path) => precacheImage(AssetImage(path), context, onError: (e, _) => throw e),
+    ));
+  }
+
+  Future<void> _load() async {
+    setState(() => _failed = false);
+    try {
+      await (widget.loader ?? _defaultLoader)(context);
+    } catch (_) {
+      if (mounted) setState(() => _failed = true);
+      return;
+    }
+    if (!mounted) return;
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        pageBuilder: (_, _, _) => const OnboardingScreen(),
+        transitionsBuilder: (_, animation, _, child) =>
+            FadeTransition(opacity: animation, child: child),
+        transitionDuration: const Duration(milliseconds: 300),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundObsidian,
-      body: AnimatedBuilder(
-        animation: Listenable.merge([_sequenceController, _exitController, _fillController]),
-        builder: (context, child) {
-          final currentScale = _logoScale.value * _logoExitScale.value;
-          final currentOpacity = _logoOpacity.value * _logoExitOpacity.value;
-          final uiOpacity = _uiExitOpacity.value;
-          final currentBlur = _logoBlur.value + _exitBlur.value;
-
-          return Stack(
-            children: [
-              // ── 1. Logo ───────────────────────────────────────────────────
-              Center(
-                child: Opacity(
-                  opacity: currentOpacity,
-                  child: Transform.scale(
-                    scale: currentScale,
-                    child: ImageFiltered(
-                      imageFilter: ImageFilter.blur(
-                        sigmaX: currentBlur,
-                        sigmaY: currentBlur,
-                      ),
-                      child: Image.asset(
-                        'assets/images/white_mountain_only.png',
-                        width: 220,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const UlvenikLogo.full(width: 240),
+                const SizedBox(height: 20),
+                const Text(
+                  'Train. Record. Progress.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.secondaryTextStoneGrey,
+                    fontSize: 15,
+                    letterSpacing: 0.4,
                   ),
                 ),
-              ),
-
-              // ── 2. Bar + Text ─────────────────────────────────────────────
-              Positioned(
-                bottom: 90,
-                left: 0,
-                right: 0,
-                child: Opacity(
-                  opacity: uiOpacity,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // Bar
-                      SlideTransition(
-                        position: _barSlide,
-                        child: FadeTransition(
-                          opacity: _barOpacity,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 48), // Full width with padding
-                            child: Container(
-                              height: 4,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF1C2220),
-                                borderRadius: BorderRadius.circular(9999),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(9999),
-                                child: AnimatedBuilder(
-                                  animation: _fillProgress,
-                                  builder: (context, _) {
-                                    return FractionallySizedBox(
-                                      alignment: Alignment.centerLeft,
-                                      widthFactor: _fillProgress.value,
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Color(0xFF2E6B57),
-                                              Color(0xFF5DBFA0),
-                                              Colors.white,
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      // Text
-                      SlideTransition(
-                        position: _textSlide,
-                        child: FadeTransition(
-                          opacity: _textOpacity,
-                          child: Text(
-                            'Preparing your training journey...',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: AppColors.secondaryTextStoneGrey,
-                                  fontSize: 13,
-                                  letterSpacing: 0.1,
-                                ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                const SizedBox(height: 48),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 200),
+                  child: _failed ? _buildError() : _buildLoading(),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            ),
+          ),
+        ),
       ),
+    );
+  }
+
+  Widget _buildLoading() {
+    return Semantics(
+      key: const ValueKey('loading'),
+      liveRegion: true,
+      label: 'Loading Ulvenik',
+      child: const Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            width: 22,
+            height: 22,
+            child: CircularProgressIndicator(
+              strokeWidth: 2.2,
+              color: AppColors.primaryForestGreen,
+            ),
+          ),
+          SizedBox(height: 14),
+          Text(
+            'Loading Ulvenik...',
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildError() {
+    return Column(
+      key: const ValueKey('error'),
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text(
+          "Couldn't load Ulvenik",
+          style: TextStyle(
+            color: AppColors.primaryTextOffWhite,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 6),
+        const Text(
+          'Check your connection and try again.',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+        ),
+        const SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: _load,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primaryForestGreen,
+            foregroundColor: AppColors.primaryTextOffWhite,
+            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            elevation: 0,
+          ),
+          child: const Text('Try Again'),
+        ),
+      ],
     );
   }
 }

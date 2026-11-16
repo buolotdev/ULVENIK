@@ -53,9 +53,9 @@ class SharedRecordsScreen extends StatefulWidget {
 }
 
 class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
-  static const Color _bg = Color(0xFF101214);
-  static const Color _cardBg = Color(0xFF1A1F22);
-  static const Color _forest = Color(0xFF2E6B57);
+  static const Color _bg = Color(0xFF121212);
+  static const Color _cardBg = Color(0xFF1C1C1C);
+  static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _sage = Color(0xFF7A8F7A);
   static const Color _crimson = Color(0xFF8B3A3A);

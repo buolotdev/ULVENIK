@@ -411,22 +411,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
               fontFamily: 'Inter',
             ),
           ),
-          GestureDetector(
-            onTap: _handleSave,
-            behavior: HitTestBehavior.opaque,
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                'Save',
-                style: TextStyle(
-                  color: AppColors.primaryTextOffWhite,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Inter',
-                ),
-              ),
-            ),
-          ),
+          const SizedBox(width: 40),
         ],
       ),
     );

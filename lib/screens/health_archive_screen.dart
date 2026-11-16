@@ -137,9 +137,9 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
   // Scandinavian Theme Palette
 
-  static const _obsidian = Color(0xFF101214);
+  static const _obsidian = Color(0xFF121212);
 
-  static const _carbon = Color(0xFF1A1F22);
+  static const _carbon = Color(0xFF1C1C1C);
 
   static const _surfaceHigh = Color(0xFF272B29);
 
@@ -147,7 +147,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
   static const _mint = Color(0xFF95D3BB);
 
-  static const _forest = Color(0xFF2E6B57);
+  static const _forest = Color(0xFF2F5D50);
 
   static const _sage = Color(0xFF7A8F7A);
 

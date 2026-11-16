@@ -254,9 +254,9 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2e6b57).withValues(alpha: 0.2),
+                  color: const Color(0xFF2F5D50).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFF2e6b57).withValues(alpha: 0.5)),
+                  border: Border.all(color: const Color(0xFF2F5D50).withValues(alpha: 0.5)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -601,9 +601,9 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2e6b57).withValues(alpha: 0.2),
+                  color: const Color(0xFF2F5D50).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFF2e6b57).withValues(alpha: 0.5)),
+                  border: Border.all(color: const Color(0xFF2F5D50).withValues(alpha: 0.5)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -999,7 +999,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
         ElevatedButton.icon(
           onPressed: () => AppSnackbar.show(context, message: 'Edit record coming soon', type: SnackbarType.info),
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF2e6b57),
+            backgroundColor: const Color(0xFF2F5D50),
             foregroundColor: const Color(0xFFaae9d0),
             padding: const EdgeInsets.symmetric(vertical: 12),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

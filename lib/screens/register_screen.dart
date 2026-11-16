@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../widgets/ulvenik_logo.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_colors.dart';
@@ -217,11 +218,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                 scale: 1.5,
                 child: ImageFiltered(
                   imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                  child: Image.asset(
-                    'assets/images/brand.png',
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, error, stackTrace) => const SizedBox(),
-                  ),
+                  child: const SizedBox.shrink(),
                 ),
               ),
             ),
@@ -271,12 +268,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                         _animated(
                           0,
                           Center(
-                            child: Image.asset(
-                              'assets/images/brand.png',
-                              width: 72,
-                              height: 72,
-                              errorBuilder: (_, error, stackTrace) => const SizedBox(height: 72),
-                            ),
+                            child: const UlvenikLogo.full(width: 150),
                           ),
                         ),
 

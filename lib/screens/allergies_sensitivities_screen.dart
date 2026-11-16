@@ -691,7 +691,7 @@ class _AllergiesSensitivitiesScreenState
                     ? const Color(0xFF8B3A3A)
                     : (activePoint.severityScore > 3
                         ? const Color(0xFFB4823C)
-                        : const Color(0xFF2E6B57)),
+                        : const Color(0xFF2F5D50)),
               ),
             ),
             child: Row(
@@ -826,7 +826,7 @@ class _AllergiesSensitivitiesScreenState
                               spots: spots,
                               isCurved: true,
                               curveSmoothness: 0.35,
-                              color: const Color(0xFF2E6B57),
+                              color: const Color(0xFF2F5D50),
                               barWidth: 2.8,
                               isStrokeCapRound: true,
                               belowBarData: BarAreaData(
@@ -836,7 +836,7 @@ class _AllergiesSensitivitiesScreenState
                                   end: Alignment.bottomCenter,
                                   colors: [
                                     const Color(0xFF8B3A3A).withValues(alpha: 0.22),
-                                    const Color(0xFF2E6B57).withValues(alpha: 0.0),
+                                    const Color(0xFF2F5D50).withValues(alpha: 0.0),
                                   ],
                                 ),
                               ),
@@ -849,7 +849,7 @@ class _AllergiesSensitivitiesScreenState
                                       ? const Color(0xFF8B3A3A)
                                       : (score > 3
                                           ? const Color(0xFFB4823C)
-                                          : const Color(0xFF2E6B57));
+                                          : const Color(0xFF2F5D50));
 
                                   return FlDotCirclePainter(
                                     radius: isSelected ? 5.5 : 3.0,
@@ -932,11 +932,11 @@ class _AllergiesSensitivitiesScreenState
                 duration: const Duration(milliseconds: 200),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
-                  color: isSelected ? const Color(0xFF2E6B57) : AppColors.cardsCarbon,
+                  color: isSelected ? const Color(0xFF2F5D50) : AppColors.cardsCarbon,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: isSelected
-                        ? const Color(0xFF2E6B57)
+                        ? const Color(0xFF2F5D50)
                         : Colors.white.withValues(alpha: 0.08),
                   ),
                 ),
@@ -1180,7 +1180,7 @@ class _AllergiesSensitivitiesScreenState
                                     Container(
                                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF2E6B57).withValues(alpha: 0.2),
+                                        color: const Color(0xFF2F5D50).withValues(alpha: 0.2),
                                         borderRadius: BorderRadius.circular(4),
                                       ),
                                       child: const Text(
@@ -1386,11 +1386,11 @@ class _AllergiesSensitivitiesScreenState
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 16),
           decoration: BoxDecoration(
-            color: const Color(0xFF2E6B57),
+            color: const Color(0xFF2F5D50),
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF2E6B57).withValues(alpha: 0.35),
+                color: const Color(0xFF2F5D50).withValues(alpha: 0.35),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
@@ -1519,11 +1519,11 @@ class _AllergiesSensitivitiesScreenState
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               decoration: BoxDecoration(
-                color: const Color(0xFF2E6B57),
+                color: const Color(0xFF2F5D50),
                 borderRadius: BorderRadius.circular(8),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF2E6B57).withValues(alpha: 0.35),
+                    color: const Color(0xFF2F5D50).withValues(alpha: 0.35),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -1561,7 +1561,7 @@ class _AllergiesSensitivitiesScreenState
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: const Color(0xFF2E6B57),
+        color: const Color(0xFF2F5D50),
         border: Border.all(color: const Color(0xFF95D3BB), width: 1.5),
       ),
       child: ClipRRect(
@@ -1574,7 +1574,7 @@ class _AllergiesSensitivitiesScreenState
           errorBuilder: (context, error, stackTrace) => Container(
             width: size,
             height: size,
-            color: const Color(0xFF2E6B57),
+            color: const Color(0xFF2F5D50),
             alignment: Alignment.center,
             child: UlvenikIcon(UlvenikIcons.dogs, size: size * 0.55, color: const Color(0xFF95D3BB)),
           ),
@@ -1678,7 +1678,7 @@ class _AllergiesSensitivitiesScreenState
                           const SizedBox(width: 8),
                           _buildChoiceChip('Moderate', selectedSeverity == AllergySeverity.moderate, () => setModalState(() => selectedSeverity = AllergySeverity.moderate), activeColor: const Color(0xFFB4823C)),
                           const SizedBox(width: 8),
-                          _buildChoiceChip('Mild', selectedSeverity == AllergySeverity.mild, () => setModalState(() => selectedSeverity = AllergySeverity.mild), activeColor: const Color(0xFF2E6B57)),
+                          _buildChoiceChip('Mild', selectedSeverity == AllergySeverity.mild, () => setModalState(() => selectedSeverity = AllergySeverity.mild), activeColor: const Color(0xFF2F5D50)),
                         ],
                       ),
                       const SizedBox(height: 14),
@@ -1742,7 +1742,7 @@ class _AllergiesSensitivitiesScreenState
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF2E6B57),
+                            color: const Color(0xFF2F5D50),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           alignment: Alignment.center,
@@ -1774,11 +1774,11 @@ class _AllergiesSensitivitiesScreenState
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
         decoration: BoxDecoration(
-          color: isSelected ? (activeColor ?? const Color(0xFF2E6B57)) : AppColors.backgroundObsidian,
+          color: isSelected ? (activeColor ?? const Color(0xFF2F5D50)) : AppColors.backgroundObsidian,
           borderRadius: BorderRadius.circular(6),
           border: Border.all(
             color: isSelected
-                ? (activeColor ?? const Color(0xFF2E6B57))
+                ? (activeColor ?? const Color(0xFF2F5D50))
                 : Colors.white.withValues(alpha: 0.08),
           ),
         ),
@@ -1939,7 +1939,7 @@ class _AllergiesSensitivitiesScreenState
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF2E6B57),
+                            backgroundColor: const Color(0xFF2F5D50),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
@@ -2073,10 +2073,10 @@ class _AllergiesSensitivitiesScreenState
                       padding: const EdgeInsets.all(12),
                       margin: const EdgeInsets.only(bottom: 8),
                       decoration: BoxDecoration(
-                        color: isSelected ? const Color(0xFF2E6B57).withValues(alpha: 0.25) : AppColors.backgroundObsidian,
+                        color: isSelected ? const Color(0xFF2F5D50).withValues(alpha: 0.25) : AppColors.backgroundObsidian,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: isSelected ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.06),
+                          color: isSelected ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.06),
                         ),
                       ),
                       child: Row(

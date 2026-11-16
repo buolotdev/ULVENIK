@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
-import '../widgets/custom_snackbar.dart';
 import 'skill_details_screen.dart';
 import 'add_skill_screen.dart';
 import 'training_screen.dart';
@@ -42,6 +41,10 @@ class _Dog {
   final bool hasData;
   const _Dog(this.name, this.breed, this.hasData);
 }
+
+/// Names of the Core Training skills, so other areas (Sport) can link to them
+/// instead of copying them.
+List<String> coreSkillNames() => [for (final s in _skills) s.name];
 
 const _skills = [
   _Skill(
@@ -125,11 +128,14 @@ class SkillsListScreen extends StatefulWidget {
 }
 
 class _SkillsListScreenState extends State<SkillsListScreen> {
-  static const _filters = ['All Skills', 'Recently Trained', 'Needs Work'];
+  static const _filters = ['All', 'Recent', 'Focus Areas'];
+  static const _sortLabels = ['Alphabetical', 'Most recently trained', 'Date created'];
 
   late List<_Dog> _dogs;
   late _Dog _dog;
-  int _filter = 0; // 0 = All Skills (default), 1 = Recently Trained, 2 = Needs Work
+  int _filter = 0; // 0 = All (default), 1 = Recent, 2 = Focus Areas
+  int _sort = 1; // display order only; never changes records
+  // Focus Areas are chosen by the handler, never classified automatically.
   final Set<String> _userMarkedNeedsWork = {'Recall', 'Retrieve', 'Send-away'};
   final List<_Skill> _customSkills = [];
 
@@ -170,17 +176,144 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
         _ => true,
       };
     }).toList();
-    if (_filter == 1) {
-      // Recently Trained: sorted by recency
-      list.sort((a, b) => a.recencyRank.compareTo(b.recencyRank));
-    } else {
-      list.sort((a, b) => a.recencyRank.compareTo(b.recencyRank));
+    if (_filter == 1) list = list.where((s) => s.sessions > 0).toList(); // Recent: trained skills only
+    final bySort = _filter == 1 ? 1 : _sort;
+    switch (bySort) {
+      case 0:
+        list.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      case 2:
+        // Newly created skills first, then the rest in their original order.
+        list.sort((a, b) => (a.recencyRank == -1 ? 0 : 1).compareTo(b.recencyRank == -1 ? 0 : 1));
+      default:
+        list.sort((a, b) => a.recencyRank.compareTo(b.recencyRank));
     }
     return list;
   }
 
-  void _toast(String m, SnackbarType t) =>
-      AppSnackbar.show(context, message: m, type: t);
+  void _openSkillOptions() {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            ListTile(
+              leading: const UlvenikIcon(UlvenikIcons.skills, size: 22, color: AppColors.primaryTextOffWhite),
+              title: const Text('Manage Skills', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              onTap: () {
+                Navigator.pop(ctx);
+                _showManage(exercises: false);
+              },
+            ),
+            ListTile(
+              leading: const UlvenikIcon(UlvenikIcons.exercises, size: 22, color: AppColors.primaryTextOffWhite),
+              title: const Text('Manage Exercises', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              onTap: () {
+                Navigator.pop(ctx);
+                _showManage(exercises: true);
+              },
+            ),
+            ListTile(
+              leading: const UlvenikIcon(UlvenikIcons.sort, size: 22, color: AppColors.primaryTextOffWhite),
+              title: const Text('Sort Skills', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              onTap: () {
+                Navigator.pop(ctx);
+                _showSort();
+              },
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  void _showSort() {
+    showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Text('Sort Skills',
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 4),
+            const Text('Changes the display order only.',
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+            for (var i = 0; i < _sortLabels.length; i++)
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(_sortLabels[i], style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                trailing: _sort == i ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
+                onTap: () {
+                  setState(() {
+                    _sort = i;
+                    if (_filter == 1) _filter = 0;
+                  });
+                  Navigator.pop(ctx);
+                },
+              ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  /// Lists the dog's skills (or their exercises, grouped by skill). Tapping a
+  /// skill opens it, where it can be edited, archived or deleted.
+  void _showManage({required bool exercises}) {
+    final skills = _allSkills;
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => SafeArea(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.8),
+          child: ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+            children: [
+              Text(exercises ? 'Manage Exercises' : 'Manage Skills',
+                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              Text(
+                exercises
+                    ? '${_dog.name}\'s exercises, grouped by skill. Open a skill to add or edit them.'
+                    : 'Open a skill to edit, archive or delete it.',
+                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+              ),
+              const SizedBox(height: 8),
+              for (final s in skills) ...[
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(s.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                  subtitle: Text('${s.exercises} ${s.exercises == 1 ? 'Exercise' : 'Exercises'}',
+                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  trailing: const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => SkillDetailsScreen(skillName: s.name, dogName: _dog.name)));
+                  },
+                ),
+                if (exercises)
+                  for (final e in TrainingSessionStore.exercisesForSkill(s.name))
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12, bottom: 6),
+                      child: Text('• $e', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                    ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
 
   Future<void> _openCreateSkill() async {
     final created = await Navigator.push<String>(
@@ -295,6 +428,8 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                         _buildDogSelector(),
                         const SizedBox(height: 16),
                         _buildStatStrip(),
+                        const SizedBox(height: 12),
+                        _buildAddSkillButton(),
                         const SizedBox(height: 16),
                         _buildSearch(),
                         if (_hasData) ...[
@@ -318,27 +453,25 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
               ),
             ],
           ),
-          // FAB: 56x56, Forest Green, no shadow
-          Positioned(
-            right: 20,
-            bottom: 24,
-            child: Material(
-              color: AppColors.primaryForestGreen,
-              shape: const CircleBorder(
-                  side: BorderSide(color: Colors.white12)),
-              child: InkWell(
-                customBorder: const CircleBorder(),
-                onTap: _openCreateSkill,
-                child: const SizedBox(
-                  width: 56,
-                  height: 56,
-                  child: UlvenikIcon(UlvenikIcons.add,
-                      color: AppColors.primaryTextOffWhite, size: 28),
-                ),
-              ),
-            ),
-          ),
         ],
+      ),
+    );
+  }
+
+  /// Full-width Add Skill under the stat cards; scrolls with the page (no FAB).
+  Widget _buildAddSkillButton() {
+    return SizedBox(
+      height: 50,
+      child: ElevatedButton.icon(
+        onPressed: _openCreateSkill,
+        icon: const UlvenikIcon(UlvenikIcons.add, size: 20),
+        label: const Text('Add Skill', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primaryForestGreen,
+          foregroundColor: AppColors.primaryTextOffWhite,
+          elevation: 0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
       ),
     );
   }
@@ -369,18 +502,18 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                       ? _Dog(_dog.name, _dog.breed, false)
                       : _Dog(_dog.name, _dog.breed, true);
                 }),
-                child: const Text('Skills',
+                child: const Text('Skills & Exercises',
                     style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
-                        fontSize: 22,
+                        fontSize: 20,
                         fontWeight: FontWeight.w700,
                         letterSpacing: -0.3)),
               ),
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.more,
+                tooltip: 'Skill options',
+                icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
                     color: AppColors.secondaryTextStoneGrey),
-                onPressed: () =>
-                    _toast('Skill options coming soon', SnackbarType.info),
+                onPressed: _openSkillOptions,
               ),
             ],
           ),
@@ -453,53 +586,41 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
   }
 
   Widget _buildStatStrip() {
+    // Two equal, tappable cards (no Sessions figure: it lives on the dog profile).
     final skills = _hasData ? _allSkills.length : 0;
-    final exercises =
-        _hasData ? _allSkills.fold<int>(0, (a, s) => a + s.exercises) : 0;
-    final sessions =
-        _hasData ? _allSkills.fold<int>(0, (a, s) => a + s.sessions) : 0;
+    final exercises = _hasData ? _allSkills.fold<int>(0, (a, s) => a + s.exercises) : 0;
 
-    Widget cell(String value, String label, {bool last = false}) => Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-            decoration: BoxDecoration(
-              border: last
-                  ? null
-                  : const Border(right: BorderSide(color: Colors.white12)),
-            ),
-            child: Column(
-              children: [
-                Text(value,
-                    style: const TextStyle(
-                        color: AppColors.primaryTextOffWhite,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600)),
-                const SizedBox(height: 4),
-                Text(label,
-                    style: const TextStyle(
-                        color: AppColors.secondaryTextStoneGrey,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.6)),
-              ],
+    Widget card(String icon, String value, String label, VoidCallback onTap) => Expanded(
+          child: Material(
+            color: AppColors.cardsCarbon,
+            borderRadius: BorderRadius.circular(14),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(14),
+              onTap: onTap,
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: Colors.white12)),
+                child: Column(children: [
+                  UlvenikIcon(icon, size: 22, color: AppColors.secondarySage),
+                  const SizedBox(height: 8),
+                  Text(value,
+                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
+                  const SizedBox(height: 2),
+                  Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                ]),
+              ),
             ),
           ),
         );
 
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white12),
-      ),
-      child: Row(
-        children: [
-          cell('$skills', 'SKILLS'),
-          cell('$exercises', 'EXERCISES'),
-          cell('$sessions', 'SESSIONS', last: true),
-        ],
-      ),
-    );
+    return Row(children: [
+      card(UlvenikIcons.skills, '$skills', 'Skills', () => setState(() {
+            _filter = 0;
+            _search.clear();
+          })),
+      const SizedBox(width: 12),
+      card(UlvenikIcons.exercises, '$exercises', 'Exercises', () => _showManage(exercises: true)),
+    ]);
   }
 
   Widget _buildSearch() {
@@ -595,7 +716,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SkillDetailsScreen(skillName: s.name),
+              builder: (context) => SkillDetailsScreen(skillName: s.name, dogName: _dog.name),
             ),
           );
         },
@@ -617,7 +738,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                   children: [
                     Row(
                       children: [
-                        Expanded(
+                        Flexible(
                           child: Text(s.name,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -625,56 +746,36 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600)),
                         ),
+                        // Subtle indicator for handler-chosen Focus Areas.
+                        if (_userMarkedNeedsWork.contains(s.name)) ...[
+                          const SizedBox(width: 8),
+                          Tooltip(
+                            message: 'Focus Area',
+                            child: Container(
+                              width: 8,
+                              height: 8,
+                              decoration: const BoxDecoration(color: Color(0xFF6FBF8E), shape: BoxShape.circle),
+                            ),
+                          ),
+                        ],
+                        const Spacer(),
                         const UlvenikIcon(UlvenikIcons.details,
                             size: 20,
                             color: AppColors.secondaryTextStoneGrey),
                       ],
                     ),
                     const SizedBox(height: 4),
-                    Text('${s.exercises} Exercises · ${s.sessions} Sessions',
+                    Text('${s.exercises} ${s.exercises == 1 ? 'Exercise' : 'Exercises'}',
                         style: const TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
-                            fontSize: 12)),
-                    if (s.activeGoals > 0 || s.videos > 0) ...[
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          if (s.activeGoals > 0)
-                            _badge(Icons.flag,
-                                '${s.activeGoals} ACTIVE GOAL',
-                                highlight: true),
-                          if (s.videos > 0)
-                            _badge(Icons.videocam_outlined,
-                                '${s.videos} VIDEOS'),
-                        ],
-                      ),
-                    ],
-                    if ((_filter == 1 && s.lastTrained.isNotEmpty) || (s.recencyRank == 0 && s.lastTrained.isNotEmpty)) ...[
-                      const SizedBox(height: 12),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.only(top: 12),
-                        decoration: const BoxDecoration(
-                          border: Border(top: BorderSide(color: Colors.white12)),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(s.lastTrained,
-                                style: const TextStyle(
-                                    color: AppColors.secondaryTextStoneGrey,
-                                    fontSize: 12)),
-                            if (_filter == 2 && _userMarkedNeedsWork.contains(s.name))
-                              const Text('Marked by handler',
-                                  style: TextStyle(
-                                      color: Color(0xFFD99B4B),
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600)),
-                          ],
-                        ),
-                      ),
+                            fontSize: 13)),
+                    // Only when a qualifying session exists; no placeholder wording.
+                    if (s.sessions > 0 && s.lastTrained.isNotEmpty) ...[
+                      const SizedBox(height: 2),
+                      Text(s.lastTrained,
+                          style: const TextStyle(
+                              color: AppColors.secondaryTextStoneGrey,
+                              fontSize: 13)),
                     ],
                   ],
                 ),
@@ -709,36 +810,6 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
     );
   }
 
-  Widget _badge(IconData icon, String label, {bool highlight = false}) {
-    final color =
-        highlight ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: highlight
-            ? AppColors.primaryForestGreen.withValues(alpha: 0.18)
-            : AppColors.backgroundObsidian,
-        borderRadius: BorderRadius.circular(4),
-        border: Border.all(
-            color: highlight
-                ? AppColors.primaryForestGreen.withValues(alpha: 0.4)
-                : Colors.white12),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          UlvenikIcon.fromMaterial(icon, size: 12, color: color),
-          const SizedBox(width: 4),
-          Text(label,
-              style: TextStyle(
-                  color: color,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.4)),
-        ],
-      ),
-    );
-  }
 
   Widget _buildEmptyState() {
     return Container(

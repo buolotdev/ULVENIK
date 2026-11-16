@@ -67,7 +67,7 @@ class HealthStatisticsScreen extends StatefulWidget {
 class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
     with SingleTickerProviderStateMixin {
   static const _mint = Color(0xFF95D3BB);
-  static const _forest = Color(0xFF2E6B57);
+  static const _forest = Color(0xFF2F5D50);
   static const _errorMuted = Color(0xFF8B3A3A);
   late bool _isEmpty;
   late AnimationController _anim;

@@ -44,9 +44,9 @@ class ClientDogProfileScreen extends StatefulWidget {
 
 class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #101214
-  static const Color _cardBg = AppColors.cardsCarbon; // #1A1F22
-  static const Color _forest = AppColors.primaryForestGreen; // #2E6B57
+  static const Color _bg = AppColors.backgroundObsidian; // #121212
+  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
+  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
   static const Color _greenAccent = Color(0xFF479A7B);
   static const Color _mintBright = Color(0xFFB1F0D6);
   static const Color _sage = AppColors.secondarySage; // #7A8F7A
@@ -2385,7 +2385,7 @@ class _HeroDogForestPainter extends CustomPainter {
           Color(0xFF394A4A),
           Color(0xFF233030),
           Color(0xFF141A1B),
-          Color(0xFF101214),
+          Color(0xFF121212),
         ],
         stops: [0.0, 0.45, 0.78, 1.0],
       ).createShader(Offset.zero & size);
@@ -2497,15 +2497,15 @@ class _HeroDogForestPainter extends CustomPainter {
       );
     }
 
-    // Smooth bottom gradient fade into obsidian #101214 for crisp typography
+    // Smooth bottom gradient fade into obsidian #121212 for crisp typography
     final fade = Paint()
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
           Colors.transparent,
-          const Color(0xFF101214).withValues(alpha: 0.78),
-          const Color(0xFF101214),
+          const Color(0xFF121212).withValues(alpha: 0.78),
+          const Color(0xFF121212),
         ],
         stops: const [0.42, 0.72, 0.96],
       ).createShader(Offset.zero & size);

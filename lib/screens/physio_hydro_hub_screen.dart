@@ -461,7 +461,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
               height: 36,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFF2E6B57), width: 2),
+                border: Border.all(color: const Color(0xFF2F5D50), width: 2),
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(18),
@@ -469,7 +469,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   _activeDog.avatarUrl,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Container(
-                    color: const Color(0xFF2E6B57),
+                    color: const Color(0xFF2F5D50),
                     alignment: Alignment.center,
                     child: const UlvenikIcon(UlvenikIcons.dogs, size: 20, color: Color(0xFF95D3BB)),
                   ),
@@ -747,7 +747,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             decoration: BoxDecoration(
               color: AppColors.backgroundObsidian,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: const Color(0xFF2E6B57).withValues(alpha: 0.6)),
+              border: Border.all(color: const Color(0xFF2F5D50).withValues(alpha: 0.6)),
             ),
             child: Row(
               children: [
@@ -895,7 +895,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                               spots: animatedSpots,
                               isCurved: true,
                               curveSmoothness: 0.35,
-                              color: const Color(0xFF2E6B57),
+                              color: const Color(0xFF2F5D50),
                               barWidth: 3,
                               isStrokeCapRound: true,
                               dotData: FlDotData(
@@ -904,7 +904,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                                   final isSelected = index == _selectedChartPointIndex;
                                   return FlDotCirclePainter(
                                     radius: isSelected ? 5.5 : 3.5,
-                                    color: isSelected ? const Color(0xFF95D3BB) : const Color(0xFF2E6B57),
+                                    color: isSelected ? const Color(0xFF95D3BB) : const Color(0xFF2F5D50),
                                     strokeWidth: 2,
                                     strokeColor: AppColors.backgroundObsidian,
                                   );
@@ -916,8 +916,8 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    const Color(0xFF2E6B57).withValues(alpha: 0.35),
-                                    const Color(0xFF2E6B57).withValues(alpha: 0.0),
+                                    const Color(0xFF2F5D50).withValues(alpha: 0.35),
+                                    const Color(0xFF2F5D50).withValues(alpha: 0.0),
                                   ],
                                 ),
                               ),
@@ -967,11 +967,11 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 duration: const Duration(milliseconds: 200),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
-                  color: isSelected ? const Color(0xFF2E6B57) : AppColors.cardsCarbon,
+                  color: isSelected ? const Color(0xFF2F5D50) : AppColors.cardsCarbon,
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(
                     color: isSelected
-                        ? const Color(0xFF2E6B57)
+                        ? const Color(0xFF2F5D50)
                         : Colors.white.withValues(alpha: 0.08),
                   ),
                 ),
@@ -1140,7 +1140,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
     switch (session.type) {
       case RehabType.physiotherapy:
         typeIcon = Icons.fitness_center_outlined;
-        iconColor = const Color(0xFF2E6B57);
+        iconColor = const Color(0xFF2F5D50);
         break;
       case RehabType.hydrotherapy:
         typeIcon = Icons.pool_outlined;
@@ -1156,7 +1156,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         break;
       case RehabType.all:
         typeIcon = Icons.medical_services_outlined;
-        iconColor = const Color(0xFF2E6B57);
+        iconColor = const Color(0xFF2F5D50);
         break;
     }
 
@@ -1294,11 +1294,11 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         decoration: BoxDecoration(
-          color: const Color(0xFF2E6B57),
+          color: const Color(0xFF2F5D50),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF2E6B57).withValues(alpha: 0.3),
+              color: const Color(0xFF2F5D50).withValues(alpha: 0.3),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -1437,7 +1437,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: const Color(0xFF2E6B57),
+        color: const Color(0xFF2F5D50),
         border: Border.all(color: const Color(0xFF95D3BB), width: 1.5),
       ),
       child: ClipRRect(
@@ -1450,7 +1450,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
           errorBuilder: (context, error, stackTrace) => Container(
             width: size,
             height: size,
-            color: const Color(0xFF2E6B57),
+            color: const Color(0xFF2F5D50),
             alignment: Alignment.center,
             child: UlvenikIcon(UlvenikIcons.dogs, size: size * 0.55, color: const Color(0xFF95D3BB)),
           ),
@@ -1542,7 +1542,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                           return ChoiceChip(
                             label: Text(type.label),
                             selected: isSel,
-                            selectedColor: const Color(0xFF2E6B57),
+                            selectedColor: const Color(0xFF2F5D50),
                             backgroundColor: AppColors.backgroundObsidian,
                             labelStyle: TextStyle(
                               color: isSel
@@ -1617,7 +1617,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       ),
                       SliderTheme(
                         data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: const Color(0xFF2E6B57),
+                          activeTrackColor: const Color(0xFF2F5D50),
                           inactiveTrackColor: AppColors.backgroundObsidian,
                           thumbColor: const Color(0xFF95D3BB),
                           overlayColor: const Color(0xFF95D3BB).withValues(alpha: 0.2),
@@ -1653,7 +1653,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                             child: ChoiceChip(
                               label: Text(trend),
                               selected: isSel,
-                              selectedColor: const Color(0xFF2E6B57),
+                              selectedColor: const Color(0xFF2F5D50),
                               backgroundColor: AppColors.backgroundObsidian,
                               labelStyle: TextStyle(
                                 color: isSel ? const Color(0xFFAAE9D0) : AppColors.secondaryTextStoneGrey,
@@ -1715,7 +1715,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF2E6B57),
+                            color: const Color(0xFF2F5D50),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           alignment: Alignment.center,
@@ -1875,7 +1875,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                           child: LinearProgressIndicator(
                             value: session.recoveryProgress,
                             backgroundColor: AppColors.cardsCarbon,
-                            valueColor: const AlwaysStoppedAnimation(Color(0xFF2E6B57)),
+                            valueColor: const AlwaysStoppedAnimation(Color(0xFF2F5D50)),
                             minHeight: 6,
                           ),
                         ),
@@ -1945,7 +1945,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF2E6B57),
+                            backgroundColor: const Color(0xFF2F5D50),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
@@ -2021,10 +2021,10 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       padding: const EdgeInsets.all(12),
                       margin: const EdgeInsets.only(bottom: 8),
                       decoration: BoxDecoration(
-                        color: isSelected ? const Color(0xFF2E6B57).withValues(alpha: 0.25) : AppColors.backgroundObsidian,
+                        color: isSelected ? const Color(0xFF2F5D50).withValues(alpha: 0.25) : AppColors.backgroundObsidian,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: isSelected ? const Color(0xFF2E6B57) : Colors.white.withValues(alpha: 0.06),
+                          color: isSelected ? const Color(0xFF2F5D50) : Colors.white.withValues(alpha: 0.06),
                         ),
                       ),
                       child: Row(

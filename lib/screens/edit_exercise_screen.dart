@@ -2,47 +2,91 @@ import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
+import '../widgets/photo_picker.dart';
 
+/// Edit Exercise (Training Tab v47): name, optional description, a read-only
+/// Linked Skill card, Exercise Photo (replace / use the skill's photo),
+/// Notes, and one full-width Save Changes. No tags and no bottom Cancel;
+/// the back arrow leaves without applying edits.
 class EditExerciseScreen extends StatefulWidget {
-  const EditExerciseScreen({super.key});
+  final String exerciseName;
+  final String skillName;
+  final String description;
+  final String notes;
+
+  const EditExerciseScreen({
+    super.key,
+    this.exerciseName = 'Emergency Recall',
+    this.skillName = 'Recall',
+    this.description = '',
+    this.notes =
+        'Use whistle pattern: 3 short bursts. Always reward with highest value treat (liver) and dynamic play. Do not overuse this cue in daily life to maintain its emergency impact.',
+  });
 
   @override
   State<EditExerciseScreen> createState() => _EditExerciseScreenState();
 }
 
 class _EditExerciseScreenState extends State<EditExerciseScreen> {
-  final TextEditingController _nameController = TextEditingController(text: 'Emergency Recall');
-  final TextEditingController _notesController = TextEditingController(
-      text: 'Use whistle pattern: 3 short bursts. Always reward with highest value treat (liver) and dynamic play. Do not overuse this cue in daily life to maintain its emergency impact.');
-  final TextEditingController _tagController = TextEditingController();
-
-  String _parentSkill = 'Recall Foundations';
-  final List<String> _availableSkills = ['Basic Obedience', 'Recall Foundations', 'Agility'];
-  final List<String> _tags = ['Safety', 'High Value Reward'];
+  late final TextEditingController _name = TextEditingController(text: widget.exerciseName);
+  late final TextEditingController _description = TextEditingController(text: widget.description);
+  late final TextEditingController _notes = TextEditingController(text: widget.notes);
   bool _hasCustomImage = true;
+  bool _saving = false;
+  ImageProvider? _picked;
+  String? _nameError;
+
+  static const _customImage =
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAqfED1yR4MNlwfxQjsX1NiOvzwKl-PnfDSH0HN0-ky-NB4uHMPVILmbDnEvKiZrGMlc5lUMBbltsFeHWEg7-hK9ZtW1gxGFCMUTGvstXsIiacR3rAxLDmbyfu9ZQC2rMm8QoGweIvNu4JhsgrKndNsVV-_-NY6mEDGYS2eF-E_RvUdJPNlCGOxi0ai19mVF4PmvdgaPjZT2I8k_3t8FeeKmBJbL3gdCEgFwRHRCNt7PdySOkplDSc';
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _notesController.dispose();
-    _tagController.dispose();
+    _name.dispose();
+    _description.dispose();
+    _notes.dispose();
     super.dispose();
   }
 
-  void _addTag(String tag) {
-    if (tag.trim().isNotEmpty && !_tags.contains(tag.trim())) {
-      setState(() {
-        _tags.add(tag.trim());
-        _tagController.clear();
-      });
+  void _save() {
+    if (_saving) return;
+    if (_name.text.trim().isEmpty) {
+      setState(() => _nameError = 'Please enter an exercise name.');
+      return;
     }
+    _saving = true;
+    AppSnackbar.show(context, message: 'Changes saved', type: SnackbarType.success);
+    Navigator.pop(context, _name.text.trim());
   }
 
-  void _removeTag(String tag) {
-    setState(() {
-      _tags.remove(tag);
-    });
-  }
+  Widget _label(String t) => Text(t,
+      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600));
+
+  Widget _field(TextEditingController c, String hint, {int maxLines = 1, String? error}) => TextField(
+        controller: c,
+        minLines: 1,
+        maxLines: maxLines,
+        onChanged: (_) {
+          if (_nameError != null) setState(() => _nameError = null);
+        },
+        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+          errorText: error,
+          errorStyle: const TextStyle(color: Color(0xFFE08A8A), fontSize: 12.5),
+          filled: true,
+          fillColor: AppColors.cardsCarbon,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Colors.white12)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Color(0xFF8B3A3A))),
+          focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Color(0xFFB04A4A))),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -50,420 +94,138 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
       backgroundColor: AppColors.backgroundObsidian,
       appBar: AppBar(
         backgroundColor: AppColors.backgroundObsidian,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          'Edit Exercise',
-          style: TextStyle(
-            color: AppColors.primaryTextOffWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        title: const Text('Edit Exercise',
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         leading: IconButton(
+          tooltip: 'Back',
           icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(context),
         ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1.0),
-          child: Container(
-            color: Colors.white12,
-            height: 1.0,
-          ),
-        ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildLabel('EXERCISE NAME'),
-            const SizedBox(height: 8),
-            _buildTextField(_nameController, 'e.g., Target Touch'),
-            
-            const SizedBox(height: 24),
-            _buildLabel('SKILL'),
-            const SizedBox(height: 8),
-            _buildDropdown(),
-
-            const SizedBox(height: 24),
-            _buildLabel('EXERCISE IMAGE'),
-            const SizedBox(height: 8),
-            _buildImageSection(),
-
-            const SizedBox(height: 24),
-            _buildLabel('TAGS (OPTIONAL)'),
-            const SizedBox(height: 8),
-            _buildTagsSection(),
-
-            const SizedBox(height: 24),
-            _buildLabel('NOTES'),
-            const SizedBox(height: 8),
-            _buildTextField(_notesController, 'Add notes...', maxLines: 4),
-
-            const SizedBox(height: 40),
-            _buildSaveButton(),
-            const SizedBox(height: 16),
-            _buildCancelButton(),
-            const SizedBox(height: 40),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLabel(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        color: AppColors.secondaryTextStoneGrey,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.05,
-      ),
-    );
-  }
-
-  Widget _buildTextField(TextEditingController controller, String hint, {int maxLines = 1}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      child: TextField(
-        controller: controller,
-        maxLines: maxLines,
-        style: const TextStyle(
-          color: AppColors.primaryTextOffWhite,
-          fontSize: 14,
-        ),
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
-          border: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-        ),
-      ),
-    );
-  }
-
-  void _confirmSkillChange(String newSkill) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: AppColors.cardsCarbon,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text(
-          'Change Linked Skill?',
-          style: TextStyle(
-            color: AppColors.primaryTextOffWhite,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        content: Text(
-          'Changing the linked skill to "$newSkill" will update inherited tags and training parameters for this exercise. Are you sure you want to proceed?',
-          style: const TextStyle(
-            color: AppColors.secondaryTextStoneGrey,
-            fontSize: 14,
-            height: 1.4,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              setState(() {
-                _parentSkill = newSkill;
-              });
-              AppSnackbar.show(context, message: 'Linked skill updated to $newSkill', type: SnackbarType.success);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryForestGreen,
-              foregroundColor: AppColors.primaryTextOffWhite,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            ),
-            child: const Text('Change Skill'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showSkillPicker() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: AppColors.cardsCarbon,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (context) {
-        return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 8),
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.white24,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Select Skill',
-                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              for (final skill in _availableSkills)
-                ListTile(
-                  title: Text(skill, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
-                  trailing: _parentSkill == skill ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
-                  onTap: () {
-                    Navigator.pop(context);
-                    if (skill != _parentSkill) {
-                      _confirmSkillChange(skill);
-                    }
-                  },
-                ),
-              const SizedBox(height: 16),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildDropdown() {
-    return GestureDetector(
-      onTap: _showSkillPicker,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        decoration: BoxDecoration(
-          color: AppColors.cardsCarbon,
-          border: Border.all(color: Colors.white12),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Text(
-                _parentSkill,
-                style: const TextStyle(
-                  color: AppColors.primaryTextOffWhite,
-                  fontSize: 14,
-                  height: 1.2,
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 22),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildImageSection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
+          _label('Exercise Name'),
+          const SizedBox(height: 8),
+          _field(_name, 'e.g. Recall through distractions', error: _nameError),
+          const SizedBox(height: 22),
+          _label('Description (optional)'),
+          const SizedBox(height: 8),
+          _field(_description, 'Describe how this exercise is performed...', maxLines: 4),
+          const SizedBox(height: 22),
+          _label('Linked Skill'),
+          const SizedBox(height: 8),
           Container(
-            width: 72,
-            height: 72,
+            padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
+              color: AppColors.cardsCarbon,
+              borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Colors.white12),
-              color: AppColors.backgroundObsidian,
-              image: _hasCustomImage
-                  ? const DecorationImage(
-                      image: NetworkImage('https://lh3.googleusercontent.com/aida-public/AB6AXuAqfED1yR4MNlwfxQjsX1NiOvzwKl-PnfDSH0HN0-ky-NB4uHMPVILmbDnEvKiZrGMlc5lUMBbltsFeHWEg7-hK9ZtW1gxGFCMUTGvstXsIiacR3rAxLDmbyfu9ZQC2rMm8QoGweIvNu4JhsgrKndNsVV-_-NY6mEDGYS2eF-E_RvUdJPNlCGOxi0ai19mVF4PmvdgaPjZT2I8k_3t8FeeKmBJbL3gdCEgFwRHRCNt7PdySOkplDSc'),
-                      fit: BoxFit.cover,
-                    )
-                  : null,
             ),
-            child: !_hasCustomImage
-                ? const Icon(Icons.image_outlined, color: AppColors.secondaryTextStoneGrey)
-                : null,
+            child: Row(children: [
+              const UlvenikIcon(UlvenikIcons.skills, size: 20, color: AppColors.secondarySage),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(widget.skillName,
+                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                  Text('This exercise belongs to ${widget.skillName}.',
+                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                ]),
+              ),
+            ]),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    AppSnackbar.show(context, message: 'Image picker coming soon', type: SnackbarType.info);
-                    setState(() => _hasCustomImage = true);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.primaryForestGreen.withValues(alpha: 0.5)),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Text(
-                      'Replace Image',
-                      style: TextStyle(
-                        color: AppColors.primaryForestGreen,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
+          const SizedBox(height: 22),
+          _label('Exercise Photo'),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: AppColors.cardsCarbon,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.white12),
+            ),
+            child: Row(children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: SizedBox(
+                  width: 64,
+                  height: 64,
+                  child: _hasCustomImage
+                      ? Image(
+                          image: _picked ?? const NetworkImage(_customImage),
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, _, _) => const ColoredBox(color: AppColors.backgroundObsidian))
+                      : const ColoredBox(
+                          color: AppColors.backgroundObsidian,
+                          child: Icon(Icons.image_outlined, color: AppColors.secondaryTextStoneGrey)),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(_hasCustomImage ? 'Custom photo' : 'Using ${widget.skillName}’s photo',
+                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 6),
+                  Wrap(spacing: 8, runSpacing: 4, children: [
+                    OutlinedButton(
+                      onPressed: () async {
+                        final img = await pickPhoto(context);
+                        if (img != null && mounted) {
+                          setState(() {
+                            _picked = img;
+                            _hasCustomImage = true;
+                          });
+                        }
+                      },
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.primaryTextOffWhite,
+                        side: const BorderSide(color: Colors.white24),
+                        minimumSize: const Size(0, 36),
                       ),
+                      child: const Text('Choose Different Photo', style: TextStyle(fontSize: 12.5)),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                GestureDetector(
-                  onTap: () {
-                    setState(() => _hasCustomImage = false);
-                  },
-                  child: const Text(
-                    'Remove Custom Image',
-                    style: TextStyle(
-                      color: Color(0xFFffb4ab), // Light red / error color
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                    if (_hasCustomImage)
+                      TextButton(
+                        onPressed: () => setState(() {
+                          _hasCustomImage = false;
+                          _picked = null;
+                        }),
+                        style: TextButton.styleFrom(foregroundColor: AppColors.secondaryTextStoneGrey, minimumSize: const Size(0, 36)),
+                        child: const Text('Use Skill Photo', style: TextStyle(fontSize: 12.5)),
+                      ),
+                  ]),
+                ]),
+              ),
+            ]),
           ),
+          const SizedBox(height: 22),
+          _label('Notes'),
+          const SizedBox(height: 8),
+          _field(_notes, 'Add notes...', maxLines: 5),
         ],
       ),
-    );
-  }
-
-  Widget _buildTagsSection() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (_tags.isNotEmpty)
-            Wrap(
-              spacing: 8,
-              runSpacing: 12,
-              children: [
-                for (final tag in _tags)
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border.all(color: Colors.white12),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          tag,
-                          style: const TextStyle(
-                            color: AppColors.primaryTextOffWhite,
-                            fontSize: 12,
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        GestureDetector(
-                          onTap: () => _removeTag(tag),
-                          child: const Icon(Icons.close, size: 14, color: AppColors.secondaryTextStoneGrey),
-                        ),
-                      ],
-                    ),
-                  )
-              ],
-            ),
-          if (_tags.isNotEmpty) const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.only(left: 4, top: 4, bottom: 4),
-            child: TextField(
-              controller: _tagController,
-              onSubmitted: _addTag,
-              style: const TextStyle(
-                color: AppColors.primaryTextOffWhite,
-                fontSize: 14,
-              ),
-              decoration: const InputDecoration(
-                hintText: 'Add tag...',
-                hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                isDense: true,
-                contentPadding: EdgeInsets.zero,
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
+          child: SizedBox(
+            height: 52,
+            child: ElevatedButton.icon(
+              onPressed: _save,
+              icon: const UlvenikIcon(UlvenikIcons.save, size: 20),
+              label: const Text('Save Changes', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryForestGreen,
+                foregroundColor: AppColors.primaryTextOffWhite,
+                elevation: 0,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSaveButton() {
-    return ElevatedButton(
-      onPressed: () {
-        AppSnackbar.show(context, message: 'Changes saved successfully', type: SnackbarType.success);
-        Future.delayed(const Duration(seconds: 1), () {
-          if (mounted) Navigator.pop(context);
-        });
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF2e6b57), // primary-container
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        elevation: 0,
-      ),
-      child: const Text(
-        'Save Changes',
-        style: TextStyle(
-          color: Colors.white, // Changed to white as requested
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCancelButton() {
-    return OutlinedButton(
-      onPressed: () => Navigator.pop(context),
-      style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        side: const BorderSide(color: Colors.white12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-      child: const Text(
-        'Cancel',
-        style: TextStyle(
-          color: AppColors.primaryTextOffWhite,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
         ),
       ),
     );

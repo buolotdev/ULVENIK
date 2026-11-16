@@ -69,9 +69,9 @@ class TrainerReportsScreen extends StatefulWidget {
 }
 
 class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #101214
-  static const Color _cardBg = AppColors.cardsCarbon; // #1A1F22
-  static const Color _forest = AppColors.primaryForestGreen; // #2E6B57
+  static const Color _bg = AppColors.backgroundObsidian; // #121212
+  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
+  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
   static const Color _mintBright = Color(0xFF95D3BB);
   static const Color _sage = AppColors.secondarySage;
   static const Color _textPrimary = AppColors.primaryTextOffWhite;

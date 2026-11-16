@@ -117,7 +117,7 @@ class HealthRemindersScreen extends StatefulWidget {
 class _HealthRemindersScreenState extends State<HealthRemindersScreen>
     with SingleTickerProviderStateMixin {
   static const _mint = Color(0xFF95D3BB);
-  static const _forest = Color(0xFF2E6B57);
+  static const _forest = Color(0xFF2F5D50);
   static const _errorMuted = Color(0xFF8B3A3A);
   static const _amber = Color(0xFFB4823C);
   static const _sage = Color(0xFF7A8F7A);
@@ -438,7 +438,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
   void _snoozeReminder(HealthReminderItem item) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: const Color(0xFF1A1F22),
+      backgroundColor: const Color(0xFF1C1C1C),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -582,7 +582,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: const Color(0xFF1A1F22),
+      backgroundColor: const Color(0xFF1C1C1C),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -772,7 +772,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                         ),
                         DropdownButton<String>(
                           value: repeatOption,
-                          dropdownColor: const Color(0xFF1A1F22),
+                          dropdownColor: const Color(0xFF1C1C1C),
                           underline: const SizedBox(),
                           style: const TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600),
                           items: const [
@@ -870,7 +870,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
   void _showDogSelectorSheet() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: const Color(0xFF1A1F22),
+      backgroundColor: const Color(0xFF1C1C1C),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -995,7 +995,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF101214),
+      backgroundColor: const Color(0xFF121212),
       appBar: _buildTopAppBar(),
       floatingActionButton: _isEmpty
           ? null
@@ -1014,7 +1014,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
 
   PreferredSizeWidget _buildTopAppBar() {
     return AppBar(
-      backgroundColor: const Color(0xFF1A1F22),
+      backgroundColor: const Color(0xFF1C1C1C),
       elevation: 0,
       centerTitle: true,
       leading: IconButton(
@@ -1140,7 +1140,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: const Color(0xFF1A1F22),
+          color: const Color(0xFF1C1C1C),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         ),
@@ -1197,7 +1197,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1F22),
+        color: const Color(0xFF1C1C1C),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
@@ -1324,7 +1324,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
       child: Container(
         padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(
-          color: const Color(0xFF1A1F22),
+          color: const Color(0xFF1C1C1C),
           borderRadius: BorderRadius.circular(30),
           border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         ),
@@ -1416,7 +1416,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1F22),
+        color: const Color(0xFF1C1C1C),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
@@ -1638,7 +1638,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   decoration: BoxDecoration(
                     color: isSelected
                         ? _forest
-                        : (isToday ? _forest.withValues(alpha: 0.2) : const Color(0xFF1A1F22)),
+                        : (isToday ? _forest.withValues(alpha: 0.2) : const Color(0xFF1C1C1C)),
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(
                       color: isSelected
@@ -1688,7 +1688,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
       return Container(
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
-          color: const Color(0xFF1A1F22),
+          color: const Color(0xFF1C1C1C),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         ),
@@ -1964,7 +1964,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1F22),
+        color: const Color(0xFF1C1C1C),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: _sage.withValues(alpha: 0.5)),
       ),
@@ -2042,7 +2042,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1F22),
+        color: const Color(0xFF1C1C1C),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
@@ -2119,7 +2119,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1F22).withValues(alpha: 0.6),
+        color: const Color(0xFF1C1C1C).withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
@@ -2192,7 +2192,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF1A1F22),
+                    color: const Color(0xFF1C1C1C),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
                   ),
@@ -2226,7 +2226,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               Container(
                 padding: const EdgeInsets.all(2),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1A1F22),
+                  color: const Color(0xFF1C1C1C),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
                 ),
@@ -2292,7 +2292,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               height: 80,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFF1A1F22),
+                color: const Color(0xFF1C1C1C),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
               child: const UlvenikIcon(UlvenikIcons.notifications,
@@ -2361,7 +2361,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1F22),
+        color: const Color(0xFF1C1C1C),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
@@ -2396,7 +2396,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFF272B29) : const Color(0xFF1A1F22),
+        color: isSelected ? const Color(0xFF272B29) : const Color(0xFF1C1C1C),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: isSelected ? _mint.withValues(alpha: 0.5) : Colors.white.withValues(alpha: 0.08),

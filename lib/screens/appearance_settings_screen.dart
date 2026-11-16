@@ -13,9 +13,9 @@ class AppearanceSettingsScreen extends StatefulWidget {
 }
 
 class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
-  static const Color _obsidian = Color(0xFF101214);
-  static const Color _carbon = Color(0xFF1A1F22);
-  static const Color _forest = Color(0xFF2E6B57);
+  static const Color _obsidian = Color(0xFF121212);
+  static const Color _carbon = Color(0xFF1C1C1C);
+  static const Color _forest = Color(0xFF2F5D50);
   static const Color _offWhite = Color(0xFFF5F6F2);
   static const Color _lightCream = Color(0xFFFAF8F4);
   static const Color _stoneGrey = Color(0xFFA7B0AB);
@@ -1078,7 +1078,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
 class _SplitSystemThemePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final darkPaint = Paint()..color = const Color(0xFF101214);
+    final darkPaint = Paint()..color = const Color(0xFF121212);
     final lightPaint = Paint()..color = const Color(0xFFFAF8F4);
 
     final topTriangle = Path()

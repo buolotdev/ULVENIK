@@ -1,31 +1,44 @@
 import 'package:flutter/material.dart';
+import '../data/sample_data.dart';
 import '../widgets/ulvenik_icon.dart';
-import '../theme/app_colors.dart';
 import '../widgets/animated_progress_bar.dart';
-import '../widgets/custom_snackbar.dart';
+import '../theme/app_colors.dart';
 import 'create_goal_screen.dart';
 import 'goal_details_screen.dart';
 
+/// Goals (Dogs & Goals handover, section 05).
+///
+/// Back arrow (never a hamburger), dog selector, three clickable summary
+/// cards that filter the list (Active / Completed / Overdue), "View All"
+/// beside the list heading to clear the filter, search, and a floating +
+/// that opens Create Goal for the selected dog.
 class GoalsListScreen extends StatefulWidget {
   final bool initialHasData;
-  const GoalsListScreen({super.key, this.initialHasData = true});
+  final String dogName;
+
+  /// Preselects a status filter, e.g. Active when opened from the dog
+  /// profile's Active Goals card.
+  final GoalStatus? initialFilter;
+
+  const GoalsListScreen({
+    super.key,
+    this.initialHasData = true,
+    this.dogName = 'Murphy',
+    this.initialFilter,
+  });
 
   @override
   State<GoalsListScreen> createState() => _GoalsListScreenState();
 }
 
 class _GoalsListScreenState extends State<GoalsListScreen> {
-  late bool _hasData;
-  int _activeFilter = 0; // 0: All (default), 1: Active, 2: Completed, 3: Overdue
-  final List<String> _filters = ['All', 'Active', 'Completed', 'Overdue'];
-  final bool _hasSportPack = true; // Sport Pack subscription indicator
-  final TextEditingController _searchController = TextEditingController();
+  late bool _hasData = widget.initialHasData;
+  late String _dogName = widget.dogName;
+  late GoalStatus? _filter = widget.initialFilter;
+  final _searchController = TextEditingController();
+  String _query = '';
 
-  @override
-  void initState() {
-    super.initState();
-    _hasData = widget.initialHasData;
-  }
+  static const _months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   @override
   void dispose() {
@@ -33,10 +46,58 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
     super.dispose();
   }
 
-  void _toggleData() {
-    setState(() {
-      _hasData = !_hasData;
-    });
+  DogInfo get _dog => SampleData.dogNamed(_dogName);
+  List<GoalInfo> get _dogGoals => _hasData ? SampleData.goalsFor(_dogName) : const [];
+
+  int _count(GoalStatus s) => _dogGoals.where((g) => g.status == s).length;
+
+  List<GoalInfo> get _visibleGoals {
+    final q = _query.trim().toLowerCase();
+    return _dogGoals
+        .where((g) => _filter == null || g.status == _filter)
+        .where((g) => q.isEmpty || g.title.toLowerCase().contains(q) || g.category.toLowerCase().contains(q))
+        .toList();
+  }
+
+  String _date(DateTime d) => '${d.day} ${_months[d.month - 1]} ${d.year}';
+
+  String get _listHeading => switch (_filter) {
+        null => 'All Goals',
+        GoalStatus.active => 'Active Goals',
+        GoalStatus.completed => 'Completed Goals',
+        GoalStatus.overdue => 'Overdue Goals',
+      };
+
+  void _openCreate() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CreateGoalScreen(initialDogName: _dogName, initialIsClientDog: _dog.isClient),
+      ),
+    );
+  }
+
+  void _openGoal(GoalInfo g) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => GoalDetailsScreen.fromGoal(g)));
+  }
+
+  void _pickDog() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.cardsCarbon,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => DogPickerSheet(
+        selected: _dogName,
+        onSelected: (d) {
+          Navigator.pop(ctx);
+          setState(() {
+            _dogName = d.name;
+            _filter = widget.initialFilter;
+          });
+        },
+      ),
+    );
   }
 
   @override
@@ -45,622 +106,384 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
       backgroundColor: AppColors.backgroundObsidian,
       appBar: AppBar(
         backgroundColor: AppColors.backgroundObsidian,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu, color: AppColors.primaryTextOffWhite),
-          onPressed: () {
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          },
+          tooltip: 'Back',
+          icon: const UlvenikIcon(UlvenikIcons.back, size: 22, color: AppColors.primaryTextOffWhite),
+          onPressed: () => Navigator.maybePop(context),
         ),
         centerTitle: true,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              'assets/images/white_mountain_only.png',
-              height: 20,
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) => const Icon(Icons.terrain_rounded,
-                color: AppColors.primaryTextOffWhite,
-                size: 20,
-              ),
-            ),
-            const SizedBox(width: 8),
-            const Text(
-              'ULVENIK',
-              style: TextStyle(
-                color: AppColors.primaryTextOffWhite,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 2.0,
-              ),
-            ),
-          ],
+        title: GestureDetector(
+          onDoubleTap: () => setState(() => _hasData = !_hasData), // demo toggle
+          child: const Text('Goals',
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person_outline, color: AppColors.primaryTextOffWhite),
-            onPressed: () {},
-          ),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 120), // room for the + button
+        children: [
+          _DogSelectorCard(dog: _dog, onTap: _pickDog),
+          const SizedBox(height: 16),
+          if (_dogGoals.isEmpty) ..._buildEmpty() else ..._buildPopulated(),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Header
-              GestureDetector(
-                onDoubleTap: _toggleData, // double tap to toggle state
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'GOALS',
-                      style: TextStyle(
-                        color: AppColors.secondaryTextStoneGrey,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.05,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'Your Goals',
-                      style: TextStyle(
-                        color: AppColors.primaryTextOffWhite,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'Track everything you\'re working towards...',
-                      style: TextStyle(
-                        color: AppColors.secondaryTextStoneGrey,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
-              
-              if (_hasData) ..._buildPopulatedState() else ..._buildEmptyState(),
-            ],
-          ),
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFF2e6b57), // primary container
+        tooltip: 'Create Goal',
+        backgroundColor: AppColors.primaryForestGreen,
+        onPressed: _openCreate,
         child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => const CreateGoalScreen()));
-        },
       ),
     );
   }
 
-  List<Widget> _buildPopulatedState() {
+  List<Widget> _buildPopulated() {
+    final goals = _visibleGoals;
     return [
-      _buildDogSelector(),
-      const SizedBox(height: 16),
-      _buildSummaryStrip(),
-      const SizedBox(height: 24),
-      _buildSearchBar(),
-      const SizedBox(height: 16),
-      _buildFilterPills(),
-      const SizedBox(height: 24),
-      Text(
-        _activeFilter == 0
-            ? 'All Goals'
-            : _activeFilter == 1
-                ? 'Active Goals'
-                : _activeFilter == 2
-                    ? 'Completed Goals'
-                    : 'Overdue Goals',
-        style: const TextStyle(
-          color: AppColors.primaryTextOffWhite,
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
+      IntrinsicHeight(child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        for (final s in const [GoalStatus.active, GoalStatus.completed, GoalStatus.overdue]) ...[
+          Expanded(
+            child: _SummaryCard(
+              count: _count(s),
+              label: switch (s) {
+                GoalStatus.active => 'Active Goals',
+                GoalStatus.completed => 'Completed',
+                GoalStatus.overdue => 'Overdue',
+              },
+              selected: _filter == s,
+              onTap: () => setState(() => _filter = _filter == s ? null : s),
+            ),
+          ),
+          if (s != GoalStatus.overdue) const SizedBox(width: 8),
+        ],
+      ])),
+      const SizedBox(height: 20),
+      SizedBox(
+        height: 46,
+        child: TextField(
+          controller: _searchController,
+          onChanged: (v) => setState(() => _query = v),
+          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+          decoration: InputDecoration(
+            hintText: 'Search goals',
+            hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+            filled: true,
+            fillColor: AppColors.cardsCarbon,
+            contentPadding: EdgeInsets.zero,
+            prefixIcon: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+            ),
+            prefixIconConstraints: const BoxConstraints(minWidth: 44),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Colors.white12)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+          ),
         ),
       ),
-      const SizedBox(height: 12),
-      if (_activeFilter == 0 || _activeFilter == 1) ...[
-        _buildGoalCardProgress(
-          title: 'Complete 20 Recall Sessions',
-          subtitle: 'Training • Target: Dec 31 (Session Count)',
-          current: 14,
-          total: 20,
-        ),
-        const SizedBox(height: 12),
-      ],
-      if (_activeFilter == 0 || _activeFilter == 2) ...[
-        _buildGoalCardCheckable(
-          title: 'Pass BH',
-          subtitle: 'Competition • Target: Spring 2024',
-        ),
-        const SizedBox(height: 12),
-      ],
-      if (_activeFilter == 0 || _activeFilter == 3) ...[
-        _buildGoalCardOverdue(
-          title: 'Record Weight Every Month',
-          subtitle: 'Overdue by 5 days',
-        ),
-        const SizedBox(height: 12),
-      ],
-      if (_activeFilter == 0 || _activeFilter == 1) ...[
-        _buildGoalCardQualitative(
-          title: 'Improve Confidence Around Livestock',
-          subtitle: 'Behavior • Ongoing • Handler Assessed',
-        ),
-        const SizedBox(height: 12),
-      ],
-      const SizedBox(height: 32),
-      const Text(
-        'Categories',
-        style: TextStyle(
-          color: AppColors.primaryTextOffWhite,
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-        ),
+      const SizedBox(height: 16),
+      SizedBox(
+        height: 40,
+        child: Row(children: [
+          Expanded(
+            child: Text(_listHeading,
+                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+          ),
+          if (_filter != null)
+            TextButton(
+              onPressed: () => setState(() => _filter = null),
+              style: TextButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite.withValues(alpha: 0.85)),
+              child: const Text('View All', style: TextStyle(fontWeight: FontWeight.w500)),
+            ),
+        ]),
       ),
-      const SizedBox(height: 12),
-      _buildCategories(),
-      const SizedBox(height: 100),
+      const SizedBox(height: 8),
+      if (goals.isEmpty)
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 32),
+          child: Text('No goals match.',
+              textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+        )
+      else
+        for (final g in goals) ...[
+          _GoalCard(goal: g, dateLabel: g.dueDate == null ? null : _date(g.dueDate!), onTap: () => _openGoal(g)),
+          const SizedBox(height: 10),
+        ],
     ];
   }
 
-  List<Widget> _buildEmptyState() {
+  List<Widget> _buildEmpty() {
     return [
-      _buildDogSelector(),
-      const SizedBox(height: 24),
-      // Empty state stats (0, 0, 0)
-      Row(
-        children: [
-          Expanded(child: _buildStatBox('SESSIONS', '0')),
-          const SizedBox(width: 12),
-          Expanded(child: _buildStatBox('HOURS', '0')),
-          const SizedBox(width: 12),
-          Expanded(child: _buildStatBox('STREAK', '0')),
-        ],
-      ),
-      const SizedBox(height: 48),
+      const SizedBox(height: 40),
       Center(
         child: Container(
-          width: 80,
-          height: 80,
+          width: 76,
+          height: 76,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.cardsCarbon,
             border: Border.all(color: Colors.white12),
           ),
-          child: const UlvenikIcon(UlvenikIcons.goals, color: AppColors.secondaryTextStoneGrey, size: 32),
+          child: const UlvenikIcon(UlvenikIcons.goals, color: AppColors.secondarySage, size: 32),
         ),
       ),
-      const SizedBox(height: 24),
+      const SizedBox(height: 20),
+      const Text('Set your first goal',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w700)),
+      const SizedBox(height: 10),
       const Text(
-        'Set Your First Goal',
+        'Create goals for training, S&C and health, and track your progress over time.',
         textAlign: TextAlign.center,
-        style: TextStyle(
-          color: AppColors.primaryTextOffWhite,
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          height: 1.2,
+        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4),
+      ),
+      const SizedBox(height: 28),
+      SizedBox(
+        height: 52,
+        child: ElevatedButton(
+          onPressed: _openCreate,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primaryForestGreen,
+            foregroundColor: AppColors.primaryTextOffWhite,
+            elevation: 0,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+          child: const Text('Create Goal', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
         ),
       ),
-      const SizedBox(height: 12),
-      const Text(
-        'Create goals for training, S&C, health and\nmore, and track your progress over time.',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: AppColors.secondaryTextStoneGrey,
-          fontSize: 14,
-          height: 1.4,
-        ),
-      ),
-      const SizedBox(height: 32),
-      ElevatedButton(
-        onPressed: () {
-           Navigator.push(context, MaterialPageRoute(builder: (_) => const CreateGoalScreen()));
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2e6b57),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        ),
-        child: const Text(
-          'Create Your First Goal →',
-          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
-        ),
-      ),
-      const SizedBox(height: 100),
     ];
   }
+}
 
-  Widget _buildDogSelector() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
+// ── Shared dog selector pieces (also used by Create Goal) ─────────────────
+
+class DogSquarePhoto extends StatelessWidget {
+  final DogInfo dog;
+  final double size;
+  const DogSquarePhoto({super.key, required this.dog, this.size = 44});
+
+  @override
+  Widget build(BuildContext context) {
+    final placeholder = Container(
+      color: const Color(0xFF26302C),
+      alignment: Alignment.center,
+      child: UlvenikIcon(UlvenikIcons.dogs, size: size * 0.45, color: AppColors.secondarySage),
+    );
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(size * 0.22),
+      child: SizedBox(
+        width: size,
+        height: size,
+        child: dog.photoUrl == null
+            ? placeholder
+            : Image.network(dog.photoUrl!, fit: BoxFit.cover, errorBuilder: (_, _, _) => placeholder),
       ),
-      child: Row(
-        children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: const Color(0xFF2e6b57), width: 2),
-              image: const DecorationImage(
-                image: NetworkImage('https://lh3.googleusercontent.com/aida-public/AB6AXuBH5yvhXffjB1E_ttLWsU8bwi8L8Kv2cVB1QPBC-GRHKRGCnoMNHW-Dxq6eUDnXqo_eYsy6qshRRe_LgPzaVNta-g6Bfygs4uoA8h72Ns65qNXPlquOAo-1Mu7rx2HTXWodZqGMh_-rtc1RPijuoz_oxLiZlMFTONoKqq3hucCj40EJNr_Ih2UPf-NZTAgJAzd2e001sX1u1nqDIxl8zLWQ8wbdabBvVPHo60OSKeGacvcYcsNSnts'),
-                fit: BoxFit.cover,
-              ),
+    );
+  }
+}
+
+class _DogSelectorCard extends StatelessWidget {
+  final DogInfo dog;
+  final VoidCallback onTap;
+  const _DogSelectorCard({required this.dog, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: AppColors.cardsCarbon,
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(14),
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: Colors.white12),
+          ),
+          child: Row(children: [
+            DogSquarePhoto(dog: dog),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(dog.name,
+                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                Text(dog.breed, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+              ]),
             ),
-          ),
-          const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(_hasData ? 'Nova' : 'Atlas', style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-              Text(_hasData ? 'Belgian Malinois' : 'Malinois • 3y 2m', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-            ],
-          ),
-          const Spacer(),
-          GestureDetector(
-            onTap: () {
-               AppSnackbar.show(context, message: 'Switch dog coming soon', type: SnackbarType.info);
-            },
-            child: const Text('Switch Dog', style: TextStyle(color: Color(0xFF95d3bb), fontSize: 13, fontWeight: FontWeight.w500)),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSummaryStrip() {
-    return Row(
-      children: [
-        Expanded(child: _buildSummaryBox('7', 'Active Goals', const Color(0xFF95d3bb))),
-        const SizedBox(width: 8),
-        Expanded(child: _buildSummaryBox('12', 'Completed', AppColors.primaryTextOffWhite)),
-        const SizedBox(width: 8),
-        Expanded(child: _buildSummaryBox('2', 'Overdue', const Color(0xFFffb4ab))),
-      ],
-    );
-  }
-
-  Widget _buildSummaryBox(String count, String label, Color countColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        children: [
-          Text(count, style: TextStyle(color: countColor, fontSize: 22, fontWeight: FontWeight.w600)),
-          const SizedBox(height: 4),
-          Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatBox(String label, String value) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        children: [
-          Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.05)),
-          const SizedBox(height: 8),
-          Text(value, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w600)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSearchBar() {
-    return Container(
-      height: 48,
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: TextField(
-        controller: _searchController,
-        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
-        decoration: InputDecoration(
-          hintText: 'Search goals...',
-          hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
-          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
-          border: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(vertical: 14), // center vertical align
+            const Text('Switch Dog',
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
+            const SizedBox(width: 4),
+            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+          ]),
         ),
       ),
     );
   }
+}
 
-  Widget _buildFilterPills() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      clipBehavior: Clip.none,
-      child: Row(
-        children: _filters.asMap().entries.map((entry) {
-          final idx = entry.key;
-          final label = entry.value;
-          final isActive = _activeFilter == idx;
-          return GestureDetector(
-            onTap: () => setState(() => _activeFilter = idx),
-            child: Container(
-              margin: const EdgeInsets.only(right: 8),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: isActive ? const Color(0xFF2e6b57) : Colors.transparent,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: isActive ? const Color(0xFF2e6b57) : Colors.white12),
-              ),
-              child: Text(
-                label,
-                style: TextStyle(
-                  color: isActive ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
+/// Bottom sheet listing My Dogs and Client Dogs with square photos.
+class DogPickerSheet extends StatelessWidget {
+  final String selected;
+  final ValueChanged<DogInfo> onSelected;
+  final bool hasTrainerPack;
+  const DogPickerSheet({super.key, required this.selected, required this.onSelected, this.hasTrainerPack = true});
+
+  @override
+  Widget build(BuildContext context) {
+    Widget tile(DogInfo d) => ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: DogSquarePhoto(dog: d, size: 40),
+          title: Text(d.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+          subtitle: Text('${d.breed} · ${d.isClient ? 'Client Dog' : 'My Dog'}',
+              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+          trailing: d.name == selected ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
+          onTap: () => onSelected(d),
+        );
+    Widget label(String t) => Padding(
+          padding: const EdgeInsets.only(top: 12, bottom: 4),
+          child: Text(t, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
+        );
+    return SafeArea(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
+        child: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+          children: [
+            Center(
+              child: Container(
+                width: 36, height: 4,
+                decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)),
               ),
             ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildGoalCardProgress({required String title, required String subtitle, required int current, required int total}) {
-    final double percentage = total > 0 ? (current / total) : 0;
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => GoalDetailsScreen(
-          title: title,
-          current: current,
-          total: total,
-        )));
-      },
-      child: Container(
-        padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
-                    const SizedBox(height: 4),
-                    Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-                  ],
-                ),
-              ),
-              const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey, size: 20),
+            const SizedBox(height: 16),
+            const Text('Select Dog',
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+            label('My Dogs'),
+            for (final d in SampleData.myDogs) tile(d),
+            if (hasTrainerPack && SampleData.clientDogs.isNotEmpty) ...[
+              label('Client Dogs'),
+              for (final d in SampleData.clientDogs) tile(d),
             ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('$current/$total', style: const TextStyle(color: Color(0xFF95d3bb), fontSize: 12)),
-              Text('${(percentage * 100).toInt()}%', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-            ],
-          ),
-          const SizedBox(height: 8),
-          AnimatedProgressBar(
-            value: percentage,
-            height: 4,
-            backgroundColor: const Color(0xFF323533),
-            color: const Color(0xFF2e6b57),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }
+}
 
-  Widget _buildGoalCardCheckable({required String title, required String subtitle}) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => GoalDetailsScreen(
-          title: title,
-        )));
-      },
-      child: Container(
-        padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
-                const SizedBox(height: 4),
-                Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-               AppSnackbar.show(context, message: 'Goal marked as complete', type: SnackbarType.success);
-            },
-            child: Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white12),
-              ),
-              child: const Icon(Icons.check, color: AppColors.secondaryTextStoneGrey, size: 16),
-            ),
-          ),
-        ],
-      ),
-      ),
-    );
-  }
+class _SummaryCard extends StatelessWidget {
+  final int count;
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+  const _SummaryCard({required this.count, required this.label, required this.selected, required this.onTap});
 
-  Widget _buildGoalCardOverdue({required String title, required String subtitle}) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => GoalDetailsScreen(
-          title: title,
-        )));
-      },
-      child: Container(
-        padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: const Color(0xFFffb4ab).withValues(alpha: 0.3)), // error tinted border
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 4,
-            height: 40,
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: Material(
+        color: selected ? AppColors.primaryForestGreen.withValues(alpha: 0.22) : AppColors.cardsCarbon,
+        borderRadius: BorderRadius.circular(12),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
             decoration: BoxDecoration(
-              color: const Color(0xFFffb4ab), // error
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white12, width: selected ? 1.5 : 1),
             ),
+            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text('$count',
+                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              Text(label,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+            ]),
           ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    const Icon(Icons.warning_amber_rounded, color: Color(0xFFffb4ab), size: 14),
-                    const SizedBox(width: 4),
-                    Text(subtitle, style: const TextStyle(color: Color(0xFFffb4ab), fontSize: 12)),
-                  ],
-                ),
-              ],
-            ),
+        ),
+      ),
+    );
+  }
+}
+
+class _GoalCard extends StatelessWidget {
+  final GoalInfo goal;
+  final String? dateLabel;
+  final VoidCallback onTap;
+  const _GoalCard({required this.goal, required this.onTap, this.dateLabel});
+
+  String _fmt(num v) => v == v.roundToDouble() ? v.toInt().toString() : v.toStringAsFixed(1);
+
+  @override
+  Widget build(BuildContext context) {
+    final overdue = goal.status == GoalStatus.overdue;
+    final completed = goal.status == GoalStatus.completed;
+    final meta = [
+      goal.category,
+      if (completed) 'Completed' else if (overdue) 'Overdue' else if (dateLabel != null) 'Due $dateLabel',
+    ].join(' · ');
+    return Material(
+      color: AppColors.cardsCarbon,
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(14),
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: overdue ? const Color(0x668B3A3A) : Colors.white12),
           ),
-          GestureDetector(
-            onTap: () {
-               AppSnackbar.show(context, message: 'Goal marked as complete', type: SnackbarType.success);
-            },
-            child: Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white12),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(goal.title,
+                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 4),
+                  Text(meta,
+                      style: TextStyle(
+                        color: overdue ? const Color(0xFFE08A8A) : AppColors.secondaryTextStoneGrey,
+                        fontSize: 12.5,
+                      )),
+                ]),
               ),
-              child: const Icon(Icons.check, color: AppColors.secondaryTextStoneGrey, size: 16),
-            ),
-          ),
-        ],
-      ),
-      ),
-    );
-  }
-
-  Widget _buildGoalCardQualitative({required String title, required String subtitle}) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => GoalDetailsScreen(
-          title: title,
-        )));
-      },
-      child: Container(
-        padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
-                const SizedBox(height: 4),
-                Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-              ],
-            ),
-          ),
-          const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
-        ],
-      ),
-      ),
-    );
-  }
-
-  Widget _buildCategories() {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        _buildCategoryChip(Icons.school_outlined, 'Training', 8),
-        _buildCategoryChip(Icons.fitness_center_outlined, 'S&C', 5),
-        _buildCategoryChip(Icons.favorite_border, 'Health', 3),
-        if (_hasSportPack)
-          _buildCategoryChip(Icons.emoji_events_outlined, 'Sport', 4),
-      ],
-    );
-  }
-
-  Widget _buildCategoryChip(IconData icon, String label, int count) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          UlvenikIcon.fromMaterial(icon, color: AppColors.secondaryTextStoneGrey, size: 18),
-          const SizedBox(width: 8),
-          Text(label, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
-          const SizedBox(width: 8),
-          Text('$count', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-        ],
+              if (completed)
+                const UlvenikIcon(UlvenikIcons.completed, size: 20, color: Color(0xFF6FBF8E))
+              else
+                const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+            ]),
+            if (goal.isMeasurable) ...[
+              const SizedBox(height: 14),
+              Row(children: [
+                Expanded(
+                  child: Text('${_fmt(goal.current)} / ${_fmt(goal.targetValue!)} ${goal.targetUnit}',
+                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                ),
+                Text('${(goal.progress! * 100).round()}%',
+                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+              ]),
+              const SizedBox(height: 8),
+              AnimatedProgressBar(
+                value: goal.progress!,
+                height: 5,
+                backgroundColor: const Color(0xFF2C302E),
+                color: AppColors.primaryForestGreen,
+              ),
+            ] else if (!completed) ...[
+              const SizedBox(height: 10),
+              const Text('Open-ended goal · no numerical target',
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+            ],
+          ]),
+        ),
       ),
     );
   }

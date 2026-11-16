@@ -1450,7 +1450,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
           text: text.substring(index, index + q.length),
           style: baseStyle.copyWith(
             backgroundColor: const Color(0xFFFACC15),
-            color: const Color(0xFF101214),
+            color: const Color(0xFF121212),
             fontWeight: FontWeight.w800,
           ),
         ),

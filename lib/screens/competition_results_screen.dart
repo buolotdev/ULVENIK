@@ -84,10 +84,10 @@ class CompetitionResultsScreen extends StatefulWidget {
 
 class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #101214
-  static const Color _card = AppColors.cardsCarbon; // #1A1F22
+  static const Color _bg = AppColors.backgroundObsidian; // #121212
+  static const Color _card = AppColors.cardsCarbon; // #1C1C1C
   static const Color _subCard = Color(0xFF161B1E);
-  static const Color _forest = AppColors.primaryForestGreen; // #2E6B57
+  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _greenAccent = Color(0xFF3E8E72);
   static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
@@ -462,18 +462,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
               ),
             ),
           ),
-          TextButton(
-            onPressed: _saveResults,
-            child: const Text(
-              'Save',
-              style: TextStyle(
-                color: _greenAccent,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Inter',
-              ),
-            ),
-          ),
+          const SizedBox(width: 40),
         ],
       ),
     );

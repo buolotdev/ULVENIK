@@ -24,7 +24,7 @@ class UlvenikBottomNav extends StatelessWidget {
 
   static WidgetBuilder? globalMoreScreenBuilder;
 
-  static const Color _bg = Color(0xFF101214);
+  static const Color _bg = Color(0xFF121212);
   static const Color _border = Color(0x14FFFFFF);
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _stoneGrey = Color(0xFFA7B0AB);

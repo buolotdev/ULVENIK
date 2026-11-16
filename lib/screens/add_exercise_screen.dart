@@ -3,6 +3,7 @@ import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
+import '../widgets/photo_picker.dart';
 import 'training_screen.dart';
 
 class AddExerciseScreen extends StatefulWidget {
@@ -18,43 +19,32 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
   static const _inheritedImage =
       'https://lh3.googleusercontent.com/aida-public/AB6AXuDrhfrdwNLRqDNJGjuknICW_ZG9DEZQ8gftDHhjtAJskS0KuUQRZsUdhWt9JDN2qw5wVjB9-SH1FCzb9TltDALLsF47aHQK0lQ0YOGXbWuQdFAbgF1qU-0DX1zy-IDSPgNExG9mo2f56Fot7Juee_WO_boF_79Seufb5BLnYPSnhZ9OXY685-wyswoeoe_E70QNWi7RfHpTLzvSKzqN9XN5NVyxbte4y0SQPsdu4Auxvq5FCrus-v8';
 
-  static const _noBorder = InputBorder.none;
-
   final _nameController = TextEditingController();
   final _descController = TextEditingController();
-  final _tagController = TextEditingController();
 
-  final List<String> _inheritedTags = ['Obedience'];
-  final List<String> _tags = [];
-
-  bool get _canSave => _nameController.text.trim().isNotEmpty;
+  String? _nameError;
+  bool _saving = false;
+  ImageProvider? _customPhoto;
 
   @override
   void initState() {
     super.initState();
-    _nameController.addListener(() => setState(() {}));
+    _nameController.addListener(() {
+      if (_nameError != null && _nameController.text.trim().isNotEmpty) setState(() => _nameError = null);
+    });
   }
 
   @override
   void dispose() {
     _nameController.dispose();
     _descController.dispose();
-    _tagController.dispose();
     super.dispose();
   }
 
-  void _addTag(String tag) {
-    final t = tag.trim();
-    if (t.isNotEmpty && !_tags.contains(t) && !_inheritedTags.contains(t)) {
-      setState(() => _tags.add(t));
-    }
-    _tagController.clear();
-  }
 
   void _handleCancel() {
     if (_nameController.text.isNotEmpty ||
-        _descController.text.isNotEmpty ||
-        _tags.isNotEmpty) {
+        _descController.text.isNotEmpty) {
       _showDiscardSheet();
     } else {
       Navigator.pop(context);
@@ -62,8 +52,13 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
   }
 
   void _handleSave() {
-    if (!_canSave) return;
+    if (_saving) return; // no duplicate exercises from repeated taps
     final createdExercise = _nameController.text.trim();
+    if (createdExercise.isEmpty) {
+      setState(() => _nameError = 'Please enter an exercise name.');
+      return;
+    }
+    _saving = true;
     TrainingSessionStore.registerCustomExercise(
       widget.parentSkill,
       createdExercise,
@@ -194,18 +189,6 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                     ),
                     const Text('New Exercise',
                         style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: _canSave ? _handleSave : null,
-                        child: Text('Save',
-                            style: TextStyle(
-                              color: _canSave ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                            )),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -217,48 +200,56 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
             child: ListView(
               padding: EdgeInsets.only(left: 20, right: 20, top: 24, bottom: bottomSafe + 40),
               children: [
-                // Parent skill (locked)
-                _sectionLabel('SKILL'),
+                // Linked skill: read-only, set by where Add Exercise was opened.
+                _sectionLabel('LINKED SKILL'),
                 _card(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.psychology_outlined, size: 18, color: AppColors.secondaryTextStoneGrey),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(widget.parentSkill,
-                                style: const TextStyle(fontSize: 15, color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w500)),
-                          ),
-                          const Icon(Icons.lock_outline, size: 18, color: Colors.white30),
-                        ],
+                      Container(
+                        width: 40,
+                        height: 40,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryForestGreen.withValues(alpha: 0.18),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const UlvenikIcon(UlvenikIcons.skills, size: 20, color: AppColors.primaryTextOffWhite),
                       ),
-                      const SizedBox(height: 6),
-                      Text(
-                        'This exercise will be linked to ${widget.parentSkill} and inherit its training tags.',
-                        style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey, height: 1.4),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(widget.parentSkill,
+                                style: const TextStyle(fontSize: 15, color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                            const SizedBox(height: 2),
+                            Text('This exercise belongs to ${widget.parentSkill}.',
+                                style: const TextStyle(fontSize: 12.5, color: AppColors.secondaryTextStoneGrey, height: 1.4)),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 24),
 
-                // Information
-                _sectionLabel('INFORMATION'),
                 _card(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _fieldLabel('Exercise Name', required: true),
+                      _fieldLabel('Exercise Name'),
                       const SizedBox(height: 6),
-                      _textInput(controller: _nameController, hint: 'e.g. Recall through distractions'),
+                      _textInput(
+                        controller: _nameController,
+                        hint: 'e.g. Recall through distractions',
+                        error: _nameError,
+                      ),
                       const SizedBox(height: 16),
                       _fieldLabel('Description', optional: true),
                       const SizedBox(height: 6),
                       _textInput(
                         controller: _descController,
-                        hint: 'Describe the setup, criteria, and environment for this exercise...',
+                        hint: 'Describe how this exercise is performed...',
                         maxLines: 4,
                       ),
                     ],
@@ -266,8 +257,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Visual identification
-                _sectionLabel('VISUAL IDENTIFICATION'),
+                _sectionLabel('EXERCISE PHOTO'),
                 _card(
                   child: Column(
                     children: [
@@ -282,24 +272,13 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(7),
-                              child: ColorFiltered(
-                                colorFilter: const ColorFilter.matrix(<double>[
-                                  0.2126, 0.7152, 0.0722, 0, 0,
-                                  0.2126, 0.7152, 0.0722, 0, 0,
-                                  0.2126, 0.7152, 0.0722, 0, 0,
-                                  0, 0, 0, 0.85, 0,
-                                ]),
-                                child: Image.network(
-                                  _inheritedImage,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (_, _, _) => Container(
-                                    color: Colors.white10,
-                                    alignment: Alignment.center,
-                                    child: const UlvenikIcon(UlvenikIcons.exercises,
-                                      size: 20,
-                                      color: Colors.white38,
-                                    ),
-                                  ),
+                              child: Image(
+                                image: _customPhoto ?? NetworkImage(_inheritedImage),
+                                fit: BoxFit.cover,
+                                errorBuilder: (_, _, _) => Container(
+                                  color: Colors.white10,
+                                  alignment: Alignment.center,
+                                  child: const UlvenikIcon(UlvenikIcons.exercises, size: 20, color: Colors.white38),
                                 ),
                               ),
                             ),
@@ -309,13 +288,13 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Using ${widget.parentSkill} image',
+                                Text('Using ${widget.parentSkill}\u2019s photo',
                                     style: const TextStyle(
                                         fontSize: 13, fontWeight: FontWeight.w600,
                                         color: AppColors.primaryTextOffWhite)),
                                 const SizedBox(height: 2),
-                                const Text('Default visual asset',
-                                    style: TextStyle(fontSize: 12, color: Colors.white38)),
+                                const Text('Automatically uses the skill\u2019s photo.',
+                                    style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                               ],
                             ),
                           ),
@@ -327,8 +306,10 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                         borderRadius: BorderRadius.circular(10),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(10),
-                          onTap: () => AppSnackbar.show(context,
-                              message: 'Custom image coming soon', type: SnackbarType.info),
+                          onTap: () async {
+                            final img = await pickPhoto(context);
+                            if (img != null && mounted) setState(() => _customPhoto = img);
+                          },
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -341,7 +322,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                               children: [
                                 Icon(Icons.add_photo_alternate_outlined, size: 18, color: AppColors.primaryTextOffWhite),
                                 SizedBox(width: 8),
-                                Text('Use Custom Image',
+                                Text('Choose Different Photo',
                                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.primaryTextOffWhite)),
                               ],
                             ),
@@ -351,32 +332,32 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 24),
-
-                // Organisation
-                _sectionLabel('ORGANISATION (OPTIONAL)'),
-                _card(child: _buildTagInput()),
                 const SizedBox(height: 32),
 
                 // Save button
                 Material(
-                  color: _canSave
-                      ? AppColors.primaryForestGreen
-                      : AppColors.primaryForestGreen.withValues(alpha: 0.4),
+                  color: AppColors.primaryForestGreen,
                   borderRadius: BorderRadius.circular(12),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
-                    onTap: _canSave ? _handleSave : null,
+                    onTap: _handleSave,
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       alignment: Alignment.center,
-                      child: Text('Save Exercise',
-                          style: TextStyle(
-                            color: _canSave ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const UlvenikIcon(UlvenikIcons.save, color: AppColors.primaryTextOffWhite, size: 20),
+                          const SizedBox(width: 8),
+                          const Text('Save Exercise',
+                              style: TextStyle(
+                                color: AppColors.primaryTextOffWhite,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              )),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -409,18 +390,12 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
         child: child,
       );
 
-  Widget _fieldLabel(String text, {bool required = false, bool optional = false}) {
+  Widget _fieldLabel(String text, {bool optional = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(children: [
-          Text(text,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
-          if (required) ...[
-            const SizedBox(width: 4),
-            const Text('*', style: TextStyle(color: Color(0xFFFFB4AB), fontSize: 13)),
-          ],
-        ]),
+        Text(text,
+            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
         if (optional)
           const Text('Optional', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
       ],
@@ -431,6 +406,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
     required TextEditingController controller,
     required String hint,
     int maxLines = 1,
+    String? error,
   }) {
     return TextField(
       controller: controller,
@@ -438,6 +414,16 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
       cursorColor: AppColors.primaryForestGreen,
       style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
       decoration: InputDecoration(
+        errorText: error,
+        errorStyle: const TextStyle(color: Color(0xFFE08A8A), fontSize: 12.5),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color(0xFF8B3A3A)),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color(0xFFB04A4A)),
+        ),
         hintText: hint,
         hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
         filled: true,
@@ -460,95 +446,5 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
     );
   }
 
-  Widget _buildTagInput() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Full-width tag input — no underline
-        Container(
-          height: 44,
-          padding: const EdgeInsets.only(left: 12, right: 4),
-          decoration: BoxDecoration(
-            color: AppColors.backgroundObsidian,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.white12),
-          ),
-          child: Row(
-            children: [
-              const Icon(Icons.sell_outlined, size: 16, color: AppColors.secondaryTextStoneGrey),
-              const SizedBox(width: 8),
-              Expanded(
-                child: TextField(
-                  controller: _tagController,
-                  cursorColor: AppColors.primaryForestGreen,
-                  textAlignVertical: TextAlignVertical.center,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
-                  decoration: const InputDecoration(
-                    hintText: 'Add tag...',
-                    hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
-                    border: _noBorder,
-                    enabledBorder: _noBorder,
-                    focusedBorder: _noBorder,
-                    disabledBorder: _noBorder,
-                    errorBorder: _noBorder,
-                    focusedErrorBorder: _noBorder,
-                    filled: false,
-                    isDense: true,
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                  onSubmitted: _addTag,
-                ),
-              ),
-              IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen, size: 20),
-                onPressed: () => _addTag(_tagController.text),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            ..._inheritedTags.map((t) => _chip(t, inherited: true)),
-            ..._tags.map((t) => _chip(t)),
-          ],
-        ),
-      ],
-    );
-  }
 
-  Widget _chip(String label, {bool inherited = false}) {
-    return Opacity(
-      opacity: inherited ? 0.7 : 1,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          color: AppColors.backgroundObsidian,
-          borderRadius: BorderRadius.circular(9999),
-          border: Border.all(color: Colors.white12),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            UlvenikIcon.fromMaterial(inherited ? Icons.lock_outline : Icons.sell_outlined,
-                size: 13, color: AppColors.secondaryTextStoneGrey),
-            const SizedBox(width: 4),
-            Text(label,
-                style: TextStyle(
-                    fontSize: 12,
-                    color: inherited ? AppColors.secondaryTextStoneGrey : AppColors.primaryTextOffWhite)),
-            if (!inherited) ...[
-              const SizedBox(width: 4),
-              GestureDetector(
-                onTap: () => setState(() => _tags.remove(label)),
-                child: const Icon(Icons.close, size: 14, color: AppColors.secondaryTextStoneGrey),
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
 }

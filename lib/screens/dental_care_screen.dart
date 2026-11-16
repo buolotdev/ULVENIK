@@ -51,7 +51,7 @@ class DentalCareScreen extends StatefulWidget {
 
 class _DentalCareScreenState extends State<DentalCareScreen> {
   static const _mint = Color(0xFF95D3BB);
-  static const _forest = Color(0xFF2E6B57);
+  static const _forest = Color(0xFF2F5D50);
   static const _red = Color(0xFF8B3A3A);
 
   late bool _isEmpty;

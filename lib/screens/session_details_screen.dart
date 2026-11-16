@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/session_rating.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import 'activity_details_screen.dart';
@@ -38,7 +39,7 @@ class SessionDetailsScreen extends StatefulWidget {
     this.startTime = '07:15 AM',
     this.endTime = '08:40 AM',
     this.durationText = '1h 25m',
-    this.initialRating = 4,
+    this.initialRating = 0, // 0 = not rated, 1-4 see SessionRating
     this.distance = '1.8 km',
     this.sets = '6',
     this.restTime = '45 sec',
@@ -56,10 +57,10 @@ class SessionDetailsScreen extends StatefulWidget {
 
 class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
   // Theme Color Palette
-  static const _obsidian = Color(0xFF101214);
-  static const _carbon = Color(0xFF1A1F22);
+  static const _obsidian = Color(0xFF121212);
+  static const _carbon = Color(0xFF1C1C1C);
   static const _mint = Color(0xFF95D3BB);
-  static const _forest = Color(0xFF2E6B57);
+  static const _forest = Color(0xFF2F5D50);
   static const _offWhite = Color(0xFFF5F6F2);
   static const _stoneGrey = Color(0xFFA7B0AB);
   static const _errorRed = Color(0xFFFF5449);
@@ -886,42 +887,16 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           ),
           const SizedBox(height: 14),
 
-          // 5-Star Rating (Interactive)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ...List.generate(5, (index) {
-                final isFilled = index < _rating;
-                return GestureDetector(
-                  onTap: () {
-                    setState(() => _rating = index + 1);
-                    AppSnackbar.show(
-                      context,
-                      message: 'Session rating updated to $_rating/5',
-                      type: SnackbarType.success,
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2),
-                    child: UlvenikIcon.fromMaterial(
-                      isFilled ? Icons.star : Icons.star_border,
-                      color: isFilled ? _mint : _stoneGrey,
-                      size: 20,
-                    ),
-                  ),
-                );
-              }),
-              const SizedBox(width: 6),
-              Text(
-                '$_rating/5',
-                style: const TextStyle(
-                  color: _stoneGrey,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
+          // Optional handler rating (shown only when set)
+          if (_rating > 0)
+            SessionRatingBadge(
+              rating: SessionRating.fromScore(_rating),
+              onTap: () => showSessionRatingSheet(
+                context,
+                current: SessionRating.fromScore(_rating),
+                onChanged: (r) => setState(() => _rating = r?.score ?? 0),
               ),
-            ],
-          ),
+            ),
         ],
       ),
     );

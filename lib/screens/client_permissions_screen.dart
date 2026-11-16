@@ -58,9 +58,9 @@ class ClientPermissionsScreen extends StatefulWidget {
 }
 
 class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
-  static const Color _bg = Color(0xFF101214);
-  static const Color _cardBg = Color(0xFF1A1F22);
-  static const Color _forest = Color(0xFF2E6B57);
+  static const Color _bg = Color(0xFF121212);
+  static const Color _cardBg = Color(0xFF1C1C1C);
+  static const Color _forest = Color(0xFF2F5D50);
   static const Color _sage = Color(0xFF7A8F7A);
   static const Color _infoBlue = Color(0xFF5D8FAF);
   static const Color _textPrimary = Color(0xFFF5F6F2);

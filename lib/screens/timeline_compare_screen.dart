@@ -88,11 +88,11 @@ class TimelineCompareScreen extends StatefulWidget {
 class _TimelineCompareScreenState extends State<TimelineCompareScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens (Exact from Figma SVGs) ─────────────────────────────────
-  static const Color _obsidian = Color(0xFF101214);
+  static const Color _obsidian = Color(0xFF121212);
   static const Color _appBarBg = Color(0xFF131719);
-  static const Color _carbon = Color(0xFF1A1F22);
+  static const Color _carbon = Color(0xFF1C1C1C);
   static const Color _innerDark = Color(0xFF0E1214);
-  static const Color _forest = Color(0xFF2E6B57);
+  static const Color _forest = Color(0xFF2F5D50);
   static const Color _periodAGreen = Color(0xFF3E8E72);
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _sage = Color(0xFFB6CCB5);
