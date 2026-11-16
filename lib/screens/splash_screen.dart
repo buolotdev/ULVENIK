@@ -52,7 +52,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _load() async {
     setState(() => _failed = false);
     try {
-      await (widget.loader ?? _defaultLoader)(context);
+      await Future.wait([
+        (widget.loader ?? _defaultLoader)(context),
+        // Keep the logo on screen long enough to be seen.
+        if (widget.loader == null) Future<void>.delayed(const Duration(seconds: 2)),
+      ]);
     } catch (_) {
       if (mounted) setState(() => _failed = true);
       return;
