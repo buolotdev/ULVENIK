@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
@@ -36,13 +37,13 @@ class ContactSupportScreen extends StatefulWidget {
 }
 
 class _ContactSupportScreenState extends State<ContactSupportScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
   static const Color _errorRed = Color(0xFF8B3A3A);
 
   static const List<String> _categories = [
@@ -174,7 +175,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
       backgroundColor: Colors.transparent,
       builder: (ctx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             border: Border(top: BorderSide(color: _cardBorder)),
@@ -196,7 +197,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(20, 16, 20, 10),
                   child: Text(
                     'Select Support Category',
@@ -208,7 +209,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     ),
                   ),
                 ),
-                const Divider(height: 1, color: _cardBorder),
+                Divider(height: 1, color: _cardBorder),
                 ...List.generate(_categories.length, (i) {
                   final cat = _categories[i];
                   final selected = cat == _selectedCategory;
@@ -272,7 +273,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
       backgroundColor: Colors.transparent,
       builder: (ctx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             border: Border(top: BorderSide(color: _cardBorder)),
@@ -296,7 +297,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Add Attachment',
                     style: TextStyle(
                       color: _offWhite,
@@ -306,7 +307,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                  Text(
                     'Choose a screenshot, recording, or document from your device',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -375,7 +376,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                                     ),
                                     Text(
                                       candidate.sizeLabel,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: _stoneGrey,
                                         fontSize: 12,
                                         fontFamily: 'Inter',
@@ -468,7 +469,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
           ),
@@ -481,13 +482,13 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                   const SizedBox(width: 4),
                   IconButton(
                     onPressed: () => Navigator.of(context).maybePop(),
-                    icon: const UlvenikIcon(UlvenikIcons.back,
+                    icon: UlvenikIcon(UlvenikIcons.back,
                       color: _stoneGrey,
                       size: 26,
                     ),
                     splashRadius: 20,
                   ),
-                  const Text(
+                  Text(
                     'Contact Support',
                     style: TextStyle(
                       color: _offWhite,
@@ -519,7 +520,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                      Row(
                         children: [
                           Icon(Icons.chat_bubble_outline_rounded,
                             color: _stoneGrey,
@@ -538,7 +539,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      const Text(
+                      Text(
                         'Our support team is here to help. Complete the form below and we\'ll get back to you as soon as possible.',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -563,7 +564,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.fromLTRB(16, 14, 16, 12),
                         child: Text(
                           'Support Category',
@@ -575,7 +576,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                           ),
                         ),
                       ),
-                      const Divider(height: 1, thickness: 1, color: _cardBorder),
+                      Divider(height: 1, thickness: 1, color: _cardBorder),
                       InkWell(
                         borderRadius: const BorderRadius.vertical(
                           bottom: Radius.circular(16),
@@ -588,7 +589,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                               Expanded(
                                 child: Text(
                                   _selectedCategory,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
@@ -596,7 +597,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                                   ),
                                 ),
                               ),
-                              const Icon(Icons.keyboard_arrow_down_rounded,
+                              Icon(Icons.keyboard_arrow_down_rounded,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
@@ -628,7 +629,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Subject',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -643,7 +644,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         maxLength: 100,
                         onChanged: (_) => setState(() {}),
                         cursorColor: _mint,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 15,
                           fontFamily: 'Inter',
@@ -673,7 +674,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         alignment: Alignment.centerRight,
                         child: Text(
                           '${_subjectController.text.length} / 100',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12,
                             fontFamily: 'Inter',
@@ -704,7 +705,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Description',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -721,7 +722,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         maxLength: 5000,
                         onChanged: (_) => setState(() {}),
                         cursorColor: _mint,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 15,
                           height: 1.45,
@@ -754,7 +755,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         alignment: Alignment.centerRight,
                         child: Text(
                           '${_formatWithCommas(_descriptionController.text.length)} / 5,000',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12,
                             fontFamily: 'Inter',
@@ -792,7 +793,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                             ),
                             child: Row(
                               children: [
-                                const Icon(Icons.attach_file_rounded,
+                                Icon(Icons.attach_file_rounded,
                                   color: _stoneGrey,
                                   size: 19,
                                 ),
@@ -814,7 +815,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                                         ),
                                       ),
                                       const SizedBox(height: 2),
-                                      const Text(
+                                      Text(
                                         'Screenshots, photos, recordings or documents',
                                         style: TextStyle(
                                           color: _stoneGrey,
@@ -863,7 +864,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                                       children: [
                                         Text(
                                           item.name,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: _offWhite,
                                             fontSize: 13.5,
                                             fontWeight: FontWeight.w500,
@@ -873,7 +874,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                                         const SizedBox(height: 2),
                                         Text(
                                           item.sizeLabel,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: _stoneGrey,
                                             fontSize: 12,
                                             fontFamily: 'Inter',
@@ -889,7 +890,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                                       });
                                     },
                                     behavior: HitTestBehavior.opaque,
-                                    child: const Padding(
+                                    child: Padding(
                                       padding: EdgeInsets.all(4),
                                       child: Icon(Icons.close_rounded,
                                         color: _stoneGrey,
@@ -929,12 +930,12 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                           padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
                           child: Row(
                             children: [
-                              const Icon(Icons.shield_outlined,
+                              Icon(Icons.shield_outlined,
                                 color: _stoneGrey,
                                 size: 19,
                               ),
                               const SizedBox(width: 12),
-                              const Expanded(
+                              Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -976,7 +977,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         opacity: _includeDiagnostics ? 1.0 : 0.42,
                         child: Column(
                           children: [
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
@@ -986,13 +987,13 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                               '2.4.1',
                               monospace: true,
                             ),
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
                             ),
                             _buildDiagnosticRow('Device', 'iPhone 15 Pro'),
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
@@ -1002,7 +1003,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                               'iOS 17.4',
                               monospace: true,
                             ),
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
@@ -1038,7 +1039,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Reply To',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -1049,7 +1050,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          const Icon(Icons.mail_outline_rounded,
+                          Icon(Icons.mail_outline_rounded,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -1061,7 +1062,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                               keyboardType: TextInputType.emailAddress,
                               onChanged: (_) => setState(() {}),
                               cursorColor: _mint,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _offWhite,
                                 fontSize: 15,
                                 fontFamily: 'Inter',
@@ -1111,7 +1112,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         borderRadius: BorderRadius.circular(14),
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.send_outlined,
@@ -1173,7 +1174,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Request Received',
                           style: TextStyle(
                             color: _offWhite,
@@ -1198,7 +1199,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                 ],
               ),
               const SizedBox(height: 18),
-              const Divider(height: 1, color: _cardBorder),
+              Divider(height: 1, color: _cardBorder),
               const SizedBox(height: 16),
               _buildSummaryLine('Category', _selectedCategory),
               const SizedBox(height: 10),
@@ -1238,7 +1239,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                       },
                       style: OutlinedButton.styleFrom(
                         foregroundColor: _offWhite,
-                        side: const BorderSide(color: _cardBorder),
+                        side: BorderSide(color: _cardBorder),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -1281,7 +1282,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
           width: 100,
           child: Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 13,
               fontFamily: 'Inter',
@@ -1291,7 +1292,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
         Expanded(
           child: Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 13.5,
               fontWeight: FontWeight.w500,
@@ -1306,7 +1307,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
   Widget _buildSectionLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -1328,7 +1329,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 13.5,
               fontFamily: 'Inter',
@@ -1367,7 +1368,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
         child: Container(
           width: 20,
           height: 20,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _offWhite,
             shape: BoxShape.circle,
           ),

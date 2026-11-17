@@ -1,3 +1,4 @@
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
@@ -56,13 +57,13 @@ class MorePageScreen extends StatefulWidget {
 }
 
 class _MorePageScreenState extends State<MorePageScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _sage = Color(0xFF7A8F7A);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
   static const Color _destructive = Color(0xFF8B3A3A);
   static const Color _destructiveText = Color(0xFFB55454);
 
@@ -168,7 +169,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                   widget.isCloudSyncAvailable
                       ? 'Offline Storage & Cloud Sync'
                       : 'Offline Storage',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -180,7 +181,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                   widget.isCloudSyncAvailable
                       ? 'Status: $_syncStatusLabel · Local-first encrypted storage'
                       : 'Local-first encrypted device storage',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 12.5,
                     color: _stoneGrey,
@@ -277,7 +278,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.account_circle_outlined,
+                          iconWidget: Icon(Icons.account_circle_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -286,14 +287,14 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const _SwatchBookIcon(color: _stoneGrey),
+                          iconWidget: _SwatchBookIcon(color: _stoneGrey),
                           title: 'Appearance',
                           subtitle: _appearanceLabel,
                           onTap: _onTapAppearance,
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
+                          iconWidget: UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -306,7 +307,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const _ShieldBoltIcon(color: _stoneGrey),
+                          iconWidget: _ShieldBoltIcon(color: _stoneGrey),
                           title: 'Privacy & Security',
                           trailingBadge: _buildStatusPill(
                             label: _emailVerified
@@ -324,7 +325,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.credit_card_outlined,
+                          iconWidget: Icon(Icons.credit_card_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -371,7 +372,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.support_rounded,
+                          iconWidget: Icon(Icons.support_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -380,7 +381,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.chat_bubble_outline_rounded,
+                          iconWidget: Icon(Icons.chat_bubble_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -389,7 +390,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.info_outline_rounded,
+                          iconWidget: Icon(Icons.info_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -405,7 +406,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.person_outline_rounded,
+                          iconWidget: Icon(Icons.person_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -419,7 +420,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.settings_outlined,
+                          iconWidget: Icon(Icons.settings_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -432,7 +433,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
+                          iconWidget: UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -445,7 +446,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.search,
+                          iconWidget: UlvenikIcon(UlvenikIcons.search,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -461,7 +462,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.calendar,
+                          iconWidget: UlvenikIcon(UlvenikIcons.calendar,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -474,7 +475,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.photo_library_outlined,
+                          iconWidget: Icon(Icons.photo_library_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -490,7 +491,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.emoji_events_outlined,
+                          iconWidget: Icon(Icons.emoji_events_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -506,7 +507,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.folder_shared_outlined,
+                          iconWidget: Icon(Icons.folder_shared_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -520,7 +521,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.badge_outlined,
+                          iconWidget: Icon(Icons.badge_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -534,7 +535,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.training,
+                          iconWidget: UlvenikIcon(UlvenikIcons.training,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -551,7 +552,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.tune_rounded,
+                          iconWidget: Icon(Icons.tune_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -567,7 +568,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.redeem_rounded,
+                          iconWidget: Icon(Icons.redeem_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -586,7 +587,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.public_rounded,
+                          iconWidget: Icon(Icons.public_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -599,7 +600,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.translate_rounded,
+                          iconWidget: Icon(Icons.translate_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -612,7 +613,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.straighten_rounded,
+                          iconWidget: Icon(Icons.straighten_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -625,7 +626,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.trainingTime,
+                          iconWidget: UlvenikIcon(UlvenikIcons.trainingTime,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -638,7 +639,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.travel_explore_rounded,
+                          iconWidget: Icon(Icons.travel_explore_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -657,7 +658,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.help_outline_rounded,
+                          iconWidget: Icon(Icons.help_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -670,7 +671,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.mail_outline_rounded,
+                          iconWidget: Icon(Icons.mail_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -683,7 +684,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.bug_report_outlined,
+                          iconWidget: Icon(Icons.bug_report_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -696,7 +697,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.lightbulb_outline_rounded,
+                          iconWidget: Icon(Icons.lightbulb_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -709,7 +710,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.auto_awesome_outlined,
+                          iconWidget: Icon(Icons.auto_awesome_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -722,7 +723,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.shield_outlined,
+                          iconWidget: Icon(Icons.shield_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -735,7 +736,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.training,
+                          iconWidget: UlvenikIcon(UlvenikIcons.training,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -748,7 +749,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.code_rounded,
+                          iconWidget: Icon(Icons.code_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -775,7 +776,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -790,7 +791,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
               child: GestureDetector(
                 onTap: () => Navigator.of(context).pop(),
                 behavior: HitTestBehavior.opaque,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(4),
                   child: UlvenikIcon(UlvenikIcons.back,
                     color: _offWhite,
@@ -799,7 +800,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                 ),
               ),
             ),
-          const Text(
+          Text(
             'More',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -832,14 +833,14 @@ class _MorePageScreenState extends State<MorePageScreen> {
               Container(
                 width: 48,
                 height: 48,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: _sage,
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
                 child: Text(
                   _initials,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -855,7 +856,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                   children: [
                     Text(
                       _userName,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -866,7 +867,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     const SizedBox(height: 3),
                     Text(
                       _userEmail,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -900,7 +901,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -916,7 +917,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -1002,7 +1003,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
@@ -1013,7 +1014,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                       const SizedBox(height: 3),
                       Text(
                         subtitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 12.5,
                           fontWeight: FontWeight.w400,
@@ -1029,7 +1030,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                 trailingBadge,
                 const SizedBox(width: 8),
               ],
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -1068,7 +1069,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
             children: [
               _buildSheetHandle(),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Account Settings',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -1078,7 +1079,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                 ),
               ),
               const SizedBox(height: 4),
-              const Text(
+              Text(
                 'Update your handler profile and primary login details.',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -1162,7 +1163,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                   children: [
                     _buildSheetHandle(),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Privacy & Security',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1197,7 +1198,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                                   _emailVerified
                                       ? 'Email Verified'
                                       : 'Email Not Verified',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -1207,7 +1208,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                                 const SizedBox(height: 2),
                                 Text(
                                   _userEmail,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 12,
                                     color: _stoneGrey,
@@ -1258,12 +1259,12 @@ class _MorePageScreenState extends State<MorePageScreen> {
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.fingerprint_rounded,
+                          Icon(Icons.fingerprint_rounded,
                             color: _stoneGrey,
                             size: 22,
                           ),
                           const SizedBox(width: 12),
-                          const Expanded(
+                          Expanded(
                             child: Text(
                               'Biometric App Lock',
                               style: TextStyle(
@@ -1322,7 +1323,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                   children: [
                     _buildSheetHandle(),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Subscription Management',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1332,7 +1333,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    const Text(
+                    Text(
                       'Active tier · Renews Nov 28, 2026',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1381,7 +1382,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                                 Expanded(
                                   child: Text(
                                     plan,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Inter',
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
@@ -1411,7 +1412,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         Expanded(
                           child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: _cardBorder),
+                              side: BorderSide(color: _cardBorder),
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -1426,7 +1427,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                                 ),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               'Subscription Details',
                               style: TextStyle(
                                 fontFamily: 'Inter',
@@ -1441,7 +1442,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                         Expanded(
                           child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: _cardBorder),
+                              side: BorderSide(color: _cardBorder),
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -1455,7 +1456,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                                 ),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               'Billing History',
                               style: TextStyle(
                                 fontFamily: 'Inter',
@@ -1496,7 +1497,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
               children: [
                 _buildSheetHandle(),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Help & Support',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1568,7 +1569,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                 children: [
                   _buildSheetHandle(),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Feedback & Feature Requests',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -1642,7 +1643,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     width: double.infinity,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: _cardBorder),
+                        side: BorderSide(color: _cardBorder),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -1656,7 +1657,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Open Full Edit Profile',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -1694,7 +1695,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
               children: [
                 _buildSheetHandle(),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'About Ulvenik',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1704,7 +1705,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'Version 1.0.0 (Build 100) · Precision Canine Performance & Care OS',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1720,7 +1721,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(color: _cardBorder),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Designed for handlers, trainers, and canine athletes operating across remote field environments with encrypted local-first sync.',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -1807,7 +1808,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -1817,7 +1818,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 12,
                       color: _stoneGrey,
@@ -1826,7 +1827,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details,
+            UlvenikIcon(UlvenikIcons.details,
               color: _stoneGrey,
               size: 20,
             ),
@@ -1846,7 +1847,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 11,
             fontWeight: FontWeight.w600,
@@ -1858,7 +1859,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
         TextField(
           controller: controller,
           maxLines: maxLines,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 14,
             color: _offWhite,
@@ -1872,7 +1873,7 @@ class _MorePageScreenState extends State<MorePageScreen> {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: _cardBorder),
+              borderSide: BorderSide(color: _cardBorder),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'sc_settings_screen.dart';
 
@@ -36,17 +37,17 @@ class SCArchiveScreen extends StatefulWidget {
 class _SCArchiveScreenState extends State<SCArchiveScreen>
     with SingleTickerProviderStateMixin {
   // ─── Theme Tokens (Faithful to Figma & Ulvenik Design Tokens) ───────────────
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _forest = Color(0xFF2F5D50);
   static const _mint = Color(0xFF95D3BB);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _stoneGrey = Color(0xFFA7B0AB);
-  static const _muted = Color(0xFFBFC9C3);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _muted => AppColors.secondaryTextStoneGrey;
   static const _errorRed = Color(0xFFFFB4AB);
 
   static final _hairlineBorder =
-      Border.all(color: Colors.white.withValues(alpha: 0.08));
+      Border.all(color: AppColors.cardBorder);
 
   // ─── Screen State ──────────────────────────────────────────────────────────
   late bool _isEmptyState;
@@ -167,7 +168,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
           children: [
             const Icon(Icons.unarchive_outlined, color: _mint, size: 24),
             const SizedBox(width: 10),
-            const Expanded(
+            Expanded(
               child: Text(
                 'Restore Item?',
                 style: TextStyle(
@@ -181,12 +182,12 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
         ),
         content: Text(
           'Are you sure you want to restore "${item.title}"?\n\nThe item will be returned to its relevant active section in $sectionName.',
-          style: const TextStyle(color: _stoneGrey, fontSize: 13, height: 1.45),
+          style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.45),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: _stoneGrey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -228,7 +229,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
           children: [
             const Icon(Icons.warning_amber_rounded, color: _errorRed, size: 24),
             const SizedBox(width: 10),
-            const Expanded(
+            Expanded(
               child: Text(
                 'Delete Permanently?',
                 style: TextStyle(color: _offWhite, fontSize: 17, fontWeight: FontWeight.w700),
@@ -238,12 +239,12 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
         ),
         content: Text(
           'Are you sure you want to permanently delete "${item.title}"?\n\nThis will remove historical links to ${item.linkedSessions} sessions and cannot be undone.',
-          style: const TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
+          style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: _stoneGrey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -281,18 +282,18 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
       builder: (ctx) => AlertDialog(
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text(
+        title: Text(
           'Empty Entire Archive?',
           style: TextStyle(color: _offWhite, fontSize: 17, fontWeight: FontWeight.w700),
         ),
-        content: const Text(
+        content: Text(
           'This will permanently delete all archived activities and session templates.',
           style: TextStyle(color: _stoneGrey, fontSize: 13),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: _stoneGrey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -323,8 +324,8 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
         backgroundColor: _obsidian,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
-        shape: const Border(
-          bottom: BorderSide(color: Color(0x14FFFFFF), width: 1),
+        shape: Border(
+          bottom: BorderSide(color: AppColors.cardBorder, width: 1),
         ),
         leading: IconButton(
           icon: const UlvenikIcon(UlvenikIcons.back, color: _mint),
@@ -362,7 +363,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
             },
           ),
           PopupMenuButton<String>(
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey),
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey),
             tooltip: 'Options',
             color: _carbon,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -402,13 +403,13 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                     const SizedBox(width: 10),
                     Text(
                       _isEmptyState ? 'View Populated State' : 'View Empty State',
-                      style: const TextStyle(color: _offWhite, fontSize: 13),
+                      style: TextStyle(color: _offWhite, fontSize: 13),
                     ),
                   ],
                 ),
               ),
               if (!_isEmptyState && _items.isNotEmpty) ...[
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'restore_all',
                   child: Row(
                     children: [
@@ -429,7 +430,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                   ),
                 ),
               ],
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'reset',
                 child: Row(
                   children: [
@@ -528,20 +529,20 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
       ),
       child: TextField(
         controller: _searchController,
-        style: const TextStyle(color: _offWhite, fontSize: 14),
+        style: TextStyle(color: _offWhite, fontSize: 14),
         decoration: InputDecoration(
           border: InputBorder.none,
-          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
+          prefixIcon: UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
+                  icon: Icon(Icons.close, color: _stoneGrey, size: 18),
                   onPressed: () {
                     _searchController.clear();
                   },
                 )
               : null,
           hintText: 'Search archived items...',
-          hintStyle: const TextStyle(color: _stoneGrey, fontSize: 14),
+          hintStyle: TextStyle(color: _stoneGrey, fontSize: 14),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         ),
       ),
@@ -575,7 +576,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
                   Icon(Icons.inventory_2_outlined, color: _mint, size: 16),
                   SizedBox(width: 8),
@@ -597,7 +598,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'Historical logs and telemetry remain linked to session graphs.',
             style: TextStyle(color: _stoneGrey, fontSize: 12),
           ),
@@ -710,7 +711,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -726,7 +727,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                       ),
                       child: Text(
                         countLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stoneGrey,
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
@@ -739,7 +740,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                 AnimatedRotation(
                   turns: isExpanded ? 0 : -0.25,
                   duration: const Duration(milliseconds: 200),
-                  child: const Icon(Icons.expand_more,
+                  child: Icon(Icons.expand_more,
                     color: _muted,
                     size: 22,
                   ),
@@ -811,7 +812,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                   children: [
                     Text(
                       catHeader,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
@@ -821,7 +822,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                     const SizedBox(height: 4),
                     Text(
                       item.title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -831,7 +832,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                     const SizedBox(height: 4),
                     Text(
                       '${item.archivedAgo} · ${item.lastUsedAgo} · Linked to ${item.linkedSessions} sessions',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _muted,
                         fontSize: 12,
                         height: 1.3,
@@ -842,7 +843,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
               ),
 
               // Archive Box Icon on right
-              const Icon(Icons.inventory_2_outlined,
+              Icon(Icons.inventory_2_outlined,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -851,7 +852,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
           const SizedBox(height: 14),
 
           // Divider
-          const Divider(height: 1, color: Color(0x14FFFFFF)),
+          Divider(height: 1, color: AppColors.cardBorder),
           const SizedBox(height: 12),
 
           // Bottom Action Row: Delete Permanently + Restore
@@ -905,16 +906,16 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
         padding: const EdgeInsets.symmetric(vertical: 40),
         child: Column(
           children: [
-            const Icon(Icons.search_off, color: _stoneGrey, size: 48),
+            Icon(Icons.search_off, color: _stoneGrey, size: 48),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'No archived items found',
               style: TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 4),
             Text(
               'No items matching "$_searchQuery"',
-              style: const TextStyle(color: _stoneGrey, fontSize: 13),
+              style: TextStyle(color: _stoneGrey, fontSize: 13),
             ),
             const SizedBox(height: 16),
             TextButton(
@@ -960,7 +961,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
             const SizedBox(height: 28),
 
             // Title
-            const Text(
+            Text(
               'Archive is Empty',
               style: TextStyle(
                 color: _offWhite,
@@ -971,7 +972,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
             const SizedBox(height: 12),
 
             // Subtitle
-            const SizedBox(
+            SizedBox(
               width: 320,
               child: Text(
                 'You don’t have any archived Strength & Conditioning items. Archived activities and session templates will appear here.',
@@ -991,7 +992,7 @@ class _SCArchiveScreenState extends State<SCArchiveScreen>
                 backgroundColor: _carbon,
                 foregroundColor: _offWhite,
                 elevation: 0,
-                side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                side: BorderSide(color: AppColors.cardBorder),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
               ),

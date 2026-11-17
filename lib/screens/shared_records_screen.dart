@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -53,15 +54,15 @@ class SharedRecordsScreen extends StatefulWidget {
 }
 
 class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
-  static const Color _bg = Color(0xFF121212);
-  static const Color _cardBg = Color(0xFF1C1C1C);
+  static Color get _bg => AppColors.backgroundObsidian;
+  static Color get _cardBg => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _sage = Color(0xFF7A8F7A);
+  static Color get _sage => AppColors.secondarySage;
   static const Color _crimson = Color(0xFF8B3A3A);
   static const Color _coralText = Color(0xFFFFB4AB);
-  static const Color _textPrimary = Color(0xFFF5F6F2);
-  static const Color _textSecondary = Color(0xFFA7B0AB);
+  static Color get _textPrimary => AppColors.primaryTextOffWhite;
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey;
 
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
@@ -1156,7 +1157,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
           elevation: 6,
           shape: const CircleBorder(),
           onPressed: _showShareNewRecordSheet,
-          child: const UlvenikIcon(UlvenikIcons.add, color: _textPrimary, size: 28),
+          child: UlvenikIcon(UlvenikIcons.add, color: _textPrimary, size: 28),
         ),
       ),
       body: SafeArea(
@@ -1235,7 +1236,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _textPrimary,
               size: 25,
             ),
@@ -1254,7 +1255,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: () => _searchFocusNode.requestFocus(),
-            icon: const UlvenikIcon(UlvenikIcons.search, color: _sage, size: 21),
+            icon: UlvenikIcon(UlvenikIcons.search, color: _sage, size: 21),
           ),
           IconButton(
             visualDensity: VisualDensity.compact,
@@ -1262,7 +1263,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(Icons.filter_alt_outlined, color: _sage, size: 21),
+                Icon(Icons.filter_alt_outlined, color: _sage, size: 21),
                 Positioned(
                   right: -1,
                   top: -1,
@@ -1281,7 +1282,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: _showShareNewRecordSheet,
-            icon: const UlvenikIcon(UlvenikIcons.add, color: _sage, size: 23),
+            icon: UlvenikIcon(UlvenikIcons.add, color: _sage, size: 23),
           ),
         ],
       ),
@@ -1298,7 +1299,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: _sage, size: 18),
+          UlvenikIcon(UlvenikIcons.search, color: _sage, size: 18),
           const SizedBox(width: 10),
           Expanded(
             child: Container(
@@ -1528,7 +1529,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const UlvenikIcon(UlvenikIcons.dogs, size: 11.5, color: _sage),
+                  UlvenikIcon(UlvenikIcons.dogs, size: 11.5, color: _sage),
                   const SizedBox(width: 6),
                   Text(
                     item.dogLabel,
@@ -1559,7 +1560,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
                     ),
                   ),
                 ),
-                const UlvenikIcon(UlvenikIcons.details, color: _sage, size: 17),
+                UlvenikIcon(UlvenikIcons.details, color: _sage, size: 17),
               ],
             ),
           ],
@@ -1928,7 +1929,7 @@ class _SharedRecordsScreenState extends State<SharedRecordsScreen> {
                         color: Colors.white.withValues(alpha: 0.07),
                       ),
                     ),
-                    child: const UlvenikIcon(UlvenikIcons.training,
+                    child: UlvenikIcon(UlvenikIcons.training,
                       color: _sage,
                       size: 20,
                     ),

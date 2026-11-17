@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_logo.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
@@ -18,12 +19,12 @@ class AboutUlvenikScreen extends StatefulWidget {
 }
 
 class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   static const List<Map<String, String>> _audienceRoles = [
     {
@@ -107,7 +108,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
       backgroundColor: Colors.transparent,
       builder: (ctx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             border: Border(top: BorderSide(color: _cardBorder)),
@@ -128,7 +129,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'support@ulvenik.com',
                     style: TextStyle(
                       color: _offWhite,
@@ -148,7 +149,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                           },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: _offWhite,
-                            side: const BorderSide(color: _cardBorder),
+                            side: BorderSide(color: _cardBorder),
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -202,7 +203,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
           ),
@@ -215,13 +216,13 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                   const SizedBox(width: 4),
                   IconButton(
                     onPressed: () => Navigator.of(context).maybePop(),
-                    icon: const UlvenikIcon(UlvenikIcons.back,
+                    icon: UlvenikIcon(UlvenikIcons.back,
                       color: _stoneGrey,
                       size: 26,
                     ),
                     splashRadius: 20,
                   ),
-                  const Text(
+                  Text(
                     'About Ulvenik',
                     style: TextStyle(
                       color: _offWhite,
@@ -252,7 +253,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
               children: [
                 const UlvenikLogo.full(width: 160),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Ulvenik',
                   style: TextStyle(
                     color: _offWhite,
@@ -268,7 +269,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                     'Version',
                     'Ulvenik Version 1.0.0 (Released 1 September 2026)',
                   ),
-                  child: const Text(
+                  child: Text(
                     'Version 1.0.0',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -278,7 +279,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   'The Journey Builds the Wolf.',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -288,9 +289,9 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                   ),
                 ),
                 const SizedBox(height: 22),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 const SizedBox(height: 22),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -339,7 +340,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -389,7 +390,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Ulvenik is designed for anyone passionate about developing their dog, including:',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -430,7 +431,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                               Expanded(
                                 child: Text(
                                   role['title']!,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 14.5,
                                     fontWeight: FontWeight.w500,
@@ -446,7 +447,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                               padding: const EdgeInsets.only(left: 18),
                               child: Text(
                                 role['detail']!,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 12.5,
                                   height: 1.45,
@@ -461,7 +462,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                   );
                 }),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'Whether you\'re recording your very first training session or preparing for national competitions, Ulvenik grows with you.',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -485,7 +486,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -514,7 +515,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -567,7 +568,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                     top: Radius.circular(16),
                   ),
                   onTap: () => _copyValue('App Version', '1.0.0'),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -593,13 +594,13 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                     ),
                   ),
                 ),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 InkWell(
                   borderRadius: const BorderRadius.vertical(
                     bottom: Radius.circular(16),
                   ),
                   onTap: () => _copyValue('Release Date', '1 September 2026'),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -647,19 +648,19 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                   onTap: _openWhatsNew,
                   isFirst: true,
                 ),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 _buildLinkRow(
                   icon: Icons.shield_outlined,
                   label: 'Privacy Policy',
                   onTap: _openPrivacyPolicy,
                 ),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 _buildLinkRow(
                   icon: Icons.description_outlined,
                   label: 'Terms & Conditions',
                   onTap: _openTermsConditions,
                 ),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 _buildLinkRow(
                   icon: Icons.code_rounded,
                   label: 'Open Source Licences',
@@ -689,7 +690,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                   onTap: _openSupportEmailAction,
                   isFirst: true,
                 ),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 _buildLinkRow(
                   icon: Icons.language_rounded,
                   label: 'Official Website',
@@ -697,7 +698,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                   onTap: () =>
                       _copyValue('Official Website', 'https://ulvenik.com'),
                 ),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 _buildLinkRow(
                   icon: Icons.camera_alt_outlined,
                   label: 'Instagram',
@@ -723,12 +724,12 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
             ),
             child: Column(
               children: [
-                const Icon(Icons.favorite_border_rounded,
+                Icon(Icons.favorite_border_rounded,
                   color: _stoneGrey,
                   size: 22,
                 ),
                 const SizedBox(height: 14),
-                const Text(
+                Text(
                   'DESIGNED & DEVELOPED',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -739,7 +740,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
                   ),
                 ),
                 const SizedBox(height: 14),
-                const Text(
+                Text(
                   'Designed with a passion for dogs, training and lifelong progress. Every feature within Ulvenik has been created with one goal in mind — to provide the most complete, organised and enjoyable way to document a dog\'s life and development.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -773,7 +774,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
   Widget _buildSectionHeader(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -806,7 +807,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
             Expanded(
               child: Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
@@ -817,7 +818,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
             if (trailingValue != null) ...[
               Text(
                 trailingValue,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 13,
                   fontFamily: 'Inter',
@@ -825,7 +826,7 @@ class _AboutUlvenikScreenState extends State<AboutUlvenikScreen> {
               ),
               const SizedBox(width: 8),
             ],
-            const UlvenikIcon(UlvenikIcons.details,
+            UlvenikIcon(UlvenikIcons.details,
               color: _stoneGrey,
               size: 18,
             ),

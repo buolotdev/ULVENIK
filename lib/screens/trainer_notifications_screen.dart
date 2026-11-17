@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import 'client_profile_screen.dart';
@@ -18,13 +19,13 @@ class TrainerNotificationsScreen extends StatefulWidget {
 class _TrainerNotificationsScreenState
     extends State<TrainerNotificationsScreen> {
   // Brand tokens
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _cardBg = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _cardBg => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _cardBorder = Color(0x1FFFFFFF);
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   String _selectedTab = 'All';
   bool _allMarkedRead = false;
@@ -48,13 +49,13 @@ class _TrainerNotificationsScreenState
         backgroundColor: _obsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back,
+          icon: UlvenikIcon(UlvenikIcons.back,
             color: _offWhite,
             size: 18,
           ),
           onPressed: () => Navigator.maybePop(context),
         ),
-        title: const Text(
+        title: Text(
           'Notifications',
           style: TextStyle(
             color: _offWhite,
@@ -116,7 +117,7 @@ class _TrainerNotificationsScreenState
 
             // ─── SECTION: ACTION REQUIRED ───────────────────────────────────
             if (_selectedTab == 'All' || _selectedTab == 'Action Required') ...[
-              const Text(
+              Text(
                 'ACTION REQUIRED',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -167,7 +168,7 @@ class _TrainerNotificationsScreenState
 
             // ─── SECTION: TODAY ─────────────────────────────────────────────
             if (_selectedTab == 'All' || _selectedTab == 'Read') ...[
-              const Text(
+              Text(
                 'TODAY',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -208,7 +209,7 @@ class _TrainerNotificationsScreenState
 
             // ─── SECTION: YESTERDAY ─────────────────────────────────────────
             if (_selectedTab == 'All' || _selectedTab == 'Read') ...[
-              const Text(
+              Text(
                 'YESTERDAY',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -296,7 +297,7 @@ class _TrainerNotificationsScreenState
                         Expanded(
                           child: Text(
                             title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
@@ -305,7 +306,7 @@ class _TrainerNotificationsScreenState
                         ),
                         Text(
                           timeText,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12,
                           ),
@@ -315,7 +316,7 @@ class _TrainerNotificationsScreenState
                     const SizedBox(height: 8),
                     Text(
                       desc,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 13,
                         height: 1.3,
@@ -336,7 +337,7 @@ class _TrainerNotificationsScreenState
                           ),
                           child: Text(
                             dogPill,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 11,
                             ),
@@ -401,7 +402,7 @@ class _TrainerNotificationsScreenState
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -410,14 +411,14 @@ class _TrainerNotificationsScreenState
               ),
               Text(
                 timeText,
-                style: const TextStyle(color: _stoneGrey, fontSize: 12),
+                style: TextStyle(color: _stoneGrey, fontSize: 12),
               ),
             ],
           ),
           const SizedBox(height: 8),
           Text(
             desc,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 13,
               height: 1.3,
@@ -433,7 +434,7 @@ class _TrainerNotificationsScreenState
               ),
               child: Text(
                 dogPill,
-                style: const TextStyle(color: _stoneGrey, fontSize: 11),
+                style: TextStyle(color: _stoneGrey, fontSize: 11),
               ),
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -12,16 +13,16 @@ class BackupSyncScreen extends StatefulWidget {
 
 class _BackupSyncScreenState extends State<BackupSyncScreen>
     with TickerProviderStateMixin {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
-  static const Color _sage = Color(0xFF7A8F7A);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
-  static const Color _switchOffTrack = Color(0xFF2B3135);
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _switchOffTrack => AppColors.cardsCarbon;
   static const Color _destructive = Color(0xFF8B3A3A);
 
   late final AnimationController _entranceController;
@@ -134,7 +135,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                 const SizedBox(height: 16),
                 Text(
                   'Disconnect ${dev.$1}?',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -144,7 +145,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                 const SizedBox(height: 8),
                 Text(
                   '${dev.$1} will stop receiving background cloud sync updates until you sign back in.',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     height: 1.45,
@@ -157,14 +158,14 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                     Expanded(
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: _cardBorder),
+                          side: BorderSide(color: _cardBorder),
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        child: const Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(color: _offWhite),
                         ),
@@ -176,7 +177,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                         style: ElevatedButton.styleFrom(
                           backgroundColor: _destructive,
                           foregroundColor: _offWhite,
-                          padding: const EdgeInsets.symmetric(vertical: 13),
+                          padding: EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -194,7 +195,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                             type: SnackbarType.info,
                           );
                         },
-                        child: const Text('Disconnect'),
+                        child: Text('Disconnect'),
                       ),
                     ),
                   ],
@@ -208,7 +209,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
   }
 
   void _showCloudBreakdownSheet() {
-    const segments = [
+    final segments = [
       ('Training Media & Videos', 0.62, _forest, '620 MB · 48 clips'),
       ('Health & Vet Scans', 0.31, _alpineBlue, '310 MB · 19 documents'),
       ('Sessions, Goals & Records', 0.27, _sage, '270 MB · 3 dog workspaces'),
@@ -243,7 +244,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                     const SizedBox(height: 16),
                     Text(
                       'Cloud Storage · ${_cloudUsedGb.toStringAsFixed(1)} GB of ${_cloudTotalGb.toStringAsFixed(0)} GB',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
@@ -315,7 +316,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                                 Expanded(
                                   child: Text(
                                     seg.$1,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Inter',
                                       fontSize: 13.5,
                                       fontWeight: FontWeight.w600,
@@ -325,7 +326,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                                 ),
                                 Text(
                                   seg.$4,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 12,
                                     color: _stoneGrey,
@@ -409,7 +410,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
   Widget _buildTopBar() {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 12, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
       ),
@@ -418,7 +419,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
           GestureDetector(
             onTap: () => Navigator.of(context).pop(_lastSyncLabel),
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(4),
               child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
@@ -427,7 +428,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
             ),
           ),
           const SizedBox(width: 6),
-          const Expanded(
+          Expanded(
             child: Text(
               'Backup & Sync',
               style: TextStyle(
@@ -453,7 +454,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
               const SizedBox(width: 6),
               Text(
                 _isSyncingNow ? 'SYNCING' : 'SAVED',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -473,7 +474,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -518,7 +519,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                           child: Text(
                             statusWord,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 16.5,
                               fontWeight: FontWeight.w700,
@@ -529,7 +530,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                       ],
                     ),
                     const SizedBox(height: 5),
-                    const Text(
+                    Text(
                       'Status',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -547,7 +548,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                   children: [
                     Text(
                       _lastSyncLabel,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 16.5,
                         fontWeight: FontWeight.w700,
@@ -555,7 +556,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                       ),
                     ),
                     const SizedBox(height: 5),
-                    const Text(
+                    Text(
                       'Last Sync',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -573,7 +574,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                   children: [
                     Text(
                       '${_connectedDevices.length} Active',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 16.5,
                         fontWeight: FontWeight.w700,
@@ -581,7 +582,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                       ),
                     ),
                     const SizedBox(height: 5),
-                    const Text(
+                    Text(
                       'Devices',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -604,7 +605,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.cloud_outlined,
+                    Icon(Icons.cloud_outlined,
                       color: _stoneGrey,
                       size: 18,
                     ),
@@ -612,7 +613,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                     Expanded(
                       child: Text(
                         'Cloud Storage: ${_cloudUsedGb.toStringAsFixed(1)} GB used',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -622,7 +623,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                     ),
                     Text(
                       'of ${_cloudTotalGb.toStringAsFixed(0)} GB',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
@@ -665,9 +666,9 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
       ),
       child: Row(
         children: [
-          const Icon(Icons.cloud_sync_outlined, color: _stoneGrey, size: 20),
+          Icon(Icons.cloud_sync_outlined, color: _stoneGrey, size: 20),
           const SizedBox(width: 14),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -713,12 +714,12 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
       ),
       child: Row(
         children: [
-          const Icon(Icons.signal_cellular_4_bar_rounded,
+          Icon(Icons.signal_cellular_4_bar_rounded,
             color: _stoneGrey,
             size: 19,
           ),
           const SizedBox(width: 14),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -795,7 +796,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                           ),
                         ),
                         const SizedBox(height: 3),
-                        const Text(
+                        Text(
                           'Immediately sync all outstanding data',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -858,7 +859,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                           children: [
                             Text(
                               dev.$1,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
@@ -868,7 +869,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                             const SizedBox(height: 3),
                             Text(
                               dev.$2,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 12.5,
                                 color: _stoneGrey,
@@ -887,7 +888,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                             color: _forest,
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: const Text(
+                          child: Text(
                             'THIS DEVICE',
                             style: TextStyle(
                               fontFamily: 'Inter',
@@ -902,7 +903,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                         IconButton(
                           visualDensity: VisualDensity.compact,
                           onPressed: () => _confirmRemoveDevice(idx),
-                          icon: const Icon(Icons.delete_outline_rounded,
+                          icon: Icon(Icons.delete_outline_rounded,
                             color: _stoneGrey,
                             size: 19,
                           ),
@@ -994,12 +995,12 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                   ),
                   child: Row(
                     children: [
-                      const _DatabaseStackIcon(color: _stoneGrey),
+                      _DatabaseStackIcon(color: _stoneGrey),
                       const SizedBox(width: 14),
                       Expanded(
                         child: Text(
                           r.$1,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 14.5,
                             fontWeight: FontWeight.w500,
@@ -1009,7 +1010,7 @@ class _BackupSyncScreenState extends State<BackupSyncScreen>
                       ),
                       Text(
                         r.$2,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 13.5,
                           fontWeight: FontWeight.w400,
@@ -1103,7 +1104,7 @@ class _SyncPillSwitch extends StatelessWidget {
           child: Container(
             width: 20,
             height: 20,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: _BackupSyncScreenState._offWhite,
               shape: BoxShape.circle,
             ),

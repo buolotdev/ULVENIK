@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -14,17 +15,17 @@ class StorageManagementScreen extends StatefulWidget {
 
 class _StorageManagementScreenState extends State<StorageManagementScreen>
     with TickerProviderStateMixin {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
-  static const Color _sage = Color(0xFF7A8F7A);
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
+  static Color get _sage => AppColors.secondarySage;
   static const Color _bronze = Color(0xFF9B6B3D);
   static const Color _gold = Color(0xFFB8920A);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
   static const Color _destructive = Color(0xFF8B3A3A);
   static const Color _destructiveText = Color(0xFFA84646);
 
@@ -155,7 +156,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Clear Cache?',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -167,7 +168,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                 const SizedBox(height: 8),
                 Text(
                   'This will clear ${_formatSize(_cacheMb)} of temporary cached files. Your training records, media, and account data will not be affected.',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     height: 1.45,
@@ -180,14 +181,14 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                     Expanded(
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: _cardBorder),
+                          side: BorderSide(color: _cardBorder),
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        child: const Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(color: _offWhite),
                         ),
@@ -290,7 +291,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                     const SizedBox(height: 16),
                     Text(
                       'Stored Videos · ${_formatSize(_videosMb)}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -299,7 +300,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                     ),
                     const SizedBox(height: 12),
                     if (_videoClips.isEmpty)
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: 20),
                         child: Center(
                           child: Text(
@@ -339,7 +340,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                                     children: [
                                       Text(
                                         clip.$1,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Inter',
                                           fontSize: 13.5,
                                           fontWeight: FontWeight.w600,
@@ -349,7 +350,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                                       const SizedBox(height: 2),
                                       Text(
                                         '${clip.$3} · ${clip.$2} MB',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Inter',
                                           fontSize: 12,
                                           color: _stoneGrey,
@@ -423,7 +424,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                 const SizedBox(height: 16),
                 Text(
                   'Downloaded Media · ${_formatSize(_downloadsMb)}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -431,7 +432,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'Inspect individual video clips or adjust your offline download packages.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -445,7 +446,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                   leading: const Icon(Icons.videocam_outlined,
                     color: _forest,
                   ),
-                  title: const Text(
+                  title: Text(
                     'Inspect Individual Video Files',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -456,13 +457,13 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                   ),
                   subtitle: Text(
                     '${_videoClips.length} clips · ${_formatSize(_videosMb)}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 12,
                       color: _stoneGrey,
                     ),
                   ),
-                  trailing: const UlvenikIcon(UlvenikIcons.details,
+                  trailing: UlvenikIcon(UlvenikIcons.details,
                     color: _stoneGrey,
                   ),
                   onTap: () {
@@ -473,10 +474,10 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                 Container(height: 1, color: _cardBorder),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.wifi_off_rounded,
+                  leading: Icon(Icons.wifi_off_rounded,
                     color: _alpineBlue,
                   ),
-                  title: const Text(
+                  title: Text(
                     'Open Offline Mode & Downloads',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -485,7 +486,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                       color: _offWhite,
                     ),
                   ),
-                  subtitle: const Text(
+                  subtitle: Text(
                     'Configure download quality & module selection',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -493,7 +494,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                       color: _stoneGrey,
                     ),
                   ),
-                  trailing: const UlvenikIcon(UlvenikIcons.details,
+                  trailing: UlvenikIcon(UlvenikIcons.details,
                     color: _stoneGrey,
                   ),
                   onTap: () {
@@ -550,7 +551,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Remove All Local Downloads?',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -562,7 +563,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                 const SizedBox(height: 8),
                 Text(
                   'This only removes downloaded/local copies (${_formatSize(_downloadsMb)} of photos, videos, and attachments) from this device. Your cloud data and account records will remain safe.',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     height: 1.45,
@@ -575,14 +576,14 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                     Expanded(
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: _cardBorder),
+                          side: BorderSide(color: _cardBorder),
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        child: const Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(color: _offWhite),
                         ),
@@ -687,7 +688,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
   Widget _buildTopBar() {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 12, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
       ),
@@ -696,7 +697,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
           GestureDetector(
             onTap: () => Navigator.of(context).pop(_formatSize(_totalStorageMb)),
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(4),
               child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
@@ -705,7 +706,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
             ),
           ),
           const SizedBox(width: 6),
-          const Expanded(
+          Expanded(
             child: Text(
               'Storage Management',
               style: TextStyle(
@@ -727,7 +728,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -767,7 +768,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                 _selectedCategoryKey != null
                     ? 'Ulvenik Storage · $_selectedCategoryKey'
                     : 'Ulvenik Storage',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 12.5,
                   color: _stoneGrey,
@@ -776,7 +777,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
               const SizedBox(height: 4),
               Text(
                 _formatSize(animatedMb),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 28,
                   fontWeight: FontWeight.w700,
@@ -864,7 +865,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 12,
             color: _stoneGrey,
@@ -873,7 +874,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
         const SizedBox(height: 3),
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 14.5,
             fontWeight: FontWeight.w700,
@@ -889,49 +890,49 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
       (
         'Dog Photos',
         _photosMb,
-        const Icon(Icons.image_outlined, color: _stoneGrey, size: 19),
+        Icon(Icons.image_outlined, color: _stoneGrey, size: 19),
         false,
       ),
       (
         'Videos',
         _videosMb,
-        const Icon(Icons.videocam_outlined, color: _stoneGrey, size: 19),
+        Icon(Icons.videocam_outlined, color: _stoneGrey, size: 19),
         true,
       ),
       (
         'Training Records',
         _trainingRecordsMb,
-        const UlvenikIcon(UlvenikIcons.exercises, color: _stoneGrey, size: 18),
+        UlvenikIcon(UlvenikIcons.exercises, color: _stoneGrey, size: 18),
         false,
       ),
       (
         'S&C Records',
         _scRecordsMb,
-        const UlvenikIcon(UlvenikIcons.health, color: _stoneGrey, size: 19),
+        UlvenikIcon(UlvenikIcons.health, color: _stoneGrey, size: 19),
         false,
       ),
       (
         'Health Records',
         _healthRecordsMb,
-        const Icon(Icons.favorite_border_rounded, color: _stoneGrey, size: 19),
+        Icon(Icons.favorite_border_rounded, color: _stoneGrey, size: 19),
         false,
       ),
       (
         'Timeline',
         _timelineMb,
-        const UlvenikIcon(UlvenikIcons.timeline, color: _stoneGrey, size: 19),
+        UlvenikIcon(UlvenikIcons.timeline, color: _stoneGrey, size: 19),
         false,
       ),
       (
         'Documents & Attachments',
         _documentsMb,
-        const UlvenikIcon(UlvenikIcons.training, color: _stoneGrey, size: 19),
+        UlvenikIcon(UlvenikIcons.training, color: _stoneGrey, size: 19),
         false,
       ),
       (
         'Cached Files',
         _cacheMb,
-        const _StorageDbIcon(color: _stoneGrey),
+        _StorageDbIcon(color: _stoneGrey),
         false,
       ),
     ];
@@ -984,7 +985,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                             children: [
                               Text(
                                 r.$1,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
@@ -994,7 +995,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                               const SizedBox(height: 2),
                               Text(
                                 _percentOfTotal(r.$2),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 12,
                                   color: _stoneGrey,
@@ -1005,7 +1006,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                         ),
                         Text(
                           _formatSize(r.$2),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -1014,7 +1015,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                         ),
                         if (r.$4) ...[
                           const SizedBox(width: 8),
-                          const UlvenikIcon(UlvenikIcons.details,
+                          UlvenikIcon(UlvenikIcons.details,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -1044,7 +1045,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Cached Data',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -1055,7 +1056,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
               ),
               Text(
                 _formatSize(_cacheMb),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14.5,
                   fontWeight: FontWeight.w600,
@@ -1098,7 +1099,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'Removes temporary files only. Your data is never affected.',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1128,9 +1129,9 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
           ),
           child: Row(
             children: [
-              const Icon(Icons.download_rounded, color: _stoneGrey, size: 20),
+              Icon(Icons.download_rounded, color: _stoneGrey, size: 20),
               const SizedBox(width: 14),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -1159,14 +1160,14 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
               const SizedBox(width: 8),
               Text(
                 _formatSize(_downloadsMb),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 13.5,
                   color: _stoneGrey,
                 ),
               ),
               const SizedBox(width: 6),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1188,7 +1189,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Removes expired cache, temporary files and duplicate cached media. Your content is never deleted.',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -1258,12 +1259,12 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                 ),
                 child: Row(
                   children: [
-                    const _StorageDbIcon(color: _stoneGrey),
+                    _StorageDbIcon(color: _stoneGrey),
                     const SizedBox(width: 14),
                     Expanded(
                       child: Text(
                         r.$1,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 14.5,
                           fontWeight: FontWeight.w500,
@@ -1273,7 +1274,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
                     ),
                     Text(
                       r.$2,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13.5,
                         color: _stoneGrey,
@@ -1327,7 +1328,7 @@ class _StorageManagementScreenState extends State<StorageManagementScreen>
           ),
         ),
         const SizedBox(height: 12),
-        const Text(
+        Text(
           'Your cloud data and account information will remain safe.',
           textAlign: TextAlign.center,
           style: TextStyle(

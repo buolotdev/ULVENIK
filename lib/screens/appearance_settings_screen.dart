@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../widgets/custom_snackbar.dart';
@@ -13,14 +14,14 @@ class AppearanceSettingsScreen extends StatefulWidget {
 }
 
 class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _offWhite = Color(0xFFF5F6F2);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
   static const Color _lightCream = Color(0xFFFAF8F4);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
-  static const Color _switchOffTrack = Color(0xFF2B3135);
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _switchOffTrack => AppColors.cardsCarbon;
   static const Color _destructive = Color(0xFF8B3A3A);
   static const Color _destructiveText = Color(0xFFA84646);
 
@@ -169,7 +170,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
   Widget _buildTopBar() {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 12, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
       ),
@@ -178,7 +179,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
           GestureDetector(
             onTap: () => Navigator.of(context).pop(_themeModeSubtitle),
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(4),
               child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
@@ -187,7 +188,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
             ),
           ),
           const SizedBox(width: 6),
-          const Expanded(
+          Expanded(
             child: Text(
               'Appearance',
               style: TextStyle(
@@ -219,7 +220,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -461,7 +462,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'Updates instantly as you change settings',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -623,7 +624,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                         color: _forest,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.check_rounded,
+                      child: Icon(Icons.check_rounded,
                         color: _offWhite,
                         size: 11.5,
                       ),
@@ -695,7 +696,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                     ),
                     child: Row(
                       children: [
-                        const _TypeTIcon(color: _stoneGrey),
+                        _TypeTIcon(color: _stoneGrey),
                         const SizedBox(width: 14),
                         Expanded(
                           child: Column(
@@ -703,7 +704,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                             children: [
                               Text(
                                 item.$1,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
@@ -714,7 +715,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                                 const SizedBox(height: 2),
                                 Text(
                                   item.$2!,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 12,
                                     color: _stoneGrey,
@@ -746,17 +747,17 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
       (
         'Comfortable',
         'Recommended',
-        const Icon(Icons.grid_view_outlined, color: _stoneGrey, size: 19),
+        Icon(Icons.grid_view_outlined, color: _stoneGrey, size: 19),
       ),
       (
         'Compact',
         'More content on screen',
-        const _StackedRowsIcon(barCount: 3, color: _stoneGrey),
+        _StackedRowsIcon(barCount: 3, color: _stoneGrey),
       ),
       (
         'Spacious',
         'More breathing room',
-        const _StackedRowsIcon(barCount: 2, color: _stoneGrey),
+        _StackedRowsIcon(barCount: 2, color: _stoneGrey),
       ),
     ];
 
@@ -801,7 +802,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                             children: [
                               Text(
                                 item.$1,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
@@ -811,7 +812,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                               const SizedBox(height: 2),
                               Text(
                                 item.$2,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 12,
                                   color: _stoneGrey,
@@ -847,9 +848,9 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.star_border_rounded, color: _stoneGrey, size: 20),
+          Icon(Icons.star_border_rounded, color: _stoneGrey, size: 20),
           const SizedBox(width: 14),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -898,9 +899,9 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.back_hand_outlined, color: _stoneGrey, size: 19),
+          Icon(Icons.back_hand_outlined, color: _stoneGrey, size: 19),
           const SizedBox(width: 14),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -1001,7 +1002,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Reset Appearance Settings?',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1011,7 +1012,7 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Restores Dark theme, Default text size, Comfortable density, standard animations, and Haptic Feedback.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1026,14 +1027,14 @@ class _AppearanceSettingsScreenState extends State<AppearanceSettingsScreen> {
                     Expanded(
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: _cardBorder),
+                          side: BorderSide(color: _cardBorder),
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        child: const Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(color: _offWhite),
                         ),
@@ -1229,7 +1230,7 @@ class _AppearanceSwitch extends StatelessWidget {
           child: Container(
             width: 20,
             height: 20,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: _AppearanceSettingsScreenState._offWhite,
               shape: BoxShape.circle,
             ),

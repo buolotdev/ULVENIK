@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../widgets/custom_snackbar.dart';
@@ -53,13 +54,13 @@ class HelpCentreScreen extends StatefulWidget {
 }
 
 class _HelpCentreScreenState extends State<HelpCentreScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
@@ -765,7 +766,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
               expand: false,
               builder: (_, scrollController) {
                 return Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: _obsidian,
                     borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                     border: Border(top: BorderSide(color: _cardBorder)),
@@ -793,7 +794,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                               size: 20,
                             ),
                             const SizedBox(width: 10),
-                            const Expanded(
+                            Expanded(
                               child: Text(
                                 'Frequently Asked Questions',
                                 style: TextStyle(
@@ -806,7 +807,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                             ),
                             IconButton(
                               onPressed: () => Navigator.of(ctx).pop(),
-                              icon: const Icon(Icons.close_rounded,
+                              icon: Icon(Icons.close_rounded,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
@@ -915,7 +916,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                                 const SizedBox(height: 5),
                                                 Text(
                                                   faq.question,
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: _offWhite,
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w600,
@@ -946,7 +947,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                         const SizedBox(height: 12),
                                         Text(
                                           faq.answer,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: _stoneGrey,
                                             fontSize: 13,
                                             height: 1.5,
@@ -993,7 +994,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
               expand: false,
               builder: (_, scrollController) {
                 return Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: _obsidian,
                     borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                     border: Border(top: BorderSide(color: _cardBorder)),
@@ -1039,7 +1040,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                             const SizedBox(width: 8),
                             Text(
                               article.readTime,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 12,
                                 fontFamily: 'Inter',
@@ -1082,14 +1083,14 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                   type: SnackbarType.success,
                                 );
                               },
-                              icon: const Icon(Icons.copy_rounded,
+                              icon: Icon(Icons.copy_rounded,
                                 color: _stoneGrey,
                                 size: 18,
                               ),
                             ),
                             IconButton(
                               onPressed: () => Navigator.of(ctx).pop(),
-                              icon: const Icon(Icons.close_rounded,
+                              icon: Icon(Icons.close_rounded,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
@@ -1097,7 +1098,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                           ],
                         ),
                       ),
-                      const Divider(height: 1, color: _cardBorder),
+                      Divider(height: 1, color: _cardBorder),
                       Expanded(
                         child: ListView(
                           controller: scrollController,
@@ -1105,7 +1106,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                           children: [
                             Text(
                               article.title,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _offWhite,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
@@ -1116,7 +1117,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                             const SizedBox(height: 6),
                             Text(
                               article.subtitle,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 14,
                                 height: 1.45,
@@ -1124,7 +1125,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            const Text(
+                            Text(
                               'STEP-BY-STEP GUIDE',
                               style: TextStyle(
                                 color: _stoneGrey,
@@ -1180,7 +1181,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                         Expanded(
                                           child: Text(
                                             article.steps[i],
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               color: _offWhite,
                                               fontSize: 13.5,
                                               height: 1.5,
@@ -1215,7 +1216,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                   Expanded(
                                     child: Text(
                                       article.proTip,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: _offWhite,
                                         fontSize: 13,
                                         height: 1.45,
@@ -1228,7 +1229,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                             ),
                             if (article.relatedFaqs.isNotEmpty) ...[
                               const SizedBox(height: 22),
-                              const Text(
+                              Text(
                                 'COMMON QUESTIONS',
                                 style: TextStyle(
                                   color: _stoneGrey,
@@ -1272,7 +1273,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                                 Expanded(
                                                   child: Text(
                                                     qa['q'] ?? '',
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       color: _offWhite,
                                                       fontSize: 13.5,
                                                       fontWeight:
@@ -1296,7 +1297,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                               const SizedBox(height: 8),
                                               Text(
                                                 qa['a'] ?? '',
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: _stoneGrey,
                                                   fontSize: 13,
                                                   height: 1.45,
@@ -1323,7 +1324,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
+                                  Text(
                                     'Was this article helpful?',
                                     style: TextStyle(
                                       color: _offWhite,
@@ -1534,7 +1535,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
           ),
@@ -1547,13 +1548,13 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                   const SizedBox(width: 4),
                   IconButton(
                     onPressed: () => Navigator.of(context).maybePop(),
-                    icon: const UlvenikIcon(UlvenikIcons.back,
+                    icon: UlvenikIcon(UlvenikIcons.back,
                       color: _stoneGrey,
                       size: 26,
                     ),
                     splashRadius: 20,
                   ),
-                  const Text(
+                  Text(
                     'Help Centre',
                     style: TextStyle(
                       color: _offWhite,
@@ -1584,7 +1585,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
               controller: _searchController,
               focusNode: _searchFocusNode,
               onChanged: (val) => setState(() => _searchQuery = val),
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 14,
                 fontFamily: 'Inter',
@@ -1593,7 +1594,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+                prefixIcon: UlvenikIcon(UlvenikIcons.search,
                   color: _stoneGrey,
                   size: 19,
                 ),
@@ -1603,14 +1604,14 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                           _searchController.clear();
                           setState(() => _searchQuery = '');
                         },
-                        icon: const Icon(Icons.close_rounded,
+                        icon: Icon(Icons.close_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
                       )
                     : null,
                 hintText: 'Search Help Articles',
-                hintStyle: const TextStyle(
+                hintStyle: TextStyle(
                   color: _stoneGrey,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -1755,7 +1756,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                             children: [
                               Row(
                                 children: [
-                                  const Icon(Icons.help_outline_rounded,
+                                  Icon(Icons.help_outline_rounded,
                                     color: _stoneGrey,
                                     size: 18,
                                   ),
@@ -1763,7 +1764,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                   Expanded(
                                     child: Text(
                                       faq.question,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: _offWhite,
                                         fontSize: 14.5,
                                         fontWeight: FontWeight.w600,
@@ -1787,7 +1788,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                   padding: const EdgeInsets.only(left: 30),
                                   child: Text(
                                     faq.answer,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _stoneGrey,
                                       fontSize: 13,
                                       height: 1.45,
@@ -1801,7 +1802,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                         ),
                       ),
                       if (!isLast)
-                        const Divider(height: 1, thickness: 1, color: _cardBorder),
+                        Divider(height: 1, thickness: 1, color: _cardBorder),
                     ],
                   );
                 }),
@@ -1841,7 +1842,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                           ),
                           child: Row(
                             children: [
-                              const UlvenikIcon(UlvenikIcons.progress,
+                              UlvenikIcon(UlvenikIcons.progress,
                                 color: _stoneGrey,
                                 size: 18,
                               ),
@@ -1852,7 +1853,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                   maxLines: 1,
                                   overflow: TextOverflow.clip,
                                   softWrap: false,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -1870,7 +1871,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                   color: _forest,
                                   borderRadius: BorderRadius.circular(999),
                                 ),
-                                child: const Text(
+                                child: Text(
                                   'POPULAR',
                                   style: TextStyle(
                                     color: _offWhite,
@@ -1882,7 +1883,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              const UlvenikIcon(UlvenikIcons.details,
+                              UlvenikIcon(UlvenikIcons.details,
                                 color: _stoneGrey,
                                 size: 18,
                               ),
@@ -1891,7 +1892,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                         ),
                       ),
                       if (!isLast)
-                        const Divider(height: 1, thickness: 1, color: _cardBorder),
+                        Divider(height: 1, thickness: 1, color: _cardBorder),
                     ],
                   );
                 }),
@@ -1906,7 +1907,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
             const SizedBox(height: 10),
             _buildArticleGroupCard(
               items: gettingStartedItems,
-              leadingBuilder: () => const Icon(Icons.school_outlined,
+              leadingBuilder: () => Icon(Icons.school_outlined,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1920,7 +1921,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
             const SizedBox(height: 10),
             _buildArticleGroupCard(
               items: accountItems,
-              leadingBuilder: () => const Icon(Icons.person_outline_rounded,
+              leadingBuilder: () => Icon(Icons.person_outline_rounded,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1936,7 +1937,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
               items: trainingHealthItems,
               leadingBuilder: () => Transform.rotate(
                 angle: 0.785,
-                child: const UlvenikIcon(UlvenikIcons.exercises,
+                child: UlvenikIcon(UlvenikIcons.exercises,
                   color: _stoneGrey,
                   size: 17,
                 ),
@@ -1951,7 +1952,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
             const SizedBox(height: 10),
             _buildArticleGroupCard(
               items: troubleshootingItems,
-              leadingBuilder: () => const Icon(Icons.sync_rounded,
+              leadingBuilder: () => Icon(Icons.sync_rounded,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1965,7 +1966,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
             const SizedBox(height: 10),
             _buildArticleGroupCard(
               items: privacySecurityItems,
-              leadingBuilder: () => const Icon(Icons.shield_outlined,
+              leadingBuilder: () => Icon(Icons.shield_outlined,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1984,7 +1985,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
               ),
               child: Column(
                 children: [
-                  const Icon(Icons.search_off_rounded,
+                  Icon(Icons.search_off_rounded,
                     color: _stoneGrey,
                     size: 32,
                   ),
@@ -1992,7 +1993,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                   Text(
                     'No articles matching "${_searchQuery.trim()}"',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -2000,7 +2001,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  const Text(
+                  Text(
                     'Try searching with broader keywords or reach out directly to our support team.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -2024,7 +2025,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                         },
                         style: OutlinedButton.styleFrom(
                           foregroundColor: _offWhite,
-                          side: const BorderSide(color: _cardBorder),
+                          side: BorderSide(color: _cardBorder),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -2061,7 +2062,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -2096,7 +2097,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
               UlvenikIcon.fromMaterial(icon, color: _stoneGrey, size: 20),
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -2147,7 +2148,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                           children: [
                             Text(
                               item.title,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _offWhite,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
@@ -2157,7 +2158,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                             const SizedBox(height: 3),
                             Text(
                               item.subtitle,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 12.5,
                                 fontWeight: FontWeight.w400,
@@ -2168,7 +2169,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const UlvenikIcon(UlvenikIcons.details,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: _stoneGrey,
                         size: 18,
                       ),
@@ -2177,7 +2178,7 @@ class _HelpCentreScreenState extends State<HelpCentreScreen> {
                 ),
               ),
               if (!isLast)
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
             ],
           );
         }),

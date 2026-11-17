@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'timeline_calendar_screen.dart';
@@ -33,14 +34,14 @@ class TimelineStatisticsScreen extends StatefulWidget {
 class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
     with TickerProviderStateMixin {
   // Theme Palette (Exact Ulvenik Obsidian & Carbon luxury design tokens)
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _carbonBorder = Color(0xFF272B29);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _carbonBorder => AppColors.cardBorder;
   static const Color _cardBadgeBg = Color(0xFF272B29);
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _forestGreen = Color(0xFF2F5D50);
-  static const Color _whiteText = Color(0xFFE1E3E0);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _whiteText => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
 
   // Category Colors
   static const Color _catTraining = Color(0xFF5D8FAF); // Alpine Blue
@@ -172,7 +173,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Select Canine Profile',
                     style: TextStyle(
                       color: _whiteText,
@@ -181,7 +182,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: _stoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -218,7 +219,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     ),
                     subtitle: Text(
                       '${meta['breed']} · ${meta['age']} · ${meta['handler']}',
-                      style: const TextStyle(color: _stoneGrey, fontSize: 12),
+                      style: TextStyle(color: _stoneGrey, fontSize: 12),
                     ),
                     trailing: isSelected
                         ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
@@ -270,7 +271,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     child: const UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 24),
                   ),
                   const SizedBox(width: 14),
-                  const Text(
+                  Text(
                     'About Timeline Statistics',
                     style: TextStyle(
                       color: _whiteText,
@@ -281,7 +282,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                 ],
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Ulvenik automatically compiles training logs, veterinary health visits, strength & conditioning sets, and competition performances into quantitative telemetry.',
                 style: TextStyle(color: _stoneGrey, fontSize: 14, height: 1.45),
               ),
@@ -319,7 +320,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
         children: [
           UlvenikIcon.fromMaterial(icon, color: _mint, size: 18),
           const SizedBox(width: 10),
-          Text(title, style: const TextStyle(color: _whiteText, fontSize: 13)),
+          Text(title, style: TextStyle(color: _whiteText, fontSize: 13)),
         ],
       ),
     );
@@ -343,7 +344,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       backgroundColor: _obsidian,
       elevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: _whiteText, size: 22),
+        icon: UlvenikIcon(UlvenikIcons.back, color: _whiteText, size: 22),
         onPressed: () => Navigator.pop(context),
       ),
       title: const Text(
@@ -357,11 +358,11 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       centerTitle: true,
       actions: [
         PopupMenuButton<String>(
-          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _whiteText, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: _whiteText, size: 22),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(color: _carbonBorder),
+            side: BorderSide(color: _carbonBorder),
           ),
           onSelected: (val) {
             if (val == 'toggle_state') {
@@ -420,12 +421,12 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                   const SizedBox(width: 10),
                   Text(
                     _isEmpty ? 'Show Populated State' : 'Show Empty State',
-                    style: const TextStyle(color: _whiteText, fontSize: 13),
+                    style: TextStyle(color: _whiteText, fontSize: 13),
                   ),
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'favourites',
               child: Row(
                 children: [
@@ -435,7 +436,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'archive',
               child: Row(
                 children: [
@@ -445,7 +446,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'settings',
               child: Row(
                 children: [
@@ -455,7 +456,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'insights',
               child: Row(
                 children: [
@@ -465,7 +466,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'export',
               child: Row(
                 children: [
@@ -475,7 +476,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'switch_dog',
               child: Row(
                 children: [
@@ -485,7 +486,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'calendar',
               child: Row(
                 children: [
@@ -495,7 +496,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'learn',
               child: Row(
                 children: [
@@ -544,7 +545,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                   children: [
                     Text(
                       _currentDog,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _whiteText,
                         fontSize: 26,
                         fontWeight: FontWeight.w700,
@@ -554,7 +555,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     const SizedBox(height: 4),
                     Text(
                       '${meta['breed']} · ${meta['age']} · ${meta['handler']}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -745,7 +746,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
           const SizedBox(height: 12),
           Text(
             metric,
-            style: const TextStyle(
+            style: TextStyle(
               color: _whiteText,
               fontSize: 28,
               fontWeight: FontWeight.w700,
@@ -755,7 +756,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
           const SizedBox(height: 4),
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 10,
               fontWeight: FontWeight.w700,
@@ -821,7 +822,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'ACTIVITY OVER TIME',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -851,7 +852,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                     const SizedBox(width: 5),
                     Text(
                       '${activePoint['events']} Events (${activePoint['month']})',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _whiteText,
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
@@ -920,14 +921,14 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                           touchTooltipData: LineTouchTooltipData(
                             getTooltipColor: (_) => _carbon,
                             tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                            tooltipBorder: const BorderSide(color: _carbonBorder),
+                            tooltipBorder: BorderSide(color: _carbonBorder),
                             getTooltipItems: (touchedSpots) {
                               return touchedSpots.map((spot) {
                                 final mIdx = spot.x.toInt().clamp(0, 11);
                                 final monthName = monthlyPoints[mIdx]['month'];
                                 return LineTooltipItem(
                                   '$monthName 2026\n',
-                                  const TextStyle(
+                                  TextStyle(
                                     color: _stoneGrey,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w400,
@@ -935,7 +936,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                                   children: [
                                     TextSpan(
                                       text: '${spot.y.toInt()} Events',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: _whiteText,
                                         fontSize: 13,
                                         fontWeight: FontWeight.w700,
@@ -1023,7 +1024,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                               ),
                             ],
                           ),
-                          child: const Column(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
@@ -1062,7 +1063,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       padding: const EdgeInsets.only(top: 6),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           color: _stoneGrey,
           fontSize: 10,
           fontWeight: FontWeight.w500,
@@ -1106,7 +1107,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'CATEGORY BREAKDOWN',
             style: TextStyle(
               color: _stoneGrey,
@@ -1156,7 +1157,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                         }),
                       ),
                     ),
-                    const Column(
+                    Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
@@ -1288,7 +1289,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                   ),
                 ),
                 const SizedBox(height: 18),
-                const Text(
+                Text(
                   'No Statistics Yet',
                   style: TextStyle(
                     color: _whiteText,
@@ -1302,7 +1303,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
                   child: Text(
                     'Timeline statistics will appear once you start recording events for $_currentDog.',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 13,
                       height: 1.45,
@@ -1366,7 +1367,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 24),
+          icon: UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 24),
           onPressed: () {
             setState(() {
               _emptyStateWeekStart =
@@ -1376,7 +1377,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
         ),
         Column(
           children: [
-            const Text(
+            Text(
               'This Week',
               style: TextStyle(
                 color: _whiteText,
@@ -1387,7 +1388,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
             const SizedBox(height: 2),
             Text(
               '${_formatDate(_emptyStateWeekStart)} - ${_formatDate(_emptyStateWeekStart.add(const Duration(days: 6)))}',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 12,
               ),
@@ -1395,7 +1396,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
           ],
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 24),
+          icon: UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 24),
           onPressed: () {
             setState(() {
               _emptyStateWeekStart =

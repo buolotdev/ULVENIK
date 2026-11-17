@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -37,17 +38,17 @@ class FeatureRequestsScreen extends StatefulWidget {
 }
 
 class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _votedGreen = Color(0xFF3A876E);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _plannedBlue = Color(0xFF5D8FAF);
+  static Color get _plannedBlue => AppColors.infoAlpineBlue;
   static const Color _reviewAmber = Color(0xFFB4823C);
   static const Color _inDevPurple = Color(0xFF6E50A0);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   static const List<String> _filterOptions = [
     'All',
@@ -221,7 +222,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
             return Padding(
               padding: EdgeInsets.only(bottom: bottomInset),
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: _obsidian,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                   border: Border(top: BorderSide(color: _cardBorder)),
@@ -252,7 +253,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                               size: 20,
                             ),
                             const SizedBox(width: 10),
-                            const Expanded(
+                            Expanded(
                               child: Text(
                                 'Submit New Feature',
                                 style: TextStyle(
@@ -265,14 +266,14 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                             ),
                             IconButton(
                               onPressed: () => Navigator.of(ctx).pop(),
-                              icon: const Icon(Icons.close_rounded,
+                              icon: Icon(Icons.close_rounded,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
                             ),
                           ],
                         ),
-                        const Text(
+                        Text(
                           'Share how this feature would help you and your dog.',
                           style: TextStyle(
                             color: _stoneGrey,
@@ -281,7 +282,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           ),
                         ),
                         const SizedBox(height: 18),
-                        const Text(
+                        Text(
                           'AREA',
                           style: TextStyle(
                             color: _stoneGrey,
@@ -330,7 +331,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           }).toList(),
                         ),
                         const SizedBox(height: 18),
-                        const Text(
+                        Text(
                           'FEATURE TITLE',
                           style: TextStyle(
                             color: _stoneGrey,
@@ -357,7 +358,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                             maxLength: 80,
                             onChanged: (_) => setModalState(() {}),
                             cursorColor: _mint,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 14.5,
                               fontFamily: 'Inter',
@@ -386,7 +387,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const Text(
+                        Text(
                           'DETAILS & USE CASE',
                           style: TextStyle(
                             color: _stoneGrey,
@@ -415,7 +416,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                             maxLength: 1000,
                             onChanged: (_) => setModalState(() {}),
                             cursorColor: _mint,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 14,
                               height: 1.45,
@@ -519,7 +520,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
         return StatefulBuilder(
           builder: (ctx, setModalState) {
             return Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: _obsidian,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                 border: Border(top: BorderSide(color: _cardBorder)),
@@ -549,7 +550,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           const SizedBox(width: 10),
                           Text(
                             '${item.category} · Submitted ${item.submittedDate}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 12.5,
                               fontFamily: 'Inter',
@@ -560,7 +561,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                       const SizedBox(height: 12),
                       Text(
                         item.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -570,7 +571,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                       const SizedBox(height: 8),
                       Text(
                         item.description,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stoneGrey,
                           fontSize: 14,
                           height: 1.5,
@@ -591,7 +592,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                                     item.hasVoted ? _forest : _carbon,
                                 foregroundColor: _offWhite,
                                 elevation: 0,
-                                side: const BorderSide(color: _cardBorder),
+                                side: BorderSide(color: _cardBorder),
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 12,
                                 ),
@@ -641,7 +642,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
           ),
@@ -654,13 +655,13 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                   const SizedBox(width: 4),
                   IconButton(
                     onPressed: () => Navigator.of(context).maybePop(),
-                    icon: const UlvenikIcon(UlvenikIcons.back,
+                    icon: UlvenikIcon(UlvenikIcons.back,
                       color: _stoneGrey,
                       size: 26,
                     ),
                     splashRadius: 20,
                   ),
-                  const Text(
+                  Text(
                     'Feature Requests',
                     style: TextStyle(
                       color: _offWhite,
@@ -688,7 +689,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _cardBorder),
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(Icons.lightbulb_outline_rounded,
@@ -732,7 +733,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
               controller: _searchController,
               onChanged: (v) => setState(() => _searchQuery = v),
               cursorColor: _mint,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 14,
                 fontFamily: 'Inter',
@@ -740,7 +741,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+                prefixIcon: UlvenikIcon(UlvenikIcons.search,
                   color: _stoneGrey,
                   size: 19,
                 ),
@@ -750,14 +751,14 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           _searchController.clear();
                           setState(() => _searchQuery = '');
                         },
-                        icon: const Icon(Icons.close_rounded,
+                        icon: Icon(Icons.close_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
                       )
                     : null,
                 hintText: 'Search Feature Requests',
-                hintStyle: const TextStyle(
+                hintStyle: TextStyle(
                   color: _stoneGrey,
                   fontSize: 14,
                   fontFamily: 'Inter',
@@ -850,7 +851,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.lightbulb_outline_rounded,
@@ -872,7 +873,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'Ideas are reviewed before becoming publicly visible.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -917,7 +918,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                           ),
                           child: Row(
                             children: [
-                              const UlvenikIcon(UlvenikIcons.exercises,
+                              UlvenikIcon(UlvenikIcons.exercises,
                                 color: _stoneGrey,
                                 size: 19,
                               ),
@@ -928,7 +929,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                                   children: [
                                     Text(
                                       item.title,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: _offWhite,
                                         fontSize: 15,
                                         fontWeight: FontWeight.w600,
@@ -940,7 +941,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                                       'Submitted ${item.submittedDate} · ${_formatVotes(item.votes)}',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: _stoneGrey,
                                         fontSize: 12.5,
                                         fontFamily: 'Inter',
@@ -952,7 +953,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                               const SizedBox(width: 8),
                               _buildStatusPill(item.status),
                               const SizedBox(width: 8),
-                              const UlvenikIcon(UlvenikIcons.details,
+                              UlvenikIcon(UlvenikIcons.details,
                                 color: _stoneGrey,
                                 size: 18,
                               ),
@@ -961,7 +962,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                         ),
                       ),
                       if (!isLast)
-                        const Divider(
+                        Divider(
                           height: 1,
                           thickness: 1,
                           color: _cardBorder,
@@ -984,12 +985,12 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
               ),
               child: Column(
                 children: [
-                  const Icon(Icons.search_off_rounded,
+                  Icon(Icons.search_off_rounded,
                     color: _stoneGrey,
                     size: 28,
                   ),
                   const SizedBox(height: 10),
-                  const Text(
+                  Text(
                     'No matching feature requests found',
                     style: TextStyle(
                       color: _offWhite,
@@ -1009,7 +1010,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                     },
                     style: OutlinedButton.styleFrom(
                       foregroundColor: _offWhite,
-                      side: const BorderSide(color: _cardBorder),
+                      side: BorderSide(color: _cardBorder),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -1049,7 +1050,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                   Expanded(
                     child: Text(
                       item.title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -1064,7 +1065,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
               const SizedBox(height: 8),
               Text(
                 item.description,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 13.5,
                   height: 1.45,
@@ -1072,7 +1073,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                 ),
               ),
               const SizedBox(height: 14),
-              const Divider(height: 1, thickness: 1, color: _cardBorder),
+              Divider(height: 1, thickness: 1, color: _cardBorder),
               const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1112,7 +1113,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
                   ),
                   Text(
                     _formatVotes(item.votes),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
@@ -1137,7 +1138,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
       ),
       child: Text(
         status,
-        style: const TextStyle(
+        style: TextStyle(
           color: _offWhite,
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -1150,7 +1151,7 @@ class _FeatureRequestsScreenState extends State<FeatureRequestsScreen> {
   Widget _buildSectionHeader(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,

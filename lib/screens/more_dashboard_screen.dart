@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
@@ -44,13 +45,13 @@ class MoreDashboardScreen extends StatefulWidget {
 
 class _MoreDashboardScreenState extends State<MoreDashboardScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _sage = Color(0xFF7A8F7A);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
   static const Color _destructiveText = Color(0xFFA84646);
 
   late final AnimationController _kpiAnimController;
@@ -198,7 +199,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.account_circle_outlined,
+                          iconWidget: Icon(Icons.account_circle_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -207,7 +208,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.photo_camera_outlined,
+                          iconWidget: Icon(Icons.photo_camera_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -216,7 +217,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.mail_outline_rounded,
+                          iconWidget: Icon(Icons.mail_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -229,7 +230,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.lock_outline_rounded,
+                          iconWidget: Icon(Icons.lock_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -242,7 +243,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.download_rounded,
+                          iconWidget: Icon(Icons.download_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -275,7 +276,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.credit_card_outlined,
+                          iconWidget: Icon(Icons.credit_card_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -289,7 +290,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.training,
+                          iconWidget: UlvenikIcon(UlvenikIcons.training,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -302,7 +303,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.refresh_rounded,
+                          iconWidget: Icon(Icons.refresh_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -321,7 +322,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.notifications,
+                          iconWidget: UlvenikIcon(UlvenikIcons.notifications,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -331,7 +332,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.palette_outlined,
+                          iconWidget: Icon(Icons.palette_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -341,7 +342,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.language_rounded,
+                          iconWidget: Icon(Icons.language_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -360,7 +361,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.location_on_outlined,
+                          iconWidget: Icon(Icons.location_on_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -379,7 +380,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.trainingTime,
+                          iconWidget: UlvenikIcon(UlvenikIcons.trainingTime,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -398,7 +399,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.calendar,
+                          iconWidget: UlvenikIcon(UlvenikIcons.calendar,
                             color: _stoneGrey,
                             size: 19,
                           ),
@@ -413,7 +414,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         _buildMenuRow(
                           iconWidget: Transform.rotate(
                             angle: -math.pi / 4,
-                            child: const Icon(Icons.straighten_rounded,
+                            child: Icon(Icons.straighten_rounded,
                               color: _stoneGrey,
                               size: 20,
                             ),
@@ -434,7 +435,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.cloud_upload_outlined,
+                          iconWidget: Icon(Icons.cloud_upload_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -444,7 +445,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.arrow_circle_down_outlined,
+                          iconWidget: Icon(Icons.arrow_circle_down_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -453,7 +454,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.folder_outlined,
+                          iconWidget: Icon(Icons.folder_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -469,7 +470,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.help_outline_rounded,
+                          iconWidget: Icon(Icons.help_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -482,7 +483,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.mode_comment_outlined,
+                          iconWidget: Icon(Icons.mode_comment_outlined,
                             color: _stoneGrey,
                             size: 19,
                           ),
@@ -495,7 +496,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.bug_report_outlined,
+                          iconWidget: Icon(Icons.bug_report_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -508,7 +509,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.lightbulb_outline_rounded,
+                          iconWidget: Icon(Icons.lightbulb_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -527,7 +528,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     _buildSectionCard(
                       children: [
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.info_outline_rounded,
+                          iconWidget: Icon(Icons.info_outline_rounded,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -540,7 +541,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.auto_awesome_outlined,
+                          iconWidget: Icon(Icons.auto_awesome_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -553,7 +554,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const Icon(Icons.shield_outlined,
+                          iconWidget: Icon(Icons.shield_outlined,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -566,7 +567,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.training,
+                          iconWidget: UlvenikIcon(UlvenikIcons.training,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -579,7 +580,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                         ),
                         _buildDivider(),
                         _buildMenuRow(
-                          iconWidget: const UlvenikIcon(UlvenikIcons.training,
+                          iconWidget: UlvenikIcon(UlvenikIcons.training,
                             color: _stoneGrey,
                             size: 20,
                           ),
@@ -596,7 +597,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     Center(
                       child: Column(
                         children: [
-                          const Text(
+                          Text(
                             'Ulvenik v1.0.0',
                             style: TextStyle(
                               fontFamily: 'Inter',
@@ -633,7 +634,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -648,7 +649,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
               child: GestureDetector(
                 onTap: () => Navigator.of(context).pop(),
                 behavior: HitTestBehavior.opaque,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(4),
                   child: UlvenikIcon(UlvenikIcons.back,
                     color: _offWhite,
@@ -657,7 +658,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                 ),
               ),
             ),
-          const Text(
+          Text(
             'More',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -705,7 +706,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     alignment: Alignment.center,
                     child: Text(
                       _initials,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -730,7 +731,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                     children: [
                       Text(
                         _userName,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -741,7 +742,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                       const SizedBox(height: 4),
                       Text(
                         _userEmail,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 13.5,
                           fontWeight: FontWeight.w400,
@@ -885,10 +886,11 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
   Widget _buildKpiCard({
     required IconData icon,
     required String valueText,
-    Color valueColor = _offWhite,
+    Color? valueColor,
     required String label,
     required VoidCallback onTap,
   }) {
+    valueColor ??= _offWhite;
     return Material(
       color: _carbon,
       borderRadius: BorderRadius.circular(14),
@@ -919,7 +921,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
               const SizedBox(height: 4),
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
@@ -938,7 +940,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -968,10 +970,11 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
   Widget _buildMenuRow({
     required Widget iconWidget,
     required String title,
-    Color titleColor = _offWhite,
+    Color? titleColor,
     String? subtitle,
     required VoidCallback onTap,
   }) {
+    titleColor ??= _offWhite;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -1006,7 +1009,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                       const SizedBox(height: 2),
                       Text(
                         subtitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 12.5,
                           fontWeight: FontWeight.w400,
@@ -1017,7 +1020,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1103,7 +1106,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                   children: [
                     _buildSheetHandle(),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Active Devices',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1127,7 +1130,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                           ),
                           child: Row(
                             children: [
-                              const Icon(Icons.devices_rounded,
+                              Icon(Icons.devices_rounded,
                                 color: _sage,
                                 size: 20,
                               ),
@@ -1138,7 +1141,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                                   children: [
                                     Text(
                                       dev.$1,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Inter',
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
@@ -1148,7 +1151,7 @@ class _MoreDashboardScreenState extends State<MoreDashboardScreen>
                                     const SizedBox(height: 2),
                                     Text(
                                       dev.$2,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Inter',
                                         fontSize: 12,
                                         color: _stoneGrey,

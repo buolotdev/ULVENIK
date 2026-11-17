@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
@@ -88,22 +89,22 @@ class TimelineCompareScreen extends StatefulWidget {
 class _TimelineCompareScreenState extends State<TimelineCompareScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens (Exact from Figma SVGs) ─────────────────────────────────
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _appBarBg = Color(0xFF131719);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _innerDark = Color(0xFF0E1214);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _appBarBg => AppColors.cardsCarbon;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _innerDark => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _periodAGreen = Color(0xFF3E8E72);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _sage = Color(0xFFB6CCB5);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _bronze = Color(0xFFB4823C);
   static const Color _healthRed = Color(0xFF8B3A3A);
   static const Color _gold = Color(0xFFB8920A);
   static const Color _purple = Color(0xFF7A5BAF);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x16FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   static const List<_PeriodSnapshot> _periods = [
     _PeriodSnapshot(
@@ -372,10 +373,10 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
       scrolledUnderElevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 26),
+        icon: UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 26),
         onPressed: () => Navigator.maybePop(context),
       ),
-      title: const Text(
+      title: Text(
         'Timeline Compare',
         style: TextStyle(
           color: _offWhite,
@@ -395,11 +396,11 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
           onPressed: _showChangeDatesSheet,
         ),
         PopupMenuButton<String>(
-          icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 20),
+          icon: UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 20),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: const BorderSide(color: _cardBorder),
+            side: BorderSide(color: _cardBorder),
           ),
           onSelected: (val) {
             if (val == 'toggle_empty') {
@@ -437,17 +438,17 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                 _isEmptyState
                     ? 'Switch to Populated State'
                     : 'Switch to Empty State',
-                style: const TextStyle(color: _offWhite, fontSize: 13),
+                style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'swap',
               child: Text(
                 'Swap Period A ↔ Period B',
                 style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'reset',
               child: Text(
                 'Reset Default (Sep 2026 vs Aug 2026)',
@@ -520,7 +521,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                       color: Colors.white.withValues(alpha: 0.14), width: 1.2),
                 ),
                 alignment: Alignment.center,
-                child: const Text(
+                child: Text(
                   'VS',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -635,7 +636,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                         const SizedBox(height: 6),
                         Text(
                           title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -645,7 +646,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                         const SizedBox(height: 4),
                         Text(
                           subtitle,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12,
                             fontFamily: 'Inter',
@@ -761,7 +762,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                             children: [
                               Text(
                                 'PERIOD A (${a.shortHeader})',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 10.5,
                                   fontWeight: FontWeight.w600,
@@ -786,7 +787,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                             children: [
                               Text(
                                 'PERIOD B (${b.shortHeader})',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 10.5,
                                   fontWeight: FontWeight.w600,
@@ -795,7 +796,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                               ),
                               Text(
                                 '100% (${b.totalEvents})',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _alpineBlue,
                                   fontSize: 10.5,
                                   fontWeight: FontWeight.w700,
@@ -806,7 +807,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                           const SizedBox(height: 6),
                           _buildProportionalBar(b, _chartAnim.value),
                           const SizedBox(height: 10),
-                          const Text(
+                          Text(
                             'Proportional to total events in each period',
                             style: TextStyle(
                               color: _stoneGrey,
@@ -905,7 +906,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Most Visited (A):',
                       style: TextStyle(color: _stoneGrey, fontSize: 12),
                     ),
@@ -913,7 +914,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                       child: Text(
                         a.mostVisitedLabel,
                         textAlign: TextAlign.right,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -926,7 +927,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Most Visited (B):',
                       style: TextStyle(color: _stoneGrey, fontSize: 12),
                     ),
@@ -934,7 +935,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                       child: Text(
                         b.mostVisitedLabel,
                         textAlign: TextAlign.right,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -1029,7 +1030,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -1044,7 +1045,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                   child: Text(
                     colAHeader,
                     textAlign: TextAlign.right,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
@@ -1058,7 +1059,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                   child: Text(
                     colBHeader,
                     textAlign: TextAlign.right,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
@@ -1067,7 +1068,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                   ),
                 ),
               if (showDiffHeader)
-                const SizedBox(
+                SizedBox(
                   width: 44,
                   child: Text(
                     'DIFF',
@@ -1108,7 +1109,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 13.5,
               fontWeight: FontWeight.w500,
@@ -1134,7 +1135,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
           child: Text(
             valB,
             textAlign: TextAlign.right,
-            style: const TextStyle(
+            style: TextStyle(
               color: _alpineBlue,
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
@@ -1147,7 +1148,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
           child: Text(
             diff,
             textAlign: TextAlign.right,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -1191,7 +1192,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
             Expanded(
               child: Text(
                 name,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 13.5,
                   fontWeight: FontWeight.w500,
@@ -1215,7 +1216,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               child: Text(
                 '$b',
                 textAlign: TextAlign.right,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _alpineBlue,
                   fontSize: 13.5,
                   fontWeight: FontWeight.w600,
@@ -1227,7 +1228,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               child: Text(
                 _formatDiff(a, b),
                 textAlign: TextAlign.right,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 13,
                 ),
@@ -1310,9 +1311,9 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
         children: [
           Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.progress, color: _sage, size: 17),
+              UlvenikIcon(UlvenikIcons.progress, color: _sage, size: 17),
               const SizedBox(width: 8),
-              const Expanded(
+              Expanded(
                 child: Text(
                   'Activity',
                   style: TextStyle(
@@ -1341,7 +1342,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                   ),
                   child: Text(
                     _cumulativeChart ? 'CUMULATIVE' : 'EVENTS / DAY',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
@@ -1366,14 +1367,14 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                 children: [
                   Text(
                     'Checkpoint ${idx + 1}/${seriesA.length}',
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 11,
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
                     'A: ${seriesA[idx].toStringAsFixed(1)}  ·  B: ${seriesB[idx].toStringAsFixed(1)}',
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: _offWhite,
                         fontSize: 11.5,
                         fontWeight: FontWeight.w700),
@@ -1436,7 +1437,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                     for (final tick in xTicks)
                       Text(
                         tick,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stoneGrey,
                           fontSize: 10,
                           fontFamily: 'Inter',
@@ -1462,7 +1463,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               const SizedBox(width: 6),
               Text(
                 '${a.title} (A)',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -1472,7 +1473,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               Container(
                 width: 8,
                 height: 8,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: _alpineBlue,
                 ),
@@ -1480,7 +1481,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               const SizedBox(width: 6),
               Text(
                 '${b.title} (B)',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -1506,7 +1507,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 10,
               fontWeight: FontWeight.w700,
@@ -1526,7 +1527,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const TextSpan(
+                TextSpan(
                   text: ' / ',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -1536,7 +1537,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                 ),
                 TextSpan(
                   text: '$valB',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _alpineBlue,
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
@@ -1585,7 +1586,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               children: [
                 Text(
                   item.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 13.5,
                     fontWeight: FontWeight.w600,
@@ -1595,7 +1596,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                 const SizedBox(height: 3),
                 Text(
                   item.date,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 11.5,
                   ),
@@ -1662,7 +1663,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
             ),
           ),
           const SizedBox(height: 24),
-          const Text(
+          Text(
             'Not Enough Timeline Data',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1673,7 +1674,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
             ),
           ),
           const SizedBox(height: 12),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 18),
             child: Text(
               'Add more records to your Timeline\nbefore meaningful comparisons can be\ndisplayed.',
@@ -1737,13 +1738,13 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                       color: const Color(0xFF272B29),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Icon(Icons.auto_graph,
+                    child: Icon(Icons.auto_graph,
                       color: _alpineBlue,
                       size: 18,
                     ),
                   ),
                   const SizedBox(width: 12),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -1785,7 +1786,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
   Widget _buildBottomActionStrip() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _appBarBg,
         border: Border(
           top: BorderSide(color: _cardBorder),
@@ -1796,7 +1797,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
         children: [
           GestureDetector(
             onTap: _showChangeDatesSheet,
-            child: const Row(
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 UlvenikIcon(UlvenikIcons.calendar,
@@ -1885,7 +1886,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               const SizedBox(height: 16),
               Text(
                 isPeriodA ? 'Select Period A' : 'Select Period B',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
@@ -1901,7 +1902,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                   ),
                   title: Text(
                     p.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -1909,7 +1910,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                   ),
                   subtitle: Text(
                     '${p.totalEvents} events · ${p.recordingDays} recording days',
-                    style: const TextStyle(color: _stoneGrey, fontSize: 12),
+                    style: TextStyle(color: _stoneGrey, fontSize: 12),
                   ),
                   trailing: ((isPeriodA && _periodAId == p.id) ||
                           (!isPeriodA && _periodBId == p.id))
@@ -1963,7 +1964,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Change Comparison Dates',
                 style: TextStyle(
                   color: _offWhite,
@@ -1983,7 +1984,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                       color: _mint, size: 20),
                   title: Text(
                     preset,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -2032,7 +2033,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               const SizedBox(height: 16),
               Text(
                 'Export ${_periodA.title} vs ${_periodB.title}',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
@@ -2043,14 +2044,14 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.picture_as_pdf_outlined,
                     color: _mint, size: 21),
-                title: const Text(
+                title: Text(
                   'Coach & Physio PDF Comparison Report',
                   style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600),
                 ),
-                subtitle: const Text(
+                subtitle: Text(
                   'Includes Summary, Category ratios, Activity curve & Milestones',
                   style: TextStyle(color: _stoneGrey, fontSize: 12),
                 ),
@@ -2066,16 +2067,16 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.table_rows_outlined,
+                leading: Icon(Icons.table_rows_outlined,
                     color: _alpineBlue, size: 21),
-                title: const Text(
+                title: Text(
                   'Export Raw CSV Metrics',
                   style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600),
                 ),
-                subtitle: const Text(
+                subtitle: Text(
                   'Side-by-side daily recorded activity & attachment counts',
                   style: TextStyle(color: _stoneGrey, fontSize: 12),
                 ),
@@ -2121,7 +2122,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'What Gets Compared?',
                 style: TextStyle(
                   color: _offWhite,
@@ -2130,7 +2131,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen>
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
+              Text(
                 'Timeline Compare compares any two date windows using only the objective records you have entered into Ulvenik — including sessions, duration, goals, recorded activity across categories (Training, S&C, Health, Goals, Media), recording patterns, saved locations, attachments, and milestones.',
                 style: TextStyle(
                   color: _stoneGrey,

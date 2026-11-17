@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -45,12 +46,12 @@ class ClientNotesScreen extends StatefulWidget {
 }
 
 class _ClientNotesScreenState extends State<ClientNotesScreen> {
-  static const Color _bg = Color(0xFF121212);
-  static const Color _cardBg = Color(0xFF1C1C1C);
+  static Color get _bg => AppColors.backgroundObsidian;
+  static Color get _cardBg => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _sage = Color(0xFF7A8F7A);
-  static const Color _textPrimary = Color(0xFFF5F6F2);
-  static const Color _textSecondary = Color(0xFFA7B0AB);
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _textPrimary => AppColors.primaryTextOffWhite;
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey;
 
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
@@ -740,7 +741,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
                         ),
                         IconButton(
                           onPressed: () => Navigator.of(ctx).pop(),
-                          icon: const Icon(Icons.close, color: _textSecondary),
+                          icon: Icon(Icons.close, color: _textSecondary),
                         ),
                       ],
                     ),
@@ -999,7 +1000,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
           elevation: 6,
           shape: const CircleBorder(),
           onPressed: () => _showAddOrEditNoteSheet(),
-          child: const UlvenikIcon(UlvenikIcons.add, color: _textPrimary, size: 28),
+          child: UlvenikIcon(UlvenikIcons.add, color: _textPrimary, size: 28),
         ),
       ),
       body: SafeArea(
@@ -1081,7 +1082,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _sage,
               size: 26,
             ),
@@ -1100,7 +1101,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: () => _searchFocusNode.requestFocus(),
-            icon: const UlvenikIcon(UlvenikIcons.search, color: _sage, size: 21),
+            icon: UlvenikIcon(UlvenikIcons.search, color: _sage, size: 21),
           ),
           IconButton(
             visualDensity: VisualDensity.compact,
@@ -1108,7 +1109,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(Icons.filter_list, color: _sage, size: 21),
+                Icon(Icons.filter_list, color: _sage, size: 21),
                 Positioned(
                   right: -1,
                   top: -1,
@@ -1129,7 +1130,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: () => _showAddOrEditNoteSheet(),
-            icon: const UlvenikIcon(UlvenikIcons.add, color: _sage, size: 23),
+            icon: UlvenikIcon(UlvenikIcons.add, color: _sage, size: 23),
           ),
         ],
       ),
@@ -1146,7 +1147,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: _sage, size: 19),
+          UlvenikIcon(UlvenikIcons.search, color: _sage, size: 19),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -1509,7 +1510,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
                           ),
                           const SizedBox(width: 6),
                         ],
-                        const UlvenikIcon(UlvenikIcons.details,
+                        UlvenikIcon(UlvenikIcons.details,
                           size: 18,
                           color: _sage,
                         ),
@@ -1693,7 +1694,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
       ),
       child: Column(
         children: [
-          const Icon(Icons.note_alt_outlined, color: _sage, size: 32),
+          Icon(Icons.note_alt_outlined, color: _sage, size: 32),
           const SizedBox(height: 10),
           Text(
             'No matching client notes',

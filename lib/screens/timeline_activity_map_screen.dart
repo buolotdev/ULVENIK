@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
@@ -99,21 +100,21 @@ class TimelineActivityMapScreen extends StatefulWidget {
 class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens (Exact from Figma SVGs) ─────────────────────────────────
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _appBarBg = Color(0xFF111417);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _panelBg = Color(0xFF15191C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _appBarBg => AppColors.cardsCarbon;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _panelBg => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _sage = Color(0xFFB6CCB5);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _bronze = Color(0xFFB4823C);
   static const Color _healthRed = Color(0xFF8B3A3A);
   static const Color _gold = Color(0xFFB8920A);
   static const Color _purple = Color(0xFF7A5BAF);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x16FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   static const String _dogFieldThumb =
       'https://images.unsplash.com/photo-1551730459-92db2a308d6a?q=80&w=300&auto=format&fit=crop';
@@ -158,13 +159,13 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
       visits: 34,
       firstVisit: 'Jan 2022',
       lastVisit: '3 Sep 2026',
-      recordedCategories: const ['Training', 'S&C', 'Health', 'Goals', 'Media'],
+      recordedCategories: ['Training', 'S&C', 'Health', 'Goals', 'Media'],
       baseFavourites: 6,
-      elevationMeters: const [42, 48, 56, 63, 71, 68, 79, 86, 74, 62, 51, 45],
-      speedKmh: const [6.2, 7.4, 8.1, 7.8, 6.9, 8.6, 9.2, 8.4, 7.5, 7.9, 6.8, 6.4],
+      elevationMeters: [42, 48, 56, 63, 71, 68, 79, 86, 74, 62, 51, 45],
+      speedKmh: [6.2, 7.4, 8.1, 7.8, 6.9, 8.6, 9.2, 8.4, 7.5, 7.9, 6.8, 6.4],
       routeDistanceLabel: '4.8 km',
       isLocationFavourited: false,
-      sessions: const [
+      sessions: [
         _MappedSessionItem(
           id: 'rs-1',
           category: 'TRAINING',
@@ -217,13 +218,13 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
       visits: 19,
       firstVisit: 'Apr 2023',
       lastVisit: '29 Aug 2026',
-      recordedCategories: const ['Training', 'Goals'],
+      recordedCategories: ['Training', 'Goals'],
       baseFavourites: 4,
-      elevationMeters: const [38, 39, 40, 41, 40, 42, 43, 41, 40, 39, 38, 38],
-      speedKmh: const [7.1, 7.6, 8.0, 8.2, 7.9, 8.4, 8.5, 8.1, 7.8, 7.5, 7.3, 7.0],
+      elevationMeters: [38, 39, 40, 41, 40, 42, 43, 41, 40, 39, 38, 38],
+      speedKmh: [7.1, 7.6, 8.0, 8.2, 7.9, 8.4, 8.5, 8.1, 7.8, 7.5, 7.3, 7.0],
       routeDistanceLabel: '3.6 km',
       isLocationFavourited: true,
-      sessions: const [
+      sessions: [
         _MappedSessionItem(
           id: 'ct-1',
           category: 'TRAINING',
@@ -361,10 +362,10 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
       recordedCategories: const ['Goals', 'Training'],
       baseFavourites: 3,
       elevationMeters: const [74, 82, 91, 96, 102, 99, 90, 84, 78, 75],
-      speedKmh: const [6.8, 7.5, 8.2, 8.9, 8.4, 7.9, 8.1, 7.6, 7.2, 6.9],
+      speedKmh: [6.8, 7.5, 8.2, 8.9, 8.4, 7.9, 8.1, 7.6, 7.2, 6.9],
       routeDistanceLabel: '3.2 km',
       isLocationFavourited: false,
-      sessions: const [
+      sessions: [
         _MappedSessionItem(
           id: 'bh-1',
           category: 'GOALS',
@@ -408,10 +409,10 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
       recordedCategories: const ['Training', 'S&C'],
       baseFavourites: 5,
       elevationMeters: const [62, 66, 74, 81, 78, 85, 89, 82, 73, 68, 64],
-      speedKmh: const [6.5, 7.0, 7.4, 7.1, 7.8, 8.0, 7.6, 7.2, 6.9, 6.7, 6.5],
+      speedKmh: [6.5, 7.0, 7.4, 7.1, 7.8, 8.0, 7.6, 7.2, 6.9, 6.7, 6.5],
       routeDistanceLabel: '4.1 km',
       isLocationFavourited: true,
-      sessions: const [
+      sessions: [
         _MappedSessionItem(
           id: 'bw-1',
           category: 'TRAINING',
@@ -455,10 +456,10 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
       recordedCategories: const ['Training', 'Goals', 'Media'],
       baseFavourites: 2,
       elevationMeters: const [46, 48, 50, 52, 51, 49, 47, 46],
-      speedKmh: const [7.2, 7.8, 8.3, 8.1, 7.7, 7.9, 7.4, 7.1],
+      speedKmh: [7.2, 7.8, 8.3, 8.1, 7.7, 7.9, 7.4, 7.1],
       routeDistanceLabel: '2.9 km',
       isLocationFavourited: false,
-      sessions: const [
+      sessions: [
         _MappedSessionItem(
           id: 'sm-1',
           category: 'TRAINING',
@@ -525,11 +526,11 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
       recordedCategories: const ['Training', 'S&C'],
       baseFavourites: 3,
       elevationMeters: const [41, 47, 55, 64, 72, 69, 61, 54, 48, 43],
-      speedKmh: const [7.5, 8.1, 8.6, 8.4, 7.9, 8.8, 9.0, 8.5, 7.9, 7.4],
+      speedKmh: [7.5, 8.1, 8.6, 8.4, 7.9, 8.8, 9.0, 8.5, 7.9, 7.4],
       routeDistanceLabel: '4.8 km',
       isLocationFavourited: false,
       hasSavedLocation: true,
-      sessions: const [
+      sessions: [
         _MappedSessionItem(
           id: 'rl-1',
           category: 'TRAINING',
@@ -772,7 +773,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
       centerTitle: false,
       titleSpacing: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 22),
+        icon: UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 22),
         onPressed: () {
           if (!_isEmptyState && _selectedPin != null) {
             _clearSelectedPin();
@@ -783,7 +784,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
       ),
       title: Text(
         appBarTitle,
-        style: const TextStyle(
+        style: TextStyle(
           color: _offWhite,
           fontSize: 18,
           fontWeight: FontWeight.w700,
@@ -793,20 +794,20 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
       actions: [
         IconButton(
           tooltip: 'Search Mapped Locations',
-          icon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 21),
+          icon: UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 21),
           onPressed: _showSearchLocationsSheet,
         ),
         IconButton(
           tooltip: 'Filter Map Categories & Range',
-          icon: const Icon(Icons.tune, color: _stoneGrey, size: 20),
+          icon: Icon(Icons.tune, color: _stoneGrey, size: 20),
           onPressed: _showMapFilterSheet,
         ),
         PopupMenuButton<String>(
-          icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 21),
+          icon: UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 21),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: const BorderSide(color: _cardBorder),
+            side: BorderSide(color: _cardBorder),
           ),
           onSelected: (value) {
             if (value == 'default_state') {
@@ -867,14 +868,14 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
             }
           },
           itemBuilder: (_) => [
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'default_state',
               child: Text(
                 'Default Map Overview',
                 style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'marker_state',
               child: Text(
                 'Inspect Marker Selected (Riverside Trail)',
@@ -887,7 +888,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                 _isEmptyState
                     ? 'Switch to Populated Map'
                     : 'Switch to Empty State',
-                style: const TextStyle(color: _offWhite, fontSize: 13),
+                style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
             const PopupMenuItem(
@@ -903,10 +904,10 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                 _hasSportPack
                     ? 'Disable Sport Pack (Hide Competition)'
                     : 'Enable Sport Pack (Show Competition)',
-                style: const TextStyle(color: _offWhite, fontSize: 13),
+                style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'reset',
               child: Text(
                 'Reset Map Layers & Filters',
@@ -1052,7 +1053,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                 if (_dateRangeFilter != 'All Time')
                                   _dateRangeFilter,
                               ].join(' · '),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _offWhite,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
@@ -1153,13 +1154,13 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                 border: Border.all(
                                     color: Colors.white.withValues(alpha: 0.06)),
                               ),
-                              child: const Icon(Icons.directions_run,
+                              child: Icon(Icons.directions_run,
                                 color: _alpineBlue,
                                 size: 19,
                               ),
                             ),
                             const SizedBox(width: 12),
-                            const Expanded(
+                            Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
@@ -1189,7 +1190,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                 ],
                               ),
                             ),
-                            const UlvenikIcon(UlvenikIcons.details,
+                            UlvenikIcon(UlvenikIcons.details,
                               color: _stoneGrey,
                               size: 18,
                             ),
@@ -1248,7 +1249,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
               label,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 9.5,
                 fontWeight: FontWeight.w600,
@@ -1295,7 +1296,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
               alignment: Alignment.center,
               child: Text(
                 '${pin.clusterCount}',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
@@ -1327,7 +1328,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                 ),
                 child: Text(
                   pin.topBadge!,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 9.5,
                     fontWeight: FontWeight.w800,
@@ -1406,7 +1407,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF161A1D),
         border: Border(
           top: BorderSide(color: _cardBorder),
@@ -1553,7 +1554,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                           shape: BoxShape.circle,
                           border: Border.all(color: _offWhite, width: 1.5),
                         ),
-                        child: const Icon(Icons.park, color: _offWhite, size: 12),
+                        child: Icon(Icons.park, color: _offWhite, size: 12),
                       ),
                     ),
                   ),
@@ -1571,7 +1572,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                             shape: BoxShape.circle,
                             border: Border.all(color: _offWhite, width: 1.5),
                           ),
-                          child: const Icon(Icons.emoji_events,
+                          child: Icon(Icons.emoji_events,
                               color: _offWhite, size: 12),
                         ),
                       ),
@@ -1605,7 +1606,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                       color: _forest.withValues(alpha: 0.9),
                                       width: 2),
                                 ),
-                                child: const Icon(Icons.location_on_outlined,
+                                child: Icon(Icons.location_on_outlined,
                                   color: _alpineBlue,
                                   size: 20,
                                 ),
@@ -1616,7 +1617,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                 child: Container(
                                   width: 8,
                                   height: 8,
-                                  decoration: const BoxDecoration(
+                                  decoration: BoxDecoration(
                                     color: _alpineBlue,
                                     shape: BoxShape.circle,
                                   ),
@@ -1634,7 +1635,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(color: _cardBorder),
                           ),
-                          child: const Row(
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(Icons.circle, color: _mint, size: 6),
@@ -1671,12 +1672,12 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.explore_outlined,
+                          Icon(Icons.explore_outlined,
                               color: _sage, size: 13),
                           const SizedBox(width: 6),
                           Text(
                             selected.coordinates,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
@@ -1729,7 +1730,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
         Expanded(
           child: Container(
             width: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: _panelBg,
               borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
               border: Border(top: BorderSide(color: _cardBorder)),
@@ -1785,7 +1786,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                 children: [
                                   Text(
                                     selected.name,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _offWhite,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w700,
@@ -1795,7 +1796,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                   const SizedBox(height: 3),
                                   Text(
                                     selected.venueSubtitle,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _stoneGrey,
                                       fontSize: 13,
                                       fontFamily: 'Inter',
@@ -1836,7 +1837,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                         // 3-Column Visits / First Visit / Last Visit Strip
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             border: Border(
                               top: BorderSide(color: _cardBorder),
                               bottom: BorderSide(color: _cardBorder),
@@ -1881,7 +1882,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                           runSpacing: 6,
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Recorded here:',
                               style: TextStyle(
                                 color: _stoneGrey,
@@ -1905,7 +1906,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                   const SizedBox(width: 5),
                                   Text(
                                     cat,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _offWhite,
                                       fontSize: 12.5,
                                       fontWeight: FontWeight.w600,
@@ -1919,13 +1920,13 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.favorite_border,
+                            Icon(Icons.favorite_border,
                                 color: _stoneGrey, size: 14),
                             const SizedBox(width: 6),
                             Expanded(
                               child: Text(
                                 '$favCount favourite events at this location',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 12.5,
                                   fontFamily: 'Inter',
@@ -1990,7 +1991,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               'RECENT FIELD SESSIONS',
                               style: TextStyle(
                                 color: _stoneGrey,
@@ -2011,7 +2012,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                               },
                               child: Text(
                                 _sessionSortMode,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _sage,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
@@ -2160,7 +2161,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
               ],
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 10.5,
                   fontWeight: FontWeight.w600,
@@ -2220,7 +2221,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 10,
             fontWeight: FontWeight.w700,
@@ -2299,7 +2300,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                       const SizedBox(width: 6),
                       Text(
                         session.category,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stoneGrey,
                           fontSize: 10,
                           fontWeight: FontWeight.w700,
@@ -2314,7 +2315,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                     session.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
@@ -2326,7 +2327,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                     session.subtitle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 12,
                       fontFamily: 'Inter',
@@ -2370,7 +2371,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                 ),
               ),
             const SizedBox(width: 8),
-            const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 17),
+            UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 17),
           ],
         ),
       ),
@@ -2406,7 +2407,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
               Expanded(
                 child: Text(
                   'GPS ROUTE TELEMETRY · ${pin.routeDistanceLabel}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 10.5,
                     fontWeight: FontWeight.w700,
@@ -2554,7 +2555,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: _cardBorder),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(Icons.circle, color: _mint, size: 7),
@@ -2582,7 +2583,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                 ),
                 child: Text(
                   _emptyHeadings[_emptyHeadingIndex],
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _sage,
                     fontSize: 10.5,
                     fontWeight: FontWeight.w700,
@@ -2650,7 +2651,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                                 color: Colors.white.withValues(alpha: 0.08),
                               ),
                             ),
-                            child: const Icon(Icons.location_off_outlined,
+                            child: Icon(Icons.location_off_outlined,
                               color: _sage,
                               size: 28,
                             ),
@@ -2661,7 +2662,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                             child: Container(
                               width: 6,
                               height: 6,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: _sage,
                               ),
@@ -2678,7 +2679,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(color: _cardBorder),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(Icons.explore_outlined,
@@ -2698,7 +2699,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                         ),
                       ),
                       const SizedBox(height: 18),
-                      const Text(
+                      Text(
                         'No Recorded Locations',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -2709,7 +2710,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const Text(
+                      Text(
                         'Timeline events with location\ninformation will appear here\nautomatically.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -2770,7 +2771,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                   Container(
                     width: 24,
                     height: 3.5,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: _sage,
                       borderRadius:
                           BorderRadius.horizontal(left: Radius.circular(2)),
@@ -2786,7 +2787,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                     ),
                   ),
                   const SizedBox(width: 8),
-                  const Text(
+                  Text(
                     '500 m',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -2896,7 +2897,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Search Mapped Locations',
                     style: TextStyle(
                       color: _offWhite,
@@ -2907,24 +2908,24 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                   const SizedBox(height: 12),
                   TextField(
                     autofocus: true,
-                    style: const TextStyle(color: _offWhite, fontSize: 14),
+                    style: TextStyle(color: _offWhite, fontSize: 14),
                     onChanged: (v) => setModalState(() => query = v),
                     decoration: InputDecoration(
                       hintText: 'Search trail, clinic, or arena...',
                       hintStyle:
-                          const TextStyle(color: _stoneGrey, fontSize: 13),
+                          TextStyle(color: _stoneGrey, fontSize: 13),
                       prefixIcon:
-                          const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 19),
+                          UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 19),
                       filled: true,
                       fillColor: _obsidian,
                       contentPadding: const EdgeInsets.symmetric(vertical: 12),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _cardBorder),
+                        borderSide: BorderSide(color: _cardBorder),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _cardBorder),
+                        borderSide: BorderSide(color: _cardBorder),
                       ),
                     ),
                   ),
@@ -2935,7 +2936,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                       shrinkWrap: true,
                       itemCount: matches.length,
                       separatorBuilder: (_, _) =>
-                          const Divider(color: _cardBorder, height: 1),
+                          Divider(color: _cardBorder, height: 1),
                       itemBuilder: (_, idx) {
                         final loc = matches[idx];
                         return ListTile(
@@ -2952,7 +2953,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                           ),
                           title: Text(
                             loc.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -2960,10 +2961,10 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                           ),
                           subtitle: Text(
                             '${loc.visits} visits · ${loc.venueSubtitle}',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: _stoneGrey, fontSize: 12),
                           ),
-                          trailing: const UlvenikIcon(UlvenikIcons.details,
+                          trailing: UlvenikIcon(UlvenikIcons.details,
                               color: _stoneGrey, size: 18),
                           onTap: () {
                             Navigator.pop(ctx);
@@ -3017,7 +3018,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Filter Activity Map',
                     style: TextStyle(
                       color: _offWhite,
@@ -3026,7 +3027,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                     ),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
+                  Text(
                     'EVENT CATEGORY',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -3061,7 +3062,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                     ],
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'DATE WINDOW',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -3169,7 +3170,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: _cardBorder),
                         ),
-                        child: const Icon(Icons.directions_run,
+                        child: Icon(Icons.directions_run,
                             color: _alpineBlue, size: 20),
                       ),
                       const SizedBox(width: 12),
@@ -3179,7 +3180,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                           children: [
                             Text(
                               pin.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _offWhite,
                                 fontSize: 17,
                                 fontWeight: FontWeight.w700,
@@ -3187,7 +3188,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                             ),
                             Text(
                               '${pin.sessions.length} sessions mapped · ${pin.routeDistanceLabel}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 12.5,
                               ),
@@ -3252,7 +3253,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
                     _scrubIndex != null && _scrubIndex! < values.length
                         ? 'Waypoint ${_scrubIndex! + 1}/${values.length}: ${values[_scrubIndex!].toStringAsFixed(1)} $unit'
                         : 'Drag across chart to inspect waypoint telemetry',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _sage,
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -3336,7 +3337,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
               const SizedBox(height: 16),
               Text(
                 'All Events at ${pin.name} (${pin.visits})',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
@@ -3345,7 +3346,7 @@ class _TimelineActivityMapScreenState extends State<TimelineActivityMapScreen>
               const SizedBox(height: 4),
               Text(
                 '${pin.firstVisit} – ${pin.lastVisit} · ${pin.venueSubtitle}',
-                style: const TextStyle(color: _stoneGrey, fontSize: 12.5),
+                style: TextStyle(color: _stoneGrey, fontSize: 12.5),
               ),
               const SizedBox(height: 14),
               for (final s in pin.sessions) ...[

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'timeline_event_details_screen.dart';
@@ -35,23 +36,23 @@ class TimelineCalendarScreen extends StatefulWidget {
 class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
     with TickerProviderStateMixin {
   // ─── Design Tokens ──────────────────────────────────────────────────────────
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _surfaceVariant = Color(0xFF323533);
-  static const Color _surfaceContainer = Color(0xFF1D201F);
-  static const Color _surfaceDim = Color(0xFF111412);
-  static const Color _offWhite = Color(0xFFE1E3E0);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _muted = Color(0xFF89938E);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _surfaceVariant => AppColors.cardsCarbon;
+  static Color get _surfaceContainer => AppColors.cardsCarbon;
+  static Color get _surfaceDim => AppColors.backgroundObsidian;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _muted => AppColors.secondaryTextStoneGrey;
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _errorMuted = Color(0xFF8B3A3A);
   static const Color _errorLight = Color(0xFFFFB4AB);
   static const Color _catSc = Color(0xFFB4823C);
   static const Color _catGoals = Color(0xFFB8920A);
   static const Color _catMedia = Color(0xFF7A5BAF);
-  static const Color _borderHairline = Color(0x14FFFFFF);
+  static Color get _borderHairline => AppColors.cardBorder;
 
   // ─── Image URLs ─────────────────────────────────────────────────────────────
   static const String _agilityPhotoUrl =
@@ -485,7 +486,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         icon: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 22),
         onPressed: () => Navigator.maybePop(context),
       ),
-      title: const Text(
+      title: Text(
         'Timeline Calendar',
         style: TextStyle(
           color: _offWhite,
@@ -514,7 +515,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         ),
         // Filter / Search Shortcut
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
+          icon: UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           tooltip: 'Search Timeline',
           onPressed: () {
             Navigator.push(
@@ -527,7 +528,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         ),
         // Timeline Statistics Shortcut
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.progress, color: _stoneGrey, size: 20),
+          icon: UlvenikIcon(UlvenikIcons.progress, color: _stoneGrey, size: 20),
           tooltip: 'Timeline Statistics',
           onPressed: () {
             Navigator.push(
@@ -540,11 +541,11 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         ),
         // More Options
         PopupMenuButton<String>(
-          icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 22),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(color: _borderHairline),
+            side: BorderSide(color: _borderHairline),
           ),
           onSelected: (val) {
             if (val == 'statistics') {
@@ -570,7 +571,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             }
           },
           itemBuilder: (ctx) => [
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'statistics',
               child: Row(
                 children: [
@@ -588,11 +589,11 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                   const UlvenikIcon(UlvenikIcons.dogs, color: _mint, size: 18),
                   const SizedBox(width: 10),
                   Text('Dog: $_selectedDog',
-                      style: const TextStyle(color: _offWhite, fontSize: 13)),
+                      style: TextStyle(color: _offWhite, fontSize: 13)),
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'filters',
               child: Row(
                 children: [
@@ -603,7 +604,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'reset_month',
               child: Row(
                 children: [
@@ -614,7 +615,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'empty_test',
               child: Row(
                 children: [
@@ -727,7 +728,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             children: [
               Text(
                 monthName,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -736,14 +737,14 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               Row(
                 children: [
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back,
+                    icon: UlvenikIcon(UlvenikIcons.back,
                         color: _stoneGrey, size: 22),
                     onPressed: () => _changeMonth(-1),
                     splashRadius: 18,
                     visualDensity: VisualDensity.compact,
                   ),
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.details,
+                    icon: UlvenikIcon(UlvenikIcons.details,
                         color: _stoneGrey, size: 22),
                     onPressed: () => _changeMonth(1),
                     splashRadius: 18,
@@ -762,7 +763,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                       child: Center(
                         child: Text(
                           d,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _muted,
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
@@ -898,7 +899,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
           children: [
             Text(
               '$dayLabel Summary',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -1012,10 +1013,10 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         decoration: BoxDecoration(
           border: Border(
             right: isRightBorder
-                ? const BorderSide(color: _borderHairline, width: 1)
+                ? BorderSide(color: _borderHairline, width: 1)
                 : BorderSide.none,
             bottom: isBottomBorder
-                ? const BorderSide(color: _borderHairline, width: 1)
+                ? BorderSide(color: _borderHairline, width: 1)
                 : BorderSide.none,
           ),
         ),
@@ -1035,7 +1036,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                 const SizedBox(width: 6),
                 Text(
                   label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _muted,
                     fontSize: 10,
                     fontWeight: FontWeight.w700,
@@ -1085,7 +1086,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               child: const Icon(Icons.event_busy, color: _mint, size: 22),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'No Events Recorded',
               style: TextStyle(
                 color: _offWhite,
@@ -1094,7 +1095,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               ),
             ),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               'Nothing was recorded for this date. Keep building your dog’s journey by adding a new record.',
               textAlign: TextAlign.center,
               style: TextStyle(color: _muted, fontSize: 13),
@@ -1171,7 +1172,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -1180,7 +1181,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                       const SizedBox(height: 3),
                       Text(
                         category,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _muted,
                           fontSize: 12,
                         ),
@@ -1188,7 +1189,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                     ],
                   ),
                 ),
-                const UlvenikIcon(UlvenikIcons.details, color: _muted, size: 20),
+                UlvenikIcon(UlvenikIcons.details, color: _muted, size: 20),
               ],
             ),
           ),
@@ -1221,14 +1222,14 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 20),
+                icon: UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 20),
                 onPressed: () => _changeWeek(-1),
                 splashRadius: 18,
                 visualDensity: VisualDensity.compact,
               ),
               Text(
                 weekRangeText,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _muted,
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
@@ -1237,7 +1238,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               ),
               IconButton(
                 icon:
-                    const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 20),
+                    UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 20),
                 onPressed: () => _changeWeek(1),
                 splashRadius: 18,
                 visualDensity: VisualDensity.compact,
@@ -1316,7 +1317,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                                 ),
                                 child: Text(
                                   '$eventCount',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 9,
                                     fontWeight: FontWeight.w700,
@@ -1385,7 +1386,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             children: [
               Text(
                 headerTitle,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
@@ -1393,7 +1394,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               ),
               Text(
                 '$total Events',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _muted,
                   fontSize: 12,
                 ),
@@ -1423,7 +1424,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                 text: '10:30 - Core Stability & Proprioception',
               ),
           ] else
-            const Text(
+            Text(
               'No scheduled entries for this day.',
               style: TextStyle(color: _muted, fontSize: 12),
             ),
@@ -1449,7 +1450,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             text,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 12,
             ),
@@ -1468,7 +1469,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Details',
               style: TextStyle(
                 color: _offWhite,
@@ -1492,7 +1493,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: _borderHairline),
             ),
-            child: const Center(
+            child: Center(
               child: Text(
                 'No events for this date.',
                 style: TextStyle(color: _muted, fontSize: 13),
@@ -1590,7 +1591,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                           ),
                           Text(
                             time,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _muted,
                               fontSize: 12,
                             ),
@@ -1600,7 +1601,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                       const SizedBox(height: 4),
                       Text(
                         title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -1609,12 +1610,12 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          const Icon(Icons.location_on,
+                          Icon(Icons.location_on,
                               color: _muted, size: 14),
                           const SizedBox(width: 4),
                           Text(
                             location,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 12,
                             ),
@@ -1653,7 +1654,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 22),
+            icon: UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 22),
             onPressed: () => _changeDay(-1),
             splashRadius: 18,
             visualDensity: VisualDensity.compact,
@@ -1662,7 +1663,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             children: [
               Text(
                 '$dayNum $monthStr $yearStr',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -1692,7 +1693,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             ],
           ),
           IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 22),
+            icon: UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 22),
             onPressed: () => _changeDay(1),
             splashRadius: 18,
             visualDensity: VisualDensity.compact,
@@ -1715,7 +1716,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Row(
+          Row(
             children: [
               UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 20),
               SizedBox(width: 8),
@@ -1767,7 +1768,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: _muted,
               fontSize: 10,
               fontWeight: FontWeight.w700,
@@ -1813,7 +1814,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               child: const Icon(Icons.event_busy, color: _mint, size: 22),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'No Events Recorded',
               style: TextStyle(
                 color: _offWhite,
@@ -1822,7 +1823,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               ),
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Nothing was recorded for this date. Keep building your dog’s journey by adding a new record.',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -1961,7 +1962,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                             children: [
                               Text(
                                 time,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
@@ -1970,7 +1971,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                               const SizedBox(height: 2),
                               Text(
                                 duration,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _muted,
                                   fontSize: 11,
                                 ),
@@ -2003,7 +2004,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                               const SizedBox(height: 4),
                               Text(
                                 title,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
@@ -2012,7 +2013,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                               const SizedBox(height: 4),
                               Text(
                                 desc,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 12,
                                   height: 1.35,
@@ -2063,7 +2064,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) => Container(
             color: _surfaceVariant,
-            child: const Icon(Icons.image, color: _muted),
+            child: Icon(Icons.image, color: _muted),
           ),
         ),
       ),
@@ -2081,7 +2082,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
       ),
       child: Stack(
         children: [
-          const Center(
+          Center(
             child: UlvenikIcon(UlvenikIcons.play, color: _offWhite, size: 28),
           ),
           Positioned(
@@ -2095,7 +2096,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
               ),
               child: Text(
                 duration,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 9,
                   fontWeight: FontWeight.w700,
@@ -2130,7 +2131,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                   const SizedBox(width: 8),
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -2144,7 +2145,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                     : _viewMode == CalendarViewMode.week
                         ? 'Mon–Sun'
                         : '8am–8pm',
-                style: const TextStyle(color: _muted, fontSize: 12),
+                style: TextStyle(color: _muted, fontSize: 12),
               ),
             ],
           ),
@@ -2226,7 +2227,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                               padding: const EdgeInsets.only(top: 6),
                               child: Text(
                                 text,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _muted,
                                   fontSize: 11,
                                   fontWeight: FontWeight.w500,
@@ -2354,7 +2355,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
         const SizedBox(width: 4),
         Text(
           label,
-          style: const TextStyle(color: _muted, fontSize: 10),
+          style: TextStyle(color: _muted, fontSize: 10),
         ),
       ],
     );
@@ -2450,7 +2451,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
+            Text(
               'Select Dog Calendar',
               style: TextStyle(
                 color: _offWhite,
@@ -2502,10 +2503,10 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
           ),
         ),
         title: Text(name,
-            style: const TextStyle(
+            style: TextStyle(
                 color: _offWhite, fontWeight: FontWeight.w600, fontSize: 14)),
         subtitle: Text(breed,
-            style: const TextStyle(color: _stoneGrey, fontSize: 12)),
+            style: TextStyle(color: _stoneGrey, fontSize: 12)),
         trailing: isSelected
             ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
             : null,
@@ -2542,7 +2543,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
+            Text(
               'Quick Log for Date',
               style: TextStyle(
                 color: _offWhite,
@@ -2553,7 +2554,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
             const SizedBox(height: 6),
             Text(
               '${_selectedDate.day} ${_monthAbbr(_selectedDate.month)} ${_selectedDate.year} · $_selectedDog',
-              style: const TextStyle(color: _stoneGrey, fontSize: 13),
+              style: TextStyle(color: _stoneGrey, fontSize: 13),
             ),
             const SizedBox(height: 16),
             ListTile(
@@ -2564,12 +2565,12 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                   color: _alpineBlue.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const UlvenikIcon(UlvenikIcons.exercises,
+                child: UlvenikIcon(UlvenikIcons.exercises,
                     color: _alpineBlue, size: 20),
               ),
-              title: const Text('Training Session',
+              title: Text('Training Session',
                   style: TextStyle(color: _offWhite, fontSize: 14)),
-              subtitle: const Text('Record drills, tracking, or obedience',
+              subtitle: Text('Record drills, tracking, or obedience',
                   style: TextStyle(color: _muted, fontSize: 12)),
               onTap: () {
                 Navigator.pop(ctx);
@@ -2587,9 +2588,9 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
                 child:
                     const UlvenikIcon(UlvenikIcons.health, color: _errorLight, size: 20),
               ),
-              title: const Text('Health Record',
+              title: Text('Health Record',
                   style: TextStyle(color: _offWhite, fontSize: 14)),
-              subtitle: const Text('Log vet visit, vaccine, or medication',
+              subtitle: Text('Log vet visit, vaccine, or medication',
                   style: TextStyle(color: _muted, fontSize: 12)),
               onTap: () {
                 Navigator.pop(ctx);
@@ -2606,7 +2607,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen>
 
   Widget _buildBottomNav() {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _carbon,
         border: Border(top: BorderSide(color: _borderHairline)),
       ),

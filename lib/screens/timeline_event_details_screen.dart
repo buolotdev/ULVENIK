@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'session_details_screen.dart';
@@ -33,15 +34,15 @@ class TimelineEventDetailsScreen extends StatefulWidget {
 class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens ──────────────────────────────────────────────────────────
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _surfaceVariant = Color(0xFF323533);
-  static const Color _surfaceDim = Color(0xFF111412);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _surfaceVariant => AppColors.cardsCarbon;
+  static Color get _surfaceDim => AppColors.backgroundObsidian;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _error = Color(0xFFFFB4AB);
   static const Color _secondary = Color(0xFFB6CCB5);
 
@@ -121,7 +122,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               top: 10,
               right: 10,
               child: IconButton(
-                icon: const Icon(Icons.close, color: _offWhite, size: 24),
+                icon: Icon(Icons.close, color: _offWhite, size: 24),
                 onPressed: () => Navigator.pop(ctx),
               ),
             ),
@@ -135,7 +136,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                 ),
                 child: Text(
                   title,
-                  style: const TextStyle(color: _offWhite, fontSize: 12),
+                  style: TextStyle(color: _offWhite, fontSize: 12),
                 ),
               ),
             ),
@@ -213,7 +214,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
       ),
       title: GestureDetector(
         onDoubleTap: _toggleVariant,
-        child: const Text(
+        child: Text(
           'Timeline Event Details',
           style: TextStyle(
             color: _offWhite,
@@ -256,7 +257,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                     _variant == TimelineEventVariant.training
                         ? 'Switch to Health Record Variant'
                         : 'Switch to Training Session Variant',
-                    style: const TextStyle(color: _offWhite, fontSize: 13),
+                    style: TextStyle(color: _offWhite, fontSize: 13),
                   ),
                 ],
               ),
@@ -273,7 +274,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                   const SizedBox(width: 8),
                   Text(
                     _showGraph ? 'Hide Trend Chart' : 'Show Trend Chart',
-                    style: const TextStyle(color: _offWhite, fontSize: 13),
+                    style: TextStyle(color: _offWhite, fontSize: 13),
                   ),
                 ],
               ),
@@ -290,12 +291,12 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                   const SizedBox(width: 8),
                   Text(
                     _isStarFavorite ? 'Remove from Favorites' : 'Mark as Favorite',
-                    style: const TextStyle(color: _offWhite, fontSize: 13),
+                    style: TextStyle(color: _offWhite, fontSize: 13),
                   ),
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'view_original',
               child: Row(
                 children: [
@@ -409,7 +410,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(color: const Color(0x14FFFFFF), width: 1),
                       ),
-                      child: const Text(
+                      child: Text(
                         '45 MIN',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -443,7 +444,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
             isTraining
                 ? 'Obedience — Heel Work & Recall'
                 : 'Vet Visit — Annual Health Check',
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 22,
               fontWeight: FontWeight.w700,
@@ -460,7 +461,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               const SizedBox(width: 6),
               Text(
                 isTraining ? 'Aug 21, 2024' : 'Wed 20 Aug',
-                style: const TextStyle(color: _stoneGrey, fontSize: 13),
+                style: TextStyle(color: _stoneGrey, fontSize: 13),
               ),
               const SizedBox(width: 10),
               Container(width: 3, height: 3, decoration: const BoxDecoration(color: Color(0x38FFFFFF), shape: BoxShape.circle)),
@@ -469,7 +470,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               const SizedBox(width: 6),
               Text(
                 isTraining ? '07:30 AM' : '09:30 AM',
-                style: const TextStyle(color: _stoneGrey, fontSize: 13),
+                style: TextStyle(color: _stoneGrey, fontSize: 13),
               ),
             ],
           ),
@@ -481,7 +482,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
               const SizedBox(width: 6),
               Text(
                 isTraining ? 'Fenrir' : 'Atlas',
-                style: const TextStyle(color: _stoneGrey, fontSize: 13),
+                style: TextStyle(color: _stoneGrey, fontSize: 13),
               ),
               const SizedBox(width: 10),
               Container(width: 3, height: 3, decoration: const BoxDecoration(color: Color(0x38FFFFFF), shape: BoxShape.circle)),
@@ -581,7 +582,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 4, bottom: 8),
           child: Text(
             'SUMMARY',
@@ -603,7 +604,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
           ),
           child: Text(
             summaryText,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 14,
               height: 1.55,
@@ -654,7 +655,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                 ],
               ),
               IconButton(
-                icon: const Icon(Icons.refresh, color: _stoneGrey, size: 16),
+                icon: Icon(Icons.refresh, color: _stoneGrey, size: 16),
                 tooltip: 'Replay Telemetry',
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
@@ -798,7 +799,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                             if (i >= 0 && i < intervals.length) {
                               return Text(
                                 intervals[i],
-                                style: const TextStyle(color: _stoneGrey, fontSize: 10),
+                                style: TextStyle(color: _stoneGrey, fontSize: 10),
                               );
                             }
                             return const SizedBox.shrink();
@@ -932,7 +933,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                     const SizedBox(width: 10),
                     Text(
                       item['label'] as String,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
@@ -951,7 +952,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                           child: Text(
                             ex,
                             textAlign: TextAlign.right,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
@@ -966,7 +967,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                     child: Text(
                       item['value'] as String,
                       textAlign: TextAlign.right,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
@@ -996,7 +997,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
           padding: const EdgeInsets.only(left: 4, bottom: 8),
           child: Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -1021,7 +1022,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
             padding: const EdgeInsets.only(left: 12),
             child: Text(
               notes,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 14,
                 fontStyle: FontStyle.italic,
@@ -1043,7 +1044,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 4),
               child: Text(
                 'ATTACHMENTS',
@@ -1062,7 +1063,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(color: const Color(0x14FFFFFF), width: 1),
               ),
-              child: const Text(
+              child: Text(
                 '2 FILES',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -1115,7 +1116,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                                   color: Colors.black54,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(Icons.photo, color: _offWhite, size: 14),
+                                child: Icon(Icons.photo, color: _offWhite, size: 14),
                               ),
                             ),
                           ],
@@ -1126,7 +1127,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                         isTraining ? 'training_21aug.jpg' : 'exam_record.jpg',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: _stoneGrey, fontSize: 11),
+                        style: TextStyle(color: _stoneGrey, fontSize: 11),
                       ),
                     ],
                   ),
@@ -1172,7 +1173,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                                 shape: BoxShape.circle,
                                 border: Border.all(color: const Color(0x24FFFFFF)),
                               ),
-                              child: const UlvenikIcon(UlvenikIcons.play, color: _offWhite, size: 20),
+                              child: UlvenikIcon(UlvenikIcons.play, color: _offWhite, size: 20),
                             ),
                             Positioned(
                               bottom: 6,
@@ -1183,7 +1184,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                                   color: Colors.black87,
                                   borderRadius: BorderRadius.circular(3),
                                 ),
-                                child: const Text(
+                                child: Text(
                                   '1:24',
                                   style: TextStyle(
                                     color: _offWhite,
@@ -1201,7 +1202,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                         isTraining ? 'recall_drill.mp4' : 'vaccine_cert.mp4',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: _stoneGrey, fontSize: 11),
+                        style: TextStyle(color: _stoneGrey, fontSize: 11),
                       ),
                     ],
                   ),
@@ -1241,7 +1242,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 4, bottom: 8),
           child: Text(
             'RELATED CONTEXT',
@@ -1286,7 +1287,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                   ),
                   title: Text(
                     it['title'] as String,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
@@ -1294,9 +1295,9 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                   ),
                   subtitle: Text(
                     it['sub'] as String,
-                    style: const TextStyle(color: _stoneGrey, fontSize: 11),
+                    style: TextStyle(color: _stoneGrey, fontSize: 11),
                   ),
-                  trailing: const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 18),
+                  trailing: UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 18),
                   onTap: () {},
                 ),
               );
@@ -1319,7 +1320,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
       ),
       child: Column(
         children: [
-          const Text(
+          Text(
             'TIMELINE NAVIGATION',
             style: TextStyle(
               color: _stoneGrey,
@@ -1349,7 +1350,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                      Row(
                         children: [
                           UlvenikIcon(UlvenikIcons.back, color: _secondary, size: 14),
                           SizedBox(width: 4),
@@ -1364,7 +1365,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                         isTraining ? 'Weight Recorded' : 'Sprint Drills',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
@@ -1403,7 +1404,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
@@ -1420,7 +1421,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.right,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
@@ -1442,7 +1443,7 @@ class _TimelineEventDetailsScreenState extends State<TimelineEventDetailsScreen>
   Widget _buildBottomNav() {
     return Container(
       height: 64,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _carbon,
         border: Border(top: BorderSide(color: Color(0x14FFFFFF))),
       ),

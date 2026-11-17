@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
@@ -36,14 +37,14 @@ class ReportBugScreen extends StatefulWidget {
 }
 
 class _ReportBugScreenState extends State<ReportBugScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _dashedFill = Color(0xFF1D201F);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _dashedFill => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
   static const Color _errorRed = Color(0xFF8B3A3A);
 
   static const List<Map<String, String>> _bugCategories = [
@@ -188,7 +189,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
       isScrollControlled: true,
       builder: (ctx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             border: Border(top: BorderSide(color: _cardBorder)),
@@ -210,7 +211,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(20, 16, 20, 10),
                   child: Text(
                     'Select Bug Category',
@@ -222,7 +223,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                     ),
                   ),
                 ),
-                const Divider(height: 1, color: _cardBorder),
+                Divider(height: 1, color: _cardBorder),
                 ..._bugCategories.map((item) {
                   final title = item['title']!;
                   final severity = item['severity']!;
@@ -264,7 +265,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                             ),
                             child: Text(
                               severity,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 11,
                                 fontFamily: 'Inter',
@@ -308,7 +309,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
       backgroundColor: Colors.transparent,
       builder: (ctx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             border: Border(top: BorderSide(color: _cardBorder)),
@@ -332,7 +333,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Add Bug Attachment',
                     style: TextStyle(
                       color: _offWhite,
@@ -342,7 +343,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                  Text(
                     'Attach screenshots, screen recordings, or crash logs',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -486,7 +487,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
           ),
@@ -499,13 +500,13 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                   const SizedBox(width: 4),
                   IconButton(
                     onPressed: () => Navigator.of(context).maybePop(),
-                    icon: const UlvenikIcon(UlvenikIcons.back,
+                    icon: UlvenikIcon(UlvenikIcons.back,
                       color: _stoneGrey,
                       size: 26,
                     ),
                     splashRadius: 20,
                   ),
-                  const Text(
+                  Text(
                     'Report a Bug',
                     style: TextStyle(
                       color: _offWhite,
@@ -535,7 +536,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: _cardBorder),
                   ),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
@@ -586,7 +587,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.fromLTRB(16, 14, 16, 12),
                         child: Text(
                           'Bug Category',
@@ -598,7 +599,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                           ),
                         ),
                       ),
-                      const Divider(height: 1, thickness: 1, color: _cardBorder),
+                      Divider(height: 1, thickness: 1, color: _cardBorder),
                       InkWell(
                         borderRadius: const BorderRadius.vertical(
                           bottom: Radius.circular(16),
@@ -611,7 +612,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                               Expanded(
                                 child: Text(
                                   _selectedCategory ?? 'Select a category',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
@@ -619,7 +620,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                                   ),
                                 ),
                               ),
-                              const Icon(Icons.keyboard_arrow_down_rounded,
+                              Icon(Icons.keyboard_arrow_down_rounded,
                                 color: _stoneGrey,
                                 size: 20,
                               ),
@@ -651,7 +652,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Bug Title',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -667,7 +668,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                         maxLength: 100,
                         onChanged: (_) => setState(() {}),
                         cursorColor: _mint,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 15,
                           fontFamily: 'Inter',
@@ -697,7 +698,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                         alignment: Alignment.centerRight,
                         child: Text(
                           '${_titleController.text.length} / 100',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12,
                             fontFamily: 'Inter',
@@ -728,7 +729,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'What happened?',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -746,7 +747,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                         maxLength: 5000,
                         onChanged: (_) => setState(() {}),
                         cursorColor: _mint,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 15,
                           height: 1.45,
@@ -779,7 +780,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                         alignment: Alignment.centerRight,
                         child: Text(
                           '${_formatWithCommas(_descriptionController.text.length)} / 5,000',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12,
                             fontFamily: 'Inter',
@@ -813,7 +814,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                             fontFamily: 'Inter',
                           ),
                           children: [
-                            const TextSpan(
+                            TextSpan(
                               text: 'Steps to Reproduce',
                               style: TextStyle(
                                 color: _offWhite,
@@ -839,7 +840,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                         maxLength: 2000,
                         onChanged: (_) => setState(() {}),
                         cursorColor: _mint,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 14,
                           height: 1.55,
@@ -872,7 +873,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                         alignment: Alignment.centerRight,
                         child: Text(
                           '${_formatWithCommas(_stepsController.text.length)} / 2,000',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12,
                             fontFamily: 'Inter',
@@ -906,7 +907,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(12),
                             onTap: _openAttachmentPicker,
-                            child: const SizedBox(
+                            child: SizedBox(
                               height: 54,
                               width: double.infinity,
                               child: Row(
@@ -933,7 +934,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const Text(
+                      Text(
                         'Screenshots, recordings or documents',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -977,7 +978,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                                         children: [
                                           TextSpan(
                                             text: att.name,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               color: _offWhite,
                                               fontSize: 13.5,
                                               fontWeight: FontWeight.w500,
@@ -985,7 +986,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                                           ),
                                           TextSpan(
                                             text: '   ${att.sizeLabel}',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               color: _stoneGrey,
                                               fontSize: 12.5,
                                               fontWeight: FontWeight.w400,
@@ -1000,7 +1001,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                                       _attachments.removeAt(i);
                                     }),
                                     behavior: HitTestBehavior.opaque,
-                                    child: const Padding(
+                                    child: Padding(
                                       padding: EdgeInsets.all(4),
                                       child: Icon(Icons.close_rounded,
                                         color: _stoneGrey,
@@ -1040,12 +1041,12 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                           padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
                           child: Row(
                             children: [
-                              const Icon(Icons.verified_user_outlined,
+                              Icon(Icons.verified_user_outlined,
                                 color: _stoneGrey,
                                 size: 19,
                               ),
                               const SizedBox(width: 12),
-                              const Expanded(
+                              Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -1086,7 +1087,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                         opacity: _includeDiagnostics ? 1.0 : 0.42,
                         child: Column(
                           children: [
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
@@ -1096,7 +1097,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                               '2.4.1',
                               monospace: true,
                             ),
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
@@ -1106,13 +1107,13 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                               '241',
                               monospace: true,
                             ),
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
                             ),
                             _buildDiagnosticRow('Device', 'iPhone 15 Pro'),
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
@@ -1122,7 +1123,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                               'iOS 17.4',
                               monospace: true,
                             ),
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
@@ -1132,13 +1133,13 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                               '2556 × 1179',
                               monospace: true,
                             ),
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
                             ),
                             _buildDiagnosticRow('Language', 'English (UK)'),
-                            const Divider(
+                            Divider(
                               height: 1,
                               thickness: 1,
                               color: _cardBorder,
@@ -1168,7 +1169,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                         borderRadius: BorderRadius.circular(14),
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.send_outlined,
@@ -1230,7 +1231,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Bug Report Submitted',
                           style: TextStyle(
                             color: _offWhite,
@@ -1255,7 +1256,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                 ],
               ),
               const SizedBox(height: 18),
-              const Divider(height: 1, color: _cardBorder),
+              Divider(height: 1, color: _cardBorder),
               const SizedBox(height: 16),
               _buildReceiptRow('Category', _selectedCategory ?? 'General'),
               const SizedBox(height: 10),
@@ -1293,7 +1294,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
                       },
                       style: OutlinedButton.styleFrom(
                         foregroundColor: _offWhite,
-                        side: const BorderSide(color: _cardBorder),
+                        side: BorderSide(color: _cardBorder),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -1336,7 +1337,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
           width: 100,
           child: Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 13,
               fontFamily: 'Inter',
@@ -1346,7 +1347,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
         Expanded(
           child: Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 13.5,
               fontWeight: FontWeight.w500,
@@ -1361,7 +1362,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
   Widget _buildSectionHeader(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -1383,7 +1384,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 13.5,
               fontFamily: 'Inter',
@@ -1422,7 +1423,7 @@ class _ReportBugScreenState extends State<ReportBugScreen> {
         child: Container(
           width: 20,
           height: 20,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _offWhite,
             shape: BoxShape.circle,
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -68,22 +69,22 @@ class TimelineFiltersScreen extends StatefulWidget {
 class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens ──────────────────────────────────────────────────────────
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _surfaceVariant = Color(0xFF323533);
-  static const Color _surfaceDim = Color(0xFF111412);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _surfaceVariant => AppColors.cardsCarbon;
+  static Color get _surfaceDim => AppColors.backgroundObsidian;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _mintLight = Color(0xFFAAE9D0);
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _healthDot = Color(0xFFFFB4AB);
   static const Color _scDot = Color(0xFFB6CCB5);
   static const Color _goalsDot = Color(0xFFFFD1CC);
   static const Color _mediaDot = Color(0xFFA7B0AB);
   static const Color _gold = Color(0xFFF9A826);
-  static const Color _borderHairline = Color(0x14FFFFFF);
+  static Color get _borderHairline => AppColors.cardBorder;
 
   // ─── Filter State (Defaults to Partially Applied State in Figma) ─────────────
   late Set<String> _selectedCategories;
@@ -309,9 +310,9 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: const BorderSide(color: _borderHairline),
+          side: BorderSide(color: _borderHairline),
         ),
-        title: const Text(
+        title: Text(
           'Save Current Filter Preset',
           style: TextStyle(
             color: _offWhite,
@@ -323,7 +324,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Give your filter preset a memorable name:',
               style: TextStyle(color: _stoneGrey, fontSize: 13),
             ),
@@ -331,7 +332,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
             TextField(
               controller: nameCtrl,
               autofocus: true,
-              style: const TextStyle(color: _offWhite, fontSize: 14),
+              style: TextStyle(color: _offWhite, fontSize: 14),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: _surfaceDim,
@@ -339,11 +340,11 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                 hintStyle: const TextStyle(color: Color(0x66A7B0AB)),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: _borderHairline),
+                  borderSide: BorderSide(color: _borderHairline),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: _borderHairline),
+                  borderSide: BorderSide(color: _borderHairline),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -356,7 +357,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: _stoneGrey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -462,10 +463,10 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 24),
+        icon: UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 24),
         onPressed: () => Navigator.maybePop(context),
       ),
-      title: const Text(
+      title: Text(
         'Timeline Filters',
         style: TextStyle(
           color: _offWhite,
@@ -540,7 +541,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: _borderHairline, width: 1),
         ),
-        child: const Row(
+        child: Row(
           children: [
             Icon(Icons.info_outline, size: 16, color: _stoneGrey),
             SizedBox(width: 8),
@@ -574,7 +575,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
               children: [
                 Text(
                   chip['label'] as String,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -623,7 +624,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                 borderRadius: BorderRadius.circular(6),
                 child: Row(
                   children: [
-                    const Text(
+                    Text(
                       'SAVED FILTERS',
                       style: TextStyle(
                         color: _stoneGrey,
@@ -699,7 +700,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                               children: [
                                 Text(
                                   preset.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -708,7 +709,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                                 const SizedBox(height: 2),
                                 Text(
                                   preset.description,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _stoneGrey,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400,
@@ -817,7 +818,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'EVENT CATEGORIES',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -909,7 +910,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                                 ),
                                 child: Text(
                                   badge!,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _stoneGrey,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w500,
@@ -1015,7 +1016,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                 borderRadius: BorderRadius.circular(6),
                 child: Row(
                   children: [
-                    const Text(
+                    Text(
                       'FILTERED EVENT BREAKDOWN',
                       style: TextStyle(
                         color: _stoneGrey,
@@ -1055,7 +1056,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
 
           if (_showAnalyticsChart) ...[
             const SizedBox(height: 6),
-            const Text(
+            Text(
               'Tap any column below to toggle category filtering:',
               style: TextStyle(color: _stoneGrey, fontSize: 12),
             ),
@@ -1072,13 +1073,13 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                         enabled: true,
                         touchTooltipData: BarTouchTooltipData(
                           getTooltipColor: (_) => _obsidian,
-                          tooltipBorder: const BorderSide(color: _borderHairline),
+                          tooltipBorder: BorderSide(color: _borderHairline),
                           tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                           getTooltipItem: (group, groupIndex, rod, rodIndex) {
                             final catName = categories[groupIndex];
                             return BarTooltipItem(
                               '$catName\n',
-                              const TextStyle(
+                              TextStyle(
                                 color: _offWhite,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
@@ -1247,7 +1248,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
               children: [
                 Row(
                   children: [
-                    const Text(
+                    Text(
                       'DATE RANGE',
                       style: TextStyle(
                         color: _stoneGrey,
@@ -1266,7 +1267,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                       ),
                       child: Text(
                         _selectedDateRange,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
@@ -1355,7 +1356,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
               children: [
                 Row(
                   children: [
-                    const Text(
+                    Text(
                       'DOG FILTER',
                       style: TextStyle(
                         color: _stoneGrey,
@@ -1374,7 +1375,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
                       ),
                       child: Text(
                         _selectedDog,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stoneGrey,
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
@@ -1448,7 +1449,7 @@ class _TimelineFiltersScreenState extends State<TimelineFiltersScreen>
     return Container(
       height: 72,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _carbon,
         border: Border(top: BorderSide(color: _borderHairline, width: 1)),
       ),

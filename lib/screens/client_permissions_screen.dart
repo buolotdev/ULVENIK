@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -58,13 +59,13 @@ class ClientPermissionsScreen extends StatefulWidget {
 }
 
 class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
-  static const Color _bg = Color(0xFF121212);
-  static const Color _cardBg = Color(0xFF1C1C1C);
+  static Color get _bg => AppColors.backgroundObsidian;
+  static Color get _cardBg => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _sage = Color(0xFF7A8F7A);
-  static const Color _infoBlue = Color(0xFF5D8FAF);
-  static const Color _textPrimary = Color(0xFFF5F6F2);
-  static const Color _textSecondary = Color(0xFFA7B0AB);
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _infoBlue => AppColors.infoAlpineBlue;
+  static Color get _textPrimary => AppColors.primaryTextOffWhite;
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey;
 
   static const List<_PermissionSection> _sections = [
     _PermissionSection(
@@ -720,7 +721,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
               child: Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.back,
+                  UlvenikIcon(UlvenikIcons.back,
                     color: _textSecondary,
                     size: 23,
                   ),
@@ -793,7 +794,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
         children: [
           Column(
             children: [
-              const Icon(Icons.verified_user_outlined,
+              Icon(Icons.verified_user_outlined,
                 color: _sage,
                 size: 21,
               ),
@@ -1060,7 +1061,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
               child: Container(
                 width: 20,
                 height: 20,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: _textPrimary,
                   shape: BoxShape.circle,
                 ),
@@ -1083,7 +1084,7 @@ class _ClientPermissionsScreenState extends State<ClientPermissionsScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(top: 1),
             child: Icon(Icons.privacy_tip_outlined,
               color: _infoBlue,

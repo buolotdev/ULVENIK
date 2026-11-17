@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../widgets/custom_snackbar.dart';
@@ -31,17 +32,17 @@ class ActivityInsightsScreen extends StatefulWidget {
 class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
     with SingleTickerProviderStateMixin {
   // Theme Color Palette
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _mint = Color(0xFF95D3BB);
   static const _forest = Color(0xFF2F5D50);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
 
   static final _hairlineSide =
-      BorderSide(color: Colors.white.withValues(alpha: 0.08));
+      BorderSide(color: AppColors.cardBorder);
   static final _hairlineBorder =
-      Border.all(color: Colors.white.withValues(alpha: 0.08));
+      Border.all(color: AppColors.cardBorder);
 
   late bool _isEmpty;
   late AnimationController _chartAnimController;
@@ -310,7 +311,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2),
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -339,7 +340,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                     children: [
                       Text(
                         '$milestone $title',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -362,7 +363,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
             const SizedBox(height: 20),
             Text(
               description,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 14,
                 height: 1.5,
@@ -412,7 +413,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2),
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -420,7 +421,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
             const SizedBox(height: 20),
             Text(
               title.toUpperCase(),
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
@@ -439,7 +440,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
             const SizedBox(height: 16),
             Text(
               explanation,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 14,
                 height: 1.5,
@@ -487,7 +488,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
           onDoubleTap: _toggleState,
           child: Column(
             children: [
-              const Text(
+              Text(
                 'Activity Insights',
                 style: TextStyle(
                   color: _offWhite,
@@ -499,7 +500,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
               const SizedBox(height: 2),
               Text(
                 widget.activityName,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
@@ -576,12 +577,12 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                     const SizedBox(width: 10),
                     Text(
                       _isEmpty ? 'Switch to Populated State' : 'Switch to Empty State',
-                      style: const TextStyle(color: _offWhite, fontSize: 13),
+                      style: TextStyle(color: _offWhite, fontSize: 13),
                     ),
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'record',
                 child: Row(
                   children: [
@@ -591,7 +592,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'stats',
                 child: Row(
                   children: [
@@ -601,7 +602,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'goals',
                 child: Row(
                   children: [
@@ -611,7 +612,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'share',
                 child: Row(
                   children: [
@@ -621,7 +622,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'export',
                 child: Row(
                   children: [
@@ -816,7 +817,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
           children: [
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
@@ -857,7 +858,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Section Title
-          const Text(
+          Text(
             'Activity Trends',
             style: TextStyle(
               color: _offWhite,
@@ -872,7 +873,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: Colors.white.withValues(alpha: 0.08),
+                  color: AppColors.cardBorder,
                   width: 1,
                 ),
               ),
@@ -944,7 +945,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                       touchTooltipData: LineTouchTooltipData(
                         getTooltipColor: (_) => _carbon,
                         tooltipBorder: BorderSide(
-                          color: Colors.white.withValues(alpha: 0.15),
+                          color: AppColors.cardBorder,
                         ),
                         tooltipPadding:
                             const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -954,7 +955,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                             final val = _getTooltipValue(spot.spotIndex);
                             return LineTooltipItem(
                               '$title\n',
-                              const TextStyle(
+                              TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w700,
@@ -980,7 +981,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                       drawVerticalLine: false,
                       horizontalInterval: yInterval,
                       getDrawingHorizontalLine: (val) => FlLine(
-                        color: Colors.white.withValues(alpha: 0.05),
+                        color: AppColors.cardBorder,
                         strokeWidth: 0.8,
                       ),
                     ),
@@ -999,7 +1000,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                           getTitlesWidget: (val, meta) {
                             return Text(
                               _formatYAxisTitle(val),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 10,
                               ),
@@ -1140,7 +1141,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Milestones',
           style: TextStyle(
             color: _offWhite,
@@ -1211,7 +1212,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
           border: achieved
               ? _hairlineBorder
               : Border.all(
-                  color: Colors.white.withValues(alpha: 0.12),
+                  color: AppColors.cardBorder,
                   style: BorderStyle.solid,
                 ),
         ),
@@ -1239,14 +1240,14 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
               const SizedBox(height: 8),
               Text(
                 milestone,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 2),
-              const Text(
+              Text(
                 'SESSIONS',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -1274,7 +1275,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Activity Summary',
             style: TextStyle(
               color: _offWhite,
@@ -1283,12 +1284,12 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
             ),
           ),
           const SizedBox(height: 12),
-          Divider(color: Colors.white.withValues(alpha: 0.08), height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           const SizedBox(height: 16),
           _buildSummaryItem(
             icon: Icons.trending_up,
             richText: RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 style: TextStyle(color: _offWhite, fontSize: 14, height: 1.4),
                 children: [
                   TextSpan(text: 'Session frequency changed by '),
@@ -1307,7 +1308,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
           _buildSummaryItem(
             icon: Icons.calendar_month,
             richText: RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 style: TextStyle(color: _offWhite, fontSize: 14, height: 1.4),
                 children: [
                   TextSpan(text: 'Recorded an average of '),
@@ -1325,7 +1326,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
           _buildSummaryItem(
             icon: Icons.timer,
             richText: RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 style: TextStyle(color: _offWhite, fontSize: 14, height: 1.4),
                 children: [
                   TextSpan(text: 'Average session duration was '),
@@ -1343,7 +1344,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
           _buildSummaryItem(
             icon: Icons.fitness_center,
             richText: RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 style: TextStyle(color: _offWhite, fontSize: 14, height: 1.4),
                 children: [
                   TextSpan(text: 'Total conditioning volume reached '),
@@ -1395,7 +1396,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
               borderRadius: BorderRadius.circular(9999),
               border: _hairlineBorder,
             ),
-            child: const Row(
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 UlvenikIcon(UlvenikIcons.calendar,
@@ -1437,7 +1438,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
         const SizedBox(height: 28),
 
         // Title
-        const Text(
+        Text(
           'No Insights Available',
           style: TextStyle(
             color: _offWhite,
@@ -1450,7 +1451,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
         const SizedBox(height: 10),
 
         // Description
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
             'Record more sessions to start seeing patterns and trends in this activity over time.',
@@ -1487,7 +1488,7 @@ class _ActivityInsightsScreenState extends State<ActivityInsightsScreen>
                 ),
               );
             },
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 UlvenikIcon(UlvenikIcons.play, size: 16, color: _offWhite),

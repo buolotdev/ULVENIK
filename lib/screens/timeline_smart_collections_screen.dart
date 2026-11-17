@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
@@ -76,21 +77,21 @@ class _TimelineSmartCollectionsScreenState
     extends State<TimelineSmartCollectionsScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens (Exact from Figma SVGs) ─────────────────────────────────
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _appBarBg = Color(0xFF131719);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _darkSurface = Color(0xFF111412);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _appBarBg => AppColors.cardsCarbon;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _darkSurface => AppColors.backgroundObsidian;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _sage = Color(0xFFB6CCB5);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _bronze = Color(0xFFB4823C);
   static const Color _gold = Color(0xFFB8920A);
   static const Color _purple = Color(0xFF8C6EC4);
   static const Color _healthRed = Color(0xFFB85656);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x16FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   // Curated Nordic / Canine Sport Photography matching the Figma cards
   static const String _imgMistyAgility =
@@ -639,7 +640,7 @@ class _TimelineSmartCollectionsScreenState
         ),
         onPressed: () => Navigator.maybePop(context),
       ),
-      title: const Text(
+      title: Text(
         'Smart Collections',
         style: TextStyle(
           color: _offWhite,
@@ -651,17 +652,17 @@ class _TimelineSmartCollectionsScreenState
       actions: [
         IconButton(
           tooltip: 'Search Smart Collections',
-          icon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 21),
+          icon: UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 21),
           onPressed: () {
             _searchFocusNode.requestFocus();
           },
         ),
         PopupMenuButton<String>(
-          icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 20),
+          icon: UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 20),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: const BorderSide(color: _cardBorder),
+            side: BorderSide(color: _cardBorder),
           ),
           onSelected: (val) {
             if (val == 'new_rule') {
@@ -702,7 +703,7 @@ class _TimelineSmartCollectionsScreenState
                 _isEmptyState
                     ? 'Switch to Populated State'
                     : 'Switch to Empty State',
-                style: const TextStyle(color: _offWhite, fontSize: 13),
+                style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
             PopupMenuItem(
@@ -711,10 +712,10 @@ class _TimelineSmartCollectionsScreenState
                 _showArchived
                     ? 'Show Active Collections'
                     : 'View Archived Collections',
-                style: const TextStyle(color: _offWhite, fontSize: 13),
+                style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'reset',
               child: Text(
                 'Reset Search, Sort & Filters',
@@ -743,23 +744,23 @@ class _TimelineSmartCollectionsScreenState
         focusNode: _searchFocusNode,
         enabled: !_isEmptyState,
         onChanged: (v) => setState(() => _searchQuery = v),
-        style: const TextStyle(
+        style: TextStyle(
           color: _offWhite,
           fontSize: 14,
           fontFamily: 'Inter',
         ),
         decoration: InputDecoration(
           hintText: 'Search collections...',
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             color: _stoneGrey,
             fontSize: 14,
             fontFamily: 'Inter',
           ),
           prefixIcon:
-              const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 19),
+              UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 19),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.close, color: _stoneGrey, size: 17),
+                  icon: Icon(Icons.close, color: _stoneGrey, size: 17),
                   onPressed: () {
                     setState(() {
                       _searchController.clear();
@@ -769,7 +770,7 @@ class _TimelineSmartCollectionsScreenState
                 )
               : IconButton(
                   icon:
-                      const Icon(Icons.mic_none, color: _stoneGrey, size: 19),
+                      Icon(Icons.mic_none, color: _stoneGrey, size: 19),
                   onPressed: () {
                     if (_isEmptyState) return;
                     setState(() {
@@ -826,7 +827,7 @@ class _TimelineSmartCollectionsScreenState
               Expanded(
                 child: Text(
                   '$activeTotal SMART PRESETS SYNCED',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 10.5,
                     fontWeight: FontWeight.w700,
@@ -837,7 +838,7 @@ class _TimelineSmartCollectionsScreenState
               ),
               GestureDetector(
                 onTap: _showCreateRuleCollectionSheet,
-                child: const Text(
+                child: Text(
                   'AUTO-COMPILED',
                   style: TextStyle(
                     color: _sage,
@@ -874,7 +875,7 @@ class _TimelineSmartCollectionsScreenState
                         if (_badgeFilter != 'ALL') 'Badge: $_badgeFilter',
                         if (_sortMode != 'Default Grouping') 'Sort: $_sortMode',
                       ].join(' · '),
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -914,14 +915,14 @@ class _TimelineSmartCollectionsScreenState
               ),
               child: Column(
                 children: [
-                  const Icon(Icons.folder_off_outlined,
+                  Icon(Icons.folder_off_outlined,
                       color: _stoneGrey, size: 32),
                   const SizedBox(height: 10),
                   Text(
                     _showArchived
                         ? 'No archived collections yet'
                         : 'No collections match your filter',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -1006,7 +1007,7 @@ class _TimelineSmartCollectionsScreenState
                         color: _mint, size: 18),
                   ),
                   const SizedBox(width: 12),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -1039,7 +1040,7 @@ class _TimelineSmartCollectionsScreenState
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 10.5,
         fontWeight: FontWeight.w700,
@@ -1233,7 +1234,7 @@ class _TimelineSmartCollectionsScreenState
                       item.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
@@ -1248,13 +1249,13 @@ class _TimelineSmartCollectionsScreenState
                         children: [
                           TextSpan(
                             text: '${item.eventCount}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 18,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
-                          const TextSpan(
+                          TextSpan(
                             text: ' events',
                             style: TextStyle(
                               color: _stoneGrey,
@@ -1268,7 +1269,7 @@ class _TimelineSmartCollectionsScreenState
                     const SizedBox(height: 4),
                     Text(
                       item.updatedLabel,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 11,
                         fontFamily: 'Inter',
@@ -1290,7 +1291,7 @@ class _TimelineSmartCollectionsScreenState
       fit: BoxFit.cover,
       errorBuilder: (_, _, _) => Container(
         color: _darkSurface,
-        child: const Icon(Icons.landscape_outlined,
+        child: Icon(Icons.landscape_outlined,
             color: _stoneGrey, size: 22),
       ),
     );
@@ -1348,7 +1349,7 @@ class _TimelineSmartCollectionsScreenState
                               item.title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _offWhite,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
@@ -1382,7 +1383,7 @@ class _TimelineSmartCollectionsScreenState
                               'Medical checkups & lab results',
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12.5,
                             height: 1.32,
@@ -1401,13 +1402,13 @@ class _TimelineSmartCollectionsScreenState
                               children: [
                                 TextSpan(
                                   text: '${item.eventCount}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 17,
                                     fontWeight: FontWeight.w800,
                                   ),
                                 ),
-                                const TextSpan(
+                                TextSpan(
                                   text: ' events logged',
                                   style: TextStyle(
                                     color: _stoneGrey,
@@ -1419,7 +1420,7 @@ class _TimelineSmartCollectionsScreenState
                           ),
                           Text(
                             item.updatedLabel,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 10.5,
                             ),
@@ -1466,7 +1467,7 @@ class _TimelineSmartCollectionsScreenState
                                 color: _carbon,
                                 border: Border.all(color: _cardBorder),
                               ),
-                              child: const Icon(Icons.folder_open_outlined,
+                              child: Icon(Icons.folder_open_outlined,
                                 color: _sage,
                                 size: 30,
                               ),
@@ -1492,7 +1493,7 @@ class _TimelineSmartCollectionsScreenState
                       ),
                     ),
                     const SizedBox(height: 22),
-                    const Text(
+                    Text(
                       'No Collections Available',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -1503,7 +1504,7 @@ class _TimelineSmartCollectionsScreenState
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 18),
                       child: Text(
                         'Related Timeline events are automatically organised into collections as your history grows.',
@@ -1567,7 +1568,7 @@ class _TimelineSmartCollectionsScreenState
     if (_isEmptyState) {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: _appBarBg,
           border: Border(top: BorderSide(color: _cardBorder)),
         ),
@@ -1611,7 +1612,7 @@ class _TimelineSmartCollectionsScreenState
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _appBarBg,
         border: Border(top: BorderSide(color: _cardBorder)),
       ),
@@ -1620,7 +1621,7 @@ class _TimelineSmartCollectionsScreenState
         children: [
           GestureDetector(
             onTap: _showSortSheet,
-            child: const Row(
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 17),
@@ -1740,7 +1741,7 @@ class _TimelineSmartCollectionsScreenState
                                 const SizedBox(width: 8),
                                 Text(
                                   '${item.eventCount} matched events',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: _stoneGrey, fontSize: 12),
                                 ),
                               ],
@@ -1748,7 +1749,7 @@ class _TimelineSmartCollectionsScreenState
                             const SizedBox(height: 6),
                             Text(
                               item.title,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _offWhite,
                                 fontSize: 19,
                                 fontWeight: FontWeight.w700,
@@ -1818,7 +1819,7 @@ class _TimelineSmartCollectionsScreenState
                         Expanded(
                           child: Text(
                             'Smart Rule: ${item.ruleFormula}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _sage,
                               fontSize: 11.5,
                               fontFamily: 'Inter',
@@ -1844,7 +1845,7 @@ class _TimelineSmartCollectionsScreenState
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               '6-MONTH AUTO-MATCH TREND',
                               style: TextStyle(
                                 color: _stoneGrey,
@@ -1908,7 +1909,7 @@ class _TimelineSmartCollectionsScreenState
                   ),
 
                   const SizedBox(height: 14),
-                  const Text(
+                  Text(
                     'MATCHED TIMELINE ENTRIES',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -1939,7 +1940,7 @@ class _TimelineSmartCollectionsScreenState
                       ),
                       title: Text(
                         entry.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 13.5,
                           fontWeight: FontWeight.w600,
@@ -1947,10 +1948,10 @@ class _TimelineSmartCollectionsScreenState
                       ),
                       subtitle: Text(
                         entry.subtitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: _stoneGrey, fontSize: 11.5),
                       ),
-                      trailing: const UlvenikIcon(UlvenikIcons.details,
+                      trailing: UlvenikIcon(UlvenikIcons.details,
                           color: _stoneGrey, size: 18),
                       onTap: () {
                         Navigator.pop(ctx);
@@ -2016,7 +2017,7 @@ class _TimelineSmartCollectionsScreenState
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'New Rule-Based Smart Collection',
                     style: TextStyle(
                       color: _offWhite,
@@ -2027,21 +2028,21 @@ class _TimelineSmartCollectionsScreenState
                   const SizedBox(height: 12),
                   TextField(
                     controller: nameCtrl,
-                    style: const TextStyle(color: _offWhite, fontSize: 14),
+                    style: TextStyle(color: _offWhite, fontSize: 14),
                     decoration: InputDecoration(
                       hintText: 'e.g., High-Drive Trail Sessions',
                       hintStyle:
-                          const TextStyle(color: _stoneGrey, fontSize: 13),
+                          TextStyle(color: _stoneGrey, fontSize: 13),
                       filled: true,
                       fillColor: _obsidian,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _cardBorder),
+                        borderSide: BorderSide(color: _cardBorder),
                       ),
                     ),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
+                  Text(
                     'MATCH CATEGORY RULE',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -2082,7 +2083,7 @@ class _TimelineSmartCollectionsScreenState
                   SwitchListTile(
                     contentPadding: EdgeInsets.zero,
                     activeThumbColor: _mint,
-                    title: const Text(
+                    title: Text(
                       'Require Photo or Video Attachment',
                       style: TextStyle(color: _offWhite, fontSize: 13.5),
                     ),
@@ -2092,7 +2093,7 @@ class _TimelineSmartCollectionsScreenState
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Minimum Session Duration',
                         style: TextStyle(color: _stoneGrey, fontSize: 12.5),
                       ),
@@ -2208,7 +2209,7 @@ class _TimelineSmartCollectionsScreenState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Sort Smart Collections',
                 style: TextStyle(
                     color: _offWhite,
@@ -2221,7 +2222,7 @@ class _TimelineSmartCollectionsScreenState
                   contentPadding: EdgeInsets.zero,
                   title: Text(
                     m,
-                    style: const TextStyle(color: _offWhite, fontSize: 14),
+                    style: TextStyle(color: _offWhite, fontSize: 14),
                   ),
                   trailing: _sortMode == m
                       ? const Icon(Icons.check, color: _mint, size: 19)
@@ -2262,7 +2263,7 @@ class _TimelineSmartCollectionsScreenState
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Filter by Preset Type',
                 style: TextStyle(
                     color: _offWhite,

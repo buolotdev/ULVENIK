@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -12,18 +13,18 @@ class OfflineModeScreen extends StatefulWidget {
 
 class _OfflineModeScreenState extends State<OfflineModeScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _selectedRowBg = Color(0xFF242B2F);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _selectedRowBg => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
-  static const Color _sage = Color(0xFF7A8F7A);
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
+  static Color get _sage => AppColors.secondarySage;
   static const Color _bronze = Color(0xFF9B6B3D);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
-  static const Color _switchOffTrack = Color(0xFF2B3135);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _switchOffTrack => AppColors.cardsCarbon;
   static const Color _destructive = Color(0xFF8B3A3A);
   static const Color _destructiveText = Color(0xFFA84646);
 
@@ -218,7 +219,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Remove Downloaded Content?',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -230,7 +231,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                 const SizedBox(height: 8),
                 Text(
                   'This only removes downloaded/local copies ($_formattedTotalUsed) from this device. Your cloud data and account records will remain safe.',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     height: 1.45,
@@ -243,14 +244,14 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                     Expanded(
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: _cardBorder),
+                          side: BorderSide(color: _cardBorder),
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        child: const Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(color: _offWhite),
                         ),
@@ -359,7 +360,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
   Widget _buildTopBar() {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 12, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
       ),
@@ -368,7 +369,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
           GestureDetector(
             onTap: () => Navigator.of(context).pop(),
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(4),
               child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
@@ -377,7 +378,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
             ),
           ),
           const SizedBox(width: 6),
-          const Expanded(
+          Expanded(
             child: Text(
               'Offline Mode & Downloads',
               style: TextStyle(
@@ -409,7 +410,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -452,7 +453,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                             const SizedBox(width: 8),
                             Text(
                               _offlineEnabled ? 'Enabled' : 'Disabled',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 17,
                                 fontWeight: FontWeight.w700,
@@ -462,7 +463,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                           ],
                         ),
                         const SizedBox(height: 4),
-                        const Text(
+                        Text(
                           'Offline Mode',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -479,7 +480,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                       children: [
                         Text(
                           _formattedTotalUsed,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 17,
                             fontWeight: FontWeight.w700,
@@ -487,7 +488,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
+                        Text(
                           'Downloaded',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -509,7 +510,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                       children: [
                         Text(
                           _lastUpdatedLabel,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 17,
                             fontWeight: FontWeight.w700,
@@ -517,7 +518,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
+                        Text(
                           'Last Updated',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -534,7 +535,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                       children: [
                         Text(
                           _formattedFreeStorage,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 17,
                             fontWeight: FontWeight.w700,
@@ -542,7 +543,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
+                        Text(
                           'Device Storage',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -572,9 +573,9 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
       ),
       child: Row(
         children: [
-          const Icon(Icons.wifi_off_rounded, color: _stoneGrey, size: 20),
+          Icon(Icons.wifi_off_rounded, color: _stoneGrey, size: 20),
           const SizedBox(width: 14),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -657,7 +658,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                       Expanded(
                         child: Text(
                           item.$2,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 14.5,
                             fontWeight: FontWeight.w500,
@@ -730,7 +731,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                               children: [
                                 Text(
                                   q.$1,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
@@ -740,7 +741,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                                 const SizedBox(height: 3),
                                 Text(
                                   q.$2,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 12.5,
                                     color: _stoneGrey,
@@ -763,7 +764,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
             );
           }),
           Container(height: 1, color: _cardBorder),
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(16),
             child: Text(
               'Applies to newly downloaded media only. Previously downloaded files are unchanged.',
@@ -830,7 +831,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
             ),
           ],
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'Downloads all selected content to your device',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -898,7 +899,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                           Expanded(
                             child: Text(
                               it.$1,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 14.5,
                                 fontWeight: FontWeight.w500,
@@ -908,7 +909,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                           ),
                           Text(
                             _formatStorageSize(mb),
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'monospace',
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
@@ -979,7 +980,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                       _selectedStorageCategory != null
                           ? '$_selectedStorageCategory Selected'
                           : 'Total Offline Storage Used',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         color: _stoneGrey,
@@ -991,7 +992,7 @@ class _OfflineModeScreenState extends State<OfflineModeScreen>
                               _storageMb[_selectedStorageCategory] ?? 0,
                             )
                           : _formattedTotalUsed,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'monospace',
                         fontSize: 13.5,
                         fontWeight: FontWeight.w700,
@@ -1078,7 +1079,7 @@ class _OfflineSwitch extends StatelessWidget {
           child: Container(
             width: 20,
             height: 20,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: _OfflineModeScreenState._offWhite,
               shape: BoxShape.circle,
             ),

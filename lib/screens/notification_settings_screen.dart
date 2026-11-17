@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -20,15 +21,15 @@ class NotificationSettingsScreen extends StatefulWidget {
 
 class _NotificationSettingsScreenState
     extends State<NotificationSettingsScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _subHeaderBg = Color(0xFF161B1D);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _subHeaderBg => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
-  static const Color _switchOffTrack = Color(0xFF2B3135);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _switchOffTrack => AppColors.cardsCarbon;
   static const Color _destructive = Color(0xFF8B3A3A);
   static const Color _destructiveText = Color(0xFFA84646);
 
@@ -188,7 +189,7 @@ class _NotificationSettingsScreenState
       builder: (ctx, child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(
+            colorScheme: ColorScheme.dark(
               primary: _forest,
               surface: _carbon,
               onSurface: _offWhite,
@@ -285,7 +286,7 @@ class _NotificationSettingsScreenState
   Widget _buildTopBar() {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 12, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(bottom: BorderSide(color: _cardBorder, width: 1)),
       ),
@@ -294,7 +295,7 @@ class _NotificationSettingsScreenState
           GestureDetector(
             onTap: () => Navigator.of(context).pop(_pushMaster),
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(4),
               child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
@@ -303,7 +304,7 @@ class _NotificationSettingsScreenState
             ),
           ),
           const SizedBox(width: 6),
-          const Expanded(
+          Expanded(
             child: Text(
               'Notification Settings',
               style: TextStyle(
@@ -335,7 +336,7 @@ class _NotificationSettingsScreenState
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -411,7 +412,7 @@ class _NotificationSettingsScreenState
                       children: [
                         Text(
                           '${val.round()} Active',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
@@ -420,7 +421,7 @@ class _NotificationSettingsScreenState
                           ),
                         ),
                         const SizedBox(height: 3),
-                        const Text(
+                        Text(
                           'notifications',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -450,7 +451,7 @@ class _NotificationSettingsScreenState
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 12,
             color: _stoneGrey,
@@ -470,7 +471,7 @@ class _NotificationSettingsScreenState
             const SizedBox(width: 8),
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 14.5,
                 fontWeight: FontWeight.w500,
@@ -631,12 +632,12 @@ class _NotificationSettingsScreenState
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             child: Row(
               children: [
-                const Icon(Icons.nightlight_outlined,
+                Icon(Icons.nightlight_outlined,
                   color: _stoneGrey,
                   size: 19,
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Enable Quiet Hours',
                     style: TextStyle(
@@ -796,7 +797,7 @@ class _NotificationSettingsScreenState
                           Expanded(
                             child: Text(
                               s.$1,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 14.5,
                                 fontWeight: FontWeight.w500,
@@ -882,12 +883,12 @@ class _NotificationSettingsScreenState
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.notifications,
+          UlvenikIcon(UlvenikIcons.notifications,
             color: _stoneGrey,
             size: 20,
           ),
           const SizedBox(width: 12),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -938,7 +939,7 @@ class _NotificationSettingsScreenState
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: _cardBorder, width: 1),
           ),
-          child: const Row(
+          child: Row(
             children: [
               UlvenikIcon(UlvenikIcons.trainingTime, color: _stoneGrey, size: 20),
               SizedBox(width: 12),
@@ -1024,7 +1025,7 @@ class _NotificationSettingsScreenState
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 15.5,
                 fontWeight: FontWeight.w600,
@@ -1042,7 +1043,7 @@ class _NotificationSettingsScreenState
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _subHeaderBg,
         border: Border.symmetric(
           horizontal: BorderSide(color: _cardBorder, width: 1),
@@ -1053,7 +1054,7 @@ class _NotificationSettingsScreenState
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 11,
               fontWeight: FontWeight.w600,
@@ -1105,7 +1106,7 @@ class _NotificationSettingsScreenState
             Expanded(
               child: Text(
                 keyName,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -1147,7 +1148,7 @@ class _NotificationSettingsScreenState
             Expanded(
               child: Text(
                 keyName,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -1195,7 +1196,7 @@ class _NotificationSettingsScreenState
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -1213,7 +1214,7 @@ class _NotificationSettingsScreenState
                 ),
               ),
               const SizedBox(width: 6),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 18,
               ),
@@ -1264,7 +1265,7 @@ class _NotificationSettingsScreenState
                 const SizedBox(height: 16),
                 Text(
                   '$category Reminder Timing',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -1342,7 +1343,7 @@ class _NotificationSettingsScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Notification History',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -1391,7 +1392,7 @@ class _NotificationSettingsScreenState
                     ),
                     const SizedBox(height: 14),
                     if (filtered.isEmpty)
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: 24),
                         child: Center(
                           child: Text(
@@ -1424,7 +1425,7 @@ class _NotificationSettingsScreenState
                                     children: [
                                       Text(
                                         entry.$2,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Inter',
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600,
@@ -1434,7 +1435,7 @@ class _NotificationSettingsScreenState
                                       const SizedBox(height: 3),
                                       Text(
                                         '${entry.$1} · ${entry.$3}',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Inter',
                                           fontSize: 11.5,
                                           color: _stoneGrey,
@@ -1485,7 +1486,7 @@ class _NotificationSettingsScreenState
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Reset Notification Settings?',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1495,7 +1496,7 @@ class _NotificationSettingsScreenState
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'This restores all Push, Email, Quiet Hours, Reminder Timing, and Sound preferences to Ulvenik defaults.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1510,14 +1511,14 @@ class _NotificationSettingsScreenState
                     Expanded(
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: _cardBorder),
+                          side: BorderSide(color: _cardBorder),
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        child: const Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(color: _offWhite),
                         ),

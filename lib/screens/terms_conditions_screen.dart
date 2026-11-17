@@ -1,4 +1,5 @@
 import 'package:flutter/gestures.dart';
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
@@ -14,13 +15,13 @@ class TermsConditionsScreen extends StatefulWidget {
 }
 
 class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
@@ -114,7 +115,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
       backgroundColor: Colors.transparent,
       builder: (ctx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             border: Border(top: BorderSide(color: _cardBorder)),
@@ -162,7 +163,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                       const Spacer(),
                       IconButton(
                         onPressed: () => Navigator.of(ctx).pop(),
-                        icon: const Icon(Icons.close_rounded,
+                        icon: Icon(Icons.close_rounded,
                           color: _stoneGrey,
                           size: 20,
                         ),
@@ -171,7 +172,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                   ),
                   Text(
                     clause['title']!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -181,7 +182,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                   const SizedBox(height: 10),
                   Text(
                     clause['body']!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14.5,
                       height: 1.6,
@@ -203,7 +204,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
       backgroundColor: Colors.transparent,
       builder: (ctx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             border: Border(top: BorderSide(color: _cardBorder)),
@@ -227,7 +228,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Document Revision · REV 4.2',
                     style: TextStyle(
                       color: _offWhite,
@@ -237,7 +238,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  const Text(
+                  Text(
                     'Last Updated 15 September 2026 · Clarified offline data archive ownership, app store billing cancellation rights, and multi-canine team tiers.',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -295,7 +296,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
       backgroundColor: Colors.transparent,
       builder: (ctx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             border: Border(top: BorderSide(color: _cardBorder)),
@@ -316,7 +317,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Legal & Account Support',
                     style: TextStyle(
                       color: _offWhite,
@@ -354,7 +355,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                           },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: _offWhite,
-                            side: const BorderSide(color: _cardBorder),
+                            side: BorderSide(color: _cardBorder),
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -494,13 +495,13 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                       const SizedBox(width: 4),
                       IconButton(
                         onPressed: () => Navigator.of(context).maybePop(),
-                        icon: const UlvenikIcon(UlvenikIcons.back,
+                        icon: UlvenikIcon(UlvenikIcons.back,
                           color: _stoneGrey,
                           size: 26,
                         ),
                         splashRadius: 20,
                       ),
-                      const Expanded(
+                      Expanded(
                         child: Text(
                           'Terms & Conditions',
                           style: TextStyle(
@@ -565,12 +566,12 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                 autofocus: true,
                 onChanged: (v) => setState(() => _searchQuery = v),
                 cursorColor: _mint,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 14,
                   fontFamily: 'Inter',
                 ),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 11),
                   prefixIcon: UlvenikIcon(UlvenikIcons.search, color: _mint, size: 18),
@@ -588,7 +589,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
           // LAST UPDATED + REV 4.2 Badge
           Row(
             children: [
-              const Text(
+              Text(
                 'LAST UPDATED',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -599,7 +600,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                 ),
               ),
               const SizedBox(width: 10),
-              const Expanded(
+              Expanded(
                 child: Text(
                   '15 September 2026',
                   style: TextStyle(
@@ -636,7 +637,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
           ),
 
           const SizedBox(height: 18),
-          const Text(
+          Text(
             'CONTENTS',
             style: TextStyle(
               color: _stoneGrey,
@@ -672,12 +673,12 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.format_list_bulleted_rounded,
+                        Icon(Icons.format_list_bulleted_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
                         const SizedBox(width: 12),
-                        const Expanded(
+                        Expanded(
                           child: Text(
                             'Table of Contents',
                             style: TextStyle(
@@ -700,7 +701,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                   ),
                 ),
                 if (_tocExpanded) ...[
-                  const Divider(height: 1, thickness: 1, color: _cardBorder),
+                  Divider(height: 1, thickness: 1, color: _cardBorder),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6),
                     child: Column(
@@ -717,7 +718,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                                 Expanded(
                                   child: Text(
                                     label,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _stoneGrey,
                                       fontSize: 13.5,
                                       fontWeight: FontWeight.w400,
@@ -725,7 +726,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                                     ),
                                   ),
                                 ),
-                                const UlvenikIcon(UlvenikIcons.details,
+                                UlvenikIcon(UlvenikIcons.details,
                                   color: _stoneGrey,
                                   size: 16,
                                 ),
@@ -747,7 +748,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
             Text(
               '1. Acceptance of Terms',
               key: _sec1Key,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 18.5,
                 fontWeight: FontWeight.w700,
@@ -755,7 +756,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'By accessing or using the Ulvenik application, website, and related services, you enter into a binding agreement and acknowledge full adherence to these Terms & Conditions. These terms govern your access to our dog training, strength & conditioning, health, goal-tracking, and Timeline record-keeping tools.',
               style: TextStyle(
                 color: _offWhite,
@@ -772,7 +773,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
             Text(
               '2. Use of the Platform',
               key: _sec2Key,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 18.5,
                 fontWeight: FontWeight.w700,
@@ -780,7 +781,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'Ulvenik provides dog owners, handlers, and trainers with structured tools for recording training sessions, strength & conditioning activities, health history, goals, and Timeline records. When using Ulvenik, you accept direct responsibility for adhering to the following standards:',
               style: TextStyle(
                 color: _offWhite,
@@ -813,7 +814,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
             Text(
               '3. User Accounts',
               key: _sec3Key,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 18.5,
                 fontWeight: FontWeight.w700,
@@ -821,7 +822,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'Account holders maintain sole authority over their recorded dog profiles, training sessions, and health logs. Users are responsible for all activity carried out under their account across connected devices.',
               style: TextStyle(
                 color: _offWhite,
@@ -838,7 +839,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
             Text(
               '4. Subscription & Billing',
               key: _sec4Key,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 18.5,
                 fontWeight: FontWeight.w700,
@@ -846,7 +847,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'Ulvenik offers Core memberships and optional add-on packs (including Sport Pack, Trainer Pack, and Complete). All recurring subscriptions are governed by the following terms:',
               style: TextStyle(
                 color: _offWhite,
@@ -883,7 +884,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
             Text(
               '5. Termination',
               key: _sec5Key,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 18.5,
                 fontWeight: FontWeight.w700,
@@ -893,7 +894,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
             const SizedBox(height: 12),
             RichText(
               text: TextSpan(
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 14.5,
                   height: 1.6,
@@ -904,7 +905,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                     text:
                         'Ulvenik reserves the right to suspend or terminate accounts that breach platform safety or acceptable use rules. Handlers may close accounts at any time by exporting their canine data archive and initiating account erasure via settings, or by contacting us directly: ',
                   ),
-                  const TextSpan(
+                  TextSpan(
                     text: 'contact us at ',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -935,7 +936,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: _cardBorder),
               ),
-              child: const Text(
+              child: Text(
                 'No terms matched your search query. Clear the search bar above to view all clauses.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -953,7 +954,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
           Text(
             'QUESTIONS?',
             key: _questionsKey,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 11,
               fontWeight: FontWeight.w600,
@@ -972,7 +973,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Questions about these Terms & Conditions?',
                   style: TextStyle(
                     color: _offWhite,
@@ -983,7 +984,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'If you have any questions regarding the use of Ulvenik or these Terms & Conditions, please contact our support team.',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -993,10 +994,10 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                   ),
                 ),
                 const SizedBox(height: 18),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 InkWell(
                   onTap: _openSupportActionSheet,
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 14),
                     child: Row(
                       children: [
@@ -1035,7 +1036,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                     ),
                   ),
                 ),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 InkWell(
                   onTap: () {
                     Clipboard.setData(
@@ -1048,7 +1049,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                       type: SnackbarType.success,
                     );
                   },
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.only(top: 14, bottom: 2),
                     child: Row(
                       children: [
@@ -1102,7 +1103,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(top: 7),
           child: Icon(Icons.circle, size: 5.5, color: _stoneGrey),
         ),
@@ -1110,7 +1111,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 14.5,
               height: 1.55,
@@ -1130,7 +1131,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
           width: 26,
           child: Text(
             '$number.',
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 13.5,
               height: 1.6,
@@ -1141,7 +1142,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 14.5,
               height: 1.55,

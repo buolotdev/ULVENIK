@@ -1,3 +1,4 @@
+import '../theme/app_colors.dart';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,16 +62,16 @@ class ClientProgressScreen extends StatefulWidget {
 
 class _ClientProgressScreenState extends State<ClientProgressScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = Color(0xFF0B0F12);
-  static const Color _cardBg = Color(0xFF12181C);
-  static const Color _cellIdle = Color(0xFF1A2329);
+  static Color get _bg => AppColors.backgroundObsidian;
+  static Color get _cardBg => AppColors.cardsCarbon;
+  static Color get _cellIdle => AppColors.cardsCarbon;
   static const Color _neonMint = Color(0xFF00FFA3);
   static const Color _skyBlue = Color(0xFF38BDF8);
   static const Color _violet = Color(0xFFA78BFA);
-  static const Color _slateMuted = Color(0xFF475569);
-  static const Color _textPrimary = Color(0xFFF8FAFC);
-  static const Color _textSecondary = Color(0xFF94A3B8);
-  static const Color _axisMuted = Color(0xFF64748B);
+  static Color get _slateMuted => AppColors.secondaryTextStoneGrey;
+  static Color get _textPrimary => AppColors.primaryTextOffWhite;
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey;
+  static Color get _axisMuted => AppColors.secondaryTextStoneGrey;
 
   late final AnimationController _animController;
   late final Animation<double> _curvedAnim;
@@ -98,7 +99,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
   ];
 
   late final Map<String, _ProgressDataset> _tabDatasets = {
-    'Overview': const _ProgressDataset(
+    'Overview': _ProgressDataset(
       totalTime: '24h 35m',
       timeDelta: '+16% vs last month',
       timeSpark: [0.18, 0.34, 0.25, 0.48, 0.65, 0.56, 0.86],
@@ -152,7 +153,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
         3, 3, 0, 2, 3, 3, 3,
       ],
     ),
-    'Training': const _ProgressDataset(
+    'Training': _ProgressDataset(
       totalTime: '14h 50m',
       timeDelta: '+21% vs last month',
       timeSpark: [0.24, 0.30, 0.48, 0.52, 0.72, 0.78, 0.92],
@@ -206,7 +207,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
         3, 3, 1, 3, 3, 3, 3,
       ],
     ),
-    'S&C': const _ProgressDataset(
+    'S&C': _ProgressDataset(
       totalTime: '6h 15m',
       timeDelta: '+9% vs last month',
       timeSpark: [0.30, 0.28, 0.42, 0.40, 0.58, 0.64, 0.76],
@@ -260,7 +261,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
         2, 0, 3, 0, 3, 0, 3,
       ],
     ),
-    'Skills': const _ProgressDataset(
+    'Skills': _ProgressDataset(
       totalTime: '19h 10m',
       timeDelta: '+24% vs last month',
       timeSpark: [0.15, 0.29, 0.44, 0.58, 0.67, 0.81, 0.95],
@@ -314,7 +315,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
         3, 2, 1, 3, 3, 3, 3,
       ],
     ),
-    'Health': const _ProgressDataset(
+    'Health': _ProgressDataset(
       totalTime: '3h 30m',
       timeDelta: '+5% vs last month',
       timeSpark: [0.40, 0.45, 0.50, 0.52, 0.60, 0.68, 0.74],
@@ -559,7 +560,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
             child: Container(
               margin: const EdgeInsets.only(right: 8),
               padding: const EdgeInsets.all(4),
-              child: const UlvenikIcon(
+              child: UlvenikIcon(
                 UlvenikIcons.back,
                 color: _textPrimary,
                 size: 24,
@@ -601,7 +602,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
                   ),
                 ),
                 const SizedBox(width: 6),
-                const Icon(Icons.keyboard_arrow_down_rounded,
+                Icon(Icons.keyboard_arrow_down_rounded,
                   color: _textSecondary,
                   size: 16,
                 ),
@@ -1294,7 +1295,7 @@ class _ClientProgressScreenState extends State<ClientProgressScreen>
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const Icon(Icons.close, size: 14, color: _textSecondary),
+                  Icon(Icons.close, size: 14, color: _textSecondary),
                 ],
               ),
             ),

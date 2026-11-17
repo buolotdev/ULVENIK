@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'timeline_statistics_screen.dart';
 import 'timeline_favourites_screen.dart';
@@ -26,13 +27,13 @@ class TimelineExportScreen extends StatefulWidget {
 class _TimelineExportScreenState extends State<TimelineExportScreen>
     with SingleTickerProviderStateMixin {
   // Exact Ulvenik Obsidian & Carbon luxury palette
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _carbonBorder = Color(0xFF272B29);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _carbonBorder => AppColors.cardBorder;
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _forestGreen = Color(0xFF2F5D50);
-  static const Color _whiteText = Color(0xFFE1E3E0);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _whiteText => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
 
   late bool _isEmpty;
   late String _currentDog;
@@ -115,13 +116,13 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
       builder: (context, child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(
+            colorScheme: ColorScheme.dark(
               primary: _mint,
               onPrimary: _obsidian,
               surface: _carbon,
               onSurface: _whiteText,
             ),
-            dialogTheme: const DialogThemeData(backgroundColor: _carbon),
+            dialogTheme: DialogThemeData(backgroundColor: _carbon),
           ),
           child: child!,
         );
@@ -161,7 +162,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Select Dog for Export',
                     style: TextStyle(
                       color: _whiteText,
@@ -170,7 +171,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: _stoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -204,7 +205,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                     ),
                     subtitle: Text(
                       '${meta['breed']} · ${meta['age']}',
-                      style: const TextStyle(color: _stoneGrey, fontSize: 12),
+                      style: TextStyle(color: _stoneGrey, fontSize: 12),
                     ),
                     trailing: isSelected
                         ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
@@ -279,10 +280,10 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
       backgroundColor: _obsidian,
       elevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: _whiteText, size: 22),
+        icon: UlvenikIcon(UlvenikIcons.back, color: _whiteText, size: 22),
         onPressed: () => Navigator.pop(context),
       ),
-      title: const Text(
+      title: Text(
         'Timeline Export',
         style: TextStyle(
           color: _whiteText,
@@ -293,11 +294,11 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
       centerTitle: true,
       actions: [
         PopupMenuButton<String>(
-          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _whiteText, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: _whiteText, size: 22),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(color: _carbonBorder),
+            side: BorderSide(color: _carbonBorder),
           ),
           onSelected: (val) {
             if (val == 'toggle_state') {
@@ -334,12 +335,12 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                   const SizedBox(width: 10),
                   Text(
                     _isEmpty ? 'Show Populated State' : 'Show Empty State',
-                    style: const TextStyle(color: _whiteText, fontSize: 13),
+                    style: TextStyle(color: _whiteText, fontSize: 13),
                   ),
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'favourites',
               child: Row(
                 children: [
@@ -349,7 +350,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'archive',
               child: Row(
                 children: [
@@ -359,7 +360,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'switch_dog',
               child: Row(
                 children: [
@@ -369,7 +370,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'statistics',
               child: Row(
                 children: [
@@ -421,7 +422,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                         children: [
                           Text(
                             _currentDog,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _whiteText,
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -430,7 +431,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                           const SizedBox(height: 2),
                           Text(
                             '${meta['breed']} · ${meta['age']}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 13,
                             ),
@@ -491,7 +492,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
@@ -520,7 +521,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
               setState(() => _exportType = 'date_range');
             },
           ),
-          const Divider(height: 1, thickness: 1, color: _carbonBorder),
+          Divider(height: 1, thickness: 1, color: _carbonBorder),
           _buildRadioOptionRow(
             icon: Icons.checklist_rtl_outlined,
             title: 'Specific Events',
@@ -552,7 +553,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _whiteText,
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
@@ -640,7 +641,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                 children: [
                   Text(
                     _formatDateRange(_startDate, _endDate),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _whiteText,
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
@@ -715,7 +716,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
             checkColor: _obsidian,
             title: Text(
               label,
-              style: const TextStyle(color: _whiteText, fontSize: 14),
+              style: TextStyle(color: _whiteText, fontSize: 14),
             ),
             value: isChecked,
             onChanged: (val) {
@@ -759,7 +760,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                     child: const Icon(Icons.picture_as_pdf_outlined, color: _mint, size: 22),
                   ),
                   const SizedBox(width: 14),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -788,7 +789,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
             ),
           ),
 
-          const Divider(height: 1, thickness: 1, color: _carbonBorder),
+          Divider(height: 1, thickness: 1, color: _carbonBorder),
 
           // CSV Spreadsheet Option
           InkWell(
@@ -805,10 +806,10 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: _carbonBorder),
                     ),
-                    child: const Icon(Icons.table_chart_outlined, color: _stoneGrey, size: 22),
+                    child: Icon(Icons.table_chart_outlined, color: _stoneGrey, size: 22),
                   ),
                   const SizedBox(width: 14),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -859,7 +860,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                   color: _stoneGrey.withValues(alpha: 0.8),
                 ),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'No Timeline Data',
                   style: TextStyle(
                     color: _whiteText,
@@ -871,7 +872,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen>
                 Text(
                   'There aren\'t any Timeline events recorded for $_currentDog yet. Start logging your journey to generate reports.',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 13,
                     height: 1.45,
@@ -1082,12 +1083,12 @@ class _ExportProgressModal extends StatefulWidget {
 }
 
 class _ExportProgressModalState extends State<_ExportProgressModal> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbonBorder = Color(0xFF272B29);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbonBorder => AppColors.cardBorder;
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _forestGreen = Color(0xFF2F5D50);
-  static const Color _whiteText = Color(0xFFE1E3E0);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _whiteText => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
 
   double _progress = 0.0;
   bool _isComplete = false;
@@ -1154,7 +1155,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
                   children: [
                     Text(
                       _isComplete ? 'Export Complete' : 'Generating Export',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _whiteText,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -1163,7 +1164,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
                     const SizedBox(height: 2),
                     Text(
                       _statusText,
-                      style: const TextStyle(color: _stoneGrey, fontSize: 12),
+                      style: TextStyle(color: _stoneGrey, fontSize: 12),
                     ),
                   ],
                 ),
@@ -1208,7 +1209,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
                       children: [
                         Text(
                           fileName,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _whiteText,
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -1219,13 +1220,13 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
                         const SizedBox(height: 2),
                         Text(
                           '${widget.dateRangeStr} · ${widget.dayCount} Days',
-                          style: const TextStyle(color: _stoneGrey, fontSize: 11),
+                          style: TextStyle(color: _stoneGrey, fontSize: 11),
                         ),
                       ],
                     ),
                   ),
                   if (_isComplete)
-                    const Text(
+                    Text(
                       '2.4 MB',
                       style: TextStyle(color: _stoneGrey, fontSize: 12),
                     ),
@@ -1243,7 +1244,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         foregroundColor: _whiteText,
-                        side: const BorderSide(color: _carbonBorder),
+                        side: BorderSide(color: _carbonBorder),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -1279,7 +1280,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancel Export', style: TextStyle(color: _stoneGrey)),
+                  child: Text('Cancel Export', style: TextStyle(color: _stoneGrey)),
                 ),
               ),
           ],

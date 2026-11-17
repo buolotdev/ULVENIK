@@ -1,4 +1,5 @@
 import 'package:flutter/gestures.dart';
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
@@ -14,14 +15,14 @@ class PrivacyPolicyScreen extends StatefulWidget {
 }
 
 class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _forestLink = Color(0xFF3E8E72);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
@@ -93,7 +94,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       backgroundColor: Colors.transparent,
       builder: (ctx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _obsidian,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             border: Border(top: BorderSide(color: _cardBorder)),
@@ -114,7 +115,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Data Protection & Privacy Enquiries',
                     style: TextStyle(
                       color: _offWhite,
@@ -152,7 +153,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                           },
                           style: OutlinedButton.styleFrom(
                             foregroundColor: _offWhite,
-                            side: const BorderSide(color: _cardBorder),
+                            side: BorderSide(color: _cardBorder),
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -271,13 +272,13 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                       const SizedBox(width: 4),
                       IconButton(
                         onPressed: () => Navigator.of(context).maybePop(),
-                        icon: const UlvenikIcon(UlvenikIcons.back,
+                        icon: UlvenikIcon(UlvenikIcons.back,
                           color: _stoneGrey,
                           size: 26,
                         ),
                         splashRadius: 20,
                       ),
-                      const Expanded(
+                      Expanded(
                         child: Text(
                           'Privacy Policy',
                           style: TextStyle(
@@ -342,12 +343,12 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                 autofocus: true,
                 onChanged: (v) => setState(() => _searchQuery = v),
                 cursorColor: _mint,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 14,
                   fontFamily: 'Inter',
                 ),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 11),
                   prefixIcon: UlvenikIcon(UlvenikIcons.search, color: _mint, size: 18),
@@ -365,7 +366,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           // LAST UPDATED
           Row(
             children: [
-              const Text(
+              Text(
                 'LAST UPDATED',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -375,14 +376,14 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                   fontFamily: 'Inter',
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
                   '•',
                   style: TextStyle(color: _stoneGrey, fontSize: 12),
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: Text(
                   '1 September 2026',
                   style: TextStyle(
@@ -394,7 +395,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               ),
               GestureDetector(
                 onTap: _copyFullPolicySummary,
-                child: const Icon(Icons.copy_rounded,
+                child: Icon(Icons.copy_rounded,
                   color: _stoneGrey,
                   size: 16,
                 ),
@@ -403,7 +404,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           ),
 
           const SizedBox(height: 18),
-          const Text(
+          Text(
             'CONTENTS',
             style: TextStyle(
               color: _stoneGrey,
@@ -434,12 +435,12 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.format_list_bulleted_rounded,
+                        Icon(Icons.format_list_bulleted_rounded,
                           color: _stoneGrey,
                           size: 18,
                         ),
                         const SizedBox(width: 12),
-                        const Expanded(
+                        Expanded(
                           child: Text(
                             'Table of Contents',
                             style: TextStyle(
@@ -462,7 +463,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                   ),
                 ),
                 if (_tocExpanded) ...[
-                  const Divider(height: 1, thickness: 1, color: _cardBorder),
+                  Divider(height: 1, thickness: 1, color: _cardBorder),
                   _buildTocItem('1. Introduction', _introKey),
                   _buildTocItem('2. Information We Collect', _collectKey),
                   _buildTocItem('3. How We Use Your Information', _useKey),
@@ -480,7 +481,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             Text(
               'Introduction',
               key: _introKey,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 19,
                 fontWeight: FontWeight.w700,
@@ -488,7 +489,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'Welcome to Ulvenik. We are committed to protecting your privacy and ensuring the integrity and confidentiality of your personal information, as well as the specialized tracking records you log for your dogs.',
               style: TextStyle(
                 color: _offWhite,
@@ -498,7 +499,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'This Privacy Policy outlines the specific types of data collected through the Ulvenik mobile application, how your records are securely processed, and the measures we maintain to protect your sovereignty over your training journey.',
               style: TextStyle(
                 color: _offWhite,
@@ -515,7 +516,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             Text(
               'Information We Collect',
               key: _collectKey,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 19,
                 fontWeight: FontWeight.w700,
@@ -523,7 +524,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'To provide an accurate, high-fidelity sports tracking and veterinary management environment, Ulvenik gathers specific categories of user-provided information:',
               style: TextStyle(
                 color: _offWhite,
@@ -560,7 +561,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             Text(
               'How We Use Your Information',
               key: _useKey,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 19,
                 fontWeight: FontWeight.w700,
@@ -568,7 +569,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'We utilize the collected telemetry strictly to serve your training system and deliver private, data-dense insights:',
               style: TextStyle(
                 color: _offWhite,
@@ -605,7 +606,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             Text(
               'Data Storage & Security',
               key: _securityKey,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 19,
                 fontWeight: FontWeight.w700,
@@ -613,7 +614,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'All local database records are encrypted on-device. When cloud synchronization is enabled, records are transmitted via TLS 1.3 encryption and stored in compliant, hardened data centers. We never sell, monetize, or lease your training logs or veterinary archives to third-party data brokers.',
               style: TextStyle(
                 color: _offWhite,
@@ -623,7 +624,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Offline-first architecture ensures that your data remains fully accessible even in remote field or forest locations without network availability.',
               style: TextStyle(
                 color: _stoneGrey,
@@ -641,7 +642,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             Text(
               'Your Rights',
               key: _rightsKey,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 19,
                 fontWeight: FontWeight.w700,
@@ -651,7 +652,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             const SizedBox(height: 12),
             RichText(
               text: TextSpan(
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 14.5,
                   height: 1.6,
@@ -690,7 +691,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: _cardBorder),
               ),
-              child: const Text(
+              child: Text(
                 'No clauses matched your search term. Clear the search bar above to view all sections.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -708,7 +709,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           Text(
             'QUESTIONS?',
             key: _questionsKey,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 11,
               fontWeight: FontWeight.w600,
@@ -727,7 +728,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Questions about this Privacy Policy?',
                   style: TextStyle(
                     color: _offWhite,
@@ -737,7 +738,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'If you have any questions regarding how Ulvenik collects or processes your information, please contact our support team.',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -747,10 +748,10 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                   ),
                 ),
                 const SizedBox(height: 18),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 InkWell(
                   onTap: _handleSupportEmailTap,
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 14),
                     child: Row(
                       children: [
@@ -789,7 +790,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     ),
                   ),
                 ),
-                const Divider(height: 1, thickness: 1, color: _cardBorder),
+                Divider(height: 1, thickness: 1, color: _cardBorder),
                 InkWell(
                   onTap: () {
                     Clipboard.setData(
@@ -802,7 +803,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                       type: SnackbarType.success,
                     );
                   },
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.only(top: 14, bottom: 2),
                     child: Row(
                       children: [
@@ -862,7 +863,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             Expanded(
               child: Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 13.5,
                   fontWeight: FontWeight.w500,
@@ -886,7 +887,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(top: 7),
             child: Icon(Icons.circle, size: 5, color: _stoneGrey),
           ),
@@ -894,7 +895,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
@@ -918,7 +919,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             width: 22,
             child: Text(
               '$number.',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -930,7 +931,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 14.5,
                 height: 1.55,

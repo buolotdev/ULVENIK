@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
@@ -66,22 +67,22 @@ class TimelineWidgetsScreen extends StatefulWidget {
 class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens (Exact from Figma SVGs) ─────────────────────────────────
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _appBarBg = Color(0xFF131719);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _previewDark = Color(0xFF111517);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _appBarBg => AppColors.cardsCarbon;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _previewDark => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _emeraldText = Color(0xFF3E8E72);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _sageOlive = Color(0xFF7A8F7A);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _sageOlive => AppColors.secondarySage;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _bronze = Color(0xFFB4823C);
   static const Color _gold = Color(0xFFB8920A);
   static const Color _healthRed = Color(0xFFA84C4C);
   static const Color _purple = Color(0xFF8668BF);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x16FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   late bool _isEmptyState;
   String _selectedWidgetId = 'w_recent_activity';
@@ -372,10 +373,10 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
       scrolledUnderElevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 22),
+        icon: UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 22),
         onPressed: () => Navigator.maybePop(context),
       ),
-      title: const Text(
+      title: Text(
         'Timeline Widgets',
         style: TextStyle(
           color: _offWhite,
@@ -386,11 +387,11 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
       ),
       actions: [
         PopupMenuButton<String>(
-          icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 21),
+          icon: UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 21),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: const BorderSide(color: _cardBorder),
+            side: BorderSide(color: _cardBorder),
           ),
           onSelected: (val) {
             if (val == 'toggle_empty') {
@@ -418,38 +419,38 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                 _isEmptyState
                     ? 'Switch to Populated Gallery'
                     : 'Switch to Empty State',
-                style: const TextStyle(color: _offWhite, fontSize: 13),
+                style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'edit_layout',
               child: Text(
                 'Edit Home Dashboard Slots',
                 style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'size_ALL',
               child: Text(
                 'Filter Size: Show All (S / M / L)',
                 style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'size_S',
               child: Text(
                 'Filter Size: Small Only',
                 style: TextStyle(color: _stoneGrey, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'size_M',
               child: Text(
                 'Filter Size: Medium Only',
                 style: TextStyle(color: _stoneGrey, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'size_L',
               child: Text(
                 'Filter Size: Large Only',
@@ -509,7 +510,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                   Expanded(
                     child: Text(
                       'Showing ${_fullSizeName(_sizeFilterTab)} ($_sizeFilterTab) widgets',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -559,7 +560,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                         children: [
                           Text(
                             secKey,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 11,
                               fontWeight: FontWeight.w700,
@@ -569,7 +570,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                           ),
                           Text(
                             sections[s].$2,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 11,
                               fontFamily: 'Inter',
@@ -605,10 +606,10 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
         children: [
           Row(
             children: [
-              const Icon(Icons.grid_view_outlined,
+              Icon(Icons.grid_view_outlined,
                   color: _stoneGrey, size: 17),
               const SizedBox(width: 8),
-              const Text(
+              Text(
                 'Home Dashboard',
                 style: TextStyle(
                   color: _offWhite,
@@ -628,7 +629,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                 ),
                 child: Text(
                   '${active.length} Widgets Active',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 10.5,
                     fontWeight: FontWeight.w600,
@@ -660,7 +661,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
               border: Border.all(color: _cardBorder),
             ),
             child: active.isEmpty
-                ? const Padding(
+                ? Padding(
                     padding: EdgeInsets.symmetric(vertical: 14),
                     child: Center(
                       child: Text(
@@ -790,7 +791,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
               ),
             Text(
               _fullSizeName(item.selectedSize),
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 9,
               ),
@@ -902,7 +903,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                         item.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 13.5,
                           fontWeight: FontWeight.w700,
@@ -1024,7 +1025,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                                     borderRadius: BorderRadius.circular(9),
                                   ),
                                 ),
-                                child: const Row(
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     UlvenikIcon(UlvenikIcons.add, size: 15),
@@ -1055,7 +1056,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
   Widget _buildMiniWidgetCanvas(_GalleryWidgetItem item, double p) {
     switch (item.previewKind) {
       case _WidgetPreviewKind.recentActivity:
-        const dots = [_alpineBlue, _forest, _gold];
+        final dots = [_alpineBlue, _forest, _gold];
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -1094,7 +1095,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.local_fire_department_outlined,
+            Icon(Icons.local_fire_department_outlined,
                 color: _sageOlive, size: 15),
             Text(
               '${(days * p).round()}',
@@ -1105,7 +1106,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                 height: 1.1,
               ),
             ),
-            const Text(
+            Text(
               'DAYS',
               style: TextStyle(
                 color: _stoneGrey,
@@ -1122,7 +1123,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               'TODAY',
               style: TextStyle(
                 color: _stoneGrey,
@@ -1133,7 +1134,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
             ),
             const SizedBox(height: 3),
             RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 style: TextStyle(fontFamily: 'Inter'),
                 children: [
                   TextSpan(
@@ -1178,7 +1179,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
               borderRadius: BorderRadius.circular(9),
               border: Border.all(color: _cardBorder),
             ),
-            child: const Column(
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -1241,7 +1242,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -1281,7 +1282,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
               ),
             ),
             const SizedBox(height: 6),
-            const Row(
+            Row(
               children: [
                 Icon(Icons.circle, color: _alpineBlue, size: 5),
                 SizedBox(width: 4),
@@ -1389,7 +1390,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                         label,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stoneGrey,
                           fontSize: 8.5,
                         ),
@@ -1413,13 +1414,13 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                 children: [
                   TextSpan(
                     text: wt,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 21,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  const TextSpan(
+                  TextSpan(
                     text: 'kg',
                     style: TextStyle(
                       color: _offWhite,
@@ -1431,7 +1432,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
               ),
             ),
             const SizedBox(height: 3),
-            const Text(
+            Text(
               'LATEST WEIGHT',
               style: TextStyle(
                 color: _stoneGrey,
@@ -1463,7 +1464,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                 progress: 0.7 * p,
                 color: item.accentOverride,
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   '7/10',
                   style: TextStyle(
@@ -1495,7 +1496,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: _cardBorder),
                         ),
-                        child: const Icon(Icons.photo_camera_outlined,
+                        child: Icon(Icons.photo_camera_outlined,
                             color: _stoneGrey, size: 11),
                       ),
                     ),
@@ -1529,9 +1530,9 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(label,
-                style: const TextStyle(color: _stoneGrey, fontSize: 8.5)),
+                style: TextStyle(color: _stoneGrey, fontSize: 8.5)),
             Text(pct,
-                style: const TextStyle(
+                style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 8.5,
                     fontWeight: FontWeight.w700)),
@@ -1579,7 +1580,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                         color: const Color(0xFF161B1D),
                         border: Border.all(color: _cardBorder),
                       ),
-                      child: const Icon(Icons.grid_view_rounded,
+                      child: Icon(Icons.grid_view_rounded,
                         color: _sageOlive,
                         size: 30,
                       ),
@@ -1596,7 +1597,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                         color: _carbon,
                         border: Border.all(color: _cardBorder),
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.add,
+                      child: UlvenikIcon(UlvenikIcons.add,
                         color: _sageOlive,
                         size: 14,
                       ),
@@ -1606,7 +1607,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
               ),
             ),
             const SizedBox(height: 24),
-            const Text(
+            Text(
               'No Timeline Widgets Added',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -1617,7 +1618,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
               ),
             ),
             const SizedBox(height: 10),
-            const Text(
+            Text(
               'Choose widgets to personalise your\nTimeline dashboard.',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -1684,7 +1685,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Color(0xFF171C1F),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
                 border: Border(top: BorderSide(color: _cardBorder)),
@@ -1716,7 +1717,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                           sel.title.replaceAll('\n', ' '),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 13,
                             fontWeight: FontWeight.w700,
@@ -1732,7 +1733,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: _cardBorder),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Selected',
                           style: TextStyle(
                             color: _stoneGrey,
@@ -1742,7 +1743,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Text(
+                      Text(
                         'Tap to configure',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -1759,7 +1760,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
         // Bottom Reset Layout / + Add Widget Bar
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: _appBarBg,
             border: Border(top: BorderSide(color: _cardBorder)),
           ),
@@ -1859,7 +1860,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                   const SizedBox(height: 16),
                   Text(
                     'Configure ${item.title.replaceAll('\n', ' ')}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 17,
                       fontWeight: FontWeight.w700,
@@ -1879,7 +1880,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                     child: _buildMiniWidgetCanvas(item, 1.0),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'WIDGET SIZE FAMILY',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -1929,7 +1930,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                     ],
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'DOG DATA SOURCE',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -1963,7 +1964,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                   ),
                   if (item.section == 'GOALS') ...[
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'GOAL PROGRESS SOURCE',
                       style: TextStyle(
                         color: _stoneGrey,
@@ -1973,7 +1974,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                       ),
                     ),
                     const SizedBox(height: 6),
-                    const Text(
+                    Text(
                       'Goal progress is calculated from objective recorded sessions/milestones or entered manually by you.',
                       style: TextStyle(
                         color: _stoneGrey,
@@ -2011,7 +2012,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                     ),
                   ],
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'ACCENT THEME',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -2104,7 +2105,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Edit Home Dashboard Slots',
                     style: TextStyle(
                       color: _offWhite,
@@ -2115,17 +2116,17 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                   const SizedBox(height: 6),
                   Text(
                     '${active.length} active widget slots pinned to Home Dashboard',
-                    style: const TextStyle(color: _stoneGrey, fontSize: 12.5),
+                    style: TextStyle(color: _stoneGrey, fontSize: 12.5),
                   ),
                   const SizedBox(height: 12),
                   for (final w in active)
                     ListTile(
                       contentPadding: EdgeInsets.zero,
-                      leading: const Icon(Icons.drag_indicator,
+                      leading: Icon(Icons.drag_indicator,
                           color: _stoneGrey, size: 19),
                       title: Text(
                         w.title.replaceAll('\n', ' '),
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: _offWhite,
                             fontSize: 13.5,
                             fontWeight: FontWeight.w600),
@@ -2133,7 +2134,7 @@ class _TimelineWidgetsScreenState extends State<TimelineWidgetsScreen>
                       subtitle: Text(
                         '${_fullSizeName(w.selectedSize)} · ${w.dogFilter}',
                         style:
-                            const TextStyle(color: _stoneGrey, fontSize: 11.5),
+                            TextStyle(color: _stoneGrey, fontSize: 11.5),
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.remove_circle_outline,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -69,14 +70,14 @@ class ClientHomeworkScreen extends StatefulWidget {
 }
 
 class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
-  static const Color _bg = Color(0xFF121212);
-  static const Color _cardBg = Color(0xFF1C1C1C);
+  static Color get _bg => AppColors.backgroundObsidian;
+  static Color get _cardBg => AppColors.cardsCarbon;
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _sage = Color(0xFF7A8F7A);
+  static Color get _sage => AppColors.secondarySage;
   static const Color _crimson = Color(0xFF8B3A3A);
   static const Color _crimsonText = Color(0xFFB45A5A);
-  static const Color _textPrimary = Color(0xFFF5F6F2);
-  static const Color _textSecondary = Color(0xFFA7B0AB);
+  static Color get _textPrimary => AppColors.primaryTextOffWhite;
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey;
 
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
@@ -658,7 +659,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
                         ),
                         IconButton(
                           onPressed: () => Navigator.of(ctx).pop(),
-                          icon: const Icon(Icons.close, color: _textSecondary),
+                          icon: Icon(Icons.close, color: _textSecondary),
                         ),
                       ],
                     ),
@@ -735,7 +736,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
                               label: 'Target Due Date',
                               hint: 'e.g. 30 Nov',
                             ).copyWith(
-                              suffixIcon: const UlvenikIcon(UlvenikIcons.calendar,
+                              suffixIcon: UlvenikIcon(UlvenikIcons.calendar,
                                 size: 16,
                                 color: _sage,
                               ),
@@ -1030,7 +1031,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
           elevation: 6,
           shape: const CircleBorder(),
           onPressed: () => _showAssignOrEditHomeworkSheet(),
-          child: const UlvenikIcon(UlvenikIcons.add, color: _textPrimary, size: 28),
+          child: UlvenikIcon(UlvenikIcons.add, color: _textPrimary, size: 28),
         ),
       ),
       body: SafeArea(
@@ -1087,7 +1088,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _textPrimary,
               size: 25,
             ),
@@ -1106,7 +1107,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: () => _searchFocusNode.requestFocus(),
-            icon: const UlvenikIcon(UlvenikIcons.search, color: _sage, size: 22),
+            icon: UlvenikIcon(UlvenikIcons.search, color: _sage, size: 22),
           ),
           IconButton(
             visualDensity: VisualDensity.compact,
@@ -1114,7 +1115,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(Icons.filter_list, color: _sage, size: 22),
+                Icon(Icons.filter_list, color: _sage, size: 22),
                 Positioned(
                   right: -2,
                   top: -2,
@@ -1135,7 +1136,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
           IconButton(
             visualDensity: VisualDensity.compact,
             onPressed: () => _showAssignOrEditHomeworkSheet(),
-            icon: const UlvenikIcon(UlvenikIcons.add, color: _sage, size: 24),
+            icon: UlvenikIcon(UlvenikIcons.add, color: _sage, size: 24),
           ),
         ],
       ),
@@ -1152,7 +1153,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: _sage, size: 18),
+          UlvenikIcon(UlvenikIcons.search, color: _sage, size: 18),
           const SizedBox(width: 10),
           Expanded(
             child: Container(
@@ -1275,7 +1276,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.filter_alt_outlined, color: _sage, size: 16),
+          Icon(Icons.filter_alt_outlined, color: _sage, size: 16),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -1347,7 +1348,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       ),
       child: Column(
         children: [
-          const Icon(Icons.assignment_turned_in_outlined,
+          Icon(Icons.assignment_turned_in_outlined,
               color: _sage, size: 32),
           const SizedBox(height: 10),
           Text(
@@ -1616,7 +1617,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
                             ),
                           ),
                         ),
-                        const UlvenikIcon(UlvenikIcons.details,
+                        UlvenikIcon(UlvenikIcons.details,
                           color: _sage,
                           size: 18,
                         ),
@@ -1738,7 +1739,7 @@ class _ClientHomeworkScreenState extends State<ClientHomeworkScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.local_offer_outlined,
+          Icon(Icons.local_offer_outlined,
             size: 12,
             color: _sage,
           ),

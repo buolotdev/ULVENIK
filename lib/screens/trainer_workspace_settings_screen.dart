@@ -1,3 +1,4 @@
+import '../theme/app_colors.dart';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
@@ -77,19 +78,19 @@ class TrainerWorkspaceSettingsScreen extends StatefulWidget {
 class _TrainerWorkspaceSettingsScreenState
     extends State<TrainerWorkspaceSettingsScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = Color(0xFF0A0C0E);
-  static const Color _cardBg = Color(0xFF121619);
-  static const Color _cardBorder = Color(0xFF1E252B);
+  static Color get _bg => AppColors.backgroundObsidian;
+  static Color get _cardBg => AppColors.cardsCarbon;
+  static Color get _cardBorder => AppColors.cardBorder;
   static const Color _mintBright = Color(0xFF34D399);
   static const Color _emerald = Color(0xFF10B981);
   static const Color _emeraldBorder = Color(0xFF059669);
   static const Color _emeraldDark = Color(0xFF064E3B);
   static const Color _skyBlue = Color(0xFF38BDF8);
   static const Color _purple = Color(0xFFC084FC);
-  static const Color _textSecondary = Color(0xFF94A3B8);
-  static const Color _textMuted = Color(0xFF64748B);
-  static const Color _textLight = Color(0xFFCBD5E1);
-  static const Color _trackBg = Color(0xFF1E293B);
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey;
+  static Color get _textMuted => AppColors.secondaryTextStoneGrey;
+  static Color get _textLight => AppColors.primaryTextOffWhite;
+  static Color get _trackBg => AppColors.cardsCarbon;
 
   static const List<String> _periods = [
     'This Week',
@@ -529,7 +530,7 @@ class _TrainerWorkspaceSettingsScreenState
                 shape: BoxShape.circle,
                 border: Border.all(color: _cardBorder),
               ),
-              child: const UlvenikIcon(UlvenikIcons.back,
+              child: UlvenikIcon(UlvenikIcons.back,
                 color: Colors.white,
                 size: 15,
               ),
@@ -539,7 +540,7 @@ class _TrainerWorkspaceSettingsScreenState
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 'Analytics',
                 style: TextStyle(
@@ -578,7 +579,7 @@ class _TrainerWorkspaceSettingsScreenState
               children: [
                 Text(
                   _selectedPeriod,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textLight,
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -586,7 +587,7 @@ class _TrainerWorkspaceSettingsScreenState
                   ),
                 ),
                 const SizedBox(width: 5),
-                const Icon(Icons.keyboard_arrow_down_rounded,
+                Icon(Icons.keyboard_arrow_down_rounded,
                   color: _textSecondary,
                   size: 16,
                 ),
@@ -600,7 +601,7 @@ class _TrainerWorkspaceSettingsScreenState
 
   Widget _buildTabs() {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
         ),
@@ -755,7 +756,7 @@ class _TrainerWorkspaceSettingsScreenState
                     title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textSecondary,
                       fontSize: 11.5,
                       fontWeight: FontWeight.w500,
@@ -789,7 +790,7 @@ class _TrainerWorkspaceSettingsScreenState
             const SizedBox(height: 4),
             Text(
               subtitle,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textMuted,
                 fontSize: 11,
                 fontWeight: FontWeight.w400,
@@ -853,7 +854,7 @@ class _TrainerWorkspaceSettingsScreenState
             ],
           ),
           const SizedBox(height: 12),
-          const Divider(color: _cardBorder, height: 1),
+          Divider(color: _cardBorder, height: 1),
           const SizedBox(height: 16),
           LayoutBuilder(
             builder: (context, constraints) {
@@ -892,7 +893,7 @@ class _TrainerWorkspaceSettingsScreenState
                 .map(
                   (label) => Text(
                     label,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textMuted,
                       fontSize: 11,
                       fontWeight: FontWeight.w400,
@@ -923,7 +924,7 @@ class _TrainerWorkspaceSettingsScreenState
         safeSelectedIdx != null ? segments[safeSelectedIdx] : null;
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: _cardBg,
         borderRadius: BorderRadius.circular(16),
@@ -934,7 +935,7 @@ class _TrainerWorkspaceSettingsScreenState
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'Session Breakdown',
                 style: TextStyle(
@@ -1002,7 +1003,7 @@ class _TrainerWorkspaceSettingsScreenState
                             activeSeg != null
                                 ? activeSeg.$1.split(' ').first
                                 : 'Total',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _textSecondary,
                               fontSize: 10.5,
                               fontWeight: FontWeight.w400,
@@ -1190,7 +1191,7 @@ class _TrainerWorkspaceSettingsScreenState
                 child: Center(
                   child: Text(
                     days[c],
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textMuted,
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
@@ -1243,12 +1244,12 @@ class _TrainerWorkspaceSettingsScreenState
             );
           }),
           const SizedBox(height: 16),
-          const Divider(color: _cardBorder, height: 1),
+          Divider(color: _cardBorder, height: 1),
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Less active',
                 style: TextStyle(
                   color: _textMuted,
@@ -1269,7 +1270,7 @@ class _TrainerWorkspaceSettingsScreenState
                   );
                 }),
               ),
-              const Text(
+              Text(
                 'Highly active',
                 style: TextStyle(
                   color: _textMuted,
@@ -1296,7 +1297,7 @@ class _TrainerWorkspaceSettingsScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'BEST STREAK',
             style: TextStyle(
               color: _textSecondary,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'timeline_event_details_screen.dart';
@@ -61,21 +62,21 @@ class TimelineSearchScreen extends StatefulWidget {
 class _TimelineSearchScreenState extends State<TimelineSearchScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens ──────────────────────────────────────────────────────────
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _surfaceVariant = Color(0xFF323533);
-  static const Color _surfaceDim = Color(0xFF111412);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _surfaceVariant => AppColors.cardsCarbon;
+  static Color get _surfaceDim => AppColors.backgroundObsidian;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _mintLight = Color(0xFFAAE9D0);
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _healthDot = Color(0xFF8B3A3A);
   static const Color _scDot = Color(0xFF8B5E3C);
   static const Color _goalsDot = Color(0xFF7A6B2E);
   static const Color _mediaDot = Color(0xFF5A3A8B);
-  static const Color _borderHairline = Color(0x14FFFFFF);
+  static Color get _borderHairline => AppColors.cardBorder;
 
   // ─── Search Controllers & States ───────────────────────────────────────────
   late TextEditingController _searchController;
@@ -412,7 +413,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
         ),
         child: Row(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
             ),
@@ -420,7 +421,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
               child: TextField(
                 controller: _searchController,
                 focusNode: _searchFocusNode,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 14,
                   decoration: TextDecoration.none,
@@ -454,7 +455,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
             ),
             if (isSearching)
               IconButton(
-                icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
+                icon: Icon(Icons.close, color: _stoneGrey, size: 18),
                 onPressed: _clearSearch,
               ),
           ],
@@ -477,7 +478,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
         else
           TextButton(
             onPressed: () => Navigator.maybePop(context),
-            child: const Text(
+            child: Text(
               'Cancel',
               style: TextStyle(color: _stoneGrey, fontSize: 13),
             ),
@@ -541,7 +542,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Search Notes',
                   style: TextStyle(
                     color: _offWhite,
@@ -566,7 +567,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Search Attachment Names',
                   style: TextStyle(
                     color: _offWhite,
@@ -605,7 +606,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'SAVED SEARCHES',
             style: TextStyle(
               color: _stoneGrey,
@@ -640,7 +641,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                           const SizedBox(width: 12),
                           Text(
                             term,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -678,7 +679,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'RECENT SEARCHES',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -727,7 +728,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                             const SizedBox(width: 12),
                             Text(
                               term,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _offWhite,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -775,7 +776,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
         children: [
           Text(
             "POPULAR IN ${_dogName.toUpperCase()}'S TIMELINE",
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -809,7 +810,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                     term,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -857,7 +858,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                   children: [
                     Text(
                       '${results.length} RESULTS FOR "${_currentQuery.toUpperCase()}"',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
@@ -868,22 +869,22 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                       color: _carbon,
                       onSelected: (val) => setState(() => _selectedSort = val),
                       itemBuilder: (_) => [
-                        const PopupMenuItem(value: 'Relevance', child: Text('Relevance', style: TextStyle(color: _offWhite))),
-                        const PopupMenuItem(value: 'Newest', child: Text('Newest First', style: TextStyle(color: _offWhite))),
-                        const PopupMenuItem(value: 'Oldest', child: Text('Oldest First', style: TextStyle(color: _offWhite))),
+                        PopupMenuItem(value: 'Relevance', child: Text('Relevance', style: TextStyle(color: _offWhite))),
+                        PopupMenuItem(value: 'Newest', child: Text('Newest First', style: TextStyle(color: _offWhite))),
+                        PopupMenuItem(value: 'Oldest', child: Text('Oldest First', style: TextStyle(color: _offWhite))),
                       ],
                       child: Row(
                         children: [
                           Text(
                             _selectedSort,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           const SizedBox(width: 4),
-                          const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 16),
+                          UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 16),
                         ],
                       ),
                     ),
@@ -903,14 +904,14 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                   ),
                   child: Column(
                     children: [
-                      const Icon(Icons.search_off, color: _stoneGrey, size: 36),
+                      Icon(Icons.search_off, color: _stoneGrey, size: 36),
                       const SizedBox(height: 12),
                       Text(
                         'No results found for "$_currentQuery"',
-                        style: const TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.w600),
+                        style: TextStyle(color: _offWhite, fontSize: 15, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 6),
-                      const Text(
+                      Text(
                         'Try searching for "Recall", "Drills", "Health", or "Park"',
                         style: TextStyle(color: _stoneGrey, fontSize: 13),
                       ),
@@ -947,11 +948,11 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.bookmark_outline, color: _stoneGrey, size: 20),
+                          Icon(Icons.bookmark_outline, color: _stoneGrey, size: 20),
                           const SizedBox(width: 10),
                           Text(
                             'Save "$_currentQuery" as a saved search',
-                            style: const TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w500),
+                            style: TextStyle(color: _offWhite, fontSize: 13, fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
@@ -993,7 +994,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: _borderHairline, width: 1)),
       ),
       child: SizedBox(
@@ -1097,7 +1098,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                 borderRadius: BorderRadius.circular(6),
                 child: Row(
                   children: [
-                    const Text(
+                    Text(
                       'MATCH FREQUENCY BY CATEGORY',
                       style: TextStyle(
                         color: _stoneGrey,
@@ -1115,7 +1116,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                   ],
                 ),
               ),
-              const Text(
+              Text(
                 'Tap bar to filter',
                 style: TextStyle(color: _stoneGrey, fontSize: 11),
               ),
@@ -1136,13 +1137,13 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                         enabled: true,
                         touchTooltipData: BarTouchTooltipData(
                           getTooltipColor: (_) => _obsidian,
-                          tooltipBorder: const BorderSide(color: _borderHairline),
+                          tooltipBorder: BorderSide(color: _borderHairline),
                           tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                           getTooltipItem: (group, groupIndex, rod, rodIndex) {
                             final catName = categories[groupIndex];
                             return BarTooltipItem(
                               '$catName\n',
-                              const TextStyle(color: _offWhite, fontWeight: FontWeight.bold, fontSize: 11),
+                              TextStyle(color: _offWhite, fontWeight: FontWeight.bold, fontSize: 11),
                               children: [
                                 TextSpan(
                                   text: '${rod.toY.toInt()} matches',
@@ -1290,7 +1291,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                   _buildHighlightedRichText(
                     item.title,
                     _currentQuery,
-                    baseStyle: const TextStyle(
+                    baseStyle: TextStyle(
                       color: _offWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -1300,7 +1301,7 @@ class _TimelineSearchScreenState extends State<TimelineSearchScreen>
                   _buildHighlightedRichText(
                     item.snippet,
                     _currentQuery,
-                    baseStyle: const TextStyle(
+                    baseStyle: TextStyle(
                       color: _stoneGrey,
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
