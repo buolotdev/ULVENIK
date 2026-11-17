@@ -38,10 +38,21 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
   final _searchController = TextEditingController();
   String _query = '';
 
+  @override
+  void initState() {
+    super.initState();
+    GoalsStore.instance.addListener(_onStoreChanged);
+  }
+
+  void _onStoreChanged() {
+    if (mounted) setState(() {});
+  }
+
   static const _months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   @override
   void dispose() {
+    GoalsStore.instance.removeListener(_onStoreChanged);
     _searchController.dispose();
     super.dispose();
   }

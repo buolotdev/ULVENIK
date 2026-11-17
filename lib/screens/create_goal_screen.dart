@@ -279,25 +279,26 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
       }
     }
     setState(() => _saving = true);
-    final goal = GoalInfo(
-      dogName: _dog.name,
-      title: _title.text.trim(),
-      category: _category,
-      tracking: _tracking,
-      targetUnit: unit,
-      targetValue: value,
-      current: widget.editGoal?.current ?? 0,
-      status: widget.editGoal?.status ?? GoalStatus.active,
-      priority: _priority,
-      dueDate: _dueDate,
-      description: _description.text.trim().isEmpty ? null : _description.text.trim(),
-      notes: _notes.text.trim().isEmpty ? null : _notes.text.trim(),
-      linkedRecords: List.of(_linked),
-    );
+    final store = GoalsStore.instance;
+    final goal = widget.editGoal ?? GoalInfo(id: store.newId(), dogName: _dog.name, title: '', category: _category, tracking: _tracking);
+    goal
+      ..dogName = _dog.name
+      ..title = _title.text.trim()
+      ..category = _category
+      ..tracking = _tracking
+      ..targetUnit = unit
+      ..targetValue = value
+      ..priority = _priority
+      ..dueDate = _dueDate
+      ..description = _description.text.trim().isEmpty ? null : _description.text.trim()
+      ..notes = _notes.text.trim().isEmpty ? null : _notes.text.trim()
+      ..linkedRecords = List.of(_linked);
     if (_isEdit) {
+      store.save(goal); // no-op if already present; persists the mutation above
       AppSnackbar.show(context, message: 'Goal updated', type: SnackbarType.success);
       Navigator.pop(context);
     } else {
+      store.save(goal);
       AppSnackbar.show(context, message: 'Goal created', type: SnackbarType.success);
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => GoalDetailsScreen.fromGoal(goal)));
     }

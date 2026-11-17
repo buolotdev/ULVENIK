@@ -145,7 +145,10 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
     return r == 0 ? '${h}h' : '${h}h ${r}m';
   }
 
-  void _push(Widget w) => Navigator.push(context, MaterialPageRoute(builder: (_) => w));
+  void _push(Widget w) async {
+    await Navigator.push(context, MaterialPageRoute(builder: (_) => w));
+    if (mounted) setState(() {}); // refresh counts (goals, etc.) changed on the pushed screen
+  }
 
   void _goToTab(String name) {
     final i = _tabs.indexOf(name);

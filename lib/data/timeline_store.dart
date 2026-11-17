@@ -8,6 +8,7 @@ import '../screens/timeline_milestone_screens.dart';
 import '../screens/training_screen.dart';
 import '../screens/training_session_screen.dart';
 import '../screens/weight_records_screen.dart';
+import '../screens/goal_details_screen.dart';
 import 'health_store.dart';
 import 'persist.dart';
 import 'media_store.dart';
@@ -15,7 +16,7 @@ import 'sample_data.dart';
 import 'sc_store.dart';
 import 'sport_store.dart';
 
-const kTimelineCategories = ['Training', 'S&C', 'Health', 'Sport', 'Milestones'];
+const kTimelineCategories = ['Training', 'S&C', 'Health', 'Sport', 'Goals', 'Milestones'];
 
 /// One original record as it appears on the Timeline. Events are derived from
 /// the saved originals (never copied), so opening one always resolves the same
@@ -307,6 +308,24 @@ class TimelineStore extends ChangeNotifier {
           notes: l.notes,
           linkKey: 'health:${l.id}',
           open: (_) => healthLogDetails(dg, cfg, l.id),
+        ));
+      }
+    }
+
+    for (final dog in dogs) {
+      for (final g in GoalsStore.instance.goalsFor(dog)) {
+        if (g.status != GoalStatus.completed || g.completedAt == null) continue;
+        out.add(TimelineEvent(
+          id: 'goal:${g.id}',
+          dog: dog,
+          category: 'Goals',
+          typeLabel: 'Goal',
+          title: g.title,
+          at: g.completedAt!,
+          hasTime: false,
+          detail: 'Achieved',
+          notes: g.description ?? '',
+          open: (_) => GoalDetailsScreen.fromGoal(g),
         ));
       }
     }

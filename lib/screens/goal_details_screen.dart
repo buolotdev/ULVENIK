@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/sample_data.dart';
+import '../data/goals_store.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/animated_progress_bar.dart';
 import '../widgets/custom_snackbar.dart';
@@ -26,6 +27,7 @@ class GoalDetailsScreen extends StatefulWidget {
     bool isAutomatic = true,
     String? priority,
   }) : goal = GoalInfo(
+          id: 'preview',
           dogName: 'Murphy',
           title: title,
           category: _titleCase(category),
@@ -48,8 +50,8 @@ class GoalDetailsScreen extends StatefulWidget {
 }
 
 class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
-  late GoalStatus _status = widget.goal.status;
-  late num _current = widget.goal.current;
+  GoalStatus get _status => widget.goal.status;
+  num get _current => widget.goal.current;
   final List<String> _updates = [];
 
   static const _months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -84,7 +86,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
                 title: const Text('Mark as Completed', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
-                  setState(() => _status = GoalStatus.completed);
+                  setState(() => GoalsStore.instance.setStatus(g, GoalStatus.completed));
                   AppSnackbar.show(context, message: 'Goal marked as completed', type: SnackbarType.success);
                 },
               ),
@@ -100,6 +102,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
                   action: 'Archive Goal',
                   destructive: false,
                   onConfirm: () {
+                    GoalsStore.instance.setArchived(g, true);
                     AppSnackbar.show(context, message: 'Goal archived', type: SnackbarType.success);
                     Navigator.pop(context);
                   },
@@ -118,6 +121,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
                   action: 'Delete Goal',
                   destructive: true,
                   onConfirm: () {
+                    GoalsStore.instance.delete(g.id);
                     AppSnackbar.show(context, message: 'Goal deleted', type: SnackbarType.success);
                     Navigator.pop(context);
                   },
@@ -286,7 +290,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
                     if (g.isMeasurable) {
                       final v = num.tryParse(ctrl.text.trim());
                       if (v == null || v < 0) return;
-                      setState(() => _current = v);
+                      setState(() => GoalsStore.instance.setCurrent(g, v));
                     } else {
                       final note = ctrl.text.trim();
                       if (note.isEmpty) return;

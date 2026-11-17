@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data/app_settings.dart';
+import 'data/goals_store.dart';
 import 'data/health_store.dart';
 import 'data/item_library.dart';
 import 'data/media_store.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
   await AppSettings.instance.load();
   await ItemLibraryStore.instance.load();
   await TrainerStore.instance.load();
+  await GoalsStore.instance.load();
   await HealthStore.instance.load();
   await SCStore.instance.load();
   await SportStore.instance.load();

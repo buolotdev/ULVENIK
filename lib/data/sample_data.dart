@@ -2,6 +2,10 @@
 /// shows the same dogs and the same goal numbers. Replace with backend data.
 library;
 
+export 'goals_store.dart' show GoalInfo, GoalStatus, GoalTracking, GoalsStore;
+
+import 'goals_store.dart';
+
 class DogInfo {
   final String name;
   final String breed;
@@ -29,50 +33,6 @@ class DogInfo {
 
   /// "Breed · age · sex", the approved secondary line on dog cards.
   String get details => '$breed · $age · $sex';
-}
-
-enum GoalStatus { active, completed, overdue }
-
-enum GoalTracking { automatic, manual }
-
-class GoalInfo {
-  final String dogName;
-  final String title;
-  final String category; // Training, S&C, Health, Sport
-  final GoalTracking tracking;
-
-  /// Sessions, Repetitions, Duration, Distance or a custom unit.
-  /// Null means an open-ended goal with no numerical target.
-  final String? targetUnit;
-  final num? targetValue;
-  final num current;
-  final GoalStatus status;
-  final String? priority; // Low / Medium / High, optional
-  final DateTime? dueDate;
-  final String? description;
-  final String? notes;
-  final List<String> linkedRecords;
-
-  const GoalInfo({
-    required this.dogName,
-    required this.title,
-    required this.category,
-    required this.tracking,
-    this.targetUnit,
-    this.targetValue,
-    this.current = 0,
-    this.status = GoalStatus.active,
-    this.priority,
-    this.dueDate,
-    this.description,
-    this.notes,
-    this.linkedRecords = const [],
-  });
-
-  bool get isMeasurable => targetUnit != null && targetValue != null && targetValue! > 0;
-
-  /// 0..1 for measurable goals, null for open-ended goals (never invented).
-  double? get progress => isMeasurable ? (current / targetValue!).clamp(0, 1).toDouble() : null;
 }
 
 class SampleData {
@@ -118,58 +78,7 @@ class SampleData {
   static DogInfo dogNamed(String name) =>
       dogs.firstWhere((d) => d.name == name, orElse: () => dogs.first);
 
-  static final List<GoalInfo> goals = [
-    GoalInfo(
-      dogName: 'Murphy',
-      title: 'Complete 20 Recall Sessions',
-      category: 'Training',
-      tracking: GoalTracking.automatic,
-      targetUnit: 'Sessions', targetValue: 20, current: 14,
-      priority: 'High',
-      dueDate: DateTime(DateTime.now().year, 12, 31),
-      description: 'Build a reliable recall in the park before spring.',
-      linkedRecords: const ['Recall (skill)', 'Emergency Recall (exercise)'],
-    ),
-    const GoalInfo(
-      dogName: 'Murphy',
-      title: 'Improve confidence around livestock',
-      category: 'Training',
-      tracking: GoalTracking.manual,
-    ),
-    GoalInfo(
-      dogName: 'Murphy',
-      title: 'Swim 2 km in total',
-      category: 'S&C',
-      tracking: GoalTracking.automatic,
-      targetUnit: 'Distance (km)', targetValue: 2, current: 0.8,
-      linkedRecords: const ['Swimming (S&C activity)'],
-    ),
-    GoalInfo(
-      dogName: 'Murphy',
-      title: 'Record weight every month',
-      category: 'Health',
-      tracking: GoalTracking.manual,
-      targetUnit: 'Sessions', targetValue: 12, current: 9,
-      status: GoalStatus.overdue,
-      dueDate: DateTime.now().subtract(const Duration(days: 5)),
-    ),
-    GoalInfo(
-      dogName: 'Murphy',
-      title: 'Pass BH',
-      category: 'Training',
-      tracking: GoalTracking.manual,
-      status: GoalStatus.completed,
-      dueDate: DateTime(DateTime.now().year, 4, 20),
-    ),
-    GoalInfo(
-      dogName: 'Bella',
-      title: '50 heelwork sessions',
-      category: 'Training',
-      tracking: GoalTracking.automatic,
-      targetUnit: 'Sessions', targetValue: 50, current: 31,
-      priority: 'Medium',
-    ),
-  ];
+  /// Compat: delegates to the real, saved GoalsStore.
+  static List<GoalInfo> goalsFor(String dogName) => GoalsStore.instance.goalsFor(dogName);
 
-  static List<GoalInfo> goalsFor(String dogName) => goals.where((g) => g.dogName == dogName).toList();
 }

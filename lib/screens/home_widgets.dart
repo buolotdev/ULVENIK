@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import '../data/goals_store.dart';
 import '../data/health_store.dart';
 import '../data/media_store.dart';
 import '../data/persist.dart';
@@ -14,6 +15,7 @@ const kWidgetTypes = <String, String>{
   'today': 'Today’s Records',
   'health': 'Upcoming Health Reminders',
   'weight': 'Latest Weight',
+  'goals': 'Active Goals',
   'photos': 'Recent Photos',
   'videos': 'Recent Videos',
 };
@@ -23,6 +25,7 @@ const _widgetBlurb = <String, String>{
   'today': 'Records dated today',
   'health': 'Next health reminders and appointments',
   'weight': 'The most recent saved weight',
+  'goals': 'Your dogs\' active goals',
   'photos': 'Your latest photos',
   'videos': 'Your latest videos',
 };
@@ -134,6 +137,16 @@ class HomeWidgetPanel extends StatelessWidget {
           if (w.isNotEmpty) rows.add(line('${fmtKg(w.first.value)} ${w.first.unit}', '${all ? '$d · ' : ''}${fmtDate(w.first.date)}'));
         }
         if (rows.isEmpty) rows.add(empty('No weights recorded'));
+      case 'goals':
+        final active = <(String, GoalInfo)>[
+          for (final d in dogs) for (final g in GoalsStore.instance.goalsFor(d)) if (g.status == GoalStatus.active) (d, g),
+        ];
+        for (final it in active.take(cfg.rows)) {
+          final g = it.$2;
+          final sub = g.isMeasurable ? '${g.current}/${g.targetValue} ${g.targetUnit}' : 'Open-ended';
+          rows.add(line(g.title, '${all ? '${it.$1} · ' : ''}$sub'));
+        }
+        if (rows.isEmpty) rows.add(empty('No active goals'));
       default:
         final type = cfg.type == 'photos' ? MediaType.photo : MediaType.video;
         final items = <MediaItem>[
