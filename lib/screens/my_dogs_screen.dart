@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../data/sample_data.dart';
 import '../widgets/ulvenik_icon.dart';
-import '../widgets/custom_snackbar.dart';
 import '../theme/app_colors.dart';
+import 'add_dog_screen.dart';
+import 'archived_dogs_screen.dart';
 import 'dog_profile_screen.dart';
 import 'notifications_page_screen.dart';
 
@@ -101,11 +102,10 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
   }
 
   void _addDog() {
-    AppSnackbar.show(
+    Navigator.push(
       context,
-      message: 'Create Dog Profile is not part of this build yet.',
-      type: SnackbarType.info,
-    );
+      MaterialPageRoute(builder: (_) => AddDogScreen(hasTrainerPack: widget.hasTrainerPack)),
+    ).then((_) => setState(() {}));
   }
 
   // ── Filter sheet ────────────────────────────────────────────────────────
@@ -339,6 +339,23 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                   ),
               ],
             ),
+          ),
+          PopupMenuButton<String>(
+            tooltip: 'More',
+            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite, size: 22),
+            color: AppColors.cardsCarbon,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            onSelected: (v) {
+              if (v == 'archived') {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const ArchivedDogsScreen()));
+              }
+            },
+            itemBuilder: (ctx) => const [
+              PopupMenuItem(
+                value: 'archived',
+                child: Text('Archived Dogs', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              ),
+            ],
           ),
         ],
       ),

@@ -136,6 +136,31 @@ class DogsStore extends ChangeNotifier {
         orElse: () => all.isNotEmpty ? all.first : _dogs.first,
       );
 
+  /// Adds a new, user-created dog profile and saves it immediately.
+  DogInfo create({
+    required String name,
+    required String breed,
+    required String age,
+    required String sex,
+    bool isClient = false,
+    String? ownerName,
+    String? localPhotoPath,
+  }) {
+    final dog = DogInfo(
+      id: _newId(),
+      name: name,
+      breed: breed,
+      age: age,
+      sex: sex,
+      isClient: isClient,
+      ownerName: ownerName,
+      localPhotoPath: localPhotoPath,
+    );
+    _dogs.add(dog);
+    _touch();
+    return dog;
+  }
+
   void setPhoto(DogInfo d, String path) {
     d.localPhotoPath = path;
     _touch();

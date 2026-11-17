@@ -171,6 +171,19 @@ Still app-wide but not done: removing the intermediate dashboards on the dog-pro
 ## New icons needed (not in `UlvenikIcons`)
 S&C crossed dumbbells · Rewards (ball-on-rope) · Equipment (training cone) · List view · Card view · Save (disk) · Archive · Delete (bin) · Heart (favourite). Client says **don't invent** Automatic, Manual, Link, Archive, Delete, Sport or Filter icons until approved.
 
+## Read this first — status note (17 Nov 2026)
+The numbered per-PDF tables below (sections 1-14) are the **original, pre-work audit**, written against screens that have since been replaced. Verified against the live code: none of `health_screen.dart`, `strength_conditioning_dashboard_screen.dart`, `sport_pack_overview_screen.dart`, `media_library_screen.dart`, `timeline_settings_screen.dart` / `timeline_dashboard_screen.dart` / `timeline_insights_screen.dart`, `more_page_screen.dart` or `rewards_management_screen.dart` are reachable from live navigation any more (the files remain on disk, unused, as noted elsewhere in this doc) — they were superseded by `health_tab.dart`, `sc_tab.dart`, `sport_screens.dart`, `dog_media_library.dart`, the cleaned-up `timeline_screen.dart`, `more_hub_screen.dart` and `rewards_equipment_screens.dart`. So most ❌ rows in sections 9-14 describe an app state that no longer exists — **the `## ✅ Done` sections above are the current status; the numbered tables are historical record only.**
+
+**The real, verified-in-code remaining frontend work** (everything else either needs a backend, an unadded package, or client-supplied assets — see Blockers below):
+- ~~Add Dog / Create Dog Profile screen~~ — done (see below).
+- ~~Archived Dogs screen~~ — done (see below).
+- **Light theme**: not attempted. The whole app reads literal `AppColors` constants directly in ~150+ screens rather than `Theme.of(context)`, so a real Light mode means re-deriving every one of those call sites, not adding a switch. A toggle that flips a flag without changing any actual colours would be exactly the "fake toggle" the client's cross-cutting rules rule out, so this needs a dedicated pass (or a decision to keep Dark-only), not a quick addition here.
+- Small ⚠️ verification/polish items noted inline in the `## ✅ Done` sections (e.g. exact heatmap tap targets, a couple of copy strings) — not new builds, just a pass to double-check them against the PDFs.
+
+## ✅ Done — Add Dog & Archived Dogs (17 Nov 2026)
+- **Add Dog** (`add_dog_screen.dart`): name/breed/age/sex/client-or-not + optional photo, saved to the same `DogsStore` used everywhere else; opens the new dog's profile on save.
+- **Archived Dogs** (`archived_dogs_screen.dart`), reachable from My Dogs' ⋮ menu: lists archived dogs with Restore, matching the Archived Activities / Archived Sports pattern already in the app; empty state "No Archived Dogs".
+
 ## Blockers / need from client or a decision
 - **Assets**: full Ulvenik logo file(s) to use (we have `white_app_logo.png`, `white_stack.png` etc. — confirm which is "approved"), and dog/training photos for onboarding.
 - **Packages** for real features: `image_picker` (camera/library), `pdf` + `share_plus` + `path_provider` (export/share), `shared_preferences` (first-run, remembered view, settings persistence), `file_picker` (documents), video player.
