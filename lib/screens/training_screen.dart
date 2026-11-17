@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../data/persist.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import 'training_session_screen.dart';
@@ -30,6 +31,16 @@ class RecordedExerciseEntry {
     this.isCustom = false,
   }) : assert(repetitions >= 1);
 
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'name': name, 'repetitions': repetitions, 'notes': notes, 'isCustom': isCustom};
+  factory RecordedExerciseEntry.fromJson(Map m) => RecordedExerciseEntry(
+        id: m['id'],
+        name: m['name'],
+        repetitions: m['repetitions'] ?? 1,
+        notes: m['notes'],
+        isCustom: m['isCustom'] ?? false,
+      );
+
   RecordedExerciseEntry copyWith({
     String? id,
     String? name,
@@ -59,6 +70,15 @@ class RecordedSkillEntry {
     this.exercises = const [],
     this.isCustom = false,
   });
+
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'skillName': skillName, 'exercises': [for (final e in exercises) e.toJson()], 'isCustom': isCustom};
+  factory RecordedSkillEntry.fromJson(Map m) => RecordedSkillEntry(
+        id: m['id'],
+        skillName: m['skillName'],
+        exercises: [for (final e in (m['exercises'] as List? ?? [])) RecordedExerciseEntry.fromJson(e as Map)],
+        isCustom: m['isCustom'] ?? false,
+      );
 
   /// Number of distinct exercises recorded under this skill.
   /// Repeating an exercise increases [RecordedExerciseEntry.repetitions]
@@ -103,6 +123,13 @@ class SkillCatalogEntry {
     this.exercises = const [],
     this.isCustom = false,
   });
+
+  Map<String, dynamic> toJson() => {'skillName': skillName, 'exercises': exercises, 'isCustom': isCustom};
+  factory SkillCatalogEntry.fromJson(Map m) => SkillCatalogEntry(
+        skillName: m['skillName'],
+        exercises: [for (final e in (m['exercises'] as List? ?? [])) '$e'],
+        isCustom: m['isCustom'] ?? false,
+      );
 
   SkillCatalogEntry copyWith({
     String? skillName,
@@ -165,6 +192,59 @@ class TrainingSession {
     this.thumbnailUrl,
     required this.dogColor,
   });
+
+  static Map<String, int>? _tod(TimeOfDay? t) => t == null ? null : {'h': t.hour, 'm': t.minute};
+  static TimeOfDay? _todFrom(Map? m) => m == null ? null : TimeOfDay(hour: m['h'], minute: m['m']);
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'dogName': dogName,
+        'dogInitial': dogInitial,
+        'dogCategory': dogCategory,
+        'title': title,
+        'dateLabel': dateLabel,
+        'date': date.toIso8601String(),
+        'startTime': _tod(startTime),
+        'finishTime': _tod(finishTime),
+        'recordedDurationMinutes': recordedDurationMinutes,
+        'status': status.name,
+        'recordedSkills': [for (final s in recordedSkills) s.toJson()],
+        'location': location,
+        'purpose': purpose,
+        'notes': notes,
+        'equipment': equipment,
+        'rewards': rewards,
+        'sessionTags': sessionTags,
+        'photoCount': photoCount,
+        'videoCount': videoCount,
+        'thumbnailUrl': thumbnailUrl,
+        'dogColor': dogColor.toARGB32(),
+      };
+
+  factory TrainingSession.fromJson(Map m) => TrainingSession(
+        id: m['id'],
+        dogName: m['dogName'],
+        dogInitial: m['dogInitial'],
+        dogCategory: m['dogCategory'] ?? 'My Dogs',
+        title: m['title'],
+        dateLabel: m['dateLabel'],
+        date: DateTime.parse(m['date']),
+        startTime: _todFrom(m['startTime'] as Map?) ?? const TimeOfDay(hour: 9, minute: 0),
+        finishTime: _todFrom(m['finishTime'] as Map?),
+        recordedDurationMinutes: m['recordedDurationMinutes'],
+        status: SessionStatus.values.firstWhere((s) => s.name == m['status'], orElse: () => SessionStatus.draft),
+        recordedSkills: [for (final s in (m['recordedSkills'] as List? ?? [])) RecordedSkillEntry.fromJson(s as Map)],
+        location: m['location'] ?? 'Home Training Field',
+        purpose: m['purpose'] ?? 'Skill Building',
+        notes: m['notes'] ?? '',
+        equipment: [for (final e in (m['equipment'] as List? ?? [])) '$e'],
+        rewards: [for (final r in (m['rewards'] as List? ?? [])) '$r'],
+        sessionTags: [for (final t in (m['sessionTags'] as List? ?? [])) '$t'],
+        photoCount: m['photoCount'],
+        videoCount: m['videoCount'],
+        thumbnailUrl: m['thumbnailUrl'],
+        dogColor: Color(m['dogColor'] ?? 0xFF7A8F7A),
+      );
 
   /// Duration in minutes recorded by the user (either entered directly or
   /// derived from start and finish times).
@@ -856,6 +936,38 @@ class TrainingSessionStore {
   static final ValueNotifier<List<SkillCatalogEntry>> skillCatalogNotifier =
       ValueNotifier<List<SkillCatalogEntry>>(_defaultCatalog());
 
+  static bool _loading = false;
+
+  /// Restores saved sessions and the custom-skill catalog from the device.
+  /// If nothing was saved yet (fresh install), the illustrative defaults
+  /// already loaded into the notifiers above are left in place.
+  static Future<void> load() async {
+    _loading = true;
+    try {
+      final sj = await Persist.read('store.trainingSessions');
+      if (sj is List && sj.isNotEmpty) {
+        sessionsNotifier.value = [for (final m in sj.cast<Map>()) TrainingSession.fromJson(m)];
+      }
+      final cj = await Persist.read('store.skillCatalog');
+      if (cj is List && cj.isNotEmpty) {
+        skillCatalogNotifier.value = [for (final m in cj.cast<Map>()) SkillCatalogEntry.fromJson(m)];
+      }
+    } catch (_) {
+    } finally {
+      _loading = false;
+    }
+  }
+
+  static void _saveSessions() {
+    if (_loading) return;
+    Persist.write('store.trainingSessions', [for (final s in sessionsNotifier.value) s.toJson()]);
+  }
+
+  static void _saveCatalog() {
+    if (_loading) return;
+    Persist.write('store.skillCatalog', [for (final e in skillCatalogNotifier.value) e.toJson()]);
+  }
+
   static TrainingSession? findById(String id) {
     for (final s in sessionsNotifier.value) {
       if (s.id == id) return s;
@@ -872,12 +984,14 @@ class TrainingSessionStore {
       current.insert(0, session);
     }
     sessionsNotifier.value = current;
+    _saveSessions();
   }
 
   static void deleteSession(String sessionId) {
     sessionsNotifier.value = sessionsNotifier.value
         .where((s) => s.id != sessionId)
         .toList(growable: false);
+    _saveSessions();
   }
 
   /// Registers a user-created custom skill in the shared catalog so it can be
@@ -899,6 +1013,7 @@ class TrainingSessionStore {
     );
     current.add(created);
     skillCatalogNotifier.value = current;
+    _saveCatalog();
     return created;
   }
 
@@ -928,6 +1043,7 @@ class TrainingSessionStore {
           exercises: [...entry.exercises, exTrimmed],
         );
         skillCatalogNotifier.value = current;
+        _saveCatalog();
       }
     } else {
       current.add(
@@ -938,6 +1054,7 @@ class TrainingSessionStore {
         ),
       );
       skillCatalogNotifier.value = current;
+      _saveCatalog();
     }
   }
 

@@ -11,6 +11,7 @@ import 'screens/app_lock.dart';
 import 'screens/home_widgets.dart';
 import 'screens/notifications_inbox_screen.dart';
 import 'screens/session_templates_new.dart';
+import 'screens/training_screen.dart';
 import 'screens/media_links.dart';
 import 'data/trainer_store.dart';
 import 'theme/app_theme.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
   await ItemLibraryStore.instance.load();
   await TrainerStore.instance.load();
   await GoalsStore.instance.load();
+  await TrainingSessionStore.load();
   await HealthStore.instance.load();
   await SCStore.instance.load();
   await SportStore.instance.load();
