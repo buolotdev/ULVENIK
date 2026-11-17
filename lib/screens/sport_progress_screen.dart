@@ -8,7 +8,7 @@ import '../widgets/ulvenik_icon.dart';
 import 'sport_items_screens.dart';
 import 'sport_session_screens.dart';
 
-const _green = AppColors.primaryForestGreen;
+Color get _green => AppColors.primaryForestGreen;
 const _charcoal = Color(0xFF2A2D2C);
 const _dayShort = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const _dayLong = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -63,12 +63,12 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
   Widget _stat(String label, String value) => Expanded(
         child: HealthCard(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+            Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             const SizedBox(height: 8),
             Text(value,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
           ]),
         ),
       );
@@ -80,14 +80,14 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
             Row(children: [
               Expanded(
                 child: Text(title,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
               ),
               ?trailing,
             ]),
             if (subtitle != null)
               Padding(
                 padding: const EdgeInsets.only(top: 2),
-                child: Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                child: Text(subtitle, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               ),
             const SizedBox(height: 14),
             child,
@@ -97,7 +97,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
 
   Widget _empty(String text) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 28),
-        child: Center(child: Text(text, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5))),
+        child: Center(child: Text(text, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5))),
       );
 
   Color _level(int n) => n == 0
@@ -157,7 +157,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                         interval: maxV > 6 ? (maxV / 4).ceilToDouble() : 1,
                         getTitlesWidget: (v, m) => v == v.roundToDouble()
                             ? Text('${v.round()}',
-                                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10))
+                                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10))
                             : const SizedBox.shrink(),
                       ),
                     ),
@@ -172,7 +172,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                           return Padding(
                             padding: const EdgeInsets.only(top: 6),
                             child: Text(b[i].$1,
-                                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
+                                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
                           );
                         },
                       ),
@@ -190,7 +190,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                       getTooltipItems: (spots) => [
                         for (final s in spots)
                           LineTooltipItem('${b[s.spotIndex].$2}\n${s.y.round()} sessions',
-                              const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
+                              TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
                       ],
                     ),
                   ),
@@ -212,7 +212,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text('${sel.$2}: ${sel.$3} sessions',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
                 ),
             ])
           : _empty('No sessions in this period.'),
@@ -234,7 +234,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
           IconButton(
             tooltip: 'Previous month',
             visualDensity: VisualDensity.compact,
-            icon: const Icon(Icons.chevron_left, color: AppColors.secondaryTextStoneGrey),
+            icon: Icon(Icons.chevron_left, color: AppColors.secondaryTextStoneGrey),
             onPressed: () => setState(() {
               _heatMonth = DateTime(first.year, first.month - 1);
               _selectedDay = null;
@@ -243,12 +243,12 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
           Expanded(
             child: Text('${_monthLong[first.month - 1]} ${first.year}',
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
           ),
           IconButton(
             tooltip: 'Next month',
             visualDensity: VisualDensity.compact,
-            icon: const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+            icon: Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
             onPressed: () => setState(() {
               _heatMonth = DateTime(first.year, first.month + 1);
               _selectedDay = null;
@@ -262,7 +262,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
           childAspectRatio: 1.1,
           children: [
             for (final d in _dayShort)
-              Center(child: Text(d.substring(0, 1), style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11))),
+              Center(child: Text(d.substring(0, 1), style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11))),
             for (var i = 0; i < lead; i++) const SizedBox.shrink(),
             for (var d = 1; d <= days; d++)
               GestureDetector(
@@ -277,7 +277,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                         : null,
                   ),
                   alignment: Alignment.center,
-                  child: Text('$d', style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 11.5)),
+                  child: Text('$d', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 11.5)),
                 ),
               ),
           ],
@@ -287,14 +287,14 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: Text('${fmtDate(sd)}: ${on(sd.day)} sessions',
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
           ),
         Wrap(spacing: 12, runSpacing: 6, children: [
           for (final e in [('0', 0), ('1', 1), ('2', 2), ('3+', 3)])
             Row(mainAxisSize: MainAxisSize.min, children: [
               Container(width: 12, height: 12, decoration: BoxDecoration(color: _level(e.$2), borderRadius: BorderRadius.circular(3))),
               const SizedBox(width: 5),
-              Text(e.$1, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+              Text(e.$1, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             ]),
         ]),
       ]),
@@ -329,7 +329,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                         getTitlesWidget: (v, m) => Padding(
                           padding: const EdgeInsets.only(top: 6),
                           child: Text(_dayShort[v.round()],
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10.5)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10.5)),
                         ),
                       ),
                     ),
@@ -343,7 +343,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                     touchTooltipData: BarTouchTooltipData(
                       getTooltipColor: (_) => AppColors.backgroundObsidian,
                       getTooltipItem: (g, gi, r, ri) => BarTooltipItem('${_dayLong[gi]}\n${counts[gi]} sessions',
-                          const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
+                          TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
                     ),
                   ),
                   barGroups: [
@@ -363,7 +363,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text('${_dayLong[_selectedWeekday!]}: ${counts[_selectedWeekday!]} sessions',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
                 ),
             ]),
       trailing: top.isEmpty
@@ -371,7 +371,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
           : Flexible(
               child: Text('Most Active: ${top.join(', ')}',
                   textAlign: TextAlign.right,
-                  style: const TextStyle(color: AppColors.secondarySage, fontSize: 12.5, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5, fontWeight: FontWeight.w600)),
             ),
     );
   }
@@ -429,7 +429,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                           child: Text(r.value.name,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                         ),
                         Expanded(
                           child: ClipRRect(
@@ -438,13 +438,13 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                               value: r.value.sessions / maxS,
                               minHeight: 12,
                               backgroundColor: _charcoal,
-                              valueColor: const AlwaysStoppedAnimation(_green),
+                              valueColor: AlwaysStoppedAnimation(_green),
                             ),
                           ),
                         ),
                         const SizedBox(width: 8),
                         Text('${r.value.sessions}',
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                       ]),
                     ),
                   ),
@@ -484,7 +484,7 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                 Row(children: [
                   Expanded(
                     child: Text(sport?.name ?? '',
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                   ),
                   InkWell(
                     borderRadius: BorderRadius.circular(20),
@@ -503,15 +503,15 @@ class _SportProgressScreenState extends State<SportProgressScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.cardsCarbon,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.white12),
+                        border: Border.all(color: AppColors.cardBorder),
                       ),
                       child: Row(mainAxisSize: MainAxisSize.min, children: [
-                        const UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
+                        UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
                         const SizedBox(width: 6),
                         Text(_period,
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
-                        const Icon(Icons.keyboard_arrow_down, size: 18, color: AppColors.secondaryTextStoneGrey),
+                        Icon(Icons.keyboard_arrow_down, size: 18, color: AppColors.secondaryTextStoneGrey),
                       ]),
                     ),
                   ),

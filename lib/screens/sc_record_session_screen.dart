@@ -146,7 +146,7 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
             child: ConstrainedBox(
               constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.75),
               child: ListView(shrinkWrap: true, padding: const EdgeInsets.fromLTRB(20, 20, 20, 16), children: [
-                const Text('Select Activities',
+                Text('Select Activities',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 8),
                 for (final a in all)
@@ -155,7 +155,7 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
                     controlAffinity: ListTileControlAffinity.leading,
                     activeColor: AppColors.primaryForestGreen,
                     checkColor: AppColors.primaryTextOffWhite,
-                    title: Text(a.name, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                    title: Text(a.name, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                     value: draft.contains(a.id),
                     onChanged: (v) => setSheet(() => v == true ? draft.add(a.id) : draft.remove(a.id)),
                   ),
@@ -266,12 +266,12 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.only(top: 12, bottom: 6),
-        child: Text(m.label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+        child: Text(m.label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
       ),
       TextField(
         controller: e.ctrls[m],
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
-        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
         decoration: healthDecoration('Enter ${m.label.toLowerCase()}', suffix: (e.units[m] ?? '').isEmpty ? null : e.units[m]),
       ),
       if (m.units.isNotEmpty) ...[
@@ -299,9 +299,9 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
           if ((widget.planNote ?? '').trim().isNotEmpty) ...[
             HealthCard(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Text('Session plan', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                Text('Session plan', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                 const SizedBox(height: 4),
-                Text(widget.planNote!, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, height: 1.4)),
+                Text(widget.planNote!, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, height: 1.4)),
               ]),
             ),
             const SizedBox(height: 6),
@@ -309,7 +309,7 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
           const FieldLabel('Session Name'),
           TextField(
             controller: _name,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration(scDefaultName(_at)),
           ),
           const FieldLabel('Date', required: true),
@@ -321,7 +321,7 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
             child: InputDecorator(
               decoration: healthDecoration('Select time'),
               child: Text(fmtTime(_at),
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
             ),
           ),
           const FieldLabel('Session Duration'),
@@ -330,7 +330,7 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
               child: TextField(
                 controller: _minutes,
                 keyboardType: TextInputType.number,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                 decoration: healthDecoration('Total minutes', suffix: 'min'),
               ),
             ),
@@ -339,7 +339,7 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
               onPressed: _toggleTimer,
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.primaryTextOffWhite,
-                side: const BorderSide(color: Colors.white24),
+                side: BorderSide(color: AppColors.cardBorder),
                 minimumSize: const Size(0, 50),
               ),
               child: Text(_timer != null ? 'Stop  $timerText' : 'Start Timer'),
@@ -348,7 +348,7 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
           const SizedBox(height: 22),
           const SectionLabel('Activities'),
           if (_entries.isEmpty)
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(bottom: 10),
               child: Text('Choose the activities you did in this session.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
@@ -357,12 +357,12 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
             HealthCard(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(e.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                 for (final m in SCMeasure.values)
                   if (e.ctrls.containsKey(m)) _numberField(e, m),
                 if (e.ctrls.isEmpty)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 4),
                     child: Text('No measurements set for this activity.',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
@@ -377,7 +377,7 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
             label: Text(_entries.isEmpty ? 'Add Activities' : 'Change Activities'),
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.primaryTextOffWhite,
-              side: const BorderSide(color: Colors.white24),
+              side: BorderSide(color: AppColors.cardBorder),
               minimumSize: const Size(0, 46),
             ),
           ),
@@ -395,7 +395,7 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
             controller: _notes,
             minLines: 3,
             maxLines: 6,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add notes about this session...'),
           ),
           const FieldLabel('Photos and Videos'),
@@ -407,7 +407,7 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
               label: const Text('Add Photos or Videos'),
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.primaryTextOffWhite,
-                side: const BorderSide(color: Colors.white24),
+                side: BorderSide(color: AppColors.cardBorder),
                 minimumSize: const Size(0, 44),
               ),
             ),
@@ -418,9 +418,9 @@ class _SCRecordSessionScreenState extends State<SCRecordSessionScreen> {
               child: Wrap(spacing: 8, runSpacing: 6, children: [
                 for (final n in _media)
                   InputChip(
-                    label: Text(n, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                    label: Text(n, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                     backgroundColor: AppColors.cardsCarbon,
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                     deleteIconColor: AppColors.secondaryTextStoneGrey,
                     onDeleted: () => setState(() => _media = [..._media]..remove(n)),
                   ),

@@ -271,12 +271,12 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     controller: _searchController,
                     autofocus: true,
                     cursorColor: const Color(0xFF95D3BB),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                     ),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Search vaccines, clinic, lot number...',
                       hintStyle: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
@@ -312,7 +312,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                           color: Colors.white.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.close,
+                        child: Icon(Icons.close,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 14,
                         ),
@@ -399,10 +399,10 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 24),
+        icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      title: const Text(
+      title: Text(
         'Vaccination Manager',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -433,7 +433,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
         // Filter modal
         IconButton(
           tooltip: 'Filters & Preferences',
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
+          icon: Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
           onPressed: _showFilterPreferencesModal,
         ),
         // Quick State Toggle (Populated / Empty)
@@ -587,10 +587,10 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                   color: AppColors.cardsCarbon,
                   border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
                 ),
-                child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.secondaryTextStoneGrey, size: 24),
+                child: UlvenikIcon(UlvenikIcons.add, color: AppColors.secondaryTextStoneGrey, size: 24),
               ),
               const SizedBox(height: 6),
-              const Text(
+              Text(
                 'Add',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
               ),
@@ -678,7 +678,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
         const SizedBox(height: 4),
         Text(
           count,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.primaryTextOffWhite,
             fontSize: 20,
             fontWeight: FontWeight.w700,
@@ -687,7 +687,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
         const SizedBox(height: 2),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 9,
             fontWeight: FontWeight.w700,
@@ -715,7 +715,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
           ),
         ),
         const SizedBox(height: 20),
-        const Text(
+        Text(
           'No Vaccinations Recorded',
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,
@@ -729,7 +729,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
           child: Text(
             'Keep ${_activeDog.name}’s vaccination history organised in one place. Record vaccinations and keep track of upcoming and overdue boosters.',
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 14,
               height: 1.5,
@@ -814,7 +814,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 children: [
                   Text(
                     _activeDog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -823,7 +823,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                   const SizedBox(height: 2),
                   Text(
                     '${_activeDog.breed} • ${_activeDog.age}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 13,
                     ),
@@ -831,7 +831,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 22),
+            Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 22),
           ],
         ),
       ),
@@ -1004,7 +1004,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                       const SizedBox(height: 2),
                       Text(
                         vax.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -1167,7 +1167,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                       children: [
                         Text(
                           vax.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -1186,7 +1186,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                       ],
                     ),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
                 ],
               ),
             ),
@@ -1203,13 +1203,13 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
       child: Center(
         child: Column(
           children: [
-            const UlvenikIcon(UlvenikIcons.health, size: 36, color: AppColors.secondaryTextStoneGrey),
+            UlvenikIcon(UlvenikIcons.health, size: 36, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(height: 12),
             Text(
               _searchQuery.isNotEmpty
                   ? 'No vaccines matching "$_searchQuery"'
                   : 'No $_selectedFilter records',
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -1220,7 +1220,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
               _searchQuery.isNotEmpty
                   ? 'Try searching by a different name, clinic, or lot number.'
                   : 'Try selecting another filter above.',
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
             ),
             if (_searchQuery.isNotEmpty) ...[
               const SizedBox(height: 16),
@@ -1293,14 +1293,14 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 children: [
                   Text(
                     'Record ${vax.name}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1308,10 +1308,10 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
               const SizedBox(height: 16),
               TextField(
                 controller: batchCtrl,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                style: TextStyle(color: AppColors.primaryTextOffWhite),
                 decoration: InputDecoration(
                   labelText: 'Lot / Batch Number',
-                  labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                  labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                   filled: true,
                   fillColor: AppColors.cardsCarbon,
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1320,10 +1320,10 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
               const SizedBox(height: 12),
               TextField(
                 controller: clinicCtrl,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                style: TextStyle(color: AppColors.primaryTextOffWhite),
                 decoration: InputDecoration(
                   labelText: 'Clinic / Hospital',
-                  labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                  labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                   filled: true,
                   fillColor: AppColors.cardsCarbon,
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1415,14 +1415,14 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                       children: [
                         Text(
                           'Add Vaccine for ${_activeDog.name}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1430,10 +1430,10 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     const SizedBox(height: 16),
                     TextField(
                       controller: nameCtrl,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite),
                       decoration: InputDecoration(
                         labelText: 'Vaccine Name (e.g. Rabies, DHPPi, Lyme)',
-                        labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                        labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
                         fillColor: AppColors.cardsCarbon,
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1442,10 +1442,10 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     const SizedBox(height: 12),
                     TextField(
                       controller: clinicCtrl,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite),
                       decoration: InputDecoration(
                         labelText: 'Veterinary Clinic',
-                        labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                        labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
                         fillColor: AppColors.cardsCarbon,
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1454,10 +1454,10 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     const SizedBox(height: 12),
                     TextField(
                       controller: batchCtrl,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite),
                       decoration: InputDecoration(
                         labelText: 'Batch / Lot Number (optional)',
-                        labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                        labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
                         fillColor: AppColors.cardsCarbon,
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1468,7 +1468,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Core Vaccine (Required)',
                           style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500),
                         ),
@@ -1544,14 +1544,14 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                 children: [
                   Text(
                     vax.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1637,8 +1637,8 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
-        Text(value, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w600)),
+        Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+        Text(value, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w600)),
       ],
     );
   }
@@ -1661,12 +1661,12 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Select Dog',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w700),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1718,7 +1718,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                               children: [
                                 Text(
                                   dog.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -1726,7 +1726,7 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
                                 ),
                                 Text(
                                   '${dog.breed} • ${dog.age}',
-                                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
+                                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
                                 ),
                               ],
                             ),
@@ -1757,9 +1757,9 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('Add Dog', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w700)),
+              Text('Add Dog', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w700)),
               const SizedBox(height: 12),
-              const Text('To register another canine, navigate to the Dogs tab and select Add Dog.', textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
+              Text('To register another canine, navigate to the Dogs tab and select Add Dog.', textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
               const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2F5D50)),
@@ -1791,18 +1791,18 @@ class _VaccinationManagerScreenState extends State<VaccinationManagerScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Vaccination Preferences',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w700),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
-              const Text('STATE VIEW', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
+              Text('STATE VIEW', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
               const SizedBox(height: 8),
               Row(
                 children: [

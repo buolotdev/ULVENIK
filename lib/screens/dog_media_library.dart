@@ -158,7 +158,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
                 lastDate: DateTime.now(),
                 builder: (c, w) => Theme(
                   data: Theme.of(c).copyWith(
-                      colorScheme: const ColorScheme.dark(
+                      colorScheme: ColorScheme.dark(
                           primary: AppColors.primaryForestGreen, surface: AppColors.cardsCarbon)),
                   child: w!,
                 ),
@@ -167,7 +167,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
             child: ConstrainedBox(
               constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.85),
               child: ListView(shrinkWrap: true, padding: const EdgeInsets.fromLTRB(20, 20, 20, 16), children: [
-                const Text('Filters',
+                Text('Filters',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 const FieldLabelPlain('Date range'),
                 Row(children: [
@@ -206,7 +206,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
                           fontSize: 13),
                       backgroundColor: AppColors.backgroundObsidian,
                       selectedColor: AppColors.primaryForestGreen,
-                      side: const BorderSide(color: Colors.white12),
+                      side: BorderSide(color: AppColors.cardBorder),
                     ),
                 ]),
                 const FieldLabelPlain('Sort by'),
@@ -225,7 +225,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
                             fontSize: 13),
                         backgroundColor: AppColors.backgroundObsidian,
                         selectedColor: AppColors.primaryForestGreen,
-                        side: const BorderSide(color: Colors.white12),
+                        side: BorderSide(color: AppColors.cardBorder),
                       ),
                     for (final a in autos)
                       ChoiceChip(
@@ -238,7 +238,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
                             fontSize: 13),
                         backgroundColor: AppColors.backgroundObsidian,
                         selectedColor: AppColors.primaryForestGreen,
-                        side: const BorderSide(color: Colors.white12),
+                        side: BorderSide(color: AppColors.cardBorder),
                       ),
                   ]),
                 ],
@@ -246,7 +246,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   activeThumbColor: AppColors.primaryForestGreen,
-                  title: const Text('Favourites only', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                  title: Text('Favourites only', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                   value: f.favOnly,
                   onChanged: (v) => setSheet(() => f.favOnly = v),
                 ),
@@ -281,7 +281,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
 
   static final _outlined = OutlinedButton.styleFrom(
     foregroundColor: AppColors.primaryTextOffWhite,
-    side: const BorderSide(color: Colors.white24),
+    side: BorderSide(color: AppColors.cardBorder),
     minimumSize: const Size(0, 46),
   );
 
@@ -297,11 +297,11 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
     switch (i.type) {
       case MediaType.photo:
         face = i.path == null
-            ? const ColoredBox(color: AppColors.backgroundObsidian)
+            ? ColoredBox(color: AppColors.backgroundObsidian)
             : Image.file(File(i.path!),
                 fit: BoxFit.cover,
                 cacheWidth: 400,
-                errorBuilder: (_, _, _) => const ColoredBox(
+                errorBuilder: (_, _, _) => ColoredBox(
                     color: AppColors.backgroundObsidian,
                     child: Icon(Icons.broken_image_outlined, color: AppColors.secondaryTextStoneGrey)));
       case MediaType.video:
@@ -321,10 +321,10 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
         face = ColoredBox(
           color: const Color(0xFF1F2A26),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Icon(Icons.description_outlined, color: AppColors.secondarySage, size: 28),
+            Icon(Icons.description_outlined, color: AppColors.secondarySage, size: 28),
             const SizedBox(height: 4),
             Text(ext,
-                style: const TextStyle(color: AppColors.secondarySage, fontSize: 11, fontWeight: FontWeight.w700)),
+                style: TextStyle(color: AppColors.secondarySage, fontSize: 11, fontWeight: FontWeight.w700)),
           ]),
         );
     }
@@ -336,7 +336,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
         child: Stack(fit: StackFit.expand, children: [
           face,
           if (i.favourite)
-            const Positioned(
+            Positioned(
               right: 5,
               top: 5,
               child: Icon(Icons.favorite, size: 16, color: AppColors.primaryForestGreen),
@@ -386,19 +386,19 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(name,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                   Text('${isPersonal ? 'Personal · ' : 'Automatic · '}$count ${count == 1 ? 'file' : 'files'}',
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                 ]),
               ),
               if (onMenu != null)
                 IconButton(
                   tooltip: 'Collection options',
-                  icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.secondaryTextStoneGrey),
+                  icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.secondaryTextStoneGrey),
                   onPressed: onMenu,
                 )
               else
-                const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
             ]),
           ),
         );
@@ -418,8 +418,8 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
         alignment: Alignment.centerRight,
         child: TextButton.icon(
           onPressed: _newCollection,
-          icon: const UlvenikIcon(UlvenikIcons.add, size: 16, color: AppColors.primaryForestGreen),
-          label: const Text('New Collection',
+          icon: UlvenikIcon(UlvenikIcons.add, size: 16, color: AppColors.primaryForestGreen),
+          label: Text('New Collection',
               style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
         ),
       ),
@@ -437,11 +437,11 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.cardsCarbon,
-        title: const Text('New Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+        title: Text('New Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
         content: TextField(
           controller: ctrl,
           autofocus: true,
-          style: const TextStyle(color: AppColors.primaryTextOffWhite),
+          style: TextStyle(color: AppColors.primaryTextOffWhite),
           decoration: healthDecoration('Collection name'),
         ),
         actions: [
@@ -463,7 +463,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
-                title: const Text('Rename Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('Rename Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () async {
                   Navigator.pop(ctx);
                   final ctrl = TextEditingController(text: c.name);
@@ -471,11 +471,11 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
                     context: context,
                     builder: (d) => AlertDialog(
                       backgroundColor: AppColors.cardsCarbon,
-                      title: const Text('Rename Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                      title: Text('Rename Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                       content: TextField(
                           controller: ctrl,
                           autofocus: true,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite),
                           decoration: healthDecoration('Collection name')),
                       actions: [
                         TextButton(onPressed: () => Navigator.pop(d), child: const Text('Cancel')),
@@ -490,7 +490,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
               ListTile(
                 leading: const Icon(Icons.delete_outline, color: Color(0xFFFFB4AB)),
                 title: const Text('Delete Collection', style: TextStyle(color: Color(0xFFFFB4AB))),
-                subtitle: const Text('The files in it are kept.',
+                subtitle: Text('The files in it are kept.',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -541,17 +541,17 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
         body = Padding(
           padding: const EdgeInsets.symmetric(vertical: 32),
           child: Column(children: [
-            const Icon(Icons.search_off, color: AppColors.secondaryTextStoneGrey, size: 32),
+            Icon(Icons.search_off, color: AppColors.secondaryTextStoneGrey, size: 32),
             const SizedBox(height: 10),
             Text(
               _search.text.trim().isNotEmpty ? 'No results for “${_search.text.trim()}”' : 'No media matches your filters',
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             TextButton(
               onPressed: _clearAll,
-              child: const Text('Clear Search and Filters',
+              child: Text('Clear Search and Filters',
                   style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
             ),
           ]),
@@ -590,23 +590,23 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
             child: Row(children: [
               TextButton(
                 onPressed: () => setState(_selected.clear),
-                child: const Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                child: Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               ),
               Expanded(
                 child: Text('${_selected.length} selected',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
               ),
               IconButton(
                 tooltip: 'Add to Collection',
-                icon: const Icon(Icons.create_new_folder_outlined, color: AppColors.primaryTextOffWhite),
+                icon: Icon(Icons.create_new_folder_outlined, color: AppColors.primaryTextOffWhite),
                 onPressed: () async {
                   if (await showAddToCollectionSheet(context, _dog, _selectedItems)) setState(_selected.clear);
                 },
               ),
               IconButton(
                 tooltip: 'Download',
-                icon: const Icon(Icons.download_outlined, color: AppColors.primaryTextOffWhite),
+                icon: Icon(Icons.download_outlined, color: AppColors.primaryTextOffWhite),
                 onPressed: () => downloadItems(context, _selectedItems),
               ),
               IconButton(
@@ -624,7 +624,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
           )
         else
           Row(children: [
-            const Expanded(
+            Expanded(
               child: Text('Media Library',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
             ),
@@ -636,7 +636,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
                 label: const Text('Add Media', style: TextStyle(fontWeight: FontWeight.w600)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryForestGreen,
-                  foregroundColor: AppColors.primaryTextOffWhite,
+                  foregroundColor: AppColors.onForestGreen,
                   elevation: 0,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 ),
@@ -644,7 +644,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
             ),
             IconButton(
               tooltip: 'More',
-              icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
               onPressed: () => showModalBottomSheet<void>(
                 context: context,
                 backgroundColor: AppColors.cardsCarbon,
@@ -654,7 +654,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
-                        title: const Text('Media Storage', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text('Media Storage', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           Navigator.push(
@@ -672,9 +672,9 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
           Expanded(
             child: TextField(
               controller: _search,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
               decoration: healthDecoration('Search media...').copyWith(
-                prefixIcon: const Padding(
+                prefixIcon: Padding(
                   padding: EdgeInsets.all(12),
                   child: UlvenikIcon(UlvenikIcons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
                 ),
@@ -717,12 +717,12 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
             IconButton(
               tooltip: 'Back to collections',
               visualDensity: VisualDensity.compact,
-              icon: const UlvenikIcon(UlvenikIcons.back, size: 20, color: AppColors.secondaryTextStoneGrey),
+              icon: UlvenikIcon(UlvenikIcons.back, size: 20, color: AppColors.secondaryTextStoneGrey),
               onPressed: () => setState(() => _openCollection = null),
             ),
             Expanded(
               child: Text(openName,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
             ),
           ]),
         if (all.isEmpty && _tab != 'Collections')
@@ -742,7 +742,7 @@ class FieldLabelPlain extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(top: 18, bottom: 8),
         child: Text(text,
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600)),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600)),
       );
 }
 
@@ -773,10 +773,10 @@ class MediaStorageScreen extends StatelessWidget {
                 child: Row(children: [
                   Expanded(
                     child: Text(label,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                   ),
                   Text('${count(t)} · ${_size(sum(t))}',
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
                 ]),
               ),
             );
@@ -787,11 +787,11 @@ class MediaStorageScreen extends StatelessWidget {
             children: [
               HealthCard(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  const Text('Used by this library',
+                  Text('Used by this library',
                       style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                   const SizedBox(height: 6),
                   Text(_size(items.fold(0, (a, i) => a + i.size)),
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 26, fontWeight: FontWeight.w700)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 26, fontWeight: FontWeight.w700)),
                 ]),
               ),
               const SizedBox(height: 14),
@@ -799,7 +799,7 @@ class MediaStorageScreen extends StatelessWidget {
               row('Videos', MediaType.video),
               row('Documents', MediaType.document),
               const SizedBox(height: 6),
-              const Text('Storage plans and limits will appear here once they are confirmed.',
+              Text('Storage plans and limits will appear here once they are confirmed.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4)),
             ],
           ),

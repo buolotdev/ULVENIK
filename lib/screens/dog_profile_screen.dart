@@ -191,9 +191,9 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             ListTile(
-              leading: const UlvenikIcon(UlvenikIcons.edit, size: 22, color: AppColors.primaryTextOffWhite),
-              title: const Text('Edit Profile', style: TextStyle(color: AppColors.primaryTextOffWhite)),
-              subtitle: const Text('Dog details and profile photograph',
+              leading: UlvenikIcon(UlvenikIcons.edit, size: 22, color: AppColors.primaryTextOffWhite),
+              title: Text('Edit Profile', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              subtitle: Text('Dog details and profile photograph',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               onTap: () {
                 Navigator.pop(ctx);
@@ -202,7 +202,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
             ),
             ListTile(
               leading: const SizedBox(width: 22),
-              title: const Text('Archive Dog', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              title: Text('Archive Dog', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () {
                 Navigator.pop(ctx);
                 _confirm(
@@ -257,11 +257,11 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Text(title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
             Text(message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
             const SizedBox(height: 22),
             SizedBox(
               height: 50,
@@ -286,7 +286,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                 onPressed: () => Navigator.pop(ctx),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
                 child: const Text('Cancel'),
@@ -331,7 +331,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
     final placeholder = Container(
       color: const Color(0xFF1E2522),
       alignment: Alignment.center,
-      child: const UlvenikIcon(UlvenikIcons.dogs, size: 56, color: AppColors.secondarySage),
+      child: UlvenikIcon(UlvenikIcons.dogs, size: 56, color: AppColors.secondarySage),
     );
     return SliverAppBar(
       expandedHeight: 240,
@@ -340,13 +340,13 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
       surfaceTintColor: Colors.transparent,
       leading: IconButton(
         tooltip: 'Back',
-        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite),
+        icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite),
         onPressed: () => Navigator.maybePop(context),
       ),
       actions: [
         IconButton(
           tooltip: 'Profile options',
-          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
+          icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
           onPressed: _openProfileMenu,
         ),
       ],
@@ -358,7 +358,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
             crop: _coverCrop,
             placeholder: placeholder,
           ),
-          const DecoratedBox(
+          DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -378,7 +378,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                 Text(_dog.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: AppColors.primaryTextOffWhite, fontSize: 30, fontWeight: FontWeight.w700, letterSpacing: -0.5)),
                 const SizedBox(height: 2),
                 Text(_dog.details, style: const TextStyle(color: Color(0xFFD5DAD7), fontSize: 14)),
@@ -394,7 +394,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
               child: IconButton(
                 tooltip: 'Edit cover photo',
                 onPressed: _editCover,
-                icon: const UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.primaryTextOffWhite),
+                icon: UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.primaryTextOffWhite),
               ),
             ),
           ),
@@ -524,7 +524,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
           const UlvenikIcon(UlvenikIcons.completed, size: 18, color: Color(0xFF6FBF8E)),
         ]);
       case _FocusState.notGiven:
-        trailing = const Text('Not Given', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13));
+        trailing = Text('Not Given', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13));
       case _FocusState.scheduled:
         trailing = _SmallButton(
           label: f.kind == _FocusKind.health ? 'Log' : 'Start',
@@ -541,9 +541,9 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
           const SizedBox(width: 12),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(f.title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, fontWeight: FontWeight.w600)),
+              Text(f.title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, fontWeight: FontWeight.w600)),
               const SizedBox(height: 2),
-              Text('$category · $when', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+              Text('$category · $when', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             ]),
           ),
           const SizedBox(width: 8),
@@ -585,11 +585,11 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
               child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                 Text(f.title,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 4),
                 Text(
                   [_dog.name, if (f.details != null) f.details!, if (f.time != null) 'Due ${_hm(f.time!)}'].join(' · '),
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                 ),
                 const SizedBox(height: 18),
                 Row(children: [
@@ -609,8 +609,8 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
                     decoration: BoxDecoration(color: AppColors.backgroundObsidian, borderRadius: BorderRadius.circular(12)),
                     child: Row(children: [
-                      const Expanded(child: Text('Actual time', style: TextStyle(color: AppColors.secondaryTextStoneGrey))),
-                      Text(_hm(time), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                      Expanded(child: Text('Actual time', style: TextStyle(color: AppColors.secondaryTextStoneGrey))),
+                      Text(_hm(time), style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
                     ]),
                   ),
                 ),
@@ -619,7 +619,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                   controller: notes,
                   maxLines: 3,
                   minLines: 2,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite),
                   decoration: InputDecoration(
                     hintText: given ? 'Notes (optional)' : 'Reason or notes (optional)',
                     filled: true,
@@ -639,7 +639,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       elevation: 0,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
@@ -659,22 +659,22 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
       padding: const EdgeInsets.fromLTRB(16, 14, 10, 14),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(14),
       ),
       child: Row(children: [
         Expanded(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(d.title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+            Text(d.title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
             const SizedBox(height: 3),
             Text('${d.type} · ${_savedAgo(d.savedAt)}',
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
           ]),
         ),
         TextButton.icon(
           onPressed: () => _resume(d),
-          icon: const UlvenikIcon(UlvenikIcons.play, size: 20, color: AppColors.primaryTextOffWhite),
-          label: const Text('Resume', style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+          icon: UlvenikIcon(UlvenikIcons.play, size: 20, color: AppColors.primaryTextOffWhite),
+          label: Text('Resume', style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
           style: TextButton.styleFrom(minimumSize: const Size(48, 44)),
         ),
       ]),
@@ -717,7 +717,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
             shrinkWrap: true,
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
             children: [
-              const Text('All Drafts',
+              Text('All Drafts',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 12),
               for (final d in drafts) ...[_buildDraftCard(d), const SizedBox(height: 10)],
@@ -738,9 +738,9 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
             width: 40,
             child: Column(children: [
               Text('${u.when.day}',
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
               Text(_months[u.when.month - 1],
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             ]),
           ),
           Container(width: 1, height: 34, color: Colors.white12, margin: const EdgeInsets.symmetric(horizontal: 12)),
@@ -748,12 +748,12 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
           const SizedBox(width: 10),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(u.title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500)),
+              Text(u.title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500)),
               Text('${u.category} · ${_hm(TimeOfDay.fromDateTime(u.when))}',
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             ]),
           ),
-          const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+          UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
         ]),
       ),
     );
@@ -771,12 +771,12 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
             Row(children: [
               Expanded(
                 child: Text(u.title,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               ),
               PopupMenuButton<String>(
                 tooltip: 'More actions',
                 color: AppColors.backgroundObsidian,
-                icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
+                icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
                 onSelected: (v) {
                   Navigator.pop(ctx);
                   switch (v) {
@@ -788,7 +788,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                       _cancelUpcoming(u);
                   }
                 },
-                itemBuilder: (_) => const [
+                itemBuilder: (_) => [
                   PopupMenuItem(value: 'edit', child: Text('Edit', style: TextStyle(color: AppColors.primaryTextOffWhite))),
                   PopupMenuItem(
                       value: 'reschedule', child: Text('Reschedule', style: TextStyle(color: AppColors.primaryTextOffWhite))),
@@ -819,7 +819,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                       label: const Text('Start Session', style: TextStyle(fontWeight: FontWeight.w600)),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryForestGreen,
-                        foregroundColor: AppColors.primaryTextOffWhite,
+                        foregroundColor: AppColors.onForestGreen,
                         elevation: 0,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
@@ -837,8 +837,8 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
   Widget _detailRow(String label, String value) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(children: [
-          SizedBox(width: 90, child: Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14))),
-          Expanded(child: Text(value, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14))),
+          SizedBox(width: 90, child: Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14))),
+          Expanded(child: Text(value, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14))),
         ]),
       );
 
@@ -848,11 +848,11 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.cardsCarbon,
-        title: const Text('Edit', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+        title: Text('Edit', style: TextStyle(color: AppColors.primaryTextOffWhite)),
         content: TextField(
           controller: ctrl,
           autofocus: true,
-          style: const TextStyle(color: AppColors.primaryTextOffWhite),
+          style: TextStyle(color: AppColors.primaryTextOffWhite),
           decoration: const InputDecoration(labelText: 'Activity name'),
         ),
         actions: [
@@ -889,9 +889,9 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.cardsCarbon,
-        title: const Text('Cancel this activity?', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+        title: Text('Cancel this activity?', style: TextStyle(color: AppColors.primaryTextOffWhite)),
         content: Text('"${u.title}" will be removed from your schedule. Completed records are not affected.',
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey)),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Keep')),
           TextButton(
@@ -913,18 +913,18 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Row(children: [
           Expanded(
             child: Text(title,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
           ),
           UlvenikIcon(icon, size: 20, color: AppColors.secondarySage),
         ]),
         const SizedBox(height: 8),
-        Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+        Text(subtitle, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
         const SizedBox(height: 16),
         ...actions,
       ]),
@@ -933,7 +933,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
 
   ButtonStyle get _primaryStyle => ElevatedButton.styleFrom(
         backgroundColor: AppColors.primaryForestGreen,
-        foregroundColor: AppColors.primaryTextOffWhite,
+        foregroundColor: AppColors.onForestGreen,
         minimumSize: const Size(double.infinity, 46),
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -948,7 +948,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
         onTap: () => _push(SkillsListScreen(dogName: _dog.name, breed: _dog.breed, hasData: _hasData)),
         child: Container(
           padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(border: Border.all(color: Colors.white12), borderRadius: BorderRadius.circular(16)),
+          decoration: BoxDecoration(border: Border.all(color: AppColors.cardBorder), borderRadius: BorderRadius.circular(16)),
           child: Row(children: [
             Container(
               width: 40,
@@ -958,19 +958,19 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                 color: AppColors.primaryForestGreen.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const UlvenikIcon(UlvenikIcons.skills, size: 20, color: AppColors.primaryTextOffWhite),
+              child: UlvenikIcon(UlvenikIcons.skills, size: 20, color: AppColors.primaryTextOffWhite),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Text('Skills & Exercises',
+                Text('Skills & Exercises',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 2),
                 Text(_hasData ? '6 skills · 21 exercises' : 'No skills yet',
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               ]),
             ),
-            const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+            UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
           ]),
         ),
       ),
@@ -1033,17 +1033,17 @@ class _StatCard extends StatelessWidget {
           onTap: onTap,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: Colors.white12)),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.cardBorder)),
             child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               UlvenikIcon(icon, size: 22, color: AppColors.secondarySage),
               const SizedBox(height: 8),
               Text(value,
                   maxLines: 1,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w700)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w700)),
               const SizedBox(height: 2),
               Text(label,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             ]),
           ),
         ),
@@ -1066,7 +1066,7 @@ class _SectionTitle extends StatelessWidget {
         child: Row(children: [
           Expanded(
             child: Text(text,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           ),
           ?trailing,
         ]),
@@ -1098,14 +1098,14 @@ class _Group extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(14),
       ),
       child: Material(
         color: Colors.transparent,
         child: Column(children: [
           for (var i = 0; i < children.length; i++) ...[
-            if (i > 0) const Divider(color: Colors.white12, height: 1),
+            if (i > 0) Divider(color: AppColors.cardBorder, height: 1),
             children[i],
           ],
         ]),
@@ -1124,13 +1124,13 @@ class _EmptyBox extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: AppColors.cardBorder),
           borderRadius: BorderRadius.circular(14),
         ),
         child: Column(children: [
           UlvenikIcon(icon, size: 26, color: AppColors.secondarySage),
           const SizedBox(height: 10),
-          Text(message, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+          Text(message, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
         ]),
       );
 }
@@ -1164,7 +1164,7 @@ class _SmallButton extends StatelessWidget {
           onPressed: onTap,
           style: OutlinedButton.styleFrom(
             foregroundColor: AppColors.primaryTextOffWhite,
-            side: const BorderSide(color: AppColors.primaryForestGreen),
+            side: BorderSide(color: AppColors.primaryForestGreen),
             padding: const EdgeInsets.symmetric(horizontal: 16),
             minimumSize: const Size(64, 36),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

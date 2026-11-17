@@ -109,9 +109,9 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
           backgroundColor: AppColors.cardsCarbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: AppColors.cardBorder),
+            side: BorderSide(color: AppColors.cardBorder),
           ),
-          title: const Text(
+          title: Text(
             'Disable Two-Factor Authentication?',
             style: TextStyle(
               color: AppColors.primaryTextOffWhite,
@@ -120,7 +120,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
               fontFamily: 'Inter',
             ),
           ),
-          content: const Text(
+          content: Text(
             'Disabling two-factor authentication reduces your account security. A verification code will no longer be required when signing in from unrecognised devices.',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -132,7 +132,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text(
+              child: Text(
                 'Keep Enabled',
                 style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -204,7 +204,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Security Verification',
                         style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
@@ -214,7 +214,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close,
+                        icon: Icon(Icons.close,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
                         onPressed: () => Navigator.pop(ctx),
@@ -222,7 +222,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  const Text(
+                  Text(
                     'Enter your account password to view your backup recovery codes.',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -234,13 +234,13 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                   TextField(
                     controller: passwordCtrl,
                     obscureText: obscure,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontFamily: 'Inter',
                     ),
                     decoration: InputDecoration(
                       hintText: 'Enter account password',
-                      hintStyle: const TextStyle(
+                      hintStyle: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                       ),
                       filled: true,
@@ -259,15 +259,15 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: AppColors.cardBorder),
+                        borderSide: BorderSide(color: AppColors.cardBorder),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: AppColors.cardBorder),
+                        borderSide: BorderSide(color: AppColors.cardBorder),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
+                        borderSide: BorderSide(
                           color: AppColors.primaryForestGreen,
                         ),
                       ),
@@ -332,7 +332,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
         backgroundColor: AppColors.backgroundObsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back,
+          icon: UlvenikIcon(UlvenikIcons.back,
             color: AppColors.primaryTextOffWhite,
             size: 18,
           ),
@@ -352,7 +352,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
             }
           },
         ),
-        title: const Text(
+        title: Text(
           'Two-Factor Authentication',
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,
@@ -390,7 +390,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'SECURITY STATUS',
                       style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
@@ -414,7 +414,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Row(
+                              Row(
                                 children: [
                                   Icon(Icons.shield_outlined,
                                     color: AppColors.secondaryTextStoneGrey,
@@ -462,7 +462,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          const Text(
+                          Text(
                             'Add an extra layer of security to help protect your account if your password is ever compromised.',
                             style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
@@ -475,7 +475,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                       ),
                     ),
                     const SizedBox(height: 28),
-                    const Text(
+                    Text(
                       'VERIFICATION METHOD',
                       style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
@@ -497,10 +497,10 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           ListTile(
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
-                            leading: const Icon(Icons.phone_android_rounded,
+                            leading: Icon(Icons.phone_android_rounded,
                               color: AppColors.secondarySage,
                             ),
-                            title: const Text(
+                            title: Text(
                               'Authentication App',
                               style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
@@ -524,7 +524,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                                           .withValues(alpha: 0.4),
                                     ),
                                   ),
-                                  child: const Text(
+                                  child: Text(
                                     'RECOMMENDED',
                                     style: TextStyle(
                                       color: AppColors.secondarySage,
@@ -536,7 +536,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 8),
-                                const UlvenikIcon(UlvenikIcons.details,
+                                UlvenikIcon(UlvenikIcons.details,
                                   color: AppColors.secondaryTextStoneGrey,
                                   size: 20,
                                 ),
@@ -544,14 +544,14 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                             ),
                             onTap: _startSetupFlow,
                           ),
-                          const Divider(color: AppColors.cardBorder, height: 1),
+                          Divider(color: AppColors.cardBorder, height: 1),
                           ListTile(
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
-                            leading: const Icon(Icons.key_rounded,
+                            leading: Icon(Icons.key_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                             ),
-                            title: const Text(
+                            title: Text(
                               'Passkey / Security Key',
                               style: TextStyle(
                                 color: AppColors.secondaryTextStoneGrey,
@@ -560,7 +560,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                                 fontFamily: 'Inter',
                               ),
                             ),
-                            subtitle: const Text(
+                            subtitle: Text(
                               'Coming soon',
                               style: TextStyle(
                                 color: AppColors.secondaryTextStoneGrey,
@@ -575,7 +575,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                                 color: Colors.white.withValues(alpha: 0.05),
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'SOON',
                                 style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
@@ -658,7 +658,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                               .withValues(alpha: 0.4),
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         'ENABLED',
                         style: TextStyle(
                           color: AppColors.secondarySage,
@@ -679,7 +679,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   'Your account is protected with an additional layer of security. A verification code is required when signing in from an unrecognised device.',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -694,7 +694,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
           const SizedBox(height: 28),
 
           // Recovery Codes Section
-          const Text(
+          Text(
             'RECOVERY CODES',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -715,7 +715,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Store these codes securely. They can be used to access your account if you lose your authentication device.',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -731,7 +731,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: OutlinedButton.icon(
                         style: OutlinedButton.styleFrom(
-                          side: const BorderSide(
+                          side: BorderSide(
                               color: AppColors.primaryForestGreen),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 12),
@@ -740,11 +740,11 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           ),
                         ),
                         onPressed: _requestViewRecoveryCodes,
-                        icon: const Icon(Icons.lock_open_rounded,
+                        icon: Icon(Icons.lock_open_rounded,
                           color: AppColors.secondarySage,
                           size: 18,
                         ),
-                        label: const Text(
+                        label: Text(
                           'View Recovery Codes',
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -774,7 +774,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           Expanded(
                             child: Text(
                               _recoveryCodes[index],
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 14,
                                 fontFamily: 'monospace',
@@ -783,7 +783,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                               ),
                             ),
                           ),
-                          const Icon(Icons.check,
+                          Icon(Icons.check,
                             size: 14,
                             color: AppColors.secondarySage,
                           ),
@@ -797,7 +797,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                       Expanded(
                         child: OutlinedButton.icon(
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: AppColors.cardBorder),
+                            side: BorderSide(color: AppColors.cardBorder),
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -811,11 +811,11 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                               type: SnackbarType.success,
                             );
                           },
-                          icon: const Icon(Icons.copy_rounded,
+                          icon: Icon(Icons.copy_rounded,
                             size: 16,
                             color: AppColors.secondaryTextStoneGrey,
                           ),
-                          label: const Text(
+                          label: Text(
                             'Copy',
                             style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
@@ -829,7 +829,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                       Expanded(
                         child: OutlinedButton.icon(
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: AppColors.cardBorder),
+                            side: BorderSide(color: AppColors.cardBorder),
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -843,11 +843,11 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                               type: SnackbarType.info,
                             );
                           },
-                          icon: const Icon(Icons.download_rounded,
+                          icon: Icon(Icons.download_rounded,
                             size: 16,
                             color: AppColors.secondaryTextStoneGrey,
                           ),
-                          label: const Text(
+                          label: Text(
                             'Download',
                             style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
@@ -861,7 +861,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                       Expanded(
                         child: OutlinedButton.icon(
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: AppColors.cardBorder),
+                            side: BorderSide(color: AppColors.cardBorder),
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -875,11 +875,11 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                               type: SnackbarType.info,
                             );
                           },
-                          icon: const Icon(Icons.print_rounded,
+                          icon: Icon(Icons.print_rounded,
                             size: 16,
                             color: AppColors.secondaryTextStoneGrey,
                           ),
-                          label: const Text(
+                          label: Text(
                             'Print',
                             style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
@@ -898,7 +898,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
           const SizedBox(height: 28),
 
           // Trusted Devices Section
-          const Text(
+          Text(
             'TRUSTED DEVICES',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -940,7 +940,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                               children: [
                                 Text(
                                   dev['name']!,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -950,7 +950,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                                 const SizedBox(height: 2),
                                 Text(
                                   '${dev['location']} · ${dev['active']}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12,
                                     fontFamily: 'Inter',
@@ -984,7 +984,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                       ),
                     ),
                     if (!isLast)
-                      const Divider(color: AppColors.cardBorder, height: 1),
+                      Divider(color: AppColors.cardBorder, height: 1),
                   ],
                 );
               }).toList(),
@@ -1106,14 +1106,14 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                   child: Container(
                     width: 10,
                     height: 10,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.primaryForestGreen,
                       shape: BoxShape.circle,
                     ),
                   ),
                 )
               : (isActive
-                  ? const Icon(Icons.check,
+                  ? Icon(Icons.check,
                       size: 16, color: AppColors.primaryTextOffWhite)
                   : null),
         ),
@@ -1152,7 +1152,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
+          Text(
             'SCAN WITH YOUR APP',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -1199,7 +1199,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Colors.white, width: 3),
                         ),
-                        child: const Icon(Icons.lock_outline,
+                        child: Icon(Icons.lock_outline,
                           color: AppColors.primaryTextOffWhite,
                           size: 22,
                         ),
@@ -1208,7 +1208,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                   ),
                 ),
                 const SizedBox(height: 18),
-                const Text(
+                Text(
                   'Scan this QR code using your authenticator app.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -1218,12 +1218,12 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Divider(color: AppColors.cardBorder, height: 1),
+                Divider(color: AppColors.cardBorder, height: 1),
                 const SizedBox(height: 18),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -1260,7 +1260,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                           type: SnackbarType.success,
                         );
                       },
-                      icon: const Icon(Icons.copy_outlined,
+                      icon: Icon(Icons.copy_outlined,
                         size: 18,
                         color: AppColors.secondaryTextStoneGrey,
                       ),
@@ -1271,7 +1271,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          const Text(
+          Text(
             'ENTER VERIFICATION CODE',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -1301,7 +1301,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                       color: AppColors.primaryForestGreen.withValues(alpha: 0.5),
                     ),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       '4  8  3  9  1  2',
                       style: TextStyle(
@@ -1315,7 +1315,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     UlvenikIcon(UlvenikIcons.history,
@@ -1360,7 +1360,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
           Center(
             child: TextButton(
               onPressed: _cancelSetupFlow,
-              child: const Text(
+              child: Text(
                 'Cancel Setup',
                 style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -1382,7 +1382,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
+          Text(
             'CONFIRM VERIFICATION',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -1400,7 +1400,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: AppColors.cardBorder),
             ),
-            child: const Column(
+            child: Column(
               children: [
                 Icon(Icons.verified_user_rounded,
                   size: 48,
@@ -1461,7 +1461,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
+          Text(
             'BACKUP RECOVERY CODES',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -1481,7 +1481,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
             ),
             child: Column(
               children: [
-                const Text(
+                Text(
                   'Store these recovery codes securely. If you lose access to your authenticator app, each code can be used once to sign in.',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -1505,7 +1505,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                   itemBuilder: (context, index) {
                     return Text(
                       _recoveryCodes[index],
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 14,
                         fontFamily: 'monospace',
@@ -1518,7 +1518,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                 const SizedBox(height: 18),
                 OutlinedButton.icon(
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.cardBorder),
+                    side: BorderSide(color: AppColors.cardBorder),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 18, vertical: 10),
                     shape: RoundedRectangleBorder(
@@ -1534,7 +1534,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                     );
                   },
                   icon: const Icon(Icons.copy_rounded, size: 16),
-                  label: const Text(
+                  label: Text(
                     'Copy All Codes',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,

@@ -243,7 +243,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                               alignment: Alignment.center,
                               child: Text(
                                 _initials,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 14,
@@ -421,7 +421,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                               annualBilling
                                   ? 'Annual Plan (£149 / year)'
                                   : 'Monthly Plan (£16 / month)',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 14.5,
@@ -440,7 +440,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                           ],
                         ),
                         const SizedBox(height: 6),
-                        const Text(
+                        Text(
                           'Includes unlimited dogs, 10 GB HD video sync, client homework portals, and sport analytics.',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -455,7 +455,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   const SizedBox(height: 12),
                   SwitchListTile.adaptive(
                     contentPadding: EdgeInsets.zero,
-                    title: const Text(
+                    title: Text(
                       'Annual Billing Cycle (Save 22%)',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -471,7 +471,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   ),
                   SwitchListTile.adaptive(
                     contentPadding: EdgeInsets.zero,
-                    title: const Text(
+                    title: Text(
                       'Auto-Renew Membership',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -535,7 +535,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                                 children: [
                                   Text(
                                     c.$1,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Inter',
                                       color: AppColors.primaryTextOffWhite,
                                       fontSize: 14,
@@ -544,7 +544,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                                   ),
                                   Text(
                                     c.$2,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Inter',
                                       color: AppColors.secondaryTextStoneGrey,
                                       fontSize: 12,
@@ -571,7 +571,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryForestGreen,
-                          foregroundColor: AppColors.primaryTextOffWhite,
+                          foregroundColor: AppColors.onForestGreen,
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -601,7 +601,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   children: [
                     Text(
                       'Business Identity: $_businessName\nLocation: $_location\nContact: $_phone\nVerification: Accredited Working Dog Coach (#UK-4091)',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 13.5,
@@ -611,7 +611,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                     const SizedBox(height: 10),
                     Text(
                       _bio,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 13,
@@ -624,7 +624,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryForestGreen,
-                          foregroundColor: AppColors.primaryTextOffWhite,
+                          foregroundColor: AppColors.onForestGreen,
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -798,13 +798,13 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 child: OutlinedButton(
                   onPressed: () => Navigator.of(sheetCtx).pop(),
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.cardBorder),
+                    side: BorderSide(color: AppColors.cardBorder),
                     padding: const EdgeInsets.symmetric(vertical: 13),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Cancel',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -857,7 +857,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.backgroundObsidian,
             border: Border(
               bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -874,13 +874,13 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                     if (canPop)
                       IconButton(
                         onPressed: () => Navigator.of(context).maybePop(),
-                        icon: const UlvenikIcon(UlvenikIcons.back,
+                        icon: UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 26,
                         ),
                         tooltip: 'Back',
                       ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Profile',
                         style: TextStyle(
@@ -895,7 +895,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                     IconButton(
                       onPressed: _openEditProfile,
                       tooltip: 'Edit Profile',
-                      icon: const UlvenikIcon(UlvenikIcons.edit,
+                      icon: UlvenikIcon(UlvenikIcons.edit,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 20,
                       ),
@@ -1041,7 +1041,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                                     children: [
                                       SwitchListTile.adaptive(
                                         contentPadding: EdgeInsets.zero,
-                                        title: const Text(
+                                        title: Text(
                                           'Push Notifications',
                                           style: TextStyle(
                                             fontFamily: 'Inter',
@@ -1062,7 +1062,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                                       ),
                                       SwitchListTile.adaptive(
                                         contentPadding: EdgeInsets.zero,
-                                        title: const Text(
+                                        title: Text(
                                           'Quiet Hours (22:00 – 07:00)',
                                           style: TextStyle(
                                             fontFamily: 'Inter',
@@ -1154,7 +1154,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                                     children: [
                                       SwitchListTile.adaptive(
                                         contentPadding: EdgeInsets.zero,
-                                        title: const Text(
+                                        title: Text(
                                           'Biometric Login',
                                           style: TextStyle(
                                             fontFamily: 'Inter',
@@ -1175,7 +1175,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                                       ),
                                       SwitchListTile.adaptive(
                                         contentPadding: EdgeInsets.zero,
-                                        title: const Text(
+                                        title: Text(
                                           'Client Data Permissions',
                                           style: TextStyle(
                                             fontFamily: 'Inter',
@@ -1320,7 +1320,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
   Widget _buildTopographicHero() {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _heroBg,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -1354,7 +1354,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                           alignment: Alignment.center,
                           child: Text(
                             _initials,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               color: AppColors.primaryTextOffWhite,
                               fontSize: 22,
@@ -1385,7 +1385,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                       children: [
                         Text(
                           _fullName,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 20,
@@ -1396,7 +1396,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                         const SizedBox(height: 3),
                         Text(
                           _memberSince,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 13,
@@ -1451,14 +1451,14 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                       child: Row(
                         children: [
                           _buildHeroStatCell('$_dogsCount', 'DOGS'),
-                          const VerticalDivider(
+                          VerticalDivider(
                               width: 1, color: AppColors.cardBorder),
                           _buildHeroStatCell(
                               _formatInt(_sessionsCount), 'SESSIONS'),
-                          const VerticalDivider(
+                          VerticalDivider(
                               width: 1, color: AppColors.cardBorder),
                           _buildHeroStatCell('$_goalsCount', 'GOALS'),
-                          const VerticalDivider(
+                          VerticalDivider(
                               width: 1, color: AppColors.cardBorder),
                           _buildHeroStatCell(_yearsLabel, 'ULVENIK'),
                         ],
@@ -1501,7 +1501,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
         children: [
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               color: AppColors.primaryTextOffWhite,
               fontSize: 18,
@@ -1511,7 +1511,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
           const SizedBox(height: 4),
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 9.5,
@@ -1550,7 +1550,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
               const SizedBox(width: 7),
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13,
@@ -1596,7 +1596,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Current Training Streak',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1608,7 +1608,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                     const SizedBox(height: 3),
                     Text(
                       '$_streakDays Days',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 18,
@@ -1660,7 +1660,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'CURRENT PLAN',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1700,7 +1700,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 const SizedBox(height: 8),
                 Text(
                   _userSubscriptionLabel,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 18,
@@ -1709,7 +1709,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Renews 28 July 2025',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1720,7 +1720,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
               ],
             ),
           ),
-          const Divider(height: 1, color: AppColors.cardBorder),
+          Divider(height: 1, color: AppColors.cardBorder),
           Material(
             color: Colors.transparent,
             child: InkWell(
@@ -1730,7 +1730,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
                       'Manage Subscription',
                       style: TextStyle(
@@ -1759,7 +1759,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
       padding: const EdgeInsets.only(left: 4),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 11,
@@ -1782,7 +1782,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
       child: Column(
         children: [
           for (int i = 0; i < rows.length; i++) ...[
-            if (i > 0) const Divider(height: 1, color: AppColors.cardBorder),
+            if (i > 0) Divider(height: 1, color: AppColors.cardBorder),
             rows[i],
           ],
         ],
@@ -1812,7 +1812,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 15,
@@ -1823,7 +1823,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                       const SizedBox(height: 3),
                       Text(
                         subtitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 12.5,
@@ -1834,7 +1834,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 ),
               ),
               const SizedBox(width: 8),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 19,
               ),
@@ -1852,7 +1852,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
     required Widget child,
   }) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
         border: Border(
@@ -1884,7 +1884,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   Expanded(
                     child: Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 18,
@@ -1894,7 +1894,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(sheetCtx).pop(),
-                    icon: const Icon(Icons.close_rounded,
+                    icon: Icon(Icons.close_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -1903,7 +1903,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
               ),
               Text(
                 subtitle,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13,
@@ -1945,7 +1945,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 ),
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details,
+            UlvenikIcon(UlvenikIcons.details,
               color: AppColors.secondaryTextStoneGrey,
               size: 18,
             ),
@@ -2054,7 +2054,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
     final selected = _fourteenDayHistory[_selectedIdx];
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
         border: Border(
@@ -2091,7 +2091,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
                   Expanded(
                     child: Text(
                       '${widget.streakDays}-Day Training Streak',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 18,
@@ -2101,7 +2101,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.close_rounded,
+                    icon: Icon(Icons.close_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -2110,7 +2110,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
               ),
               Text(
                 '${widget.dogsCount} Dogs · ${widget.sessionsCount} Total Sessions · ${widget.goalsCount} Goals Achieved',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 12.5,
@@ -2132,7 +2132,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
                       children: [
                         Text(
                           'Day ${_selectedIdx + 1} (${selected.$1})',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 13.5,
@@ -2237,7 +2237,7 @@ class _ProfileStreakChartSheetState extends State<_ProfileStreakChartSheet>
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     padding: const EdgeInsets.symmetric(vertical: 13),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),

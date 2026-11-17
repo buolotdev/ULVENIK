@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/session_rating.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -837,7 +838,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                       handleBuiltInTouches: true,
                       touchTooltipData: LineTouchTooltipData(
                         getTooltipColor: (_) => _surfaceHigh,
-                        tooltipBorder: const BorderSide(color: Colors.white12),
+                        tooltipBorder: BorderSide(color: AppColors.cardBorder),
                         getTooltipItems: (touchedSpots) {
                           return touchedSpots.map((spot) {
                             final mins = spot.y.round();

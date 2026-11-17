@@ -154,7 +154,7 @@ class _RecordCompetitionResultScreenState
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'SELECT COMPETITION',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -182,7 +182,7 @@ class _RecordCompetitionResultScreenState
                     ),
                     subtitle: Text(
                       '${c.sportTag} · ${c.date} · ${c.location}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 12,
                         fontFamily: 'Inter',
@@ -245,7 +245,7 @@ class _RecordCompetitionResultScreenState
                   ),
                 ),
                 const SizedBox(height: 14),
-                const Text(
+                Text(
                   'SELECT RESULT STATUS',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -322,7 +322,7 @@ class _RecordCompetitionResultScreenState
             children: [
               Text(
                 isAward ? 'ADD AWARD' : 'ADD QUALIFICATION',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -374,7 +374,7 @@ class _RecordCompetitionResultScreenState
               const SizedBox(height: 12),
               TextField(
                 controller: ctrl,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
                   fontSize: 14,
                   fontFamily: 'Inter',
@@ -383,7 +383,7 @@ class _RecordCompetitionResultScreenState
                   hintText: isAward
                       ? 'Or enter custom award...'
                       : 'Or enter custom qualification...',
-                  hintStyle: const TextStyle(
+                  hintStyle: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 13.5,
                     fontFamily: 'Inter',
@@ -397,12 +397,12 @@ class _RecordCompetitionResultScreenState
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: AppColors.cardBorder),
+                    borderSide: BorderSide(color: AppColors.cardBorder),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide:
-                        const BorderSide(color: AppColors.primaryForestGreen),
+                        BorderSide(color: AppColors.primaryForestGreen),
                   ),
                 ),
               ),
@@ -413,7 +413,7 @@ class _RecordCompetitionResultScreenState
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -588,7 +588,7 @@ class _RecordCompetitionResultScreenState
     return Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -600,7 +600,7 @@ class _RecordCompetitionResultScreenState
           GestureDetector(
             onTap: _handleCancel,
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
               child: Text(
                 'Cancel',
@@ -613,7 +613,7 @@ class _RecordCompetitionResultScreenState
               ),
             ),
           ),
-          const Text(
+          Text(
             'Record Result',
             style: TextStyle(
               color: AppColors.primaryTextOffWhite,
@@ -625,7 +625,7 @@ class _RecordCompetitionResultScreenState
           GestureDetector(
             onTap: _handleSaveResult,
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
               child: Text(
                 'Save',
@@ -646,7 +646,7 @@ class _RecordCompetitionResultScreenState
   Widget _buildSectionLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.secondaryTextStoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -659,7 +659,7 @@ class _RecordCompetitionResultScreenState
   Widget _buildFieldLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.secondaryTextStoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
@@ -688,7 +688,7 @@ class _RecordCompetitionResultScreenState
                 Expanded(
                   child: Text(
                     _selectedCompetitionTitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 19.5,
                       fontWeight: FontWeight.w700,
@@ -697,7 +697,7 @@ class _RecordCompetitionResultScreenState
                   ),
                 ),
                 if (widget.competition == null)
-                  const Icon(Icons.unfold_more_rounded,
+                  Icon(Icons.unfold_more_rounded,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 18,
                   ),
@@ -717,7 +717,7 @@ class _RecordCompetitionResultScreenState
                   ),
                   child: Text(
                     _selectedSportTag.toUpperCase(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.infoAlpineBlue,
                       fontSize: 11.5,
                       fontWeight: FontWeight.w700,
@@ -728,7 +728,7 @@ class _RecordCompetitionResultScreenState
                 const SizedBox(width: 9),
                 Text(
                   _selectedDateLabel,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 13.5,
                     fontFamily: 'Inter',
@@ -812,14 +812,14 @@ class _RecordCompetitionResultScreenState
                           children: [
                             Text(
                               _resultStatus,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'Inter',
                               ),
                             ),
-                            const Icon(Icons.keyboard_arrow_down_rounded,
+                            Icon(Icons.keyboard_arrow_down_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 20,
                             ),
@@ -837,7 +837,7 @@ class _RecordCompetitionResultScreenState
           _buildFieldLabel('SCORE'),
           TextField(
             controller: _scoreController,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 15.5,
               fontFamily: 'Inter',
@@ -861,7 +861,7 @@ class _RecordCompetitionResultScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Phase Score Rings · Tap phase to fine-tune',
                           style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
@@ -907,7 +907,7 @@ class _RecordCompetitionResultScreenState
                                       _formatScoreNumber(
                                         ph.$3 * _chartAnim.value,
                                       ),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: AppColors.primaryTextOffWhite,
                                         fontSize: 13.5,
                                         fontWeight: FontWeight.w700,
@@ -931,7 +931,7 @@ class _RecordCompetitionResultScreenState
                               ),
                               Text(
                                 ph.$2,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
                                   fontSize: 10.5,
                                   fontFamily: 'Inter',
@@ -978,7 +978,7 @@ class _RecordCompetitionResultScreenState
           _buildFieldLabel('PLACEMENT'),
           TextField(
             controller: _placementController,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 15.5,
               fontFamily: 'Inter',
@@ -999,10 +999,10 @@ class _RecordCompetitionResultScreenState
         fontFamily: 'Inter',
       ),
       contentPadding: const EdgeInsets.only(top: 10, bottom: 9),
-      enabledBorder: const UnderlineInputBorder(
+      enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: AppColors.cardBorder),
       ),
-      focusedBorder: const UnderlineInputBorder(
+      focusedBorder: UnderlineInputBorder(
         borderSide: BorderSide(
           color: AppColors.primaryForestGreen,
           width: 1.4,
@@ -1111,7 +1111,7 @@ class _RecordCompetitionResultScreenState
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 13.5,
               fontWeight: FontWeight.w600,
@@ -1121,7 +1121,7 @@ class _RecordCompetitionResultScreenState
           const SizedBox(width: 8),
           GestureDetector(
             onTap: onRemove,
-            child: const Icon(Icons.close_rounded,
+            child: Icon(Icons.close_rounded,
               color: AppColors.secondaryTextStoneGrey,
               size: 16,
             ),
@@ -1148,7 +1148,7 @@ class _RecordCompetitionResultScreenState
             controller: _judgeCommentsController,
             maxLines: 3,
             minLines: 2,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 14.5,
               height: 1.45,
@@ -1162,7 +1162,7 @@ class _RecordCompetitionResultScreenState
             controller: _personalNotesController,
             maxLines: 3,
             minLines: 2,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 14.5,
               height: 1.45,
@@ -1231,7 +1231,7 @@ class _RecordCompetitionResultScreenState
                   ),
                   child: Row(
                     children: [
-                      const UlvenikIcon(UlvenikIcons.training,
+                      UlvenikIcon(UlvenikIcons.training,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 21,
                       ),
@@ -1242,7 +1242,7 @@ class _RecordCompetitionResultScreenState
                           children: [
                             Text(
                               att.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -1252,7 +1252,7 @@ class _RecordCompetitionResultScreenState
                             const SizedBox(height: 2),
                             Text(
                               att.sizeLabel,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.secondaryTextStoneGrey,
                                 fontSize: 12,
                                 fontFamily: 'Inter',
@@ -1265,7 +1265,7 @@ class _RecordCompetitionResultScreenState
                         onTap: () {
                           setState(() => _attachments.removeAt(i));
                         },
-                        child: const Icon(Icons.close_rounded,
+                        child: Icon(Icons.close_rounded,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 18,
                         ),
@@ -1284,7 +1284,7 @@ class _RecordCompetitionResultScreenState
   Widget _buildBottomActionFooter() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           top: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -1327,7 +1327,7 @@ class _RecordCompetitionResultScreenState
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryForestGreen,
-                  foregroundColor: AppColors.primaryTextOffWhite,
+                  foregroundColor: AppColors.onForestGreen,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),

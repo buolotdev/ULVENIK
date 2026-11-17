@@ -15,11 +15,11 @@ Widget _failed(String text) => Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          const Icon(Icons.error_outline, color: AppColors.secondaryTextStoneGrey, size: 36),
+          Icon(Icons.error_outline, color: AppColors.secondaryTextStoneGrey, size: 36),
           const SizedBox(height: 10),
           Text(text,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4)),
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4)),
         ]),
       ),
     );
@@ -82,8 +82,8 @@ class _MediaViewerScreenState extends State<MediaViewerScreen> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             ListTile(
-              leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
-              title: const Text('Edit Details', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              leading: UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
+              title: Text('Edit Details', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () {
                 Navigator.pop(ctx);
                 Navigator.push(
@@ -91,14 +91,14 @@ class _MediaViewerScreenState extends State<MediaViewerScreen> {
               },
             ),
             ListTile(
-              title: const Text('Add to Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              title: Text('Add to Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () {
                 Navigator.pop(ctx);
                 showAddToCollectionSheet(context, widget.dogName, [i]);
               },
             ),
             ListTile(
-              title: const Text('Download / Save', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              title: Text('Download / Save', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () {
                 Navigator.pop(ctx);
                 downloadItems(context, [i]);
@@ -136,10 +136,10 @@ class _MediaViewerScreenState extends State<MediaViewerScreen> {
         title: Text(i.displayTitle,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
         leading: IconButton(
           tooltip: 'Back',
-          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+          icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -151,7 +151,7 @@ class _MediaViewerScreenState extends State<MediaViewerScreen> {
           ),
           IconButton(
             tooltip: 'More',
-            icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+            icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
             onPressed: _menu,
           ),
         ],
@@ -244,7 +244,7 @@ class _VideoPageState extends State<_VideoPage> {
     if (_failedToOpen) return _failed('This video couldn’t be opened.');
     final c = _c;
     if (c == null || !c.value.isInitialized) {
-      return const Center(child: CircularProgressIndicator(color: AppColors.primaryForestGreen));
+      return Center(child: CircularProgressIndicator(color: AppColors.primaryForestGreen));
     }
     return Stack(alignment: Alignment.center, children: [
       Center(child: AspectRatio(aspectRatio: c.value.aspectRatio, child: VideoPlayer(c))),
@@ -275,7 +275,7 @@ class _VideoPageState extends State<_VideoPage> {
         child: VideoProgressIndicator(
           c,
           allowScrubbing: true,
-          colors: const VideoProgressColors(
+          colors: VideoProgressColors(
               playedColor: AppColors.primaryForestGreen, bufferedColor: Colors.white24, backgroundColor: Colors.white12),
         ),
       ),
@@ -293,13 +293,13 @@ class _DocumentPage extends StatelessWidget {
     if (!isPdf || item.path == null) {
       return Center(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          const Icon(Icons.description_outlined, color: AppColors.secondarySage, size: 56),
+          Icon(Icons.description_outlined, color: AppColors.secondarySage, size: 56),
           const SizedBox(height: 12),
           Text(item.name,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
           const SizedBox(height: 6),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 32),
             child: Text('This file type can’t be previewed in Ulvenik. You can download or share it.',
                 textAlign: TextAlign.center,
@@ -310,7 +310,7 @@ class _DocumentPage extends StatelessWidget {
     }
     return PdfViewer.file(
       item.path!,
-      params: const PdfViewerParams(backgroundColor: AppColors.backgroundObsidian),
+      params: PdfViewerParams(backgroundColor: AppColors.backgroundObsidian),
     );
   }
 }
@@ -328,9 +328,9 @@ class _InfoPanel extends StatelessWidget {
     return Container(
       width: double.infinity,
       constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.3),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border(top: BorderSide(color: Colors.white12)),
+        border: Border(top: BorderSide(color: AppColors.cardBorder)),
       ),
       child: SafeArea(
         top: false,
@@ -338,25 +338,25 @@ class _InfoPanel extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 14, 20, 12),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(fmtDate(item.mediaDate),
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             if (item.description.trim().isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 6),
                 child: Text(item.description,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, height: 1.4)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, height: 1.4)),
               ),
             if (item.links.isNotEmpty) ...[
               const SizedBox(height: 10),
-              const Text('Linked Records',
+              Text('Linked Records',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
               Wrap(spacing: 8, runSpacing: 6, children: [
                 for (final l in item.links)
                   ActionChip(
                     label: Text('${l.section} · ${l.label()}',
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                     backgroundColor: AppColors.backgroundObsidian,
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                     onPressed: () => Navigator.push(context, MaterialPageRoute(builder: l.open)),
                   ),
               ]),
@@ -369,7 +369,7 @@ class _InfoPanel extends StatelessWidget {
                     onPressed: onDownload,
                     style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryTextOffWhite,
-                        side: const BorderSide(color: Colors.white24),
+                        side: BorderSide(color: AppColors.cardBorder),
                         minimumSize: const Size(0, 44)),
                     child: const Text('Download'),
                   ),
@@ -380,7 +380,7 @@ class _InfoPanel extends StatelessWidget {
                     onPressed: onShare,
                     style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryTextOffWhite,
-                        side: const BorderSide(color: Colors.white24),
+                        side: BorderSide(color: AppColors.cardBorder),
                         minimumSize: const Size(0, 44)),
                     child: const Text('Share'),
                   ),

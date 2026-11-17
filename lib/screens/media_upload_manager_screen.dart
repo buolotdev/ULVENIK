@@ -46,13 +46,13 @@ class MediaUploadManagerScreen extends StatefulWidget {
 
 class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _obsidian = AppColors.backgroundObsidian; // #121212
-  static const Color _carbon = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _cardBorder = AppColors.cardBorder;
-  static const Color _destructive = AppColors.errorDestructive; // #8B3A3A
+  static Color get _obsidian => AppColors.backgroundObsidian; // #121212
+  static Color get _carbon => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _destructive => AppColors.errorDestructive; // #8B3A3A
   static const Color _iconBoxBg = Color(0xFF0C0F0D);
   static const Color _trackBg = Color(0xFF323533);
 
@@ -370,9 +370,9 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: const BorderSide(color: _cardBorder),
+          side: BorderSide(color: _cardBorder),
         ),
-        title: const Text(
+        title: Text(
           'Cancel All Pending Uploads?',
           style: TextStyle(
             color: _offWhite,
@@ -383,7 +383,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
         ),
         content: Text(
           'Remove all $targets active, waiting, and failed items from the upload queue?',
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 13.5,
             fontFamily: 'Inter',
@@ -392,7 +392,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text(
+            child: Text(
               'Keep Queue',
               style: TextStyle(color: _stoneGrey, fontFamily: 'Inter'),
             ),
@@ -493,7 +493,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Queue Media for Cloud Sync',
                 style: TextStyle(
                   color: _offWhite,
@@ -503,7 +503,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 ),
               ),
               const SizedBox(height: 4),
-              const Text(
+              Text(
                 'Select media type to simulate adding a new file into the live upload queue.',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -613,7 +613,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 13.5,
                       fontWeight: FontWeight.w600,
@@ -623,7 +623,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 11.5,
                       fontFamily: 'Inter',
@@ -632,7 +632,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.add,
+            UlvenikIcon(UlvenikIcons.add,
               color: _forest,
               size: 20,
             ),
@@ -705,7 +705,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                                 _showAllWaiting
                                     ? 'Show fewer'
                                     : 'Show all (${waitingList.length})',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _forest,
                                   fontSize: 11.5,
                                   fontWeight: FontWeight.w600,
@@ -767,12 +767,12 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
         children: [
           IconButton(
             onPressed: () => Navigator.maybePop(context),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Text(
               'Media Uploads',
               style: TextStyle(
@@ -806,7 +806,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
           const SizedBox(width: 8),
           GestureDetector(
             onTap: _clearCompleted,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.symmetric(vertical: 6),
               child: Text(
                 'Clear Completed',
@@ -880,7 +880,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
             ],
           ),
           const SizedBox(height: 16),
-          const Divider(color: _cardBorder, height: 1),
+          Divider(color: _cardBorder, height: 1),
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -889,7 +889,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 isSyncActive
                     ? '${mbNow.toStringAsFixed(1)} MB uploading now'
                     : 'Queue idle · 0.0 MB active',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 13,
                   fontFamily: 'Inter',
@@ -940,7 +940,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
       children: [
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 22,
             fontWeight: FontWeight.w700,
@@ -970,7 +970,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
         children: [
           GestureDetector(
             onTap: _retryAllFailed,
-            child: const Text(
+            child: Text(
               'Retry All Failed',
               style: TextStyle(
                 color: _destructive,
@@ -982,7 +982,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
           ),
           GestureDetector(
             onTap: _pauseAll,
-            child: const Text(
+            child: Text(
               'Pause All',
               style: TextStyle(
                 color: _stoneGrey,
@@ -994,7 +994,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
           ),
           GestureDetector(
             onTap: _resumeAll,
-            child: const Text(
+            child: Text(
               'Resume All',
               style: TextStyle(
                 color: _forest,
@@ -1006,7 +1006,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
           ),
           GestureDetector(
             onTap: _cancelAllActiveAndWaiting,
-            child: const Text(
+            child: Text(
               'Cancel All',
               style: TextStyle(
                 color: _stoneGrey,
@@ -1051,7 +1051,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
               },
               child: Text(
                 _wifiOnly ? 'Wi-Fi Only Sync' : 'Wi-Fi & Cellular Sync',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 12.5,
                   fontWeight: FontWeight.w500,
@@ -1127,7 +1127,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
         children: [
           Text(
             '${_selectedIds.length} item(s) selected',
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 12.5,
               fontWeight: FontWeight.w600,
@@ -1243,7 +1243,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                       item.fileName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -1253,7 +1253,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                     const SizedBox(height: 3),
                     Text(
                       item.contextSubtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 12,
                         fontFamily: 'Inter',
@@ -1289,7 +1289,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                         const SizedBox(width: 8),
                         Text(
                           '${item.sizeMb.toStringAsFixed(1)} MB',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12,
                             fontFamily: 'Inter',
@@ -1324,7 +1324,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                   const SizedBox(height: 6),
                   GestureDetector(
                     onTap: () => _cancelSingleItem(item),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.all(4),
                       child: Icon(Icons.close_rounded,
                         color: _stoneGrey,
@@ -1360,7 +1360,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
             alignment: Alignment.centerRight,
             child: Text(
               _etaLabel(item),
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 11.5,
                 fontFamily: 'Inter',
@@ -1396,7 +1396,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                       item.fileName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -1406,7 +1406,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                     const SizedBox(height: 3),
                     Text(
                       item.contextSubtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 12,
                         fontFamily: 'Inter',
@@ -1436,7 +1436,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                               color: const Color(0xFF272B29),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Text(
+                            child: Text(
                               'WAITING',
                               style: TextStyle(
                                 color: _stoneGrey,
@@ -1451,7 +1451,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                         const SizedBox(width: 8),
                         Text(
                           '${item.sizeMb.toStringAsFixed(1)} MB',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12,
                             fontFamily: 'Inter',
@@ -1464,7 +1464,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
               ),
               GestureDetector(
                 onTap: () => _cancelSingleItem(item),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(4),
                   child: Icon(Icons.close_rounded,
                     color: _stoneGrey,
@@ -1477,7 +1477,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
           const SizedBox(height: 12),
           ClipRRect(
             borderRadius: BorderRadius.circular(3),
-            child: const LinearProgressIndicator(
+            child: LinearProgressIndicator(
               value: 0.0,
               minHeight: 4,
               backgroundColor: _trackBg,
@@ -1525,7 +1525,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                         item.fileName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -1535,7 +1535,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                       const SizedBox(height: 3),
                       Text(
                         item.contextSubtitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stoneGrey,
                           fontSize: 12,
                           fontFamily: 'Inter',
@@ -1567,7 +1567,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                           const SizedBox(width: 8),
                           Text(
                             '${item.sizeMb.toStringAsFixed(1)} MB',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 12,
                               fontFamily: 'Inter',
@@ -1591,7 +1591,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                           type: SnackbarType.success,
                         );
                       },
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(4),
                         child: Icon(Icons.refresh_rounded,
                           color: _destructive,
@@ -1602,7 +1602,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                     const SizedBox(height: 6),
                     GestureDetector(
                       onTap: () => _cancelSingleItem(item),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(4),
                         child: Icon(Icons.close_rounded,
                           color: _stoneGrey,
@@ -1621,14 +1621,14 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 value: item.progress,
                 minHeight: 4,
                 backgroundColor: _trackBg,
-                valueColor: const AlwaysStoppedAnimation<Color>(_destructive),
+                valueColor: AlwaysStoppedAnimation<Color>(_destructive),
               ),
             ),
             const SizedBox(height: 7),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Upload interrupted — tap Retry',
                   style: TextStyle(
                     color: _destructive,
@@ -1639,7 +1639,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
                 ),
                 Text(
                   '$pct%',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 11.5,
                     fontFamily: 'Inter',
@@ -1693,7 +1693,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
               ],
             ),
           ),
-          const UlvenikIcon(UlvenikIcons.completed,
+          UlvenikIcon(UlvenikIcons.completed,
             color: _forest,
             size: 20,
           ),
@@ -1713,7 +1713,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
               size: 42,
             ),
             const SizedBox(height: 10),
-            const Text(
+            Text(
               'All media uploads synced',
               style: TextStyle(
                 color: _offWhite,
@@ -1723,7 +1723,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
               ),
             ),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               'Tap Add Media above to queue photos, videos, or PDFs.',
               style: TextStyle(
                 color: _stoneGrey,

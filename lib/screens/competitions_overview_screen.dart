@@ -314,7 +314,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'FILTER COMPETITIONS',
                           style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
@@ -332,7 +332,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                             });
                             setModalState(() {});
                           },
-                          child: const Text(
+                          child: Text(
                             'Reset',
                             style: TextStyle(
                               color: AppColors.infoAlpineBlue,
@@ -345,7 +345,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                       ],
                     ),
                     const SizedBox(height: 14),
-                    const Text(
+                    Text(
                       'Status',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -404,7 +404,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                       }).toList(),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Sport',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -463,7 +463,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryForestGreen,
-                          foregroundColor: AppColors.primaryTextOffWhite,
+                          foregroundColor: AppColors.onForestGreen,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -515,7 +515,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'COMPETITION WORKFLOWS',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -541,7 +541,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                       size: 20,
                     ),
                   ),
-                  title: const Text(
+                  title: Text(
                     'Schedule Upcoming Competition',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -550,7 +550,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                       fontFamily: 'Inter',
                     ),
                   ),
-                  subtitle: const Text(
+                  subtitle: Text(
                     'Add a new Upcoming trial date',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -572,12 +572,12 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                       color: AppColors.infoAlpineBlue.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Icon(Icons.emoji_events_outlined,
+                    child: Icon(Icons.emoji_events_outlined,
                       color: AppColors.infoAlpineBlue,
                       size: 20,
                     ),
                   ),
-                  title: const Text(
+                  title: Text(
                     'Record Competition Result',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -586,7 +586,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                       fontFamily: 'Inter',
                     ),
                   ),
-                  subtitle: const Text(
+                  subtitle: Text(
                     'Log scores, phase breakdown, and qualifications',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -639,7 +639,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'NEW COMPETITION ENTRY',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -706,7 +706,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryForestGreen,
-                        foregroundColor: AppColors.primaryTextOffWhite,
+                        foregroundColor: AppColors.onForestGreen,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -766,14 +766,14 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
   Widget _buildSheetInput(TextEditingController ctrl, String hint) {
     return TextField(
       controller: ctrl,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.primaryTextOffWhite,
         fontSize: 14,
         fontFamily: 'Inter',
       ),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 13.5,
           fontFamily: 'Inter',
@@ -787,11 +787,11 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.cardBorder),
+          borderSide: BorderSide(color: AppColors.cardBorder),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+          borderSide: BorderSide(color: AppColors.primaryForestGreen),
         ),
       ),
     );
@@ -829,7 +829,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
       floatingActionButton: FloatingActionButton(
         heroTag: 'competitions_overview_fab',
         backgroundColor: AppColors.primaryForestGreen,
-        foregroundColor: AppColors.primaryTextOffWhite,
+        foregroundColor: AppColors.onForestGreen,
         elevation: 4,
         shape: const CircleBorder(),
         onPressed: _openAddOrRecordMenu,
@@ -871,7 +871,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                           _statusFilter == null
                               ? 'ALL COMPETITIONS'
                               : '${_statusFilter!.toUpperCase()} COMPETITIONS',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
@@ -887,7 +887,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                                 _sportFilter = 'All';
                               });
                             },
-                            child: const Text(
+                            child: Text(
                               'Show All',
                               style: TextStyle(
                                 color: AppColors.infoAlpineBlue,
@@ -911,7 +911,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                       ),
                     if (scoredTrials.isNotEmpty) ...[
                       const SizedBox(height: 14),
-                      const Text(
+                      Text(
                         'SEASON SCORE PROGRESSION',
                         style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
@@ -939,7 +939,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
     return Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -953,14 +953,14 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                 Navigator.of(context).pop();
               }
             },
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
             tooltip: 'Back',
           ),
           const SizedBox(width: 40),
-          const Expanded(
+          Expanded(
             child: Center(
               child: Text(
                 'Competitions',
@@ -1012,7 +1012,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
   Widget _buildSearchField() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -1022,19 +1022,19 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
         controller: _searchController,
         autofocus: true,
         onChanged: (v) => setState(() => _searchQuery = v),
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.primaryTextOffWhite,
           fontSize: 14,
           fontFamily: 'Inter',
         ),
         decoration: InputDecoration(
           hintText: 'Search trials by title, city, or sport...',
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 13.5,
             fontFamily: 'Inter',
           ),
-          prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+          prefixIcon: UlvenikIcon(UlvenikIcons.search,
             color: AppColors.secondaryTextStoneGrey,
             size: 19,
           ),
@@ -1047,11 +1047,11 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.cardBorder),
+            borderSide: BorderSide(color: AppColors.cardBorder),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+            borderSide: BorderSide(color: AppColors.primaryForestGreen),
           ),
         ),
       ),
@@ -1076,7 +1076,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'SEASON SUMMARY',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -1088,7 +1088,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                 ),
                 Text(
                   '${_sportFilter == 'All' ? 'IGP' : _sportFilter} · 2025–2026',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 11,
                     fontWeight: FontWeight.w500,
@@ -1212,7 +1212,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
           label,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 11.2,
             fontFamily: 'Inter',
@@ -1328,7 +1328,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                           alignment: Alignment.center,
                           child: Text(
                             initial,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.infoAlpineBlue,
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
@@ -1345,7 +1345,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                                 comp.title,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 15.5,
                                   fontWeight: FontWeight.w700,
@@ -1357,7 +1357,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                                 '${comp.date} · ${comp.location}',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
                                   fontSize: 12.8,
                                   fontFamily: 'Inter',
@@ -1378,7 +1378,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                           ),
                           child: Text(
                             pillText,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 11.5,
                               fontWeight: FontWeight.w500,
@@ -1387,7 +1387,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                           ),
                         ),
                         const SizedBox(width: 6),
-                        const UlvenikIcon(UlvenikIcons.details,
+                        UlvenikIcon(UlvenikIcons.details,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 18,
                         ),
@@ -1435,7 +1435,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                           selectedTrial.title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -1466,7 +1466,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
                         ),
                       );
                     },
-                    child: const Text(
+                    child: Text(
                       'Inspect →',
                       style: TextStyle(
                         color: AppColors.infoAlpineBlue,
@@ -1570,12 +1570,12 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
       ),
       child: Column(
         children: [
-          const Icon(Icons.emoji_events_outlined,
+          Icon(Icons.emoji_events_outlined,
             color: AppColors.secondaryTextStoneGrey,
             size: 28,
           ),
           const SizedBox(height: 10),
-          const Text(
+          Text(
             'No Competitions Match This Filter',
             style: TextStyle(
               color: AppColors.primaryTextOffWhite,
@@ -1585,7 +1585,7 @@ class _CompetitionsOverviewScreenState extends State<CompetitionsOverviewScreen>
             ),
           ),
           const SizedBox(height: 6),
-          const Text(
+          Text(
             'Tap Show All or schedule a new trial entry with the + button.',
             textAlign: TextAlign.center,
             style: TextStyle(

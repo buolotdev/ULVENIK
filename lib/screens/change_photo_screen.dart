@@ -159,12 +159,12 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                         onPressed: () => Navigator.of(context).maybePop(
                           _currentAssetPath,
                         ),
-                        icon: const UlvenikIcon(UlvenikIcons.back,
+                        icon: UlvenikIcon(UlvenikIcons.back,
                           size: 22,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
                       ),
-                      const Expanded(
+                      Expanded(
                         child: Text(
                           'Handler Profile',
                           textAlign: TextAlign.center,
@@ -178,7 +178,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                       ),
                       IconButton(
                         onPressed: _openModalPhotoSheet,
-                        icon: const UlvenikIcon(UlvenikIcons.more,
+                        icon: UlvenikIcon(UlvenikIcons.more,
                           size: 22,
                           color: AppColors.secondaryTextStoneGrey,
                         ),
@@ -222,7 +222,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                   ),
                 ),
                 const SizedBox(height: 18),
-                const Text(
+                Text(
                   'Lars Viken',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -232,7 +232,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'K9 Tracking Specialist • Level 4',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -264,7 +264,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryForestGreen,
-                              foregroundColor: AppColors.primaryTextOffWhite,
+                              foregroundColor: AppColors.onForestGreen,
                               elevation: 0,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -281,11 +281,11 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                               assetPath: _currentAssetPath,
                               fromCamera: false,
                             ),
-                            icon: const Icon(Icons.crop_rounded,
+                            icon: Icon(Icons.crop_rounded,
                               size: 18,
                               color: AppColors.secondaryTextStoneGrey,
                             ),
-                            label: const Text(
+                            label: Text(
                               'Adjust Crop & Framing',
                               style: TextStyle(
                                 fontFamily: 'Inter',
@@ -295,7 +295,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                               ),
                             ),
                             style: OutlinedButton.styleFrom(
-                              side: const BorderSide(
+                              side: BorderSide(
                                 color: AppColors.cardBorder,
                               ),
                               shape: RoundedRectangleBorder(
@@ -305,7 +305,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                           ),
                         ),
                         const SizedBox(height: 24),
-                        const Align(
+                        Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'RECENT LIBRARY PHOTOS',
@@ -409,7 +409,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                   child: GestureDetector(
                     onTap: () => Navigator.of(context).maybePop(),
                     behavior: HitTestBehavior.opaque,
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 4, horizontal: 2),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -433,7 +433,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                     ),
                   ),
                 ),
-                const Text(
+                Text(
                   'Profile Photo',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -476,7 +476,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                                 ),
                               ),
                               alignment: Alignment.center,
-                              child: const Text(
+                              child: Text(
                                 'AK',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
@@ -513,7 +513,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                       ),
                     ),
                     const SizedBox(height: 26),
-                    const Text(
+                    Text(
                       'No Profile Photo',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -549,7 +549,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                             size: 18,
                             color: Color(0xFFC7CCC8),
                           ),
-                          label: const Text(
+                          label: Text(
                             'Take Photo',
                             style: TextStyle(
                               fontFamily: 'Inter',
@@ -579,7 +579,7 @@ class _ChangePhotoScreenState extends State<ChangePhotoScreen> {
                             fromCamera: false,
                           ),
                           borderRadius: BorderRadius.circular(10),
-                          child: const Padding(
+                          child: Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: 10,
                               vertical: 12,

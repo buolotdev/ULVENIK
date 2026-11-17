@@ -15,16 +15,16 @@ class AddClientScreen extends StatefulWidget {
 }
 
 class _AddClientScreenState extends State<AddClientScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _cardBg => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _greenHeader = Color(0xFF3E8C6F);
-  static const Color _sage = AppColors.secondarySage; // #7A8F7A
-  static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
+  static Color get _sage => AppColors.secondarySage; // #7A8F7A
+  static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
   static const Color _hintGrey = Color(0xFF6B7280);
-  static const Color _textPrimary = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _textSecondary = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _border = AppColors.cardBorder;
+  static Color get _textPrimary => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _border => AppColors.cardBorder;
 
   final TextEditingController _firstNameCtrl = TextEditingController();
   final TextEditingController _lastNameCtrl = TextEditingController();
@@ -135,7 +135,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Select Country',
                   style: TextStyle(
                     color: _textPrimary,
@@ -298,7 +298,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                     const SizedBox(height: 22),
                     _buildSectionTitle('ADDRESS'),
                     const SizedBox(height: 3),
-                    const Text(
+                    Text(
                       'For trainer records only — not shared with the client',
                       style: TextStyle(
                         color: _textSecondary,
@@ -315,7 +315,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                     const SizedBox(height: 22),
                     _buildSectionTitle('TRAINER PERMISSIONS'),
                     const SizedBox(height: 3),
-                    const Text(
+                    Text(
                       'What you can do once the client accepts',
                       style: TextStyle(
                         color: _textSecondary,
@@ -328,7 +328,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                     const SizedBox(height: 22),
                     _buildSectionTitle('CLIENT ACCESS'),
                     const SizedBox(height: 3),
-                    const Text(
+                    Text(
                       'What the client can see and do',
                       style: TextStyle(
                         color: _textSecondary,
@@ -374,7 +374,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                     Center(
                       child: TextButton(
                         onPressed: () => Navigator.of(context).maybePop(),
-                        child: const Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(
                             color: _textSecondary,
@@ -398,7 +398,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
   Widget _buildTopBar() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _bg,
         border: Border(
           bottom: BorderSide(color: _border, width: 1),
@@ -410,7 +410,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
           GestureDetector(
             onTap: () => Navigator.of(context).maybePop(),
             behavior: HitTestBehavior.opaque,
-            child: const Text(
+            child: Text(
               'Cancel',
               style: TextStyle(
                 color: _textSecondary,
@@ -420,7 +420,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
               ),
             ),
           ),
-          const Text(
+          Text(
             'Add Client',
             style: TextStyle(
               color: _textPrimary,
@@ -545,9 +545,9 @@ class _AddClientScreenState extends State<AddClientScreen> {
             onTap: () => setState(() => _addressExpanded = !_addressExpanded),
             child: Row(
               children: [
-                const Icon(Icons.location_on_outlined, color: _sage, size: 17),
+                Icon(Icons.location_on_outlined, color: _sage, size: 17),
                 const SizedBox(width: 8),
-                const Text(
+                Text(
                   'Add Address',
                   style: TextStyle(
                     color: _textPrimary,
@@ -557,7 +557,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   ),
                 ),
                 const SizedBox(width: 5),
-                const Text(
+                Text(
                   '(optional)',
                   style: TextStyle(
                     color: _textSecondary,
@@ -578,7 +578,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
           ),
           if (_addressExpanded) ...[
             const SizedBox(height: 14),
-            const Divider(color: _border, height: 1),
+            Divider(color: _border, height: 1),
             const SizedBox(height: 12),
             _buildPlainUnderlineField(
               hint: 'Address Line 1',
@@ -617,14 +617,14 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   children: [
                     Text(
                       _selectedCountry,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textPrimary,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Inter',
                       ),
                     ),
-                    const UlvenikIcon(UlvenikIcons.details,
+                    UlvenikIcon(UlvenikIcons.details,
                       color: _textSecondary,
                       size: 18,
                     ),
@@ -650,7 +650,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
+            children: [
               Icon(Icons.lock_outline_rounded, color: _sage, size: 15),
               SizedBox(width: 7),
               Text(
@@ -668,7 +668,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
           TextField(
             controller: _notesCtrl,
             maxLines: 3,
-            style: const TextStyle(
+            style: TextStyle(
               color: _textPrimary,
               fontSize: 13.5,
               fontFamily: 'Inter',
@@ -690,13 +690,13 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   color: Colors.white.withValues(alpha: 0.14),
                 ),
               ),
-              focusedBorder: const UnderlineInputBorder(
+              focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: _forest),
               ),
             ),
           ),
           const SizedBox(height: 10),
-          const Text(
+          Text(
             'These notes are only visible to you. The client cannot see them.',
             style: TextStyle(
               color: _textSecondary,
@@ -715,7 +715,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Icon(Icons.info_outline_rounded, color: _alpineBlue, size: 15),
                 SizedBox(width: 8),
                 Expanded(
@@ -786,7 +786,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             }).toList(),
           ),
           const SizedBox(height: 14),
-          const Text(
+          Text(
             'Permissions can be adjusted at any time from the client profile.',
             style: TextStyle(
               color: _textSecondary,
@@ -815,42 +815,42 @@ class _AddClientScreenState extends State<AddClientScreen> {
             value: _viewTrainingSessions,
             onChanged: (v) => setState(() => _viewTrainingSessions = v),
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildAccessToggleRow(
             icon: Icons.favorite_border_rounded,
             title: 'View Health Records',
             value: _viewHealthRecords,
             onChanged: (v) => setState(() => _viewHealthRecords = v),
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildAccessToggleRow(
             icon: Icons.track_changes_rounded,
             title: 'View Goals',
             value: _viewGoals,
             onChanged: (v) => setState(() => _viewGoals = v),
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildAccessToggleRow(
             icon: Icons.description_outlined,
             title: 'View Reports',
             value: _viewReports,
             onChanged: (v) => setState(() => _viewReports = v),
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildAccessToggleRow(
             icon: Icons.videocam_outlined,
             title: 'Upload Videos',
             value: _uploadVideos,
             onChanged: (v) => setState(() => _uploadVideos = v),
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildAccessToggleRow(
             icon: Icons.chat_bubble_outline_rounded,
             title: 'Add Notes',
             value: _addNotes,
             onChanged: (v) => setState(() => _addNotes = v),
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildAccessToggleRow(
             icon: Icons.edit_square,
             title: 'Edit Existing Records',
@@ -882,7 +882,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textPrimary,
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -893,7 +893,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textSecondary,
                       fontSize: 11.5,
                       fontFamily: 'Inter',
@@ -928,12 +928,12 @@ class _AddClientScreenState extends State<AddClientScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(top: 3),
                 child: Icon(Icons.mail_outline_rounded, color: _sage, size: 18),
               ),
               const SizedBox(width: 10),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -967,10 +967,10 @@ class _AddClientScreenState extends State<AddClientScreen> {
             ],
           ),
           const SizedBox(height: 14),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           const SizedBox(height: 14),
           Row(
-            children: const [
+            children: [
               Text(
                 'Personal Message',
                 style: TextStyle(
@@ -997,7 +997,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             maxLength: 500,
             maxLines: 3,
             onChanged: (_) => setState(() {}),
-            style: const TextStyle(
+            style: TextStyle(
               color: _textPrimary,
               fontSize: 13.5,
               fontFamily: 'Inter',
@@ -1020,7 +1020,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   color: Colors.white.withValues(alpha: 0.14),
                 ),
               ),
-              focusedBorder: const UnderlineInputBorder(
+              focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: _forest),
               ),
             ),
@@ -1030,7 +1030,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             alignment: Alignment.centerRight,
             child: Text(
               '$charCount / 500',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textSecondary,
                 fontSize: 11.5,
                 fontFamily: 'Inter',
@@ -1054,13 +1054,13 @@ class _AddClientScreenState extends State<AddClientScreen> {
         children: [
           Row(
             children: [
-              const Icon(Icons.location_on_outlined, color: _sage, size: 18),
+              Icon(Icons.location_on_outlined, color: _sage, size: 18),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Add Dog Now',
                       style: TextStyle(
                         color: _textPrimary,
@@ -1074,7 +1074,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                       _addDogNow
                           ? 'Enter initial dog details below to open Dog Profile after saving.'
                           : 'You\'ll be taken to the Client Profile after saving.',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textSecondary,
                         fontSize: 12,
                         fontFamily: 'Inter',
@@ -1092,7 +1092,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
           ),
           if (_addDogNow) ...[
             const SizedBox(height: 14),
-            const Divider(color: _border, height: 1),
+            Divider(color: _border, height: 1),
             const SizedBox(height: 12),
             Row(
               children: [
@@ -1141,7 +1141,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             ],
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
@@ -1158,7 +1158,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                 ),
               ),
             if (isOptional)
-              const Text(
+              Text(
                 ' (optional)',
                 style: TextStyle(
                   color: _textSecondary,
@@ -1178,7 +1178,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
           const SizedBox(height: 6),
           Text(
             helperText,
-            style: const TextStyle(
+            style: TextStyle(
               color: _textSecondary,
               fontSize: 11.5,
               fontFamily: 'Inter',
@@ -1197,7 +1197,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
     return TextField(
       controller: controller,
       keyboardType: keyboardType,
-      style: const TextStyle(
+      style: TextStyle(
         color: _textPrimary,
         fontSize: 14,
         fontFamily: 'Inter',
@@ -1216,7 +1216,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
             color: Colors.white.withValues(alpha: 0.14),
           ),
         ),
-        focusedBorder: const UnderlineInputBorder(
+        focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: _forest),
         ),
       ),

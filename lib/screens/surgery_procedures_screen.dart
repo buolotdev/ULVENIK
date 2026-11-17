@@ -514,7 +514,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
         icon: const UlvenikIcon(UlvenikIcons.back, color: Color(0xFF7A8F7A), size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      title: const Text(
+      title: Text(
         'Surgery & Procedures',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -638,7 +638,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                   children: [
                     Text(
                       _dog.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
@@ -649,7 +649,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                     const SizedBox(height: 3),
                     Text(
                       '${_dog.breed} · ${_dog.age}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12,
                         color: AppColors.secondaryTextStoneGrey,
@@ -864,14 +864,14 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: _searchController,
               focusNode: _searchFocus,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
-              decoration: const InputDecoration(
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+              decoration: InputDecoration(
                 hintText: 'Search procedure, surgeon or clinic...',
                 hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                 border: InputBorder.none,
@@ -888,7 +888,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 _searchController.clear();
                 setState(() => _searchQuery = '');
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -920,7 +920,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 children: [
                   const UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                   const SizedBox(width: 8),
-                  const Text(
+                  Text(
                     'TPLO RECOVERY TRAJECTORY',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -971,7 +971,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         children: [
                           Text(
                             activeSpot.label,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -1009,7 +1009,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                       const SizedBox(height: 3),
                       Text(
                         activeSpot.milestone,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -1020,7 +1020,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         activeSpot.careInstruction,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 11,
                           height: 1.3,
@@ -1061,7 +1061,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                       bottom: 22,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text('100%', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
                           Text('50%', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
                           Text('0%', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
@@ -1248,7 +1248,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                                     children: [
                                       Text(
                                         p.category,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: 'Inter',
                                           fontSize: 11,
                                           fontWeight: FontWeight.w700,
@@ -1278,7 +1278,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                                   const SizedBox(height: 8),
                                   Text(
                                     p.title,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Inter',
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
@@ -1288,7 +1288,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                                 ],
                               ),
                             ),
-                            const UlvenikIcon(UlvenikIcons.details,
+                            UlvenikIcon(UlvenikIcons.details,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 20,
                             ),
@@ -1363,7 +1363,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                           children: [
                             Text(
                               p.category,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 11,
                                 fontWeight: FontWeight.w700,
@@ -1393,7 +1393,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         const SizedBox(height: 8),
                         Text(
                           p.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -1403,7 +1403,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                       ],
                     ),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details,
+                  UlvenikIcon(UlvenikIcons.details,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 20,
                   ),
@@ -1446,7 +1446,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                           ),
                           child: Text(
                             p.status.label,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
@@ -1457,7 +1457,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         const SizedBox(height: 8),
                         Text(
                           p.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -1467,7 +1467,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                       ],
                     ),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details,
+                  UlvenikIcon(UlvenikIcons.details,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 20,
                   ),
@@ -1485,11 +1485,11 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.attachment, size: 12, color: AppColors.secondaryTextStoneGrey),
+                      Icon(Icons.attachment, size: 12, color: AppColors.secondaryTextStoneGrey),
                       const SizedBox(width: 4),
                       Text(
                         'Attachments (${p.attachmentCount})',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 11,
                           fontWeight: FontWeight.w500,
@@ -1535,7 +1535,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 11,
             fontWeight: FontWeight.w700,
@@ -1548,7 +1548,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
           value,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 12,
             color: AppColors.primaryTextOffWhite,
@@ -1599,7 +1599,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
               const SizedBox(width: 8),
               Text(
                 timeText,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -1653,7 +1653,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
             const SizedBox(width: 6),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 12,
                 color: AppColors.secondaryTextStoneGrey,
@@ -1750,7 +1750,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         ),
                         Text(
                           _formatShortDate(m.date),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 12,
                             color: AppColors.secondaryTextStoneGrey,
@@ -1803,9 +1803,9 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       ),
       child: Column(
         children: [
-          const Icon(Icons.search_off, size: 36, color: AppColors.secondaryTextStoneGrey),
+          Icon(Icons.search_off, size: 36, color: AppColors.secondaryTextStoneGrey),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'No procedures match your filter.',
             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600),
           ),
@@ -1835,7 +1835,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
           color: _forest,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             UlvenikIcon(UlvenikIcons.add, color: AppColors.backgroundObsidian, size: 20),
@@ -1880,7 +1880,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'SURGICAL HISTORY',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1919,7 +1919,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 border: Border.all(color: Colors.white.withValues(alpha: 0.18), width: 1.5),
               ),
               alignment: Alignment.center,
-              child: const UlvenikIcon(UlvenikIcons.add,
+              child: UlvenikIcon(UlvenikIcons.add,
                 size: 30,
                 color: AppColors.primaryTextOffWhite,
               ),
@@ -1928,7 +1928,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
           const SizedBox(height: 24),
 
           // Heading & Subtitle
-          const Text(
+          Text(
             'No Procedures Recorded',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1939,7 +1939,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
             ),
           ),
           const SizedBox(height: 8),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               'Keep a permanent record of your dog’s surgeries, procedures, implants and related information.',
@@ -1964,7 +1964,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 color: _forest,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 18),
@@ -1995,7 +1995,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 12,
             color: AppColors.secondaryTextStoneGrey,
@@ -2034,7 +2034,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
         Expanded(
           child: Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -2042,7 +2042,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
           ),
         ),
         IconButton(
-          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+          icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(ctx),
         ),
       ],
@@ -2104,7 +2104,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                               children: [
                                 Text(
                                   d.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -2112,7 +2112,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                                 ),
                                 Text(
                                   '${d.breed} · ${d.age}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12,
                                   ),
@@ -2203,7 +2203,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                     ),
                   ),
                   const SizedBox(height: 18),
-                  const Text(
+                  Text(
                     'CLINICAL & SURGICAL NOTES',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -2215,7 +2215,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                   const SizedBox(height: 8),
                   Text(
                     p.notes.isNotEmpty ? p.notes : 'No extra notes recorded for this procedure.',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 13,
                       height: 1.5,
@@ -2267,13 +2267,13 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(k, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+          Text(k, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               v,
               textAlign: TextAlign.right,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
             ),
           ),
         ],
@@ -2295,7 +2295,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 children: [
                   _buildSheetHeader(ctx, 'Timeline · ${p.title}'),
                   const SizedBox(height: 12),
-                  const Text(
+                  Text(
                     'Complete chronological log from hospital intake through rehabilitation.',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                   ),
@@ -2332,7 +2332,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                                     Expanded(
                                       child: Text(
                                         m.title,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: AppColors.primaryTextOffWhite,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
@@ -2341,7 +2341,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                                     ),
                                     Text(
                                       _formatDate(m.date),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: AppColors.secondaryTextStoneGrey,
                                         fontSize: 11,
                                       ),
@@ -2352,7 +2352,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                                   const SizedBox(height: 4),
                                   Text(
                                     m.note!,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: AppColors.secondaryTextStoneGrey,
                                       fontSize: 12,
                                     ),
@@ -2385,7 +2385,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
               children: [
                 _buildSheetHeader(ctx, 'Filter Procedures'),
                 const SizedBox(height: 14),
-                const Text(
+                Text(
                   'SELECT FILTER CATEGORY',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -2430,7 +2430,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Show Recovery Chart', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
+                    Text('Show Recovery Chart', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
                     Switch(
                       value: _showChart,
                       activeThumbColor: _mint,
@@ -2483,7 +2483,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         label: 'PROCEDURE NAME',
                         child: TextField(
                           controller: titleCtrl,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                           decoration: _inputDecoration('e.g. Laparoscopic Gastropexy'),
                         ),
                       ),
@@ -2514,7 +2514,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                                   ),
                                   child: Text(
                                     _formatDate(selectedDate),
-                                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+                                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
                                   ),
                                 ),
                               ),
@@ -2550,7 +2550,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         label: 'HOSPITAL / PRACTICE',
                         child: TextField(
                           controller: practiceCtrl,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                           decoration: _inputDecoration('Clinic or hospital name'),
                         ),
                       ),
@@ -2559,7 +2559,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         label: 'LEAD SURGEON',
                         child: TextField(
                           controller: surgeonCtrl,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                           decoration: _inputDecoration('Surgeon name & credentials'),
                         ),
                       ),
@@ -2568,7 +2568,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         label: 'REASON / INDICATION',
                         child: TextField(
                           controller: reasonCtrl,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                           decoration: _inputDecoration('e.g. Medial patellar luxation'),
                         ),
                       ),
@@ -2612,7 +2612,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         child: TextField(
                           controller: notesCtrl,
                           maxLines: 2,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                           decoration: _inputDecoration('Implants, medications, or post-op instructions'),
                         ),
                       ),
@@ -2664,7 +2664,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                             borderRadius: BorderRadius.circular(12),
                           ),
                           alignment: Alignment.center,
-                          child: const Text(
+                          child: Text(
                             'Save Procedure',
                             style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
@@ -2689,7 +2689,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 11,
             fontWeight: FontWeight.w700,
@@ -2706,7 +2706,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+      hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
       filled: true,
       fillColor: AppColors.backgroundObsidian,
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
@@ -2773,7 +2773,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                   style: const TextStyle(color: _mint, fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'This surgical repair is linked to the ACL rupture condition in Rex’s injuries record. Recovery milestones sync automatically with the rehabilitation hub.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.5),
                 ),
@@ -2811,7 +2811,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                     color: AppColors.backgroundObsidian,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Row(
+                  child: Row(
                     children: [
                       UlvenikIcon(UlvenikIcons.calendar, color: _mint, size: 20),
                       SizedBox(width: 12),
@@ -2834,7 +2834,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                     color: AppColors.backgroundObsidian,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Row(
+                  child: Row(
                     children: [
                       UlvenikIcon(UlvenikIcons.calendar, color: _alpineBlue, size: 20),
                       SizedBox(width: 12),

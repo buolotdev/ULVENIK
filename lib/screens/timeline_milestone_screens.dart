@@ -91,12 +91,12 @@ class _MilestoneFormScreenState extends State<MilestoneFormScreen> {
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
           const FieldLabel('Dog'),
-          HealthCard(child: Text(widget.dogName, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15))),
+          HealthCard(child: Text(widget.dogName, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15))),
           const FieldLabel('Milestone Title', required: true),
           TextField(
             controller: _title,
             onChanged: (_) => _error == null ? null : setState(() => _error = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('e.g. First off-lead forest walk', error: _error),
           ),
           const FieldLabel('Date', required: true),
@@ -120,7 +120,7 @@ class _MilestoneFormScreenState extends State<MilestoneFormScreen> {
                 if (_time != null)
                   GestureDetector(
                     onTap: () => setState(() => _time = null),
-                    child: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                    child: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                   ),
               ]),
             ),
@@ -130,7 +130,7 @@ class _MilestoneFormScreenState extends State<MilestoneFormScreen> {
             controller: _notes,
             minLines: 3,
             maxLines: 6,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add notes...'),
           ),
           const FieldLabel('Attachments'),
@@ -142,7 +142,7 @@ class _MilestoneFormScreenState extends State<MilestoneFormScreen> {
               label: const Text('Add Attachments'),
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   minimumSize: const Size(0, 44)),
             ),
           ),
@@ -152,9 +152,9 @@ class _MilestoneFormScreenState extends State<MilestoneFormScreen> {
               child: Wrap(spacing: 8, runSpacing: 6, children: [
                 for (final n in _files)
                   InputChip(
-                    label: Text(n, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                    label: Text(n, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                     backgroundColor: AppColors.cardsCarbon,
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                     deleteIconColor: AppColors.secondaryTextStoneGrey,
                     onDeleted: () => setState(() => _files = [..._files]..remove(n)),
                   ),
@@ -210,19 +210,19 @@ class MilestoneDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
             children: [
               Text(m.title,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
               const SizedBox(height: 6),
               Text('${m.dog} · ${fmtDate(m.date)}${m.time == null ? '' : ' · ${m.time}'}',
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
               if (m.notes.isNotEmpty) ...[
                 const SizedBox(height: 18),
-                Text(m.notes, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.45)),
+                Text(m.notes, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.45)),
               ],
               if (m.attachments.isNotEmpty) ...[
                 const SizedBox(height: 18),
                 const SectionLabel('Attachments'),
                 Text(m.attachments.join(', '),
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
               ],
             ],
           ),

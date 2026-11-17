@@ -39,12 +39,12 @@ class HealthTab extends StatelessWidget {
         Expanded(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(title,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
             const SizedBox(height: 2),
-            Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+            Text(subtitle, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
           ]),
         ),
-        trailing ?? const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+        trailing ?? UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
       ]),
     );
   }
@@ -65,7 +65,7 @@ class HealthTab extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: Text(label,
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             ),
           ]),
           const SizedBox(height: 10),
@@ -73,10 +73,10 @@ class HealthTab extends StatelessWidget {
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
             child: Text(value,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
           ),
           const SizedBox(height: 2),
-          Text(detail, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+          Text(detail, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
         ]),
       ),
     );
@@ -114,7 +114,7 @@ class HealthTab extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
           children: [
             _shortcut(
-              icon: const UlvenikIcon(UlvenikIcons.health, size: 22, color: kHealthGreen),
+              icon: UlvenikIcon(UlvenikIcons.health, size: 22, color: kHealthGreen),
               title: 'Health Records',
               subtitle: count == 0
                   ? 'View and manage medical history'
@@ -123,7 +123,7 @@ class HealthTab extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             _shortcut(
-              icon: const UlvenikIcon(UlvenikIcons.notifications, size: 22, color: kHealthGreen),
+              icon: UlvenikIcon(UlvenikIcons.notifications, size: 22, color: kHealthGreen),
               title: 'Health Reminders',
               subtitle: upcoming.isEmpty
                   ? 'Upcoming care and scheduled tasks'
@@ -131,7 +131,7 @@ class HealthTab extends StatelessWidget {
               onTap: () => _go(context, HealthRemindersListScreen(dogName: dogName)),
               trailing: IconButton(
                 tooltip: 'Add Reminder',
-                icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
+                icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
                 onPressed: () => _go(context, HealthReminderForm(dogName: dogName)),
               ),
             ),
@@ -159,20 +159,20 @@ class HealthTab extends StatelessWidget {
               onTap: () => _go(context, WeightRecordsScreen(dogName: dogName)),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Row(children: [
-                  const UlvenikIcon(UlvenikIcons.progress, size: 18, color: kHealthGreen),
+                  UlvenikIcon(UlvenikIcons.progress, size: 18, color: kHealthGreen),
                   const SizedBox(width: 8),
-                  const Expanded(
+                  Expanded(
                     child: Text('Weight History',
                         style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                   ),
-                  const Text('All entries',
+                  Text('All entries',
                       style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                 ]),
                 const SizedBox(height: 12),
                 SizedBox(
                   height: 90,
                   child: points.isEmpty
-                      ? const Center(
+                      ? Center(
                           child: Text('No entries',
                               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)))
                       : IgnorePointer(
@@ -186,12 +186,12 @@ class HealthTab extends StatelessWidget {
               'Upcoming Health',
               trailing: TextButton(
                 onPressed: () => _go(context, HealthRemindersListScreen(dogName: dogName)),
-                child: const Text('View All Reminders',
+                child: Text('View All Reminders',
                     style: TextStyle(color: AppColors.primaryForestGreen, fontSize: 13, fontWeight: FontWeight.w600)),
               ),
             ),
             if (shown.isEmpty)
-              const HealthCard(
+              HealthCard(
                 child: Column(children: [
                   Icon(Icons.event_available_outlined, color: kHealthGreen, size: 26),
                   SizedBox(height: 10),
@@ -216,14 +216,14 @@ class HealthTab extends StatelessWidget {
                       Expanded(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                           Text(r.title,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 2),
                           Text('${r.type.label} · ${reminderWhen(r)}',
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                         ]),
                       ),
-                      const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                      UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                     ]),
                   ),
                 ),

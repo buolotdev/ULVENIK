@@ -92,7 +92,7 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
             child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text('Filter clients',
+              Text('Filter clients',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SectionLabel('Status'),
               ChoiceRow(
@@ -104,14 +104,14 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 activeThumbColor: AppColors.primaryForestGreen,
-                title: const Text('Outstanding homework', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('Outstanding homework', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 value: draft.homework,
                 onChanged: (v) => setSheet(() => draft.homework = v),
               ),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 activeThumbColor: AppColors.primaryForestGreen,
-                title: const Text('Pinned only', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('Pinned only', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 value: draft.pinned,
                 onChanged: (v) => setSheet(() => draft.pinned = v),
               ),
@@ -127,7 +127,7 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
                     }),
                     style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryTextOffWhite,
-                        side: const BorderSide(color: Colors.white24),
+                        side: BorderSide(color: AppColors.cardBorder),
                         minimumSize: const Size(0, 50)),
                     child: const Text('Reset'),
                   ),
@@ -152,14 +152,14 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
-                title: const Text('Edit Client Details', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('Edit Client Details', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   _go(context, ClientFormScreen(client: c));
                 },
               ),
               ListTile(
-                title: Text(c.pinned ? 'Unpin Client' : 'Pin Client', style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text(c.pinned ? 'Unpin Client' : 'Pin Client', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   c.pinned = !c.pinned;
@@ -167,14 +167,14 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
                 },
               ),
               ListTile(
-                title: const Text('Client Notes', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('Client Notes', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   _go(context, ClientNotesScreen(clientId: c.id));
                 },
               ),
               ListTile(
-                title: Text(c.archived ? 'Restore Client' : 'Archive Client', style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text(c.archived ? 'Restore Client' : 'Archive Client', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   archiveClient(context, c);
@@ -196,7 +196,7 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
       actions: [
         IconButton(
           tooltip: 'Add Client',
-          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
+          icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
           onPressed: () => _go(context, const ClientFormScreen()),
         ),
       ],
@@ -217,9 +217,9 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
                   Expanded(
                     child: TextField(
                       controller: _search,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                       decoration: healthDecoration('Search clients...').copyWith(
-                        prefixIcon: const Padding(
+                        prefixIcon: Padding(
                           padding: EdgeInsets.all(12),
                           child: UlvenikIcon(UlvenikIcons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
                         ),
@@ -252,47 +252,47 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
                           label: Text(_filters.status),
                           onDeleted: () => setState(() => _filters.status = 'All current'),
                           backgroundColor: AppColors.cardsCarbon,
-                          side: const BorderSide(color: Colors.white12),
-                          labelStyle: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5),
+                          side: BorderSide(color: AppColors.cardBorder),
+                          labelStyle: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5),
                         ),
                       if (_filters.homework)
                         InputChip(
                           label: const Text('Outstanding homework'),
                           onDeleted: () => setState(() => _filters.homework = false),
                           backgroundColor: AppColors.cardsCarbon,
-                          side: const BorderSide(color: Colors.white12),
-                          labelStyle: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5),
+                          side: BorderSide(color: AppColors.cardBorder),
+                          labelStyle: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5),
                         ),
                       if (_filters.pinned)
                         InputChip(
                           label: const Text('Pinned'),
                           onDeleted: () => setState(() => _filters.pinned = false),
                           backgroundColor: AppColors.cardsCarbon,
-                          side: const BorderSide(color: Colors.white12),
-                          labelStyle: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5),
+                          side: BorderSide(color: AppColors.cardBorder),
+                          labelStyle: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5),
                         ),
                     ]),
                   ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text('${list.length} ${list.length == 1 ? 'client' : 'clients'}',
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                 ),
                 if (list.isEmpty && searching)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 28),
                     child: Column(children: [
-                      const Text('No clients match',
+                      Text('No clients match',
                           style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 4),
-                      const Text('Try another search or change your filters.',
+                      Text('Try another search or change your filters.',
                           style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
                       TextButton(
                         onPressed: () {
                           _search.clear();
                           setState(() => _filters = _Filters());
                         },
-                        child: const Text('Clear search and filters',
+                        child: Text('Clear search and filters',
                             style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                       ),
                     ]),
@@ -310,18 +310,18 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
                               Flexible(
                                 child: Text(c.name,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                               ),
                               if (c.pinned)
-                                const Padding(
+                                Padding(
                                   padding: EdgeInsets.only(left: 6),
                                   child: Icon(Icons.push_pin_outlined, size: 16, color: AppColors.primaryForestGreen),
                                 ),
                             ]),
                             if (c.dogs.isNotEmpty)
                               Text(c.dogs.join(', '),
-                                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                             Builder(builder: (_) {
                               final n = _store.outstandingCount(c.id);
                               final bits = [
@@ -332,13 +332,13 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
                               return bits.isEmpty
                                   ? const SizedBox.shrink()
                                   : Text(bits.join(' · '),
-                                      style: const TextStyle(color: AppColors.secondarySage, fontSize: 12.5));
+                                      style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5));
                             }),
                           ]),
                         ),
                         IconButton(
                           tooltip: 'Client options',
-                          icon: const UlvenikIcon(UlvenikIcons.more, size: 20, color: AppColors.secondaryTextStoneGrey),
+                          icon: UlvenikIcon(UlvenikIcons.more, size: 20, color: AppColors.secondaryTextStoneGrey),
                           onPressed: () => _menu(c),
                         ),
                       ]),
@@ -362,13 +362,13 @@ Future<void> archiveClient(BuildContext context, TrainerClient c) async {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Text('Archive client?',
+            Text('Archive client?',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             Text(
                 '${c.name} will leave your current clients. Their dogs, homework and notes are kept, and you can restore them any time.',
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4)),
             const SizedBox(height: 18),
             PrimaryButton(label: 'Archive Client', onPressed: () => Navigator.pop(ctx, true)),
             const SizedBox(height: 10),
@@ -377,8 +377,8 @@ Future<void> archiveClient(BuildContext context, TrainerClient c) async {
               child: OutlinedButton(
                 onPressed: () => Navigator.pop(ctx, false),
                 style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14), side: const BorderSide(color: Colors.white12)),
-                child: const Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                    padding: const EdgeInsets.symmetric(vertical: 14), side: BorderSide(color: AppColors.cardBorder)),
+                child: Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               ),
             ),
           ]),
@@ -482,7 +482,7 @@ class _ClientFormScreenState extends State<ClientFormScreen> {
             controller: _name,
             textCapitalization: TextCapitalization.words,
             onChanged: (_) => _nameError == null ? null : setState(() => _nameError = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Enter the client’s name', error: _nameError),
           ),
           const FieldLabel('Email'),
@@ -490,14 +490,14 @@ class _ClientFormScreenState extends State<ClientFormScreen> {
             controller: _email,
             keyboardType: TextInputType.emailAddress,
             onChanged: (_) => _emailError == null ? null : setState(() => _emailError = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Enter an email address', error: _emailError),
           ),
           const FieldLabel('Phone'),
           TextField(
             controller: _phone,
             keyboardType: TextInputType.phone,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Enter a phone number'),
           ),
           const FieldLabel('Dogs'),
@@ -505,9 +505,9 @@ class _ClientFormScreenState extends State<ClientFormScreen> {
             Wrap(spacing: 8, runSpacing: 6, children: [
               for (final d in _dogs)
                 InputChip(
-                  label: Text(d, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                  label: Text(d, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                   backgroundColor: AppColors.cardsCarbon,
-                  side: const BorderSide(color: Colors.white12),
+                  side: BorderSide(color: AppColors.cardBorder),
                   deleteIconColor: AppColors.secondaryTextStoneGrey,
                   onDeleted: () => setState(() => _dogs = [..._dogs]..remove(d)),
                 ),
@@ -519,14 +519,14 @@ class _ClientFormScreenState extends State<ClientFormScreen> {
                 controller: _dogInput,
                 textCapitalization: TextCapitalization.words,
                 onSubmitted: (_) => _addDog(),
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                 decoration: healthDecoration('Enter a dog’s name'),
               ),
             ),
             const SizedBox(width: 8),
             TextButton(
               onPressed: _addDog,
-              child: const Text('Add dog', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
+              child: Text('Add dog', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
             ),
           ]),
           const FieldLabel('Client since'),
@@ -568,8 +568,8 @@ class ClientDetailScreen extends StatelessWidget {
         Widget row(String k, String v) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                SizedBox(width: 120, child: Text(k, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5))),
-                Expanded(child: Text(v, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5))),
+                SizedBox(width: 120, child: Text(k, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5))),
+                Expanded(child: Text(v, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5))),
               ]),
             );
         return HealthScaffold(
@@ -577,7 +577,7 @@ class ClientDetailScreen extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'More',
-              icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
               onPressed: () => showModalBottomSheet<void>(
                 context: context,
                 backgroundColor: AppColors.cardsCarbon,
@@ -587,14 +587,14 @@ class ClientDetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
-                        title: const Text('Edit Client Details', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text('Edit Client Details', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           _go(context, ClientFormScreen(client: c));
                         },
                       ),
                       ListTile(
-                        title: Text(c.pinned ? 'Unpin Client' : 'Pin Client', style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text(c.pinned ? 'Unpin Client' : 'Pin Client', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           c.pinned = !c.pinned;
@@ -602,7 +602,7 @@ class ClientDetailScreen extends StatelessWidget {
                         },
                       ),
                       ListTile(
-                        title: Text(c.archived ? 'Restore Client' : 'Archive Client', style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text(c.archived ? 'Restore Client' : 'Archive Client', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           archiveClient(context, c);
@@ -620,9 +620,9 @@ class ClientDetailScreen extends StatelessWidget {
               Row(children: [
                 Expanded(
                   child: Text(c.name,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
                 ),
-                if (c.pinned) const Icon(Icons.push_pin_outlined, color: AppColors.primaryForestGreen),
+                if (c.pinned) Icon(Icons.push_pin_outlined, color: AppColors.primaryForestGreen),
               ]),
               const SizedBox(height: 14),
               HealthCard(
@@ -641,55 +641,55 @@ class ClientDetailScreen extends StatelessWidget {
               HealthCard(
                 onTap: () => _go(context, HomeworkListScreen(clientId: c.id)),
                 child: Row(children: [
-                  const Icon(Icons.assignment_outlined, color: AppColors.secondarySage),
+                  Icon(Icons.assignment_outlined, color: AppColors.secondarySage),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      const Text('Homework', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
-                      Text('$out outstanding', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                      Text('Homework', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                      Text('$out outstanding', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                     ]),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                 ]),
               ),
               const SizedBox(height: 10),
               HealthCard(
                 onTap: () => _go(context, TrainerClientReportScreen(clientId: c.id)),
                 child: Row(children: [
-                  const Icon(Icons.summarize_outlined, color: AppColors.secondarySage),
+                  Icon(Icons.summarize_outlined, color: AppColors.secondarySage),
                   const SizedBox(width: 14),
-                  const Expanded(
+                  Expanded(
                     child: Text('Client Report', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                 ]),
               ),
               const SizedBox(height: 10),
               HealthCard(
                 onTap: () => _go(context, TrainerAccessScreen(clientId: c.id)),
                 child: Row(children: [
-                  const Icon(Icons.verified_user_outlined, color: AppColors.secondarySage),
+                  Icon(Icons.verified_user_outlined, color: AppColors.secondarySage),
                   const SizedBox(width: 14),
-                  const Expanded(
+                  Expanded(
                     child: Text('Trainer Access', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                 ]),
               ),
               const SizedBox(height: 10),
               HealthCard(
                 onTap: () => _go(context, ClientNotesScreen(clientId: c.id)),
                 child: Row(children: [
-                  const Icon(Icons.sticky_note_2_outlined, color: AppColors.secondarySage),
+                  Icon(Icons.sticky_note_2_outlined, color: AppColors.secondarySage),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      const Text('Trainer Notes', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                      Text('Trainer Notes', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                       Text('${store.notes(c.id).length} private ${store.notes(c.id).length == 1 ? 'note' : 'notes'}',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                     ]),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                 ]),
               ),
             ],
@@ -735,10 +735,10 @@ class HomeworkListScreen extends StatelessWidget {
                           // Opening a row shows the assignment; it never changes progress.
                           onTap: () => _go(context, HomeworkFormScreen(clientId: clientId, homework: h)),
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                            Text(h.title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                            Text(h.title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                             const SizedBox(height: 2),
                             Text(h.dog.isEmpty ? 'No dog selected' : h.dog,
-                                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                             const SizedBox(height: 4),
                             Text([if (!h.assigned) 'Draft', h.progress, h.timing].join(' · '),
                                 style: TextStyle(
@@ -847,7 +847,7 @@ class _HomeworkFormScreenState extends State<HomeworkFormScreen> {
               onPressed: () => _save(assign: false),
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   minimumSize: const Size(0, 52),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
               child: const Text('Save Draft'),
@@ -863,12 +863,12 @@ class _HomeworkFormScreenState extends State<HomeworkFormScreen> {
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
           if (client != null)
-            Text('For ${client.name}', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+            Text('For ${client.name}', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
           const FieldLabel('Task title', required: true),
           TextField(
             controller: _title,
             onChanged: (_) => _titleError == null ? null : setState(() => _titleError = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Enter a task title', error: _titleError),
           ),
           const FieldLabel('Instructions'),
@@ -876,7 +876,7 @@ class _HomeworkFormScreenState extends State<HomeworkFormScreen> {
             controller: _instr,
             minLines: 4,
             maxLines: 8,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Explain what to practise and how'),
           ),
           if (dogs.isNotEmpty) ...[
@@ -897,17 +897,17 @@ class _HomeworkFormScreenState extends State<HomeworkFormScreen> {
             if (_due != null)
               TextButton(
                 onPressed: () => setState(() => _due = null),
-                child: const Text('No due date', style: TextStyle(color: AppColors.primaryForestGreen)),
+                child: Text('No due date', style: TextStyle(color: AppColors.primaryForestGreen)),
               ),
           ]),
           if (editing) ...[
             const FieldLabel('Progress'),
             ChoiceRow(options: kHomeworkProgress, value: _progress, onChanged: (v) => setState(() => _progress = v)),
             const SizedBox(height: 8),
-            Text(widget.homework!.timing, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+            Text(widget.homework!.timing, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
           ],
           const SizedBox(height: 16),
-          const Text('Saved to your trainer journal. It isn’t sent to the client.',
+          Text('Saved to your trainer journal. It isn’t sent to the client.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, height: 1.4)),
         ],
       ),
@@ -940,10 +940,10 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
         builder: (ctx, setSheet) => Padding(
           padding: EdgeInsets.fromLTRB(20, 20, 20, 16 + MediaQuery.viewInsetsOf(ctx).bottom),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Add Note',
+            Text('Add Note',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 4),
-            const Text('Private: only you can see this.',
+            Text('Private: only you can see this.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             const SizedBox(height: 12),
             TextField(
@@ -951,7 +951,7 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
               autofocus: true,
               minLines: 4,
               maxLines: 8,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
               decoration: healthDecoration('Write your note', error: error),
             ),
             const SizedBox(height: 14),
@@ -1007,14 +1007,14 @@ class _ClientNotesScreenState extends State<ClientNotesScreen> {
                           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                             Expanded(
                               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text(fmtDate(n.at), style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                                Text(fmtDate(n.at), style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                                 const SizedBox(height: 4),
-                                Text(n.text, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.4)),
+                                Text(n.text, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.4)),
                               ]),
                             ),
                             IconButton(
                               tooltip: 'Delete note',
-                              icon: const Icon(Icons.delete_outline, size: 20, color: AppColors.secondaryTextStoneGrey),
+                              icon: Icon(Icons.delete_outline, size: 20, color: AppColors.secondaryTextStoneGrey),
                               onPressed: () async {
                                 final ok = await confirmDelete(context,
                                     title: 'Delete note?', message: 'This note will be permanently deleted.');

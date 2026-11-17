@@ -14,10 +14,10 @@ Widget _sortButton(bool newest, VoidCallback onTap) => Align(
         icon: AnimatedRotation(
           turns: newest ? 0 : 0.5,
           duration: const Duration(milliseconds: 250),
-          child: const UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
+          child: UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
         ),
         label: Text(newest ? 'Newest First' : 'Oldest First',
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
       ),
     );
 
@@ -25,14 +25,14 @@ Widget _categoryButton(String value, VoidCallback onTap) => OutlinedButton(
       onPressed: onTap,
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.primaryTextOffWhite,
-        side: const BorderSide(color: Colors.white12),
+        side: BorderSide(color: AppColors.cardBorder),
         backgroundColor: AppColors.cardsCarbon,
         alignment: Alignment.centerLeft,
         minimumSize: const Size(double.infinity, 46),
       ),
       child: Row(children: [
         Expanded(child: Text(value)),
-        const Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey),
+        Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey),
       ]),
     );
 
@@ -112,7 +112,7 @@ class _TimelineFavouritesScreenState extends State<TimelineFavouritesScreen> {
             }),
             _sortButton(_newest, () => setState(() => _newest = !_newest)),
             if (list.isEmpty)
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 28),
                 child: Center(
                   child: Text('No favourites match your search or category.',
@@ -186,14 +186,14 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen> {
           padding: const EdgeInsets.all(20),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             Text(n == 1 ? 'Restore 1 Event?' : 'Restore $n Events?',
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             Text(
               n == 1
                   ? 'This event will return to $dogLabel Timeline at its original date.'
                   : 'These events will return to $dogLabel Timeline at their original dates.',
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4),
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4),
             ),
             const SizedBox(height: 20),
             PrimaryButton(label: 'Restore Events', onPressed: () => Navigator.pop(ctx, true)),
@@ -203,8 +203,8 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen> {
               child: OutlinedButton(
                 onPressed: () => Navigator.pop(ctx, false),
                 style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14), side: const BorderSide(color: Colors.white12)),
-                child: const Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                    padding: const EdgeInsets.symmetric(vertical: 14), side: BorderSide(color: AppColors.cardBorder)),
+                child: Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               ),
             ),
           ]),
@@ -244,7 +244,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen> {
                   _selected.clear();
                 }),
                 child: Text(_selecting ? 'Done' : 'Select',
-                    style: const TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
               ),
             ],
       bottom: _selecting && selectedRefs.isNotEmpty
@@ -259,7 +259,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen> {
                   ),
                   style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryTextOffWhite,
-                      side: const BorderSide(color: Colors.white24),
+                      side: BorderSide(color: AppColors.cardBorder),
                       minimumSize: const Size(0, 52),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
                   child: const Text('Export'),
@@ -305,7 +305,7 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen> {
               Row(children: [
                 Expanded(
                   child: Text('${selectedRefs.length} selected',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
                 ),
                 TextButton(
                   onPressed: () => setState(() {
@@ -318,14 +318,14 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen> {
                     }
                   }),
                   child: Text(selectedRefs.length == eligible.length && eligible.isNotEmpty ? 'Deselect All' : 'Select All',
-                      style: const TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                 ),
                 _sortButton(_newest, () => setState(() => _newest = !_newest)),
               ])
             else
               _sortButton(_newest, () => setState(() => _newest = !_newest)),
             if (list.isEmpty)
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 28),
                 child: Center(
                   child: Text('No archived events match your search or category.',
@@ -357,13 +357,13 @@ class _TimelineArchiveScreenState extends State<TimelineArchiveScreen> {
                   padding: const EdgeInsets.only(bottom: 10),
                   child: HealthCard(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      const Text('Original Record Deleted',
+                      Text('Original Record Deleted',
                           style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 2),
                       Text('${r.title} · ${r.category} · ${fmtDate(r.date)}',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                       Text('Archived ${fmtDate(r.archivedAt)}',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
@@ -445,12 +445,12 @@ class _TimelineExportScreenState extends State<TimelineExportScreen> {
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 12 + MediaQuery.viewInsetsOf(ctx).bottom),
                 child: Column(children: [
                   Text('Select Events (${draft.length})',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 10),
                   TextField(
                     controller: search,
                     onChanged: (_) => setSheet(() {}),
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite),
                     decoration: healthDecoration('Search events...'),
                   ),
                   const SizedBox(height: 8),
@@ -467,9 +467,9 @@ class _TimelineExportScreenState extends State<TimelineExportScreen> {
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: AppColors.primaryForestGreen,
                           checkColor: AppColors.primaryTextOffWhite,
-                          title: Text(e.title, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                          title: Text(e.title, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                           subtitle: Text('${e.category} · ${fmtDate(e.at)}',
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                           value: draft.contains(e.id),
                           onChanged: (v) => setSheet(() => v == true ? draft.add(e.id) : draft.remove(e.id)),
                         ),
@@ -523,8 +523,8 @@ class _TimelineExportScreenState extends State<TimelineExportScreen> {
               const SizedBox(width: 12),
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(label, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
-                  Text(sub, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  Text(label, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                  Text(sub, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                 ]),
               ),
             ]),
@@ -546,7 +546,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen> {
             onPressed: reason == null && !_busy ? _generate : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primaryForestGreen,
-              foregroundColor: AppColors.primaryTextOffWhite,
+              foregroundColor: AppColors.onForestGreen,
               disabledBackgroundColor: AppColors.cardsCarbon,
               elevation: 0,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -587,11 +587,11 @@ class _TimelineExportScreenState extends State<TimelineExportScreen> {
             Row(children: [
               Expanded(
                 child: Text('Selected Events (${_ids.length})',
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
               ),
               TextButton(
                 onPressed: _editSelection,
-                child: const Text('Edit Selection',
+                child: Text('Edit Selection',
                     style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
               ),
             ]),
@@ -601,9 +601,9 @@ class _TimelineExportScreenState extends State<TimelineExportScreen> {
                 child: Row(children: [
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text(e.title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+                      Text(e.title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
                       Text('${e.category} · ${fmtDate(e.at)}',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                     ]),
                   ),
                 ]),
@@ -616,7 +616,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen> {
               },
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white12),
+                  side: BorderSide(color: AppColors.cardBorder),
                   backgroundColor: AppColors.cardsCarbon,
                   alignment: Alignment.centerLeft,
                   minimumSize: const Size(double.infinity, 46)),
@@ -629,7 +629,7 @@ class _TimelineExportScreenState extends State<TimelineExportScreen> {
             }),
             const SizedBox(height: 10),
             Text('${events.length} ${events.length == 1 ? 'event' : 'events'} in this scope',
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
           ],
         ],
       ),

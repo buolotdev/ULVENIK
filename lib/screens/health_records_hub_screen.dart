@@ -61,7 +61,7 @@ class HealthRecordsHubScreen extends StatelessWidget {
                         Text(c.$2,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
                       ]),
                     ),

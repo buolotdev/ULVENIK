@@ -66,10 +66,10 @@ Future<List<String>?> showSessionItemsPicker(
                     UlvenikIcon(kind.icon, size: 22, color: AppColors.secondarySage),
                     const SizedBox(width: 10),
                     Text(kind.title,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                   ]),
                   const SizedBox(height: 4),
-                  const Text('Optional. Choose any that apply to the whole session.',
+                  Text('Optional. Choose any that apply to the whole session.',
                       style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                   const SizedBox(height: 12),
                   for (final item in library)
@@ -77,7 +77,7 @@ Future<List<String>?> showSessionItemsPicker(
                       contentPadding: EdgeInsets.zero,
                       activeColor: AppColors.primaryForestGreen,
                       value: draft.contains(item),
-                      title: Text(item, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                      title: Text(item, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                       onChanged: (v) => setSheet(() => v == true ? draft.add(item) : draft.remove(item)),
                     ),
                   const SizedBox(height: 8),
@@ -86,7 +86,7 @@ Future<List<String>?> showSessionItemsPicker(
                       child: TextField(
                         controller: addCtrl,
                         onSubmitted: (_) => addItem(),
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite),
                         decoration: InputDecoration(
                           hintText: kind == SessionItemKind.rewards ? 'Add a reward' : 'Add equipment',
                           filled: true,
@@ -103,7 +103,7 @@ Future<List<String>?> showSessionItemsPicker(
                         onPressed: addItem,
                         style: OutlinedButton.styleFrom(
                           foregroundColor: AppColors.primaryTextOffWhite,
-                          side: const BorderSide(color: Colors.white24),
+                          side: BorderSide(color: AppColors.cardBorder),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         child: const Text('Add'),
@@ -117,7 +117,7 @@ Future<List<String>?> showSessionItemsPicker(
                       onPressed: () => Navigator.pop(ctx, draft),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryForestGreen,
-                        foregroundColor: AppColors.primaryTextOffWhite,
+                        foregroundColor: AppColors.onForestGreen,
                         elevation: 0,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
@@ -155,14 +155,14 @@ class SessionItemsField extends StatelessWidget {
         },
         child: Container(
           padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: Colors.white12)),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.cardBorder)),
           child: Row(children: [
             UlvenikIcon(kind.icon, size: 22, color: AppColors.secondarySage),
             const SizedBox(width: 12),
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text('${kind.title} (optional)',
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                 const SizedBox(height: 3),
                 Text(selected.isEmpty ? 'None selected' : selected.join(', '),
                     style: TextStyle(
@@ -171,7 +171,7 @@ class SessionItemsField extends StatelessWidget {
                     )),
               ]),
             ),
-            const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+            Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
           ]),
         ),
       ),

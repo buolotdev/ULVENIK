@@ -249,10 +249,10 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite, size: 24),
+        icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite, size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      title: const Text(
+      title: Text(
         'Injuries & Recovery',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -266,7 +266,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
         // Search Icon
         IconButton(
           tooltip: 'Search Records',
-          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: () {
             if (_isEmpty) setState(() => _isEmpty = false);
             _searchFocusNode.requestFocus();
@@ -275,7 +275,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
         // Filter / Tune
         IconButton(
           tooltip: 'Filter Options',
-          icon: const Icon(Icons.tune, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: Icon(Icons.tune, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: _showFilterPreferencesModal,
         ),
         // State Toggle (Populated / Empty)
@@ -293,7 +293,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
         // Add Record (+)
         IconButton(
           tooltip: 'Add Injury',
-          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 24),
+          icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 24),
           onPressed: _showAddInjuryModal,
         ),
         const SizedBox(width: 4),
@@ -339,7 +339,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
 
           // 5. CURRENT INJURIES Section
           if (_selectedStatusFilter != 'Resolved') ...[
-            const Text(
+            Text(
               'CURRENT INJURIES',
               style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
@@ -364,7 +364,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'RESOLVED INJURIES',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -442,7 +442,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                 children: [
                   Text(
                     _activeDog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -452,7 +452,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                   const SizedBox(height: 2),
                   Text(
                     '${_activeDog.breed} · ${_activeDog.age}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -460,7 +460,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+            Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -481,7 +481,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'INJURY SUMMARY',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -617,7 +617,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
             children: [
               Text(
                 value,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -627,7 +627,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
               const SizedBox(height: 2),
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 11,
                   fontWeight: FontWeight.w400,
@@ -656,15 +656,15 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: _searchController,
               focusNode: _searchFocusNode,
               cursorColor: const Color(0xFF95D3BB),
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
-              decoration: const InputDecoration(
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+              decoration: InputDecoration(
                 hintText: 'Search injuries, body area, diagnosis…',
                 hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                 border: InputBorder.none,
@@ -689,7 +689,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                   _searchQuery = '';
                 });
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
           const SizedBox(width: 6),
           InkWell(
@@ -704,7 +704,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                 }
               });
             },
-            child: const Icon(Icons.mic, color: AppColors.secondaryTextStoneGrey, size: 20),
+            child: Icon(Icons.mic, color: AppColors.secondaryTextStoneGrey, size: 20),
           ),
         ],
       ),
@@ -833,7 +833,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                 Expanded(
                   child: Text(
                     injury.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
@@ -882,7 +882,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
             // Metadata: Area · Date · Severity
             Text(
               subtitleParts.join(' · '),
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -893,7 +893,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
             // Recovery: [time since recorded]
             Text(
               'Recovery: $recoveryText',
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
@@ -918,7 +918,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
                 ],
               ),
             ),
@@ -956,13 +956,13 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       children: [
                         Text(
                           injury.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const UlvenikIcon(UlvenikIcons.completed, color: AppColors.secondaryTextStoneGrey, size: 18),
+                        UlvenikIcon(UlvenikIcons.completed, color: AppColors.secondaryTextStoneGrey, size: 18),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -971,12 +971,12 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       children: [
                         Text(
                           '${injury.bodyArea} · ${_formatDate(injury.date)}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 12,
                           ),
                         ),
-                        const Text(
+                        Text(
                           'RESOLVED',
                           style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
@@ -1019,7 +1019,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       child: Center(
         child: Text(
           message,
-          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
         ),
       ),
     );
@@ -1092,7 +1092,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
           const SizedBox(height: 24),
 
           // Heading
-          const Text(
+          Text(
             'No Injuries Recorded',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1178,7 +1178,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Select Dog Profile',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -1187,7 +1187,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                      icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                       onPressed: () => Navigator.pop(ctx),
                     ),
                   ],
@@ -1230,7 +1230,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                                 ),
                                 Text(
                                   '${dog.breed} · ${dog.age}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12,
                                   ),
@@ -1284,7 +1284,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                           Expanded(
                             child: Text(
                               injury.title,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
@@ -1292,7 +1292,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                            icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1311,7 +1311,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       const SizedBox(height: 12),
 
                       // User-selected Current Stage
-                      const Text(
+                      Text(
                         'Current Stage',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12, fontWeight: FontWeight.w600),
                       ),
@@ -1353,14 +1353,14 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       ),
                       const SizedBox(height: 14),
 
-                      const Text('Clinical Diagnosis', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                      Text('Clinical Diagnosis', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                       const SizedBox(height: 4),
-                      Text(injury.diagnosisNotes, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                      Text(injury.diagnosisNotes, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                       const SizedBox(height: 12),
 
-                      const Text('Treatment & Rehab Plan', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                      Text('Treatment & Rehab Plan', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                       const SizedBox(height: 4),
-                      Text(injury.treatmentPlan, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                      Text(injury.treatmentPlan, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                       const SizedBox(height: 24),
 
                       // Actions
@@ -1424,8 +1424,8 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
-          Text(value, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w600)),
+          Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+          Text(value, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w600)),
         ],
       ),
     );
@@ -1474,14 +1474,14 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                         children: [
                           Text(
                             'Add Injury for ${_activeDog.name}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                            icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1491,10 +1491,10 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       // Injury Title
                       TextField(
                         controller: titleCtrl,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite),
                         decoration: InputDecoration(
                           labelText: 'Injury / Condition Name (e.g. Muscle Strain, Cruciate Tear)',
-                          labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                          labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                           filled: true,
                           fillColor: AppColors.backgroundObsidian,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1511,7 +1511,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       const SizedBox(height: 12),
 
                       // Body Area Chips
-                      const Text('Body Area Affected', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                      Text('Body Area Affected', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                       const SizedBox(height: 6),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -1542,10 +1542,10 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                             child: DropdownButtonFormField<String>(
                               initialValue: selectedSeverity,
                               dropdownColor: AppColors.cardsCarbon,
-                              style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                              style: TextStyle(color: AppColors.primaryTextOffWhite),
                               decoration: InputDecoration(
                                 labelText: 'Severity',
-                                labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                                labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                                 filled: true,
                                 fillColor: AppColors.backgroundObsidian,
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1559,10 +1559,10 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                             child: DropdownButtonFormField<InjuryStatus>(
                               initialValue: selectedStatus,
                               dropdownColor: AppColors.cardsCarbon,
-                              style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                              style: TextStyle(color: AppColors.primaryTextOffWhite),
                               decoration: InputDecoration(
                                 labelText: 'Initial Status',
-                                labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                                labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                                 filled: true,
                                 fillColor: AppColors.backgroundObsidian,
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1610,7 +1610,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(_formatDate(injuryDate), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                                    Text(_formatDate(injuryDate), style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                                     const UlvenikIcon(UlvenikIcons.calendar, size: 16, color: Color(0xFF95D3BB)),
                                   ],
                                 ),
@@ -1621,10 +1621,10 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                           Expanded(
                             child: TextField(
                               controller: clinicCtrl,
-                              style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                              style: TextStyle(color: AppColors.primaryTextOffWhite),
                               decoration: InputDecoration(
                                 labelText: 'Clinic / Vet',
-                                labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                                labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                                 filled: true,
                                 fillColor: AppColors.backgroundObsidian,
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1638,10 +1638,10 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       // Diagnosis & Notes
                       TextField(
                         controller: diagnosisCtrl,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite),
                         decoration: InputDecoration(
                           labelText: 'Diagnosis & Clinical Observation',
-                          labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                          labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                           filled: true,
                           fillColor: AppColors.backgroundObsidian,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1652,10 +1652,10 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                       // Treatment & Rehab Plan
                       TextField(
                         controller: treatmentCtrl,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite),
                         decoration: InputDecoration(
                           labelText: 'Treatment Plan / Prescribed Rest',
-                          labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                          labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                           filled: true,
                           fillColor: AppColors.backgroundObsidian,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1732,7 +1732,7 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Filter & Sort Options',
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -1741,13 +1741,13 @@ class _InjuriesRecoveryScreenState extends State<InjuriesRecoveryScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text('INJURY STATUS', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
+                    Text('INJURY STATUS', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,

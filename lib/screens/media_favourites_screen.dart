@@ -47,15 +47,15 @@ class MediaFavouritesScreen extends StatefulWidget {
 }
 
 class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian; // #121212
-  static const Color _carbon = AppColors.cardsCarbon; // #1C1C1C
+  static Color get _obsidian => AppColors.backgroundObsidian; // #121212
+  static Color get _carbon => AppColors.cardsCarbon; // #1C1C1C
   static const Color _thumbDark = Color(0xFF131618);
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
-  static const Color _sage = AppColors.secondarySage; // #7A8F7A
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _cardBorder = AppColors.cardBorder;
-  static const Color _favGold = AppColors.favouriteGold; // #B8920A
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
+  static Color get _sage => AppColors.secondarySage; // #7A8F7A
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _favGold => AppColors.favouriteGold; // #B8920A
 
   List<String> get _tabs => [
     'All',
@@ -231,12 +231,12 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: _cardBorder),
+          side: BorderSide(color: _cardBorder),
         ),
         duration: const Duration(seconds: 4),
         content: Text(
           'Removed "${item.title}" from Favourites',
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 13,
             fontFamily: 'Inter',
@@ -349,7 +349,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                       children: [
                         Text(
                           item.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 16.5,
                             fontWeight: FontWeight.w700,
@@ -359,7 +359,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                         const SizedBox(height: 3),
                         Text(
                           '${item.pillLabel} · ${item.dogName} · ${item.addedAgoLabel}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12.5,
                             fontFamily: 'Inter',
@@ -383,7 +383,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                   isGoal
                       ? 'Milestone target at 85% completion — 6 consecutive clean long-line whistle recalls logged under outdoor distraction.'
                       : '45 min structured agility sequence · 94% contact zone accuracy · 3 video clips attached.',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 13,
                     height: 1.45,
@@ -398,7 +398,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         foregroundColor: _offWhite,
-                        side: const BorderSide(color: _cardBorder),
+                        side: BorderSide(color: _cardBorder),
                         padding: const EdgeInsets.symmetric(vertical: 13),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -489,7 +489,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Sort & Filter Favourites',
                   style: TextStyle(
                     color: _offWhite,
@@ -499,7 +499,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                   ),
                 ),
                 const SizedBox(height: 14),
-                const Text(
+                Text(
                   'DOG',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -548,7 +548,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                   }).toList(),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'SORT ORDER',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -609,10 +609,10 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildTopHeader(),
-            const Divider(color: _cardBorder, height: 1),
+            Divider(color: _cardBorder, height: 1),
             if (_showSearchBar) _buildInlineSearchBar(),
             _buildUnderlineTabsBar(),
-            const Divider(color: _cardBorder, height: 1),
+            Divider(color: _cardBorder, height: 1),
             if (_lastRemovedItem != null) _buildUndoBanner(),
             Expanded(
               child: visible.isEmpty
@@ -639,12 +639,12 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.maybePop(context),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 24,
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Text(
               'Favourites',
               style: TextStyle(
@@ -690,7 +690,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
   Widget _buildInlineSearchBar() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _carbon,
         border: Border(bottom: BorderSide(color: _cardBorder)),
       ),
@@ -699,19 +699,19 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
         child: TextField(
           controller: _searchController,
           onChanged: (v) => setState(() => _searchQuery = v),
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 13.5,
             fontFamily: 'Inter',
           ),
           decoration: InputDecoration(
             hintText: 'Search starred photos, videos, PDFs...',
-            hintStyle: const TextStyle(
+            hintStyle: TextStyle(
               color: _stoneGrey,
               fontSize: 13,
               fontFamily: 'Inter',
             ),
-            prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+            prefixIcon: UlvenikIcon(UlvenikIcons.search,
               color: _stoneGrey,
               size: 19,
             ),
@@ -721,7 +721,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                       _searchController.clear();
                       setState(() => _searchQuery = '');
                     },
-                    icon: const Icon(Icons.close_rounded,
+                    icon: Icon(Icons.close_rounded,
                       color: _stoneGrey,
                       size: 16,
                     ),
@@ -732,15 +732,15 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
             contentPadding: EdgeInsets.zero,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: _cardBorder),
+              borderSide: BorderSide(color: _cardBorder),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: _cardBorder),
+              borderSide: BorderSide(color: _cardBorder),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: _forest),
+              borderSide: BorderSide(color: _forest),
             ),
           ),
         ),
@@ -796,14 +796,14 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.star_border_rounded, color: _favGold, size: 18),
+          Icon(Icons.star_border_rounded, color: _favGold, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               'Removed "${_lastRemovedItem!.title}"',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 12.5,
                 fontFamily: 'Inter',
@@ -812,7 +812,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
           ),
           GestureDetector(
             onTap: _restoreLastRemoved,
-            child: const Text(
+            child: Text(
               'Undo',
               style: TextStyle(
                 color: _favGold,
@@ -851,7 +851,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                       item.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 16.5,
                         fontWeight: FontWeight.w700,
@@ -872,7 +872,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                           ),
                           child: Text(
                             item.pillLabel,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 11.5,
                               fontWeight: FontWeight.w500,
@@ -886,7 +886,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                             '· ${item.dogName} · ${item.addedAgoLabel}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 12.5,
                               fontFamily: 'Inter',
@@ -899,7 +899,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                 ),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(right: 12),
               child: UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
@@ -932,7 +932,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                   color: Colors.black.withValues(alpha: 0.55),
                   shape: BoxShape.circle,
                 ),
-                child: const UlvenikIcon(UlvenikIcons.play,
+                child: UlvenikIcon(UlvenikIcons.play,
                   color: _offWhite,
                   size: 18,
                 ),
@@ -967,7 +967,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
       child: Container(
         width: 88,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           border: Border(right: BorderSide(color: _cardBorder)),
         ),
         child: Stack(
@@ -980,7 +980,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () => _unfavouriteItem(item),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(2),
                   child: Icon(Icons.favorite_rounded,
                     color: _favGold,
@@ -1009,13 +1009,13 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
                 color: _favGold.withValues(alpha: 0.14),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.favorite_border_rounded,
+              child: Icon(Icons.favorite_border_rounded,
                 color: _favGold,
                 size: 28,
               ),
             ),
             const SizedBox(height: 14),
-            const Text(
+            Text(
               'No Favourites in This View',
               style: TextStyle(
                 color: _offWhite,
@@ -1025,7 +1025,7 @@ class _MediaFavouritesScreenState extends State<MediaFavouritesScreen> {
               ),
             ),
             const SizedBox(height: 6),
-            const Text(
+            Text(
               'Starred photos, training videos, and health documents appear here for instant access.',
               textAlign: TextAlign.center,
               style: TextStyle(

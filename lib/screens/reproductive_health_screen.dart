@@ -48,16 +48,16 @@ class ReproductiveHealthScreen extends StatelessWidget {
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(a.$1.tabTitle,
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 2),
                       Text(
                         '${store.logs(dogName, a.$1.area).length} ${store.logs(dogName, a.$1.area).length == 1 ? 'record' : 'records'}',
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
                       ),
                     ]),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                 ]),
               ),
               const SizedBox(height: 10),

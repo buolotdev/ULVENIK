@@ -13,14 +13,14 @@ class AddCompetitionScreen extends StatefulWidget {
 }
 
 class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _card = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _card => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stone = AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stone => AppColors.secondaryTextStoneGrey; // #A7B0AB
   static const Color _mutedHint = Color(0xFF6E7772);
-  static const Color _border = AppColors.cardBorder; // rgba(255,255,255,0.08)
+  static Color get _border => AppColors.cardBorder; // rgba(255,255,255,0.08)
   static const Color _underlineColor = Color(0x2EFFFFFF);
 
   final TextEditingController _nameCtrl = TextEditingController();
@@ -211,7 +211,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
       lastDate: DateTime(2030, 12, 31),
       builder: (context, child) => Theme(
         data: ThemeData.dark().copyWith(
-          colorScheme: const ColorScheme.dark(
+          colorScheme: ColorScheme.dark(
             primary: _forest,
             onPrimary: _offWhite,
             surface: _card,
@@ -241,7 +241,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
       initialTime: initial,
       builder: (context, child) => Theme(
         data: ThemeData.dark().copyWith(
-          colorScheme: const ColorScheme.dark(
+          colorScheme: ColorScheme.dark(
             primary: _forest,
             onPrimary: _offWhite,
             surface: _card,
@@ -348,7 +348,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: _bg,
               border: Border(top: BorderSide(color: _border, width: 1)),
             ),
@@ -448,7 +448,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
           GestureDetector(
             onTap: () => Navigator.of(context).maybePop(),
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
               child: Text(
                 'Cancel',
@@ -461,7 +461,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               ),
             ),
           ),
-          const Text(
+          Text(
             'Add Competition',
             style: TextStyle(
               color: _offWhite,
@@ -497,7 +497,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
           Expanded(
             child: Text(
               _validationError!,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 12.5,
                 fontFamily: 'Inter',
@@ -536,7 +536,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           color: _stone,
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -863,7 +863,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
   }) {
     return TextField(
       controller: controller,
-      style: const TextStyle(
+      style: TextStyle(
         color: _offWhite,
         fontSize: 14,
         fontFamily: 'Inter',
@@ -880,7 +880,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: _underlineColor, width: 1),
         ),
-        focusedBorder: const UnderlineInputBorder(
+        focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: _forest, width: 1.4),
         ),
       ),
@@ -917,7 +917,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               ),
             ),
             if (showChevron)
-              const Icon(Icons.keyboard_arrow_down_rounded,
+              Icon(Icons.keyboard_arrow_down_rounded,
                 color: _stone,
                 size: 19,
               ),
@@ -945,7 +945,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                 overflow: TextOverflow.ellipsis,
                 text: TextSpan(
                   text: _selectedDogName,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 14.5,
                     fontWeight: FontWeight.w600,
@@ -954,7 +954,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                   children: [
                     TextSpan(
                       text: '  ($_selectedDogBreed)',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stone,
                         fontSize: 12.8,
                         fontWeight: FontWeight.w400,
@@ -965,7 +965,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                 ),
               ),
             ),
-            const Icon(Icons.keyboard_arrow_down_rounded,
+            Icon(Icons.keyboard_arrow_down_rounded,
               color: _stone,
               size: 19,
             ),
@@ -1109,12 +1109,12 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.goals,
+                  UlvenikIcon(UlvenikIcons.goals,
                     color: _stone,
                     size: 17,
                   ),
                   const SizedBox(width: 9),
-                  const Expanded(
+                  Expanded(
                     child: Text(
                       'Link Goals',
                       style: TextStyle(
@@ -1125,7 +1125,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                       ),
                     ),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details,
+                  UlvenikIcon(UlvenikIcons.details,
                     color: _stone,
                     size: 19,
                   ),
@@ -1198,12 +1198,12 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.exercises,
+                  UlvenikIcon(UlvenikIcons.exercises,
                     color: _stone,
                     size: 16,
                   ),
                   const SizedBox(width: 9),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -1228,7 +1228,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                       ],
                     ),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details,
+                  UlvenikIcon(UlvenikIcons.details,
                     color: _stone,
                     size: 19,
                   ),
@@ -1365,7 +1365,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                 const SizedBox(width: 11),
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 14.2,
                     fontWeight: FontWeight.w600,
@@ -1407,7 +1407,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                   ),
                   const SizedBox(width: 6),
                 ],
-                const UlvenikIcon(UlvenikIcons.details,
+                UlvenikIcon(UlvenikIcons.details,
                   color: _stone,
                   size: 19,
                 ),
@@ -1456,7 +1456,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               required maxLength,
             }) =>
                 null,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 14,
               height: 1.45,
@@ -1503,12 +1503,12 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
         children: [
           Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.notifications,
+              UlvenikIcon(UlvenikIcons.notifications,
                 color: _stone,
                 size: 18,
               ),
               const SizedBox(width: 10),
-              const Expanded(
+              Expanded(
                 child: Text(
                   'Competition Reminder',
                   style: TextStyle(
@@ -1592,7 +1592,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
               label,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
@@ -1603,7 +1603,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
           const SizedBox(width: 6),
           GestureDetector(
             onTap: onRemove,
-            child: const Icon(Icons.close_rounded, color: _stone, size: 15),
+            child: Icon(Icons.close_rounded, color: _stone, size: 15),
           ),
         ],
       ),
@@ -1660,7 +1660,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Select Competing Dog',
                   style: TextStyle(
                     color: _offWhite,
@@ -1705,7 +1705,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                             Expanded(
                               child: Text(
                                 '${pair.$1} (${pair.$2})',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -1766,7 +1766,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                 const SizedBox(height: 16),
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -1807,7 +1807,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                                 children: [
                                   Text(
                                     opt,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _offWhite,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -1887,7 +1887,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                     const SizedBox(height: 16),
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
@@ -1938,7 +1938,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                                 Expanded(
                                   child: Text(
                                     item,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _offWhite,
                                       fontSize: 13.5,
                                       fontFamily: 'Inter',
@@ -2017,7 +2017,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                 const SizedBox(height: 16),
                 Text(
                   'Attach Competition $category',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -2063,7 +2063,7 @@ class _AddCompetitionScreenState extends State<AddCompetitionScreen> {
                             Expanded(
                               child: Text(
                                 file,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 13.5,
                                   fontFamily: 'Inter',

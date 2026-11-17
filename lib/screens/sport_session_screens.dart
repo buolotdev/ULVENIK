@@ -105,7 +105,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
             child: ConstrainedBox(
               constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.75),
               child: ListView(shrinkWrap: true, padding: const EdgeInsets.fromLTRB(20, 20, 20, 16), children: [
-                const Text('Select Sports',
+                Text('Select Sports',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 8),
                 for (final s in all)
@@ -114,7 +114,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
                     controlAffinity: ListTileControlAffinity.leading,
                     activeColor: AppColors.primaryForestGreen,
                     checkColor: AppColors.primaryTextOffWhite,
-                    title: Text(s.name, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                    title: Text(s.name, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                     value: draft.contains(s.id),
                     onChanged: (v) => setSheet(() => v == true ? draft.add(s.id) : draft.remove(s.id)),
                   ),
@@ -162,7 +162,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
               constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.75),
               child: ListView(shrinkWrap: true, padding: const EdgeInsets.fromLTRB(20, 20, 20, 16), children: [
                 Text('${d.name} · Skills & Exercises',
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 8),
                 for (final i in items)
                   CheckboxListTile(
@@ -170,9 +170,9 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
                     controlAffinity: ListTileControlAffinity.leading,
                     activeColor: AppColors.primaryForestGreen,
                     checkColor: AppColors.primaryTextOffWhite,
-                    title: Text(i.name, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                    title: Text(i.name, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                     subtitle: Text(i.kindLabel,
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                     value: draft.contains(i.id),
                     onChanged: (v) => setSheet(() => v == true ? draft.add(i.id) : draft.remove(i.id)),
                   ),
@@ -286,7 +286,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
           const FieldLabel('Session Name'),
           TextField(
             controller: _name,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration(sportDefaultName(_at)),
           ),
           const FieldLabel('Date', required: true),
@@ -299,7 +299,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
             onTap: _pickTime,
             child: InputDecorator(
               decoration: healthDecoration('Select time'),
-              child: Text(fmtTime(_at), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+              child: Text(fmtTime(_at), style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
             ),
           ),
           const FieldLabel('Session Duration'),
@@ -308,7 +308,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
               child: TextField(
                 controller: _minutes,
                 keyboardType: TextInputType.number,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                 decoration: healthDecoration('Total minutes', suffix: 'min'),
               ),
             ),
@@ -317,7 +317,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
               onPressed: _toggleTimer,
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.primaryTextOffWhite,
-                side: const BorderSide(color: Colors.white24),
+                side: BorderSide(color: AppColors.cardBorder),
                 minimumSize: const Size(0, 50),
               ),
               child: Text(_timer != null ? 'Stop  $timerText' : 'Start Timer'),
@@ -329,7 +329,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
             HealthCard(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(d.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 10),
                 InkWell(
@@ -356,7 +356,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
                   TextField(
                     controller: d.minutes,
                     keyboardType: TextInputType.number,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                     decoration: healthDecoration('Time spent on ${d.name} (optional)', suffix: 'min'),
                   ),
                 ],
@@ -370,7 +370,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
             label: Text(_drafts.isEmpty ? 'Add Sports' : 'Change Sports'),
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.primaryTextOffWhite,
-              side: const BorderSide(color: Colors.white24),
+              side: BorderSide(color: AppColors.cardBorder),
               minimumSize: const Size(0, 46),
             ),
           ),
@@ -388,7 +388,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
             controller: _notes,
             minLines: 3,
             maxLines: 6,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add notes about this session...'),
           ),
           const FieldLabel('Photos and Videos'),
@@ -400,7 +400,7 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
               label: const Text('Add Photos or Videos'),
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.primaryTextOffWhite,
-                side: const BorderSide(color: Colors.white24),
+                side: BorderSide(color: AppColors.cardBorder),
                 minimumSize: const Size(0, 44),
               ),
             ),
@@ -411,9 +411,9 @@ class _SportRecordSessionScreenState extends State<SportRecordSessionScreen> {
               child: Wrap(spacing: 8, runSpacing: 6, children: [
                 for (final n in _media)
                   InputChip(
-                    label: Text(n, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                    label: Text(n, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                     backgroundColor: AppColors.cardsCarbon,
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                     deleteIconColor: AppColors.secondaryTextStoneGrey,
                     onDeleted: () => setState(() => _media = [..._media]..remove(n)),
                   ),
@@ -433,7 +433,7 @@ class SportSessionDetailsScreen extends StatelessWidget {
   final String sessionId;
   const SportSessionDetailsScreen({super.key, required this.dogName, required this.sessionId});
 
-  static const _body = TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.45);
+  static TextStyle get _body => TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.45);
 
   @override
   Widget build(BuildContext context) {
@@ -454,7 +454,7 @@ class SportSessionDetailsScreen extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'More',
-              icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
               onPressed: () => showModalBottomSheet<void>(
                 context: context,
                 backgroundColor: AppColors.cardsCarbon,
@@ -464,8 +464,8 @@ class SportSessionDetailsScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
-                        leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
-                        title: const Text('Edit Session', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        leading: UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
+                        title: Text('Edit Session', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           Navigator.push(
@@ -500,15 +500,15 @@ class SportSessionDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
             children: [
               Text(s.name,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
               const SizedBox(height: 6),
               Text('${fmtDate(s.at)} · ${fmtTime(s.at)}',
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
               if (s.durationMinutes != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 2),
                   child: Text('Duration: ${sportDuration(s.durationMinutes!)}',
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
                 ),
               const SizedBox(height: 22),
               section(
@@ -522,18 +522,18 @@ class SportSessionDetailsScreen extends StatelessWidget {
                           Row(children: [
                             Expanded(
                               child: Text(e.sportName,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                             ),
                             if (e.minutes != null)
                               Text(sportDuration(e.minutes!),
-                                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                           ]),
                           if (e.itemNames.isNotEmpty)
                             Padding(
                               padding: const EdgeInsets.only(top: 6),
                               child: Text(e.itemNames.join(', '),
-                                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+                                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
                             ),
                         ]),
                       ),
@@ -625,9 +625,9 @@ class _SportSessionsHistoryScreenState extends State<SportSessionsHistoryScreen>
               children: [
                 TextField(
                   controller: _search,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                   decoration: healthDecoration('Search sessions...').copyWith(
-                    prefixIcon: const Padding(
+                    prefixIcon: Padding(
                       padding: EdgeInsets.all(12),
                       child: UlvenikIcon(UlvenikIcons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
                     ),
@@ -653,10 +653,10 @@ class _SportSessionsHistoryScreenState extends State<SportSessionsHistoryScreen>
                           border: Border.all(color: _period == 'Lifetime' ? Colors.white12 : AppColors.primaryForestGreen),
                         ),
                         child: Row(mainAxisSize: MainAxisSize.min, children: [
-                          const UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
+                          UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
                           const SizedBox(width: 6),
                           Text('Date Range · $_period',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
                         ]),
                       ),
@@ -666,16 +666,16 @@ class _SportSessionsHistoryScreenState extends State<SportSessionsHistoryScreen>
                       icon: AnimatedRotation(
                         turns: _newest ? 0 : 0.5,
                         duration: const Duration(milliseconds: 250),
-                        child: const UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
+                        child: UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
                       ),
                       label: Text(_newest ? 'Newest First' : 'Oldest First',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                     ),
                   ],
                 ),
                 const SizedBox(height: 8),
                 if (list.isEmpty)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 32),
                     child: Center(
                       child: Text('No sessions match your search or date range.',
@@ -693,19 +693,19 @@ class _SportSessionsHistoryScreenState extends State<SportSessionsHistoryScreen>
                       Expanded(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                           Text(s.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 3),
                           Text(
                             fmtDate(s.at) + (s.durationMinutes == null ? '' : ' · ${sportDuration(s.durationMinutes!)}'),
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
                           ),
                           const SizedBox(height: 2),
                           Text(s.entries.map((e) => e.sportName).join(' · '),
-                              style: const TextStyle(color: AppColors.secondarySage, fontSize: 12.5)),
+                              style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5)),
                         ]),
                       ),
-                      const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                      UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                     ]),
                   ),
                   const SizedBox(height: 10),

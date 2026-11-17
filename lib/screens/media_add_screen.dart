@@ -93,7 +93,7 @@ class _MediaAddScreenState extends State<MediaAddScreen> {
             label: Text(_files.isEmpty ? 'Choose Files' : 'Add More Files'),
             style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.primaryTextOffWhite,
-                side: const BorderSide(color: Colors.white24),
+                side: BorderSide(color: AppColors.cardBorder),
                 minimumSize: const Size(0, 48)),
           ),
           if (_files.isNotEmpty)
@@ -111,9 +111,9 @@ class _MediaAddScreenState extends State<MediaAddScreen> {
                       size: 16,
                       color: AppColors.secondarySage,
                     ),
-                    label: Text(f.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                    label: Text(f.name, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                     backgroundColor: AppColors.cardsCarbon,
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                     deleteIconColor: AppColors.secondaryTextStoneGrey,
                     onDeleted: () => setState(() => _files = [..._files]..remove(f)),
                   ),
@@ -128,7 +128,7 @@ class _MediaAddScreenState extends State<MediaAddScreen> {
             const FieldLabel('Title'),
             TextField(
               controller: _title,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
               decoration: healthDecoration('Add a title'),
             ),
           ],
@@ -139,7 +139,7 @@ class _MediaAddScreenState extends State<MediaAddScreen> {
             controller: _desc,
             minLines: 3,
             maxLines: 6,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add a description...'),
           ),
           const FieldLabel('Collections'),
@@ -156,7 +156,7 @@ class _MediaAddScreenState extends State<MediaAddScreen> {
                       fontSize: 13),
                   backgroundColor: AppColors.cardsCarbon,
                   selectedColor: AppColors.primaryForestGreen,
-                  side: const BorderSide(color: Colors.white12),
+                  side: BorderSide(color: AppColors.cardBorder),
                 ),
             ]),
           const SizedBox(height: 10),
@@ -164,7 +164,7 @@ class _MediaAddScreenState extends State<MediaAddScreen> {
             Expanded(
               child: TextField(
                 controller: _newCollection,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                 decoration: healthDecoration('New collection name'),
               ),
             ),
@@ -177,7 +177,7 @@ class _MediaAddScreenState extends State<MediaAddScreen> {
                 setState(() => _collections.add(c.id));
                 _newCollection.clear();
               },
-              child: const Text('Create',
+              child: Text('Create',
                   style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
             ),
           ]),
@@ -187,9 +187,9 @@ class _MediaAddScreenState extends State<MediaAddScreen> {
               for (final l in _links)
                 InputChip(
                   label: Text('${l.section} · ${l.label()}',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                   backgroundColor: AppColors.cardsCarbon,
-                  side: const BorderSide(color: Colors.white12),
+                  side: BorderSide(color: AppColors.cardBorder),
                   deleteIconColor: AppColors.secondaryTextStoneGrey,
                   onDeleted: () => setState(() => _links.remove(l)),
                 ),
@@ -205,7 +205,7 @@ class _MediaAddScreenState extends State<MediaAddScreen> {
               label: const Text('Link to Record'),
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   minimumSize: const Size(0, 44)),
             ),
           ),

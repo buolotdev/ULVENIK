@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'sc_settings_screen.dart';
@@ -984,7 +985,7 @@ class _ExportScreenState extends State<ExportScreen>
                       enabled: true,
                       touchTooltipData: BarTouchTooltipData(
                         getTooltipColor: (_) => _surfaceHigh,
-                        tooltipBorder: const BorderSide(color: Colors.white12),
+                        tooltipBorder: BorderSide(color: AppColors.cardBorder),
                         tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         getTooltipItem: (group, groupIndex, rod, rodIndex) {
                           final point = points[group.x.toInt()];

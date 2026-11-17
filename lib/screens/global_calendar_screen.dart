@@ -64,19 +64,19 @@ class GlobalCalendarScreen extends StatefulWidget {
 }
 
 class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian;
-  static const Color _carbon = AppColors.cardsCarbon;
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _innerCard = Color(0xFF212629);
-  static const Color _forest = AppColors.primaryForestGreen;
+  static Color get _forest => AppColors.primaryForestGreen;
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _sageMint = Color(0xFFB6CCB5);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue;
-  static const Color _bronze = AppColors.bronzeAccent;
-  static const Color _destructive = AppColors.errorDestructive;
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
+  static Color get _bronze => AppColors.bronzeAccent;
+  static Color get _destructive => AppColors.errorDestructive;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
   static const Color _mutedOutMonth = Color(0xFF47504C);
-  static const Color _cardBorder = AppColors.cardBorder;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   static const List<String> _monthNames = [
     'January',
@@ -615,7 +615,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
             children: [
               _buildSheetHandle(),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Add Dog to Calendar Filter',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -625,7 +625,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                 ),
               ),
               const SizedBox(height: 6),
-              const Text(
+              Text(
                 'Add another dog workspace pill to filter schedules quickly.',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -637,7 +637,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
               TextField(
                 controller: ctrl,
                 autofocus: true,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 15,
                   color: _offWhite,
@@ -653,15 +653,15 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                   fillColor: _obsidian,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _cardBorder),
+                    borderSide: BorderSide(color: _cardBorder),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _cardBorder),
+                    borderSide: BorderSide(color: _cardBorder),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _forest, width: 1.5),
+                    borderSide: BorderSide(color: _forest, width: 1.5),
                   ),
                 ),
               ),
@@ -735,7 +735,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Filter Calendar Events',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -765,7 +765,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Text(
+                    Text(
                       'CATEGORY',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -921,7 +921,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                         children: [
                           Text(
                             item.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 17,
                               fontWeight: FontWeight.w700,
@@ -931,7 +931,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                           const SizedBox(height: 3),
                           Text(
                             '${item.dogName} · ${_formatUpcomingDate(item.date)} · ${item.timeOrDue}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 12.5,
                               color: _stoneGrey,
@@ -954,7 +954,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     ),
                     child: Text(
                       'Details: ${item.detailOrLocation}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         color: _stoneGrey,
@@ -1124,7 +1124,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     const SizedBox(height: 16),
                     Text(
                       'Add Event · ${_selectedDate.day} ${_shortMonths[_selectedDate.month - 1]} ${_selectedDate.year}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -1132,7 +1132,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                       ),
                     ),
                     const SizedBox(height: 14),
-                    const Text(
+                    Text(
                       'EVENT TYPE',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1198,7 +1198,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                       ),
                     ),
                     const SizedBox(height: 14),
-                    const Text(
+                    Text(
                       'DOG WORKSPACE',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1245,7 +1245,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                       }).toList(),
                     ),
                     const SizedBox(height: 14),
-                    const Text(
+                    Text(
                       'EVENT TITLE',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1258,7 +1258,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     const SizedBox(height: 8),
                     TextField(
                       controller: titleCtrl,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14.5,
                         color: _offWhite,
@@ -1278,11 +1278,11 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: _cardBorder),
+                          borderSide: BorderSide(color: _cardBorder),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: _forest,
                             width: 1.4,
                           ),
@@ -1312,7 +1312,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                               ),
                               child: Text(
                                 preset,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 11,
                                   color: _stoneGrey,
@@ -1330,7 +1330,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'TIME',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
@@ -1387,7 +1387,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     const SizedBox(height: 14),
                     TextField(
                       controller: detailCtrl,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14,
                         color: _offWhite,
@@ -1408,11 +1408,11 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: _cardBorder),
+                          borderSide: BorderSide(color: _cardBorder),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             color: _forest,
                             width: 1.4,
                           ),
@@ -1546,7 +1546,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                           const SizedBox(height: 20),
                           _buildSelectedDayAgendaCard(dayEvents),
                           const SizedBox(height: 24),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.only(left: 2),
                             child: Text(
                               'UPCOMING',
@@ -1580,7 +1580,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(8, 10, 12, 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -1590,7 +1590,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 28,
             ),
@@ -1598,7 +1598,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
             constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
           ),
           const SizedBox(width: 6),
-          const Expanded(
+          Expanded(
             child: Text(
               'Calendar',
               style: TextStyle(
@@ -1656,14 +1656,14 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
   Widget _buildSearchFieldBar() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(bottom: BorderSide(color: _cardBorder)),
       ),
       child: TextField(
         controller: _searchController,
         autofocus: true,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
           color: _offWhite,
@@ -1676,7 +1676,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
             fontSize: 13.5,
             color: _stoneGrey.withValues(alpha: 0.65),
           ),
-          prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+          prefixIcon: UlvenikIcon(UlvenikIcons.search,
             size: 18,
             color: _stoneGrey,
           ),
@@ -1688,15 +1688,15 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: _cardBorder),
+            borderSide: BorderSide(color: _cardBorder),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: _cardBorder),
+            borderSide: BorderSide(color: _cardBorder),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: _forest),
+            borderSide: BorderSide(color: _forest),
           ),
         ),
       ),
@@ -1742,7 +1742,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     children: [
                       Text(
                         heroTitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 21,
                           fontWeight: FontWeight.w700,
@@ -1753,7 +1753,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                       const SizedBox(height: 4),
                       Text(
                         _formatMonthYear(_displayedMonth),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 13.5,
                           fontWeight: FontWeight.w400,
@@ -1794,7 +1794,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF14181A),
         border: Border(
           top: BorderSide(color: _cardBorder),
@@ -1822,7 +1822,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     color: Colors.white.withValues(alpha: 0.12),
                   ),
                 ),
-                child: const UlvenikIcon(UlvenikIcons.add,
+                child: UlvenikIcon(UlvenikIcons.add,
                   size: 18,
                   color: _stoneGrey,
                 ),
@@ -1866,7 +1866,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
   Widget _buildMonthNavigationRow() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF14181A),
         border: Border(
           bottom: BorderSide(color: _cardBorder),
@@ -1877,7 +1877,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
           GestureDetector(
             onTap: () => _changeMonth(-1),
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(6),
               child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
@@ -1889,7 +1889,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
             child: Center(
               child: Text(
                 _formatMonthYear(_displayedMonth),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 18.5,
                   fontWeight: FontWeight.w700,
@@ -1919,7 +1919,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
           GestureDetector(
             onTap: () => _changeMonth(1),
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(6),
               child: UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
@@ -1942,7 +1942,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
     ];
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF14181A),
         border: Border(
           bottom: BorderSide(color: _cardBorder),
@@ -2109,7 +2109,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     child: Center(
                       child: Text(
                         h,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 10.5,
                           fontWeight: FontWeight.w700,
@@ -2216,7 +2216,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     const SizedBox(width: 3),
                     Text(
                       '+${cellEvents.length - 2}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 8.5,
                         fontWeight: FontWeight.w600,
@@ -2254,7 +2254,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
             children: [
               Text(
                 'Week of ${monday.day} ${_shortMonths[monday.month - 1]}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 15.5,
                   fontWeight: FontWeight.w700,
@@ -2358,7 +2358,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     DateTime(_selectedDate.year, _selectedDate.month, 1);
               });
             },
-            icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey),
+            icon: UlvenikIcon(UlvenikIcons.back, color: _stoneGrey),
           ),
           Column(
             children: [
@@ -2375,7 +2375,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
               const SizedBox(height: 4),
               Text(
                 _formatSelectedDayHeading(_selectedDate),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -2392,7 +2392,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     DateTime(_selectedDate.year, _selectedDate.month, 1);
               });
             },
-            icon: const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey),
+            icon: UlvenikIcon(UlvenikIcons.details, color: _stoneGrey),
           ),
         ],
       ),
@@ -2465,7 +2465,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                   const SizedBox(height: 3),
                   Text(
                     '$count events',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 11,
                       color: _stoneGrey,
@@ -2503,7 +2503,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
         children: [
           Text(
             '${_formatMonthYear(_displayedMonth)} Master Agenda (${monthItems.length})',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 15,
               fontWeight: FontWeight.w700,
@@ -2512,7 +2512,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
           ),
           const SizedBox(height: 12),
           if (monthItems.isEmpty)
-            const Text(
+            Text(
               'No events match your current filters this month.',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -2550,7 +2550,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
               Expanded(
                 child: Text(
                   _formatSelectedDayHeading(_selectedDate),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -2561,7 +2561,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
               ),
               Text(
                 countLabel,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
@@ -2579,7 +2579,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                 color: _innerCard,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
+              child: Text(
                 'No sessions, vet visits, or goals scheduled on this day yet. Use a quick action below to schedule one.',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -2707,7 +2707,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                               subtitleParts.join(' · '),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 12.5,
                                 color: _stoneGrey,
@@ -2717,7 +2717,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                         ),
                       ),
                       const SizedBox(width: 6),
-                      const UlvenikIcon(UlvenikIcons.details,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: _stoneGrey,
                         size: 18,
                       ),
@@ -2764,7 +2764,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: _cardBorder),
         ),
-        child: const Text(
+        child: Text(
           'No upcoming events after the selected date match your filters.',
           style: TextStyle(
             fontFamily: 'Inter',
@@ -2841,7 +2841,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                             item.title,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 14.5,
                               fontWeight: FontWeight.w600,
@@ -2861,7 +2861,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                     const SizedBox(height: 3),
                     Text(
                       '${_formatUpcomingDate(item.date)} · ${item.dogName}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12.5,
                         color: _stoneGrey,
@@ -2870,7 +2870,7 @@ class _GlobalCalendarScreenState extends State<GlobalCalendarScreen> {
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 18,
               ),

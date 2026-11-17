@@ -868,16 +868,16 @@ class TrainerDashboardScreen extends StatefulWidget {
 
 class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _cardBg => AppColors.cardsCarbon; // #1C1C1C
   static const Color _tileBg = Color(0xFF212629);
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _mintBright = Color(0xFFB1F0D6);
   static const Color _sage = Color(0xFFB6CCB5);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
-  static const Color _textPrimary = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _textSecondary = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _border = AppColors.cardBorder; // rgba(255,255,255,0.08)
+  static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
+  static Color get _textPrimary => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _border => AppColors.cardBorder; // rgba(255,255,255,0.08)
 
   late final AnimationController _animController;
   late final Animation<double> _curvedAnim;
@@ -1149,7 +1149,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                 const SizedBox(height: 16),
                 Text(
                   item.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textPrimary,
                     fontSize: 16.5,
                     fontWeight: FontWeight.w700,
@@ -1159,7 +1159,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                 const SizedBox(height: 4),
                 Text(
                   '${item.subtitle} · ${item.timeAgo}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textSecondary,
                     fontSize: 13,
                     fontFamily: 'Inter',
@@ -1176,7 +1176,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         },
                         style: OutlinedButton.styleFrom(
                           foregroundColor: _textPrimary,
-                          side: const BorderSide(color: _border),
+                          side: BorderSide(color: _border),
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -1222,7 +1222,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         },
                         style: OutlinedButton.styleFrom(
                           foregroundColor: _textSecondary,
-                          side: const BorderSide(color: _border),
+                          side: BorderSide(color: _border),
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -1320,7 +1320,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                     Expanded(
                       child: Text(
                         lesson.clientDogTitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textPrimary,
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
@@ -1334,7 +1334,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                 const SizedBox(height: 6),
                 Text(
                   '${lesson.sessionType} · ${lesson.locationLabel}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textSecondary,
                     fontSize: 13,
                     fontFamily: 'Inter',
@@ -1382,7 +1382,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         },
                         style: OutlinedButton.styleFrom(
                           foregroundColor: _textPrimary,
-                          side: const BorderSide(color: _border),
+                          side: BorderSide(color: _border),
                           padding: const EdgeInsets.symmetric(vertical: 11),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -1400,7 +1400,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         },
                         style: OutlinedButton.styleFrom(
                           foregroundColor: _textPrimary,
-                          side: const BorderSide(color: _border),
+                          side: BorderSide(color: _border),
                           padding: const EdgeInsets.symmetric(vertical: 11),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -1473,7 +1473,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Record Client Session',
                   style: TextStyle(
                     color: _textPrimary,
@@ -1483,7 +1483,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Select a client & dog to begin live session recording',
                   style: TextStyle(
                     color: _textSecondary,
@@ -1520,7 +1520,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                     ),
                     title: Text(
                       client.fullName,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textPrimary,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -1530,7 +1530,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                       '${client.dogNamesSummary} · ${client.programme}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textSecondary,
                         fontSize: 12,
                       ),
@@ -1586,7 +1586,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Assign Homework Task',
                     style: TextStyle(
                       color: _textPrimary,
@@ -1599,23 +1599,23 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                   DropdownButtonFormField<String>(
                     initialValue: selectedClient.id,
                     dropdownColor: _tileBg,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textPrimary,
                       fontSize: 14,
                       fontFamily: 'Inter',
                     ),
                     decoration: InputDecoration(
                       labelText: 'Client & Dog',
-                      labelStyle: const TextStyle(color: _textSecondary),
+                      labelStyle: TextStyle(color: _textSecondary),
                       filled: true,
                       fillColor: _tileBg,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _border),
+                        borderSide: BorderSide(color: _border),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _border),
+                        borderSide: BorderSide(color: _border),
                       ),
                     ),
                     items: clients.take(6).map((c) {
@@ -1634,19 +1634,19 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                   const SizedBox(height: 12),
                   TextField(
                     controller: taskCtrl,
-                    style: const TextStyle(color: _textPrimary, fontSize: 14),
+                    style: TextStyle(color: _textPrimary, fontSize: 14),
                     decoration: InputDecoration(
                       hintText: 'e.g. 3× 5-minute long-line whistle recalls',
-                      hintStyle: const TextStyle(color: _textSecondary),
+                      hintStyle: TextStyle(color: _textSecondary),
                       filled: true,
                       fillColor: _tileBg,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _border),
+                        borderSide: BorderSide(color: _border),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _border),
+                        borderSide: BorderSide(color: _border),
                       ),
                     ),
                   ),
@@ -1744,7 +1744,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'All Client Activity',
                       style: TextStyle(
                         color: _textPrimary,
@@ -1779,7 +1779,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                     },
                     title: Text(
                       entry.text,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textPrimary,
                         fontSize: 13.5,
                         fontWeight: FontWeight.w500,
@@ -1787,12 +1787,12 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                     ),
                     subtitle: Text(
                       '${entry.dogName} · ${entry.timeAgo}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textSecondary,
                         fontSize: 12,
                       ),
                     ),
-                    trailing: const UlvenikIcon(UlvenikIcons.details,
+                    trailing: UlvenikIcon(UlvenikIcons.details,
                       color: _textSecondary,
                       size: 18,
                     ),
@@ -1883,7 +1883,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
   Widget _buildAppBar(bool canPop) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _bg,
         border: Border(
           bottom: BorderSide(color: _border, width: 1),
@@ -1895,7 +1895,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
             GestureDetector(
               onTap: () => Navigator.of(context).pop(),
               behavior: HitTestBehavior.opaque,
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.only(right: 10),
                 child: UlvenikIcon(UlvenikIcons.back,
                   color: _textPrimary,
@@ -1904,7 +1904,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
               ),
             ),
           ],
-          const Expanded(
+          Expanded(
             child: Text(
               'Trainer Dashboard',
               style: TextStyle(
@@ -1922,14 +1922,14 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
             onPressed: () {
               _searchFocusNode.requestFocus();
             },
-            icon: const UlvenikIcon(UlvenikIcons.search,
+            icon: UlvenikIcon(UlvenikIcons.search,
                 color: _textSecondary, size: 22),
           ),
           IconButton(
             tooltip: 'Analytics',
             visualDensity: VisualDensity.compact,
             onPressed: _openTrainerAnalytics,
-            icon: const UlvenikIcon(UlvenikIcons.progress,
+            icon: UlvenikIcon(UlvenikIcons.progress,
               color: _textSecondary,
               size: 21,
             ),
@@ -1941,7 +1941,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const UlvenikIcon(UlvenikIcons.notifications,
+                UlvenikIcon(UlvenikIcons.notifications,
                   color: _textSecondary,
                   size: 22,
                 ),
@@ -1952,7 +1952,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                     child: Container(
                       width: 7,
                       height: 7,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: _forest,
                         shape: BoxShape.circle,
                       ),
@@ -1965,7 +1965,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
             tooltip: 'Workspace Settings',
             visualDensity: VisualDensity.compact,
             onPressed: _openWorkspaceSettings,
-            icon: const Icon(Icons.settings_outlined,
+            icon: Icon(Icons.settings_outlined,
               color: _textSecondary,
               size: 20,
             ),
@@ -2017,7 +2017,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             width: 1.2,
                           ),
                         ),
-                        child: const Icon(Icons.account_circle_outlined,
+                        child: Icon(Icons.account_circle_outlined,
                           color: _textSecondary,
                           size: 24,
                         ),
@@ -2029,7 +2029,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                           children: [
                             Text(
                               business.businessName,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _textPrimary,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
@@ -2040,7 +2040,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             const SizedBox(height: 3),
                             Text(
                               business.trainerName,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _textSecondary,
                                 fontSize: 13.5,
                                 fontWeight: FontWeight.w400,
@@ -2074,7 +2074,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                           ],
                         ),
                       ),
-                      const UlvenikIcon(UlvenikIcons.details,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: _textSecondary,
                         size: 20,
                       ),
@@ -2084,7 +2084,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                 const SizedBox(height: 18),
                 Text(
                   'Good morning, ${business.firstName}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textPrimary,
                     fontSize: 21,
                     fontWeight: FontWeight.w700,
@@ -2095,7 +2095,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
               ],
             ),
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           IntrinsicHeight(
             child: Row(
               children: [
@@ -2112,7 +2112,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                     },
                   ),
                 ),
-                const VerticalDivider(color: _border, width: 1),
+                VerticalDivider(color: _border, width: 1),
                 Expanded(
                   child: _buildHeroMetricCell(
                     value: '$animClients',
@@ -2123,7 +2123,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
               ],
             ),
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           IntrinsicHeight(
             child: Row(
               children: [
@@ -2134,7 +2134,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                     onTap: _openClientsPage,
                   ),
                 ),
-                const VerticalDivider(color: _border, width: 1),
+                VerticalDivider(color: _border, width: 1),
                 Expanded(
                   child: _buildHeroMetricCell(
                     value: '$animReviews',
@@ -2168,7 +2168,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
           children: [
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
@@ -2178,7 +2178,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
             const SizedBox(height: 4),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textSecondary,
                 fontSize: 10.5,
                 fontWeight: FontWeight.w500,
@@ -2195,26 +2195,26 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
   Widget _buildInlineSearchBar() {
     return Container(
       padding: const EdgeInsets.only(bottom: 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: _border, width: 1),
         ),
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: _textSecondary, size: 19),
+          UlvenikIcon(UlvenikIcons.search, color: _textSecondary, size: 19),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: _searchController,
               focusNode: _searchFocusNode,
               onChanged: (val) => setState(() => _searchQuery = val),
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 14,
                 fontFamily: 'Inter',
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 isDense: true,
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.zero,
@@ -2234,7 +2234,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                 setState(() => _searchQuery = '');
                 _searchFocusNode.unfocus();
               },
-              child: const Icon(Icons.close_rounded,
+              child: Icon(Icons.close_rounded,
                 color: _textSecondary,
                 size: 18,
               ),
@@ -2279,7 +2279,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
               ),
               GestureDetector(
                 onTap: _openClientsPage,
-                child: const Text(
+                child: Text(
                   'All Clients →',
                   style: TextStyle(
                     color: _textSecondary,
@@ -2292,7 +2292,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
           ),
           const SizedBox(height: 8),
           if (matches.isEmpty)
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(vertical: 6),
               child: Text(
                 'No matching clients or dogs found.',
@@ -2326,7 +2326,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                           children: [
                             Text(
                               client.fullName,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _textPrimary,
                                 fontSize: 13.5,
                                 fontWeight: FontWeight.w600,
@@ -2334,7 +2334,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                             ),
                             Text(
                               '${client.dogNamesSummary} · ${client.location}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _textSecondary,
                                 fontSize: 11.5,
                               ),
@@ -2342,7 +2342,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                           ],
                         ),
                       ),
-                      const UlvenikIcon(UlvenikIcons.details,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: _textSecondary,
                         size: 18,
                       ),
@@ -2359,7 +2359,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
   Widget _buildSectionTitle(String label) {
     return Text(
       label,
-      style: const TextStyle(
+      style: TextStyle(
         color: _textSecondary,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -2389,7 +2389,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
             border: Border.all(color: _border),
           ),
           child: filtered.isEmpty
-              ? const Padding(
+              ? Padding(
                   padding: EdgeInsets.all(16),
                   child: Text(
                     'No attention items match your search.',
@@ -2452,7 +2452,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                       const SizedBox(height: 3),
                                       Text(
                                         item.subtitle,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: _textSecondary,
                                           fontSize: 12.5,
                                           fontFamily: 'Inter',
@@ -2464,14 +2464,14 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                 const SizedBox(width: 8),
                                 Text(
                                   item.timeAgo,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _textSecondary,
                                     fontSize: 11.5,
                                     fontFamily: 'Inter',
                                   ),
                                 ),
                                 const SizedBox(width: 2),
-                                const UlvenikIcon(UlvenikIcons.details,
+                                UlvenikIcon(UlvenikIcons.details,
                                   color: _textSecondary,
                                   size: 16,
                                 ),
@@ -2480,7 +2480,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                           ),
                         ),
                         if (i < filtered.length - 1)
-                          const Divider(color: _border, height: 1),
+                          Divider(color: _border, height: 1),
                       ],
                     );
                   }),
@@ -2528,7 +2528,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                               width: 52,
                               child: Text(
                                 lesson.time,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _textPrimary,
                                   fontSize: 14.5,
                                   fontWeight: FontWeight.w700,
@@ -2543,7 +2543,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                 children: [
                                   Text(
                                     lesson.clientDogTitle,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _textPrimary,
                                       fontSize: 15,
                                       fontWeight: FontWeight.w700,
@@ -2553,7 +2553,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                   const SizedBox(height: 4),
                                   Text(
                                     lesson.sessionType,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _textSecondary,
                                       fontSize: 13,
                                       fontFamily: 'Inter',
@@ -2563,7 +2563,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                   Row(
                                     children: [
                                       if (lesson.hasLocationPin) ...[
-                                        const Icon(Icons.location_on_outlined,
+                                        Icon(Icons.location_on_outlined,
                                           color: _textSecondary,
                                           size: 13.5,
                                         ),
@@ -2574,7 +2574,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                           lesson.locationLabel,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: _textSecondary,
                                             fontSize: 12.5,
                                             fontFamily: 'Inter',
@@ -2592,7 +2592,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         ),
                       ),
                     ),
-                    const Divider(color: _border, height: 1),
+                    Divider(color: _border, height: 1),
                   ],
                 );
               }),
@@ -2792,7 +2792,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                 label,
                 textAlign: TextAlign.center,
                 maxLines: 2,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _textSecondary,
                   fontSize: 12,
                   height: 1.2,
@@ -2849,7 +2849,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                   entry.text,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _textPrimary,
                                     fontSize: 13.5,
                                     fontWeight: FontWeight.w500,
@@ -2872,7 +2872,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                                 ),
                                 child: Text(
                                   entry.dogName,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _textSecondary,
                                     fontSize: 11,
                                     fontWeight: FontWeight.w500,
@@ -2882,7 +2882,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                               ),
                               if (entry.hasPersonalBestStar) ...[
                                 const SizedBox(width: 6),
-                                const Icon(Icons.star_border_rounded,
+                                Icon(Icons.star_border_rounded,
                                   color: _forest,
                                   size: 15,
                                 ),
@@ -2890,7 +2890,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                               const SizedBox(width: 10),
                               Text(
                                 entry.timeAgo,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _textSecondary,
                                   fontSize: 11.5,
                                   fontFamily: 'Inter',
@@ -2904,7 +2904,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                   ),
                 ),
               ),
-              const Divider(color: _border, height: 1),
+              Divider(color: _border, height: 1),
               InkWell(
                 onTap: _showAllActivitySheet,
                 borderRadius: const BorderRadius.vertical(
@@ -2975,7 +2975,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         onTap: _openClientsPage,
                       ),
                     ),
-                    const VerticalDivider(color: _border, width: 1),
+                    VerticalDivider(color: _border, width: 1),
                     Expanded(
                       child: _buildSnapshotMetric(
                         value: '${(activeDogs * p).round()}',
@@ -2983,7 +2983,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         onTap: _openClientsPage,
                       ),
                     ),
-                    const VerticalDivider(color: _border, width: 1),
+                    VerticalDivider(color: _border, width: 1),
                     Expanded(
                       child: _buildSnapshotMetric(
                         value: '${(totalWeekLessons * p).round()}',
@@ -2994,7 +2994,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                   ],
                 ),
               ),
-              const Divider(color: _border, height: 1),
+              Divider(color: _border, height: 1),
               IntrinsicHeight(
                 child: Row(
                   children: [
@@ -3005,7 +3005,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         onTap: _showAssignTaskSheet,
                       ),
                     ),
-                    const VerticalDivider(color: _border, width: 1),
+                    VerticalDivider(color: _border, width: 1),
                     Expanded(
                       child: _buildSnapshotMetric(
                         value: '${(31 * p).round()}',
@@ -3013,7 +3013,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                         onTap: _openWorkspaceSettings,
                       ),
                     ),
-                    const VerticalDivider(color: _border, width: 1),
+                    VerticalDivider(color: _border, width: 1),
                     Expanded(
                       child: _buildSnapshotMetric(
                         value: '${(47 * p).round()}',
@@ -3024,7 +3024,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                   ],
                 ),
               ),
-              const Divider(color: _border, height: 1),
+              Divider(color: _border, height: 1),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                 child: Column(
@@ -3032,7 +3032,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Weekly Session Volume',
                           style: TextStyle(
                             color: _textPrimary,
@@ -3045,7 +3045,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
                           onTap: () => setState(() => _selectedDayIndex = 3),
                           child: Text(
                             rightChartLabel,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _alpineBlue,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -3153,7 +3153,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
           children: [
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -3165,7 +3165,7 @@ class _TrainerDashboardScreenState extends State<TrainerDashboardScreen>
               label,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textSecondary,
                 fontSize: 11.5,
                 fontWeight: FontWeight.w400,

@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'dart:ui';
+import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// App-wide saved settings: one source of truth for every route that shows
@@ -67,6 +68,30 @@ class AppSettings extends ChangeNotifier {
   }
 
   // ── Appearance ──────────────────────────────────────────────────────────
+  static const themeModes = ['Dark', 'Light', 'Device'];
+  bool _listeningToDevice = false;
+
+  /// 'Dark', 'Light' or 'Device' (follows the OS setting).
+  String get themeMode => _s('app.themeMode', 'Dark');
+
+  Future<bool> setThemeMode(String v) => _set('app.themeMode', v);
+
+  /// The effective brightness right now, resolving 'Device' against the
+  /// OS setting and staying live if the OS setting changes mid-session.
+  bool get isDark {
+    if (themeMode == 'Light') return false;
+    if (themeMode == 'Dark') return true;
+    if (!_listeningToDevice) {
+      _listeningToDevice = true;
+      final existing = PlatformDispatcher.instance.onPlatformBrightnessChanged;
+      PlatformDispatcher.instance.onPlatformBrightnessChanged = () {
+        existing?.call();
+        notifyListeners();
+      };
+    }
+    return PlatformDispatcher.instance.platformBrightness == Brightness.dark;
+  }
+
   String get textSize => _s('app.textSize', 'Standard');
   double get textFactor => _textFactor[textSize] ?? 1.0;
   bool get reduceAnimations => _b('app.reduceAnimations', false);

@@ -96,7 +96,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.dark(
+            colorScheme: ColorScheme.dark(
               primary: Color(0xFF2F5D50),
               onPrimary: Colors.white,
               surface: AppColors.cardsCarbon,
@@ -125,7 +125,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.dark(
+            colorScheme: ColorScheme.dark(
               primary: Color(0xFF2F5D50),
               onPrimary: Colors.white,
               surface: AppColors.cardsCarbon,
@@ -160,7 +160,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
         ),
         title: Text(
           isMed ? 'ADD RECORD' : 'Add Health Record',
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.primaryTextOffWhite,
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -200,7 +200,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -278,13 +278,13 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'MEDICATION DETAILS',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -337,7 +337,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'End Date (Optional)',
           style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
@@ -354,7 +354,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
             decoration: BoxDecoration(
               color: AppColors.backgroundObsidian,
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -369,7 +369,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                     fontSize: 14,
                   ),
                 ),
-                const UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 20),
+                UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),
@@ -383,13 +383,13 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'NOTES',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -402,16 +402,16 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
           TextField(
             controller: _notesController,
             maxLines: 4,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
             decoration: InputDecoration(
               hintText: 'Add any details, observations, or instructions...',
-              hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+              hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
               filled: true,
               fillColor: AppColors.backgroundObsidian,
               contentPadding: const EdgeInsets.all(12),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Colors.white12),
+                borderSide: BorderSide(color: AppColors.cardBorder),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -429,13 +429,13 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'ATTACHMENTS',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -453,10 +453,10 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
               padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
               decoration: BoxDecoration(
                 color: AppColors.backgroundObsidian,
-                border: Border.all(color: Colors.white12),
+                border: Border.all(color: AppColors.cardBorder),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.upload_file_outlined, color: AppColors.secondaryTextStoneGrey, size: 28),
@@ -496,7 +496,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           color: AppColors.backgroundObsidian,
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: AppColors.cardBorder),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -506,7 +506,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
             const SizedBox(height: 6),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 12,
               ),
@@ -522,7 +522,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -536,7 +536,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                 children: [
                   Text(
                     isMed ? 'Enable Reminders' : 'Set Reminder',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
@@ -545,7 +545,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                   const SizedBox(height: 2),
                   Text(
                     isMed ? 'Get notified before next dose' : 'Get notified for follow-up',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 11,
                     ),
@@ -566,7 +566,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
           ),
           if (isMed && _setReminder) ...[
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'Notify me:',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
             ),
@@ -639,7 +639,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 11,
             fontWeight: FontWeight.w700,
@@ -650,16 +650,16 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
         TextField(
           controller: controller,
           onChanged: onChanged,
-          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+            hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
             filled: true,
             fillColor: AppColors.backgroundObsidian,
             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Colors.white12),
+              borderSide: BorderSide(color: AppColors.cardBorder),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -683,7 +683,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 11,
             fontWeight: FontWeight.w700,
@@ -695,7 +695,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
             color: AppColors.backgroundObsidian,
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
             borderRadius: BorderRadius.circular(12),
           ),
           child: DropdownButtonHideUnderline(
@@ -703,8 +703,8 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
               value: items.contains(value) ? value : items.first,
               isExpanded: true,
               dropdownColor: AppColors.cardsCarbon,
-              icon: const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+              icon: Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
               items: items.map((String item) {
                 return DropdownMenuItem<String>(
                   value: item,
@@ -733,7 +733,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 11,
             fontWeight: FontWeight.w700,
@@ -748,7 +748,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
             decoration: BoxDecoration(
               color: AppColors.backgroundObsidian,
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -756,9 +756,9 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
               children: [
                 Text(
                   '${_selectedDate.month.toString().padLeft(2, '0')}/${_selectedDate.day.toString().padLeft(2, '0')}/${_selectedDate.year}',
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                 ),
-                const UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 20),
+                UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),
@@ -771,7 +771,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'TIME',
           style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
@@ -788,7 +788,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
             decoration: BoxDecoration(
               color: AppColors.backgroundObsidian,
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -796,9 +796,9 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
               children: [
                 Text(
                   _selectedTime.format(context),
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                 ),
-                const UlvenikIcon(UlvenikIcons.trainingTime, color: AppColors.secondaryTextStoneGrey, size: 20),
+                UlvenikIcon(UlvenikIcons.trainingTime, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),

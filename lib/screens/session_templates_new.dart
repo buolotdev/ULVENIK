@@ -171,7 +171,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
             child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text('Filter templates', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+              Text('Filter templates', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SectionLabel('Activity'),
               Wrap(spacing: 8, runSpacing: 8, children: [
                 ChoiceChip(label: const Text('All Activities'), selected: act == null, onSelected: (_) => setSheet(() => act = null), showCheckmark: false, backgroundColor: AppColors.backgroundObsidian, selectedColor: AppColors.primaryForestGreen),
@@ -181,7 +181,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 activeThumbColor: AppColors.primaryForestGreen,
-                title: const Text('Favourites only', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('Favourites only', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 value: fav,
                 onChanged: (v) => setSheet(() => fav = v),
               ),
@@ -192,7 +192,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                       act = null;
                       fav = false;
                     }),
-                    style: OutlinedButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite, side: const BorderSide(color: Colors.white24), minimumSize: const Size(0, 50)),
+                    style: OutlinedButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite, side: BorderSide(color: AppColors.cardBorder), minimumSize: const Size(0, 50)),
                     child: const Text('Reset Filters'),
                   ),
                 ),
@@ -219,7 +219,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           for (final o in const ['Recently Used', 'Most Used', 'Alphabetical (A-Z)', 'Favourites First'])
             ListTile(
-              title: Text(o, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+              title: Text(o, style: TextStyle(color: AppColors.primaryTextOffWhite)),
               trailing: o == _sort ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
               onTap: () => Navigator.pop(ctx, o),
             ),
@@ -238,9 +238,9 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
             child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(t.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w700)),
+              Text(t.name, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w700)),
               const SizedBox(height: 4),
-              Text('${t.type} session', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+              Text('${t.type} session', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
               const SizedBox(height: 12),
               for (final r in [
                 ('Activities', _activityNames(dog, t)),
@@ -253,8 +253,8 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text(r.$1, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
-                    Text(r.$2, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+                    Text(r.$1, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                    Text(r.$2, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
                   ]),
                 ),
               const SizedBox(height: 10),
@@ -265,7 +265,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                       Navigator.pop(ctx);
                       Navigator.push(context, MaterialPageRoute(builder: (_) => TemplateFormScreen(dogName: dog, template: t)));
                     },
-                    style: OutlinedButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite, side: const BorderSide(color: Colors.white24), minimumSize: const Size(0, 50)),
+                    style: OutlinedButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite, side: BorderSide(color: AppColors.cardBorder), minimumSize: const Size(0, 50)),
                     child: const Text('Edit Template'),
                   ),
                 ),
@@ -361,12 +361,12 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
       actions: [
         IconButton(
           tooltip: 'Add Template',
-          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
+          icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
           onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => TemplateFormScreen(dogName: dog))),
         ),
         IconButton(
           tooltip: 'More',
-          icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+          icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
           onPressed: () => showModalBottomSheet<void>(
             context: context,
             backgroundColor: AppColors.cardsCarbon,
@@ -374,14 +374,14 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             builder: (ctx) => SafeArea(
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 ListTile(
-                  title: const Text('Export Templates', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                  title: Text('Export Templates', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                   onTap: () {
                     Navigator.pop(ctx);
                     _export(list.isEmpty ? all : list);
                   },
                 ),
                 ListTile(
-                  title: const Text('Archived Templates', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                  title: Text('Archived Templates', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                   onTap: () {
                     Navigator.pop(ctx);
                     Navigator.push(context, MaterialPageRoute(builder: (_) => LibraryArchiveScreen(dogName: dog, initialView: 'Session Templates')));
@@ -407,7 +407,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
               children: [
                 TextField(
                   controller: _search,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                   decoration: healthDecoration('Search templates...'),
                 ),
                 const SizedBox(height: 10),
@@ -415,7 +415,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: _sortSheet,
-                      style: OutlinedButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite, side: const BorderSide(color: Colors.white12), backgroundColor: AppColors.cardsCarbon, minimumSize: const Size(0, 44)),
+                      style: OutlinedButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite, side: BorderSide(color: AppColors.cardBorder), backgroundColor: AppColors.cardsCarbon, minimumSize: const Size(0, 44)),
                       child: Text(_sort, overflow: TextOverflow.ellipsis),
                     ),
                   ),
@@ -437,11 +437,11 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
                     child: Column(children: [
-                      const Text('No Matching Templates', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                      const Text('Try another search term or clear your search.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+                      Text('No Matching Templates', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                      Text('Try another search term or clear your search.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
                       TextButton(
                         onPressed: _search.clear,
-                        child: const Text('Clear Search', style: TextStyle(color: AppColors.primaryForestGreen)),
+                        child: Text('Clear Search', style: TextStyle(color: AppColors.primaryForestGreen)),
                       ),
                     ]),
                   ),
@@ -454,9 +454,9 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                       child: Row(children: [
                         Expanded(
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                            Text(t.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15.5, fontWeight: FontWeight.w600)),
-                            Text('${t.type} · ${_activityNames(dog, t)}', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
-                            if (t.targetMinutes != null) Text('Target ${t.targetMinutes} min', style: const TextStyle(color: AppColors.secondarySage, fontSize: 12.5)),
+                            Text(t.name, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15.5, fontWeight: FontWeight.w600)),
+                            Text('${t.type} · ${_activityNames(dog, t)}', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                            if (t.targetMinutes != null) Text('Target ${t.targetMinutes} min', style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5)),
                           ]),
                         ),
                         IconButton(
@@ -486,8 +486,8 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (ctx) => SafeArea(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          ListTile(title: const Text('PDF Document', style: TextStyle(color: AppColors.primaryTextOffWhite)), onTap: () => Navigator.pop(ctx, true)),
-          ListTile(title: const Text('CSV Spreadsheet', style: TextStyle(color: AppColors.primaryTextOffWhite)), onTap: () => Navigator.pop(ctx, false)),
+          ListTile(title: Text('PDF Document', style: TextStyle(color: AppColors.primaryTextOffWhite)), onTap: () => Navigator.pop(ctx, true)),
+          ListTile(title: Text('CSV Spreadsheet', style: TextStyle(color: AppColors.primaryTextOffWhite)), onTap: () => Navigator.pop(ctx, false)),
         ]),
       ),
     );
@@ -583,7 +583,7 @@ class _TemplateFormScreenState extends State<TemplateFormScreen> {
           : [
               IconButton(
                 tooltip: 'Archive Template',
-                icon: const Icon(Icons.inventory_2_outlined, color: AppColors.secondaryTextStoneGrey),
+                icon: Icon(Icons.inventory_2_outlined, color: AppColors.secondaryTextStoneGrey),
                 onPressed: () {
                   widget.template!.archived = true;
                   _store.touch();
@@ -595,7 +595,7 @@ class _TemplateFormScreenState extends State<TemplateFormScreen> {
         Expanded(
           child: OutlinedButton(
             onPressed: () => Navigator.pop(context),
-            style: OutlinedButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite, side: const BorderSide(color: Colors.white24), minimumSize: const Size(0, 52), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+            style: OutlinedButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite, side: BorderSide(color: AppColors.cardBorder), minimumSize: const Size(0, 52), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
             child: const Text('Cancel'),
           ),
         ),
@@ -610,7 +610,7 @@ class _TemplateFormScreenState extends State<TemplateFormScreen> {
           TextField(
             controller: _name,
             onChanged: (_) => setState(() => _nameError = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('e.g. Recall practice', error: _nameError),
           ),
           const FieldLabel('Type', required: true),
@@ -635,12 +635,12 @@ class _TemplateFormScreenState extends State<TemplateFormScreen> {
                   showCheckmark: false,
                   backgroundColor: AppColors.cardsCarbon,
                   selectedColor: AppColors.primaryForestGreen,
-                  side: const BorderSide(color: Colors.white12),
+                  side: BorderSide(color: AppColors.cardBorder),
                   labelStyle: TextStyle(color: _acts.contains(n) ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey, fontSize: 13),
                 ),
             ])
           else if (acts.isEmpty)
-            const Text('No Activities Added Yet. Add an activity to your library to use it in a template.',
+            Text('No Activities Added Yet. Add an activity to your library to use it in a template.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4))
           else
             Wrap(spacing: 8, runSpacing: 8, children: [
@@ -652,7 +652,7 @@ class _TemplateFormScreenState extends State<TemplateFormScreen> {
                   showCheckmark: false,
                   backgroundColor: AppColors.cardsCarbon,
                   selectedColor: AppColors.primaryForestGreen,
-                  side: const BorderSide(color: Colors.white12),
+                  side: BorderSide(color: AppColors.cardBorder),
                   labelStyle: TextStyle(color: _acts.contains(a.id) ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey, fontSize: 13),
                 ),
             ]),
@@ -661,7 +661,7 @@ class _TemplateFormScreenState extends State<TemplateFormScreen> {
             controller: _target,
             keyboardType: TextInputType.number,
             onChanged: (_) => setState(() => _targetError = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Enter minutes', error: _targetError),
           ),
           const SizedBox(height: 18),
@@ -673,13 +673,13 @@ class _TemplateFormScreenState extends State<TemplateFormScreen> {
             controller: _plan,
             minLines: 3,
             maxLines: 6,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add instructions for using this template...'),
           ),
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
             activeThumbColor: AppColors.primaryForestGreen,
-            title: const Text('Favourite template', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            title: Text('Favourite template', style: TextStyle(color: AppColors.primaryTextOffWhite)),
             value: _fav,
             onChanged: (v) => setState(() => _fav = v),
           ),
@@ -738,10 +738,10 @@ class _LibraryArchiveScreenState extends State<LibraryArchiveScreen> {
             children: [
               ChoiceRow(options: const ['Activities', 'Session Templates'], value: _view, onChanged: (v) => setState(() => _view = v)),
               const SizedBox(height: 8),
-              const Text('Archived activities and templates are hidden from new selections. Existing session records remain unchanged.',
+              Text('Archived activities and templates are hidden from new selections. Existing session records remain unchanged.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, height: 1.4)),
               const SizedBox(height: 12),
-              TextField(controller: _search, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5), decoration: healthDecoration('Search archived items...')),
+              TextField(controller: _search, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5), decoration: healthDecoration('Search archived items...')),
               const SizedBox(height: 12),
               if (items.isEmpty)
                 EmptyState(
@@ -750,7 +750,7 @@ class _LibraryArchiveScreenState extends State<LibraryArchiveScreen> {
                   message: _view == 'Activities' ? 'Activities you archive will appear here.' : 'Templates you archive will appear here.',
                 )
               else if (shown.isEmpty)
-                const Text('Nothing matches your search.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                Text('Nothing matches your search.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
               for (final e in shown)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
@@ -758,13 +758,13 @@ class _LibraryArchiveScreenState extends State<LibraryArchiveScreen> {
                     child: Row(children: [
                       Expanded(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(e.$1, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
-                          Text(e.$2, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          Text(e.$1, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                          Text(e.$2, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                         ]),
                       ),
                       TextButton(
                         onPressed: e.$3,
-                        child: const Text('Restore', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
+                        child: Text('Restore', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                       ),
                     ]),
                   ),

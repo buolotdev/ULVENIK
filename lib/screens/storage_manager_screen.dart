@@ -30,14 +30,14 @@ class StorageManagerScreen extends StatefulWidget {
 
 class _StorageManagerScreenState extends State<StorageManagerScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _obsidian = AppColors.backgroundObsidian; // #121212
-  static const Color _carbon = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _cardBorder = AppColors.cardBorder;
-  static const Color _destructive = AppColors.errorDestructive; // #8B3A3A
-  static const Color _alpineBlue = AppColors.infoAlpineBlue;
+  static Color get _obsidian => AppColors.backgroundObsidian; // #121212
+  static Color get _carbon => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _destructive => AppColors.errorDestructive; // #8B3A3A
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
 
   late final AnimationController _barAnimController;
   late final Animation<double> _barAnim;
@@ -253,7 +253,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                   const SizedBox(height: 16),
                   Text(
                     'Manage $categoryTitle Storage',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 17,
                       fontWeight: FontWeight.w700,
@@ -261,7 +261,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                  Text(
                     'Select large local downloads to remove from this device. Originals stay safe in Ulvenik Cloud.',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -280,7 +280,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: _cardBorder),
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
                           UlvenikIcon(UlvenikIcons.completed,
                             color: _forest,
@@ -344,7 +344,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                                     children: [
                                       Text(
                                         item.title,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: _offWhite,
                                           fontSize: 13.5,
                                           fontWeight: FontWeight.w600,
@@ -354,7 +354,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                                       const SizedBox(height: 2),
                                       Text(
                                         item.subtitle,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: _stoneGrey,
                                           fontSize: 11.5,
                                           fontFamily: 'Inter',
@@ -473,7 +473,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
         child: Column(
           children: [
             _buildTopHeader(),
-            const Divider(color: _cardBorder, height: 1),
+            Divider(color: _cardBorder, height: 1),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 18, 16, 28),
@@ -518,12 +518,12 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
         children: [
           IconButton(
             onPressed: () => Navigator.maybePop(context),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
           ),
-          const Text(
+          Text(
             'Storage Manager',
             style: TextStyle(
               color: _offWhite,
@@ -541,7 +541,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
@@ -595,7 +595,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
               ],
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 16),
             child: Divider(color: _cardBorder, height: 1),
           ),
@@ -663,12 +663,12 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
             },
           ),
           const SizedBox(height: 14),
-          const Divider(color: _cardBorder, height: 1),
+          Divider(color: _cardBorder, height: 1),
           const SizedBox(height: 14),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Available on Device',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -678,7 +678,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
               ),
               Text(
                 _availableOnDeviceDisplay,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 14.5,
                   fontWeight: FontWeight.w700,
@@ -704,7 +704,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
         const SizedBox(height: 10),
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 22,
             fontWeight: FontWeight.w700,
@@ -714,7 +714,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
         const SizedBox(height: 3),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 12.5,
             fontFamily: 'Inter',
@@ -830,7 +830,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -840,7 +840,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                   const SizedBox(height: 3),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 12.5,
                       fontFamily: 'Inter',
@@ -854,7 +854,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
               children: [
                 Text(
                   sizeText,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
@@ -866,7 +866,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                   onTap: onAction,
                   child: Text(
                     actionLabel,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _forest,
                       fontSize: 12.5,
                       fontWeight: FontWeight.w600,
@@ -895,7 +895,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
         children: [
           Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
                   'Optimise Device Storage',
                   style: TextStyle(
@@ -926,7 +926,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
             ],
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             'Frequently viewed media stays downloaded. Older files are removed from your device but remain available in the cloud.',
             style: TextStyle(
               color: _stoneGrey,
@@ -936,7 +936,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
             ),
           ),
           const SizedBox(height: 14),
-          const Divider(color: _cardBorder, height: 1),
+          Divider(color: _cardBorder, height: 1),
           const SizedBox(height: 12),
           Row(
             children: [
@@ -1036,7 +1036,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                               const SizedBox(height: 3),
                               Text(
                                 options[idx].$2,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 12,
                                   fontFamily: 'Inter',
@@ -1046,7 +1046,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                           ),
                         ),
                         selected
-                            ? const Icon(Icons.check_rounded,
+                            ? Icon(Icons.check_rounded,
                                 color: _forest,
                                 size: 20,
                               )
@@ -1066,7 +1066,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                   ),
                 ),
                 if (idx < options.length - 1)
-                  const Divider(color: _cardBorder, height: 1),
+                  Divider(color: _cardBorder, height: 1),
               ],
             );
           }),
@@ -1101,7 +1101,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
               valueColor: _offWhite,
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 12),
             child: Divider(color: _cardBorder, height: 1),
           ),
@@ -1110,7 +1110,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
             value: '0',
             valueColor: _offWhite,
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 12),
             child: Divider(color: _cardBorder, height: 1),
           ),
@@ -1119,7 +1119,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
             value: '0',
             valueColor: _offWhite,
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 12),
             child: Divider(color: _cardBorder, height: 1),
           ),
@@ -1139,7 +1139,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
                   ),
                 );
               },
-              child: const Row(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
@@ -1175,7 +1175,7 @@ class _StorageManagerScreenState extends State<StorageManagerScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 13.5,
             fontFamily: 'Inter',

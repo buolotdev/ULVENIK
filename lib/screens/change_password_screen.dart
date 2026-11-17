@@ -12,19 +12,19 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian;
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
   static const Color _sageMint = Color(0xFFB6CCB5);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _weakRed = Color(0xFFB85C5C);
   static const Color _goodAmber = Color(0xFFC88A4B);
   static const Color _strongSageGreen = Color(0xFF5E8F79);
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
-  static const Color _cardBorder = AppColors.cardBorder;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
   static const Color _inactiveBar = Color(0xFF404944);
-  static const Color _destructive = AppColors.errorDestructive;
+  static Color get _destructive => AppColors.errorDestructive;
 
   static const List<String> _suggestedPassphrases = [
     'VardøNord2024!',
@@ -249,7 +249,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                     ),
                     const SizedBox(width: 14),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -281,7 +281,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   revokedOthers
                       ? 'Your new password is active and 2 other signed-in devices have been signed out. All dog workspaces, training logs, and subscriptions remain untouched.'
                       : 'Your new password is now active across your Ulvenik account. All dog workspaces, training logs, and subscriptions remain untouched.',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13.5,
                     height: 1.48,
@@ -344,7 +344,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   children: [
                     _buildCenteredHero(),
                     const SizedBox(height: 28),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(left: 2),
                       child: Text(
                         'CHANGE PASSWORD',
@@ -374,7 +374,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             vertical: 8,
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -399,7 +399,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(8, 10, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -409,7 +409,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 26,
             ),
@@ -417,7 +417,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
           ),
           const SizedBox(width: 4),
-          const Expanded(
+          Expanded(
             child: Text(
               'Change Password',
               style: TextStyle(
@@ -445,13 +445,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             shape: BoxShape.circle,
             border: Border.all(color: _cardBorder),
           ),
-          child: const Icon(Icons.shield_outlined,
+          child: Icon(Icons.shield_outlined,
             color: _stoneGrey,
             size: 22,
           ),
         ),
         const SizedBox(height: 18),
-        const Text(
+        Text(
           'Keep Your Account Secure',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -463,7 +463,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ),
         ),
         const SizedBox(height: 10),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
             "Choose a strong password that you don't use anywhere else.",
@@ -495,7 +495,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 1. Current Password
-          const Text(
+          Text(
             'Current Password',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -519,7 +519,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'New Password',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -618,7 +618,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Confirm New Password',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -657,7 +657,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(Icons.smartphone_rounded,
+              Icon(Icons.smartphone_rounded,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -666,7 +666,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Sign out of all other devices',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -718,7 +718,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return TextField(
       controller: controller,
       obscureText: obscure,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: 'Inter',
         fontSize: 15.5,
         color: _offWhite,
@@ -813,7 +813,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           color: _alpineBlue.withValues(alpha: 0.28),
         ),
       ),
-      child: const Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -858,7 +858,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ),
         ),
         child: _isUpdating
-            ? const SizedBox(
+            ? SizedBox(
                 width: 20,
                 height: 20,
                 child: CircularProgressIndicator(

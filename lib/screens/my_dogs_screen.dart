@@ -131,7 +131,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                     UlvenikIcon(icon, size: 16, color: AppColors.secondaryTextStoneGrey),
                     const SizedBox(width: 6),
                   ],
-                  Text(text, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
+                  Text(text, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
                 ]),
               );
           return SafeArea(
@@ -150,7 +150,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text('Filter & sort',
+                    Text('Filter & sort',
                         style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                     heading('Breed'),
                     Wrap(spacing: 8, runSpacing: 8, children: [
@@ -191,7 +191,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                             }),
                             style: OutlinedButton.styleFrom(
                               foregroundColor: AppColors.primaryTextOffWhite,
-                              side: const BorderSide(color: Colors.white24),
+                              side: BorderSide(color: AppColors.cardBorder),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             ),
                             child: const Text('Clear Filters'),
@@ -216,7 +216,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryForestGreen,
-                              foregroundColor: AppColors.primaryTextOffWhite,
+                              foregroundColor: AppColors.onForestGreen,
                               elevation: 0,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             ),
@@ -275,14 +275,14 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                       tooltip: 'Filter',
                       onTap: _hasData ? _openFilters : null,
                       badge: _hasActiveFilters,
-                      child: const Icon(Icons.tune, color: AppColors.primaryTextOffWhite, size: 20),
+                      child: Icon(Icons.tune, color: AppColors.primaryTextOffWhite, size: 20),
                     ),
                     const SizedBox(width: 10),
                     _SquareButton(
                       tooltip: 'Add Dog',
                       primary: true,
                       onTap: _addDog,
-                      child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 20),
+                      child: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 20),
                     ),
                   ]),
                 ],
@@ -303,7 +303,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
           Expanded(
             child: GestureDetector(
               onDoubleTap: () => setState(() => _hasData = !_hasData),
-              child: const Text(
+              child: Text(
                 'Dogs',
                 style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
@@ -322,7 +322,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const UlvenikIcon(UlvenikIcons.notifications, color: AppColors.primaryTextOffWhite, size: 24),
+                UlvenikIcon(UlvenikIcons.notifications, color: AppColors.primaryTextOffWhite, size: 24),
                 if (_hasUnreadNotifications)
                   Positioned(
                     right: 0,
@@ -342,7 +342,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
           ),
           PopupMenuButton<String>(
             tooltip: 'More',
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite, size: 22),
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite, size: 22),
             color: AppColors.cardsCarbon,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             onSelected: (v) {
@@ -350,7 +350,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => const ArchivedDogsScreen()));
               }
             },
-            itemBuilder: (ctx) => const [
+            itemBuilder: (ctx) => [
               PopupMenuItem(
                 value: 'archived',
                 child: Text('Archived Dogs', style: TextStyle(color: AppColors.primaryTextOffWhite)),
@@ -368,14 +368,14 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
       child: TextField(
         controller: _searchController,
         onChanged: (v) => setState(() => _query = v),
-        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
         decoration: InputDecoration(
           hintText: 'Search name or breed',
-          hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+          hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
           filled: true,
           fillColor: AppColors.cardsCarbon,
           contentPadding: EdgeInsets.zero,
-          prefixIcon: const Padding(
+          prefixIcon: Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           ),
@@ -384,7 +384,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
               ? null
               : IconButton(
                   tooltip: 'Clear search',
-                  icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                  icon: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                   onPressed: () => setState(() {
                     _searchController.clear();
                     _query = '';
@@ -392,11 +392,11 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                 ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.white12),
+            borderSide: BorderSide(color: AppColors.cardBorder),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+            borderSide: BorderSide(color: AppColors.primaryForestGreen),
           ),
         ),
       ),
@@ -412,10 +412,10 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('No matching dogs',
+              Text('No matching dogs',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
-              const Text('Try another search or clear your filters.',
+              Text('Try another search or clear your filters.',
                   textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
               if (_hasActiveFilters) ...[
                 const SizedBox(height: 12),
@@ -443,12 +443,12 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const UlvenikIcon(UlvenikIcons.dogs, size: 48, color: AppColors.secondarySage),
+            UlvenikIcon(UlvenikIcons.dogs, size: 48, color: AppColors.secondarySage),
             const SizedBox(height: 20),
-            const Text('No dogs added yet',
+            Text('No dogs added yet',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
-            const Text(
+            Text(
               'Add your first dog to start recording their journey with Ulvenik.',
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5),
@@ -460,7 +460,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
               label: const Text('Add Dog'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryForestGreen,
-                foregroundColor: AppColors.primaryTextOffWhite,
+                foregroundColor: AppColors.onForestGreen,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 elevation: 0,
@@ -507,7 +507,7 @@ class _ViewToggle extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: Row(mainAxisSize: MainAxisSize.min, children: [
         seg(UlvenikIcons.listView, 'List view', !cardView, () => onChanged(false)),
@@ -651,7 +651,7 @@ class _ListDogCard extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: Row(
             children: [
@@ -674,12 +674,12 @@ class _ListDogCard extends StatelessWidget {
                     Text(dog.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                     const SizedBox(height: 4),
                     Text(dog.details,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                   ],
                 ),
               ),
@@ -734,7 +734,7 @@ class _WideDogCard extends StatelessWidget {
                       Text(dog.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w600)),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 2),
                       Text(dog.details,
                           maxLines: 1,
@@ -747,7 +747,7 @@ class _WideDogCard extends StatelessWidget {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.white12),
+                      border: Border.all(color: AppColors.cardBorder),
                     ),
                   ),
                 ),

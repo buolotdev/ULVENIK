@@ -439,14 +439,14 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(returnValue),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
             visualDensity: VisualDensity.compact,
           ),
           const SizedBox(width: 2),
-          const Expanded(
+          Expanded(
             child: Text(
               'Time Zone',
               style: TextStyle(
@@ -485,7 +485,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -512,7 +512,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const UlvenikIcon(UlvenikIcons.trainingTime,
+              UlvenikIcon(UlvenikIcons.trainingTime,
                 size: 21,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -530,7 +530,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                 ),
                 child: Text(
                   _useDeviceTimeZone ? 'AUTOMATIC' : 'MANUAL',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 10,
                     fontWeight: FontWeight.w600,
@@ -544,7 +544,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
           const SizedBox(height: 12),
           Text(
             active.ianaName,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 18.5,
               fontWeight: FontWeight.w700,
@@ -554,7 +554,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
           const SizedBox(height: 6),
           Text(
             _formatLocalTime(active),
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 23,
               fontWeight: FontWeight.w700,
@@ -565,7 +565,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
           const SizedBox(height: 6),
           Text(
             active.utcOffsetLabel,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 13.5,
               color: AppColors.secondaryTextStoneGrey,
@@ -589,12 +589,12 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
         ),
         child: Row(
           children: [
-            const Icon(Icons.language_rounded,
+            Icon(Icons.language_rounded,
               size: 20,
               color: AppColors.secondaryTextStoneGrey,
             ),
             const SizedBox(width: 14),
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -647,7 +647,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search,
+          UlvenikIcon(UlvenikIcons.search,
             size: 19,
             color: AppColors.secondaryTextStoneGrey,
           ),
@@ -665,12 +665,12 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                 });
               },
               cursorColor: AppColors.primaryForestGreen,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 14.5,
                 color: AppColors.primaryTextOffWhite,
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 isDense: true,
                 border: InputBorder.none,
                 hintText: 'Search city, country or time zone',
@@ -692,7 +692,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                 });
               },
               behavior: HitTestBehavior.opaque,
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.all(4),
                 child: Icon(Icons.close_rounded,
                   size: 17,
@@ -759,7 +759,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
         child: Text(
           'No time zones matching "${_searchQuery.trim()}"',
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 14,
             color: AppColors.secondaryTextStoneGrey,
@@ -816,14 +816,14 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.025),
-        border: const Border(
+        border: Border(
           top: BorderSide(color: AppColors.cardBorder, width: 1),
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
         ),
       ),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 10.5,
           fontWeight: FontWeight.w600,
@@ -868,7 +868,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                           children: [
                             Text(
                               city,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
@@ -878,7 +878,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                             const SizedBox(height: 3),
                             Text(
                               subtitle,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 12.5,
                                 color: AppColors.secondaryTextStoneGrey,
@@ -895,7 +895,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                           children: [
                             Text(
                               localTime,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 13.5,
                                 color: AppColors.secondaryTextStoneGrey,
@@ -903,7 +903,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                             ),
                             if (isSelected) ...[
                               const SizedBox(height: 4),
-                              const Icon(Icons.check_rounded,
+                              Icon(Icons.check_rounded,
                                 size: 16,
                                 color: AppColors.primaryForestGreen,
                               ),
@@ -916,7 +916,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                           children: [
                             Text(
                               localTime,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 13.5,
                                 color: AppColors.secondaryTextStoneGrey,
@@ -924,7 +924,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                             ),
                             if (isSelected) ...[
                               const SizedBox(width: 8),
-                              const Icon(Icons.check_rounded,
+                              Icon(Icons.check_rounded,
                                 size: 17,
                                 color: AppColors.primaryForestGreen,
                               ),
@@ -962,7 +962,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'TIME ZONE',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -975,7 +975,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                     const SizedBox(height: 6),
                     Text(
                       active.ianaName,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -991,7 +991,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'CURRENT TIME',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1004,7 +1004,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
                     const SizedBox(height: 6),
                     Text(
                       _formatLocalTime(active),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -1017,7 +1017,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
             ],
           ),
           const SizedBox(height: 18),
-          const Text(
+          Text(
             'UTC OFFSET',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -1030,7 +1030,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
           const SizedBox(height: 6),
           Text(
             '${active.utcOffsetLabel} · ${active.fullZoneTitle}',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 15,
               fontWeight: FontWeight.w600,
@@ -1038,7 +1038,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
             ),
           ),
           const SizedBox(height: 18),
-          const Center(
+          Center(
             child: Text(
               'Historical records remain unchanged. Only displayed\ntimes will change.',
               textAlign: TextAlign.center,
@@ -1058,7 +1058,7 @@ class _TimezoneSettingsScreenState extends State<TimezoneSettingsScreen> {
   Widget _buildBottomSaveDock() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           top: BorderSide(color: AppColors.cardBorder, width: 1),

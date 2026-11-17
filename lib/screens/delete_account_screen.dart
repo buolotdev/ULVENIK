@@ -39,13 +39,13 @@ class DeleteAccountScreen extends StatefulWidget {
 }
 
 class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian;
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
   static const Color _sageMint = Color(0xFFB6CCB5);
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
-  static const Color _cardBorder = AppColors.cardBorder;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
   static const Color _destructive = Color(0xFF8B3A3A);
   static const Color _destructiveBright = Color(0xFFC25E5E);
 
@@ -293,7 +293,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                         children: [
                           Text(
                             item.label,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 17,
                               fontWeight: FontWeight.w700,
@@ -318,7 +318,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                 const SizedBox(height: 14),
                 Text(
                   item.impactDetail,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13.5,
                     height: 1.5,
@@ -332,7 +332,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                           foregroundColor: _offWhite,
-                          side: const BorderSide(color: _cardBorder),
+                          side: BorderSide(color: _cardBorder),
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -409,7 +409,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                 const SizedBox(height: 16),
                 Text(
                   item.label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -440,7 +440,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                 const SizedBox(height: 14),
                 Text(
                   item.legalBasis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13.5,
                     height: 1.5,
@@ -453,7 +453,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: _offWhite,
-                      side: const BorderSide(color: _cardBorder),
+                      side: BorderSide(color: _cardBorder),
                       padding: const EdgeInsets.symmetric(vertical: 13),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -496,7 +496,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               children: [
                 _buildSheetHandle(),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Reason for Deleting Account',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -506,7 +506,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Optional feedback helps us improve Ulvenik for working dog handlers.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -593,7 +593,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               children: [
                 _buildSheetHandle(),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Sign Out Instead?',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -603,7 +603,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'Signing out keeps all 6 dog profiles, training sessions, health records, and encrypted cloud backups safely intact for whenever you return.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -648,7 +648,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: _stoneGrey,
-                      side: const BorderSide(color: _cardBorder),
+                      side: BorderSide(color: _cardBorder),
                       padding: const EdgeInsets.symmetric(vertical: 13),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -739,7 +739,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                         color: _destructive.withValues(alpha: 0.55),
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Icon(Icons.warning_amber_rounded,
@@ -777,7 +777,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'TYPE "DELETE" TO CONFIRM',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -792,7 +792,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                     controller: confirmController,
                     autofocus: true,
                     textCapitalization: TextCapitalization.characters,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -874,7 +874,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                               );
                             },
                       child: isDeleting
-                          ? const SizedBox(
+                          ? SizedBox(
                               width: 20,
                               height: 20,
                               child: CircularProgressIndicator(
@@ -901,7 +901,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                       onPressed: isDeleting
                           ? null
                           : () => Navigator.of(sheetCtx).pop(),
-                      child: const Text(
+                      child: Text(
                         'Cancel & Keep My Account',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -978,7 +978,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                             vertical: 8,
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -1003,7 +1003,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(8, 10, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -1013,7 +1013,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
@@ -1021,7 +1021,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
             constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
           ),
           const SizedBox(width: 2),
-          const Expanded(
+          Expanded(
             child: Text(
               'Delete Account',
               style: TextStyle(
@@ -1049,7 +1049,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
               Icon(Icons.hourglass_bottom_rounded,
                 color: _destructiveBright,
@@ -1072,7 +1072,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
           const SizedBox(height: 6),
           Text(
             'Reason logged: $_selectedReason. Your Ulvenik workspace is queued for permanent wipe. You can abort right now before sign-out.',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 12.5,
               height: 1.45,
@@ -1086,7 +1086,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     foregroundColor: _offWhite,
-                    side: const BorderSide(color: _cardBorder),
+                    side: BorderSide(color: _cardBorder),
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -1172,7 +1172,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
+                    Row(
                       children: [
                         Icon(Icons.warning_amber_rounded,
                           color: _destructive,
@@ -1194,7 +1194,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                       ],
                     ),
                     const SizedBox(height: 12),
-                    const Text(
+                    Text(
                       'Deleting your account is permanent. Once completed, your account and all associated data cannot be recovered.',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1219,7 +1219,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -1290,7 +1290,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               item.label,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
@@ -1321,7 +1321,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               behavior: HitTestBehavior.opaque,
               child: Row(
                 children: [
-                  const Icon(Icons.info_outline_rounded,
+                  Icon(Icons.info_outline_rounded,
                     size: 16,
                     color: _stoneGrey,
                   ),
@@ -1329,7 +1329,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   Expanded(
                     child: Text(
                       _retainedItems[i].label,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13.5,
                         fontWeight: FontWeight.w400,
@@ -1344,7 +1344,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
           const SizedBox(height: 16),
           Container(height: 1, color: _cardBorder),
           const SizedBox(height: 14),
-          const Text(
+          Text(
             'These records are retained only where required by law and are not used as part of your Ulvenik account after deletion.',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -1369,7 +1369,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Consider these options first',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -1379,7 +1379,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             'If you only want to stop using Ulvenik, consider cancelling your subscription or signing out instead.',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -1511,7 +1511,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                           _biometricVerified
                               ? 'Confirmed with Face ID / Touch ID'
                               : 'Confirm with Face ID / Touch ID',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 14.5,
                             fontWeight: FontWeight.w600,
@@ -1552,7 +1552,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'PASSWORD',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1567,7 +1567,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   controller: _passwordController,
                   focusNode: _passwordFocusNode,
                   obscureText: _obscurePassword,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 15,
                     color: _offWhite,
@@ -1586,7 +1586,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                         color: Colors.white.withValues(alpha: 0.18),
                       ),
                     ),
-                    focusedBorder: const UnderlineInputBorder(
+                    focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: _forest,
                         width: 1.5,
@@ -1634,7 +1634,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
           ),
           child: Row(
             children: [
-              const Icon(Icons.feedback_outlined,
+              Icon(Icons.feedback_outlined,
                 size: 18,
                 color: _stoneGrey,
               ),
@@ -1643,7 +1643,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'REASON FOR LEAVING (OPTIONAL)',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1656,7 +1656,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                     const SizedBox(height: 3),
                     Text(
                       _selectedReason,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13.5,
                         fontWeight: FontWeight.w500,
@@ -1666,7 +1666,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
                   ],
                 ),
               ),
-              const Icon(Icons.unfold_more_rounded,
+              Icon(Icons.unfold_more_rounded,
                 size: 19,
                 color: _stoneGrey,
               ),
@@ -1728,7 +1728,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               ),
             ),
             child: value
-                ? const Icon(Icons.check_rounded,
+                ? Icon(Icons.check_rounded,
                     size: 15,
                     color: _offWhite,
                   )

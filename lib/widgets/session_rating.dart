@@ -67,7 +67,7 @@ Future<void> showSessionRatingSheet(
                 ),
               ),
             ),
-            const Text(
+            Text(
               'Session rating',
               style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
@@ -76,7 +76,7 @@ Future<void> showSessionRatingSheet(
               ),
             ),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               'Optional. Choose how you felt the session went.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
             ),
@@ -86,7 +86,7 @@ Future<void> showSessionRatingSheet(
                 contentPadding: EdgeInsets.zero,
                 title: Text(
                   r.label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
@@ -94,10 +94,10 @@ Future<void> showSessionRatingSheet(
                 ),
                 subtitle: Text(
                   r.description,
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
                 ),
                 trailing: r == current
-                    ? const Icon(Icons.check, color: AppColors.primaryForestGreen, size: 22)
+                    ? Icon(Icons.check, color: AppColors.primaryForestGreen, size: 22)
                     : null,
                 onTap: () {
                   Navigator.pop(ctx);
@@ -145,7 +145,7 @@ class SessionRatingBadge extends StatelessWidget {
       ),
       child: Text(
         r.label,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.primaryTextOffWhite,
           fontSize: 11.5,
           fontWeight: FontWeight.w600,
@@ -201,7 +201,7 @@ class SessionRatingField extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(label,
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                   const SizedBox(height: 4),
                   Text(
                     value?.label ?? 'Not rated',
@@ -215,13 +215,13 @@ class SessionRatingField extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 2),
                       child: Text(value!.description,
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                     ),
                 ],
               ),
             ),
             if (enabled)
-              const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+              Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
           ],
         ),
       ),

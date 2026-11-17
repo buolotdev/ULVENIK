@@ -116,7 +116,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
   int _selectedWeightPointIndex = -1;
 
   // Weight Trend Points dataset for Rex
-  final List<WeightDataPoint> _rexWeightPoints = const [
+  final List<WeightDataPoint> _rexWeightPoints = [
     WeightDataPoint(dayIndex: 0, weightKg: 27.2, dateLabel: 'Jan 15', note: 'Winter baseline weight'),
     WeightDataPoint(dayIndex: 1, weightKg: 27.4, dateLabel: 'Feb 02', note: 'Post-training check'),
     WeightDataPoint(dayIndex: 2, weightKg: 27.8, dateLabel: 'Mar 10', note: 'Spring conditioning'),
@@ -131,7 +131,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
   ];
 
   // Timeline events for Rex
-  final List<TimelineSummaryEvent> _timelineEvents = const [
+  final List<TimelineSummaryEvent> _timelineEvents = [
     TimelineSummaryEvent(
       title: 'Annual Checkup',
       timeAgo: '2 days ago',
@@ -158,7 +158,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
     _isEmpty = widget.initialEmpty;
     _anim = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1400),
+      duration: Duration(milliseconds: 1400),
     )..forward();
   }
 
@@ -185,10 +185,10 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 28),
+        icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 28),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      title: const Text(
+      title: Text(
         'Health Statistics',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -199,11 +199,11 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       centerTitle: false,
       actions: [
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showFilterOptionsSheet,
         ),
         IconButton(
-          icon: const Icon(Icons.ios_share, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: Icon(Icons.ios_share, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showShareAccessSheet,
         ),
         IconButton(
@@ -218,7 +218,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
             _replay();
           },
         ),
-        const SizedBox(width: 4),
+        SizedBox(width: 4),
       ],
     );
   }
@@ -228,25 +228,25 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
   // ==========================================
   Widget _buildPopulatedView() {
     return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 40),
+      physics: BouncingScrollPhysics(),
+      padding: EdgeInsets.fromLTRB(20, 12, 20, 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _buildDogSelectorCard(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           _buildTimeframeSelectorRow(),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           _buildHealthOverviewCard(),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           _buildWeightTrendChartCard(),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           _buildStatisticsCardsGrid(),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           _buildInjuryRecoveryProgressCard(),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           _buildTimelineSummaryCard(),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           _buildExportActionsGrid(),
         ],
       ),
@@ -261,7 +261,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       onTap: _showDogSelectSheet,
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           borderRadius: BorderRadius.circular(12),
@@ -273,23 +273,23 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
             Row(
               children: [
                 _buildAvatar(_dog.avatarUrl, 44),
-                const SizedBox(width: 14),
+                SizedBox(width: 14),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       _dog.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: AppColors.primaryTextOffWhite,
                       ),
                     ),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2),
                     Text(
                       '${_dog.breed} • ${_dog.age}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         color: AppColors.secondaryTextStoneGrey,
@@ -299,7 +299,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 ),
               ],
             ),
-            const Icon(Icons.unfold_more,
+            Icon(Icons.unfold_more,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
@@ -315,7 +315,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: const Color(0xFF1D201F),
+        color: Color(0xFF1D201F),
         border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
       ),
       child: ClipOval(
@@ -338,12 +338,12 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
   Widget _buildTimeframeSelectorRow() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
+      physics: BouncingScrollPhysics(),
       child: Row(
         children: List.generate(_timeframeLabels.length, (i) {
           final isSelected = i == _selectedTimeframeIndex;
           return Padding(
-            padding: const EdgeInsets.only(right: 8),
+            padding: EdgeInsets.only(right: 8),
             child: InkWell(
               onTap: () {
                 setState(() => _selectedTimeframeIndex = i);
@@ -351,7 +351,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               },
               borderRadius: BorderRadius.circular(20),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 7),
                 decoration: BoxDecoration(
                   color: isSelected ? _forest : Colors.transparent,
                   borderRadius: BorderRadius.circular(20),
@@ -381,7 +381,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
   // ------------------------------------------
   Widget _buildHealthOverviewCard() {
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.circular(12),
@@ -390,7 +390,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'HEALTH OVERVIEW',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -400,7 +400,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               color: AppColors.secondaryTextStoneGrey,
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           Row(
             children: [
               Expanded(
@@ -420,7 +420,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           Row(
             children: [
               Expanded(
@@ -440,7 +440,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           Row(
             children: [
               Expanded(
@@ -453,7 +453,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       'Last Health Record',
                       style: TextStyle(
@@ -487,14 +487,15 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
     required int targetCount,
     String? decimal,
     required String suffix,
-    Color valueColor = AppColors.primaryTextOffWhite,
+    Color? valueColor,
   }) {
+    valueColor ??= AppColors.primaryTextOffWhite;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 12,
             color: AppColors.secondaryTextStoneGrey,
@@ -519,7 +520,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 if (decimal != null) TextSpan(text: decimal),
                 TextSpan(
                   text: suffix,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: AppColors.secondaryTextStoneGrey,
@@ -554,7 +555,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'WEIGHT TREND',
                 style: TextStyle(
@@ -576,7 +577,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Current',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -591,7 +592,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                     children: [
                       RichText(
                         text: TextSpan(
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 28,
                             fontWeight: FontWeight.w700,
@@ -599,7 +600,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                           ),
                           children: [
                             TextSpan(text: activeSpot.weightKg.toStringAsFixed(1)),
-                            const TextSpan(
+                            TextSpan(
                               text: 'kg',
                               style: TextStyle(
                                 fontSize: 16,
@@ -633,7 +634,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: const [
+                children: [
                   Text(
                     'Avg: 28.9kg',
                     style: TextStyle(
@@ -658,7 +659,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
           const SizedBox(height: 6),
           Text(
             '${activeSpot.dateLabel} • ${activeSpot.note}',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 11,
               color: AppColors.secondaryTextStoneGrey,
@@ -876,7 +877,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 title: 'Rehabilitation',
                 mainValue: '18',
                 footerWidget: Row(
-                  children: const [
+                  children: [
                     Text('Physio: ', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                     Text('12  ', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
                     Text('Hydro: ', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
@@ -899,7 +900,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 mainValue: '4',
                 middleWidget: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text('Given Today', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11)),
                     Text('3 of 4 Active', style: TextStyle(color: _mint, fontSize: 11, fontWeight: FontWeight.w600)),
                   ],
@@ -955,7 +956,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                     const SizedBox(width: 6),
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12,
                         color: AppColors.secondaryTextStoneGrey,
@@ -963,7 +964,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                     ),
                   ],
                 ),
-                const UlvenikIcon(UlvenikIcons.details, size: 16, color: AppColors.secondaryTextStoneGrey),
+                UlvenikIcon(UlvenikIcons.details, size: 16, color: AppColors.secondaryTextStoneGrey),
               ],
             ),
             const SizedBox(height: 10),
@@ -977,7 +978,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                   children: [
                     Text(
                       mainValue,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
@@ -1067,7 +1068,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
         const SizedBox(width: 4),
         Text(
           name,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 10,
             color: AppColors.secondaryTextStoneGrey,
@@ -1092,7 +1093,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'INJURIES & RECOVERY STATUS',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -1154,7 +1155,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
@@ -1164,7 +1165,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 const SizedBox(height: 4),
                 Text(
                   timeInfo,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 11,
                     color: AppColors.secondaryTextStoneGrey,
@@ -1212,7 +1213,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'TIMELINE SUMMARY',
                 style: TextStyle(
@@ -1264,7 +1265,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                       children: [
                         Text(
                           e.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 13,
                             color: AppColors.primaryTextOffWhite,
@@ -1273,7 +1274,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                         const SizedBox(height: 2),
                         Text(
                           e.timeAgo,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
@@ -1303,7 +1304,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 borderRadius: BorderRadius.circular(8),
               ),
               alignment: Alignment.center,
-              child: const Text(
+              child: Text(
                 'View All 47 Events',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -1337,7 +1338,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
               child: Column(
-                children: const [
+                children: [
                   Icon(Icons.picture_as_pdf, size: 24, color: AppColors.primaryTextOffWhite),
                   SizedBox(height: 8),
                   Text(
@@ -1367,7 +1368,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
               child: Column(
-                children: const [
+                children: [
                   Icon(Icons.share, size: 24, color: AppColors.primaryTextOffWhite),
                   SizedBox(height: 8),
                   Text(
@@ -1419,7 +1420,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
                       'Health Overview',
                       style: TextStyle(
@@ -1472,7 +1473,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
           const SizedBox(height: 24),
 
           // Headline & Subtitle
-          const Text(
+          Text(
             'Not Enough Health Data',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1483,7 +1484,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
             ),
           ),
           const SizedBox(height: 8),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Text(
               'Add more health records to unlock detailed statistics and long-term trends.',
@@ -1508,7 +1509,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                 color: _forest,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 18),
@@ -1538,7 +1539,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 10,
             fontWeight: FontWeight.w700,
@@ -1550,7 +1551,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
         if (sub != null)
           Text(
             sub,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 11,
               color: AppColors.secondaryTextStoneGrey,
@@ -1589,7 +1590,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
         Expanded(
           child: Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -1597,7 +1598,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
           ),
         ),
         IconButton(
-          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+          icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(ctx),
         ),
       ],
@@ -1645,7 +1646,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                               children: [
                                 Text(
                                   d.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -1653,7 +1654,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                                 ),
                                 Text(
                                   '${d.breed} • ${d.age}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12,
                                   ),
@@ -1683,7 +1684,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               children: [
                 _buildSheetHeader(ctx, 'Filter Health Statistics'),
                 const SizedBox(height: 14),
-                const Text(
+                Text(
                   'SELECT TIMEFRAME',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -1753,7 +1754,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               children: [
                 _buildSheetHeader(ctx, 'Generate Health PDF Report'),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'Compile a comprehensive clinical dossier for veterinary review or insurance validation.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.45),
                 ),
@@ -1789,7 +1790,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
         children: [
           const UlvenikIcon(UlvenikIcons.completed, size: 18, color: _mint),
           const SizedBox(width: 10),
-          Text(label, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+          Text(label, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
         ],
       ),
     );
@@ -1805,7 +1806,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               children: [
                 _buildSheetHeader(ctx, 'Share Health Access'),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'Grant temporary or permanent read-only telemetry access to your vet, physio specialist or trainer.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.45),
                 ),
@@ -1818,7 +1819,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                     border: Border.all(color: Colors.white10),
                   ),
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(Icons.link, size: 20, color: _mint),
                       SizedBox(width: 10),
                       Expanded(
@@ -1860,7 +1861,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               children: [
                 _buildSheetHeader(ctx, 'Add Health Record'),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'Choose a health metric to record for this dog profile:',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                 ),
@@ -1923,12 +1924,12 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600, fontSize: 13)),
-                  Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11)),
+                  Text(title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600, fontSize: 13)),
+                  Text(subtitle, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11)),
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+            UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
           ],
         ),
       ),

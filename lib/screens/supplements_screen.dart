@@ -308,7 +308,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
         onPressed: () => Navigator.of(context).maybePop(),
         tooltip: 'Back',
       ),
-      title: const Text(
+      title: Text(
         'Supplements',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -320,7 +320,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
       centerTitle: true,
       actions: [
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          icon: UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           tooltip: 'Search Supplements',
           onPressed: () {
             if (_isEmpty) _toggleEmptyState(false);
@@ -328,7 +328,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
           },
         ),
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 20),
+          icon: Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 20),
           tooltip: 'Filter Supplements',
           onPressed: _showFilterOptionsModal,
         ),
@@ -343,7 +343,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
           onPressed: () => _toggleEmptyState(!_isEmpty),
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.secondaryTextStoneGrey, size: 22),
           tooltip: 'Add Supplement',
           onPressed: _showAddSupplementModal,
         ),
@@ -428,7 +428,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                 children: [
                   Text(
                     _activeDog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -437,7 +437,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                   const SizedBox(height: 2),
                   Text(
                     '${_activeDog.breed} • ${_activeDog.age}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -445,7 +445,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                 ],
               ),
             ),
-            const Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+            Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -535,7 +535,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                 UlvenikIcon.fromMaterial(icon, color: iconColor, size: 22),
                 Text(
                   count,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
@@ -546,7 +546,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
             const SizedBox(height: 10),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -577,7 +577,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Weekly Adherence',
                 style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
@@ -625,7 +625,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                 const SizedBox(width: 8),
                 Text(
                   '${activePoint.day}: ',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -642,7 +642,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                 const Spacer(),
                 Text(
                   '${activePoint.dosesGiven}/${activePoint.dosesTotal} doses given',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 11,
                   ),
@@ -802,7 +802,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
                   "TODAY'S SCHEDULE",
                   style: TextStyle(
@@ -873,7 +873,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
               const SizedBox(width: 8),
               Text(
                 name,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -908,17 +908,17 @@ class _SupplementsScreenState extends State<SupplementsScreen>
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: _searchController,
               focusNode: _searchFocusNode,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 14,
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Search supplements...',
                 hintStyle: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -946,7 +946,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                   _searchQuery = '';
                 });
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -962,7 +962,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 4),
           child: Text(
             'ACTIVE SUPPLEMENTS',
@@ -983,7 +983,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
             ),
-            child: const Center(
+            child: Center(
               child: Text(
                 'No matching active supplements found.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
@@ -1025,7 +1025,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                     children: [
                       Text(
                         item.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -1034,7 +1034,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                       const SizedBox(height: 2),
                       Text(
                         '${item.category} • ${_formatForm(item.form)}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 12,
                         ),
@@ -1055,7 +1055,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'DOSAGE',
                       style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
@@ -1067,7 +1067,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                     const SizedBox(height: 3),
                     Text(
                       item.dosage,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 14,
                       ),
@@ -1112,7 +1112,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 4),
           child: Text(
             'PREVIOUSLY USED',
@@ -1154,14 +1154,14 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                           const SizedBox(height: 2),
                           Text(
                             item.category,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 12,
                             ),
                           ),
                         ],
                       ),
-                      const Text(
+                      Text(
                         'STOPPED',
                         style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
@@ -1207,7 +1207,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                     children: [
                       Text(
                         _activeDog.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -1216,7 +1216,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                       const SizedBox(height: 2),
                       Text(
                         '${_activeDog.gender} • ${_activeDog.breed}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 12,
                         ),
@@ -1224,7 +1224,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                     ],
                   ),
                 ),
-                const Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey, size: 22),
+                Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey, size: 22),
               ],
             ),
           ),
@@ -1251,7 +1251,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
           const SizedBox(height: 24),
 
           // Heading
-          const Text(
+          Text(
             'No Supplements Recorded',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1268,7 +1268,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
             child: Text(
               'Keep track of your dog’s supplements, dosages and schedule, with a complete history over time.',
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 14,
                 height: 1.45,
@@ -1406,7 +1406,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'Add Supplement',
                             style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
@@ -1415,7 +1415,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                            icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1429,7 +1429,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                       const SizedBox(height: 14),
 
                       // Form Selector
-                      const Text(
+                      Text(
                         'SUPPLEMENT FORM',
                         style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
@@ -1555,7 +1555,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           "Record as Given",
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -1564,13 +1564,13 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                          icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
                     ),
                     const SizedBox(height: 6),
-                    const Text(
+                    Text(
                       'Tap to mark supplements as given today.',
                       style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                     ),
@@ -1598,7 +1598,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                                 children: [
                                   Text(
                                     item.name,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: AppColors.primaryTextOffWhite,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
@@ -1606,7 +1606,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                                   ),
                                   Text(
                                     '${item.dosage} • ${item.frequency}',
-                                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
+                                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
                                   ),
                                 ],
                               ),
@@ -1681,7 +1681,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                       Expanded(
                         child: Text(
                           item.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
@@ -1689,7 +1689,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                        icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1707,7 +1707,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                   _buildDetailRow('Brand', item.brand),
                   const SizedBox(height: 14),
 
-                  const Text(
+                  Text(
                     'CLINICAL NOTES & INGREDIENTS',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -1719,7 +1719,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                   const SizedBox(height: 6),
                   Text(
                     item.notes,
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
                   ),
                   const SizedBox(height: 24),
 
@@ -1730,7 +1730,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                         Expanded(
                           child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: AppColors.errorDestructive),
+                              side: BorderSide(color: AppColors.errorDestructive),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                               padding: const EdgeInsets.symmetric(vertical: 14),
                             ),
@@ -1741,7 +1741,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                                 item.stoppedDate = DateTime.now();
                               });
                             },
-                            child: const Text('Stop Supplement', style: TextStyle(color: AppColors.errorDestructive, fontSize: 13)),
+                            child: Text('Stop Supplement', style: TextStyle(color: AppColors.errorDestructive, fontSize: 13)),
                           ),
                         )
                       else
@@ -1801,8 +1801,8 @@ class _SupplementsScreenState extends State<SupplementsScreen>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
-          Text(value, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
+          Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+          Text(value, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
         ],
       ),
     );
@@ -1819,7 +1819,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 10,
             fontWeight: FontWeight.w700,
@@ -1837,10 +1837,10 @@ class _SupplementsScreenState extends State<SupplementsScreen>
           child: TextField(
             controller: controller,
             maxLines: maxLines,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+              hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
@@ -1871,7 +1871,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Select Dog Profile',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
                 ),
@@ -1907,8 +1907,8 @@ class _SupplementsScreenState extends State<SupplementsScreen>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(dog.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
-                                Text('${dog.gender} • ${dog.breed} • ${dog.age}', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                                Text(dog.name, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
+                                Text('${dog.gender} • ${dog.breed} • ${dog.age}', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                               ],
                             ),
                           ),
@@ -1943,7 +1943,7 @@ class _SupplementsScreenState extends State<SupplementsScreen>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Filter by Category',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
                 ),

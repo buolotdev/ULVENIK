@@ -100,7 +100,7 @@ class _NotificationsInboxScreenState extends State<NotificationsInboxScreen> {
         if (unread > 0 && !_showArchived)
           TextButton(
             onPressed: () => _inbox.change(() => _inbox.read.addAll(active.map((i) => i.id))),
-            child: const Text('Mark all as read', style: TextStyle(color: AppColors.primaryForestGreen, fontSize: 13)),
+            child: Text('Mark all as read', style: TextStyle(color: AppColors.primaryForestGreen, fontSize: 13)),
           ),
       ],
       body: ListView(
@@ -140,15 +140,15 @@ class _NotificationsInboxScreenState extends State<NotificationsInboxScreen> {
                       width: 8,
                       height: 8,
                       margin: const EdgeInsets.only(right: 10),
-                      decoration: const BoxDecoration(color: AppColors.primaryForestGreen, shape: BoxShape.circle),
+                      decoration: BoxDecoration(color: AppColors.primaryForestGreen, shape: BoxShape.circle),
                     ),
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(i.reminder.title,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                       Text('${i.dog} · ${i.reminder.type.label}',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
-                      Text(reminderWhen(i.reminder), style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                      Text(reminderWhen(i.reminder), style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                     ]),
                   ),
                   PopupMenuButton<String>(
@@ -167,11 +167,11 @@ class _NotificationsInboxScreenState extends State<NotificationsInboxScreen> {
                       PopupMenuItem(
                           value: 'read',
                           child: Text(_inbox.read.contains(i.id) ? 'Mark as unread' : 'Mark as read',
-                              style: const TextStyle(color: AppColors.primaryTextOffWhite))),
+                              style: TextStyle(color: AppColors.primaryTextOffWhite))),
                       PopupMenuItem(
                           value: 'archive',
                           child: Text(_inbox.archived.contains(i.id) ? 'Restore notification' : 'Archive notification',
-                              style: const TextStyle(color: AppColors.primaryTextOffWhite))),
+                              style: TextStyle(color: AppColors.primaryTextOffWhite))),
                     ],
                   ),
                 ]),

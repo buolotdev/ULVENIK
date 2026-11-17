@@ -73,17 +73,17 @@ class _WeightRecordsScreenState extends State<WeightRecordsScreen> {
               children: [
                 HealthCard(
                   child: Row(children: [
-                    const Icon(Icons.monitor_weight_outlined, color: kHealthGreen, size: 26),
+                    Icon(Icons.monitor_weight_outlined, color: kHealthGreen, size: 26),
                     const SizedBox(width: 14),
                     Expanded(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        const Text('Current Weight',
+                        Text('Current Weight',
                             style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                         Text('${fmtKg(double.parse(toPrefWeight(latest!.kg).toStringAsFixed(1)))} ${prefWeightUnit()}',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: AppColors.primaryTextOffWhite, fontSize: 26, fontWeight: FontWeight.w700)),
                         Text('Recorded ${fmtDate(latest.date)}',
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                       ]),
                     ),
                   ]),
@@ -96,7 +96,7 @@ class _WeightRecordsScreenState extends State<WeightRecordsScreen> {
                   child: SizedBox(
                     height: 200,
                     child: pts.isEmpty
-                        ? const Center(
+                        ? Center(
                             child: Text('No weights recorded in this period.',
                                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)))
                         : TrendChart(points: pts, format: (v) => '${fmtKg(double.parse(v.toStringAsFixed(1)))} ${prefWeightUnit()}'),
@@ -112,18 +112,18 @@ class _WeightRecordsScreenState extends State<WeightRecordsScreen> {
                       Expanded(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                           Text('${fmtKg(double.parse(toPrefWeight(w.kg).toStringAsFixed(1)))} ${prefWeightUnit()}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 2),
                           Text(fmtDate(w.date) + (w.time == null ? '' : ' · ${w.time}'),
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                           if (w.notes.trim().isNotEmpty)
                             Padding(
                               padding: const EdgeInsets.only(top: 4),
                               child: Text(w.notes,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                             ),
                         ]),
                       ),
@@ -205,7 +205,7 @@ class _WeightFormState extends State<_WeightForm> {
             controller: _weight,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             onChanged: (_) => _error == null ? null : setState(() => _error = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('e.g. 28.5', error: _error, suffix: _unit),
           ),
           const SizedBox(height: 10),
@@ -228,7 +228,7 @@ class _WeightFormState extends State<_WeightForm> {
                 if (_time != null)
                   GestureDetector(
                     onTap: () => setState(() => _time = null),
-                    child: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                    child: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                   ),
               ]),
             ),
@@ -238,7 +238,7 @@ class _WeightFormState extends State<_WeightForm> {
             controller: _notes,
             minLines: 3,
             maxLines: 5,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add notes...'),
           ),
         ],

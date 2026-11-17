@@ -176,7 +176,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'EDIT COMPETITION DETAILS',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -219,7 +219,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -287,7 +287,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 11.5,
             fontWeight: FontWeight.w600,
@@ -297,7 +297,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
         const SizedBox(height: 5),
         TextField(
           controller: ctrl,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.primaryTextOffWhite,
             fontSize: 13.8,
             fontFamily: 'Inter',
@@ -312,12 +312,12 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: AppColors.cardBorder),
+              borderSide: BorderSide(color: AppColors.cardBorder),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide:
-                  const BorderSide(color: AppColors.primaryForestGreen),
+                  BorderSide(color: AppColors.primaryForestGreen),
             ),
           ),
         ),
@@ -348,7 +348,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
             children: [
               Text(
                 _notes.isEmpty ? 'ADD COMPETITION NOTE' : 'COMPETITION NOTES',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -360,7 +360,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
               TextField(
                 controller: notesCtrl,
                 maxLines: 4,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
                   fontSize: 14,
                   height: 1.45,
@@ -368,7 +368,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                 ),
                 decoration: InputDecoration(
                   hintText: 'Add any additional notes about this competition…',
-                  hintStyle: const TextStyle(
+                  hintStyle: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 13.5,
                     fontFamily: 'Inter',
@@ -377,12 +377,12 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   fillColor: AppColors.backgroundObsidian,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: AppColors.cardBorder),
+                    borderSide: BorderSide(color: AppColors.cardBorder),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide:
-                        const BorderSide(color: AppColors.primaryForestGreen),
+                        BorderSide(color: AppColors.primaryForestGreen),
                   ),
                 ),
               ),
@@ -393,7 +393,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -472,7 +472,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                         children: [
                           Text(
                             doc.fileName,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -482,7 +482,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                           const SizedBox(height: 2),
                           Text(
                             doc.uploadedDate,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 12.5,
                               fontFamily: 'Inter',
@@ -504,7 +504,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   ),
                   child: Text(
                     doc.previewSummary,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 13.5,
                       height: 1.45,
@@ -519,7 +519,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -567,10 +567,10 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                 ),
                 const SizedBox(height: 12),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.edit,
+                  leading: UlvenikIcon(UlvenikIcons.edit,
                     color: AppColors.primaryTextOffWhite,
                   ),
-                  title: const Text(
+                  title: Text(
                     'Edit Competition',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -587,7 +587,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   leading: const Icon(Icons.upload_file_outlined,
                     color: Color(0xFF3BA383),
                   ),
-                  title: const Text(
+                  title: Text(
                     'Add Scorebook / Schedule PDF',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -616,14 +616,14 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.emoji_events_outlined,
+                  leading: Icon(Icons.emoji_events_outlined,
                     color: AppColors.infoAlpineBlue,
                   ),
                   title: Text(
                     comp.status.toLowerCase() == 'completed'
                         ? 'Update Recorded Result'
                         : 'Record Competition Result',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Inter',
@@ -702,7 +702,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
     return Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -716,13 +716,13 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                 Navigator.of(context).pop();
               }
             },
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
             tooltip: 'Back',
           ),
-          const Expanded(
+          Expanded(
             child: Center(
               child: Text(
                 'Competition Details',
@@ -737,7 +737,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
           ),
           IconButton(
             onPressed: () => _openMoreMenu(comp),
-            icon: const UlvenikIcon(UlvenikIcons.more,
+            icon: UlvenikIcon(UlvenikIcons.more,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
@@ -751,7 +751,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
   Widget _buildSectionLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.secondaryTextStoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -779,7 +779,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
         children: [
           Text(
             _title,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 21,
               fontWeight: FontWeight.w700,
@@ -798,7 +798,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                 ),
                 child: Text(
                   comp.sportTag.toUpperCase(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.infoAlpineBlue,
                     fontSize: 11.5,
                     fontWeight: FontWeight.w700,
@@ -809,7 +809,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
               const SizedBox(width: 8),
               Text(
                 '•  $_dateDisplay',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13.5,
                   fontFamily: 'Inter',
@@ -841,14 +841,14 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
           const SizedBox(height: 12),
           Row(
             children: [
-              const Icon(Icons.location_on_outlined,
+              Icon(Icons.location_on_outlined,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 15,
               ),
               const SizedBox(width: 5),
               Text(
                 _location,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13.5,
                   fontFamily: 'Inter',
@@ -893,7 +893,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   children: [
                     Text(
                       item.$1,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 13.5,
                         fontFamily: 'Inter',
@@ -904,7 +904,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                       child: Text(
                         item.$2,
                         textAlign: TextAlign.right,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 13.8,
                           fontWeight: FontWeight.w700,
@@ -944,12 +944,12 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
           ),
           child: Column(
             children: [
-              const Icon(Icons.emoji_events_outlined,
+              Icon(Icons.emoji_events_outlined,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 36,
               ),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 'No Result Recorded',
                 style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
@@ -965,7 +965,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -1000,7 +1000,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Pre-Trial Phase Readiness · Tap bar to inspect target',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -1124,7 +1124,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                     children: [
                       Text(
                         '${(total * _chartAnim.value).round()} / $max pts',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 24,
                           fontWeight: FontWeight.w700,
@@ -1187,7 +1187,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                             child: Center(
                               child: Text(
                                 '${(ph.$3 * _chartAnim.value).round()}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
@@ -1211,7 +1211,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                         ),
                         Text(
                           ph.$2,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 11,
                             fontFamily: 'Inter',
@@ -1242,7 +1242,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: AppColors.cardBorder),
         ),
-        child: const Text(
+        child: Text(
           'No qualifications or awards linked to this\ncompetition.',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -1283,7 +1283,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
               children: [
                 Text(
                   '$_entryClass · ${comp.qualificationResult ?? 'Qualified'}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 14.5,
                     fontWeight: FontWeight.w700,
@@ -1293,7 +1293,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                 const SizedBox(height: 3),
                 Text(
                   '$_organisation · $_dateDisplay',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12.5,
                     fontFamily: 'Inter',
@@ -1321,7 +1321,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'No notes added',
                 style: TextStyle(
@@ -1367,7 +1367,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
         children: [
           Text(
             _notes,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 13.8,
               height: 1.5,
@@ -1417,7 +1417,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.insert_drive_file_outlined,
+                      Icon(Icons.insert_drive_file_outlined,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 21,
                       ),
@@ -1428,7 +1428,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                           children: [
                             Text(
                               doc.fileName,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 14.5,
                                 fontWeight: FontWeight.w700,
@@ -1438,7 +1438,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
                             const SizedBox(height: 3),
                             Text(
                               doc.uploadedDate,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.secondaryTextStoneGrey,
                                 fontSize: 12.2,
                                 fontFamily: 'Inter',
@@ -1475,7 +1475,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
   ) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           top: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -1489,7 +1489,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: AppColors.cardBorder),
+                  side: BorderSide(color: AppColors.cardBorder),
                   backgroundColor: AppColors.cardsCarbon,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(11),
@@ -1514,7 +1514,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen>
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryForestGreen,
-                  foregroundColor: AppColors.primaryTextOffWhite,
+                  foregroundColor: AppColors.onForestGreen,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(11),

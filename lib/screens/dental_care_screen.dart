@@ -214,19 +214,19 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
         icon: const UlvenikIcon(UlvenikIcons.back, color: _mint, size: 22),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      title: const Text('Dental Care',
+      title: Text('Dental Care',
           style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
       centerTitle: false,
       actions: [
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: () {
             if (_isEmpty) _setEmpty(false);
             _searchFocusNode.requestFocus();
           },
         ),
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: _showFilterSheet,
         ),
         IconButton(
@@ -236,7 +236,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
           onPressed: () => _setEmpty(!_isEmpty),
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: _showAddSheet,
         ),
         const SizedBox(width: 4),
@@ -268,12 +268,12 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
           const SizedBox(height: 14),
           _searchBar(),
           const SizedBox(height: 24),
-          const Text('Recent Records',
+          Text('Recent Records',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           const SizedBox(height: 14),
           if (list.isEmpty)
             _card(
-              child: const Center(
+              child: Center(
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 12),
                   child: Text('No dental records match.',
@@ -318,13 +318,13 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(_dog.name,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 Text('${_dog.breed} · ${_dog.age}',
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
               ],
             ),
           ),
-          const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+          Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
         ],
       ),
     );
@@ -358,7 +358,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label,
-              style: const TextStyle(
+              style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.6)),
           const SizedBox(height: 4),
           Text(value,
@@ -386,7 +386,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('ACTIVE ISSUES',
+                    Text('ACTIVE ISSUES',
                         style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 11,
@@ -423,7 +423,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('CURRENT ORAL HEALTH',
+            Text('CURRENT ORAL HEALTH',
                 style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 11,
@@ -481,14 +481,14 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: _searchController,
               focusNode: _searchFocusNode,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
-              decoration: const InputDecoration(
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+              decoration: InputDecoration(
                 hintText: 'Search procedures, vet, dental notes...',
                 hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                 border: InputBorder.none,
@@ -505,7 +505,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                 _searchController.clear();
                 setState(() => _searchQuery = '');
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -550,11 +550,11 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(r.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500)),
                     const SizedBox(height: 2),
                     Text(r.subtitle,
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                   ],
                 ),
               ),
@@ -601,7 +601,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
 
   Widget _recordFooter(DentalRecord r, bool isIssue) {
     if (r.kind == DentalKind.homeCare) {
-      return Row(children: const [
+      return Row(children: [
         UlvenikIcon(UlvenikIcons.training, size: 14, color: AppColors.secondaryTextStoneGrey),
         SizedBox(width: 4),
         Text('Notes added', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
@@ -628,7 +628,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
       runSpacing: 4,
       children: [
         Text.rich(TextSpan(
-          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
+          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
           children: [
             const TextSpan(text: 'Oral Health: '),
             TextSpan(text: r.oralHealth, style: const TextStyle(color: _mint)),
@@ -652,7 +652,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('HOME CARE TODAY',
+              Text('HOME CARE TODAY',
                   style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 11,
@@ -717,7 +717,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
             UlvenikIcon.fromMaterial(icon, color: AppColors.primaryTextOffWhite, size: 20),
             const SizedBox(width: 8),
             Text(label,
-                style: const TextStyle(
+                style: TextStyle(
                     color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
           ],
         ),
@@ -745,14 +745,14 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(_dog.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                       Text('${_dog.breed} · ${_dog.age}',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                     ],
                   ),
                 ),
-                const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+                Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
               ]),
             ),
           ),
@@ -770,11 +770,11 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          const Text('No Dental Records',
+          Text('No Dental Records',
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w500)),
           const SizedBox(height: 12),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Text(
               'Keep track of your dog’s dental health, including professional procedures, home care and oral health records.',
@@ -790,7 +790,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
               padding: const EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(color: _forest, borderRadius: BorderRadius.circular(10)),
               alignment: Alignment.center,
-              child: const Text('Add Dental Record',
+              child: Text('Add Dental Record',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
             ),
           ),
@@ -816,11 +816,11 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
       children: [
         Expanded(
           child: Text(title,
-              style: const TextStyle(
+              style: TextStyle(
                   color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         ),
         IconButton(
-          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+          icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(ctx),
         ),
       ],
@@ -832,7 +832,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label,
-            style: const TextStyle(
+            style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey, fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
         const SizedBox(height: 6),
         Container(
@@ -845,10 +845,10 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
           child: TextField(
             controller: c,
             maxLines: lines,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+              hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
@@ -899,7 +899,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                   children: [
                     _sheetHeader(ctx, 'Add Dental Record'),
                     const SizedBox(height: 12),
-                    const Text('RECORD TYPE',
+                    Text('RECORD TYPE',
                         style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 10,
@@ -919,7 +919,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                     const SizedBox(height: 12),
                     _field('VET / CLINIC / ROUTINE', sub, 'e.g. City Vets, Dr. Sarah Connell'),
                     const SizedBox(height: 12),
-                    const Text('ORAL HEALTH ASSESSMENT',
+                    Text('ORAL HEALTH ASSESSMENT',
                         style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 10,
@@ -942,7 +942,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Follow-up required',
+                        Text('Follow-up required',
                             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                         Switch(
                           value: followUp,
@@ -993,7 +993,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _sheetHeader(ctx, r.title),
-                  Text(r.subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                  Text(r.subtitle, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                   const SizedBox(height: 12),
                   _kindBadge(r.kind),
                   const SizedBox(height: 16),
@@ -1002,7 +1002,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                   if (r.nextCheck != null) _row('Next Check', _fmt(r.nextCheck!)),
                   if (r.followUpRequired) _row('Follow-up', 'Required'),
                   const SizedBox(height: 12),
-                  const Text('NOTES',
+                  Text('NOTES',
                       style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 10,
@@ -1010,7 +1010,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                           letterSpacing: 0.5)),
                   const SizedBox(height: 4),
                   Text(r.notes.isEmpty ? 'No notes added.' : r.notes,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.4)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.4)),
                   const SizedBox(height: 24),
                   Row(children: [
                     Expanded(
@@ -1050,7 +1050,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                         },
                         child: Text(
                           r.kind == DentalKind.activeIssue ? 'Mark Resolved' : 'Close',
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite),
                         ),
                       ),
                     ),
@@ -1067,8 +1067,8 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(l, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
-            Text(v, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
+            Text(l, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+            Text(v, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
           ],
         ),
       );
@@ -1085,7 +1085,7 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                 children: [
                   _sheetHeader(ctx, 'Current Oral Health Assessment'),
                   const SizedBox(height: 8),
-                  const Text(
+                  Text(
                     'Select the current oral health assessment based on your observations or veterinary guidance.',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.5),
                   ),
@@ -1180,10 +1180,10 @@ class _DentalCareScreenState extends State<DentalCareScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(d.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
                               Text('${d.breed} · ${d.age}',
-                                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                             ],
                           ),
                         ),

@@ -53,12 +53,12 @@ class _SCActivityLibraryScreenState extends State<SCActivityLibraryScreen> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
             child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text('Sort Activities',
+              Text('Sort Activities',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               for (var i = 0; i < _sortLabels.length; i++)
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text(_sortLabels[i], style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                  title: Text(_sortLabels[i], style: TextStyle(color: AppColors.primaryTextOffWhite)),
                   trailing: _sort == i ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                   onTap: () {
                     setState(() => _sort = i);
@@ -79,7 +79,7 @@ class _SCActivityLibraryScreenState extends State<SCActivityLibraryScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
-                title: const Text('Archived Activities', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('Archived Activities', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   Navigator.push(context,
@@ -123,17 +123,17 @@ class _SCActivityLibraryScreenState extends State<SCActivityLibraryScreen> {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: const Text('Activity Library',
+        title: Text('Activity Library',
             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         leading: IconButton(
           tooltip: 'Back',
-          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+          icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
             tooltip: 'More',
-            icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+            icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
             onPressed: _openMenu,
           ),
         ],
@@ -143,7 +143,7 @@ class _SCActivityLibraryScreenState extends State<SCActivityLibraryScreen> {
           : FloatingActionButton.extended(
               onPressed: _add,
               backgroundColor: AppColors.primaryForestGreen,
-              foregroundColor: AppColors.primaryTextOffWhite,
+              foregroundColor: AppColors.onForestGreen,
               elevation: 0,
               icon: const UlvenikIcon(UlvenikIcons.add, size: 20),
               label: const Text('Add Activity', style: TextStyle(fontWeight: FontWeight.w600)),
@@ -169,17 +169,17 @@ class _SCActivityLibraryScreenState extends State<SCActivityLibraryScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.cardsCarbon,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.white12),
+                        border: Border.all(color: AppColors.cardBorder),
                       ),
                       child: Row(children: [
-                        const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 22),
+                        UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 22),
                         const SizedBox(width: 10),
                         Expanded(
                           child: TextField(
                             controller: _search,
                             cursorColor: AppColors.primaryForestGreen,
-                            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
-                            decoration: const InputDecoration(
+                            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                            decoration: InputDecoration(
                               hintText: 'Search activities...',
                               hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
                               border: InputBorder.none,
@@ -193,7 +193,7 @@ class _SCActivityLibraryScreenState extends State<SCActivityLibraryScreen> {
                         if (q.isNotEmpty)
                           GestureDetector(
                             onTap: _search.clear,
-                            child: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                            child: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                           ),
                       ]),
                     ),
@@ -203,11 +203,11 @@ class _SCActivityLibraryScreenState extends State<SCActivityLibraryScreen> {
                     height: 48,
                     child: OutlinedButton.icon(
                       onPressed: _showSort,
-                      icon: const UlvenikIcon(UlvenikIcons.sort, size: 18, color: AppColors.secondaryTextStoneGrey),
+                      icon: UlvenikIcon(UlvenikIcons.sort, size: 18, color: AppColors.secondaryTextStoneGrey),
                       label: const Text('Sort'),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryTextOffWhite,
-                        side: const BorderSide(color: Colors.white12),
+                        side: BorderSide(color: AppColors.cardBorder),
                         backgroundColor: AppColors.cardsCarbon,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
@@ -216,7 +216,7 @@ class _SCActivityLibraryScreenState extends State<SCActivityLibraryScreen> {
                 ]),
                 const SizedBox(height: 16),
                 if (list.isEmpty)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 32),
                     child: Center(
                       child: Text('No activities match your search.',
@@ -260,7 +260,7 @@ class SCActivityCard extends StatelessWidget {
           height: 44,
           decoration: BoxDecoration(
               color: AppColors.primaryForestGreen.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(10)),
-          child: const Padding(
+          child: Padding(
             padding: EdgeInsets.all(11),
             child: UlvenikIcon(UlvenikIcons.strengthConditioning, color: AppColors.secondarySage),
           ),
@@ -271,22 +271,22 @@ class SCActivityCard extends StatelessWidget {
             Text(activity.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
             if (activity.description.trim().isNotEmpty) ...[
               const SizedBox(height: 3),
               Text(activity.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.35)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.35)),
             ],
             const SizedBox(height: 6),
             Text(
               scSessionsLine(store.sessionCount(dogName, activity.id), store.lastTrained(dogName, activity.id)),
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
             ),
           ]),
         ),
-        trailing ?? const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+        trailing ?? UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
       ]),
     );
   }
@@ -328,7 +328,7 @@ class SCArchivedActivitiesScreen extends StatelessWidget {
                             store.setArchived(dogName, a.id, false);
                             AppSnackbar.show(context, message: 'Activity restored', type: SnackbarType.success);
                           },
-                          child: const Text('Restore',
+                          child: Text('Restore',
                               style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                         ),
                       ),

@@ -60,16 +60,16 @@ class ExportMyDataScreen extends StatefulWidget {
 }
 
 class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian;
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
-  static const Color _sage = AppColors.secondarySage;
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
+  static Color get _sage => AppColors.secondarySage;
   static const Color _sageMint = Color(0xFFB6CCB5);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue;
-  static const Color _bronze = AppColors.bronzeAccent;
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
-  static const Color _cardBorder = AppColors.cardBorder;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
+  static Color get _bronze => AppColors.bronzeAccent;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   List<_ScopeOption> get _packOptions => [
         if (widget.hasSportPack)
@@ -89,7 +89,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
   List<_ScopeGroup> get _groups {
     final packOpts = _packOptions;
     return [
-      const _ScopeGroup(
+      _ScopeGroup(
         id: 'account',
         title: 'Account',
         collapsedSubtitle:
@@ -134,7 +134,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
           ),
         ],
       ),
-      const _ScopeGroup(
+      _ScopeGroup(
         id: 'dogs',
         title: 'Dogs',
         collapsedSubtitle: 'Dog Profiles',
@@ -158,7 +158,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
           ),
         ],
       ),
-      const _ScopeGroup(
+      _ScopeGroup(
         id: 'training',
         title: 'Training',
         collapsedSubtitle: 'Training Records · S&C · Goals · Stats',
@@ -211,7 +211,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
           ),
         ],
       ),
-      const _ScopeGroup(
+      _ScopeGroup(
         id: 'media',
         title: 'Media & Documents',
         collapsedSubtitle: 'Photos · Videos · Documents · Notes · Timeline',
@@ -522,7 +522,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                     const SizedBox(height: 22),
                     _buildExportActionArea(totalMb),
                     const SizedBox(height: 14),
-                    const Center(
+                    Center(
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 18),
                         child: Text(
@@ -551,7 +551,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(8, 10, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -561,7 +561,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
@@ -569,7 +569,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
             constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
           ),
           const SizedBox(width: 6),
-          const Expanded(
+          Expanded(
             child: Text(
               'Export My Data',
               style: TextStyle(
@@ -594,7 +594,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: _cardBorder),
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -732,7 +732,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                           children: [
                             Text(
                               group.title,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
@@ -769,7 +769,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                             group.collapsedSubtitle,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 12.5,
                               color: _stoneGrey,
@@ -855,7 +855,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                 ),
               ),
               child: checked
-                  ? const Icon(Icons.check_rounded,
+                  ? Icon(Icons.check_rounded,
                       size: 14,
                       color: _offWhite,
                     )
@@ -955,7 +955,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                   const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 12.5,
                       height: 1.4,
@@ -1063,7 +1063,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                   const SizedBox(height: 3),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 12.5,
                       color: _stoneGrey,
@@ -1096,7 +1096,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
             children: [
               Text(
                 'Estimated export size: ${_formatSize(totalMb)}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 12.5,
                   fontWeight: FontWeight.w500,
@@ -1200,7 +1200,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
               padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -1271,7 +1271,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'SELECT EXPORT WINDOW',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -1352,7 +1352,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                   size: 19,
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1404,7 +1404,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'ARCHIVE ENCRYPTION PASSWORD',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -1418,7 +1418,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                   TextField(
                     controller: _archivePasswordController,
                     obscureText: _obscureArchivePassword,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 14.5,
                       color: _offWhite,
@@ -1438,11 +1438,11 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _cardBorder),
+                        borderSide: BorderSide(color: _cardBorder),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
+                        borderSide: BorderSide(
                           color: _forest,
                           width: 1.4,
                         ),
@@ -1487,7 +1487,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
           children: [
             Row(
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 18,
                   height: 18,
                   child: CircularProgressIndicator(
@@ -1496,7 +1496,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Preparing Secure Export...',
                     style: TextStyle(
@@ -1525,13 +1525,13 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                 value: _exportProgress,
                 minHeight: 7,
                 backgroundColor: _obsidian,
-                valueColor: const AlwaysStoppedAnimation<Color>(_forest),
+                valueColor: AlwaysStoppedAnimation<Color>(_forest),
               ),
             ),
             const SizedBox(height: 10),
             Text(
               _exportStepLabel,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 12.5,
                 color: _stoneGrey,
@@ -1573,7 +1573,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Archive Ready to Download',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -1662,7 +1662,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                   child: OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: _stoneGrey,
-                      side: const BorderSide(color: _cardBorder),
+                      side: BorderSide(color: _cardBorder),
                       padding: const EdgeInsets.symmetric(vertical: 11),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(11),
@@ -1698,7 +1698,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
                   child: OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
                       foregroundColor: _stoneGrey,
-                      side: const BorderSide(color: _cardBorder),
+                      side: BorderSide(color: _cardBorder),
                       padding: const EdgeInsets.symmetric(vertical: 11),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(11),
@@ -1765,7 +1765,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
               child: Container(
                 width: 8.5,
                 height: 8.5,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: _forest,
                   shape: BoxShape.circle,
                 ),
@@ -1787,7 +1787,7 @@ class _ExportMyDataScreenState extends State<ExportMyDataScreen> {
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,

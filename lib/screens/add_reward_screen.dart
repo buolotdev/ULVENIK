@@ -152,7 +152,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
       padding: EdgeInsets.only(bottom: bottomInset),
       child: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
           border: Border(
@@ -186,7 +186,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Add Reward',
                         style: TextStyle(
@@ -201,7 +201,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                     GestureDetector(
                       onTap: () => Navigator.of(context).maybePop(),
                       behavior: HitTestBehavior.opaque,
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(4),
                         child: Icon(
                           Icons.close_rounded,
@@ -215,7 +215,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                 const SizedBox(height: 4),
                 Text(
                   'Rewards are personal to $dogName.',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
@@ -225,7 +225,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                 const SizedBox(height: 26),
 
                 // REWARD NAME
-                const Text(
+                Text(
                   'REWARD NAME',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -243,7 +243,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                       setState(() => _nameError = null);
                     }
                   },
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -268,7 +268,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                         width: 1.1,
                       ),
                     ),
-                    focusedBorder: const UnderlineInputBorder(
+                    focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.primaryForestGreen,
                         width: 1.6,
@@ -279,7 +279,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                 const SizedBox(height: 26),
 
                 // REWARD TYPE
-                const Text(
+                Text(
                   'REWARD TYPE',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -290,7 +290,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Select from your types or create a new one.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -348,12 +348,12 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                             controller: _newTypeController,
                             autofocus: true,
                             onSubmitted: (_) => _handleCreateNewType(),
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 14,
                               color: AppColors.primaryTextOffWhite,
                             ),
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               hintText: 'New type name (e.g. Scent Pad)',
                               hintStyle: TextStyle(
                                 fontFamily: 'Inter',
@@ -377,7 +377,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                               color: AppColors.primaryForestGreen,
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Text(
+                            child: Text(
                               'Add',
                               style: TextStyle(
                                 fontFamily: 'Inter',
@@ -396,7 +396,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                 const SizedBox(height: 26),
 
                 // DESCRIPTION
-                const Text(
+                Text(
                   'DESCRIPTION',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -407,7 +407,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Optional. Enter your own notes about this reward.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -421,7 +421,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                   controller: _descController,
                   minLines: 2,
                   maxLines: 3,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 14.5,
                     color: AppColors.primaryTextOffWhite,
@@ -443,7 +443,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                         width: 1,
                       ),
                     ),
-                    focusedBorder: const UnderlineInputBorder(
+                    focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.primaryForestGreen,
                         width: 1.4,
@@ -462,7 +462,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                     onPressed: _handleSave,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
@@ -493,7 +493,7 @@ class _AddRewardSheetState extends State<AddRewardSheet> {
                         borderRadius: BorderRadius.circular(14),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Cancel',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -593,7 +593,7 @@ class _RewardTypePill extends StatelessWidget {
             ),
             if (isSelected) ...[
               const SizedBox(width: 7),
-              const Icon(Icons.check_rounded,
+              Icon(Icons.check_rounded,
                 size: 15,
                 color: AppColors.primaryForestGreen,
               ),
@@ -618,7 +618,7 @@ class _DashedNewTypePill extends StatelessWidget {
         painter: _DashedStadiumPainter(
           color: AppColors.primaryForestGreen.withValues(alpha: 0.85),
         ),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
           child: Text(
             '+ New Type',

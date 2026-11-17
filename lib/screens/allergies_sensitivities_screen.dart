@@ -324,11 +324,11 @@ class _AllergiesSensitivitiesScreenState
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: Color(0xFF95D3BB), size: 22),
+        icon: UlvenikIcon(UlvenikIcons.back, color: Color(0xFF95D3BB), size: 22),
         onPressed: () => Navigator.of(context).maybePop(),
         tooltip: 'Back',
       ),
-      title: const Text(
+      title: Text(
         'Allergies & Sensitivities',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -340,7 +340,7 @@ class _AllergiesSensitivitiesScreenState
       centerTitle: false,
       actions: [
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          icon: UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           tooltip: 'Search Allergies',
           onPressed: () {
             if (_isEmpty) _toggleEmptyState(false);
@@ -348,7 +348,7 @@ class _AllergiesSensitivitiesScreenState
           },
         ),
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 20),
+          icon: Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 20),
           tooltip: 'Filter Allergies',
           onPressed: _showFilterOptionsModal,
         ),
@@ -356,18 +356,18 @@ class _AllergiesSensitivitiesScreenState
         IconButton(
           icon: UlvenikIcon.fromMaterial(
             _isEmpty ? Icons.toggle_off_outlined : Icons.toggle_on,
-            color: _isEmpty ? AppColors.secondaryTextStoneGrey : const Color(0xFF95D3BB),
+            color: _isEmpty ? AppColors.secondaryTextStoneGrey : Color(0xFF95D3BB),
             size: 26,
           ),
           tooltip: _isEmpty ? 'Switch to Populated State' : 'Switch to Empty State',
           onPressed: () => _toggleEmptyState(!_isEmpty),
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.add, color: Color(0xFF95D3BB), size: 22),
+          icon: UlvenikIcon(UlvenikIcons.add, color: Color(0xFF95D3BB), size: 22),
           tooltip: 'Add Allergy or Sensitivity',
           onPressed: _showAddAllergyModal,
         ),
-        const SizedBox(width: 4),
+        SizedBox(width: 4),
       ],
     );
   }
@@ -387,38 +387,38 @@ class _AllergiesSensitivitiesScreenState
   // ==========================================
   Widget _buildPopulatedView() {
     return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 100),
+      physics: BouncingScrollPhysics(),
+      padding: EdgeInsets.fromLTRB(20, 12, 20, 100),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // 1. Dog Selector Card
           _buildDogSelectorCard(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
 
           // 2. Summary Grid (3x2, 6 boxes)
           _buildSummaryGrid(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
 
           // 3. Flare-Up & Reaction Trend Chart (Animated & Interactive)
           _buildFlareUpTrendCard(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
 
           // 4. Interactive Filter Chips
           _buildFilterChips(),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
 
           // 5. Dedicated Form Search Bar (Zero underline)
           _buildSearchBar(),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
 
           // 6. Confirmed Allergies List
           _buildConfirmedListSection(),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
 
           // 7. Suspected Allergies List
           _buildSuspectedListSection(),
-          const SizedBox(height: 40),
+          SizedBox(height: 40),
         ],
       ),
     );
@@ -432,7 +432,7 @@ class _AllergiesSensitivitiesScreenState
       onTap: _showDogSwitcherModal,
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        padding: const EdgeInsets.all(14),
+        padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           borderRadius: BorderRadius.circular(10),
@@ -441,23 +441,23 @@ class _AllergiesSensitivitiesScreenState
         child: Row(
           children: [
             _buildDogAvatar(_activeDog.avatarUrl, size: 44),
-            const SizedBox(width: 14),
+            SizedBox(width: 14),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     _activeDog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  SizedBox(height: 2),
                   Text(
                     '${_activeDog.breed} • ${_activeDog.age}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -465,7 +465,7 @@ class _AllergiesSensitivitiesScreenState
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details, color: Color(0xFFB6CCB5), size: 22),
+            UlvenikIcon(UlvenikIcons.details, color: Color(0xFFB6CCB5), size: 22),
           ],
         ),
       ),
@@ -478,7 +478,7 @@ class _AllergiesSensitivitiesScreenState
   Widget _buildSummaryGrid() {
     return LayoutBuilder(
       builder: (context, constraints) {
-        const spacing = 10.0;
+        final spacing = 10.0;
         final itemWidth = (constraints.maxWidth - (spacing * 2)) / 3;
 
         return Column(
@@ -494,7 +494,7 @@ class _AllergiesSensitivitiesScreenState
                     onTap: () => setState(() => _selectedFilter = 'Confirmed'),
                   ),
                 ),
-                const SizedBox(width: spacing),
+                SizedBox(width: spacing),
                 SizedBox(
                   width: itemWidth,
                   child: _buildSummaryBox(
@@ -503,20 +503,20 @@ class _AllergiesSensitivitiesScreenState
                     onTap: () => setState(() => _selectedFilter = 'Suspected'),
                   ),
                 ),
-                const SizedBox(width: spacing),
+                SizedBox(width: spacing),
                 SizedBox(
                   width: itemWidth,
                   child: _buildSummaryBox(
                     valueText: '$_severeCount',
                     label: 'SEVERE',
-                    textColor: const Color(0xFF8B3A3A),
-                    bottomBorderColor: const Color(0xFF8B3A3A),
+                    textColor: Color(0xFF8B3A3A),
+                    bottomBorderColor: Color(0xFF8B3A3A),
                     onTap: () {},
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: spacing),
+            SizedBox(height: spacing),
             // Bottom Row: Food, Environmental, Meds
             Row(
               children: [
@@ -529,7 +529,7 @@ class _AllergiesSensitivitiesScreenState
                     onTap: () => setState(() => _selectedFilter = 'Food'),
                   ),
                 ),
-                const SizedBox(width: spacing),
+                SizedBox(width: spacing),
                 SizedBox(
                   width: itemWidth,
                   child: _buildSummaryBox(
@@ -539,7 +539,7 @@ class _AllergiesSensitivitiesScreenState
                     onTap: () => setState(() => _selectedFilter = 'Environmental'),
                   ),
                 ),
-                const SizedBox(width: spacing),
+                SizedBox(width: spacing),
                 SizedBox(
                   width: itemWidth,
                   child: _buildSummaryBox(
@@ -561,10 +561,11 @@ class _AllergiesSensitivitiesScreenState
     IconData? icon,
     required String valueText,
     required String label,
-    Color textColor = AppColors.primaryTextOffWhite,
+    Color? textColor,
     Color? bottomBorderColor,
     VoidCallback? onTap,
   }) {
+    textColor ??= AppColors.primaryTextOffWhite;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
@@ -647,7 +648,7 @@ class _AllergiesSensitivitiesScreenState
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Reaction & Flare-Up Trend',
                 style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
@@ -662,7 +663,7 @@ class _AllergiesSensitivitiesScreenState
                 },
                 borderRadius: BorderRadius.circular(4),
                 child: Row(
-                  children: const [
+                  children: [
                     Text(
                       'Last 6 Months',
                       style: TextStyle(
@@ -711,7 +712,7 @@ class _AllergiesSensitivitiesScreenState
                 const SizedBox(width: 8),
                 Text(
                   '${activePoint.month}: ',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -737,7 +738,7 @@ class _AllergiesSensitivitiesScreenState
                 Expanded(
                   child: Text(
                     activePoint.description,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 11,
                     ),
@@ -772,7 +773,7 @@ class _AllergiesSensitivitiesScreenState
                       bottom: 22,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text('High', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
                           Text('Mod', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
                           Text('Low', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
@@ -971,17 +972,17 @@ class _AllergiesSensitivitiesScreenState
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: _searchController,
               focusNode: _searchFocusNode,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 14,
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Search allergies, symptoms, reactions...',
                 hintStyle: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -1009,7 +1010,7 @@ class _AllergiesSensitivitiesScreenState
                   _searchQuery = '';
                 });
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -1030,7 +1031,7 @@ class _AllergiesSensitivitiesScreenState
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
             'No confirmed allergies match current criteria.',
             style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
@@ -1044,7 +1045,7 @@ class _AllergiesSensitivitiesScreenState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 4),
           child: Text(
             'CONFIRMED ALLERGIES',
@@ -1149,7 +1150,7 @@ class _AllergiesSensitivitiesScreenState
                               children: [
                                 Text(
                                   item.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 17,
                                     fontWeight: FontWeight.w600,
@@ -1214,7 +1215,7 @@ class _AllergiesSensitivitiesScreenState
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   'Last Reaction',
                                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
                                 ),
@@ -1223,7 +1224,7 @@ class _AllergiesSensitivitiesScreenState
                                   item.lastReactionDate != null
                                       ? _formatDate(item.lastReactionDate!)
                                       : 'None recorded',
-                                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
+                                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
                                 ),
                               ],
                             ),
@@ -1231,14 +1232,14 @@ class _AllergiesSensitivitiesScreenState
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  const Text(
+                                  Text(
                                     'History',
                                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
                                   ),
                                   const SizedBox(height: 2),
                                   Text(
                                     '${item.reactionHistoryCount} recorded',
-                                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
+                                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
                                   ),
                                 ],
                               ),
@@ -1271,7 +1272,7 @@ class _AllergiesSensitivitiesScreenState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 4),
           child: Text(
             'SUSPECTED',
@@ -1332,7 +1333,7 @@ class _AllergiesSensitivitiesScreenState
                   children: [
                     Text(
                       item.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -1341,7 +1342,7 @@ class _AllergiesSensitivitiesScreenState
                     const SizedBox(height: 2),
                     Text(
                       typeLabel,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 12,
                       ),
@@ -1356,7 +1357,7 @@ class _AllergiesSensitivitiesScreenState
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
               ),
-              child: const Text(
+              child: Text(
                 'SUSPECTED',
                 style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -1442,7 +1443,7 @@ class _AllergiesSensitivitiesScreenState
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Current Profile',
                         style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
@@ -1452,7 +1453,7 @@ class _AllergiesSensitivitiesScreenState
                       const SizedBox(height: 2),
                       Text(
                         _activeDog.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -1461,7 +1462,7 @@ class _AllergiesSensitivitiesScreenState
                     ],
                   ),
                 ),
-                const Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+                Icon(Icons.unfold_more, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),
@@ -1486,7 +1487,7 @@ class _AllergiesSensitivitiesScreenState
           const SizedBox(height: 24),
 
           // Heading
-          const Text(
+          Text(
             'No Allergies or Sensitivities Recorded',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1503,7 +1504,7 @@ class _AllergiesSensitivitiesScreenState
             child: Text(
               'Record allergies and sensitivities to keep important health information organised and accessible.',
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 14,
                 height: 1.45,
@@ -1630,7 +1631,7 @@ class _AllergiesSensitivitiesScreenState
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'Add Allergy or Sensitivity',
                             style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
@@ -1639,7 +1640,7 @@ class _AllergiesSensitivitiesScreenState
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                            icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1650,7 +1651,7 @@ class _AllergiesSensitivitiesScreenState
                       const SizedBox(height: 14),
 
                       // Allergen Type
-                      const Text(
+                      Text(
                         'TYPE / CATEGORY',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.5),
                       ),
@@ -1667,7 +1668,7 @@ class _AllergiesSensitivitiesScreenState
                       const SizedBox(height: 14),
 
                       // Severity
-                      const Text(
+                      Text(
                         'SEVERITY LEVEL',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.5),
                       ),
@@ -1684,7 +1685,7 @@ class _AllergiesSensitivitiesScreenState
                       const SizedBox(height: 14),
 
                       // Status
-                      const Text(
+                      Text(
                         'DIAGNOSIS STATUS',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.5),
                       ),
@@ -1818,7 +1819,7 @@ class _AllergiesSensitivitiesScreenState
                       Expanded(
                         child: Text(
                           item.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
@@ -1826,7 +1827,7 @@ class _AllergiesSensitivitiesScreenState
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                        icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1892,27 +1893,27 @@ class _AllergiesSensitivitiesScreenState
                         const SizedBox(height: 8),
                         Text(
                           item.emergencyProtocol,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.4),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.4),
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 14),
 
-                  const Text(
+                  Text(
                     'SYMPTOMS',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.5),
                   ),
                   const SizedBox(height: 4),
-                  Text(item.symptoms, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.4)),
+                  Text(item.symptoms, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.4)),
                   const SizedBox(height: 12),
 
-                  const Text(
+                  Text(
                     'CLINICAL NOTES',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.5),
                   ),
                   const SizedBox(height: 4),
-                  Text(item.notes, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4)),
+                  Text(item.notes, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4)),
                   const SizedBox(height: 24),
 
                   // Actions
@@ -1984,8 +1985,8 @@ class _AllergiesSensitivitiesScreenState
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
-          Text(value, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
+          Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+          Text(value, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
         ],
       ),
     );
@@ -2002,7 +2003,7 @@ class _AllergiesSensitivitiesScreenState
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 10,
             fontWeight: FontWeight.w700,
@@ -2020,10 +2021,10 @@ class _AllergiesSensitivitiesScreenState
           child: TextField(
             controller: controller,
             maxLines: maxLines,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+              hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
@@ -2051,7 +2052,7 @@ class _AllergiesSensitivitiesScreenState
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Select Dog Profile',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
                 ),
@@ -2087,8 +2088,8 @@ class _AllergiesSensitivitiesScreenState
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(dog.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
-                                Text('${dog.breed} • ${dog.age}', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                                Text(dog.name, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
+                                Text('${dog.breed} • ${dog.age}', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                               ],
                             ),
                           ),
@@ -2123,7 +2124,7 @@ class _AllergiesSensitivitiesScreenState
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Filter by Category',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
                 ),

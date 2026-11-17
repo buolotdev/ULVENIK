@@ -58,13 +58,13 @@ class PhotoViewerScreen extends StatefulWidget {
 }
 
 class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
-  static const Color _black = AppColors.mediaViewerBackground; // #000000
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
-  static const Color _cardBorder = AppColors.cardBorder;
-  static const Color _favGold = AppColors.favouriteGold; // #B8920A
+  static Color get _black => AppColors.mediaViewerBackground; // #000000
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _favGold => AppColors.favouriteGold; // #B8920A
 
   late final PageController _pageController;
   final TransformationController _zoomController = TransformationController();
@@ -378,7 +378,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Row(
+                Row(
                   children: [
                     Icon(Icons.camera_outlined, color: _forest, size: 20),
                     SizedBox(width: 8),
@@ -421,7 +421,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
             width: 142,
             child: Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 12.5,
                 color: _stoneGrey,
@@ -431,7 +431,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 12.5,
                 fontWeight: FontWeight.w600,
@@ -462,7 +462,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
               children: [
                 Text(
                   'Training Session — ${item.fullDate}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -472,7 +472,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 const SizedBox(height: 6),
                 Text(
                   '${item.activity} · 45 min · ${item.dogName}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     color: _stoneGrey,
@@ -488,7 +488,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                   ),
                   child: Text(
                     item.notes,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 13,
                       height: 1.45,
@@ -526,7 +526,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Edit Photo Notes',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -539,7 +539,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
               TextField(
                 controller: controller,
                 maxLines: 4,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14,
                   color: _offWhite,
@@ -549,7 +549,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                   fillColor: _black,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _cardBorder),
+                    borderSide: BorderSide(color: _cardBorder),
                   ),
                 ),
               ),
@@ -616,8 +616,8 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 const SizedBox(height: 10),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const UlvenikIcon(UlvenikIcons.edit, color: _offWhite),
-                  title: const Text(
+                  leading: UlvenikIcon(UlvenikIcons.edit, color: _offWhite),
+                  title: Text(
                     'Edit Photo Notes',
                     style: TextStyle(fontFamily: 'Inter', color: _offWhite),
                   ),
@@ -628,8 +628,8 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.info_outline_rounded, color: _offWhite),
-                  title: const Text(
+                  leading: Icon(Icons.info_outline_rounded, color: _offWhite),
+                  title: Text(
                     'View EXIF & Camera Info',
                     style: TextStyle(fontFamily: 'Inter', color: _offWhite),
                   ),
@@ -640,10 +640,10 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.zoom_in_rounded, color: _offWhite),
+                  leading: Icon(Icons.zoom_in_rounded, color: _offWhite),
                   title: Text(
                     _isZoomed ? 'Reset Photo Zoom (1×)' : 'Zoom In Photo (2.2×)',
-                    style: const TextStyle(fontFamily: 'Inter', color: _offWhite),
+                    style: TextStyle(fontFamily: 'Inter', color: _offWhite),
                   ),
                   onTap: () {
                     Navigator.pop(ctx);
@@ -665,7 +665,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
       builder: (ctx) => AlertDialog(
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text(
+        title: Text(
           'Delete Photo?',
           style: TextStyle(
             fontFamily: 'Inter',
@@ -675,7 +675,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
         ),
         content: Text(
           'Remove "${item.cardTitle}" from your Media Library?',
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 13.5,
             color: _stoneGrey,
@@ -684,7 +684,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text(
+            child: Text(
               'Cancel',
               style: TextStyle(fontFamily: 'Inter', color: _stoneGrey),
             ),
@@ -709,7 +709,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 type: SnackbarType.warning,
               );
             },
-            child: const Text(
+            child: Text(
               'Delete',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -759,7 +759,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                         _buildSectionLabel('NOTES'),
                         GestureDetector(
                           onTap: _showEditNotesSheet,
-                          child: const Text(
+                          child: Text(
                             'Edit',
                             style: TextStyle(
                               fontFamily: 'Inter',
@@ -861,7 +861,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
               children: [
                 IconButton(
                   onPressed: () => Navigator.of(context).maybePop(),
-                  icon: const UlvenikIcon(UlvenikIcons.back,
+                  icon: UlvenikIcon(UlvenikIcons.back,
                     color: _offWhite,
                     size: 26,
                   ),
@@ -873,7 +873,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                     textAlign: TextAlign.center,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -883,7 +883,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                 ),
                 IconButton(
                   onPressed: _showOverflowSheet,
-                  icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                  icon: UlvenikIcon(UlvenikIcons.overflowMenu,
                     color: _offWhite,
                     size: 20,
                   ),
@@ -938,7 +938,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
               ),
               child: Text(
                 '${_currentIndex + 1} of ${_slides.length}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 11.5,
                   fontWeight: FontWeight.w600,
@@ -966,7 +966,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
         children: [
           Text(
             slide.cardTitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 17.5,
               fontWeight: FontWeight.w700,
@@ -999,7 +999,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
               children: [
                 Text(
                   slide.dimensionsAndSize,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 12.5,
                     fontWeight: FontWeight.w500,
@@ -1014,7 +1014,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                       color: _stoneGrey.withValues(alpha: 0.85),
                     ),
                     const SizedBox(width: 4),
-                    const Text(
+                    Text(
                       'EXIF',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1039,7 +1039,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 10.5,
             fontWeight: FontWeight.w600,
@@ -1050,7 +1050,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
         const SizedBox(height: 4),
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 14.5,
             fontWeight: FontWeight.w600,
@@ -1156,7 +1156,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
             const SizedBox(height: 6),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 10.5,
                 fontWeight: FontWeight.w500,
@@ -1172,7 +1172,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
   Widget _buildSectionLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: 'Inter',
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -1197,7 +1197,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
           ),
           child: Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.training,
+              UlvenikIcon(UlvenikIcons.training,
                 color: _stoneGrey,
                 size: 21,
               ),
@@ -1208,7 +1208,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                   children: [
                     Text(
                       'Training Session — ${slide.fullDate}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -1218,7 +1218,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                     const SizedBox(height: 3),
                     Text(
                       '${slide.activity} · 45 min · ${slide.dogName}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12.5,
                         color: _stoneGrey,
@@ -1227,7 +1227,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -1249,7 +1249,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
       ),
       child: Text(
         slide.notes,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 13.5,
           height: 1.5,
@@ -1354,7 +1354,7 @@ class _PhotoViewerScreenState extends State<PhotoViewerScreen> {
                         ),
                         child: Text(
                           item.shortDate,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 10,
                             fontWeight: FontWeight.w600,

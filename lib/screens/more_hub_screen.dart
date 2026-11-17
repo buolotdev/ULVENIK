@@ -96,13 +96,13 @@ class _MoreHubScreenState extends State<MoreHubScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 4, bottom: 8),
             child: Text(title,
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600)),
           ),
           Container(
             decoration: BoxDecoration(
               color: AppColors.cardsCarbon,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
             ),
             child: Column(children: [
               for (var i = 0; i < rows.length; i++) ...[
@@ -128,7 +128,7 @@ class _MoreHubScreenState extends State<MoreHubScreen> {
             surfaceTintColor: Colors.transparent,
             elevation: 0,
             automaticallyImplyLeading: false,
-            title: const Text('More',
+            title: Text('More',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
           ),
           body: ListView(
@@ -144,12 +144,12 @@ class _MoreHubScreenState extends State<MoreHubScreen> {
                       height: 52,
                       child: s.photoPath.isNotEmpty
                           ? Image.file(File(s.photoPath),
-                              fit: BoxFit.cover, errorBuilder: (_, _, _) => const ColoredBox(color: AppColors.backgroundObsidian))
+                              fit: BoxFit.cover, errorBuilder: (_, _, _) => ColoredBox(color: AppColors.backgroundObsidian))
                           : ColoredBox(
                               color: AppColors.backgroundObsidian,
                               child: Center(
                                 child: Text(name.isEmpty ? '?' : name[0].toUpperCase(),
-                                    style: const TextStyle(color: AppColors.secondarySage, fontSize: 20, fontWeight: FontWeight.w700)),
+                                    style: TextStyle(color: AppColors.secondarySage, fontSize: 20, fontWeight: FontWeight.w700)),
                               ),
                             ),
                     ),
@@ -158,24 +158,24 @@ class _MoreHubScreenState extends State<MoreHubScreen> {
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(name.isEmpty ? 'Add your name' : name,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
-                      const Text('My Profile', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
+                      Text('My Profile', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                     ]),
                   ),
-                  const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+                  Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
                 ]),
               ),
               const SizedBox(height: 14),
               TextField(
                 controller: _q,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                 decoration: healthDecoration('Search settings and tools...').copyWith(
-                  prefixIcon: const Icon(Icons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
+                  prefixIcon: Icon(Icons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
                   suffixIcon: _q.text.isEmpty
                       ? null
                       : IconButton(
                           tooltip: 'Clear search',
-                          icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                          icon: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                           onPressed: _q.clear,
                         ),
                 ),
@@ -215,7 +215,7 @@ class _MoreHubScreenState extends State<MoreHubScreen> {
                 ?_row(icon: Icons.code, title: 'Open Source Licences', onTap: () => _go(context, const OpenSourceLicencesScreen())),
               ]),
               if (_q.text.trim().isNotEmpty && !_allTitles.any((t) => t.toLowerCase().contains(_q.text.trim().toLowerCase())))
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(vertical: 24),
                   child: Center(
                     child: Text('No settings or tools match your search.',
@@ -227,7 +227,7 @@ class _MoreHubScreenState extends State<MoreHubScreen> {
                 builder: (context, snap) => snap.hasData
                     ? Center(
                         child: Text('Version ${snap.data!.version} (${snap.data!.buildNumber})',
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                       )
                     : const SizedBox.shrink(),
               ),
@@ -254,7 +254,7 @@ class _HelpSupportScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.cardsCarbon,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
             ),
             child: Column(children: [
               moreRow(icon: Icons.menu_book_outlined, title: 'Help Centre', onTap: () => go(const HelpCentreScreen())),

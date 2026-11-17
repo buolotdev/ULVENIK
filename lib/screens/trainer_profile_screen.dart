@@ -53,14 +53,14 @@ class TrainerProfileScreen extends StatefulWidget {
 
 class _TrainerProfileScreenState extends State<TrainerProfileScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
-  static const Color _sage = AppColors.secondarySage; // #7A8F7A
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _cardBg => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
+  static Color get _sage => AppColors.secondarySage; // #7A8F7A
   static const Color _mintBright = Color(0xFFB1F0D6);
-  static const Color _textPrimary = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _textSecondary = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _border = AppColors.cardBorder; // rgba(255,255,255,0.08)
+  static Color get _textPrimary => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _border => AppColors.cardBorder; // rgba(255,255,255,0.08)
 
   late final AnimationController _animController;
   late final Animation<double> _curvedAnim;
@@ -138,7 +138,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Edit Trainer & Business Identity',
                       style: TextStyle(
                         color: _textPrimary,
@@ -268,29 +268,29 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
     return TextField(
       controller: controller,
       maxLines: maxLines,
-      style: const TextStyle(
+      style: TextStyle(
         color: _textPrimary,
         fontSize: 13.5,
         fontFamily: 'Inter',
       ),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: _textSecondary, fontSize: 12),
+        labelStyle: TextStyle(color: _textSecondary, fontSize: 12),
         filled: true,
         fillColor: const Color(0xFF21272A),
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: _border),
+          borderSide: BorderSide(color: _border),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: _border),
+          borderSide: BorderSide(color: _border),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: _forest),
+          borderSide: BorderSide(color: _forest),
         ),
       ),
     );
@@ -331,7 +331,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Add Qualification',
                 style: TextStyle(
                   color: _textPrimary,
@@ -423,7 +423,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Add Service Offering',
                 style: TextStyle(
                   color: _textPrimary,
@@ -541,7 +541,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                               children: [
                                 Text(
                                   qual.title,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _textPrimary,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,
@@ -550,7 +550,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                                 const SizedBox(height: 2),
                                 Text(
                                   qual.body,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _textSecondary,
                                     fontSize: 12.5,
                                   ),
@@ -581,14 +581,14 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                         ],
                       ),
                       const SizedBox(height: 14),
-                      const Divider(color: _border, height: 1),
+                      Divider(color: _border, height: 1),
                       const SizedBox(height: 12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Status: ${qual.yearLabel}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _textSecondary,
                               fontSize: 12,
                             ),
@@ -681,7 +681,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                 children: [
                   Text(
                     service.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textPrimary,
                       fontSize: 17,
                       fontWeight: FontWeight.w700,
@@ -817,7 +817,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
   Widget _buildTopBar(TrainerBusinessProfile business) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _bg,
         border: Border(
           bottom: BorderSide(color: _border, width: 1),
@@ -829,12 +829,12 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 26,
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Text(
               'Trainer Profile',
               textAlign: TextAlign.center,
@@ -851,7 +851,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
             tooltip: 'Edit Trainer Profile',
             visualDensity: VisualDensity.compact,
             onPressed: () => _openEditIdentitySheet(business),
-            icon: const UlvenikIcon(UlvenikIcons.edit,
+            icon: UlvenikIcon(UlvenikIcons.edit,
               color: _textSecondary,
               size: 20,
             ),
@@ -933,7 +933,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                         shape: BoxShape.circle,
                         border: Border.all(color: _forest, width: 1.8),
                       ),
-                      child: const Icon(Icons.person_rounded,
+                      child: Icon(Icons.person_rounded,
                         color: _sage,
                         size: 36,
                       ),
@@ -951,7 +951,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                             business.businessName,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _textPrimary,
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
@@ -967,7 +967,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                             children: [
                               Text(
                                 business.trainerName,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _textSecondary,
                                   fontSize: 13.5,
                                   fontWeight: FontWeight.w400,
@@ -1039,7 +1039,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                 },
               ),
             ),
-            const VerticalDivider(color: _border, width: 1, indent: 14, endIndent: 14),
+            VerticalDivider(color: _border, width: 1, indent: 14, endIndent: 14),
             Expanded(
               child: _buildStatCell(
                 value: '${(activeDogs * p).round()}',
@@ -1053,7 +1053,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                 },
               ),
             ),
-            const VerticalDivider(color: _border, width: 1, indent: 14, endIndent: 14),
+            VerticalDivider(color: _border, width: 1, indent: 14, endIndent: 14),
             Expanded(
               child: _buildStatCell(
                 value: '${(47 * p).round()}',
@@ -1067,7 +1067,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                 },
               ),
             ),
-            const VerticalDivider(color: _border, width: 1, indent: 14, endIndent: 14),
+            VerticalDivider(color: _border, width: 1, indent: 14, endIndent: 14),
             Expanded(
               child: _buildStatCell(
                 value: '3 yrs',
@@ -1095,7 +1095,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
           children: [
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 19,
                 fontWeight: FontWeight.w700,
@@ -1108,7 +1108,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textSecondary,
                 fontSize: 10.5,
                 fontWeight: FontWeight.w400,
@@ -1124,7 +1124,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: _textSecondary,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -1171,7 +1171,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'No bio added yet',
                     style: TextStyle(
@@ -1260,7 +1260,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'No expertise tags added yet',
                     style: TextStyle(
@@ -1381,7 +1381,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'No qualifications added yet',
                     style: TextStyle(
@@ -1443,7 +1443,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                               children: [
                                 Text(
                                   q.title,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _textPrimary,
                                     fontSize: 14.5,
                                     fontWeight: FontWeight.w700,
@@ -1453,7 +1453,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                                 const SizedBox(height: 3),
                                 Text(
                                   q.body,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _textSecondary,
                                     fontSize: 12.5,
                                     fontFamily: 'Inter',
@@ -1462,7 +1462,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                                 const SizedBox(height: 3),
                                 Text(
                                   q.yearLabel,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _textSecondary,
                                     fontSize: 12,
                                     fontFamily: 'Inter',
@@ -1493,7 +1493,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                               ],
                             )
                           else
-                            const UlvenikIcon(UlvenikIcons.completed,
+                            UlvenikIcon(UlvenikIcons.completed,
                               color: _sage,
                               size: 20,
                             ),
@@ -1502,7 +1502,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                     ),
                   ),
                   if (i < _qualifications.length - 1)
-                    const Divider(color: _border, height: 1),
+                    Divider(color: _border, height: 1),
                 ],
               );
             }),
@@ -1549,7 +1549,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'No services added yet',
                     style: TextStyle(
@@ -1605,7 +1605,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                                 children: [
                                   Text(
                                     s.title,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _textPrimary,
                                       fontSize: 14.5,
                                       fontWeight: FontWeight.w700,
@@ -1615,7 +1615,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                                   const SizedBox(height: 4),
                                   Text(
                                     s.subtitle,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _textSecondary,
                                       fontSize: 12.5,
                                       fontFamily: 'Inter',
@@ -1627,7 +1627,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                             const SizedBox(width: 12),
                             Text(
                               s.durationLabel,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _textSecondary,
                                 fontSize: 12.5,
                                 fontWeight: FontWeight.w400,
@@ -1639,7 +1639,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                       ),
                     ),
                     if (i < _services.length - 1)
-                      const Divider(color: _border, height: 1),
+                      Divider(color: _border, height: 1),
                   ],
                 );
               }),
@@ -1688,7 +1688,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'No contact details added yet',
                     style: TextStyle(
@@ -1733,7 +1733,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                     onTap: () => _copyContactValue('Email', _contactEmail),
                   ),
                   if (_contactWebsite.trim().isNotEmpty || _contactInstagram.trim().isNotEmpty)
-                    const Divider(color: _border, height: 1),
+                    Divider(color: _border, height: 1),
                 ],
                 if (_contactWebsite.trim().isNotEmpty) ...[
                   _buildContactRow(
@@ -1743,7 +1743,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                     onTap: () => _copyContactValue('Website', _contactWebsite),
                   ),
                   if (_contactInstagram.trim().isNotEmpty)
-                    const Divider(color: _border, height: 1),
+                    Divider(color: _border, height: 1),
                 ],
                 if (_contactInstagram.trim().isNotEmpty)
                   _buildContactRow(
@@ -1785,7 +1785,7 @@ class _TrainerProfileScreenState extends State<TrainerProfileScreen>
                 ),
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details,
+            UlvenikIcon(UlvenikIcons.details,
               color: _textSecondary,
               size: 18,
             ),

@@ -5,23 +5,25 @@ import '../theme/app_colors.dart';
 class AnimatedProgressBar extends StatelessWidget {
   final double value;
   final double height;
-  final Color color;
-  final Color backgroundColor;
+  final Color? color;
+  final Color? backgroundColor;
   final Duration duration;
   final Duration delay;
 
-  const AnimatedProgressBar({
+  AnimatedProgressBar({
     super.key,
     required this.value,
     this.height = 4,
-    this.color = AppColors.primaryForestGreen,
-    this.backgroundColor = Colors.white12,
+    this.color,
+    this.backgroundColor,
     this.duration = const Duration(milliseconds: 1100),
     this.delay = const Duration(milliseconds: 150),
   });
 
   @override
   Widget build(BuildContext context) {
+    final color = this.color ?? AppColors.primaryForestGreen;
+    final backgroundColor = this.backgroundColor ?? Colors.white12;
     final total = duration + delay;
     final delayFraction = delay.inMilliseconds / total.inMilliseconds;
     return TweenAnimationBuilder<double>(

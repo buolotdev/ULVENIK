@@ -16,18 +16,18 @@ class TrainerAnalyticsScreen extends StatefulWidget {
 }
 
 class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian; // #121212
-  static const Color _carbon = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _obsidian => AppColors.backgroundObsidian; // #121212
+  static Color get _carbon => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _mintAccent = Color(0xFF34D399);
-  static const Color _sageLight = Color(0xFFB6CCB5);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _cardBorder = AppColors.cardBorder;
+  static Color _sageLight = Color(0xFFB6CCB5);
+  static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _cardBorder => AppColors.cardBorder;
 
-  static const List<String> _timeframes = [
+  static List<String> _timeframes = [
     'THIS WEEK',
     'THIS MONTH',
     'LAST 90 DAYS',
@@ -112,13 +112,13 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: _carbon,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (ctx) {
         return SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 14, 20, 22),
+            padding: EdgeInsets.fromLTRB(20, 14, 20, 22),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,8 +133,8 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
-                const Text(
+                SizedBox(height: 16),
+                Text(
                   'Analytics Timeframe',
                   style: TextStyle(
                     color: _offWhite,
@@ -143,7 +143,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                     fontFamily: 'Inter',
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
                 ..._timeframes.map((tf) {
                   final selected = _selectedTimeframe == tf;
                   return ListTile(
@@ -163,7 +163,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                       ),
                     ),
                     trailing: selected
-                        ? const Icon(Icons.check_rounded,
+                        ? Icon(Icons.check_rounded,
                             color: _mint,
                             size: 20,
                           )
@@ -185,35 +185,35 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
     return Scaffold(
       backgroundColor: _obsidian,
       bottomNavigationBar:
-          const UlvenikBottomNav(activeTab: UlvenikNavTab.more),
+          UlvenikBottomNav(activeTab: UlvenikNavTab.more),
       body: SafeArea(
         child: Column(
           children: [
             _buildTopBar(),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+                padding: EdgeInsets.fromLTRB(16, 16, 16, 32),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildTimeframeRow(),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     _buildSixMetricCard(m),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24),
                     _buildSectionTitle('SESSION ACTIVITY'),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     _buildSessionActivityCard(m),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24),
                     _buildSectionTitle('HOMEWORK'),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     _buildHomeworkCard(),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24),
                     _buildSectionTitle('GOALS'),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     _buildGoalsCard(),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24),
                     _buildSectionTitle('CLIENT ENGAGEMENT'),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     _buildClientEngagementCard(),
                   ],
                 ),
@@ -227,8 +227,8 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
 
   Widget _buildTopBar() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-      decoration: const BoxDecoration(
+      padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -240,12 +240,12 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 26,
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Padding(
               padding: EdgeInsets.only(left: 36),
               child: Text(
@@ -265,7 +265,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
             tooltip: 'Export Analytics',
             visualDensity: VisualDensity.compact,
             onPressed: _shareAnalytics,
-            icon: const Icon(Icons.ios_share_rounded,
+            icon: Icon(Icons.ios_share_rounded,
               color: _stoneGrey,
               size: 19,
             ),
@@ -274,7 +274,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
             tooltip: 'Filter Timeframe',
             visualDensity: VisualDensity.compact,
             onPressed: _showFilterSheet,
-            icon: const Icon(Icons.tune_rounded,
+            icon: Icon(Icons.tune_rounded,
               color: _stoneGrey,
               size: 20,
             ),
@@ -291,13 +291,13 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
         children: _timeframes.map((tf) {
           final isSel = _selectedTimeframe == tf;
           return Padding(
-            padding: const EdgeInsets.only(right: 8),
+            padding: EdgeInsets.only(right: 8),
             child: GestureDetector(
               onTap: () => setState(() => _selectedTimeframe = tf),
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 180),
+                duration: Duration(milliseconds: 180),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                    EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                 decoration: BoxDecoration(
                   color: isSel
                       ? _forest.withValues(alpha: 0.22)
@@ -328,7 +328,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
   Widget _buildSectionTitle(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
@@ -356,7 +356,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
     }) m,
   ) {
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: _carbon,
         borderRadius: BorderRadius.circular(16),
@@ -370,28 +370,28 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                 Expanded(
                   child: _buildMetricCell(m.activeClients, 'ACTIVE CLIENTS'),
                 ),
-                const VerticalDivider(color: _cardBorder, width: 24),
+                VerticalDivider(color: _cardBorder, width: 24),
                 Expanded(
                   child: _buildMetricCell(m.clientDogs, 'CLIENT DOGS'),
                 ),
               ],
             ),
           ),
-          const Divider(color: _cardBorder, height: 28),
+          Divider(color: _cardBorder, height: 28),
           IntrinsicHeight(
             child: Row(
               children: [
                 Expanded(
                   child: _buildMetricCell(m.sessionsCount, m.sessionsLabel),
                 ),
-                const VerticalDivider(color: _cardBorder, width: 24),
+                VerticalDivider(color: _cardBorder, width: 24),
                 Expanded(
                   child: _buildMetricCell(m.activeGoals, 'ACTIVE GOALS'),
                 ),
               ],
             ),
           ),
-          const Divider(color: _cardBorder, height: 28),
+          Divider(color: _cardBorder, height: 28),
           IntrinsicHeight(
             child: Row(
               children: [
@@ -402,7 +402,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                     valueColor: _mint,
                   ),
                 ),
-                const VerticalDivider(color: _cardBorder, width: 24),
+                VerticalDivider(color: _cardBorder, width: 24),
                 Expanded(
                   child: _buildMetricCell(
                     m.sessionsRecorded,
@@ -420,8 +420,9 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
   Widget _buildMetricCell(
     String value,
     String label, {
-    Color valueColor = _offWhite,
+    Color? valueColor,
   }) {
+    valueColor ??= _offWhite;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -438,7 +439,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 10.5,
             fontWeight: FontWeight.w600,
@@ -483,7 +484,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
             children: [
               Text(
                 m.activityHeadline,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 18,
                   fontWeight: FontWeight.w800,
@@ -504,7 +505,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           const SizedBox(height: 3),
           Text(
             m.activitySublabel,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 10.5,
               fontWeight: FontWeight.w600,
@@ -588,13 +589,13 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
               ),
             ),
           ),
-          const Divider(color: _cardBorder, height: 26),
+          Divider(color: _cardBorder, height: 26),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 m.averagePerDay,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 12,
                   fontFamily: 'Inter',
@@ -609,7 +610,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                 ),
                 child: Text(
                   m.peakDay,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 10,
                     fontWeight: FontWeight.w700,
@@ -637,7 +638,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'Completion Rate',
                 style: TextStyle(
@@ -661,7 +662,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           const SizedBox(height: 12),
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: const LinearProgressIndicator(
+            child: LinearProgressIndicator(
               value: 0.82,
               backgroundColor: Color(0xFF262C30),
               valueColor: AlwaysStoppedAnimation<Color>(_forest),
@@ -670,7 +671,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           ),
           const SizedBox(height: 14),
           Row(
-            children: const [
+            children: [
               Icon(Icons.circle, color: _mintAccent, size: 7),
               SizedBox(width: 7),
               Expanded(
@@ -699,7 +700,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           ),
           const SizedBox(height: 8),
           Row(
-            children: const [
+            children: [
               Icon(Icons.circle, color: Color(0xFFB45353), size: 7),
               SizedBox(width: 7),
               Expanded(
@@ -726,11 +727,11 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
               ),
             ],
           ),
-          const Divider(color: _cardBorder, height: 26),
+          Divider(color: _cardBorder, height: 26),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Avg completion pace',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -786,9 +787,9 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
             child: Row(
               children: [
                 Expanded(child: _buildGoalSummaryCol('31', 'ACTIVE')),
-                const VerticalDivider(color: _cardBorder, width: 1),
+                VerticalDivider(color: _cardBorder, width: 1),
                 Expanded(child: _buildGoalSummaryCol('18', 'COMPLETED')),
-                const VerticalDivider(color: _cardBorder, width: 1),
+                VerticalDivider(color: _cardBorder, width: 1),
                 Expanded(child: _buildGoalSummaryCol('5.2w', 'AVG TIME')),
               ],
             ),
@@ -819,7 +820,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               _GoalLegendDot(color: _forest, label: 'OBEDIENCE 40%'),
               _GoalLegendDot(color: _sageLight, label: 'SOCIAL 35%'),
               _GoalLegendDot(color: _alpineBlue, label: 'HEALTH 25%'),
@@ -835,7 +836,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
       children: [
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 17,
             fontWeight: FontWeight.w800,
@@ -845,7 +846,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
         const SizedBox(height: 3),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 9.5,
             fontWeight: FontWeight.w600,
@@ -868,7 +869,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             '30-Day Activity & Submissions',
             style: TextStyle(
               color: _offWhite,
@@ -919,7 +920,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
                             padding: const EdgeInsets.only(top: 8),
                             child: Text(
                               weeks[idx],
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 10,
                                 fontFamily: 'Inter',
@@ -968,7 +969,7 @@ class _TrainerAnalyticsScreenState extends State<TrainerAnalyticsScreen> {
           ),
           const SizedBox(height: 14),
           Row(
-            children: const [
+            children: [
               Icon(Icons.horizontal_rule_rounded, color: _forest, size: 16),
               SizedBox(width: 5),
               Text(
@@ -1020,7 +1021,7 @@ class _GoalLegendDot extends StatelessWidget {
         const SizedBox(width: 5),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 9.5,
             fontWeight: FontWeight.w700,

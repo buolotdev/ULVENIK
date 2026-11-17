@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'add_health_record_screen.dart';
@@ -801,7 +802,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                       handleBuiltInTouches: true,
                       touchTooltipData: LineTouchTooltipData(
                         getTooltipColor: (_) => _surfaceHigh,
-                        tooltipBorder: const BorderSide(color: Colors.white12),
+                        tooltipBorder: BorderSide(color: AppColors.cardBorder),
                         getTooltipItems: (touchedSpots) {
                           return touchedSpots.map((spot) {
                             final idx = spot.spotIndex;

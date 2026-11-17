@@ -17,10 +17,10 @@ Future<bool> _confirmDiscard(BuildContext context) async {
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          const Text('Discard changes?',
+          Text('Discard changes?',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           const SizedBox(height: 8),
-          const Text('You have unsaved changes.',
+          Text('You have unsaved changes.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
           const SizedBox(height: 18),
           PrimaryButton(label: 'Keep Editing', onPressed: () => Navigator.pop(ctx, false)),
@@ -30,8 +30,8 @@ Future<bool> _confirmDiscard(BuildContext context) async {
             child: OutlinedButton(
               onPressed: () => Navigator.pop(ctx, true),
               style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14), side: const BorderSide(color: Colors.white12)),
-              child: const Text('Discard Changes', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                  padding: const EdgeInsets.symmetric(vertical: 14), side: BorderSide(color: AppColors.cardBorder)),
+              child: Text('Discard Changes', style: TextStyle(color: AppColors.primaryTextOffWhite)),
             ),
           ),
         ]),
@@ -44,10 +44,10 @@ Future<bool> _confirmDiscard(BuildContext context) async {
 Widget _switchRow(String title, String? helper, bool value, ValueChanged<bool>? onChanged) => SwitchListTile(
       contentPadding: EdgeInsets.zero,
       activeThumbColor: AppColors.primaryForestGreen,
-      title: Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
+      title: Text(title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
       subtitle: helper == null
           ? null
-          : Text(helper, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+          : Text(helper, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
       value: value,
       onChanged: onChanged,
     );
@@ -102,13 +102,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       builder: (ctx) => SafeArea(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(
-            leading: const Icon(Icons.photo_camera_outlined, color: AppColors.primaryTextOffWhite),
-            title: const Text('Take Photo', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            leading: Icon(Icons.photo_camera_outlined, color: AppColors.primaryTextOffWhite),
+            title: Text('Take Photo', style: TextStyle(color: AppColors.primaryTextOffWhite)),
             onTap: () => Navigator.pop(ctx, ImageSource.camera),
           ),
           ListTile(
-            leading: const Icon(Icons.photo_library_outlined, color: AppColors.primaryTextOffWhite),
-            title: const Text('Choose from Library', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            leading: Icon(Icons.photo_library_outlined, color: AppColors.primaryTextOffWhite),
+            title: Text('Choose from Library', style: TextStyle(color: AppColors.primaryTextOffWhite)),
             onTap: () => Navigator.pop(ctx, ImageSource.gallery),
           ),
           if (_photo.isNotEmpty)
@@ -172,7 +172,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             onPressed: (_dirty && valid && !_saving) ? _save : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primaryForestGreen,
-              foregroundColor: AppColors.primaryTextOffWhite,
+              foregroundColor: AppColors.onForestGreen,
               disabledBackgroundColor: AppColors.cardsCarbon,
               elevation: 0,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -198,20 +198,20 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       child: _photo.isNotEmpty
                           ? Image.file(File(_photo),
                               fit: BoxFit.cover,
-                              errorBuilder: (_, _, _) => const ColoredBox(color: AppColors.cardsCarbon))
+                              errorBuilder: (_, _, _) => ColoredBox(color: AppColors.cardsCarbon))
                           : ColoredBox(
                               color: AppColors.cardsCarbon,
                               child: Center(
                                 child: Text(
                                   _first.text.trim().isEmpty ? '?' : _first.text.trim()[0].toUpperCase(),
-                                  style: const TextStyle(color: AppColors.secondarySage, fontSize: 34, fontWeight: FontWeight.w700),
+                                  style: TextStyle(color: AppColors.secondarySage, fontSize: 34, fontWeight: FontWeight.w700),
                                 ),
                               ),
                             ),
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text('Change photo',
+                  Text('Change photo',
                       style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                 ]),
               ),
@@ -221,23 +221,23 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               controller: _first,
               onChanged: (_) => _firstError == null ? null : setState(() => _firstError = null),
               textCapitalization: TextCapitalization.words,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
               decoration: healthDecoration('Enter your first name', error: _firstError),
             ),
             const FieldLabel('Last name'),
             TextField(
               controller: _last,
               textCapitalization: TextCapitalization.words,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
               decoration: healthDecoration('Enter your last name'),
             ),
             const FieldLabel('Display name'),
             TextField(
               controller: _display,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
               decoration: healthDecoration('Enter a display name'),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(top: 8),
               child: Text(
                 'Used to identify you in Ulvenik and on reports you choose to share. This does not create a public profile.',
@@ -275,16 +275,51 @@ class AppearancePrefsScreen extends StatelessWidget {
         body: ListView(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
           children: [
+            const SectionLabel('Theme'),
+            Row(
+              children: [
+                for (final mode in AppSettings.themeModes) ...[
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => _apply(context, s.setThemeMode(mode)),
+                      child: Container(
+                        height: 46,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: s.themeMode == mode
+                              ? AppColors.primaryForestGreen.withValues(alpha: 0.18)
+                              : AppColors.cardsCarbon,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: s.themeMode == mode ? AppColors.primaryForestGreen : AppColors.cardBorder),
+                        ),
+                        child: Text(mode,
+                            style: TextStyle(
+                                color: s.themeMode == mode
+                                    ? AppColors.primaryTextOffWhite
+                                    : AppColors.secondaryTextStoneGrey,
+                                fontWeight: FontWeight.w600)),
+                      ),
+                    ),
+                  ),
+                  if (mode != AppSettings.themeModes.last) const SizedBox(width: 10),
+                ],
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text('Device follows your phone’s own Dark/Light setting.',
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+            const SizedBox(height: 18),
             const SectionLabel('Text size'),
             for (final t in AppSettings.textSizes)
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(t, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text(t, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 trailing: s.textSize == t ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                 onTap: () => _apply(context, s.setTextSize(t)),
               ),
             const SizedBox(height: 6),
-            const Text('Ulvenik also follows your device’s text size.',
+            Text('Ulvenik also follows your device’s text size.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             const SizedBox(height: 18),
             _switchRow('Reduce Animations', 'Use fewer animations and simpler transitions.', s.reduceAnimations,
@@ -302,10 +337,10 @@ class AppearancePrefsScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
-                        const Text('Reset to defaults?',
+                        Text('Reset to defaults?',
                             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                         const SizedBox(height: 8),
-                        const Text(
+                        Text(
                           'Text size returns to Standard, Reduce Animations turns off and Touch Feedback turns on. Your records, media, reminders and regional preferences are not affected.',
                           textAlign: TextAlign.center,
                           style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4),
@@ -318,8 +353,8 @@ class AppearancePrefsScreen extends StatelessWidget {
                           child: OutlinedButton(
                             onPressed: () => Navigator.pop(ctx, false),
                             style: OutlinedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 14), side: const BorderSide(color: Colors.white12)),
-                            child: const Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                                padding: const EdgeInsets.symmetric(vertical: 14), side: BorderSide(color: AppColors.cardBorder)),
+                            child: Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                           ),
                         ),
                       ]),
@@ -330,7 +365,7 @@ class AppearancePrefsScreen extends StatelessWidget {
               },
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   minimumSize: const Size(double.infinity, 48)),
               child: const Text('Reset to Defaults'),
             ),
@@ -424,7 +459,7 @@ class _RegionalPreferencesScreenState extends State<RegionalPreferencesScreen> {
             onPressed: (_dirty && !_saving) ? _save : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primaryForestGreen,
-              foregroundColor: AppColors.primaryTextOffWhite,
+              foregroundColor: AppColors.onForestGreen,
               disabledBackgroundColor: AppColors.cardsCarbon,
               elevation: 0,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -435,7 +470,7 @@ class _RegionalPreferencesScreenState extends State<RegionalPreferencesScreen> {
         body: ListView(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
           children: [
-            const Text('Changing units only affects how values are displayed. Stored data is never modified.',
+            Text('Changing units only affects how values are displayed. Stored data is never modified.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4)),
             const SectionLabel('Country or region'),
             OutlinedButton(
@@ -445,7 +480,7 @@ class _RegionalPreferencesScreenState extends State<RegionalPreferencesScreen> {
               },
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white12),
+                  side: BorderSide(color: AppColors.cardBorder),
                   backgroundColor: AppColors.cardsCarbon,
                   alignment: Alignment.centerLeft,
                   minimumSize: const Size(double.infinity, 46)),
@@ -455,12 +490,12 @@ class _RegionalPreferencesScreenState extends State<RegionalPreferencesScreen> {
             SwitchListTile(
               contentPadding: EdgeInsets.zero,
               activeThumbColor: AppColors.primaryForestGreen,
-              title: const Text('Use device time zone', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              title: Text('Use device time zone', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               subtitle: Text(
                 _autoTz
                     ? 'Follows this device (${DateTime.now().timeZoneName}, UTC ${DateTime.now().timeZoneOffset.isNegative ? '-' : '+'}${DateTime.now().timeZoneOffset.inHours.abs().toString().padLeft(2, '0')}:${(DateTime.now().timeZoneOffset.inMinutes.abs() % 60).toString().padLeft(2, '0')}).'
                     : 'Using the zone below.',
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
               ),
               value: _autoTz,
               onChanged: (v) => setState(() => _autoTz = v),
@@ -473,7 +508,7 @@ class _RegionalPreferencesScreenState extends State<RegionalPreferencesScreen> {
                 },
                 style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.primaryTextOffWhite,
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                     backgroundColor: AppColors.cardsCarbon,
                     alignment: Alignment.centerLeft,
                     minimumSize: const Size(double.infinity, 46)),
@@ -483,7 +518,7 @@ class _RegionalPreferencesScreenState extends State<RegionalPreferencesScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 6),
                   child: Text('${zoneInfo(_tz)!.offset} · ${zoneInfo(_tz)!.abbr} · now ${zoneInfo(_tz)!.clock}',
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                 ),
             ],
             const SizedBox(height: 18),
@@ -510,18 +545,18 @@ class _RegionalPreferencesScreenState extends State<RegionalPreferencesScreen> {
             const SizedBox(height: 22),
             HealthCard(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Text('Example values',
+                Text('Example values',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 2),
-                const Text('Examples using your selected units.',
+                Text('Examples using your selected units.',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                 const SizedBox(height: 10),
-                Text('$w · $d', style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
-                Text('$_dateExample · $t', style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+                Text('$w · $d', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+                Text('$_dateExample · $t', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
               ]),
             ),
             const SizedBox(height: 12),
-            const Text('Saved record times are preserved; their displayed format may change.',
+            Text('Saved record times are preserved; their displayed format may change.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, height: 1.4)),
           ],
         ),
@@ -567,7 +602,7 @@ class NotificationPrefsScreen extends StatelessWidget {
             children: [
               _switchRow('Push Notifications', 'Receive reminders and updates on this device.', push,
                   (v) => _apply(context, s.setNotify('push', v))),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: Text(
                   'Your device also controls whether Ulvenik may send notifications. These choices only say which alerts you want.',
@@ -584,27 +619,27 @@ class NotificationPrefsScreen extends StatelessWidget {
               if (s.quietHours) ...[
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Starts', style: TextStyle(color: AppColors.primaryTextOffWhite)),
-                  trailing: Text(s.quietStart, style: const TextStyle(color: AppColors.secondaryTextStoneGrey)),
+                  title: Text('Starts', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                  trailing: Text(s.quietStart, style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
                   onTap: () => _pickTime(context, s.quietStart, s.setQuietStart),
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Ends', style: TextStyle(color: AppColors.primaryTextOffWhite)),
-                  trailing: Text(s.quietEnd, style: const TextStyle(color: AppColors.secondaryTextStoneGrey)),
+                  title: Text('Ends', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                  trailing: Text(s.quietEnd, style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
                   onTap: () => _pickTime(context, s.quietEnd, s.setQuietEnd),
                 ),
                 if (s.quietStart == s.quietEnd)
                   const Text('Start and end times are the same, so quiet hours are ambiguous.',
                       style: TextStyle(color: Color(0xFFE08A8A), fontSize: 12.5)),
-                const Text('Saved reminders are still delivered at their saved time.',
+                Text('Saved reminders are still delivered at their saved time.',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               ],
               const SizedBox(height: 14),
               const SectionLabel('Email'),
               _switchRow('Product News', 'Occasional news about Ulvenik.', s.productNews,
                   (v) => _apply(context, s.setProductNews(v))),
-              const Text('Essential account and billing emails are managed separately.',
+              Text('Essential account and billing emails are managed separately.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               const SizedBox(height: 14),
               _switchRow('App Icon Badge', 'Show unread notifications on the app icon.', s.appBadge,
@@ -630,12 +665,12 @@ Widget moreRow({required IconData icon, required String title, String? subtitle,
             const SizedBox(width: 14),
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
+                Text(title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
                 if (subtitle != null)
-                  Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  Text(subtitle, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               ]),
             ),
-            const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+            UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
           ]),
         ),
       ),

@@ -104,7 +104,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundObsidian,
+      backgroundColor: const Color(0xFF121212),
       body: FadeTransition(
         opacity: _fadeIn,
         child: Stack(
@@ -123,7 +123,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                           fit: BoxFit.cover,
                           alignment: Alignment.topCenter,
                           errorBuilder: (_, _, _) =>
-                              const ColoredBox(color: AppColors.backgroundObsidian),
+                              ColoredBox(color: const Color(0xFF121212)),
                         ),
                       ),
                 ],
@@ -131,7 +131,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             ),
 
             // Strong dark bottom gradient for reliable text contrast.
-            const Positioned.fill(
+            Positioned.fill(
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -144,7 +144,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       Color(0x33121212),
                       Color(0xD9121212),
                       Color(0xFA121212),
-                      AppColors.backgroundObsidian,
+                      const Color(0xFF121212),
                     ],
                   ),
                 ),
@@ -162,7 +162,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       height: 56,
                       child: Row(
                         children: [
-                          const UlvenikLogo.full(width: 96),
+                          const UlvenikLogo.full(width: 96, forceLight: true),
                           const Spacer(),
                           AnimatedOpacity(
                             duration: const Duration(milliseconds: 200),
@@ -172,7 +172,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                               child: TextButton(
                                 onPressed: _goToAccountEntry,
                                 style: TextButton.styleFrom(
-                                  foregroundColor: AppColors.primaryTextOffWhite,
+                                  foregroundColor: const Color(0xFFF5F6F2),
                                   minimumSize: const Size(48, 44),
                                 ),
                                 child: const Text(
@@ -202,8 +202,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                             children: [
                               Text(
                                 pages[i].title,
-                                style: const TextStyle(
-                                  color: AppColors.primaryTextOffWhite,
+                                style: TextStyle(
+                                  color: const Color(0xFFF5F6F2),
                                   fontSize: 30,
                                   fontWeight: FontWeight.w600,
                                   height: 1.2,
@@ -214,7 +214,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                               Text(
                                 pages[i].body,
                                 style: TextStyle(
-                                  color: AppColors.primaryTextOffWhite.withValues(alpha: 0.85),
+                                  color: const Color(0xFFF5F6F2).withValues(alpha: 0.85),
                                   fontSize: 16,
                                   height: 1.55,
                                 ),
@@ -234,7 +234,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         onPressed: _onPrimary,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryForestGreen,
-                          foregroundColor: AppColors.primaryTextOffWhite,
+                          foregroundColor: const Color(0xFFF5F6F2),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                           elevation: 0,
                         ),
@@ -263,7 +263,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                               decoration: BoxDecoration(
                                 color: _page == i
                                     ? AppColors.primaryForestGreen
-                                    : AppColors.secondaryTextStoneGrey.withValues(alpha: 0.45),
+                                    : const Color(0xFFA7B0AB).withValues(alpha: 0.45),
                                 borderRadius: BorderRadius.circular(99),
                               ),
                             ),

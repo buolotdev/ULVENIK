@@ -84,9 +84,9 @@ class _AddDogScreenState extends State<AddDogScreen> {
                     height: 96,
                     color: AppColors.cardsCarbon,
                     child: _photoPath == null
-                        ? const Center(child: UlvenikIcon(UlvenikIcons.dogs, size: 34, color: AppColors.secondarySage))
+                        ? Center(child: UlvenikIcon(UlvenikIcons.dogs, size: 34, color: AppColors.secondarySage))
                         : Image.file(File(_photoPath!), fit: BoxFit.cover,
-                            errorBuilder: (_, _, _) => const Center(
+                            errorBuilder: (_, _, _) => Center(
                                 child: UlvenikIcon(UlvenikIcons.dogs, size: 34, color: AppColors.secondarySage))),
                   ),
                 ),
@@ -96,9 +96,9 @@ class _AddDogScreenState extends State<AddDogScreen> {
                   child: Container(
                     width: 30,
                     height: 30,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                         color: AppColors.primaryForestGreen, shape: BoxShape.circle),
-                    child: const Icon(Icons.add_a_photo_outlined, color: AppColors.primaryTextOffWhite, size: 15),
+                    child: Icon(Icons.add_a_photo_outlined, color: AppColors.primaryTextOffWhite, size: 15),
                   ),
                 ),
               ]),
@@ -109,19 +109,19 @@ class _AddDogScreenState extends State<AddDogScreen> {
           TextField(
             controller: _name,
             onChanged: (_) => _nameError == null ? null : setState(() => _nameError = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Enter your dog\'s name', error: _nameError),
           ),
           const FieldLabel('Breed'),
           TextField(
             controller: _breed,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('e.g. Golden Retriever'),
           ),
           const FieldLabel('Age'),
           TextField(
             controller: _age,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('e.g. 2 yrs'),
           ),
           const FieldLabel('Sex'),
@@ -177,7 +177,7 @@ class _AddDogScreenState extends State<AddDogScreen> {
               const FieldLabel('Owner Name'),
               TextField(
                 controller: _owner,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                 decoration: healthDecoration('Enter the owner\'s name'),
               ),
             ],

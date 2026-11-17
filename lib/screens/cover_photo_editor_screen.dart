@@ -89,16 +89,16 @@ class _CoverPhotoEditorScreenState extends State<CoverPhotoEditorScreen> {
         surfaceTintColor: Colors.transparent,
         leading: TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+          child: Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
         ),
         leadingWidth: 90,
         centerTitle: true,
-        title: const Text('Edit Cover Photo',
+        title: Text('Edit Cover Photo',
             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, _current),
-            child: const Text('Save',
+            child: Text('Save',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w700)),
           ),
           const SizedBox(width: 8),
@@ -107,7 +107,7 @@ class _CoverPhotoEditorScreenState extends State<CoverPhotoEditorScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
         children: [
-          const Text('Drag to reposition. Pinch to zoom.',
+          Text('Drag to reposition. Pinch to zoom.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
           const SizedBox(height: 12),
           AspectRatio(
@@ -141,7 +141,7 @@ class _CoverPhotoEditorScreenState extends State<CoverPhotoEditorScreen> {
             }),
           ),
           const SizedBox(height: 24),
-          const Text('Preview', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
+          Text('Preview', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
           const SizedBox(height: 8),
           ClipRRect(
             borderRadius: BorderRadius.circular(14),
@@ -151,7 +151,7 @@ class _CoverPhotoEditorScreenState extends State<CoverPhotoEditorScreen> {
                 CroppedCover(
                   image: widget.image,
                   crop: _current,
-                  placeholder: const ColoredBox(color: AppColors.cardsCarbon),
+                  placeholder: ColoredBox(color: AppColors.cardsCarbon),
                 ),
                 const DecoratedBox(
                   decoration: BoxDecoration(
@@ -167,7 +167,7 @@ class _CoverPhotoEditorScreenState extends State<CoverPhotoEditorScreen> {
                   left: 16,
                   bottom: 12,
                   child: Text(widget.dogName,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
                 ),
               ]),
             ),
@@ -175,17 +175,17 @@ class _CoverPhotoEditorScreenState extends State<CoverPhotoEditorScreen> {
           const SizedBox(height: 20),
           OutlinedButton.icon(
             onPressed: () => setState(() => _controller.value = Matrix4.identity()),
-            icon: const UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.primaryTextOffWhite),
+            icon: UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.primaryTextOffWhite),
             label: const Text('Reset framing'),
             style: OutlinedButton.styleFrom(
               foregroundColor: AppColors.primaryTextOffWhite,
-              side: const BorderSide(color: Colors.white24),
+              side: BorderSide(color: AppColors.cardBorder),
               minimumSize: const Size.fromHeight(46),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'Your original photo is kept. Choosing a different photo will be added with photo-library access.',
             style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, height: 1.4),
           ),

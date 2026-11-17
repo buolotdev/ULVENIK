@@ -9,7 +9,7 @@ import '../widgets/ulvenik_icon.dart';
 import 'sc_record_session_screen.dart';
 import 'sc_session_details_screen.dart';
 
-const _green = AppColors.primaryForestGreen;
+Color get _green => AppColors.primaryForestGreen;
 const _charcoal = Color(0xFF2A2D2C);
 const _dayShort = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const _dayLong = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -94,14 +94,14 @@ class _SCAnalyticsState extends State<SCAnalytics> {
             decoration: BoxDecoration(
               color: AppColors.cardsCarbon,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
             ),
             child: Row(mainAxisSize: MainAxisSize.min, children: [
-              const UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
+              UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
               const SizedBox(width: 6),
               Text(_period,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
-              const Icon(Icons.keyboard_arrow_down, size: 18, color: AppColors.secondaryTextStoneGrey),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
+              Icon(Icons.keyboard_arrow_down, size: 18, color: AppColors.secondaryTextStoneGrey),
             ]),
           ),
         ),
@@ -110,12 +110,12 @@ class _SCAnalyticsState extends State<SCAnalytics> {
   Widget _stat(String label, String value) => Expanded(
         child: HealthCard(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+            Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             const SizedBox(height: 8),
             Text(value,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
           ]),
         ),
       );
@@ -127,14 +127,14 @@ class _SCAnalyticsState extends State<SCAnalytics> {
             Row(children: [
               Expanded(
                 child: Text(title,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
               ),
               ?trailing,
             ]),
             if (subtitle != null)
               Padding(
                 padding: const EdgeInsets.only(top: 2),
-                child: Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                child: Text(subtitle, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               ),
             const SizedBox(height: 14),
             child,
@@ -145,7 +145,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
   Widget _empty(String text) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 28),
         child: Center(
-          child: Text(text, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+          child: Text(text, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
         ),
       );
 
@@ -200,7 +200,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                         interval: maxV > 6 ? (maxV / 4).ceilToDouble() : 1,
                         getTitlesWidget: (v, m) => v == v.roundToDouble()
                             ? Text('${v.round()}',
-                                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10))
+                                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10))
                             : const SizedBox.shrink(),
                       ),
                     ),
@@ -215,7 +215,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                           return Padding(
                             padding: const EdgeInsets.only(top: 6),
                             child: Text(b[i].$1,
-                                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
+                                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
                           );
                         },
                       ),
@@ -233,7 +233,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                       getTooltipItems: (spots) => [
                         for (final s in spots)
                           LineTooltipItem('${b[s.spotIndex].$2}\n${s.y.round()} $noun',
-                              const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
+                              TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
                       ],
                     ),
                   ),
@@ -256,7 +256,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text('${sel.$2}: ${sel.$3} $noun',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
                 ),
             ])
           : _empty('No sessions in this period.'),
@@ -283,7 +283,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
         .toList());
     final cells = <Widget>[
       for (final d in _dayShort)
-        Center(child: Text(d.substring(0, 1), style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11))),
+        Center(child: Text(d.substring(0, 1), style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11))),
       for (var i = 0; i < lead; i++) const SizedBox.shrink(),
       for (var d = 1; d <= days; d++)
         GestureDetector(
@@ -298,7 +298,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                   : null,
             ),
             alignment: Alignment.center,
-            child: Text('$d', style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 11.5)),
+            child: Text('$d', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 11.5)),
           ),
         ),
     ];
@@ -310,7 +310,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
           IconButton(
             tooltip: 'Previous month',
             visualDensity: VisualDensity.compact,
-            icon: const Icon(Icons.chevron_left, color: AppColors.secondaryTextStoneGrey),
+            icon: Icon(Icons.chevron_left, color: AppColors.secondaryTextStoneGrey),
             onPressed: () => setState(() {
               _heatMonth = DateTime(first.year, first.month - 1);
               _selectedDay = null;
@@ -319,12 +319,12 @@ class _SCAnalyticsState extends State<SCAnalytics> {
           Expanded(
             child: Text('${_monthLong[first.month - 1]} ${first.year}',
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
           ),
           IconButton(
             tooltip: 'Next month',
             visualDensity: VisualDensity.compact,
-            icon: const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+            icon: Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
             onPressed: () => setState(() {
               _heatMonth = DateTime(first.year, first.month + 1);
               _selectedDay = null;
@@ -343,7 +343,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: Text('${fmtDate(sd)}: ${on(sd.day)} $noun',
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
           ),
         Wrap(spacing: 12, runSpacing: 6, children: [
           for (final e in [('0', 0), ('1', 1), ('2', 2), ('3+', 3)])
@@ -353,7 +353,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                   height: 12,
                   decoration: BoxDecoration(color: _level(e.$2), borderRadius: BorderRadius.circular(3))),
               const SizedBox(width: 5),
-              Text(e.$1, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+              Text(e.$1, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             ]),
         ]),
       ]),
@@ -388,7 +388,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                         getTitlesWidget: (v, m) => Padding(
                           padding: const EdgeInsets.only(top: 6),
                           child: Text(_dayShort[v.round()],
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10.5)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10.5)),
                         ),
                       ),
                     ),
@@ -402,7 +402,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                     touchTooltipData: BarTouchTooltipData(
                       getTooltipColor: (_) => AppColors.backgroundObsidian,
                       getTooltipItem: (g, gi, r, ri) => BarTooltipItem('${_dayLong[gi]}\n${counts[gi]} $noun',
-                          const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
+                          TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
                     ),
                   ),
                   barGroups: [
@@ -422,13 +422,13 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text('${_dayLong[_selectedWeekday!]}: ${counts[_selectedWeekday!]} $noun',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
                 ),
             ]),
       trailing: most == null
           ? null
           : Text('Most Active: ${_dayLong[most]}',
-              style: const TextStyle(color: AppColors.secondarySage, fontSize: 12.5, fontWeight: FontWeight.w600)),
+              style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5, fontWeight: FontWeight.w600)),
     );
   }
 
@@ -483,7 +483,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                         child: Text(r.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                       ),
                       Expanded(
                         child: ClipRRect(
@@ -492,13 +492,13 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                             value: r.sessions / maxS,
                             minHeight: 12,
                             backgroundColor: _charcoal,
-                            valueColor: const AlwaysStoppedAnimation(_green),
+                            valueColor: AlwaysStoppedAnimation(_green),
                           ),
                         ),
                       ),
                       const SizedBox(width: 8),
                       Text('${r.sessions}',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                     ]),
                   ),
               ]),
@@ -511,22 +511,22 @@ class _SCAnalyticsState extends State<SCAnalytics> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.only(bottom: 6),
-        child: Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+        child: Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
       ),
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: AppColors.cardBorder),
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<T>(
             isExpanded: true,
             value: value,
             dropdownColor: AppColors.cardsCarbon,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
-            icon: const Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            icon: Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey),
             items: [for (final i in items) DropdownMenuItem<T>(value: i.$1, child: Text(i.$2))],
             onChanged: onChanged,
           ),
@@ -547,10 +547,10 @@ class _SCAnalyticsState extends State<SCAnalytics> {
     Widget emptyState(String? preselect) => HealthCard(
           child: Column(children: [
             const SizedBox(height: 8),
-            const Text('No Progress Data Yet',
+            Text('No Progress Data Yet',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
             const SizedBox(height: 6),
-            const Text('Record your first S&C session to start tracking progress.',
+            Text('Record your first S&C session to start tracking progress.',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4)),
             const SizedBox(height: 16),
@@ -642,13 +642,13 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                       padding: const EdgeInsets.all(20),
                       child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Text(scFormatValue(r.value),
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
                         const SizedBox(height: 6),
                         Text('${a.name} · ${r.measure.label}',
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
                         Text(fmtDate(r.session.at),
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
                         const SizedBox(height: 18),
                         PrimaryButton(
                           label: 'Open Session',

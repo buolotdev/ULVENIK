@@ -73,8 +73,8 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             ListTile(
-              leading: const UlvenikIcon(UlvenikIcons.edit, size: 22, color: AppColors.primaryTextOffWhite),
-              title: const Text('Edit Goal', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              leading: UlvenikIcon(UlvenikIcons.edit, size: 22, color: AppColors.primaryTextOffWhite),
+              title: Text('Edit Goal', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () {
                 Navigator.pop(ctx);
                 Navigator.push(context, MaterialPageRoute(builder: (_) => CreateGoalScreen(editGoal: g)));
@@ -82,8 +82,8 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
             ),
             if (_status != GoalStatus.completed)
               ListTile(
-                leading: const UlvenikIcon(UlvenikIcons.completed, size: 22, color: AppColors.primaryTextOffWhite),
-                title: const Text('Mark as Completed', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                leading: UlvenikIcon(UlvenikIcons.completed, size: 22, color: AppColors.primaryTextOffWhite),
+                title: Text('Mark as Completed', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   setState(() => GoalsStore.instance.setStatus(g, GoalStatus.completed));
@@ -93,7 +93,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
             ListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 16),
               leading: const SizedBox(width: 22),
-              title: const Text('Archive Goal', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              title: Text('Archive Goal', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () {
                 Navigator.pop(ctx);
                 _confirm(
@@ -151,11 +151,11 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Text(title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
             Text(message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
             const SizedBox(height: 22),
             SizedBox(
               height: 50,
@@ -180,7 +180,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
                 onPressed: () => Navigator.pop(ctx),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
                 child: const Text('Cancel'),
@@ -212,19 +212,19 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
             shrinkWrap: true,
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
             children: [
-              const Text('Linked Sessions',
+              Text('Linked Sessions',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
-              const Text('Only qualifying recorded sessions count towards this goal.',
+              Text('Only qualifying recorded sessions count towards this goal.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
               if (g.linkedRecords.isNotEmpty) ...[
                 const SizedBox(height: 12),
                 Text('Linked to: ${g.linkedRecords.join(', ')}',
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               ],
               const SizedBox(height: 12),
               if (sessions.isEmpty)
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(vertical: 24),
                   child: Text('No qualifying sessions recorded yet.',
                       textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
@@ -233,9 +233,9 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
                 for (final s in sessions)
                   ListTile(
                     contentPadding: EdgeInsets.zero,
-                    leading: const UlvenikIcon(UlvenikIcons.recordSession, size: 22, color: AppColors.secondarySage),
-                    title: Text(s.$1, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
-                    subtitle: Text(_date(s.$2), style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                    leading: UlvenikIcon(UlvenikIcons.recordSession, size: 22, color: AppColors.secondarySage),
+                    title: Text(s.$1, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
+                    subtitle: Text(_date(s.$2), style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                   ),
             ],
           ),
@@ -258,14 +258,14 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
             child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-              const Text('Update Progress',
+              Text('Update Progress',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
               Text(
                 g.isMeasurable
                     ? 'Enter your current progress towards ${_fmt(g.targetValue!)} ${g.targetUnit}.'
                     : 'Add a note about progress on this open-ended goal.',
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
               ),
               const SizedBox(height: 16),
               TextField(
@@ -273,7 +273,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
                 autofocus: true,
                 keyboardType: g.isMeasurable ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.multiline,
                 maxLines: g.isMeasurable ? 1 : 3,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                style: TextStyle(color: AppColors.primaryTextOffWhite),
                 decoration: InputDecoration(
                   hintText: g.isMeasurable ? 'Current progress' : 'What has changed?',
                   suffixText: g.isMeasurable ? g.targetUnit : null,
@@ -301,7 +301,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     elevation: 0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
@@ -327,15 +327,15 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
         centerTitle: true,
         leading: IconButton(
           tooltip: 'Back',
-          icon: const UlvenikIcon(UlvenikIcons.back, size: 22, color: AppColors.primaryTextOffWhite),
+          icon: UlvenikIcon(UlvenikIcons.back, size: 22, color: AppColors.primaryTextOffWhite),
           onPressed: () => Navigator.maybePop(context),
         ),
-        title: const Text('Goal Details',
+        title: Text('Goal Details',
             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         actions: [
           IconButton(
             tooltip: 'More actions',
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
             onPressed: _openMenu,
           ),
         ],
@@ -347,13 +347,13 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
             Row(children: [
               Expanded(
                 child: Text(g.category,
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
               ),
               if (g.priority != null) _pill('${g.priority} priority', filled: false),
             ]),
             const SizedBox(height: 12),
             Text(g.title,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w600, height: 1.25)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w600, height: 1.25)),
             const SizedBox(height: 14),
             Wrap(spacing: 8, runSpacing: 8, children: [
               _pill(switch (_status) {
@@ -365,12 +365,12 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
             ]),
             if (g.description != null && g.description!.trim().isNotEmpty) ...[
               const SizedBox(height: 14),
-              Text(g.description!, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
+              Text(g.description!, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
             ],
           ])),
           const SizedBox(height: 12),
           _card(Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            const Text('Progress', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500)),
+            Text('Progress', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500)),
             const SizedBox(height: 6),
             if (g.isMeasurable) ...[
               Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -378,14 +378,14 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
                   child: Text.rich(TextSpan(children: [
                     TextSpan(
                         text: _fmt(_current),
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 28, fontWeight: FontWeight.w700)),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 28, fontWeight: FontWeight.w700)),
                     TextSpan(
                         text: '  / ${_fmt(g.targetValue!)} ${g.targetUnit}',
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 15, fontWeight: FontWeight.w500)),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 15, fontWeight: FontWeight.w500)),
                   ])),
                 ),
                 Text('${(_progress! * 100).round()}%',
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
               ]),
               const SizedBox(height: 12),
               AnimatedProgressBar(
@@ -397,17 +397,17 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
             ] else
               Text(
                 _status == GoalStatus.completed ? 'Completed' : 'Open-ended goal · no numerical target',
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15),
               ),
             if (g.dueDate != null) ...[
               const SizedBox(height: 16),
-              const Divider(color: Colors.white12, height: 1),
+              Divider(color: AppColors.cardBorder, height: 1),
               const SizedBox(height: 14),
               Row(children: [
-                const UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 18),
+                UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 18),
                 const SizedBox(width: 8),
-                const Expanded(child: Text('Due date', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13))),
-                Text(_date(g.dueDate!), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                Expanded(child: Text('Due date', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13))),
+                Text(_date(g.dueDate!), style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
               ]),
             ],
             if (_status != GoalStatus.completed) ...[
@@ -421,7 +421,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
                   label: Text(_automatic ? 'View Linked Sessions' : 'Update Progress'),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.primaryTextOffWhite,
-                    side: const BorderSide(color: Colors.white24),
+                    side: BorderSide(color: AppColors.cardBorder),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
                 ),
@@ -431,21 +431,21 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
           if (_updates.isNotEmpty) ...[
             const SizedBox(height: 12),
             _card(Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text('Progress notes',
+              Text('Progress notes',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500)),
               for (final u in _updates)
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
-                  child: Text(u, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
+                  child: Text(u, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
                 ),
             ])),
           ],
           if (g.notes != null && g.notes!.trim().isNotEmpty) ...[
             const SizedBox(height: 12),
             _card(Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text('Notes', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500)),
+              Text('Notes', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500)),
               const SizedBox(height: 6),
-              Text(g.notes!, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, height: 1.45)),
+              Text(g.notes!, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, height: 1.45)),
             ])),
           ],
         ],
@@ -457,7 +457,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: AppColors.cardBorder),
           borderRadius: BorderRadius.circular(14),
         ),
         child: child,
@@ -471,6 +471,6 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(text,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5, fontWeight: FontWeight.w500)),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5, fontWeight: FontWeight.w500)),
       );
 }

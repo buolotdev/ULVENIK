@@ -262,10 +262,10 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite, size: 24),
+        icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite, size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      title: const Text(
+      title: Text(
         'Vet Visits',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -279,7 +279,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         // Search Icon (focuses search)
         IconButton(
           tooltip: 'Search Visits',
-          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: () {
             if (_isEmpty) {
               setState(() => _isEmpty = false);
@@ -290,7 +290,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         // Filter list preferences modal
         IconButton(
           tooltip: 'Filter Options',
-          icon: const Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 22),
           onPressed: _showFilterPreferencesModal,
         ),
         // Quick State Toggle (Populated / Empty)
@@ -308,7 +308,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
         // Add Visit (+)
         IconButton(
           tooltip: 'Add Vet Visit',
-          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 24),
+          icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 24),
           onPressed: _showAddVisitModal,
         ),
         const SizedBox(width: 4),
@@ -395,7 +395,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                 children: [
                   Text(
                     _activeDog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -405,7 +405,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   const SizedBox(height: 2),
                   Text(
                     '${_activeDog.breed} · ${_activeDog.age}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -413,7 +413,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+            Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -427,7 +427,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'VET SUMMARY',
           style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
@@ -567,7 +567,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
           const SizedBox(height: 4),
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 10,
               fontWeight: FontWeight.w700,
@@ -606,11 +606,11 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   controller: _searchController,
                   focusNode: _searchFocusNode,
                   cursorColor: const Color(0xFF95D3BB),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 14,
                   ),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Search visits, vets, diagnoses...',
                     hintStyle: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -716,7 +716,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   minimumSize: Size.zero,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                child: const Text(
+                child: Text(
                   'Clear All',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -792,7 +792,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
+        Text(
           'RECENT VISITS',
           style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
@@ -820,13 +820,13 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
               children: [
                 Text(
                   _sortOrder,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12,
                   ),
                 ),
                 const SizedBox(width: 4),
-                const UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 16),
+                UlvenikIcon(UlvenikIcons.sort, color: AppColors.secondaryTextStoneGrey, size: 16),
               ],
             ),
           ),
@@ -860,7 +860,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
               children: [
                 Text(
                   _formatDate(visit.date),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -908,7 +908,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
             // Title & Vet
             Text(
               visit.title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -917,7 +917,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
             const SizedBox(height: 2),
             Text(
               '${visit.clinic} · ${visit.veterinarian}',
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 13,
               ),
@@ -939,7 +939,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   Expanded(
                     child: Text(
                       visit.diagnosisNote,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 13,
                       ),
@@ -999,7 +999,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       ],
                     )
                   else
-                    const Text(
+                    Text(
                       'No follow-up required',
                       style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
@@ -1029,9 +1029,9 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
       child: Center(
         child: Column(
           children: [
-            const UlvenikIcon(UlvenikIcons.health, size: 40, color: AppColors.secondaryTextStoneGrey),
+            UlvenikIcon(UlvenikIcons.health, size: 40, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'No visits found matching your filters',
               style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
@@ -1040,7 +1040,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
               ),
             ),
             const SizedBox(height: 6),
-            const Text(
+            Text(
               'Try clearing search terms or status filters.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
             ),
@@ -1145,7 +1145,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
           const SizedBox(height: 24),
 
           // Main Empty Title
-          const Text(
+          Text(
             'No Vet Visits Recorded',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1231,7 +1231,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Select Dog Profile',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -1240,7 +1240,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                      icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                       onPressed: () => Navigator.pop(ctx),
                     ),
                   ],
@@ -1283,7 +1283,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                                 ),
                                 Text(
                                   '${dog.breed} · ${dog.age}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12,
                                   ),
@@ -1327,7 +1327,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Filter & Sort Options',
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -1336,13 +1336,13 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text('VISIT STATUS', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
+                    Text('VISIT STATUS', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 8),
                     Row(
                       children: [
@@ -1375,7 +1375,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text('RECORD YEAR', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
+                    Text('RECORD YEAR', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 8),
                     Row(
                       children: [
@@ -1483,7 +1483,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       Expanded(
                         child: Text(
                           visit.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -1491,7 +1491,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1512,11 +1512,11 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                   _buildDetailRow('Reminder Alert', visit.hasReminder ? 'Active' : 'Not set'),
                   if (visit.notes != null) ...[
                     const SizedBox(height: 8),
-                    const Text('Clinical Notes', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                    Text('Clinical Notes', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                     const SizedBox(height: 4),
                     Text(
                       visit.notes!,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.4),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.4),
                     ),
                   ],
                   const SizedBox(height: 24),
@@ -1578,8 +1578,8 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
-          Text(value, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w600)),
+          Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+          Text(value, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w600)),
         ],
       ),
     );
@@ -1630,14 +1630,14 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                         children: [
                           Text(
                             'Add Vet Visit for ${_activeDog.name}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                            icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1671,10 +1671,10 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       // Title Field
                       TextField(
                         controller: titleCtrl,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite),
                         decoration: InputDecoration(
                           labelText: 'Visit Title / Reason',
-                          labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                          labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                           filled: true,
                           fillColor: AppColors.backgroundObsidian,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1696,10 +1696,10 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                           Expanded(
                             child: TextField(
                               controller: clinicCtrl,
-                              style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                              style: TextStyle(color: AppColors.primaryTextOffWhite),
                               decoration: InputDecoration(
                                 labelText: 'Clinic',
-                                labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                                labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                                 filled: true,
                                 fillColor: AppColors.backgroundObsidian,
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1714,10 +1714,10 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                           Expanded(
                             child: TextField(
                               controller: vetCtrl,
-                              style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                              style: TextStyle(color: AppColors.primaryTextOffWhite),
                               decoration: InputDecoration(
                                 labelText: 'Veterinarian',
-                                labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                                labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                                 filled: true,
                                 fillColor: AppColors.backgroundObsidian,
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1735,10 +1735,10 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       // Diagnosis Field
                       TextField(
                         controller: diagnosisCtrl,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite),
                         decoration: InputDecoration(
                           labelText: 'Summary Diagnosis / Treatment',
-                          labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                          labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                           filled: true,
                           fillColor: AppColors.backgroundObsidian,
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1778,7 +1778,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                                   children: [
                                     Text(
                                       _formatDate(visitDate),
-                                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+                                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
                                     ),
                                     const UlvenikIcon(UlvenikIcons.calendar, size: 16, color: Color(0xFF95D3BB)),
                                   ],
@@ -1791,10 +1791,10 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                             child: TextField(
                               controller: costCtrl,
                               keyboardType: TextInputType.number,
-                              style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                              style: TextStyle(color: AppColors.primaryTextOffWhite),
                               decoration: InputDecoration(
                                 labelText: 'Invoice Cost (\$)',
-                                labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                                labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                                 filled: true,
                                 fillColor: AppColors.backgroundObsidian,
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1813,7 +1813,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('Mark as Completed', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
+                          Text('Mark as Completed', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
                           Switch(
                             value: isCompleted,
                             activeThumbColor: const Color(0xFF95D3BB),
@@ -1827,7 +1827,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('Follow-up Required', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
+                          Text('Follow-up Required', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
                           Switch(
                             value: followUpRequired,
                             activeThumbColor: const Color(0xFF95D3BB),
@@ -1841,7 +1841,7 @@ class _VetVisitsScreenState extends State<VetVisitsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('Set Reminder Notification', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
+                          Text('Set Reminder Notification', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
                           Switch(
                             value: hasReminder,
                             activeThumbColor: const Color(0xFF95D3BB),

@@ -54,15 +54,15 @@ class SubscriptionDetailsScreen extends StatefulWidget {
 }
 
 class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian;
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
-  static const Color _sage = AppColors.secondarySage;
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
+  static Color get _sage => AppColors.secondarySage;
   static const Color _sageMint = Color(0xFFB6CCB5);
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
-  static const Color _cardBorder = AppColors.cardBorder;
-  static const Color _destructive = AppColors.errorDestructive;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _destructive => AppColors.errorDestructive;
 
   bool _coreActive = true;
   bool _coreAnnual = true;
@@ -205,7 +205,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(12, 12, 16, 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -220,7 +220,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
               }
             },
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(6),
               child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
@@ -229,7 +229,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
             ),
           ),
           const SizedBox(width: 6),
-          const Expanded(
+          Expanded(
             child: Text(
               'Subscription',
               style: TextStyle(
@@ -244,7 +244,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
           GestureDetector(
             onTap: _openSubscriptionHelpSheet,
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(6),
               child: Icon(Icons.help_outline_rounded,
                 color: _stoneGrey,
@@ -262,7 +262,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
       padding: const EdgeInsets.only(left: 4),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -301,7 +301,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
           const SizedBox(height: 16),
           Text(
             _currentMembershipTitle,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 24,
               fontWeight: FontWeight.w700,
@@ -312,7 +312,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
           const SizedBox(height: 4),
           Text(
             _coreAnnual ? 'Annual Membership' : 'Monthly Membership',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -343,7 +343,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                       ),
                       child: Text(
                         pack.badgeLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 11,
                           fontWeight: FontWeight.w600,
@@ -361,7 +361,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
             _coreActive
                 ? 'Renews $_coreRenewalDate · Apple App Store'
                 : 'Access ends $_coreRenewalDate · Auto-renew paused',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 13.5,
               fontWeight: FontWeight.w400,
@@ -374,7 +374,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
           GestureDetector(
             onTap: _openManageCoreSubscriptionSheet,
             behavior: HitTestBehavior.opaque,
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -408,12 +408,12 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
       ),
       child: Row(
         children: [
-          const Icon(Icons.local_offer_rounded, color: _forest, size: 17),
+          Icon(Icons.local_offer_rounded, color: _forest, size: 17),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               message,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 12.5,
                 fontWeight: FontWeight.w500,
@@ -492,7 +492,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
           const SizedBox(height: 14),
           Text(
             pack.title,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 18.5,
               fontWeight: FontWeight.w700,
@@ -502,7 +502,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
           const SizedBox(height: 4),
           Text(
             pack.description,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 13.5,
               color: _stoneGrey,
@@ -519,7 +519,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
             children: [
               Text(
                 '${pack.isAnnual ? 'Annual' : 'Monthly'} · Renews ${pack.renewalDate}',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 13,
                   color: _stoneGrey,
@@ -528,7 +528,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
               GestureDetector(
                 onTap: () => _openManagePackSheet(pack),
                 behavior: HitTestBehavior.opaque,
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
@@ -582,7 +582,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
               const SizedBox(width: 14),
               Text(
                 pack.title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 19,
                   fontWeight: FontWeight.w700,
@@ -594,7 +594,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
           const SizedBox(height: 12),
           Text(
             pack.description,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 13.5,
               color: _stoneGrey,
@@ -628,13 +628,13 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                       children: [
                         TextSpan(
                           text: pack.monthlyPriceLabel,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 19,
                             fontWeight: FontWeight.w700,
                             color: _offWhite,
                           ),
                         ),
-                        const TextSpan(
+                        TextSpan(
                           text: ' / month',
                           style: TextStyle(
                             fontSize: 13.5,
@@ -648,7 +648,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                   const SizedBox(height: 2),
                   Text(
                     'or ${pack.annualPriceLabel} / year',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 12.5,
                       color: _stoneGrey,
@@ -732,7 +732,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
             text,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 13.5,
               fontWeight: FontWeight.w400,
@@ -838,7 +838,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
@@ -848,7 +848,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                     const SizedBox(height: 3),
                     Text(
                       subtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12.5,
                         color: _stoneGrey,
@@ -894,7 +894,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                     const SizedBox(height: 16),
                     Text(
                       'Manage $_currentMembershipTitle',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -902,7 +902,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    const Text(
+                    Text(
                       'Switch billing cycle, compare savings, or manage Apple App Store auto-renewal.',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -911,7 +911,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                       ),
                     ),
                     const SizedBox(height: 18),
-                    const Text(
+                    Text(
                       'BILLING CYCLE',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1018,7 +1018,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Confirm Cancellation?',
                               style: TextStyle(
                                 fontFamily: 'Inter',
@@ -1030,7 +1030,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                             const SizedBox(height: 4),
                             Text(
                               'You will keep full Ulvenik Core access until $_coreRenewalDate.',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 12.5,
                                 color: _stoneGrey,
@@ -1113,7 +1113,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -1132,7 +1132,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
             const SizedBox(height: 6),
             Text(
               price,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 15,
                 fontWeight: FontWeight.w700,
@@ -1142,7 +1142,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
             const SizedBox(height: 4),
             Text(
               badge,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 10.5,
                 fontWeight: FontWeight.w600,
@@ -1180,7 +1180,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                     const SizedBox(height: 16),
                     Text(
                       'Manage ${pack.title}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -1190,7 +1190,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                     const SizedBox(height: 4),
                     Text(
                       pack.description,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         color: _stoneGrey,
@@ -1327,7 +1327,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                     const SizedBox(height: 16),
                     Text(
                       'Add ${pack.title}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -1337,7 +1337,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                     const SizedBox(height: 4),
                     Text(
                       pack.description,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         color: _stoneGrey,
@@ -1445,7 +1445,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                 children: [
                   _buildSheetHandle(),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Redeem Promotional Code',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -1455,7 +1455,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                  Text(
                     'Enter an Apple App Store or Ulvenik partner promo code (e.g. ULVENIK30).',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -1467,7 +1467,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                   TextField(
                     controller: codeCtrl,
                     textCapitalization: TextCapitalization.characters,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -1490,11 +1490,11 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _cardBorder),
+                        borderSide: BorderSide(color: _cardBorder),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _forest),
+                        borderSide: BorderSide(color: _forest),
                       ),
                     ),
                   ),
@@ -1662,7 +1662,7 @@ class _EntitlementQuotaHelpSheetState extends State<_EntitlementQuotaHelpSheet>
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Membership Entitlements & Quotas',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -1672,7 +1672,7 @@ class _EntitlementQuotaHelpSheetState extends State<_EntitlementQuotaHelpSheet>
               ),
             ),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               'Tap any quota bar below to inspect live usage across your active packs.',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -1712,7 +1712,7 @@ class _EntitlementQuotaHelpSheetState extends State<_EntitlementQuotaHelpSheet>
                                 children: [
                                   Text(
                                     _quotas[i].$1,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Inter',
                                       fontSize: 13.5,
                                       fontWeight: FontWeight.w600,
@@ -1721,7 +1721,7 @@ class _EntitlementQuotaHelpSheetState extends State<_EntitlementQuotaHelpSheet>
                                   ),
                                   Text(
                                     '${(_quotas[i].$2 * 100).round()}%',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Inter',
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
@@ -1737,7 +1737,7 @@ class _EntitlementQuotaHelpSheetState extends State<_EntitlementQuotaHelpSheet>
                                   value: _quotas[i].$2 * t,
                                   minHeight: 6,
                                   backgroundColor: Colors.white10,
-                                  valueColor: const AlwaysStoppedAnimation(
+                                  valueColor: AlwaysStoppedAnimation(
                                     AppColors.primaryForestGreen,
                                   ),
                                 ),
@@ -1745,7 +1745,7 @@ class _EntitlementQuotaHelpSheetState extends State<_EntitlementQuotaHelpSheet>
                               const SizedBox(height: 6),
                               Text(
                                 _quotas[i].$3,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 12,
                                   color: AppColors.secondaryTextStoneGrey,

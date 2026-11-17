@@ -84,7 +84,7 @@ class TrendChart extends StatelessWidget {
               getTitlesWidget: (v, m) => v == m.min || v == m.max
                   ? const SizedBox.shrink()
                   : Text(format(v),
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
             ),
           ),
           bottomTitles: AxisTitles(
@@ -96,14 +96,14 @@ class TrendChart extends StatelessWidget {
                 if (pts.length == 1) {
                   return v == 0.5
                       ? Text(fmtShort(pts.first.date),
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10))
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10))
                       : const SizedBox.shrink();
                 }
                 final d = DateTime.fromMillisecondsSinceEpoch((t0 + span * v).round());
                 return Padding(
                   padding: const EdgeInsets.only(top: 6),
                   child: Text(fmtShort(d),
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
                 );
               },
             ),
@@ -125,7 +125,7 @@ class TrendChart extends StatelessWidget {
               for (final s in spots)
                 LineTooltipItem(
                   '${format(s.y)}\n${fmtDate(pts[s.spotIndex].date)}',
-                  const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600),
+                  TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600),
                 ),
             ],
           ),

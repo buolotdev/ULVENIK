@@ -212,15 +212,15 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 24),
+        icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
       title: _isSearching
           ? TextField(
               controller: _searchController,
               autofocus: true,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16),
-              decoration: const InputDecoration(
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16),
+              decoration: InputDecoration(
                 hintText: 'Search medications...',
                 hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 15),
                 border: InputBorder.none,
@@ -229,7 +229,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 setState(() => _searchQuery = val.trim());
               },
             )
-          : const Text(
+          : Text(
               'Medication Manager',
               style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
@@ -260,7 +260,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
         // Filter & Sort modal
         IconButton(
           tooltip: 'Filters & Preferences',
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
+          icon: Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
           onPressed: _showFilterPreferencesModal,
         ),
         // Empty / Populated Toggle
@@ -392,7 +392,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'MEDICATION OVERVIEW',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -430,7 +430,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
         children: [
           Text(
             count,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 22,
               fontWeight: FontWeight.w700,
@@ -441,7 +441,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
             label,
             textAlign: TextAlign.center,
             maxLines: 2,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 9.5,
               fontWeight: FontWeight.w500,
@@ -469,7 +469,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
           ),
         ),
         const SizedBox(height: 20),
-        const Text(
+        Text(
           'No Medications',
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,
@@ -483,7 +483,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
           child: Text(
             '${_activeDog.name}\'s medications will appear here. Add a medication to track dosages, schedules and reminders in one place.',
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 14,
               height: 1.5,
@@ -573,7 +573,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 children: [
                   Text(
                     _activeDog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -582,7 +582,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   const SizedBox(height: 2),
                   Text(
                     '${_activeDog.breed} · ${_activeDog.age}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 13,
                     ),
@@ -590,7 +590,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 24),
+            Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 24),
           ],
         ),
       ),
@@ -611,7 +611,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'MEDICATION OVERVIEW',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -750,7 +750,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'NEXT DOSE',
                         style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
@@ -762,7 +762,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                       const SizedBox(height: 2),
                       Text(
                         '${med.name} ${med.dosage}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -790,7 +790,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Record Dose',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -862,7 +862,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.secondaryTextStoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
@@ -904,7 +904,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     children: [
                       Text(
                         med.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -913,7 +913,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                       const SizedBox(height: 2),
                       Text(
                         '${med.dosage} · ${med.form}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 12,
                         ),
@@ -948,7 +948,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'FREQUENCY',
                         style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
@@ -960,7 +960,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                       const SizedBox(height: 3),
                       Text(
                         med.frequency,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -973,7 +973,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'NEXT DOSE',
                         style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
@@ -985,7 +985,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                       const SizedBox(height: 3),
                       Text(
                         med.nextDoseDisplay,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -1024,7 +1024,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 InkWell(
                   onTap: () => _showSkipDoseModal(med),
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(Icons.block, color: AppColors.secondaryTextStoneGrey, size: 15),
                       SizedBox(width: 6),
                       Text(
@@ -1078,7 +1078,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     children: [
                       Text(
                         med.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -1087,7 +1087,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                       const SizedBox(height: 2),
                       Text(
                         '${med.dosage} · ${med.form}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 12,
                         ),
@@ -1102,7 +1102,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Text(
+                  child: Text(
                     'PAUSED',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -1128,7 +1128,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     });
                   },
                   child: Row(
-                    children: const [
+                    children: [
                       UlvenikIcon(UlvenikIcons.play, color: AppColors.primaryTextOffWhite, size: 17),
                       SizedBox(width: 6),
                       Text(
@@ -1146,7 +1146,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 InkWell(
                   onTap: () => _confirmStopMedication(med),
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(Icons.stop, color: AppColors.secondaryTextStoneGrey, size: 15),
                       SizedBox(width: 6),
                       Text(
@@ -1189,7 +1189,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.archive_outlined, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: Icon(Icons.archive_outlined, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -1198,7 +1198,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 children: [
                   Text(
                     med.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
@@ -1207,7 +1207,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   const SizedBox(height: 2),
                   Text(
                     med.nextDoseDisplay,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -1222,7 +1222,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Text(
+              child: Text(
                 'COMPLETED',
                 style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -1244,14 +1244,14 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
       child: Center(
         child: Column(
           children: [
-            const UlvenikIcon(UlvenikIcons.health, size: 36, color: AppColors.secondaryTextStoneGrey),
+            UlvenikIcon(UlvenikIcons.health, size: 36, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(height: 12),
             Text(
               'No $_selectedFilter medications',
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 6),
-            const Text(
+            Text(
               'Try changing your filter above to view other records.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
             ),
@@ -1305,14 +1305,14 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     children: [
                       Text(
                         'Record Dose: ${med.name}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -1334,11 +1334,11 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                           children: [
                             Text(
                               '${med.name} ${med.dosage}',
-                              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600),
+                              style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600),
                             ),
                             Text(
                               med.form,
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
                             ),
                           ],
                         ),
@@ -1350,7 +1350,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'ADMINISTERED TIME',
                         style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
@@ -1377,10 +1377,10 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                   const SizedBox(height: 8),
                   TextField(
                     controller: noteController,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                     decoration: InputDecoration(
                       hintText: 'Notes (optional, e.g. given with dinner)',
-                      hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                      hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                       filled: true,
                       fillColor: AppColors.cardsCarbon,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1438,20 +1438,20 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     children: [
                       Text(
                         'Skip Dose: ${med.name}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'REASON FOR SKIPPING',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -1511,18 +1511,18 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                           builder: (confirmCtx) => AlertDialog(
                             backgroundColor: AppColors.cardsCarbon,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                            title: const Text(
+                            title: Text(
                               'Skip Dose?',
                               style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w700),
                             ),
                             content: Text(
                               'Are you sure you want to record this dose of ${med.name} as skipped ($selectedReason)?',
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
                             ),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(confirmCtx, false),
-                                child: const Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
+                                child: Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
                               ),
                               TextButton(
                                 onPressed: () => Navigator.pop(confirmCtx, true),
@@ -1590,14 +1590,14 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                       children: [
                         Text(
                           'Add Medication for ${_activeDog.name}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1605,10 +1605,10 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     const SizedBox(height: 16),
                     TextField(
                       controller: nameCtrl,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite),
                       decoration: InputDecoration(
                         labelText: 'Medication Name',
-                        labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                        labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
                         fillColor: AppColors.cardsCarbon,
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1617,10 +1617,10 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     const SizedBox(height: 12),
                     TextField(
                       controller: dosageCtrl,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite),
                       decoration: InputDecoration(
                         labelText: 'Dosage (e.g. 20mg, 1 tablet, 2ml)',
-                        labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                        labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
                         fillColor: AppColors.cardsCarbon,
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1628,7 +1628,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                     const SizedBox(height: 12),
                     // Form selector
-                    const Text('FORM', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
+                    Text('FORM', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 6),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -1651,7 +1651,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                     const SizedBox(height: 12),
                     // Frequency
-                    const Text('FREQUENCY', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
+                    Text('FREQUENCY', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 6),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -1675,10 +1675,10 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     const SizedBox(height: 12),
                     TextField(
                       controller: notesCtrl,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite),
                       decoration: InputDecoration(
                         labelText: 'Instructions / Notes',
-                        labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                        labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
                         fillColor: AppColors.cardsCarbon,
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -1745,14 +1745,14 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                 children: [
                   Text(
                     med.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1855,8 +1855,8 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
-        Text(value, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w600)),
+        Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+        Text(value, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w600)),
       ],
     );
   }
@@ -1879,7 +1879,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Select Dog',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -1888,7 +1888,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1940,7 +1940,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                               children: [
                                 Text(
                                   dog.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -1948,7 +1948,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                                 ),
                                 Text(
                                   '${dog.breed} · ${dog.age}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12,
                                   ),
@@ -1989,7 +1989,7 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Medication Preferences',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -1998,13 +1998,13 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
-              const Text('DISPLAY VIEW', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
+              Text('DISPLAY VIEW', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700)),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -2080,18 +2080,18 @@ class _MedicationManagerScreenState extends State<MedicationManagerScreen> {
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.cardsCarbon,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        title: const Text(
+        title: Text(
           'Stop Medication?',
           style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w700),
         ),
         content: Text(
           'Are you sure you want to stop ${med.name}? This will mark its status as discontinued and remove it from upcoming doses.',
-          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),

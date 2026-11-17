@@ -64,20 +64,20 @@ class ClientProfileScreen extends StatefulWidget {
 
 class _ClientProfileScreenState extends State<ClientProfileScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _cardBg => AppColors.cardsCarbon; // #1C1C1C
   static const Color _tileBg = Color(0xFF22272A);
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _greenText = Color(0xFF479A7B);
   static const Color _mintBright = Color(0xFFB1F0D6);
-  static const Color _sage = AppColors.secondarySage; // #7A8F7A
-  static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
-  static const Color _gold = AppColors.favouriteGold; // #B8920A
-  static const Color _destructive = AppColors.errorDestructive; // #8B3A3A
+  static Color get _sage => AppColors.secondarySage; // #7A8F7A
+  static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
+  static Color get _gold => AppColors.favouriteGold; // #B8920A
+  static Color get _destructive => AppColors.errorDestructive; // #8B3A3A
   static const Color _destructiveText = Color(0xFFB45353);
-  static const Color _textPrimary = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _textSecondary = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _border = AppColors.cardBorder;
+  static Color get _textPrimary => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _border => AppColors.cardBorder;
 
   late final AnimationController _animController;
   late final Animation<double> _curvedAnim;
@@ -236,7 +236,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                   const SizedBox(height: 16),
                   Text(
                     '${client.firstName}\'s Homework (${_homeworkItems.length})',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textPrimary,
                       fontSize: 17,
                       fontWeight: FontWeight.w700,
@@ -252,7 +252,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                       },
                       title: Text(
                         hw.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textPrimary,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -260,7 +260,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                       ),
                       subtitle: Text(
                         '${hw.dogName} · ${hw.dueText}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textSecondary,
                           fontSize: 12,
                         ),
@@ -268,13 +268,13 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                       trailing: _buildHomeworkStatusBadge(hw.status),
                     );
                   }),
-                  const Divider(color: _border, height: 20),
+                  Divider(color: _border, height: 20),
                   TextField(
                     controller: titleCtrl,
-                    style: const TextStyle(color: _textPrimary, fontSize: 14),
+                    style: TextStyle(color: _textPrimary, fontSize: 14),
                     decoration: InputDecoration(
                       hintText: 'Assign new homework task...',
-                      hintStyle: const TextStyle(color: _textSecondary),
+                      hintStyle: TextStyle(color: _textSecondary),
                       filled: true,
                       fillColor: _tileBg,
                       contentPadding: const EdgeInsets.symmetric(
@@ -283,11 +283,11 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _border),
+                        borderSide: BorderSide(color: _border),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _border),
+                        borderSide: BorderSide(color: _border),
                       ),
                     ),
                   ),
@@ -399,24 +399,24 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
           backgroundColor: _cardBg,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: _border),
+            side: BorderSide(color: _border),
           ),
           title: Text(
             'Delete ${client.fullName}?',
-            style: const TextStyle(
+            style: TextStyle(
               color: _textPrimary,
               fontSize: 17,
               fontWeight: FontWeight.w700,
             ),
           ),
-          content: const Text(
+          content: Text(
             'This removes the client from your Trainer Pack directory while preserving dogs on their personal owner accounts.',
             style: TextStyle(color: _textSecondary, fontSize: 13.5),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text(
+              child: Text(
                 'Cancel',
                 style: TextStyle(color: _textSecondary),
               ),
@@ -501,7 +501,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
   Widget _buildTopBar(TrainerClient client) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _bg,
         border: Border(
           bottom: BorderSide(color: _border, width: 1),
@@ -513,7 +513,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 26,
             ),
@@ -526,7 +526,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _textPrimary,
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
@@ -560,7 +560,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
             tooltip: 'Client Options',
             visualDensity: VisualDensity.compact,
             onPressed: () => _showOverflowClientActions(client),
-            icon: const UlvenikIcon(UlvenikIcons.more,
+            icon: UlvenikIcon(UlvenikIcons.more,
               color: _textSecondary,
               size: 21,
             ),
@@ -624,7 +624,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Add Trainer Note',
                     style: TextStyle(
                       color: _textPrimary,
@@ -636,15 +636,15 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                   const SizedBox(height: 14),
                   TextField(
                     controller: titleCtrl,
-                    style: const TextStyle(color: _textPrimary, fontSize: 13.5),
+                    style: TextStyle(color: _textPrimary, fontSize: 13.5),
                     decoration: InputDecoration(
                       labelText: 'Note Title',
-                      labelStyle: const TextStyle(color: _textSecondary, fontSize: 12),
+                      labelStyle: TextStyle(color: _textSecondary, fontSize: 12),
                       filled: true,
                       fillColor: const Color(0xFF21272A),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _border),
+                        borderSide: BorderSide(color: _border),
                       ),
                     ),
                   ),
@@ -652,15 +652,15 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                   TextField(
                     controller: bodyCtrl,
                     maxLines: 3,
-                    style: const TextStyle(color: _textPrimary, fontSize: 13.5),
+                    style: TextStyle(color: _textPrimary, fontSize: 13.5),
                     decoration: InputDecoration(
                       labelText: 'Note Content',
-                      labelStyle: const TextStyle(color: _textSecondary, fontSize: 12),
+                      labelStyle: TextStyle(color: _textSecondary, fontSize: 12),
                       filled: true,
                       fillColor: const Color(0xFF21272A),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _border),
+                        borderSide: BorderSide(color: _border),
                       ),
                     ),
                   ),
@@ -669,7 +669,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        children: const [
+                        children: [
                           Icon(Icons.lock_outline_rounded, color: _sage, size: 16),
                           SizedBox(width: 6),
                           Text(
@@ -803,7 +803,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
           children: [
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -813,7 +813,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
             const SizedBox(height: 4),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textSecondary,
                 fontSize: 10.5,
                 fontWeight: FontWeight.w600,
@@ -855,7 +855,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
             alignment: Alignment.center,
             child: Text(
               client.initials,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -866,7 +866,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
           const SizedBox(height: 14),
           Text(
             client.fullName,
-            style: const TextStyle(
+            style: TextStyle(
               color: _textPrimary,
               fontSize: 21,
               fontWeight: FontWeight.w700,
@@ -900,7 +900,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
           const SizedBox(height: 4),
           Text(
             'Client since  ·  Linked ',
-            style: const TextStyle(
+            style: TextStyle(
               color: _textSecondary,
               fontSize: 12,
               fontFamily: 'Inter',
@@ -961,11 +961,11 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.phone_outlined, color: _sage, size: 14),
+                  Icon(Icons.phone_outlined, color: _sage, size: 14),
                   const SizedBox(width: 5),
                   Text(
                     displayPhone,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textSecondary,
                       fontSize: 12.5,
                       fontFamily: 'Inter',
@@ -973,18 +973,18 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                   ),
                 ],
               ),
-              const Text(
+              Text(
                 '·',
                 style: TextStyle(color: _textSecondary, fontSize: 13),
               ),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.mail_outline_rounded, color: _sage, size: 14),
+                  Icon(Icons.mail_outline_rounded, color: _sage, size: 14),
                   const SizedBox(width: 5),
                   Text(
                     displayEmail,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textSecondary,
                       fontSize: 12.5,
                       fontFamily: 'Inter',
@@ -1059,7 +1059,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               const SizedBox(width: 7),
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _textPrimary,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -1095,25 +1095,25 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                 Expanded(
                   child: _buildMetaCell('Member Since', memberSince),
                 ),
-                const VerticalDivider(color: _border, width: 1),
+                VerticalDivider(color: _border, width: 1),
                 Expanded(
                   child: _buildMetaCell('Total Dogs', '${client.dogs.length}'),
                 ),
-                const VerticalDivider(color: _border, width: 1),
+                VerticalDivider(color: _border, width: 1),
                 Expanded(
                   child: _buildMetaCell('Last Active', lastAct),
                 ),
               ],
             ),
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           IntrinsicHeight(
             child: Row(
               children: [
                 Expanded(
                   child: _buildMetaCell('Next Session', nextSess),
                 ),
-                const VerticalDivider(color: _border, width: 1),
+                VerticalDivider(color: _border, width: 1),
                 Expanded(
                   child: _buildMetaCell(
                     'Emerg. Contact',
@@ -1128,7 +1128,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                     },
                   ),
                 ),
-                const VerticalDivider(color: _border, width: 1),
+                VerticalDivider(color: _border, width: 1),
                 Expanded(
                   child: _buildMetaCell(
                     'Vet Practice',
@@ -1163,7 +1163,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               label,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textSecondary,
                 fontSize: 11,
                 fontFamily: 'Inter',
@@ -1174,7 +1174,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               value,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 13.5,
                 fontWeight: FontWeight.w700,
@@ -1190,7 +1190,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: _textSecondary,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -1284,7 +1284,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                 label,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _textSecondary,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
@@ -1339,7 +1339,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                           label: stats[r * 2].$2,
                         ),
                       ),
-                      const VerticalDivider(color: _border, width: 1),
+                      VerticalDivider(color: _border, width: 1),
                       Expanded(
                         child: _buildStatCell(
                           index: r * 2 + 1,
@@ -1350,7 +1350,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                     ],
                   ),
                 ),
-                const Divider(color: _border, height: 1),
+                Divider(color: _border, height: 1),
               ],
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
@@ -1360,7 +1360,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           '6-Week Activity & Adherence',
                           style: TextStyle(
                             color: _textPrimary,
@@ -1488,7 +1488,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
           children: [
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -1563,7 +1563,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: _border),
             ),
-            child: const Text(
+            child: Text(
               'No dogs linked to this client yet.',
               style: TextStyle(color: _textSecondary, fontSize: 13),
             ),
@@ -1612,7 +1612,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                           dog.name,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: _textPrimary,
                                             fontSize: 15.5,
                                             fontWeight: FontWeight.w700,
@@ -1633,7 +1633,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                             border:
                                                 Border.all(color: _border),
                                           ),
-                                          child: const Text(
+                                          child: Text(
                                             'IGP',
                                             style: TextStyle(
                                               color: _textSecondary,
@@ -1649,7 +1649,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                     '${dog.breed} · ${dog.ageLabel}',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _textSecondary,
                                       fontSize: 12,
                                       fontFamily: 'Inter',
@@ -1662,13 +1662,13 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                     children: [
                                       Text(
                                         lastText,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: _textSecondary,
                                           fontSize: 11.5,
                                           fontFamily: 'Inter',
                                         ),
                                       ),
-                                      const UlvenikIcon(UlvenikIcons.details,
+                                      UlvenikIcon(UlvenikIcons.details,
                                         color: _textSecondary,
                                         size: 16,
                                       ),
@@ -1730,7 +1730,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                           hw.title,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: _textPrimary,
                                             fontSize: 14.5,
                                             fontWeight: FontWeight.w700,
@@ -1752,7 +1752,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                         ),
                                         child: Text(
                                           hw.dogName,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: _textSecondary,
                                             fontSize: 10.5,
                                             fontWeight: FontWeight.w500,
@@ -1780,7 +1780,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                 ],
                               ),
                             ),
-                            const UlvenikIcon(UlvenikIcons.details,
+                            UlvenikIcon(UlvenikIcons.details,
                               color: _textSecondary,
                               size: 18,
                             ),
@@ -1788,7 +1788,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                         ),
                       ),
                     ),
-                    const Divider(color: _border, height: 1),
+                    Divider(color: _border, height: 1),
                   ],
                 );
               }),
@@ -1902,7 +1902,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text(
                             'No trainer notes added yet',
                             style: TextStyle(
@@ -1941,7 +1941,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                               Row(
                                 children: [
                                   if (note.isPrivate) ...[
-                                    const Icon(Icons.lock_outline_rounded,
+                                    Icon(Icons.lock_outline_rounded,
                                       color: _sage,
                                       size: 14,
                                     ),
@@ -1952,7 +1952,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                       note.title,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: _textPrimary,
                                         fontSize: 13.5,
                                         fontWeight: FontWeight.w700,
@@ -1972,7 +1972,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                         borderRadius: BorderRadius.circular(4),
                                         border: Border.all(color: _border),
                                       ),
-                                      child: const Text(
+                                      child: Text(
                                         'Private',
                                         style: TextStyle(
                                           color: _textSecondary,
@@ -1989,7 +1989,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                                   note.content,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _textSecondary,
                                     fontSize: 12.5,
                                     fontFamily: 'Inter',
@@ -2000,7 +2000,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                           ),
                         ),
                       )),
-                const Divider(color: _border, height: 1),
+                Divider(color: _border, height: 1),
                 InkWell(
                   onTap: _openClientNotes,
                   child: Padding(
@@ -2026,7 +2026,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                     ),
                   ),
                 ),
-                const Divider(color: _border, height: 1),
+                Divider(color: _border, height: 1),
                 Container(
                   width: double.infinity,
                   color: const Color(0xFF151A1E),
@@ -2035,7 +2035,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                     vertical: 11,
                   ),
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(Icons.lock_outline_rounded,
                         color: _alpineBlue,
                         size: 15,
@@ -2087,11 +2087,11 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
             backgroundColor: _cardBg,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
-              side: const BorderSide(color: _border),
+              side: BorderSide(color: _border),
             ),
             title: Text(
               'Archive ${client.fullName}?',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
@@ -2099,12 +2099,12 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
             ),
             content: Text(
               'Are you sure you want to archive ${client.fullName}? Their profile, dogs and session history will move to archived clients and can be restored at any time.',
-              style: const TextStyle(color: _textSecondary, fontSize: 13.5),
+              style: TextStyle(color: _textSecondary, fontSize: 13.5),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx, false),
-                child: const Text(
+                child: Text(
                   'Cancel',
                   style: TextStyle(color: _textSecondary),
                 ),
@@ -2209,7 +2209,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
                         ),
                       ),
                     ),
-                    const Divider(color: _border, height: 1),
+                    Divider(color: _border, height: 1),
                   ],
                 );
               }),
@@ -2287,7 +2287,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               _openEditClient(client);
             },
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildActionSheetRow(
             label: client.status == 'Archived'
                 ? 'Restore Client'
@@ -2298,7 +2298,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               _confirmToggleArchiveClient(client);
             },
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildActionSheetRow(
             label: 'Export Client',
             icon: Icons.download_rounded,
@@ -2313,7 +2313,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               );
             },
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildActionSheetRow(
             label: 'Shared Records',
             icon: Icons.folder_shared_outlined,
@@ -2326,7 +2326,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               );
             },
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildActionSheetRow(
             label: 'Client Analytics',
             icon: Icons.insights_rounded,
@@ -2339,7 +2339,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               );
             },
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildActionSheetRow(
             label: 'Share Client',
             icon: Icons.share_outlined,
@@ -2353,7 +2353,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen>
               );
             },
           ),
-          const Divider(color: _border, height: 1),
+          Divider(color: _border, height: 1),
           _buildActionSheetRow(
             label: 'Delete Client',
             icon: Icons.delete_outline_rounded,

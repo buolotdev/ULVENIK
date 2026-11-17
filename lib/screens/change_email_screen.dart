@@ -21,15 +21,15 @@ class ChangeEmailScreen extends StatefulWidget {
 }
 
 class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian;
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
   static const Color _sageMint = Color(0xFFB6CCB5);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue;
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
-  static const Color _cardBorder = AppColors.cardBorder;
-  static const Color _destructive = AppColors.errorDestructive;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _destructive => AppColors.errorDestructive;
 
   static final RegExp _emailRegex = RegExp(
     r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$',
@@ -262,7 +262,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(8, 10, 16, 14),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -272,7 +272,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(_currentEmail),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 26,
             ),
@@ -280,7 +280,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
             constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
           ),
           const SizedBox(width: 8),
-          const Expanded(
+          Expanded(
             child: Text(
               'Change Email Address',
               style: TextStyle(
@@ -320,7 +320,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                   ? 'Verify Your New Email'
                   : 'Update Your Email Address'),
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 22,
             fontWeight: FontWeight.w700,
@@ -338,7 +338,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                     ? 'We sent a verification link and 6-digit security code to $_pendingNewEmail.'
                     : "We'll send a verification email to your new address before making any changes to your account."),
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 14,
               height: 1.52,
@@ -364,7 +364,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'CURRENT EMAIL',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -380,7 +380,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
               Expanded(
                 child: Text(
                   _currentEmail,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -388,7 +388,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                   ),
                 ),
               ),
-              const Icon(Icons.lock_outline_rounded,
+              Icon(Icons.lock_outline_rounded,
                 size: 17,
                 color: _stoneGrey,
               ),
@@ -397,7 +397,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
           const SizedBox(height: 18),
           Container(height: 1, color: _cardBorder),
           const SizedBox(height: 18),
-          const Text(
+          Text(
             'NEW EMAIL ADDRESS',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -412,7 +412,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
             controller: _newEmailController,
             keyboardType: TextInputType.emailAddress,
             autocorrect: false,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 15.5,
               color: _offWhite,
@@ -448,13 +448,13 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
               suffixIcon: _trimmedNewEmail.isEmpty
                   ? null
                   : (_isNewEmailValid
-                      ? const UlvenikIcon(UlvenikIcons.completed,
+                      ? UlvenikIcon(UlvenikIcons.completed,
                           color: _forest,
                           size: 19,
                         )
                       : GestureDetector(
                           onTap: () => _newEmailController.clear(),
-                          child: const Icon(Icons.cancel_outlined,
+                          child: Icon(Icons.cancel_outlined,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -519,7 +519,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                   color: _sageMint,
                 ),
                 const SizedBox(width: 8),
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Verify with Current Password',
                     style: TextStyle(
@@ -575,7 +575,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
               TextField(
                 controller: _passwordController,
                 obscureText: _obscurePassword,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 15,
                   color: _offWhite,
@@ -594,7 +594,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                       color: Colors.white.withValues(alpha: 0.16),
                     ),
                   ),
-                  focusedBorder: const UnderlineInputBorder(
+                  focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: _forest, width: 1.5),
                   ),
                   suffixIconConstraints: const BoxConstraints(
@@ -647,7 +647,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                     color: _alpineBlue.withValues(alpha: 0.4),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   'PENDING VERIFICATION',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -678,7 +678,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
           const SizedBox(height: 14),
           Text(
             _pendingNewEmail,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 16.5,
               fontWeight: FontWeight.w700,
@@ -691,7 +691,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 '6-DIGIT VERIFICATION CODE',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -725,7 +725,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
               FilteringTextInputFormatter.digitsOnly,
               LengthLimitingTextInputFormatter(6),
             ],
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 20,
               fontWeight: FontWeight.w700,
@@ -748,11 +748,11 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: _cardBorder),
+                borderSide: BorderSide(color: _cardBorder),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: _forest, width: 1.5),
+                borderSide: BorderSide(color: _forest, width: 1.5),
               ),
             ),
           ),
@@ -856,7 +856,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                     const SizedBox(height: 3),
                     Text(
                       _currentEmail,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -874,7 +874,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
                 foregroundColor: _stoneGrey,
-                side: const BorderSide(color: _cardBorder),
+                side: BorderSide(color: _cardBorder),
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -911,7 +911,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(top: 1),
             child: Icon(Icons.info_outline_rounded,
               size: 18,
@@ -922,7 +922,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
           Expanded(
             child: Text(
               message,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 13.5,
                 height: 1.45,
@@ -953,7 +953,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 18, 16, 20),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           top: BorderSide(color: _cardBorder, width: 1),
@@ -970,7 +970,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
             borderRadius: BorderRadius.circular(14),
           ),
           child: _isSending
-              ? const SizedBox(
+              ? SizedBox(
                   width: 20,
                   height: 20,
                   child: CircularProgressIndicator(

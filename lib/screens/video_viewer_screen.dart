@@ -63,13 +63,13 @@ class VideoViewerScreen extends StatefulWidget {
 }
 
 class _VideoViewerScreenState extends State<VideoViewerScreen> {
-  static const Color _black = AppColors.mediaViewerBackground; // #000000
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
-  static const Color _cardBorder = AppColors.cardBorder;
-  static const Color _favGold = AppColors.favouriteGold;
+  static Color get _black => AppColors.mediaViewerBackground; // #000000
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _favGold => AppColors.favouriteGold;
 
   static const List<double> _speeds = [0.5, 1.0, 2.0];
 
@@ -286,7 +286,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                               children: [
                                 IconButton(
                                   onPressed: () => Navigator.pop(ctx),
-                                  icon: const Icon(Icons.fullscreen_exit_rounded,
+                                  icon: Icon(Icons.fullscreen_exit_rounded,
                                     color: _offWhite,
                                   ),
                                 ),
@@ -295,7 +295,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                                     _title,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Inter',
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
@@ -387,7 +387,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Edit Video Notes',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -400,7 +400,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
               TextField(
                 controller: controller,
                 maxLines: 4,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14,
                   color: _offWhite,
@@ -410,7 +410,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                   fillColor: _black,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _cardBorder),
+                    borderSide: BorderSide(color: _cardBorder),
                   ),
                 ),
               ),
@@ -477,8 +477,8 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                 const SizedBox(height: 12),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const UlvenikIcon(UlvenikIcons.edit, color: _offWhite),
-                  title: const Text(
+                  leading: UlvenikIcon(UlvenikIcons.edit, color: _offWhite),
+                  title: Text(
                     'Edit Session Notes',
                     style: TextStyle(fontFamily: 'Inter', color: _offWhite),
                   ),
@@ -489,10 +489,10 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.speed_rounded, color: _offWhite),
+                  leading: Icon(Icons.speed_rounded, color: _offWhite),
                   title: Text(
                     'Cycle Playback Speed ($_speedLabel)',
-                    style: const TextStyle(fontFamily: 'Inter', color: _offWhite),
+                    style: TextStyle(fontFamily: 'Inter', color: _offWhite),
                   ),
                   onTap: () {
                     Navigator.pop(ctx);
@@ -509,7 +509,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                   ),
                   title: Text(
                     _showChrome ? 'Hide Video Controls' : 'Show Video Controls',
-                    style: const TextStyle(fontFamily: 'Inter', color: _offWhite),
+                    style: TextStyle(fontFamily: 'Inter', color: _offWhite),
                   ),
                   onTap: () {
                     Navigator.pop(ctx);
@@ -541,7 +541,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
               children: [
                 Text(
                   'Training Session — $_fullDate',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -551,7 +551,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                 const SizedBox(height: 6),
                 Text(
                   '$_activity · 45 min · $_dogName · Pine Ridge Sector B',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     color: _stoneGrey,
@@ -588,7 +588,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
       builder: (ctx) => AlertDialog(
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text(
+        title: Text(
           'Delete Video?',
           style: TextStyle(
             fontFamily: 'Inter',
@@ -598,7 +598,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
         ),
         content: Text(
           'Remove "$_title" from your Media Library? Linked session logs will remain intact.',
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 13.5,
             color: _stoneGrey,
@@ -607,7 +607,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text(
+            child: Text(
               'Cancel',
               style: TextStyle(fontFamily: 'Inter', color: _stoneGrey),
             ),
@@ -617,7 +617,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
               Navigator.pop(ctx);
               Navigator.of(context).maybePop();
             },
-            child: const Text(
+            child: Text(
               'Delete',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -668,7 +668,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                               _buildSectionLabel('NOTES'),
                               GestureDetector(
                                 onTap: _showEditNotesSheet,
-                                child: const Text(
+                                child: Text(
                                   'Edit',
                                   style: TextStyle(
                                     fontFamily: 'Inter',
@@ -713,7 +713,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 26,
             ),
@@ -721,7 +721,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
           ),
           IconButton(
             onPressed: _showOverflowMenu,
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu,
               color: _stoneGrey,
               size: 20,
             ),
@@ -817,7 +817,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                       children: [
                         Text(
                           _formatSeconds(_currentSeconds.round()),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 11.5,
                             fontWeight: FontWeight.w500,
@@ -854,7 +854,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                         const SizedBox(width: 8),
                         Text(
                           _formatSeconds(_totalSeconds),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 11.5,
                             fontWeight: FontWeight.w500,
@@ -894,7 +894,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                             ),
                             child: Text(
                               _speedLabel,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 12.5,
                                 fontWeight: FontWeight.w600,
@@ -945,7 +945,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
         ),
         child: Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 11,
             fontWeight: FontWeight.w600,
@@ -970,7 +970,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
         children: [
           Text(
             _title,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 17.5,
               fontWeight: FontWeight.w700,
@@ -1002,7 +1002,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
           const SizedBox(height: 12),
           Text(
             _resolutionAndSize,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 12.5,
               fontWeight: FontWeight.w500,
@@ -1020,7 +1020,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 10.5,
             fontWeight: FontWeight.w600,
@@ -1031,7 +1031,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
         const SizedBox(height: 4),
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 14.5,
             fontWeight: FontWeight.w600,
@@ -1135,7 +1135,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
             const SizedBox(height: 6),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
@@ -1151,7 +1151,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
   Widget _buildSectionLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         fontFamily: 'Inter',
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -1176,7 +1176,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
           ),
           child: Row(
             children: [
-              const UlvenikIcon(UlvenikIcons.training,
+              UlvenikIcon(UlvenikIcons.training,
                 color: _stoneGrey,
                 size: 21,
               ),
@@ -1187,7 +1187,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                   children: [
                     Text(
                       'Training Session — $_fullDate',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -1197,7 +1197,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                     const SizedBox(height: 3),
                     Text(
                       '$_activity · 45 min · $_dogName',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12.5,
                         color: _stoneGrey,
@@ -1206,7 +1206,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -1228,7 +1228,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
       ),
       child: Text(
         _notes,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 13.5,
           height: 1.5,
@@ -1334,7 +1334,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                       ),
                       child: Text(
                         clip.formattedDuration,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 10.5,
                           fontWeight: FontWeight.w600,
@@ -1348,7 +1348,7 @@ class _VideoViewerScreenState extends State<VideoViewerScreen> {
                     bottom: 8,
                     child: Text(
                       clip.dateLabel,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 10.5,
                         color: _stoneGrey,
@@ -1378,7 +1378,7 @@ class _MiniStat extends StatelessWidget {
       children: [
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 16,
             fontWeight: FontWeight.w700,
@@ -1388,7 +1388,7 @@ class _MiniStat extends StatelessWidget {
         const SizedBox(height: 3),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 10,
             fontWeight: FontWeight.w600,

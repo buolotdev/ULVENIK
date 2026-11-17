@@ -85,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 const UlvenikLogo.full(width: 240),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'Train. Record. Progress.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -112,7 +112,7 @@ class _SplashScreenState extends State<SplashScreen> {
       key: const ValueKey('loading'),
       liveRegion: true,
       label: 'Loading Ulvenik',
-      child: const Column(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
@@ -138,7 +138,7 @@ class _SplashScreenState extends State<SplashScreen> {
       key: const ValueKey('error'),
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Text(
+        Text(
           "Couldn't load Ulvenik",
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,
@@ -147,7 +147,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ),
         const SizedBox(height: 6),
-        const Text(
+        Text(
           'Check your connection and try again.',
           textAlign: TextAlign.center,
           style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
@@ -157,7 +157,7 @@ class _SplashScreenState extends State<SplashScreen> {
           onPressed: _load,
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primaryForestGreen,
-            foregroundColor: AppColors.primaryTextOffWhite,
+            foregroundColor: AppColors.onForestGreen,
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             elevation: 0,

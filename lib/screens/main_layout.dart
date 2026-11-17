@@ -1,4 +1,5 @@
 import 'dart:ui';
+import '../data/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
@@ -45,10 +46,10 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
     // Make status bar icons light on all screens
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: AppSettings.instance.isDark ? Brightness.light : Brightness.dark,
+      statusBarBrightness: AppSettings.instance.isDark ? Brightness.dark : Brightness.light,
     ));
 
     final topPadding = MediaQuery.of(context).padding.top;
@@ -132,9 +133,9 @@ class _MainLayoutState extends State<MainLayout> {
       // Respect home indicator on iPhone / gesture bar on Android
       height: 64 + bottomPadding,
       padding: EdgeInsets.only(bottom: bottomPadding),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF0c0f0d), // surface-container-lowest
-        border: Border(top: BorderSide(color: Colors.white12)),
+        border: Border(top: BorderSide(color: AppColors.cardBorder)),
       ),
       child: Row(
         children: [

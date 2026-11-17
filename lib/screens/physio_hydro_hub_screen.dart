@@ -339,11 +339,11 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 22),
+        icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 22),
         onPressed: () => Navigator.of(context).maybePop(),
         tooltip: 'Back',
       ),
-      title: const Text(
+      title: Text(
         'Rehabilitation',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -356,7 +356,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
       actions: [
         // Search quick trigger
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 20),
+          icon: UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite, size: 20),
           tooltip: 'Search Sessions',
           onPressed: () {
             if (_isEmpty) {
@@ -367,7 +367,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         ),
         // Filter options sheet
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 20),
+          icon: Icon(Icons.filter_list, color: AppColors.primaryTextOffWhite, size: 20),
           tooltip: 'Filter Options',
           onPressed: _showFilterOptionsModal,
         ),
@@ -383,7 +383,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         ),
         // Add Session
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite, size: 22),
           tooltip: 'Record Session',
           onPressed: _showAddSessionModal,
         ),
@@ -483,7 +483,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 children: [
                   Text(
                     _activeDog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -491,7 +491,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   ),
                   Text(
                     _activeDog.breed,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -499,7 +499,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+            Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -527,7 +527,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                     icon: Icons.calendar_month_outlined,
                     valueWidget: Text(
                       '$_totalSessionsCount',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
@@ -544,7 +544,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                     icon: Icons.fitness_center_outlined,
                     valueWidget: Text(
                       '$_totalPhysioCount',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
@@ -561,7 +561,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                     icon: Icons.pool_outlined,
                     valueWidget: Text(
                       '$_totalHydroCount',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
@@ -581,7 +581,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   child: _buildSummaryBox(
                     label: 'LAST SESSION',
                     icon: Icons.event_outlined,
-                    valueWidget: const Text(
+                    valueWidget: Text(
                       '14 Aug',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -599,7 +599,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                     icon: Icons.event_available_outlined,
                     valueWidget: Text(
                       _nextApptDate,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -619,14 +619,14 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       children: [
                         Text(
                           '$_avgDurationMin',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         const SizedBox(width: 3),
-                        const Text(
+                        Text(
                           'min',
                           style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
@@ -671,7 +671,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 10,
                     fontWeight: FontWeight.w700,
@@ -708,7 +708,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Sessions Over Time',
                 style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
@@ -723,7 +723,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 },
                 borderRadius: BorderRadius.circular(4),
                 child: Row(
-                  children: const [
+                  children: [
                     Text(
                       'Last 6 Months',
                       style: TextStyle(
@@ -762,7 +762,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 const SizedBox(width: 8),
                 Text(
                   '${activePoint.month}: ',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -780,7 +780,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 Expanded(
                   child: Text(
                     activePoint.milestone,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 11,
                     ),
@@ -816,7 +816,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text('6', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
                           Text('3', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
                           Text('0', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
@@ -1006,17 +1006,17 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+          UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: _searchController,
               focusNode: _searchFocusNode,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 14,
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Search therapist, clinic, exercises...',
                 hintStyle: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -1044,7 +1044,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   _searchQuery = '';
                 });
               },
-              child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+              child: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
             ),
         ],
       ),
@@ -1063,7 +1063,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Recent Sessions',
               style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
@@ -1073,7 +1073,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             ),
             Text(
               '${list.length} sessions',
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 12,
               ),
@@ -1091,9 +1091,9 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             ),
             child: Column(
               children: [
-                const Icon(Icons.search_off, size: 36, color: AppColors.secondaryTextStoneGrey),
+                Icon(Icons.search_off, size: 36, color: AppColors.secondaryTextStoneGrey),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'No matching sessions found',
                   style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
@@ -1102,7 +1102,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'Try adjusting your search query or modality filters.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -1190,7 +1190,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                           Expanded(
                             child: Text(
                               session.title,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -1202,7 +1202,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       const SizedBox(height: 4),
                       Text(
                         '${session.therapist} • ${session.clinic}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 12,
                         ),
@@ -1212,7 +1212,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                 ),
                 Text(
                   '${session.durationMinutes} min',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12,
                   ),
@@ -1232,11 +1232,11 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const UlvenikIcon(UlvenikIcons.health, size: 13, color: AppColors.errorDestructive),
+                  UlvenikIcon(UlvenikIcons.health, size: 13, color: AppColors.errorDestructive),
                   const SizedBox(width: 6),
                   Text(
                     session.conditionTag,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
@@ -1257,7 +1257,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Outcome',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -1352,7 +1352,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                     children: [
                       Text(
                         _activeDog.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -1361,7 +1361,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       const SizedBox(height: 2),
                       Text(
                         '${_activeDog.breed} · ${_activeDog.age}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 12,
                         ),
@@ -1369,7 +1369,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                     ],
                   ),
                 ),
-                const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
+                UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
               ],
             ),
           ),
@@ -1394,7 +1394,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
           const SizedBox(height: 24),
 
           // Title
-          const Text(
+          Text(
             'No Rehabilitation Sessions',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1411,7 +1411,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             child: Text(
               'Record and track your dog’s rehabilitation sessions throughout their recovery.',
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 14,
                 height: 1.45,
@@ -1503,7 +1503,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'Add Rehab Session',
                             style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
@@ -1512,7 +1512,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                            icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                             onPressed: () => Navigator.pop(ctx),
                           ),
                         ],
@@ -1520,7 +1520,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       const SizedBox(height: 16),
 
                       // Modality Type Selector
-                      const Text(
+                      Text(
                         'MODALITY',
                         style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
@@ -1596,7 +1596,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'RECOVERY PROGRESS',
                             style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
@@ -1635,7 +1635,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       const SizedBox(height: 12),
 
                       // Trend Status Picker
-                      const Text(
+                      Text(
                         'TREND STATUS',
                         style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
@@ -1752,7 +1752,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 10,
             fontWeight: FontWeight.w700,
@@ -1771,10 +1771,10 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
             controller: controller,
             keyboardType: keyboardType,
             maxLines: maxLines,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+              hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
@@ -1810,7 +1810,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       Expanded(
                         child: Text(
                           session.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -1818,14 +1818,14 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                        icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
                   ),
                   Text(
                     '${session.therapist} • ${session.clinic}',
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                   ),
                   const SizedBox(height: 16),
 
@@ -1859,7 +1859,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               'Recovery Progress Score',
                               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
                             ),
@@ -1886,7 +1886,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
 
                   // Exercises
                   if (session.exercises.isNotEmpty) ...[
-                    const Text(
+                    Text(
                       'EXERCISES PERFORMED',
                       style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5),
                     ),
@@ -1901,7 +1901,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                                 child: UlvenikIcon(UlvenikIcons.completed, size: 14, color: Color(0xFF95D3BB)),
                               ),
                               Expanded(
-                                child: Text(ex, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                                child: Text(ex, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                               ),
                             ],
                           ),
@@ -1910,14 +1910,14 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                   ],
 
                   // Notes
-                  const Text(
+                  Text(
                     'CLINICAL NOTES',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     session.notes,
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
                   ),
                   const SizedBox(height: 24),
 
@@ -1927,7 +1927,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                       Expanded(
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: AppColors.errorDestructive),
+                            side: BorderSide(color: AppColors.errorDestructive),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                           ),
@@ -1938,7 +1938,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                               if (_sessions.isEmpty) _isEmpty = true;
                             });
                           },
-                          child: const Text('Delete Session', style: TextStyle(color: AppColors.errorDestructive, fontSize: 13)),
+                          child: Text('Delete Session', style: TextStyle(color: AppColors.errorDestructive, fontSize: 13)),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -1977,7 +1977,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
         children: [
           UlvenikIcon.fromMaterial(icon, size: 13, color: const Color(0xFF95D3BB)),
           const SizedBox(width: 6),
-          Text(text, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 11, fontWeight: FontWeight.w500)),
+          Text(text, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 11, fontWeight: FontWeight.w500)),
         ],
       ),
     );
@@ -1999,7 +1999,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Select Dog Profile',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
                 ),
@@ -2035,8 +2035,8 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(dog.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
-                                Text('${dog.breed} · ${dog.age}', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                                Text(dog.name, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
+                                Text('${dog.breed} · ${dog.age}', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                               ],
                             ),
                           ),
@@ -2074,7 +2074,7 @@ class _PhysioHydroHubScreenState extends State<PhysioHydroHubScreen>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Filter by Modality',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
                 ),

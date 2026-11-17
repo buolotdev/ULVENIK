@@ -45,15 +45,15 @@ class SessionRecordsScreen extends StatefulWidget {
 }
 
 class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _cardBg => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _greenAccent = Color(0xFF479A7B);
   static const Color _mintBright = Color(0xFFB1F0D6);
-  static const Color _sage = AppColors.secondarySage; // #7A8F7A
-  static const Color _textPrimary = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _textSecondary = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _border = AppColors.cardBorder;
+  static Color get _sage => AppColors.secondarySage; // #7A8F7A
+  static Color get _textPrimary => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _border => AppColors.cardBorder;
 
   final TextEditingController _searchCtrl = TextEditingController();
   bool _isSearching = false;
@@ -170,7 +170,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                               )),
                       const SizedBox(height: 8),
                       // August header
-                      const Text(
+                      Text(
                         'AUGUST 2026',
                         style: TextStyle(
                           color: _textSecondary,
@@ -201,7 +201,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
   Widget _buildTopBar() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _bg,
         border: Border(bottom: BorderSide(color: _border, width: 1)),
       ),
@@ -211,7 +211,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 26,
             ),
@@ -221,14 +221,14 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                 ? TextField(
                     controller: _searchCtrl,
                     autofocus: true,
-                    style: const TextStyle(color: _textPrimary, fontSize: 14),
-                    decoration: const InputDecoration(
+                    style: TextStyle(color: _textPrimary, fontSize: 14),
+                    decoration: InputDecoration(
                       hintText: 'Search session records...',
                       hintStyle: TextStyle(color: _textSecondary, fontSize: 13),
                       border: InputBorder.none,
                     ),
                   )
-                : const Text(
+                : Text(
                     'Session Records',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -254,7 +254,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
             tooltip: 'Filter',
             visualDensity: VisualDensity.compact,
             onPressed: () {},
-            icon: const Icon(Icons.tune_rounded,
+            icon: Icon(Icons.tune_rounded,
               color: _textSecondary,
               size: 20,
             ),
@@ -283,7 +283,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
               border: Border.all(color: _border),
             ),
             alignment: Alignment.center,
-            child: const Icon(Icons.person_outline_rounded,
+            child: Icon(Icons.person_outline_rounded,
               color: _textSecondary,
               size: 16,
             ),
@@ -294,7 +294,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
               text,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textSecondary,
                 fontSize: 12.5,
                 fontWeight: FontWeight.w500,
@@ -329,7 +329,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                 children: [
                   Text(
                     r.dateText,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textPrimary,
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
@@ -339,7 +339,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                   const SizedBox(height: 3),
                   Text(
                     r.timeText,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textSecondary,
                       fontSize: 12,
                       fontFamily: 'Inter',
@@ -363,7 +363,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                     ),
                     child: Text(
                       r.category,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textSecondary,
                         fontSize: 9.5,
                         fontWeight: FontWeight.w700,
@@ -375,7 +375,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                   const SizedBox(height: 8),
                   Text(
                     r.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _textPrimary,
                       fontSize: 14.5,
                       fontWeight: FontWeight.w700,
@@ -397,7 +397,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                           ),
                           child: Text(
                             d,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _textSecondary,
                               fontSize: 11,
                               fontFamily: 'Inter',
@@ -408,11 +408,11 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.location_on_outlined, color: _sage, size: 12),
+                          Icon(Icons.location_on_outlined, color: _sage, size: 12),
                           const SizedBox(width: 3),
                           Text(
                             r.location,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _textSecondary,
                               fontSize: 11.5,
                               fontFamily: 'Inter',
@@ -427,7 +427,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                     children: [
                       Text(
                         r.durationText,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textSecondary,
                           fontSize: 12,
                           fontFamily: 'Inter',
@@ -465,7 +465,7 @@ class _SessionRecordsScreenState extends State<SessionRecordsScreen> {
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details,
+            UlvenikIcon(UlvenikIcons.details,
               color: _textSecondary,
               size: 18,
             ),

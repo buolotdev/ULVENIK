@@ -246,14 +246,14 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(returnSummary),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
             visualDensity: VisualDensity.compact,
           ),
           const SizedBox(width: 2),
-          const Expanded(
+          Expanded(
             child: Text(
               'Date & Time Format',
               style: TextStyle(
@@ -292,7 +292,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -313,7 +313,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
       ),
       child: Row(
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 6),
             child: UlvenikIcon(UlvenikIcons.calendar,
               size: 22,
@@ -327,7 +327,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
               children: [
                 Text(
                   _selectedDate.currentCardDate,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
@@ -338,7 +338,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
                 const SizedBox(height: 5),
                 Text(
                   _sampleClockSingle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
@@ -348,7 +348,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
                 const SizedBox(height: 4),
                 Text(
                   _weekStartSummary,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 12.5,
                     color: AppColors.secondaryTextStoneGrey,
@@ -375,12 +375,12 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
         ),
         child: Row(
           children: [
-            const Icon(Icons.language_rounded,
+            Icon(Icons.language_rounded,
               size: 20,
               color: AppColors.secondaryTextStoneGrey,
             ),
             const SizedBox(width: 14),
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -532,7 +532,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
                       Expanded(
                         child: Text(
                           title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
@@ -543,7 +543,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
                       if (trailingText != null)
                         Text(
                           trailingText,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 13.5,
                             color: AppColors.secondaryTextStoneGrey,
@@ -551,7 +551,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
                         ),
                       if (isSelected) ...[
                         if (trailingText != null) const SizedBox(width: 10),
-                        const Icon(Icons.check_rounded,
+                        Icon(Icons.check_rounded,
                           size: 18,
                           color: AppColors.primaryForestGreen,
                         ),
@@ -602,7 +602,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
             secondaryText: _previewWeekDays,
           ),
           const SizedBox(height: 18),
-          const Center(
+          Center(
             child: Text(
               'Historical records remain unchanged. Only how they\nare displayed will change.',
               textAlign: TextAlign.center,
@@ -629,7 +629,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
       children: [
         Text(
           overline,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 10.5,
             fontWeight: FontWeight.w600,
@@ -640,7 +640,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
         const SizedBox(height: 6),
         Text(
           primaryText,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 15.5,
             fontWeight: FontWeight.w600,
@@ -650,7 +650,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
         const SizedBox(height: 4),
         Text(
           secondaryText,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 13.5,
             color: AppColors.secondaryTextStoneGrey,
@@ -663,7 +663,7 @@ class _DateTimeFormatScreenState extends State<DateTimeFormatScreen> {
   Widget _buildBottomSaveDock() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           top: BorderSide(color: AppColors.cardBorder, width: 1),

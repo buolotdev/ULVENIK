@@ -64,12 +64,12 @@ class MediaCollectionsScreen extends StatefulWidget {
 }
 
 class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian; // #121212
-  static const Color _carbon = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _cardBorder = AppColors.cardBorder;
+  static Color get _obsidian => AppColors.backgroundObsidian; // #121212
+  static Color get _carbon => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _cardBorder => AppColors.cardBorder;
 
   final TextEditingController _searchController = TextEditingController();
   bool _showSearchBar = false;
@@ -369,7 +369,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Sort & Filter Collections',
                   style: TextStyle(
                     color: _offWhite,
@@ -379,7 +379,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                   ),
                 ),
                 const SizedBox(height: 14),
-                const Text(
+                Text(
                   'DOG WORKSPACE',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -428,7 +428,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                   }).toList(),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'SORT BY',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -516,7 +516,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Create Collection',
                 style: TextStyle(
                   color: _offWhite,
@@ -526,7 +526,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                 ),
               ),
               const SizedBox(height: 14),
-              const Text(
+              Text(
                 'COLLECTION NAME',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -540,14 +540,14 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
               TextField(
                 controller: nameController,
                 autofocus: true,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 14,
                   fontFamily: 'Inter',
                 ),
                 decoration: InputDecoration(
                   hintText: 'e.g., Winter Tracking Camp — Bergen',
-                  hintStyle: const TextStyle(
+                  hintStyle: TextStyle(
                     color: _stoneGrey,
                     fontSize: 13,
                     fontFamily: 'Inter',
@@ -556,20 +556,20 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                   fillColor: _obsidian,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _cardBorder),
+                    borderSide: BorderSide(color: _cardBorder),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _cardBorder),
+                    borderSide: BorderSide(color: _cardBorder),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _forest),
+                    borderSide: BorderSide(color: _forest),
                   ),
                 ),
               ),
               const SizedBox(height: 14),
-              const Text(
+              Text(
                 'DOG WORKSPACE',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -614,7 +614,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                 }).toList(),
               ),
               const SizedBox(height: 14),
-              const Text(
+              Text(
                 'COVER STYLE',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -787,7 +787,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                       children: [
                         Text(
                           album.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 17.5,
                             fontWeight: FontWeight.w700,
@@ -797,7 +797,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                         const SizedBox(height: 4),
                         Text(
                           '${album.itemCount} items · ${album.updatedLabel} · ${album.dogName}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12.5,
                             fontFamily: 'Inter',
@@ -817,14 +817,14 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                         type: SnackbarType.warning,
                       );
                     },
-                    icon: const Icon(Icons.delete_outline_rounded,
+                    icon: Icon(Icons.delete_outline_rounded,
                       color: _stoneGrey,
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 14),
-              const Text(
+              Text(
                 'COLLECTION MEDIA — TAP TO OPEN VIEWER',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -887,7 +887,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                               children: [
                                 Text(
                                   entry.title,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 13.5,
                                     fontWeight: FontWeight.w600,
@@ -897,7 +897,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                                 const SizedBox(height: 2),
                                 Text(
                                   '${entry.dogName} · ${entry.dateLabel}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _stoneGrey,
                                     fontSize: 11.5,
                                     fontFamily: 'Inter',
@@ -918,7 +918,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                             ),
                             child: Text(
                               entry.badgeText,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 10.5,
                                 fontWeight: FontWeight.w600,
@@ -927,7 +927,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                             ),
                           ),
                           const SizedBox(width: 6),
-                          const UlvenikIcon(UlvenikIcons.details,
+                          UlvenikIcon(UlvenikIcons.details,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -958,7 +958,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
         child: Column(
           children: [
             _buildTopHeader(),
-            const Divider(color: _cardBorder, height: 1),
+            Divider(color: _cardBorder, height: 1),
             if (_showSearchBar) _buildSearchAndFilterBar(),
             Expanded(
               child: visibleAlbums.isEmpty
@@ -985,12 +985,12 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.maybePop(context),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Text(
               'Collections',
               style: TextStyle(
@@ -1031,7 +1031,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
           IconButton(
             tooltip: 'Create collection',
             onPressed: _showCreateCollectionSheet,
-            icon: const UlvenikIcon(UlvenikIcons.add,
+            icon: UlvenikIcon(UlvenikIcons.add,
               color: _stoneGrey,
               size: 25,
             ),
@@ -1044,7 +1044,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
   Widget _buildSearchAndFilterBar() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _carbon,
         border: Border(bottom: BorderSide(color: _cardBorder)),
       ),
@@ -1056,19 +1056,19 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
             child: TextField(
               controller: _searchController,
               onChanged: (v) => setState(() => _searchQuery = v),
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 13.5,
                 fontFamily: 'Inter',
               ),
               decoration: InputDecoration(
                 hintText: 'Search collections or media items...',
-                hintStyle: const TextStyle(
+                hintStyle: TextStyle(
                   color: _stoneGrey,
                   fontSize: 13,
                   fontFamily: 'Inter',
                 ),
-                prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+                prefixIcon: UlvenikIcon(UlvenikIcons.search,
                   color: _stoneGrey,
                   size: 19,
                 ),
@@ -1078,7 +1078,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                           _searchController.clear();
                           setState(() => _searchQuery = '');
                         },
-                        icon: const Icon(Icons.close_rounded,
+                        icon: Icon(Icons.close_rounded,
                           color: _stoneGrey,
                           size: 17,
                         ),
@@ -1089,15 +1089,15 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                 contentPadding: EdgeInsets.zero,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: _cardBorder),
+                  borderSide: BorderSide(color: _cardBorder),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: _cardBorder),
+                  borderSide: BorderSide(color: _cardBorder),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(color: _forest),
+                  borderSide: BorderSide(color: _forest),
                 ),
               ),
             ),
@@ -1167,7 +1167,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
               child: Container(
                 width: 88,
                 height: double.infinity,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: _carbon,
                   border: Border(
                     right: BorderSide(color: _cardBorder),
@@ -1177,14 +1177,14 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                     ? Image.asset(
                         album.coverAsset!,
                         fit: BoxFit.cover,
-                        errorBuilder: (_, _, _) => const Center(
+                        errorBuilder: (_, _, _) => Center(
                           child: Icon(Icons.folder_outlined,
                             color: _stoneGrey,
                             size: 28,
                           ),
                         ),
                       )
-                    : const Center(
+                    : Center(
                         child: Icon(Icons.folder_outlined,
                           color: _stoneGrey,
                           size: 28,
@@ -1203,7 +1203,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                       album.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 16.5,
                         fontWeight: FontWeight.w700,
@@ -1215,7 +1215,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                       '${album.itemCount} items · ${album.updatedLabel}',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 13,
                         height: 1.32,
@@ -1226,7 +1226,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
                 ),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(right: 14),
               child: UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
@@ -1246,9 +1246,9 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.folder_off_outlined, color: _stoneGrey, size: 40),
+            Icon(Icons.folder_off_outlined, color: _stoneGrey, size: 40),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'No matching collections',
               style: TextStyle(
                 color: _offWhite,
@@ -1258,7 +1258,7 @@ class _MediaCollectionsScreenState extends State<MediaCollectionsScreen> {
               ),
             ),
             const SizedBox(height: 6),
-            const Text(
+            Text(
               'Try clearing your search filter or tap + to create a new album.',
               textAlign: TextAlign.center,
               style: TextStyle(

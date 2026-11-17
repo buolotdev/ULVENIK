@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -838,7 +839,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                       enabled: true,
                       touchTooltipData: BarTouchTooltipData(
                         getTooltipColor: (_) => _surfaceHigh,
-                        tooltipBorder: const BorderSide(color: Colors.white12),
+                        tooltipBorder: BorderSide(color: AppColors.cardBorder),
                         tooltipPadding: const EdgeInsets.all(8),
                         getTooltipItem: (group, groupIndex, rod, rodIndex) {
                           final act = topActivities[groupIndex];

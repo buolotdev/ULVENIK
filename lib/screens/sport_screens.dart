@@ -17,7 +17,7 @@ Widget _iconBox(String icon) => Container(
       child: Padding(padding: const EdgeInsets.all(11), child: UlvenikIcon(icon, color: AppColors.secondarySage)),
     );
 
-Widget _chevron() => const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey);
+Widget _chevron() => UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey);
 
 void _go(BuildContext c, Widget w) => Navigator.push(c, MaterialPageRoute(builder: (_) => w));
 
@@ -46,11 +46,11 @@ class SportTab extends StatelessWidget {
                 const SizedBox(width: 14),
                 Expanded(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    const Text('My Sports',
+                    Text('My Sports',
                         style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                     const SizedBox(height: 2),
                     Text('$sports ${sports == 1 ? 'sport' : 'sports'}',
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                   ]),
                 ),
                 _chevron(),
@@ -65,11 +65,11 @@ class SportTab extends StatelessWidget {
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      const Text('Sport Sessions',
+                      Text('Sport Sessions',
                           style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 2),
                       Text('$sessions ${sessions == 1 ? 'session' : 'sessions'} recorded',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                     ]),
                   ),
                   _chevron(),
@@ -90,11 +90,11 @@ class SportTab extends StatelessWidget {
                 const SizedBox(width: 14),
                 Expanded(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    const Text('Competitions & Trials',
+                    Text('Competitions & Trials',
                         style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                     const SizedBox(height: 2),
                     Text('$comps ${comps == 1 ? 'competition' : 'competitions'}',
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                   ]),
                 ),
                 _chevron(),
@@ -151,12 +151,12 @@ class _MySportsScreenState extends State<MySportsScreen> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
             child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Text('Sort Sports',
+              Text('Sort Sports',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               for (var i = 0; i < _sortLabels.length; i++)
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text(_sortLabels[i], style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                  title: Text(_sortLabels[i], style: TextStyle(color: AppColors.primaryTextOffWhite)),
                   trailing: _sort == i ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                   onTap: () {
                     setState(() => _sort = i);
@@ -177,7 +177,7 @@ class _MySportsScreenState extends State<MySportsScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
-                title: const Text('Archived Sports', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('Archived Sports', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   _go(context, ArchivedSportsScreen(dogName: widget.dogName));
@@ -213,12 +213,12 @@ class _MySportsScreenState extends State<MySportsScreen> {
       actions: [
         IconButton(
           tooltip: 'Add Sport',
-          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
+          icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
           onPressed: _add,
         ),
         IconButton(
           tooltip: 'More',
-          icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+          icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
           onPressed: _openMenu,
         ),
       ],
@@ -239,9 +239,9 @@ class _MySportsScreenState extends State<MySportsScreen> {
                   Expanded(
                     child: TextField(
                       controller: _search,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                       decoration: healthDecoration('Search sports...').copyWith(
-                        prefixIcon: const Padding(
+                        prefixIcon: Padding(
                           padding: EdgeInsets.all(12),
                           child: UlvenikIcon(UlvenikIcons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
                         ),
@@ -253,11 +253,11 @@ class _MySportsScreenState extends State<MySportsScreen> {
                     height: 48,
                     child: OutlinedButton.icon(
                       onPressed: _showSort,
-                      icon: const UlvenikIcon(UlvenikIcons.sort, size: 18, color: AppColors.secondaryTextStoneGrey),
+                      icon: UlvenikIcon(UlvenikIcons.sort, size: 18, color: AppColors.secondaryTextStoneGrey),
                       label: const Text('Sort'),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryTextOffWhite,
-                        side: const BorderSide(color: Colors.white12),
+                        side: BorderSide(color: AppColors.cardBorder),
                         backgroundColor: AppColors.cardsCarbon,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
@@ -266,7 +266,7 @@ class _MySportsScreenState extends State<MySportsScreen> {
                 ]),
                 const SizedBox(height: 16),
                 if (list.isEmpty)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 32),
                     child: Center(
                       child: Text('No sports match your search.',
@@ -310,18 +310,18 @@ class SportCard extends StatelessWidget {
             Text(sport.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
             if (sport.description.trim().isNotEmpty) ...[
               const SizedBox(height: 3),
               Text(sport.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.35)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.35)),
             ],
             const SizedBox(height: 6),
             Text(
               '$skills ${skills == 1 ? 'Skill' : 'Skills'} · $exercises ${exercises == 1 ? 'Exercise' : 'Exercises'} · $sessions ${sessions == 1 ? 'Session' : 'Sessions'}',
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
             ),
           ]),
         ),
@@ -365,7 +365,7 @@ class ArchivedSportsScreen extends StatelessWidget {
                             store.setSportArchived(dogName, s.id, false);
                             AppSnackbar.show(context, message: 'Sport restored', type: SnackbarType.success);
                           },
-                          child: const Text('Restore Sport',
+                          child: Text('Restore Sport',
                               style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                         ),
                       ),
@@ -435,7 +435,7 @@ class _SportFormScreenState extends State<SportFormScreen> {
           TextField(
             controller: _name,
             onChanged: (_) => _error == null ? null : setState(() => _error = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Enter sport name', error: _error),
           ),
           const FieldLabel('Description'),
@@ -443,7 +443,7 @@ class _SportFormScreenState extends State<SportFormScreen> {
             controller: _desc,
             minLines: 3,
             maxLines: 5,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Describe this sport...'),
           ),
           const FieldLabel('Notes'),
@@ -451,7 +451,7 @@ class _SportFormScreenState extends State<SportFormScreen> {
             controller: _notes,
             minLines: 3,
             maxLines: 5,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add notes...'),
           ),
         ],
@@ -476,10 +476,10 @@ class SportDetailScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Text('Archive Sport?',
+            Text('Archive Sport?',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'This sport will be hidden from My Sports. Its skills, exercises, sessions, competitions and attachments are kept, and you can restore it at any time.',
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4),
@@ -492,8 +492,8 @@ class SportDetailScreen extends StatelessWidget {
               child: OutlinedButton(
                 onPressed: () => Navigator.pop(ctx, false),
                 style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14), side: const BorderSide(color: Colors.white12)),
-                child: const Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                    padding: const EdgeInsets.symmetric(vertical: 14), side: BorderSide(color: AppColors.cardBorder)),
+                child: Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               ),
             ),
           ]),
@@ -540,14 +540,14 @@ class SportDetailScreen extends StatelessWidget {
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(title,
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 2),
                       Text(subtitle,
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                       const SizedBox(height: 6),
                       Text(action,
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: AppColors.primaryForestGreen, fontSize: 13, fontWeight: FontWeight.w600)),
                     ]),
                   ),
@@ -561,7 +561,7 @@ class SportDetailScreen extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'More',
-              icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
               onPressed: () => showModalBottomSheet<void>(
                 context: context,
                 backgroundColor: AppColors.cardsCarbon,
@@ -571,15 +571,15 @@ class SportDetailScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
-                        leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
-                        title: const Text('Edit Sport', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        leading: UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
+                        title: Text('Edit Sport', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           _go(context, SportFormScreen(dogName: dogName, sport: s));
                         },
                       ),
                       ListTile(
-                        title: const Text('Archive Sport', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text('Archive Sport', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           _archive(context, s);
@@ -606,7 +606,7 @@ class SportDetailScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Text(s.description,
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
                 ),
               card(UlvenikIcons.skills, 'Sport Skills & Exercises',
                   '$skills ${skills == 1 ? 'skill' : 'skills'} · $exercises ${exercises == 1 ? 'exercise' : 'exercises'}',
@@ -622,7 +622,7 @@ class SportDetailScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 const SectionLabel('Notes'),
                 Text(s.notes,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.45)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.45)),
               ],
             ],
           ),

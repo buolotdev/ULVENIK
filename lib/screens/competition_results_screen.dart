@@ -84,18 +84,18 @@ class CompetitionResultsScreen extends StatefulWidget {
 
 class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _card = AppColors.cardsCarbon; // #1C1C1C
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _card => AppColors.cardsCarbon; // #1C1C1C
   static const Color _subCard = Color(0xFF161B1E);
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _greenAccent = Color(0xFF3E8E72);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
-  static const Color _gold = AppColors.favouriteGold; // #B8920A
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stone = AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
+  static Color get _gold => AppColors.favouriteGold; // #B8920A
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stone => AppColors.secondaryTextStoneGrey; // #A7B0AB
   static const Color _muted = Color(0xFF6E7772);
-  static const Color _border = AppColors.cardBorder;
+  static Color get _border => AppColors.cardBorder;
   static const Color _underline = Color(0x2EFFFFFF);
 
   late final AnimationController _animController;
@@ -330,7 +330,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: _bg,
               border: Border(top: BorderSide(color: _border, width: 1)),
             ),
@@ -441,14 +441,14 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stone,
               size: 28,
             ),
             splashRadius: 22,
             tooltip: 'Back',
           ),
-          const Expanded(
+          Expanded(
             child: Center(
               child: Text(
                 'Competition Results',
@@ -473,7 +473,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           color: _stone,
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -504,7 +504,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           children: [
             Text(
               _competitionTitle,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 19,
                 fontWeight: FontWeight.w700,
@@ -515,14 +515,14 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             const SizedBox(height: 6),
             Row(
               children: [
-                const UlvenikIcon(UlvenikIcons.calendar,
+                UlvenikIcon(UlvenikIcons.calendar,
                   color: _stone,
                   size: 13.5,
                 ),
                 const SizedBox(width: 6),
                 Text(
                   _competitionDate,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stone,
                     fontSize: 13,
                     fontFamily: 'Inter',
@@ -535,14 +535,14 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
               child: RichText(
                 text: TextSpan(
                   text: animScore.toStringAsFixed(1),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 38,
                     fontWeight: FontWeight.w700,
                     letterSpacing: -1.0,
                     fontFamily: 'Inter',
                   ),
-                  children: const [
+                  children: [
                     TextSpan(
                       text: ' pts',
                       style: TextStyle(
@@ -565,7 +565,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                   Container(
                     width: 8,
                     height: 8,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: _gold,
                       shape: BoxShape.circle,
                     ),
@@ -573,7 +573,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                   const SizedBox(width: 7),
                   Text(
                     _heroPlaceLabel,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
@@ -628,7 +628,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Competition Outcome',
             style: TextStyle(
               color: _stone,
@@ -676,7 +676,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           const SizedBox(height: 18),
           Container(height: 1, color: _border),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'Qualification Status',
             style: TextStyle(
               color: _stone,
@@ -731,7 +731,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           const SizedBox(height: 18),
           Container(height: 1, color: _border),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'Placing & Ranks',
             style: TextStyle(
               color: _stone,
@@ -795,7 +795,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
         TextField(
           controller: controller,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 14.5,
             fontWeight: FontWeight.w600,
@@ -814,7 +814,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: _underline),
             ),
-            focusedBorder: const UnderlineInputBorder(
+            focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: _forest, width: 1.4),
             ),
           ),
@@ -854,7 +854,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             children: [
               const Icon(Icons.tag_rounded, color: _muted, size: 16),
               const SizedBox(width: 8),
-              const Text(
+              Text(
                 'Percentage',
                 style: TextStyle(
                   color: _offWhite,
@@ -873,7 +873,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                   alignment: Alignment.centerRight,
                   child: Text(
                     '${_percentage.toStringAsFixed(1)}%',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -904,7 +904,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                 size: 19,
               ),
               const SizedBox(width: 10),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -957,7 +957,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
         const SizedBox(width: 8),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 14,
             fontWeight: FontWeight.w600,
@@ -970,7 +970,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             controller: controller,
             textAlign: TextAlign.right,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 15,
               fontWeight: FontWeight.w700,
@@ -989,7 +989,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
               enabledBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: _underline),
               ),
-              focusedBorder: const UnderlineInputBorder(
+              focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: _forest, width: 1.4),
               ),
             ),
@@ -1010,7 +1010,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Add individual section scores for each part of the competition. Section names are fully customisable.',
             style: TextStyle(
               color: _stone,
@@ -1046,7 +1046,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'SECTION NAME',
                           style: TextStyle(
                             color: _stone,
@@ -1084,13 +1084,13 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                     ),
                     TextField(
                       controller: sec.nameCtrl,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 14.5,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Inter',
                       ),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(vertical: 8),
                         enabledBorder: UnderlineInputBorder(
@@ -1192,7 +1192,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -1297,7 +1297,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stone,
             fontSize: 10.5,
             fontWeight: FontWeight.w600,
@@ -1316,7 +1316,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             fontWeight: numeric ? FontWeight.w600 : FontWeight.w400,
             fontFamily: 'Inter',
           ),
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             isDense: true,
             contentPadding: EdgeInsets.symmetric(vertical: 8),
             enabledBorder: UnderlineInputBorder(
@@ -1385,7 +1385,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
         ],
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 14,
             fontWeight: FontWeight.w600,
@@ -1397,7 +1397,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           child: TextField(
             controller: controller,
             textAlign: TextAlign.right,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 14.5,
               fontWeight: FontWeight.w600,
@@ -1416,7 +1416,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
               enabledBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: _underline),
               ),
-              focusedBorder: const UnderlineInputBorder(
+              focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: _forest, width: 1.4),
               ),
             ),
@@ -1456,7 +1456,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                       Container(
                         width: 7,
                         height: 7,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: _gold,
                           shape: BoxShape.circle,
                         ),
@@ -1467,7 +1467,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                     const SizedBox(width: 7),
                     Text(
                       aw.label,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 12.8,
                         fontWeight: FontWeight.w600,
@@ -1536,7 +1536,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'JUDGE NAME',
                         style: TextStyle(
                           color: _stone,
@@ -1568,13 +1568,13 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                   ),
                   TextField(
                     controller: j.judgeNameCtrl,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14.5,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Inter',
                     ),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       isDense: true,
                       contentPadding: EdgeInsets.symmetric(vertical: 8),
                       enabledBorder: UnderlineInputBorder(
@@ -1586,7 +1586,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                     ),
                   ),
                   const SizedBox(height: 14),
-                  const Text(
+                  Text(
                     'COMMENTS',
                     style: TextStyle(
                       color: _stone,
@@ -1599,13 +1599,13 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                   TextField(
                     controller: j.commentsCtrl,
                     maxLines: 3,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 13.8,
                       height: 1.42,
                       fontFamily: 'Inter',
                     ),
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       isDense: true,
                       contentPadding: EdgeInsets.symmetric(vertical: 8),
                       enabledBorder: UnderlineInputBorder(
@@ -1681,7 +1681,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
               required maxLength,
             }) =>
                 null,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 13.8,
               height: 1.46,
@@ -1802,7 +1802,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                                 errorBuilder: (context, error, stackTrace) =>
                                     Container(
                                   color: _forest.withValues(alpha: 0.35),
-                                  child: const Icon(Icons.image_outlined,
+                                  child: Icon(Icons.image_outlined,
                                     color: _offWhite,
                                   ),
                                 ),
@@ -1822,7 +1822,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                               children: [
                                 Text(
                                   att.badge,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 11,
                                     fontWeight: FontWeight.w700,
@@ -1834,7 +1834,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                                   att.caption,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _stone,
                                     fontSize: 10,
                                     fontFamily: 'Inter',
@@ -1873,7 +1873,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14.2,
                       fontWeight: FontWeight.w600,
@@ -1892,7 +1892,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details, color: _stone, size: 19),
+            UlvenikIcon(UlvenikIcons.details, color: _stone, size: 19),
           ],
         ),
       ),
@@ -1958,7 +1958,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Add Competition Award',
                     style: TextStyle(
                       color: _offWhite,
@@ -1974,10 +1974,10 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                     children: presets.map((p) {
                       return ActionChip(
                         backgroundColor: _bg,
-                        side: const BorderSide(color: _border),
+                        side: BorderSide(color: _border),
                         label: Text(
                           p,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 12.5,
                             fontFamily: 'Inter',
@@ -2000,7 +2000,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                   const SizedBox(height: 14),
                   TextField(
                     controller: customCtrl,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontFamily: 'Inter',
@@ -2012,11 +2012,11 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                       fillColor: _bg,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _border),
+                        borderSide: BorderSide(color: _border),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _border),
+                        borderSide: BorderSide(color: _border),
                       ),
                     ),
                   ),
@@ -2091,7 +2091,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Switch Trial Result Sheet',
                   style: TextStyle(
                     color: _offWhite,
@@ -2134,7 +2134,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                                 children: [
                                   Text(
                                     t.$1,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _offWhite,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
@@ -2144,7 +2144,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                                   const SizedBox(height: 2),
                                   Text(
                                     '${t.$2}  ·  ${t.$3}/${t.$4} pts',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _stone,
                                       fontSize: 12,
                                       fontFamily: 'Inter',

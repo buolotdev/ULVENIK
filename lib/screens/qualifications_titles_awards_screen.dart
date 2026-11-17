@@ -94,15 +94,15 @@ class QualificationsTitlesAwardsScreen extends StatefulWidget {
 class _QualificationsTitlesAwardsScreenState
     extends State<QualificationsTitlesAwardsScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _card = AppColors.cardsCarbon; // #1C1C1C
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _card => AppColors.cardsCarbon; // #1C1C1C
   static const Color _iconBox = Color(0xFF23292D);
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stone = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _border = AppColors.cardBorder; // rgba(255,255,255,0.08)
+  static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stone => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _border => AppColors.cardBorder; // rgba(255,255,255,0.08)
 
   late final AnimationController _entryAnim;
 
@@ -549,7 +549,7 @@ class _QualificationsTitlesAwardsScreenState
           backgroundColor: _forest,
           elevation: 4,
           shape: const CircleBorder(),
-          child: const UlvenikIcon(UlvenikIcons.add,
+          child: UlvenikIcon(UlvenikIcons.add,
             color: _offWhite,
             size: 28,
           ),
@@ -580,7 +580,7 @@ class _QualificationsTitlesAwardsScreenState
                         _hasActiveFilter
                             ? 'FILTERED ACHIEVEMENTS (${visible.length})'
                             : 'ALL ACHIEVEMENTS',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stone,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -668,14 +668,14 @@ class _QualificationsTitlesAwardsScreenState
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stone,
               size: 28,
             ),
             splashRadius: 22,
             tooltip: 'Back',
           ),
-          const Expanded(
+          Expanded(
             child: Text(
               'Qualifications & Awards',
               maxLines: 1,
@@ -750,7 +750,7 @@ class _QualificationsTitlesAwardsScreenState
           controller: _searchController,
           autofocus: true,
           onChanged: (v) => setState(() => _searchQuery = v),
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 14,
             fontFamily: 'Inter',
@@ -762,14 +762,14 @@ class _QualificationsTitlesAwardsScreenState
               fontSize: 13.5,
               fontFamily: 'Inter',
             ),
-            prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stone, size: 19),
+            prefixIcon: UlvenikIcon(UlvenikIcons.search, color: _stone, size: 19),
             suffixIcon: _searchQuery.isNotEmpty
                 ? IconButton(
                     onPressed: () {
                       _searchController.clear();
                       setState(() => _searchQuery = '');
                     },
-                    icon: const Icon(Icons.clear_rounded, color: _stone, size: 18),
+                    icon: Icon(Icons.clear_rounded, color: _stone, size: 18),
                   )
                 : null,
             border: InputBorder.none,
@@ -915,7 +915,7 @@ class _QualificationsTitlesAwardsScreenState
               chips.isEmpty
                   ? 'Search: "$_searchQuery"'
                   : 'Filtered by ${chips.join(' · ')}',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 12.5,
                 fontWeight: FontWeight.w500,
@@ -977,7 +977,7 @@ class _QualificationsTitlesAwardsScreenState
                       item.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -995,7 +995,7 @@ class _QualificationsTitlesAwardsScreenState
                         _buildCategoryBadge(item.categoryLabel),
                         Text(
                           item.dateLabel,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stone,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -1008,7 +1008,7 @@ class _QualificationsTitlesAwardsScreenState
                 ),
               ),
               const SizedBox(width: 8),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stone,
                 size: 20,
               ),
@@ -1029,7 +1029,7 @@ class _QualificationsTitlesAwardsScreenState
       ),
       child: Text(
         sport.toUpperCase(),
-        style: const TextStyle(
+        style: TextStyle(
           color: _alpineBlue,
           fontSize: 10.5,
           fontWeight: FontWeight.w700,
@@ -1050,7 +1050,7 @@ class _QualificationsTitlesAwardsScreenState
       ),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           color: _stone,
           fontSize: 11,
           fontWeight: FontWeight.w500,
@@ -1077,13 +1077,13 @@ class _QualificationsTitlesAwardsScreenState
               color: _iconBox,
               borderRadius: BorderRadius.circular(14),
             ),
-            child: const Icon(Icons.emoji_events_outlined,
+            child: Icon(Icons.emoji_events_outlined,
               color: _stone,
               size: 26,
             ),
           ),
           const SizedBox(height: 14),
-          const Text(
+          Text(
             'No matching qualifications or awards',
             style: TextStyle(
               color: _offWhite,
@@ -1093,7 +1093,7 @@ class _QualificationsTitlesAwardsScreenState
             ),
           ),
           const SizedBox(height: 6),
-          const Text(
+          Text(
             'Try clearing active sport, dog, or year filters, or log a new qualification with the + button.',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1149,7 +1149,7 @@ class _QualificationsTitlesAwardsScreenState
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stone,
                       fontSize: 11.5,
                       fontWeight: FontWeight.w600,
@@ -1220,7 +1220,7 @@ class _QualificationsTitlesAwardsScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Filter Qualifications & Awards',
                           style: TextStyle(
                             color: _offWhite,
@@ -1431,7 +1431,7 @@ class _QualificationsTitlesAwardsScreenState
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
+                      Text(
                         'Log Qualification, Title or Award',
                         style: TextStyle(
                           color: _offWhite,
@@ -1441,7 +1441,7 @@ class _QualificationsTitlesAwardsScreenState
                         ),
                       ),
                       const SizedBox(height: 14),
-                      const Text(
+                      Text(
                         'ACHIEVEMENT TYPE',
                         style: TextStyle(
                           color: _stone,
@@ -1493,7 +1493,7 @@ class _QualificationsTitlesAwardsScreenState
                         }).toList(),
                       ),
                       const SizedBox(height: 14),
-                      const Text(
+                      Text(
                         'TITLE / QUALIFICATION NAME',
                         style: TextStyle(
                           color: _stone,
@@ -1506,7 +1506,7 @@ class _QualificationsTitlesAwardsScreenState
                       const SizedBox(height: 8),
                       TextField(
                         controller: nameCtrl,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 14,
                           fontFamily: 'Inter',
@@ -1521,11 +1521,11 @@ class _QualificationsTitlesAwardsScreenState
                           fillColor: _bg,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -1549,10 +1549,10 @@ class _QualificationsTitlesAwardsScreenState
                         ].map((preset) {
                           return ActionChip(
                             backgroundColor: _bg,
-                            side: const BorderSide(color: _border),
+                            side: BorderSide(color: _border),
                             label: Text(
                               preset,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stone,
                                 fontSize: 11.5,
                                 fontFamily: 'Inter',
@@ -1611,7 +1611,7 @@ class _QualificationsTitlesAwardsScreenState
                                   lastDate: DateTime(2030),
                                   builder: (context, child) => Theme(
                                     data: ThemeData.dark().copyWith(
-                                      colorScheme: const ColorScheme.dark(
+                                      colorScheme: ColorScheme.dark(
                                         primary: _forest,
                                         onPrimary: _offWhite,
                                         surface: _card,
@@ -1637,7 +1637,7 @@ class _QualificationsTitlesAwardsScreenState
                                 ),
                                 child: Row(
                                   children: [
-                                    const UlvenikIcon(UlvenikIcons.calendar,
+                                    UlvenikIcon(UlvenikIcons.calendar,
                                       color: _stone,
                                       size: 16,
                                     ),
@@ -1645,7 +1645,7 @@ class _QualificationsTitlesAwardsScreenState
                                     Expanded(
                                       child: Text(
                                         formatDate(pickedDate),
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: _offWhite,
                                           fontSize: 13.5,
                                           fontFamily: 'Inter',
@@ -1662,14 +1662,14 @@ class _QualificationsTitlesAwardsScreenState
                             child: TextField(
                               controller: scoreCtrl,
                               keyboardType: TextInputType.number,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _offWhite,
                                 fontSize: 13.5,
                                 fontFamily: 'Inter',
                               ),
                               decoration: InputDecoration(
                                 labelText: 'Total Score (pts)',
-                                labelStyle: const TextStyle(
+                                labelStyle: TextStyle(
                                   color: _stone,
                                   fontSize: 12,
                                 ),
@@ -1677,11 +1677,11 @@ class _QualificationsTitlesAwardsScreenState
                                 fillColor: _bg,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(color: _border),
+                                  borderSide: BorderSide(color: _border),
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(color: _border),
+                                  borderSide: BorderSide(color: _border),
                                 ),
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 12,
@@ -1695,14 +1695,14 @@ class _QualificationsTitlesAwardsScreenState
                       const SizedBox(height: 12),
                       TextField(
                         controller: judgeCtrl,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 13.5,
                           fontFamily: 'Inter',
                         ),
                         decoration: InputDecoration(
                           labelText: 'Judge & Registry',
-                          labelStyle: const TextStyle(
+                          labelStyle: TextStyle(
                             color: _stone,
                             fontSize: 12,
                           ),
@@ -1710,11 +1710,11 @@ class _QualificationsTitlesAwardsScreenState
                           fillColor: _bg,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 12,
@@ -1725,14 +1725,14 @@ class _QualificationsTitlesAwardsScreenState
                       const SizedBox(height: 12),
                       TextField(
                         controller: venueCtrl,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 13.5,
                           fontFamily: 'Inter',
                         ),
                         decoration: InputDecoration(
                           labelText: 'Trial Club / Venue',
-                          labelStyle: const TextStyle(
+                          labelStyle: TextStyle(
                             color: _stone,
                             fontSize: 12,
                           ),
@@ -1740,11 +1740,11 @@ class _QualificationsTitlesAwardsScreenState
                           fillColor: _bg,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 12,
@@ -1885,7 +1885,7 @@ class _QualificationsTitlesAwardsScreenState
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stone,
             fontSize: 11,
             fontWeight: FontWeight.w600,
@@ -1906,8 +1906,8 @@ class _QualificationsTitlesAwardsScreenState
               value: value,
               isExpanded: true,
               dropdownColor: _card,
-              icon: const Icon(Icons.keyboard_arrow_down_rounded, color: _stone),
-              style: const TextStyle(
+              icon: Icon(Icons.keyboard_arrow_down_rounded, color: _stone),
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 13.5,
                 fontFamily: 'Inter',
@@ -1945,13 +1945,13 @@ class _AchievementInspectorSheet extends StatefulWidget {
 
 class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian;
-  static const Color _forest = AppColors.primaryForestGreen;
+  static Color get _bg => AppColors.backgroundObsidian;
+  static Color get _forest => AppColors.primaryForestGreen;
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue;
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stone = AppColors.secondaryTextStoneGrey;
-  static const Color _border = AppColors.cardBorder;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stone => AppColors.secondaryTextStoneGrey;
+  static Color get _border => AppColors.cardBorder;
 
   late final AnimationController _barAnim;
   late final Animation<double> _curved;
@@ -2016,7 +2016,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
                     children: [
                       Text(
                         item.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -2026,7 +2026,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
                       const SizedBox(height: 4),
                       Text(
                         '${item.dogName} · ${item.dateLabel} · ${item.registryCode}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stone,
                           fontSize: 12,
                           fontFamily: 'Inter',
@@ -2057,7 +2057,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
               ),
             ),
             const SizedBox(height: 18),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -2126,7 +2126,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
                                 ),
                                 Text(
                                   '${(p.score * _curved.value).round()} / ${p.maxScore} pts',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 13,
                                     fontWeight: FontWeight.w700,
@@ -2190,7 +2190,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.rate_review_outlined,
+                  Icon(Icons.rate_review_outlined,
                     color: _alpineBlue,
                     size: 17,
                   ),
@@ -2198,7 +2198,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
                   Expanded(
                     child: Text(
                       '${selectedPhase.phaseName} (min ${selectedPhase.passMinimum} pts): ${selectedPhase.judgeNote}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stone,
                         fontSize: 12.5,
                         height: 1.4,
@@ -2210,7 +2210,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'VERIFIED REQUIREMENTS & PROGRESSION',
               style: TextStyle(
                 color: _stone,
@@ -2234,7 +2234,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
                     Expanded(
                       child: Text(
                         req,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 12.5,
                           fontFamily: 'Inter',
@@ -2262,7 +2262,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
                       Expanded(
                         child: Text(
                           item.nextStepLabel,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 12.5,
                             fontWeight: FontWeight.w600,
@@ -2290,7 +2290,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
                         value: item.nextStepProgress * _curved.value,
                         minHeight: 6,
                         backgroundColor: Colors.white.withValues(alpha: 0.08),
-                        valueColor: const AlwaysStoppedAnimation<Color>(_forest),
+                        valueColor: AlwaysStoppedAnimation<Color>(_forest),
                       ),
                     ),
                   ),
@@ -2333,7 +2333,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stone,
             fontSize: 12,
             fontFamily: 'Inter',
@@ -2346,7 +2346,7 @@ class _AchievementInspectorSheetState extends State<_AchievementInspectorSheet>
             textAlign: TextAlign.right,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 12.5,
               fontWeight: FontWeight.w600,

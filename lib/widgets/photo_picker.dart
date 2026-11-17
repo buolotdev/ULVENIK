@@ -16,13 +16,13 @@ Future<ImageProvider?> pickPhoto(BuildContext context, {bool allowCamera = true}
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           if (allowCamera)
             ListTile(
-              leading: const Icon(Icons.photo_camera_outlined, color: AppColors.primaryTextOffWhite),
-              title: const Text('Take Photo', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              leading: Icon(Icons.photo_camera_outlined, color: AppColors.primaryTextOffWhite),
+              title: Text('Take Photo', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () => Navigator.pop(ctx, ImageSource.camera),
             ),
           ListTile(
-            leading: const Icon(Icons.photo_library_outlined, color: AppColors.primaryTextOffWhite),
-            title: const Text('Choose from Library', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            leading: Icon(Icons.photo_library_outlined, color: AppColors.primaryTextOffWhite),
+            title: Text('Choose from Library', style: TextStyle(color: AppColors.primaryTextOffWhite)),
             onTap: () => Navigator.pop(ctx, ImageSource.gallery),
           ),
         ]),
@@ -67,13 +67,13 @@ Future<String?> pickPhotoPath(BuildContext context, {bool allowCamera = true}) a
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           if (allowCamera)
             ListTile(
-              leading: const Icon(Icons.photo_camera_outlined, color: AppColors.primaryTextOffWhite),
-              title: const Text('Take Photo', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              leading: Icon(Icons.photo_camera_outlined, color: AppColors.primaryTextOffWhite),
+              title: Text('Take Photo', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () => Navigator.pop(ctx, ImageSource.camera),
             ),
           ListTile(
-            leading: const Icon(Icons.photo_library_outlined, color: AppColors.primaryTextOffWhite),
-            title: const Text('Choose from Library', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            leading: Icon(Icons.photo_library_outlined, color: AppColors.primaryTextOffWhite),
+            title: Text('Choose from Library', style: TextStyle(color: AppColors.primaryTextOffWhite)),
             onTap: () => Navigator.pop(ctx, ImageSource.gallery),
           ),
         ]),

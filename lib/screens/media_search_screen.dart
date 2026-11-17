@@ -52,13 +52,13 @@ class MediaSearchScreen extends StatefulWidget {
 }
 
 class _MediaSearchScreenState extends State<MediaSearchScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian; // #121212
-  static const Color _carbon = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _cardBorder = AppColors.cardBorder;
-  static const Color _favGold = AppColors.favouriteGold; // #B8920A
+  static Color get _obsidian => AppColors.backgroundObsidian; // #121212
+  static Color get _carbon => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _favGold => AppColors.favouriteGold; // #B8920A
 
   late final TextEditingController _searchController;
   final FocusNode _searchFocus = FocusNode();
@@ -383,7 +383,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Sort Search Results',
                 style: TextStyle(
                   color: _offWhite,
@@ -445,7 +445,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSearchHeader(),
-            const Divider(color: _cardBorder, height: 1),
+            Divider(color: _cardBorder, height: 1),
             _buildPrimaryFilterChips(),
             _buildDogAndDateSubFilterRow(),
             Expanded(
@@ -468,7 +468,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.maybePop(context),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 28,
             ),
@@ -494,19 +494,19 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                     });
                   }
                 },
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 15,
                   fontFamily: 'Inter',
                 ),
                 decoration: InputDecoration(
                   hintText: 'Search photos, videos, PDFs...',
-                  hintStyle: const TextStyle(
+                  hintStyle: TextStyle(
                     color: _stoneGrey,
                     fontSize: 14,
                     fontFamily: 'Inter',
                   ),
-                  prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+                  prefixIcon: UlvenikIcon(UlvenikIcons.search,
                     color: _stoneGrey,
                     size: 20,
                   ),
@@ -516,7 +516,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                             _searchController.clear();
                             setState(() => _query = '');
                           },
-                          icon: const Icon(Icons.close_rounded,
+                          icon: Icon(Icons.close_rounded,
                             color: _stoneGrey,
                             size: 18,
                           ),
@@ -531,7 +531,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
           const SizedBox(width: 12),
           GestureDetector(
             onTap: () => Navigator.maybePop(context),
-            child: const Text(
+            child: Text(
               'Cancel',
               style: TextStyle(
                 color: _stoneGrey,
@@ -708,7 +708,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
             children: [
               Text(
                 '$displayCount results',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 13.5,
                   fontFamily: 'Inter',
@@ -721,14 +721,14 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                   children: [
                     Text(
                       'Sort: $_sortBy',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 13,
                         fontFamily: 'Inter',
                       ),
                     ),
                     const SizedBox(width: 6),
-                    const Icon(Icons.dehaze_rounded,
+                    Icon(Icons.dehaze_rounded,
                       color: _stoneGrey,
                       size: 16,
                     ),
@@ -757,7 +757,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'RECENT SEARCHES',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -769,7 +769,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                 ),
                 GestureDetector(
                   onTap: () => setState(() => _recentSearches.clear()),
-                  child: const Text(
+                  child: Text(
                     'Clear',
                     style: TextStyle(
                       color: _forest,
@@ -801,14 +801,14 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const UlvenikIcon(UlvenikIcons.history,
+                        UlvenikIcon(UlvenikIcons.history,
                           color: _stoneGrey,
                           size: 14,
                         ),
                         const SizedBox(width: 5),
                         Text(
                           term,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 12,
                             fontFamily: 'Inter',
@@ -843,7 +843,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.insert_drive_file_outlined,
+                    Icon(Icons.insert_drive_file_outlined,
                       color: _stoneGrey,
                       size: 28,
                     ),
@@ -853,7 +853,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 10.5,
                         fontWeight: FontWeight.w500,
@@ -870,7 +870,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                         color: _obsidian,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: const Text(
+                      child: Text(
                         'PDF',
                         style: TextStyle(
                           color: _offWhite,
@@ -898,7 +898,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                         type: SnackbarType.info,
                       );
                     },
-                    child: const Icon(Icons.favorite_rounded,
+                    child: Icon(Icons.favorite_rounded,
                       color: _favGold,
                       size: 15,
                     ),
@@ -946,7 +946,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                     color: Colors.black.withValues(alpha: 0.48),
                     shape: BoxShape.circle,
                   ),
-                  child: const UlvenikIcon(UlvenikIcons.play,
+                  child: UlvenikIcon(UlvenikIcons.play,
                     color: _offWhite,
                     size: 21,
                   ),
@@ -967,7 +967,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                   ),
                   child: Text(
                     item.durationText!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 10.5,
                       fontWeight: FontWeight.w600,
@@ -984,7 +984,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                   onTap: () {
                     setState(() => item.isFavourite = !item.isFavourite);
                   },
-                  child: const Icon(Icons.favorite_rounded,
+                  child: Icon(Icons.favorite_rounded,
                     color: _favGold,
                     size: 16,
                   ),
@@ -1005,7 +1005,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'RECENT SEARCHES',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -1018,7 +1018,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
               if (_recentSearches.isNotEmpty)
                 GestureDetector(
                   onTap: () => setState(() => _recentSearches.clear()),
-                  child: const Text(
+                  child: Text(
                     'Clear All',
                     style: TextStyle(
                       color: _forest,
@@ -1032,7 +1032,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
           ),
           const SizedBox(height: 10),
           if (_recentSearches.isEmpty)
-            const Text(
+            Text(
               'No recent searches yet. Type a keyword above or pick a tag below.',
               style: TextStyle(
                 color: _stoneGrey,
@@ -1045,20 +1045,20 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
               (term) => ListTile(
                 contentPadding: EdgeInsets.zero,
                 dense: true,
-                leading: const UlvenikIcon(UlvenikIcons.history,
+                leading: UlvenikIcon(UlvenikIcons.history,
                   color: _stoneGrey,
                   size: 19,
                 ),
                 title: Text(
                   term,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 14,
                     fontFamily: 'Inter',
                   ),
                 ),
                 trailing: IconButton(
-                  icon: const Icon(Icons.close_rounded,
+                  icon: Icon(Icons.close_rounded,
                     color: _stoneGrey,
                     size: 16,
                   ),
@@ -1069,7 +1069,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
               ),
             ),
           const SizedBox(height: 20),
-          const Text(
+          Text(
             'SUGGESTED KEYWORDS',
             style: TextStyle(
               color: _stoneGrey,
@@ -1107,7 +1107,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
                   ),
                   child: Text(
                     sug,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 12.5,
                       fontWeight: FontWeight.w500,
@@ -1130,7 +1130,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.search_off_rounded,
+            Icon(Icons.search_off_rounded,
               color: _stoneGrey,
               size: 44,
             ),
@@ -1138,7 +1138,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
             Text(
               'No media found for "${_query.trim()}"',
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -1146,7 +1146,7 @@ class _MediaSearchScreenState extends State<MediaSearchScreen> {
               ),
             ),
             const SizedBox(height: 6),
-            const Text(
+            Text(
               'Try adjusting your dog, category, or date filter chips.',
               textAlign: TextAlign.center,
               style: TextStyle(

@@ -85,7 +85,7 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                     scale: _scaleAnimation.value,
                     child: Opacity(
                       opacity: (_scaleAnimation.value * 2).clamp(0.0, 1.0),
-                      child: const UlvenikIcon(UlvenikIcons.completed,
+                      child: UlvenikIcon(UlvenikIcons.completed,
                         size: 72,
                         color: AppColors.primaryForestGreen,
                       ),
@@ -114,7 +114,7 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                         ),
                       ),
                       const SizedBox(height: 12),
-                      const Text(
+                      Text(
                         'Your password has been changed successfully. You can now log in with your new password.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -140,14 +140,14 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                     decoration: BoxDecoration(
                       color: AppColors.cardsCarbon,
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.white12),
+                      border: Border.all(color: AppColors.cardBorder),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
-                            const Icon(Icons.check,
+                            Icon(Icons.check,
                               size: 18,
                               color: AppColors.primaryForestGreen,
                             ),
@@ -163,11 +163,11 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                             ),
                           ],
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.symmetric(vertical: 16),
-                          child: Divider(color: Colors.white12, height: 1),
+                          child: Divider(color: AppColors.cardBorder, height: 1),
                         ),
-                        const Text(
+                        Text(
                           'Your previous password is no longer active and any other sessions have been signed out.',
                           style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
@@ -211,7 +211,7 @@ class _PasswordUpdatedScreenState extends State<PasswordUpdatedScreen>
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryForestGreen,
-                          foregroundColor: AppColors.primaryTextOffWhite,
+                          foregroundColor: AppColors.onForestGreen,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),

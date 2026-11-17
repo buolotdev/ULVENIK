@@ -72,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       const Center(child: UlvenikLogo.full(width: 250)),
                       const Spacer(flex: 2),
                       const SizedBox(height: 24),
-                      const Text(
+                      Text(
                         'Every Session Counts.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -84,7 +84,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const Text(
+                      Text(
                         'Your training journey, all in one place.',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 15, height: 1.4),
@@ -169,12 +169,12 @@ class _MainButton extends StatelessWidget {
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: primary ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
-          foregroundColor: AppColors.primaryTextOffWhite,
+          foregroundColor: primary ? AppColors.onForestGreen : AppColors.primaryTextOffWhite,
           overlayColor: Colors.white,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: primary ? BorderSide.none : const BorderSide(color: Colors.white12),
+            side: primary ? BorderSide.none : BorderSide(color: AppColors.cardBorder),
           ),
         ),
         child: Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
@@ -195,7 +195,7 @@ class _OrDivider extends StatelessWidget {
         line,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14),
-          child: Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+          child: Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
         ),
         line,
       ],
@@ -225,7 +225,7 @@ class _ProviderButton extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.primaryTextOffWhite,
           backgroundColor: AppColors.cardsCarbon,
-          side: const BorderSide(color: Colors.white12),
+          side: BorderSide(color: AppColors.cardBorder),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           padding: const EdgeInsets.symmetric(horizontal: 12),
         ),
@@ -260,7 +260,7 @@ class _LegalLinks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const style = TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5);
+    final style = TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5);
     Widget link(String text, VoidCallback onTap) => Semantics(
           link: true,
           child: InkWell(
@@ -283,9 +283,9 @@ class _LegalLinks extends StatelessWidget {
       alignment: WrapAlignment.center,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        const Text('By continuing you agree to our', style: style),
+        Text('By continuing you agree to our', style: style),
         link('Terms of Service', onTerms),
-        const Text('and', style: style),
+        Text('and', style: style),
         link('Privacy Policy', onPrivacy),
       ],
     );

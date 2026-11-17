@@ -292,7 +292,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
       builder: (sheetCtx) {
         return Container(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
             borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
             border: Border(
@@ -320,7 +320,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                 const SizedBox(height: 18),
                 Text(
                   categoryTitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -328,7 +328,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Choose your preferred display unit for this category.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -397,7 +397,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                       children: [
                         Text(
                           choice.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -416,7 +416,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                           ),
                           child: Text(
                             choice.rowSample,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 11.5,
                               fontWeight: FontWeight.w500,
@@ -429,7 +429,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                     const SizedBox(height: 3),
                     Text(
                       choice.detailHint,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12,
                         color: AppColors.secondaryTextStoneGrey,
@@ -440,7 +440,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
               ),
               const SizedBox(width: 10),
               if (isSelected)
-                const Icon(Icons.check_rounded,
+                Icon(Icons.check_rounded,
                   size: 20,
                   color: AppColors.primaryForestGreen,
                 ),
@@ -536,14 +536,14 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(savedSummary),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
             visualDensity: VisualDensity.compact,
           ),
           const SizedBox(width: 2),
-          const Expanded(
+          Expanded(
             child: Text(
               'Measurement Units',
               style: TextStyle(
@@ -582,7 +582,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -611,7 +611,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
               borderRadius: BorderRadius.circular(12),
             ),
             alignment: Alignment.center,
-            child: const _ScaleLineIcon(
+            child: _ScaleLineIcon(
               size: 21,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -623,7 +623,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
               children: [
                 Text(
                   _systemTitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
@@ -634,7 +634,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                 const SizedBox(height: 5),
                 Text(
                   _systemSummaryLine,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13.5,
                     color: AppColors.secondaryTextStoneGrey,
@@ -653,7 +653,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             child: Text(
               _systemBadge,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
@@ -733,7 +733,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                 Expanded(
                   child: Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 14.5,
                       fontWeight: FontWeight.w600,
@@ -780,7 +780,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
           children: [
             _buildCategoryGroupHeader('BODY'),
             _buildCategoryRow(
-              leading: const _ScaleLineIcon(
+              leading: _ScaleLineIcon(
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -796,7 +796,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             Container(height: 1, color: AppColors.cardBorder),
             _buildCategoryRow(
-              leading: const Icon(Icons.straighten_rounded,
+              leading: Icon(Icons.straighten_rounded,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -812,7 +812,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             _buildCategoryGroupHeader('ACTIVITY'),
             _buildCategoryRow(
-              leading: const UlvenikIcon(UlvenikIcons.timeline,
+              leading: UlvenikIcon(UlvenikIcons.timeline,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -828,7 +828,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             Container(height: 1, color: AppColors.cardBorder),
             _buildCategoryRow(
-              leading: const Icon(Icons.near_me_outlined,
+              leading: Icon(Icons.near_me_outlined,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -844,7 +844,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             Container(height: 1, color: AppColors.cardBorder),
             _buildCategoryRow(
-              leading: const UlvenikIcon(UlvenikIcons.trainingTime,
+              leading: UlvenikIcon(UlvenikIcons.trainingTime,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -860,7 +860,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             ),
             _buildCategoryGroupHeader('ENVIRONMENT'),
             _buildCategoryRow(
-              leading: const Icon(Icons.water_drop_outlined,
+              leading: Icon(Icons.water_drop_outlined,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -885,14 +885,14 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.025),
-        border: const Border(
+        border: Border(
           top: BorderSide(color: AppColors.cardBorder, width: 1),
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
         ),
       ),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 10.5,
           fontWeight: FontWeight.w600,
@@ -923,7 +923,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
@@ -947,7 +947,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                   const SizedBox(height: 2),
                   Text(
                     sampleLabel,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 12,
                       color: AppColors.secondaryTextStoneGrey,
@@ -956,7 +956,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
                 ],
               ),
               const SizedBox(width: 6),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -1036,7 +1036,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
               });
             },
             behavior: HitTestBehavior.opaque,
-            child: const Text(
+            child: Text(
               'Values shown using your current unit preferences.',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -1071,7 +1071,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
           children: [
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 10.5,
                 fontWeight: FontWeight.w600,
@@ -1082,7 +1082,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
             const SizedBox(height: 6),
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 19,
                 fontWeight: FontWeight.w700,
@@ -1098,7 +1098,7 @@ class _MeasurementUnitsScreenState extends State<MeasurementUnitsScreen> {
   Widget _buildBottomSaveDock() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           top: BorderSide(color: AppColors.cardBorder, width: 1),

@@ -61,14 +61,14 @@ class MediaLibraryScreen extends StatefulWidget {
 }
 
 class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian;
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
-  static const Color _sage = AppColors.secondarySage;
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
-  static const Color _cardBorder = AppColors.cardBorder;
-  static const Color _favGold = AppColors.favouriteGold;
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _favGold => AppColors.favouriteGold;
 
   int _selectedTabIndex = 0; // 0: All, 1: Photos, 2: Videos, 3: Documents
   String _selectedDogFilter = 'All Dogs';
@@ -416,7 +416,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Media Library Tools',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -426,7 +426,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Manage uploads, collections, favourites, and device storage',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -524,7 +524,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -534,7 +534,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                     const SizedBox(height: 2),
                     Text(
                       subtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12,
                         color: _stoneGrey,
@@ -543,7 +543,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _stoneGrey,
                 size: 20,
               ),
@@ -588,7 +588,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Filter & Sort Media',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -606,7 +606,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                             });
                             setState(() {});
                           },
-                          child: const Text(
+                          child: Text(
                             'Reset',
                             style: TextStyle(
                               fontFamily: 'Inter',
@@ -619,7 +619,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Text(
+                    Text(
                       'DOG WORKSPACE',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -670,7 +670,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                       }).toList(),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'SORT ORDER',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -724,7 +724,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                     SwitchListTile.adaptive(
                       contentPadding: EdgeInsets.zero,
                       activeTrackColor: _forest,
-                      title: const Text(
+                      title: Text(
                         'Starred / Favourites Only',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -778,7 +778,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                 const SizedBox(height: 14),
                 Text(
                   item.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -788,7 +788,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                 const SizedBox(height: 4),
                 Text(
                   '${item.dogName} · ${item.categoryTag} · ${item.dateLabel} · ${item.sizeMb.toStringAsFixed(1)} MB',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 12,
                     color: _stoneGrey,
@@ -807,7 +807,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                     item.isFavourite
                         ? 'Remove from Favourites'
                         : 'Add to Favourites',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 14,
                       color: _offWhite,
@@ -820,10 +820,10 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.collections_bookmark_outlined,
+                  leading: Icon(Icons.collections_bookmark_outlined,
                     color: _stoneGrey,
                   ),
-                  title: const Text(
+                  title: Text(
                     'Add to Collection',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -838,10 +838,10 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                 ),
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.delete_outline_rounded,
+                  leading: Icon(Icons.delete_outline_rounded,
                     color: AppColors.errorDestructive,
                   ),
-                  title: const Text(
+                  title: Text(
                     'Delete Media',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -897,7 +897,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
+                              Text(
                                 'MEDIA LIBRARY',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
@@ -918,7 +918,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                                   },
                                   child: Text(
                                     '$_selectedDogFilter${_onlyFavourites ? ' · ★' : ''} · Clear',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Inter',
                                       fontSize: 11,
                                       fontWeight: FontWeight.w600,
@@ -934,7 +934,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                           _buildQuickHubPills(),
                           const SizedBox(height: 16),
                           _buildCategoryTabs(),
-                          const SizedBox(height: 14),
+                          SizedBox(height: 14),
                         ],
                       ),
                     ),
@@ -944,7 +944,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                       hasScrollBody: false,
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(32),
+                          padding: EdgeInsets.all(32),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -952,8 +952,8 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                                 size: 42,
                                 color: _stoneGrey.withValues(alpha: 0.5),
                               ),
-                              const SizedBox(height: 12),
-                              const Text(
+                              SizedBox(height: 12),
+                              Text(
                                 'No matching media items',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
@@ -962,8 +962,8 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                                   color: _offWhite,
                                 ),
                               ),
-                              const SizedBox(height: 6),
-                              const Text(
+                              SizedBox(height: 6),
+                              Text(
                                 'Adjust your category tab or active workspace filter.',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -979,10 +979,10 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                     )
                   else
                     SliverPadding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 28),
+                      padding: EdgeInsets.fromLTRB(16, 0, 16, 28),
                       sliver: SliverGrid(
                         gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                            SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           mainAxisSpacing: 8,
                           crossAxisSpacing: 8,
@@ -1006,8 +1006,8 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
   Widget _buildTopAppBar(bool hasActiveFilters) {
     return Container(
       height: 56,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: const BoxDecoration(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -1017,15 +1017,15 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stoneGrey,
               size: 26,
             ),
             splashRadius: 20,
             tooltip: 'Back',
           ),
-          const SizedBox(width: 2),
-          const Expanded(
+          SizedBox(width: 2),
+          Expanded(
             child: Text(
               'Media Library',
               style: TextStyle(
@@ -1039,7 +1039,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
           ),
           IconButton(
             onPressed: _openSearch,
-            icon: const UlvenikIcon(UlvenikIcons.search,
+            icon: UlvenikIcon(UlvenikIcons.search,
               color: _stoneGrey,
               size: 21,
             ),
@@ -1048,7 +1048,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
           ),
           IconButton(
             onPressed: _showLibraryToolsSheet,
-            icon: const Icon(Icons.tune_rounded,
+            icon: Icon(Icons.tune_rounded,
               color: _stoneGrey,
               size: 21,
             ),
@@ -1074,7 +1074,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                   child: Container(
                     width: 7,
                     height: 7,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: _forest,
                       shape: BoxShape.circle,
                     ),
@@ -1089,7 +1089,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
 
   Widget _buildSummaryCard() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       decoration: BoxDecoration(
         color: _carbon,
         borderRadius: BorderRadius.circular(16),
@@ -1152,11 +1152,11 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
       child: Row(
         children: actions.map((entry) {
           return Padding(
-            padding: const EdgeInsets.only(right: 8),
+            padding: EdgeInsets.only(right: 8),
             child: GestureDetector(
               onTap: entry.$3,
               child: Container(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: 12,
                   vertical: 7,
                 ),
@@ -1168,11 +1168,11 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    UlvenikIcon.fromMaterial(entry.$1, color: const Color(0xFF95D3BB), size: 15),
-                    const SizedBox(width: 6),
+                    UlvenikIcon.fromMaterial(entry.$1, color: Color(0xFF95D3BB), size: 15),
+                    SizedBox(width: 6),
                     Text(
                       entry.$2,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -1211,7 +1211,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
         children: [
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 19,
               fontWeight: FontWeight.w700,
@@ -1219,7 +1219,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
               letterSpacing: -0.3,
             ),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           Text(
             label,
             style: TextStyle(
@@ -1241,7 +1241,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
       children: List.generate(tabs.length, (i) {
         final selected = _selectedTabIndex == i;
         return Padding(
-          padding: const EdgeInsets.only(right: 22),
+          padding: EdgeInsets.only(right: 22),
           child: GestureDetector(
             onTap: () => setState(() => _selectedTabIndex = i),
             behavior: HitTestBehavior.opaque,
@@ -1255,12 +1255,12 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                     fontFamily: 'Inter',
                     fontSize: 14,
                     fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                    color: selected ? const Color(0xFF4C9B80) : _stoneGrey,
+                    color: selected ? Color(0xFF4C9B80) : _stoneGrey,
                   ),
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: 6),
                 AnimatedContainer(
-                  duration: const Duration(milliseconds: 180),
+                  duration: Duration(milliseconds: 180),
                   height: 2,
                   width: selected ? (i == 0 ? 18.0 : 44.0) : 0,
                   decoration: BoxDecoration(
@@ -1283,7 +1283,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
         onLongPress: () => _showItemContextSheet(item),
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFF1B2024),
+            color: Color(0xFF1B2024),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: _cardBorder),
           ),
@@ -1295,7 +1295,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                   left: 7,
                   child: GestureDetector(
                     onTap: () => _toggleFavourite(item),
-                    child: const Icon(Icons.favorite_rounded,
+                    child: Icon(Icons.favorite_rounded,
                       color: _favGold,
                       size: 14,
                     ),
@@ -1309,10 +1309,10 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                       color: _sage.withValues(alpha: 0.9),
                       size: 28,
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4),
                     Text(
                       item.docTypeLabel ?? 'PDF',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 10,
                         fontWeight: FontWeight.w700,
@@ -1331,7 +1331,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                   item.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 10.5,
                     fontWeight: FontWeight.w500,
@@ -1368,8 +1368,8 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                     painter: _MountainSilhouettePainter(
                       variant: item.mountainVariant,
                       tint: item.kind == MediaItemKind.video
-                          ? const Color(0xFF22303A)
-                          : const Color(0xFF233329),
+                          ? Color(0xFF22303A)
+                          : Color(0xFF233329),
                     ),
                   ),
                 ),
@@ -1379,7 +1379,7 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
                   left: 7,
                   child: GestureDetector(
                     onTap: () => _toggleFavourite(item),
-                    child: const Icon(Icons.favorite_rounded,
+                    child: Icon(Icons.favorite_rounded,
                       color: _favGold,
                       size: 14,
                     ),
@@ -1432,7 +1432,8 @@ class _MediaLibraryScreenState extends State<MediaLibraryScreen> {
     );
   }
 
-  Widget _buildTilePill(String text, {Color textColor = _offWhite}) {
+  Widget _buildTilePill(String text, {Color? textColor}) {
+    textColor ??= _offWhite;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: BoxDecoration(

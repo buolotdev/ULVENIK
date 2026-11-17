@@ -138,7 +138,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       backgroundColor: Colors.transparent,
       builder: (sheetCtx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
             borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
             border: Border(
@@ -165,7 +165,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Discard Unsaved Changes?',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -175,7 +175,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
+                  Text(
                     'You have unsaved edits to your profile or regional preferences. Leaving now will discard these changes.',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -191,13 +191,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         child: OutlinedButton(
                           onPressed: () => Navigator.of(sheetCtx).pop(false),
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: AppColors.cardBorder),
+                            side: BorderSide(color: AppColors.cardBorder),
                             padding: const EdgeInsets.symmetric(vertical: 13),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Keep Editing',
                             style: TextStyle(
                               fontFamily: 'Inter',
@@ -327,7 +327,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       backgroundColor: Colors.transparent,
       builder: (sheetCtx) {
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
             borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
             border: Border(
@@ -359,7 +359,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       Expanded(
                         child: Text(
                           title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 18,
@@ -369,7 +369,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                       IconButton(
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        icon: const Icon(Icons.close_rounded,
+                        icon: Icon(Icons.close_rounded,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 20,
                         ),
@@ -445,7 +445,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 bottom: MediaQuery.of(sheetCtx).viewInsets.bottom,
               ),
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: AppColors.cardsCarbon,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
                   border: Border(
@@ -460,7 +460,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Change Email Address',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -470,7 +470,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           ),
                         ),
                         const SizedBox(height: 6),
-                        const Text(
+                        Text(
                           'Used for Trainer Pack sign-in, security alerts, and billing receipts.',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -482,7 +482,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         TextField(
                           controller: ctrl,
                           keyboardType: TextInputType.emailAddress,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 14.5,
@@ -490,7 +490,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           decoration: InputDecoration(
                             labelText: 'New Email Address',
                             errorText: errorText,
-                            labelStyle: const TextStyle(
+                            labelStyle: TextStyle(
                               fontFamily: 'Inter',
                               color: AppColors.secondaryTextStoneGrey,
                             ),
@@ -499,12 +499,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide:
-                                  const BorderSide(color: AppColors.cardBorder),
+                                  BorderSide(color: AppColors.cardBorder),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide:
-                                  const BorderSide(color: AppColors.cardBorder),
+                                  BorderSide(color: AppColors.cardBorder),
                             ),
                           ),
                         ),
@@ -534,7 +534,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryForestGreen,
-                              foregroundColor: AppColors.primaryTextOffWhite,
+                              foregroundColor: AppColors.onForestGreen,
                               padding: const EdgeInsets.symmetric(vertical: 13),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -579,7 +579,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 bottom: MediaQuery.of(sheetCtx).viewInsets.bottom,
               ),
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: AppColors.cardsCarbon,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
                   border: Border(
@@ -594,7 +594,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Update Password',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -604,7 +604,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           ),
                         ),
                         const SizedBox(height: 6),
-                        const Text(
+                        Text(
                           'Choose a strong password of at least 8 characters.',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -616,13 +616,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         TextField(
                           controller: currentCtrl,
                           obscureText: true,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.primaryTextOffWhite,
                           ),
                           decoration: InputDecoration(
                             hintText: 'Current password',
-                            hintStyle: const TextStyle(
+                            hintStyle: TextStyle(
                               fontFamily: 'Inter',
                               color: AppColors.secondaryTextStoneGrey,
                             ),
@@ -631,12 +631,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide:
-                                  const BorderSide(color: AppColors.cardBorder),
+                                  BorderSide(color: AppColors.cardBorder),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide:
-                                  const BorderSide(color: AppColors.cardBorder),
+                                  BorderSide(color: AppColors.cardBorder),
                             ),
                           ),
                         ),
@@ -644,14 +644,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         TextField(
                           controller: nextCtrl,
                           obscureText: true,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.primaryTextOffWhite,
                           ),
                           decoration: InputDecoration(
                             hintText: 'New password (min 8 characters)',
                             errorText: errorMsg,
-                            hintStyle: const TextStyle(
+                            hintStyle: TextStyle(
                               fontFamily: 'Inter',
                               color: AppColors.secondaryTextStoneGrey,
                             ),
@@ -660,12 +660,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide:
-                                  const BorderSide(color: AppColors.cardBorder),
+                                  BorderSide(color: AppColors.cardBorder),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide:
-                                  const BorderSide(color: AppColors.cardBorder),
+                                  BorderSide(color: AppColors.cardBorder),
                             ),
                           ),
                         ),
@@ -696,7 +696,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryForestGreen,
-                              foregroundColor: AppColors.primaryTextOffWhite,
+                              foregroundColor: AppColors.onForestGreen,
                               padding: const EdgeInsets.symmetric(vertical: 13),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -741,7 +741,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(56),
           child: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: AppColors.backgroundObsidian,
               border: Border(
                 bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -757,14 +757,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       IconButton(
                         onPressed: _handleBackAttempt,
-                        icon: const UlvenikIcon(UlvenikIcons.back,
+                        icon: UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 26,
                         ),
                         tooltip: 'Back',
                       ),
                       const SizedBox(width: 2),
-                      const Expanded(
+                      Expanded(
                         child: Text(
                           'Edit Profile',
                           style: TextStyle(
@@ -821,13 +821,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             errorText: _firstNameError,
                             defaultGreenUnderline: true,
                           ),
-                          const Divider(height: 1, color: AppColors.cardBorder),
+                          Divider(height: 1, color: AppColors.cardBorder),
                           _buildEditableFieldBlock(
                             label: 'LAST NAME',
                             controller: _lastNameController,
                             errorText: _lastNameError,
                           ),
-                          const Divider(height: 1, color: AppColors.cardBorder),
+                          Divider(height: 1, color: AppColors.cardBorder),
                           _buildEditableFieldBlock(
                             label: 'DISPLAY NAME',
                             controller: _displayNameController,
@@ -883,7 +883,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               },
                             ),
                           ),
-                          const Divider(height: 1, color: AppColors.cardBorder),
+                          Divider(height: 1, color: AppColors.cardBorder),
                           _buildDropdownBlock(
                             label: 'LANGUAGE',
                             value: _language,
@@ -901,7 +901,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               onSelected: (v) => setState(() => _language = v),
                             ),
                           ),
-                          const Divider(height: 1, color: AppColors.cardBorder),
+                          Divider(height: 1, color: AppColors.cardBorder),
                           _buildDropdownBlock(
                             label: 'TIME ZONE',
                             value: _timeZone,
@@ -947,7 +947,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   setState(() => _weightUnit = v),
                             ),
                           ),
-                          const Divider(height: 1, color: AppColors.cardBorder),
+                          Divider(height: 1, color: AppColors.cardBorder),
                           _buildDropdownBlock(
                             label: 'DISTANCE',
                             value: _distanceUnit,
@@ -963,7 +963,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 4),
                       child: Text(
                         'Changing units only affects how values are displayed. Stored data is never modified.',
@@ -999,7 +999,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.mail_outline_rounded,
+                                    Icon(Icons.mail_outline_rounded,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 20,
                                     ),
@@ -1011,7 +1011,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         children: [
                                           Row(
                                             children: [
-                                              const Text(
+                                              Text(
                                                 'Email Address',
                                                 style: TextStyle(
                                                   fontFamily: 'Inter',
@@ -1051,7 +1051,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           const SizedBox(height: 4),
                                           Text(
                                             _maskedEmail,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontFamily: 'Inter',
                                               color: AppColors
                                                   .secondaryTextStoneGrey,
@@ -1061,7 +1061,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         ],
                                       ),
                                     ),
-                                    const UlvenikIcon(UlvenikIcons.details,
+                                    UlvenikIcon(UlvenikIcons.details,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 19,
                                     ),
@@ -1070,7 +1070,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ),
                             ),
                           ),
-                          const Divider(height: 1, color: AppColors.cardBorder),
+                          Divider(height: 1, color: AppColors.cardBorder),
                           Material(
                             color: Colors.transparent,
                             child: InkWell(
@@ -1082,7 +1082,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.lock_outline_rounded,
+                                    Icon(Icons.lock_outline_rounded,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 20,
                                     ),
@@ -1092,7 +1092,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text(
+                                          Text(
                                             'Password',
                                             style: TextStyle(
                                               fontFamily: 'Inter',
@@ -1105,7 +1105,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           const SizedBox(height: 4),
                                           Text(
                                             _passwordSubtitle,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontFamily: 'Inter',
                                               color: AppColors
                                                   .secondaryTextStoneGrey,
@@ -1115,7 +1115,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         ],
                                       ),
                                     ),
-                                    const UlvenikIcon(UlvenikIcons.details,
+                                    UlvenikIcon(UlvenikIcons.details,
                                       color: AppColors.secondaryTextStoneGrey,
                                       size: 19,
                                     ),
@@ -1134,7 +1134,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.backgroundObsidian,
                 border: Border(
                   top: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -1147,7 +1147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onPressed: _saveChanges,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
@@ -1178,7 +1178,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       padding: const EdgeInsets.only(left: 4),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 11,
@@ -1203,7 +1203,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 10.5,
@@ -1214,7 +1214,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           const SizedBox(height: 6),
           TextField(
             controller: controller,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               color: AppColors.primaryTextOffWhite,
               fontSize: 16,
@@ -1258,7 +1258,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const SizedBox(height: 10),
             Text(
               helperText,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 12,
@@ -1294,7 +1294,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       children: [
                         Text(
                           label,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 10.5,
@@ -1305,7 +1305,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         const SizedBox(height: 6),
                         Text(
                           value,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 16,
@@ -1315,7 +1315,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ],
                     ),
                   ),
-                  const Icon(Icons.keyboard_arrow_down_rounded,
+                  Icon(Icons.keyboard_arrow_down_rounded,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 22,
                   ),
@@ -1325,7 +1325,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 const SizedBox(height: 10),
                 Text(
                   helperText,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12,

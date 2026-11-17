@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/app_settings.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
@@ -87,7 +88,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                   size: 24,
                 ),
               ),
-              const Text(
+              Text(
                 'Discard Changes?',
                 style: TextStyle(
                   fontSize: 18,
@@ -96,7 +97,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'You have unsaved changes to this skill. If you leave now, your changes won’t be saved.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -112,7 +113,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                   onPressed: () => Navigator.pop(ctx),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -141,7 +142,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
-                      side: const BorderSide(color: Colors.white12),
+                      side: BorderSide(color: AppColors.cardBorder),
                     ),
                   ),
                   child: const Text(
@@ -185,10 +186,10 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: AppSettings.instance.isDark ? Brightness.light : Brightness.dark,
+      statusBarBrightness: AppSettings.instance.isDark ? Brightness.dark : Brightness.light,
     ));
 
     final topSafe = MediaQuery.of(context).padding.top;
@@ -201,7 +202,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
           // ── Top bar ────────────────────────────────────────────────
           Container(
             padding: EdgeInsets.only(top: topSafe),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: AppColors.backgroundObsidian,
               border: Border(bottom: BorderSide(color: AppColors.cardBorder)),
             ),
@@ -216,7 +217,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                       alignment: Alignment.centerLeft,
                       child: GestureDetector(
                         onTap: _handleCancel,
-                        child: const Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(
                             color: AppColors.primaryForestGreen,
@@ -226,7 +227,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                         ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       'New Skill',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -285,12 +286,12 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                             decoration: BoxDecoration(
                               color: AppColors.backgroundObsidian,
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Colors.white12),
+                              border: Border.all(color: AppColors.cardBorder),
                             ),
                             clipBehavior: Clip.antiAlias,
                             child: _photo != null
                                 ? Image(image: _photo!, fit: BoxFit.cover)
-                                : const Icon(Icons.photo_camera_outlined,
+                                : Icon(Icons.photo_camera_outlined,
                                     color: AppColors.secondaryTextStoneGrey, size: 24),
                           ),
                           const SizedBox(width: 16),
@@ -316,7 +317,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                         ],
                       ),
                       const SizedBox(height: 12),
-                      const Text(
+                      Text(
                         'Optional. You can crop, zoom and reposition before saving. If you skip this, the dog’s profile photo is used.',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, height: 1.4),
                       ),
@@ -345,7 +346,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           UlvenikIcon(UlvenikIcons.save, color: AppColors.primaryTextOffWhite, size: 20),
@@ -380,7 +381,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,7 +389,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
           if (label != null) ...[
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
@@ -408,12 +409,12 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(text,
-            style: const TextStyle(
+            style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 13,
                 fontWeight: FontWeight.w500)),
         if (optional)
-          const Text('Optional',
+          Text('Optional',
               style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
       ],
@@ -430,7 +431,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
       controller: controller,
       maxLines: maxLines,
       cursorColor: AppColors.primaryForestGreen,
-      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
       decoration: InputDecoration(
         errorText: error,
         errorStyle: const TextStyle(color: Color(0xFFE08A8A), fontSize: 12.5),
@@ -443,17 +444,17 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
           borderSide: const BorderSide(color: Color(0xFFB04A4A)),
         ),
         hintText: hint,
-        hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+        hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
         filled: true,
         fillColor: AppColors.backgroundObsidian,
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
-          borderSide: const BorderSide(color: Colors.white12),
+          borderSide: BorderSide(color: AppColors.cardBorder),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
-          borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+          borderSide: BorderSide(color: AppColors.primaryForestGreen),
         ),
         isDense: true,
       ),

@@ -57,14 +57,14 @@ class _ItemLibraryScreenState extends State<ItemLibraryScreen> {
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
                 title: Text(_archived ? 'Show active items' : 'Archived items',
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   setState(() => _archived = !_archived);
                 },
               ),
               ListTile(
-                title: const Text('Manage types', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('Manage types', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   _manageTypes();
@@ -88,11 +88,11 @@ class _ItemLibraryScreenState extends State<ItemLibraryScreen> {
               child: ConstrainedBox(
                 constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.7),
                 child: ListView(shrinkWrap: true, padding: const EdgeInsets.fromLTRB(20, 20, 20, 16), children: [
-                  const Text('Manage types',
+                  Text('Manage types',
                       style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 8),
                   if (types.isEmpty)
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(vertical: 16),
                       child: Text('You haven’t added any types. Types are optional.',
                           style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
@@ -100,22 +100,22 @@ class _ItemLibraryScreenState extends State<ItemLibraryScreen> {
                   for (final t in types)
                     ListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: Text(t, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                      title: Text(t, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                       trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                         IconButton(
                           tooltip: 'Rename',
-                          icon: const UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.secondaryTextStoneGrey),
+                          icon: UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.secondaryTextStoneGrey),
                           onPressed: () async {
                             final ctrl = TextEditingController(text: t);
                             final n = await showDialog<String>(
                               context: ctx,
                               builder: (d) => AlertDialog(
                                 backgroundColor: AppColors.cardsCarbon,
-                                title: const Text('Rename type', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                                title: Text('Rename type', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                                 content: TextField(
                                     controller: ctrl,
                                     autofocus: true,
-                                    style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                                    style: TextStyle(color: AppColors.primaryTextOffWhite),
                                     decoration: healthDecoration('Type name')),
                                 actions: [
                                   TextButton(onPressed: () => Navigator.pop(d), child: const Text('Cancel')),
@@ -129,12 +129,12 @@ class _ItemLibraryScreenState extends State<ItemLibraryScreen> {
                         ),
                         IconButton(
                           tooltip: 'Remove',
-                          icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                          icon: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                           onPressed: () => _store.removeType(k, t),
                         ),
                       ]),
                     ),
-                  const Text('Removing a type keeps the items that used it.',
+                  Text('Removing a type keeps the items that used it.',
                       style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                 ]),
               ),
@@ -159,12 +159,12 @@ class _ItemLibraryScreenState extends State<ItemLibraryScreen> {
         if (!_archived)
           IconButton(
             tooltip: 'Add ${_noun(k)}',
-            icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
+            icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
             onPressed: _add,
           ),
         IconButton(
           tooltip: 'More',
-          icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+          icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
           onPressed: _menu,
         ),
       ],
@@ -185,9 +185,9 @@ class _ItemLibraryScreenState extends State<ItemLibraryScreen> {
               children: [
                 TextField(
                   controller: _search,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                   decoration: healthDecoration('Search ${_title(k).toLowerCase()}...').copyWith(
-                    prefixIcon: const Padding(
+                    prefixIcon: Padding(
                       padding: EdgeInsets.all(12),
                       child: UlvenikIcon(UlvenikIcons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
                     ),
@@ -195,7 +195,7 @@ class _ItemLibraryScreenState extends State<ItemLibraryScreen> {
                 ),
                 const SizedBox(height: 14),
                 if (list.isEmpty)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 28),
                     child: Center(
                       child: Text('Nothing matches your search.',
@@ -214,15 +214,15 @@ class _ItemLibraryScreenState extends State<ItemLibraryScreen> {
                         Expanded(
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                             Text(i.name,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                             if (i.type.isNotEmpty)
-                              Text(i.type, style: const TextStyle(color: AppColors.secondarySage, fontSize: 12.5)),
+                              Text(i.type, style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5)),
                             if (i.notes.isNotEmpty)
                               Text(i.notes,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                           ]),
                         ),
                         TextButton(
@@ -232,7 +232,7 @@ class _ItemLibraryScreenState extends State<ItemLibraryScreen> {
                                 message: _archived ? 'Item restored' : 'Item archived', type: SnackbarType.success);
                           },
                           child: Text(_archived ? 'Restore' : 'Archive',
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                         ),
                       ]),
                     ),
@@ -323,16 +323,16 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
           Text('Save ${k == LibraryKind.rewards ? 'rewards' : 'equipment'} to reuse in Training and S&C sessions.',
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4)),
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4)),
           FieldLabel('${noun[0].toUpperCase()}${noun.substring(1)} name', required: true),
           TextField(
             controller: _name,
             onChanged: (_) => _nameError == null ? null : setState(() => _nameError = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Enter a $noun name', error: _nameError),
           ),
           const FieldLabel('Type'),
-          const Text('Choose a type or add your own.',
+          Text('Choose a type or add your own.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
           const SizedBox(height: 8),
           Wrap(spacing: 8, runSpacing: 8, children: [
@@ -346,14 +346,14 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                     color: _type == t ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey, fontSize: 13),
                 backgroundColor: AppColors.cardsCarbon,
                 selectedColor: AppColors.primaryForestGreen,
-                side: const BorderSide(color: Colors.white12),
+                side: BorderSide(color: AppColors.cardBorder),
               ),
             ActionChip(
               label: const Text('Add type'),
               onPressed: () => setState(() => _addingType = true),
               backgroundColor: AppColors.backgroundObsidian,
-              side: const BorderSide(color: Colors.white24),
-              labelStyle: const TextStyle(color: AppColors.primaryForestGreen, fontSize: 13),
+              side: BorderSide(color: AppColors.cardBorder),
+              labelStyle: TextStyle(color: AppColors.primaryForestGreen, fontSize: 13),
             ),
           ]),
           if (_addingType) ...[
@@ -364,7 +364,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                   controller: _newType,
                   autofocus: true,
                   onSubmitted: (_) => _commitType(),
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                   decoration: healthDecoration('Enter a type name', error: _typeError),
                 ),
               ),
@@ -374,7 +374,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
                 child: OutlinedButton(
                   onPressed: _commitType,
                   style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.primaryTextOffWhite, side: const BorderSide(color: Colors.white24)),
+                      foregroundColor: AppColors.primaryTextOffWhite, side: BorderSide(color: AppColors.cardBorder)),
                   child: const Text('Add type'),
                 ),
               ),
@@ -385,7 +385,7 @@ class _ItemFormScreenState extends State<ItemFormScreen> {
             controller: _notes,
             minLines: 3,
             maxLines: 5,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add notes about this $noun'),
           ),
         ],

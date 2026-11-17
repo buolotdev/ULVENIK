@@ -75,10 +75,10 @@ class _BodyConditionScreenState extends State<BodyConditionScreen> {
             controller: sc,
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
             children: [
-              const Text('Body Condition Score guide',
+              Text('Body Condition Score guide',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
-              const Text('A score of 4–5 out of 9 is generally considered ideal. Your own assessment is what gets recorded.',
+              Text('A score of 4–5 out of 9 is generally considered ideal. Your own assessment is what gets recorded.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4)),
               const SizedBox(height: 16),
               for (final e in _bcsGuide.entries)
@@ -94,15 +94,15 @@ class _BodyConditionScreenState extends State<BodyConditionScreen> {
                         color: (e.key == 4 || e.key == 5)
                             ? AppColors.primaryForestGreen
                             : AppColors.backgroundObsidian,
-                        border: Border.all(color: Colors.white12),
+                        border: Border.all(color: AppColors.cardBorder),
                       ),
                       child: Text('${e.key}',
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w700)),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w700)),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(e.value,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, height: 1.4)),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, height: 1.4)),
                     ),
                   ]),
                 ),
@@ -122,7 +122,7 @@ class _BodyConditionScreenState extends State<BodyConditionScreen> {
       actions: [
         IconButton(
           tooltip: 'Score guide',
-          icon: const Icon(Icons.info_outline, color: AppColors.secondaryTextStoneGrey),
+          icon: Icon(Icons.info_outline, color: AppColors.secondaryTextStoneGrey),
           onPressed: _showGuide,
         ),
       ],
@@ -145,17 +145,17 @@ class _BodyConditionScreenState extends State<BodyConditionScreen> {
                 HealthCard(
                   onTap: _showGuide,
                   child: Row(children: [
-                    const Icon(Icons.accessibility_new_outlined, color: kHealthGreen, size: 26),
+                    Icon(Icons.accessibility_new_outlined, color: kHealthGreen, size: 26),
                     const SizedBox(width: 14),
                     Expanded(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        const Text('Latest score',
+                        Text('Latest score',
                             style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                         Text('${latest!.score} / 9',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: AppColors.primaryTextOffWhite, fontSize: 26, fontWeight: FontWeight.w700)),
                         Text('Recorded ${fmtDate(latest.date)} · 4–5 is generally ideal',
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                       ]),
                     ),
                   ]),
@@ -168,7 +168,7 @@ class _BodyConditionScreenState extends State<BodyConditionScreen> {
                   child: SizedBox(
                     height: 200,
                     child: pts.isEmpty
-                        ? const Center(
+                        ? Center(
                             child: Text('No scores recorded in this period.',
                                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)))
                         : TrendChart(
@@ -189,18 +189,18 @@ class _BodyConditionScreenState extends State<BodyConditionScreen> {
                       Expanded(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                           Text('${b.score} / 9',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 2),
                           Text(fmtDate(b.date),
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                           if (b.notes.trim().isNotEmpty)
                             Padding(
                               padding: const EdgeInsets.only(top: 4),
                               child: Text(b.notes,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                             ),
                         ]),
                       ),
@@ -276,10 +276,10 @@ class _BcsFormState extends State<_BcsForm> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: _score == i ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
-                    border: Border.all(color: Colors.white12),
+                    border: Border.all(color: AppColors.cardBorder),
                   ),
                   child: Text('$i',
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                 ),
               ),
@@ -287,7 +287,7 @@ class _BcsFormState extends State<_BcsForm> {
           const SizedBox(height: 10),
           Text(
             _score == null ? 'Tap a number. 4–5 out of 9 is generally considered ideal.' : _bcsGuide[_score!]!,
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
           ),
           if (_error != null)
             Padding(
@@ -301,7 +301,7 @@ class _BcsFormState extends State<_BcsForm> {
             controller: _notes,
             minLines: 3,
             maxLines: 5,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add notes...'),
           ),
         ],

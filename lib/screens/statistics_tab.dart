@@ -52,7 +52,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
   static const _dayShort = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   static const _dayLong = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-  static const _green = AppColors.primaryForestGreen;
+  static Color get _green => AppColors.primaryForestGreen;
   static const _mint = Color(0xFF95D3BB);
   static const _charcoal = Color(0xFF2A2D2C); // zero: no green tint
 
@@ -241,14 +241,14 @@ class _StatisticsTabState extends State<StatisticsTab> {
         if (sessions.isEmpty)
           _card(
             Column(children: [
-              const UlvenikIcon(UlvenikIcons.progress, size: 28, color: AppColors.secondarySage),
+              UlvenikIcon(UlvenikIcons.progress, size: 28, color: AppColors.secondarySage),
               const SizedBox(height: 12),
-              const Text('No Statistics Yet',
+              Text('No Statistics Yet',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
               Text('No sessions recorded for ${_period.toLowerCase()}.',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
             ]),
           )
         else ...[
@@ -273,7 +273,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: AppColors.cardBorder),
           borderRadius: BorderRadius.circular(14),
         ),
         child: child,
@@ -284,10 +284,10 @@ class _StatisticsTabState extends State<StatisticsTab> {
         child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(t, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+              Text(t, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               if (sub != null) ...[
                 const SizedBox(height: 3),
-                Text(sub, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                Text(sub, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
               ],
             ]),
           ),
@@ -301,12 +301,12 @@ class _StatisticsTabState extends State<StatisticsTab> {
       child: Column(children: [
         const UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 32),
         const SizedBox(height: 16),
-        const Text('No Statistics Yet',
+        Text('No Statistics Yet',
             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w600)),
         const SizedBox(height: 10),
         Text('Record your first training session to start building ${widget.dogName}’s statistics.',
             textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5)),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5)),
         const SizedBox(height: 24),
         ElevatedButton.icon(
           onPressed: () => openNewTrainingSession(context, dogName: widget.dogName),
@@ -334,7 +334,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(children: [
@@ -352,15 +352,15 @@ class _StatisticsTabState extends State<StatisticsTab> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: AppColors.cardsCarbon,
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(mainAxisSize: MainAxisSize.min, children: [
-              const UlvenikIcon(UlvenikIcons.calendar, size: 16, color: AppColors.secondaryTextStoneGrey),
+              UlvenikIcon(UlvenikIcons.calendar, size: 16, color: AppColors.secondaryTextStoneGrey),
               const SizedBox(width: 8),
-              Text(_period, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5)),
+              Text(_period, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5)),
               const SizedBox(width: 4),
-              const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 18),
+              Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 18),
             ]),
           ),
         ),
@@ -407,13 +407,13 @@ class _StatisticsTabState extends State<StatisticsTab> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Select Time Period',
+            Text('Select Time Period',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             for (final p in _periods)
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(p, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
+                title: Text(p, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
                 trailing: _period == p ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                 onTap: () {
                   setState(() {
@@ -464,7 +464,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
           child: LayoutBuilder(builder: (_, _) => Padding(
             padding: const EdgeInsets.only(right: 8),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(s.$1, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+              Text(s.$1, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               const SizedBox(height: 4),
               Text(s.$2,
                   maxLines: 2,
@@ -528,7 +528,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                     return Padding(
                       padding: const EdgeInsets.only(top: 6),
                       child: Text(buckets[i].label,
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
                     );
                   },
                 ),
@@ -546,7 +546,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                 getTooltipItems: (spots) => [
                   for (final s in spots)
                     LineTooltipItem('${s.y.toInt()}',
-                        const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                        TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
                 ],
               ),
             ),
@@ -623,12 +623,12 @@ class _StatisticsTabState extends State<StatisticsTab> {
             _heatMonth = DateTime(first.year, first.month - 1);
             _selectedDay = null;
           }),
-          icon: const Icon(Icons.chevron_left, color: AppColors.primaryTextOffWhite),
+          icon: Icon(Icons.chevron_left, color: AppColors.primaryTextOffWhite),
         ),
         Expanded(
           child: Text('${_monthLong[first.month - 1]} ${first.year}',
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
         ),
         IconButton(
           tooltip: 'Next month',
@@ -648,7 +648,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
           Expanded(
             child: Center(
               child: Text(d.substring(0, 1),
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11, fontWeight: FontWeight.w600)),
             ),
           ),
       ]),
@@ -702,7 +702,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
       const SizedBox(height: 12),
       Wrap(alignment: WrapAlignment.spaceBetween, crossAxisAlignment: WrapCrossAlignment.center, runSpacing: 8, children: [
         Text(unitCaps,
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10.5, fontWeight: FontWeight.w700, letterSpacing: 0.6)),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10.5, fontWeight: FontWeight.w700, letterSpacing: 0.6)),
         Row(mainAxisSize: MainAxisSize.min, children: [
           for (final k in const [(0, '0'), (1, '1'), (2, '2'), (3, '3+')]) ...[
             Container(
@@ -711,7 +711,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
               decoration: BoxDecoration(color: _heatColor(k.$1), borderRadius: BorderRadius.circular(3)),
             ),
             const SizedBox(width: 4),
-            Text(k.$2, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11.5)),
+            Text(k.$2, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11.5)),
             const SizedBox(width: 10),
           ],
         ]),
@@ -800,7 +800,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
     return _card(Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       _title(title),
       if (rank.isEmpty)
-        const Text('Nothing recorded for this period.',
+        Text('Nothing recorded for this period.',
             style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13))
       else
         for (final e in rank)
@@ -811,10 +811,10 @@ class _StatisticsTabState extends State<StatisticsTab> {
                 Expanded(
                   child: Text(e.key,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w500)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w500)),
                 ),
                 Text('${e.value} ${e.value == 1 ? 'session' : 'sessions'}',
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               ]),
               const SizedBox(height: 6),
               ClipRRect(

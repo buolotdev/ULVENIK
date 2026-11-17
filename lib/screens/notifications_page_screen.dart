@@ -239,7 +239,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
         return StatefulBuilder(
           builder: (ctx, setModalState) {
             return Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.cardsCarbon,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
                 border: Border(
@@ -289,7 +289,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                               children: [
                                 Text(
                                   item.title,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 17,
@@ -299,7 +299,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                                 const SizedBox(height: 2),
                                 Text(
                                   '${item.category} · ${item.timeLabel}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12.5,
@@ -310,7 +310,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                           ),
                           IconButton(
                             onPressed: () => Navigator.of(sheetCtx).pop(),
-                            icon: const Icon(Icons.close_rounded,
+                            icon: Icon(Icons.close_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 20,
                             ),
@@ -331,7 +331,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                           children: [
                             Text(
                               item.body,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 14,
@@ -366,7 +366,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primaryForestGreen,
-                            foregroundColor: AppColors.primaryTextOffWhite,
+                            foregroundColor: AppColors.onForestGreen,
                             padding: const EdgeInsets.symmetric(vertical: 13),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -400,7 +400,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                               ),
                               label: Text(
                                 item.isUnread ? 'Mark Read' : 'Mark Unread',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 13,
@@ -408,7 +408,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                                 ),
                               ),
                               style: OutlinedButton.styleFrom(
-                                side: const BorderSide(
+                                side: BorderSide(
                                     color: AppColors.cardBorder),
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 11),
@@ -442,7 +442,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                                 ),
                               ),
                               style: OutlinedButton.styleFrom(
-                                side: const BorderSide(
+                                side: BorderSide(
                                     color: AppColors.cardBorder),
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 11),
@@ -477,7 +477,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(62),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.backgroundObsidian,
             border: Border(
               bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -494,7 +494,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                     if (canPop)
                       IconButton(
                         onPressed: () => Navigator.of(context).maybePop(),
-                        icon: const UlvenikIcon(UlvenikIcons.back,
+                        icon: UlvenikIcon(UlvenikIcons.back,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 26,
                         ),
@@ -503,7 +503,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                     Expanded(
                       child: Text(
                         _viewingArchive ? 'Archived Alerts' : 'Notifications',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 25,
@@ -575,7 +575,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                       ),
                       child: Row(
                         children: [
-                          const UlvenikIcon(UlvenikIcons.search,
+                          UlvenikIcon(UlvenikIcons.search,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 18,
                           ),
@@ -586,13 +586,13 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                               focusNode: _searchFocusNode,
                               onChanged: (v) =>
                                   setState(() => _searchQuery = v),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 14,
                               ),
                               cursorColor: _mint,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 hintText: 'Search reminders, dogs, or alerts...',
                                 hintStyle: TextStyle(
                                   fontFamily: 'Inter',
@@ -613,7 +613,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                                   _searchQuery = '';
                                 });
                               },
-                              child: const Icon(Icons.close_rounded,
+                              child: Icon(Icons.close_rounded,
                                 color: AppColors.secondaryTextStoneGrey,
                                 size: 18,
                               ),
@@ -633,7 +633,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'TODAY',
                             style: TextStyle(
                               fontFamily: 'Inter',
@@ -665,7 +665,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                       children: [
                         Text(
                           _viewingArchive ? 'ARCHIVED ITEMS' : 'EARLIER',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 11,
@@ -714,7 +714,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                           _viewingArchive
                               ? 'Swipe left on any notification to move it to Archive.'
                               : 'No earlier notifications match this filter.',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 13,
@@ -788,7 +788,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
     }
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -802,19 +802,19 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
               count: _unreadCount,
               label: 'UNREAD',
             ),
-            const VerticalDivider(width: 1, color: AppColors.cardBorder),
+            VerticalDivider(width: 1, color: AppColors.cardBorder),
             buildCell(
               keyName: 'TODAY',
               count: _totalActiveCount,
               label: 'TODAY',
             ),
-            const VerticalDivider(width: 1, color: AppColors.cardBorder),
+            VerticalDivider(width: 1, color: AppColors.cardBorder),
             buildCell(
               keyName: 'UPCOMING',
               count: _upcomingCount,
               label: 'UPCOMING',
             ),
-            const VerticalDivider(width: 1, color: AppColors.cardBorder),
+            VerticalDivider(width: 1, color: AppColors.cardBorder),
             buildCell(
               keyName: 'OVERDUE',
               count: _overdueCount,
@@ -880,7 +880,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Icon(Icons.tune_rounded,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 15,
@@ -963,7 +963,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
       child: Column(
         children: [
           for (int i = 0; i < list.length; i++) ...[
-            if (i > 0) const Divider(height: 1, color: AppColors.cardBorder),
+            if (i > 0) Divider(height: 1, color: AppColors.cardBorder),
             _buildDismissibleRow(list[i]),
           ],
         ],
@@ -1009,7 +1009,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
           children: [
             Text(
               item.isArchived ? 'Restore' : 'Dismiss',
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 13,
@@ -1102,7 +1102,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                           const SizedBox(width: 8),
                           Text(
                             item.timeLabel,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 12.5,
@@ -1113,7 +1113,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                       const SizedBox(height: 4),
                       Text(
                         item.body,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 13,
@@ -1124,7 +1124,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
                   ),
                 ),
                 const SizedBox(width: 6),
-                const UlvenikIcon(UlvenikIcons.details,
+                UlvenikIcon(UlvenikIcons.details,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 18,
                 ),
@@ -1147,7 +1147,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
       ),
       child: Column(
         children: [
-          const Icon(Icons.notifications_paused_outlined,
+          Icon(Icons.notifications_paused_outlined,
             color: AppColors.secondaryTextStoneGrey,
             size: 30,
           ),
@@ -1156,7 +1156,7 @@ class _NotificationsPageScreenState extends State<NotificationsPageScreen> {
             _viewingArchive
                 ? 'Archive is currently empty'
                 : 'No notifications match your filter',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               color: AppColors.primaryTextOffWhite,
               fontSize: 15,

@@ -372,7 +372,7 @@ class _CertificatesDocumentsScreenState
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Sort Documents',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -382,7 +382,7 @@ class _CertificatesDocumentsScreenState
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close,
+                      icon: Icon(Icons.close,
                           color: AppColors.secondaryTextStoneGrey),
                       onPressed: () => Navigator.pop(ctx),
                     ),
@@ -431,7 +431,7 @@ class _CertificatesDocumentsScreenState
                             ),
                           ),
                           if (isSelected)
-                            const UlvenikIcon(UlvenikIcons.completed,
+                            UlvenikIcon(UlvenikIcons.completed,
                               color: AppColors.primaryForestGreen,
                               size: 20,
                             ),
@@ -470,7 +470,7 @@ class _CertificatesDocumentsScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Filter by Category',
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -485,7 +485,7 @@ class _CertificatesDocumentsScreenState
                               tempCat = DocumentCategoryFilter.all;
                             });
                           },
-                          child: const Text(
+                          child: Text(
                             'Reset',
                             style: TextStyle(
                               color: AppColors.primaryForestGreen,
@@ -614,7 +614,7 @@ class _CertificatesDocumentsScreenState
                           borderRadius: BorderRadius.circular(14),
                           border: Border.all(color: AppColors.cardBorder),
                         ),
-                        child: const UlvenikIcon(UlvenikIcons.training,
+                        child: UlvenikIcon(UlvenikIcons.training,
                           color: AppColors.primaryForestGreen,
                           size: 30,
                         ),
@@ -626,7 +626,7 @@ class _CertificatesDocumentsScreenState
                           children: [
                             Text(
                               item.title,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
@@ -636,7 +636,7 @@ class _CertificatesDocumentsScreenState
                             const SizedBox(height: 4),
                             Text(
                               item.eventOrOrg,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.secondaryTextStoneGrey,
                                 fontSize: 14,
                                 fontFamily: 'Inter',
@@ -664,7 +664,7 @@ class _CertificatesDocumentsScreenState
                         ),
                         child: Text(
                           item.badgeText,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryForestGreen,
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
@@ -687,7 +687,7 @@ class _CertificatesDocumentsScreenState
                                   .withValues(alpha: 0.4),
                             ),
                           ),
-                          child: const Row(
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(Icons.verified_rounded,
@@ -711,7 +711,7 @@ class _CertificatesDocumentsScreenState
                     ],
                   ),
                   const SizedBox(height: 20),
-                  const Divider(color: AppColors.cardBorder, height: 1),
+                  Divider(color: AppColors.cardBorder, height: 1),
                   const SizedBox(height: 18),
                   _buildDetailRow('Dog Assigned', item.dogName),
                   _buildDetailRow('Date of Issuance', item.dateLabel),
@@ -727,7 +727,7 @@ class _CertificatesDocumentsScreenState
                       Expanded(
                         child: OutlinedButton.icon(
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(
+                            side: BorderSide(
                                 color: AppColors.primaryForestGreen),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
@@ -741,18 +741,18 @@ class _CertificatesDocumentsScreenState
                                 backgroundColor: AppColors.cardsCarbon,
                                 content: Text(
                                   'Downloading "${item.title}" (${item.fileSize})...',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                   ),
                                 ),
                               ),
                             );
                           },
-                          icon: const Icon(Icons.download_rounded,
+                          icon: Icon(Icons.download_rounded,
                             color: AppColors.primaryForestGreen,
                             size: 18,
                           ),
-                          label: const Text(
+                          label: Text(
                             'Download',
                             style: TextStyle(
                               color: AppColors.primaryForestGreen,
@@ -780,7 +780,7 @@ class _CertificatesDocumentsScreenState
                                 backgroundColor: AppColors.cardsCarbon,
                                 content: Text(
                                   'Opening preview for "${item.title}"...',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                   ),
                                 ),
@@ -840,7 +840,7 @@ class _CertificatesDocumentsScreenState
             width: 130,
             child: Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 13,
                 fontFamily: 'Inter',
@@ -850,7 +850,7 @@ class _CertificatesDocumentsScreenState
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -872,7 +872,7 @@ class _CertificatesDocumentsScreenState
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Text(
+          title: Text(
             'Delete Document?',
             style: TextStyle(
               color: AppColors.primaryTextOffWhite,
@@ -882,7 +882,7 @@ class _CertificatesDocumentsScreenState
           ),
           content: Text(
             'Are you sure you want to remove "${item.title}"? This action cannot be undone.',
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 14,
               fontFamily: 'Inter',
@@ -891,7 +891,7 @@ class _CertificatesDocumentsScreenState
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text(
+              child: Text(
                 'Cancel',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey),
               ),
@@ -911,7 +911,7 @@ class _CertificatesDocumentsScreenState
                     backgroundColor: AppColors.cardsCarbon,
                     content: Text(
                       'Deleted "${item.title}"',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite),
                     ),
                   ),
                 );
@@ -955,7 +955,7 @@ class _CertificatesDocumentsScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Upload Document',
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -965,14 +965,14 @@ class _CertificatesDocumentsScreenState
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close,
+                          icon: Icon(Icons.close,
                               color: AppColors.secondaryTextStoneGrey),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Document Type',
                       style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
@@ -1028,13 +1028,13 @@ class _CertificatesDocumentsScreenState
                     const SizedBox(height: 16),
                     TextField(
                       controller: titleController,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontFamily: 'Inter',
                       ),
                       decoration: InputDecoration(
                         labelText: 'Document Title',
-                        labelStyle: const TextStyle(
+                        labelStyle: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                         ),
                         filled: true,
@@ -1042,16 +1042,16 @@ class _CertificatesDocumentsScreenState
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
-                              const BorderSide(color: AppColors.cardBorder),
+                              BorderSide(color: AppColors.cardBorder),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
-                              const BorderSide(color: AppColors.cardBorder),
+                              BorderSide(color: AppColors.cardBorder),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                               color: AppColors.primaryForestGreen),
                         ),
                       ),
@@ -1059,13 +1059,13 @@ class _CertificatesDocumentsScreenState
                     const SizedBox(height: 14),
                     TextField(
                       controller: eventController,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontFamily: 'Inter',
                       ),
                       decoration: InputDecoration(
                         labelText: 'Event / Competition / Trial',
-                        labelStyle: const TextStyle(
+                        labelStyle: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                         ),
                         filled: true,
@@ -1073,16 +1073,16 @@ class _CertificatesDocumentsScreenState
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
-                              const BorderSide(color: AppColors.cardBorder),
+                              BorderSide(color: AppColors.cardBorder),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
-                              const BorderSide(color: AppColors.cardBorder),
+                              BorderSide(color: AppColors.cardBorder),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                               color: AppColors.primaryForestGreen),
                         ),
                       ),
@@ -1090,13 +1090,13 @@ class _CertificatesDocumentsScreenState
                     const SizedBox(height: 14),
                     TextField(
                       controller: authorityController,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontFamily: 'Inter',
                       ),
                       decoration: InputDecoration(
                         labelText: 'Issuing Body (e.g. SV, FCI, DVG)',
-                        labelStyle: const TextStyle(
+                        labelStyle: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                         ),
                         filled: true,
@@ -1104,16 +1104,16 @@ class _CertificatesDocumentsScreenState
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
-                              const BorderSide(color: AppColors.cardBorder),
+                              BorderSide(color: AppColors.cardBorder),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
-                              const BorderSide(color: AppColors.cardBorder),
+                              BorderSide(color: AppColors.cardBorder),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                               color: AppColors.primaryForestGreen),
                         ),
                       ),
@@ -1129,7 +1129,7 @@ class _CertificatesDocumentsScreenState
                           style: BorderStyle.solid,
                         ),
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
                           Icon(Icons.upload_file_rounded,
                             color: AppColors.primaryForestGreen,
@@ -1219,7 +1219,7 @@ class _CertificatesDocumentsScreenState
                               backgroundColor: AppColors.cardsCarbon,
                               content: Text(
                                 'Added "${newItem.title}" to documents.',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: AppColors.primaryTextOffWhite),
                               ),
                             ),
@@ -1255,13 +1255,13 @@ class _CertificatesDocumentsScreenState
         backgroundColor: AppColors.backgroundObsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back,
+          icon: UlvenikIcon(UlvenikIcons.back,
             color: AppColors.primaryTextOffWhite,
             size: 20,
           ),
           onPressed: () => Navigator.maybePop(context),
         ),
-        title: const Text(
+        title: Text(
           'Certificates & Documents',
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,
@@ -1289,13 +1289,13 @@ class _CertificatesDocumentsScreenState
             },
           ),
           IconButton(
-            icon: const Icon(Icons.tune_rounded,
+            icon: Icon(Icons.tune_rounded,
               color: AppColors.primaryTextOffWhite,
             ),
             onPressed: _showFilterModal,
           ),
           IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.add,
+            icon: UlvenikIcon(UlvenikIcons.add,
               color: AppColors.primaryTextOffWhite,
               size: 26,
             ),
@@ -1313,7 +1313,7 @@ class _CertificatesDocumentsScreenState
                 child: TextField(
                   controller: _searchController,
                   autofocus: true,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontFamily: 'Inter',
                   ),
@@ -1324,17 +1324,17 @@ class _CertificatesDocumentsScreenState
                   },
                   decoration: InputDecoration(
                     hintText: 'Search documents, trials, or dogs...',
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 14,
                       fontFamily: 'Inter',
                     ),
-                    prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+                    prefixIcon: UlvenikIcon(UlvenikIcons.search,
                       color: AppColors.secondaryTextStoneGrey,
                     ),
                     suffixIcon: _searchQuery.isNotEmpty
                         ? IconButton(
-                            icon: const Icon(Icons.close_rounded,
+                            icon: Icon(Icons.close_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                             ),
                             onPressed: () {
@@ -1350,15 +1350,15 @@ class _CertificatesDocumentsScreenState
                     contentPadding: const EdgeInsets.symmetric(vertical: 10),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: AppColors.cardBorder),
+                      borderSide: BorderSide(color: AppColors.cardBorder),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: AppColors.cardBorder),
+                      borderSide: BorderSide(color: AppColors.cardBorder),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         color: AppColors.primaryForestGreen,
                       ),
                     ),
@@ -1417,7 +1417,7 @@ class _CertificatesDocumentsScreenState
                 children: [
                   Text(
                     '${docs.length} Documents',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -1435,7 +1435,7 @@ class _CertificatesDocumentsScreenState
                         children: [
                           Text(
                             _selectedSort.label,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -1443,7 +1443,7 @@ class _CertificatesDocumentsScreenState
                             ),
                           ),
                           const SizedBox(width: 4),
-                          const Icon(Icons.keyboard_arrow_down_rounded,
+                          Icon(Icons.keyboard_arrow_down_rounded,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 18,
                           ),
@@ -1468,7 +1468,7 @@ class _CertificatesDocumentsScreenState
                                 .withValues(alpha: 0.5),
                           ),
                           const SizedBox(height: 16),
-                          const Text(
+                          Text(
                             'No documents found',
                             style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
@@ -1482,7 +1482,7 @@ class _CertificatesDocumentsScreenState
                             _searchQuery.isNotEmpty
                                 ? 'No results matching "$_searchQuery"'
                                 : 'No documents in this category yet',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 13,
                               fontFamily: 'Inter',
@@ -1493,7 +1493,7 @@ class _CertificatesDocumentsScreenState
                             const SizedBox(height: 16),
                             OutlinedButton(
                               style: OutlinedButton.styleFrom(
-                                side: const BorderSide(
+                                side: BorderSide(
                                     color: AppColors.primaryForestGreen),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -1506,7 +1506,7 @@ class _CertificatesDocumentsScreenState
                                   _selectedCategory = DocumentCategoryFilter.all;
                                 });
                               },
-                              child: const Text(
+                              child: Text(
                                 'Clear Filters',
                                 style: TextStyle(
                                   color: AppColors.primaryForestGreen,
@@ -1581,7 +1581,7 @@ class _CertificatesDocumentsScreenState
                             children: [
                               Container(
                                 color: const Color(0xFF1E2824),
-                                child: const Icon(Icons.shield_outlined,
+                                child: Icon(Icons.shield_outlined,
                                   color: AppColors.primaryForestGreen,
                                   size: 26,
                                 ),
@@ -1589,7 +1589,7 @@ class _CertificatesDocumentsScreenState
                             ],
                           ),
                         )
-                      : const Center(
+                      : Center(
                           child: UlvenikIcon(UlvenikIcons.training,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 24,
@@ -1605,7 +1605,7 @@ class _CertificatesDocumentsScreenState
                     children: [
                       Text(
                         item.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -1617,7 +1617,7 @@ class _CertificatesDocumentsScreenState
                       const SizedBox(height: 4),
                       Text(
                         item.eventOrOrg,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 13,
                           fontFamily: 'Inter',
@@ -1640,7 +1640,7 @@ class _CertificatesDocumentsScreenState
                             ),
                             child: Text(
                               item.badgeText,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.secondaryTextStoneGrey,
                                 fontSize: 9.5,
                                 fontWeight: FontWeight.w700,
@@ -1650,7 +1650,7 @@ class _CertificatesDocumentsScreenState
                             ),
                           ),
                           const SizedBox(width: 6),
-                          const Text(
+                          Text(
                             '·',
                             style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
@@ -1660,7 +1660,7 @@ class _CertificatesDocumentsScreenState
                           const SizedBox(width: 6),
                           Text(
                             item.dateLabel,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 12,
                               fontFamily: 'Inter',
@@ -1683,7 +1683,7 @@ class _CertificatesDocumentsScreenState
                 ),
 
                 const SizedBox(width: 8),
-                const UlvenikIcon(UlvenikIcons.details,
+                UlvenikIcon(UlvenikIcons.details,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 20,
                 ),

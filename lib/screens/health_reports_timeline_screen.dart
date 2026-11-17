@@ -141,7 +141,7 @@ class DogProfile {
   final String breed;
   final String age;
   final String avatarUrl;
-  const DogProfile({
+  DogProfile({
     required this.name,
     required this.breed,
     required this.age,
@@ -177,7 +177,7 @@ class _HealthReportsTimelineScreenState
   int? _yearFilter = 2024;
 
   int _dogIndex = 0;
-  final List<DogProfile> _dogs = const [
+  final List<DogProfile> _dogs = [
     DogProfile(
       name: 'Rex',
       breed: 'German Shepherd',
@@ -263,7 +263,7 @@ class _HealthReportsTimelineScreenState
   void initState() {
     super.initState();
     _isEmpty = widget.initialEmpty;
-    _anim = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500))
+    _anim = AnimationController(vsync: this, duration: Duration(milliseconds: 1500))
       ..forward();
     _entries = [
       TimelineEntry(
@@ -418,10 +418,10 @@ class _HealthReportsTimelineScreenState
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: _mint),
+        icon: UlvenikIcon(UlvenikIcons.back, color: _mint),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      title: const Text('Health History',
+      title: Text('Health History',
           style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
       centerTitle: false,
       actions: [
@@ -440,11 +440,11 @@ class _HealthReportsTimelineScreenState
           },
         ),
         IconButton(
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showFilterSheet,
         ),
         IconButton(
-          icon: const Icon(Icons.share_outlined, color: AppColors.secondaryTextStoneGrey, size: 22),
+          icon: Icon(Icons.share_outlined, color: AppColors.secondaryTextStoneGrey, size: 22),
           onPressed: _showShareSheet,
         ),
         IconButton(
@@ -456,7 +456,7 @@ class _HealthReportsTimelineScreenState
             _replay();
           },
         ),
-        const SizedBox(width: 4),
+        SizedBox(width: 4),
       ],
     );
   }
@@ -464,35 +464,35 @@ class _HealthReportsTimelineScreenState
   Widget _populatedView() {
     final list = _visible;
     return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 40),
+      physics: BouncingScrollPhysics(),
+      padding: EdgeInsets.fromLTRB(20, 12, 20, 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _dogCard(),
-          const SizedBox(height: 24),
-          const Text('OVERVIEW',
+          SizedBox(height: 24),
+          Text('OVERVIEW',
               style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 0.8)),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           _overviewGrid(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           _buildGraphCard(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           _filterRow(),
           if (_showSearch) ...[
-            const SizedBox(height: 14),
+            SizedBox(height: 14),
             _searchBar(),
           ],
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           if (list.isEmpty)
             _noMatches()
           else
             _timeline(list),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           _primaryButton('Add Health Record', _showAddSheet),
         ],
       ),
@@ -526,7 +526,7 @@ class _HealthReportsTimelineScreenState
       onTap: _showDogSheet,
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        padding: const EdgeInsets.all(14),
+        padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           borderRadius: BorderRadius.circular(10),
@@ -534,20 +534,20 @@ class _HealthReportsTimelineScreenState
         ),
         child: Row(children: [
           _avatar(_dog.avatarUrl, 46),
-          const SizedBox(width: 14),
+          SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(_dog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 Text('${_dog.breed} · ${_dog.age}',
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
               ],
             ),
           ),
-          const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+          Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
         ]),
       ),
     );
@@ -564,7 +564,7 @@ class _HealthReportsTimelineScreenState
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
       child: Container(
-        padding: const EdgeInsets.all(14),
+        padding: EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           borderRadius: BorderRadius.circular(8),
@@ -575,20 +575,21 @@ class _HealthReportsTimelineScreenState
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             UlvenikIcon.fromMaterial(icon, size: 20, color: iconColor),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             value,
-            const SizedBox(height: 2),
+            SizedBox(height: 2),
             Text(label,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
           ],
         ),
       ),
     );
   }
 
-  Widget _countText(int target, {Color color = AppColors.primaryTextOffWhite}) {
+  Widget _countText(int target, {Color? color}) {
+    color ??= AppColors.primaryTextOffWhite;
     return TweenAnimationBuilder<int>(
       key: ValueKey('$target-${_anim.value == 0}'),
       tween: IntTween(begin: 0, end: target),
@@ -634,7 +635,7 @@ class _HealthReportsTimelineScreenState
         icon: Icons.event,
         iconColor: AppColors.secondaryTextStoneGrey,
         value: Text(vet == null ? '—' : _fmt(vet.date, year: false),
-            style: const TextStyle(
+            style: TextStyle(
                 color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         label: 'Last Vet Visit',
         onTap: () => _applyType(EntryType.vetVisit),
@@ -644,9 +645,9 @@ class _HealthReportsTimelineScreenState
         iconColor: AppColors.secondaryTextStoneGrey,
         value: Text.rich(TextSpan(
           text: w == null ? '—' : w.weightKg!.toStringAsFixed(1),
-          style: const TextStyle(
+          style: TextStyle(
               color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w600),
-          children: const [
+          children: [
             TextSpan(
                 text: ' kg',
                 style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
@@ -700,7 +701,7 @@ class _HealthReportsTimelineScreenState
                     size: 18,
                   ),
                   const SizedBox(width: 8),
-                  const Text(
+                  Text(
                     'HEALTH TREND & WEIGHT',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -747,7 +748,7 @@ class _HealthReportsTimelineScreenState
                         children: [
                           Text(
                             '${activePoint.monthLabel} 2024',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
@@ -776,7 +777,7 @@ class _HealthReportsTimelineScreenState
                         activePoint.note,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
@@ -801,7 +802,7 @@ class _HealthReportsTimelineScreenState
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(color: _forest),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(Icons.filter_alt_outlined, size: 13, color: _mint),
@@ -847,11 +848,11 @@ class _HealthReportsTimelineScreenState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(isWeight ? '33k' : '5+',
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
                           Text(isWeight ? '29k' : '2.5',
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
                           Text(isWeight ? '25k' : '0',
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 9)),
                         ],
                       ),
                     ),
@@ -1060,9 +1061,9 @@ class _HealthReportsTimelineScreenState
                 border: Border.all(color: _forest),
               ),
               child: Row(mainAxisSize: MainAxisSize.min, children: [
-                Text(label, style: const TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w500)),
+                Text(label, style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w500)),
                 const SizedBox(width: 4),
-                const Icon(Icons.close, size: 16, color: _mint),
+                Icon(Icons.close, size: 16, color: _mint),
               ]),
             ),
           ),
@@ -1090,7 +1091,7 @@ class _HealthReportsTimelineScreenState
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
             ),
-            child: Row(mainAxisSize: MainAxisSize.min, children: const [
+            child: Row(mainAxisSize: MainAxisSize.min, children: [
               Text('Add Filter',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500)),
               SizedBox(width: 4),
@@ -1111,14 +1112,14 @@ class _HealthReportsTimelineScreenState
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Row(children: [
-        const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
+        UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
         const SizedBox(width: 10),
         Expanded(
           child: TextField(
             controller: _searchController,
             focusNode: _searchFocus,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
-            decoration: const InputDecoration(
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+            decoration: InputDecoration(
               hintText: 'Search health history...',
               hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
               border: InputBorder.none,
@@ -1135,7 +1136,7 @@ class _HealthReportsTimelineScreenState
               _searchController.clear();
               setState(() => _query = '');
             },
-            child: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
+            child: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 18),
           ),
       ]),
     );
@@ -1150,7 +1151,7 @@ class _HealthReportsTimelineScreenState
         border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Column(children: [
-        const Text('No records match these filters.',
+        Text('No records match these filters.',
             style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
         const SizedBox(height: 8),
         TextButton(
@@ -1163,7 +1164,7 @@ class _HealthReportsTimelineScreenState
             });
             _replay();
           },
-          child: const Text('Clear filters', style: TextStyle(color: _mint)),
+          child: Text('Clear filters', style: TextStyle(color: _mint)),
         ),
       ]),
     );
@@ -1259,11 +1260,11 @@ class _HealthReportsTimelineScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(e.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
                         const SizedBox(height: 2),
                         Text('${e.type.label} · ${_fmt(e.date)}',
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                       ],
                     ),
                   ),
@@ -1304,9 +1305,9 @@ class _HealthReportsTimelineScreenState
           mainAxisAlignment: arrow ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
           children: [
             Text(label,
-                style: const TextStyle(
+                style: TextStyle(
                     color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
-            if (arrow) const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.primaryTextOffWhite),
+            if (arrow) UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.primaryTextOffWhite),
           ],
         ),
       ),
@@ -1331,11 +1332,11 @@ class _HealthReportsTimelineScreenState
                 color: AppColors.cardsCarbon,
                 border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
-              child: const Icon(Icons.favorite_border, color: _mint, size: 52),
+              child: Icon(Icons.favorite_border, color: _mint, size: 52),
             ),
           ),
           const SizedBox(height: 24),
-          const Text('No Health History Yet',
+          Text('No Health History Yet',
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
           const SizedBox(height: 12),
@@ -1344,7 +1345,7 @@ class _HealthReportsTimelineScreenState
             child: Text(
               "Health History builds automatically from records created across ${_dog.name}'s Health areas (Weight, Body Condition, Medications, Vaccinations, Vet Visits, Injuries, Rehabilitation, Supplements and other Health records).",
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5),
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5),
             ),
           ),
           const SizedBox(height: 32),
@@ -1368,11 +1369,11 @@ class _HealthReportsTimelineScreenState
         children: [
           Expanded(
             child: Text(t,
-                style: const TextStyle(
+                style: TextStyle(
                     color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           ),
           IconButton(
-            icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+            icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
             onPressed: () => Navigator.pop(ctx),
           ),
         ],
@@ -1401,7 +1402,7 @@ class _HealthReportsTimelineScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label,
-            style: const TextStyle(
+            style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey, fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.5)),
         const SizedBox(height: 6),
         Container(
@@ -1414,10 +1415,10 @@ class _HealthReportsTimelineScreenState
           child: TextField(
             controller: c,
             maxLines: lines,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+              hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
@@ -1508,13 +1509,13 @@ class _HealthReportsTimelineScreenState
                 children: [
                   _header(ctx, e.title),
                   Text('${e.type.label} · ${_fmt(e.date)}',
-                      style: const TextStyle(color: _mint, fontSize: 13)),
+                      style: TextStyle(color: _mint, fontSize: 13)),
                   if (e.status != null) ...[
                     const SizedBox(height: 12),
                     _statusBadge(e.status!),
                   ],
                   const SizedBox(height: 16),
-                  const Text('DETAILS',
+                  Text('DETAILS',
                       style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 10,
@@ -1522,13 +1523,13 @@ class _HealthReportsTimelineScreenState
                           letterSpacing: 0.5)),
                   const SizedBox(height: 4),
                   Text(e.detail.isEmpty ? 'No additional details.' : e.detail,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.4)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, height: 1.4)),
                   const SizedBox(height: 24),
                   Row(children: [
                     Expanded(
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: _red),
+                          side: BorderSide(color: _red),
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
@@ -1568,7 +1569,7 @@ class _HealthReportsTimelineScreenState
                                   : e.status == 'Upcoming'
                                       ? 'Mark Done'
                                       : 'Close',
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite),
                         ),
                       ),
                     ),
@@ -1591,7 +1592,7 @@ class _HealthReportsTimelineScreenState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _header(ctx, 'Filter Timeline'),
-                  const Text('RECORD CATEGORY',
+                  Text('RECORD CATEGORY',
                       style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 10,
@@ -1610,7 +1611,7 @@ class _HealthReportsTimelineScreenState
                     }).toList(),
                   ),
                   const SizedBox(height: 16),
-                  const Text('YEAR',
+                  Text('YEAR',
                       style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 10,
@@ -1656,7 +1657,7 @@ class _HealthReportsTimelineScreenState
                 children: [
                   _header(ctx, 'Share Health Report'),
                   Text("Export ${_dog.name}'s timeline (${_visible.length} records shown).",
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                   const SizedBox(height: 14),
                   Wrap(
                     spacing: 8,
@@ -1681,11 +1682,11 @@ class _HealthReportsTimelineScreenState
                               border: Border.all(color: _forest),
                             ),
                             child: Row(children: [
-                              const UlvenikIcon(UlvenikIcons.completed, color: _mint),
+                              UlvenikIcon(UlvenikIcons.completed, color: _mint),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text('$format ready to share.',
-                                    style: const TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w500)),
+                                    style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w500)),
                               ),
                             ]),
                           )
@@ -1736,14 +1737,14 @@ class _HealthReportsTimelineScreenState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(d.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
                               Text('${d.breed} · ${d.age}',
-                                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                             ],
                           ),
                         ),
-                        if (sel) const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20),
+                        if (sel) UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20),
                       ]),
                     ),
                   );

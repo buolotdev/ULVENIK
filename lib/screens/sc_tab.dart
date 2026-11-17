@@ -43,14 +43,14 @@ class SCTab extends StatelessWidget {
                 const SizedBox(width: 14),
                 Expanded(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    const Text('Activity Library',
+                    Text('Activity Library',
                         style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                     const SizedBox(height: 2),
                     Text('$activities ${activities == 1 ? 'activity' : 'activities'}',
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                   ]),
                 ),
-                const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
               ]),
             ),
             const SizedBox(height: 10),
@@ -62,14 +62,14 @@ class SCTab extends StatelessWidget {
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      const Text('S&C Sessions',
+                      Text('S&C Sessions',
                           style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 2),
                       Text('$sessions ${sessions == 1 ? 'session' : 'sessions'} recorded',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                     ]),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                 ]),
                 const SizedBox(height: 14),
                 PrimaryButton(
@@ -85,11 +85,11 @@ class SCTab extends StatelessWidget {
               child: Row(children: [
                 _iconBox(UlvenikIcons.strengthConditioning),
                 const SizedBox(width: 14),
-                const Expanded(
+                Expanded(
                   child: Text('Session Templates',
                       style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                 ),
-                const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
               ]),
             ),
             const SizedBox(height: 24),

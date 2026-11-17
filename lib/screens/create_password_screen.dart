@@ -106,7 +106,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 'Choose a strong password to keep your Ulvenik account secure.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -124,13 +124,13 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                 decoration: BoxDecoration(
                   color: AppColors.cardsCarbon,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.white12),
+                  border: Border.all(color: AppColors.cardBorder),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // New Password Section
-                    const Text(
+                    Text(
                       'New Password',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -142,29 +142,29 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     TextField(
                       controller: _passwordController,
                       obscureText: _obscurePassword,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 15,
                       ),
                       decoration: InputDecoration(
                         hintText: 'Enter new password',
-                        hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                        hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
                         fillColor: Colors.white.withValues(alpha: 0.04),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.white12),
+                          borderSide: BorderSide(color: AppColors.cardBorder),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.white12),
+                          borderSide: BorderSide(color: AppColors.cardBorder),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+                          borderSide: BorderSide(color: AppColors.primaryForestGreen),
                         ),
-                        prefixIcon: const Icon(Icons.lock_outline, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        prefixIcon: Icon(Icons.lock_outline, color: AppColors.secondaryTextStoneGrey, size: 20),
                         suffixIcon: IconButton(
                           icon: UlvenikIcon.fromMaterial(
                             _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
@@ -189,11 +189,11 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     ),
                     
                     const SizedBox(height: 24),
-                    const Divider(color: Colors.white12, height: 1),
+                    Divider(color: AppColors.cardBorder, height: 1),
                     const SizedBox(height: 24),
                     
                     // Confirm Password Section
-                    const Text(
+                    Text(
                       'Confirm Password',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -205,29 +205,29 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     TextField(
                       controller: _confirmController,
                       obscureText: _obscureConfirm,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 15,
                       ),
                       decoration: InputDecoration(
                         hintText: 'Confirm your new password',
-                        hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                        hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
                         fillColor: Colors.white.withValues(alpha: 0.04),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.white12),
+                          borderSide: BorderSide(color: AppColors.cardBorder),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.white12),
+                          borderSide: BorderSide(color: AppColors.cardBorder),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+                          borderSide: BorderSide(color: AppColors.primaryForestGreen),
                         ),
-                        prefixIcon: const Icon(Icons.lock_outline, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        prefixIcon: Icon(Icons.lock_outline, color: AppColors.secondaryTextStoneGrey, size: 20),
                         suffixIcon: IconButton(
                           icon: UlvenikIcon.fromMaterial(
                             _obscureConfirm ? Icons.visibility_off_outlined : Icons.visibility_outlined,
@@ -250,7 +250,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       onPressed: _isButtonEnabled ? _handleUpdatePassword : null,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryForestGreen,
-                        foregroundColor: AppColors.primaryTextOffWhite,
+                        foregroundColor: AppColors.onForestGreen,
                         disabledBackgroundColor: AppColors.primaryForestGreen.withValues(alpha: 0.3),
                         disabledForegroundColor: AppColors.primaryTextOffWhite.withValues(alpha: 0.4),
                         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -280,7 +280,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => Navigator.of(context).pop(),
-                    child: const Text(
+                    child: Text(
                       'Back to Login',
                       style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,

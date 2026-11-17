@@ -99,11 +99,11 @@ class _TimelineScreenState extends State<TimelineScreen> {
           child: ConstrainedBox(
             constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.85),
             child: ListView(shrinkWrap: true, padding: const EdgeInsets.fromLTRB(20, 20, 20, 16), children: [
-              const Text('Filter Timeline',
+              Text('Filter Timeline',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 4),
               Text('Scope: ${_dog == kAllDogs ? 'All Dogs' : _dog}',
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
               const FieldLabelPlain('Categories'),
               Wrap(spacing: 8, runSpacing: 8, children: [
                 ChoiceChip(
@@ -116,7 +116,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                       fontSize: 13),
                   backgroundColor: AppColors.backgroundObsidian,
                   selectedColor: AppColors.primaryForestGreen,
-                  side: const BorderSide(color: Colors.white12),
+                  side: BorderSide(color: AppColors.cardBorder),
                 ),
                 for (final c in kTimelineCategories)
                   FilterChip(
@@ -129,7 +129,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                         fontSize: 13),
                     backgroundColor: AppColors.backgroundObsidian,
                     selectedColor: AppColors.primaryForestGreen,
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                   ),
               ]),
               const FieldLabelPlain('Period'),
@@ -140,7 +140,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 },
                 style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.primaryTextOffWhite,
-                    side: const BorderSide(color: Colors.white24),
+                    side: BorderSide(color: AppColors.cardBorder),
                     alignment: Alignment.centerLeft,
                     minimumSize: const Size(double.infinity, 46)),
                 child: Text(draft.period.label),
@@ -149,7 +149,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 activeThumbColor: AppColors.primaryForestGreen,
-                title: const Text('With Photos or Videos Only', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('With Photos or Videos Only', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 value: draft.mediaOnly,
                 onChanged: (v) => setSheet(() => draft.mediaOnly = v),
               ),
@@ -164,7 +164,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                     }),
                     style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryTextOffWhite,
-                        side: const BorderSide(color: Colors.white24),
+                        side: BorderSide(color: AppColors.cardBorder),
                         minimumSize: const Size(0, 50)),
                     child: const Text('Reset Filters'),
                   ),
@@ -189,12 +189,12 @@ class _TimelineScreenState extends State<TimelineScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Add Record',
+            Text('Add Record',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             for (final t in ['Training Session', 'S&C Session', 'Health Record', 'Milestone', 'Competition'])
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(t, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text(t, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () => Navigator.pop(ctx, t),
               ),
           ]),
@@ -228,7 +228,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         builder: (ctx) {
           Widget item(String label, Widget Function() screen) => ListTile(
-                title: Text(label, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text(label, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   _go(screen());
@@ -288,7 +288,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
       body = Padding(
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
         child: Column(children: [
-          const Text('No Matching Events',
+          Text('No Matching Events',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
           const SizedBox(height: 6),
           Text(
@@ -296,19 +296,19 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 ? 'Try another search term or clear your search.'
                 : 'No events match your current filters${q.isEmpty ? '' : ' and search'}.',
             textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5),
           ),
           const SizedBox(height: 12),
           if (q.isNotEmpty)
             TextButton(
               onPressed: _search.clear,
-              child: const Text('Clear Search',
+              child: Text('Clear Search',
                   style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
             ),
           if (_filters.active)
             TextButton(
               onPressed: () => setState(() => _filters = _TlFilters()),
-              child: const Text('Clear Filters',
+              child: Text('Clear Filters',
                   style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
             ),
         ]),
@@ -327,12 +327,12 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 PopupMenuButton<String>(
                   color: AppColors.cardsCarbon,
                   tooltip: 'More',
-                  icon: const UlvenikIcon(UlvenikIcons.more, size: 20, color: AppColors.secondaryTextStoneGrey),
+                  icon: UlvenikIcon(UlvenikIcons.more, size: 20, color: AppColors.secondaryTextStoneGrey),
                   onSelected: (_) {
                     _store.archive(e);
                     AppSnackbar.show(context, message: 'Event archived', type: SnackbarType.success);
                   },
-                  itemBuilder: (_) => const [
+                  itemBuilder: (_) => [
                     PopupMenuItem(value: 'archive', child: Text('Archive Event', style: TextStyle(color: AppColors.primaryTextOffWhite))),
                   ],
                 ),
@@ -349,17 +349,17 @@ class _TimelineScreenState extends State<TimelineScreen> {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: const Text('Timeline',
+        title: Text('Timeline',
             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         actions: [
           IconButton(
             tooltip: 'Add Record',
-            icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
+            icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryForestGreen),
             onPressed: _addRecord,
           ),
           IconButton(
             tooltip: 'More',
-            icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+            icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
             onPressed: _menu,
           ),
         ],
@@ -405,7 +405,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                   ].join(' · '),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
                 ),
               )
             else
@@ -415,10 +415,10 @@ class _TimelineScreenState extends State<TimelineScreen> {
               icon: AnimatedRotation(
                 turns: _newest ? 0 : 0.5,
                 duration: const Duration(milliseconds: 250),
-                child: const UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
+                child: UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
               ),
               label: Text(_newest ? 'Newest First' : 'Oldest First',
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
             ),
           ]),
           body,
@@ -436,6 +436,6 @@ class FieldLabelPlain extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(top: 18, bottom: 8),
         child: Text(text,
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600)),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600)),
       );
 }

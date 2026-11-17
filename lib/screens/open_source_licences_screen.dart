@@ -210,7 +210,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(sheetCtx).size.height * 0.85,
           ),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
             borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
             border: Border(
@@ -260,7 +260,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                                 Flexible(
                                   child: Text(
                                     pkg.name,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontFamily: 'Inter',
                                       color: AppColors.primaryTextOffWhite,
                                       fontSize: 18,
@@ -275,7 +275,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                             const SizedBox(height: 3),
                             Text(
                               '${pkg.version} • ${pkg.repository}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: AppColors.secondaryTextStoneGrey,
                                 fontSize: 12,
@@ -287,7 +287,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                       ),
                       IconButton(
                         onPressed: () => Navigator.of(sheetCtx).pop(),
-                        icon: const Icon(Icons.close_rounded,
+                        icon: Icon(Icons.close_rounded,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 21,
                         ),
@@ -295,7 +295,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                     ],
                   ),
                 ),
-                const Divider(height: 1, color: AppColors.cardBorder),
+                Divider(height: 1, color: AppColors.cardBorder),
                 Flexible(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
@@ -304,7 +304,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                       children: [
                         Text(
                           pkg.description,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 13.5,
@@ -312,7 +312,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const Text(
+                        Text(
                           'FULL LICENCE TEXT',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -333,7 +333,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                           ),
                           child: SelectableText(
                             fullText,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'monospace',
                               color: AppColors.primaryTextOffWhite,
                               fontSize: 12,
@@ -410,7 +410,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
       ),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 10,
@@ -432,7 +432,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.backgroundObsidian,
             border: Border(
               bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -448,14 +448,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                   children: [
                     IconButton(
                       onPressed: () => Navigator.of(context).maybePop(),
-                      icon: const UlvenikIcon(UlvenikIcons.back,
+                      icon: UlvenikIcon(UlvenikIcons.back,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 26,
                       ),
                       tooltip: 'Back',
                     ),
                     const SizedBox(width: 2),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Open Source Licences',
                         style: TextStyle(
@@ -479,7 +479,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'OPEN SOURCE',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -500,7 +500,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Icon(Icons.code_rounded,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 20,
@@ -540,7 +540,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
               padding: const EdgeInsets.symmetric(horizontal: 14),
               child: Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.search,
+                  UlvenikIcon(UlvenikIcons.search,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 18,
                   ),
@@ -553,13 +553,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                           _searchQuery = value;
                         });
                       },
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 14,
                       ),
                       cursorColor: _mint,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText: 'Search Libraries',
                         hintStyle: TextStyle(
                           fontFamily: 'Inter',
@@ -580,7 +580,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                           _searchQuery = '';
                         });
                       },
-                      child: const Icon(Icons.close_rounded,
+                      child: Icon(Icons.close_rounded,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 18,
                       ),
@@ -643,7 +643,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'LIBRARIES',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -657,7 +657,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                   isFiltered
                       ? '${visible.length} of ${_packages.length}'
                       : '${_packages.length} Total',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12.5,
@@ -678,12 +678,12 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                 ),
                 child: Column(
                   children: [
-                    const Icon(Icons.search_off_rounded,
+                    Icon(Icons.search_off_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 28,
                     ),
                     const SizedBox(height: 8),
-                    const Text(
+                    Text(
                       'No libraries match your filter',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -727,7 +727,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                   children: [
                     for (int i = 0; i < visible.length; i++) ...[
                       if (i > 0)
-                        const Divider(height: 1, color: AppColors.cardBorder),
+                        Divider(height: 1, color: AppColors.cardBorder),
                       _buildLibraryRow(visible[i]),
                     ],
                   ],
@@ -739,7 +739,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                 children: [
                   Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       UlvenikIcon(UlvenikIcons.completed,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 15,
@@ -758,7 +758,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                     ],
                   ),
                   const SizedBox(height: 5),
-                  const Text(
+                  Text(
                     'Version 2.4.1 (Build 4092)',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -802,7 +802,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                   children: [
                     Text(
                       pkg.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 15,
@@ -812,7 +812,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                     const SizedBox(height: 3),
                     Text(
                       pkg.version,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 12.5,
@@ -824,7 +824,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
               const SizedBox(width: 8),
               _buildLicenceBadge(pkg.licenceType),
               const SizedBox(width: 8),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 18,
               ),

@@ -55,16 +55,16 @@ class AchievementsTitlesScreen extends StatefulWidget {
 
 class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _card = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _card => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _greenAccent = Color(0xFF3E8E72);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stone = AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stone => AppColors.secondaryTextStoneGrey; // #A7B0AB
   static const Color _muted = Color(0xFF7B8580);
-  static const Color _border = AppColors.cardBorder; // rgba(255,255,255,0.08)
+  static Color get _border => AppColors.cardBorder; // rgba(255,255,255,0.08)
 
   late final AnimationController _animController;
   late final Animation<double> _curvedAnim;
@@ -525,7 +525,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _offWhite,
               size: 28,
             ),
@@ -533,7 +533,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
             tooltip: 'Back',
           ),
           const SizedBox(width: 28),
-          const Expanded(
+          Expanded(
             child: Center(
               child: Text(
                 'Achievements & Titles',
@@ -590,7 +590,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
           Expanded(
             child: Text(
               labels.join('  ·  '),
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 12.5,
                 fontWeight: FontWeight.w500,
@@ -720,7 +720,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
               value,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 23,
                 fontWeight: FontWeight.w700,
@@ -733,7 +733,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
             Text(
               label,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stone,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
@@ -779,7 +779,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                   Expanded(
                     child: Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 15.5,
                         fontWeight: FontWeight.w700,
@@ -799,7 +799,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                     ),
                     child: Text(
                       '$badgeCount',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stone,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -825,7 +825,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 child: Text(
                   'No matching $title records under active filter.',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stone,
                     fontSize: 13,
                     fontFamily: 'Inter',
@@ -900,7 +900,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                 children: [
                   Text(
                     item.code,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 15.5,
                       fontWeight: FontWeight.w700,
@@ -911,7 +911,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                   const SizedBox(height: 3),
                   Text(
                     item.eventName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stone,
                       fontSize: 13.2,
                       fontFamily: 'Inter',
@@ -990,7 +990,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
               ),
             ),
             const SizedBox(width: 8),
-            const UlvenikIcon(UlvenikIcons.details,
+            UlvenikIcon(UlvenikIcons.details,
               color: _stone,
               size: 19,
             ),
@@ -1049,7 +1049,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
             borderRadius: BorderRadius.circular(15),
             border: Border.all(color: _border),
           ),
-          child: const Row(
+          child: Row(
             children: [
               Icon(Icons.ios_share_rounded, color: _stone, size: 19),
               SizedBox(width: 12),
@@ -1132,7 +1132,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                             children: [
                               Text(
                                 item.code,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,
@@ -1142,7 +1142,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                               const SizedBox(height: 3),
                               Text(
                                 '${item.eventName} · ${item.dateLabel}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stone,
                                   fontSize: 12.5,
                                   fontFamily: 'Inter',
@@ -1166,7 +1166,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                         children: [
                           Text(
                             'Judge: ${item.judge}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stone,
                               fontSize: 12.5,
                               fontFamily: 'Inter',
@@ -1174,7 +1174,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                           ),
                           Text(
                             item.sport,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _alpineBlue,
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -1186,7 +1186,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                     ),
                     if (phases.isNotEmpty) ...[
                       const SizedBox(height: 16),
-                      const Text(
+                      Text(
                         'PHASE BREAKDOWN (TAP BAR TO INSPECT)',
                         style: TextStyle(
                           color: _stone,
@@ -1233,7 +1233,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                                     ),
                                     Text(
                                       '${p.$2} / ${p.$3}',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: _offWhite,
                                         fontSize: 12.5,
                                         fontWeight: FontWeight.w700,
@@ -1334,7 +1334,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Filter Achievements & Titles',
                       style: TextStyle(
                         color: _offWhite,
@@ -1387,7 +1387,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                       value: tempCert,
                       activeThumbColor: _offWhite,
                       activeTrackColor: _forest,
-                      title: const Text(
+                      title: Text(
                         'Has Linked Certificate Only',
                         style: TextStyle(
                           color: _offWhite,
@@ -1402,7 +1402,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                       value: tempAllTitles,
                       activeThumbColor: _offWhite,
                       activeTrackColor: _forest,
-                      title: const Text(
+                      title: Text(
                         'Show Foundational BH-VT Title in List',
                         style: TextStyle(
                           color: _offWhite,
@@ -1478,7 +1478,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Sort Achievements',
                   style: TextStyle(
                     color: _offWhite,
@@ -1559,7 +1559,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
+                      Text(
                         'Add Custom Achievement',
                         style: TextStyle(
                           color: _offWhite,
@@ -1615,7 +1615,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                       const SizedBox(height: 14),
                       TextField(
                         controller: codeCtrl,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 14,
                           fontFamily: 'Inter',
@@ -1623,40 +1623,40 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                         decoration: InputDecoration(
                           labelText: 'Title / Achievement Name *',
                           hintText: 'e.g. FH2, Nordic Champion, Clean Sweep',
-                          labelStyle: const TextStyle(color: _stone),
+                          labelStyle: TextStyle(color: _stone),
                           hintStyle: const TextStyle(color: _muted),
                           filled: true,
                           fillColor: _bg,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                         ),
                       ),
                       const SizedBox(height: 12),
                       TextField(
                         controller: eventCtrl,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 14,
                           fontFamily: 'Inter',
                         ),
                         decoration: InputDecoration(
                           labelText: 'Competition / Trial Event',
-                          labelStyle: const TextStyle(color: _stone),
+                          labelStyle: TextStyle(color: _stone),
                           filled: true,
                           fillColor: _bg,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                         ),
                       ),
@@ -1667,14 +1667,14 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                             child: DropdownButtonFormField<String>(
                               initialValue: sport,
                               dropdownColor: _card,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _offWhite,
                                 fontSize: 13.5,
                                 fontFamily: 'Inter',
                               ),
                               decoration: InputDecoration(
                                 labelText: 'Sport',
-                                labelStyle: const TextStyle(color: _stone),
+                                labelStyle: TextStyle(color: _stone),
                                 filled: true,
                                 fillColor: _bg,
                                 border: OutlineInputBorder(
@@ -1702,7 +1702,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                               contentPadding: EdgeInsets.zero,
                               value: hasCert,
                               activeColor: _forest,
-                              title: const Text(
+                              title: Text(
                                 'Certificate',
                                 style: TextStyle(
                                   color: _offWhite,
@@ -1827,7 +1827,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Generate Achievement Report',
                       style: TextStyle(
                         color: _offWhite,
@@ -1839,7 +1839,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                     const SizedBox(height: 4),
                     Text(
                       'Includes $_titlesDisplayCount Titles · $_qualsDisplayCount Qualifications · $_awardsDisplayCount Awards · Highest: ${_titles.first.code}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stone,
                         fontSize: 12.5,
                         fontFamily: 'Inter',
@@ -1885,7 +1885,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                                 Expanded(
                                   child: Text(
                                     fmt,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _offWhite,
                                       fontSize: 13.5,
                                       fontWeight: FontWeight.w500,

@@ -36,7 +36,7 @@ double toPrefWeight(double kg) => AppSettings.instance.weightUnit == 'lb' ? kg /
 String prefWeightUnit() => AppSettings.instance.weightUnit;
 String fmtKg(double v) => v == v.roundToDouble() ? v.toStringAsFixed(0) : v.toStringAsFixed(1);
 
-const kHealthGreen = AppColors.secondarySage;
+Color get kHealthGreen => AppColors.secondarySage;
 
 /// Standard Health screen scaffold: back arrow, centred title, optional ⋮ menu.
 class HealthScaffold extends StatelessWidget {
@@ -56,10 +56,10 @@ class HealthScaffold extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(title,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         leading: IconButton(
           tooltip: 'Back',
-          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+          icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(context),
         ),
         actions: actions,
@@ -89,7 +89,7 @@ class PrimaryButton extends StatelessWidget {
         label: Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primaryForestGreen,
-          foregroundColor: AppColors.primaryTextOffWhite,
+          foregroundColor: AppColors.onForestGreen,
           elevation: 0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
@@ -115,7 +115,7 @@ class HealthCard extends StatelessWidget {
         child: Container(
           width: double.infinity,
           padding: padding,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.white12)),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), border: Border.all(color: AppColors.cardBorder)),
           child: child,
         ),
       ),
@@ -146,11 +146,11 @@ class EmptyState extends StatelessWidget {
         const SizedBox(height: 16),
         Text(title,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
         const SizedBox(height: 6),
         Text(message,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4)),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4)),
         if (actionLabel != null) ...[
           const SizedBox(height: 18),
           SizedBox(
@@ -159,7 +159,7 @@ class EmptyState extends StatelessWidget {
               onPressed: onAction,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryForestGreen,
-                foregroundColor: AppColors.primaryTextOffWhite,
+                foregroundColor: AppColors.onForestGreen,
                 elevation: 0,
                 padding: const EdgeInsets.symmetric(horizontal: 22),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -185,7 +185,7 @@ class SectionLabel extends StatelessWidget {
       child: Row(children: [
         Expanded(
           child: Text(text,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
         ),
         ?trailing,
       ]),
@@ -195,18 +195,18 @@ class SectionLabel extends StatelessWidget {
 
 InputDecoration healthDecoration(String hint, {String? error, String? suffix}) => InputDecoration(
       hintText: hint,
-      hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+      hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
       errorText: error,
       suffixText: suffix,
-      suffixStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+      suffixStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
       errorStyle: const TextStyle(color: Color(0xFFE08A8A), fontSize: 12.5),
       filled: true,
       fillColor: AppColors.cardsCarbon,
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
       enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Colors.white12)),
+          borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: AppColors.cardBorder)),
       focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+          borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: AppColors.primaryForestGreen)),
       errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Color(0xFF8B3A3A))),
       focusedErrorBorder: OutlineInputBorder(
@@ -223,7 +223,7 @@ class FieldLabel extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8, top: 18),
       child: Text(required ? '$text *' : '$text (optional)',
-          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600)),
+          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600)),
     );
   }
 }
@@ -256,7 +256,7 @@ class DateField extends StatelessWidget {
           lastDate: allowFuture ? DateTime(now.year + 10) : now,
           builder: (c, w) => Theme(
             data: Theme.of(c).copyWith(
-                colorScheme: const ColorScheme.dark(
+                colorScheme: ColorScheme.dark(
                     primary: AppColors.primaryForestGreen, surface: AppColors.cardsCarbon)),
             child: w!,
           ),
@@ -265,7 +265,7 @@ class DateField extends StatelessWidget {
       },
       child: InputDecorator(
         decoration: healthDecoration(hint, error: error).copyWith(
-          suffixIcon: const UlvenikIcon(UlvenikIcons.calendar, size: 18, color: AppColors.secondaryTextStoneGrey),
+          suffixIcon: UlvenikIcon(UlvenikIcons.calendar, size: 18, color: AppColors.secondaryTextStoneGrey),
           suffixIconConstraints: const BoxConstraints(minWidth: 44, minHeight: 20),
         ),
         child: Text(value == null ? hint : fmtDate(value!),
@@ -297,7 +297,7 @@ class ChoiceRow extends StatelessWidget {
               color: o == value ? AppColors.primaryTextOffWhite : AppColors.secondaryTextStoneGrey, fontSize: 13),
           backgroundColor: AppColors.cardsCarbon,
           selectedColor: AppColors.primaryForestGreen,
-          side: const BorderSide(color: Colors.white12),
+          side: BorderSide(color: AppColors.cardBorder),
         ),
     ]);
   }
@@ -317,7 +317,7 @@ Future<bool> confirmDelete(BuildContext context, {required String title, require
           const SizedBox(height: 8),
           Text(message,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4)),
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4)),
           const SizedBox(height: 22),
           SizedBox(
             width: double.infinity,
@@ -340,10 +340,10 @@ Future<bool> confirmDelete(BuildContext context, {required String title, require
               onPressed: () => Navigator.pop(ctx, false),
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 14),
-                side: const BorderSide(color: Colors.white12),
+                side: BorderSide(color: AppColors.cardBorder),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               ),
-              child: const Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
+              child: Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
             ),
           ),
         ]),
@@ -363,7 +363,7 @@ class RecordMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       tooltip: 'More',
-      icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+      icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
       onPressed: () => showModalBottomSheet<void>(
         context: context,
         backgroundColor: AppColors.cardsCarbon,
@@ -373,8 +373,8 @@ class RecordMenu extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               ListTile(
-                leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
-                title: const Text('Edit Record', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                leading: UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
+                title: Text('Edit Record', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   onEdit();

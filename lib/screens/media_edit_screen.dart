@@ -20,11 +20,11 @@ Future<List<MediaLink>?> pickRecordLinks(BuildContext context, String dog, {Set<
         child: ConstrainedBox(
           constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.8),
           child: ListView(shrinkWrap: true, padding: const EdgeInsets.fromLTRB(20, 20, 20, 16), children: [
-            const Text('Link to Records',
+            Text('Link to Records',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             if (options.isEmpty)
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 24),
                 child: Text('There are no records to link to yet.',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
@@ -35,8 +35,8 @@ Future<List<MediaLink>?> pickRecordLinks(BuildContext context, String dog, {Set<
                 controlAffinity: ListTileControlAffinity.leading,
                 activeColor: AppColors.primaryForestGreen,
                 checkColor: AppColors.primaryTextOffWhite,
-                title: Text(l.label(), style: const TextStyle(color: AppColors.primaryTextOffWhite)),
-                subtitle: Text(l.section, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                title: Text(l.label(), style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                subtitle: Text(l.section, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                 value: chosen.contains(l.key),
                 onChanged: (v) => setSheet(() => v == true ? chosen.add(l.key) : chosen.remove(l.key)),
               ),
@@ -100,7 +100,7 @@ class _MediaEditScreenState extends State<MediaEditScreen> {
             const FieldLabel('Title'),
             TextField(
               controller: _title,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
               decoration: healthDecoration(widget.item.name),
             ),
             const FieldLabel('Media Date'),
@@ -110,13 +110,13 @@ class _MediaEditScreenState extends State<MediaEditScreen> {
               controller: _desc,
               minLines: 3,
               maxLines: 6,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
               decoration: healthDecoration('Add a description...'),
             ),
             const SizedBox(height: 22),
             const SectionLabel('Linked Records'),
             if (widget.item.links.isEmpty)
-              const Text('Not linked to any record.',
+              Text('Not linked to any record.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
             for (final l in widget.item.links)
               Padding(
@@ -127,9 +127,9 @@ class _MediaEditScreenState extends State<MediaEditScreen> {
                     Expanded(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Text(l.label(),
-                            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+                            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
                         Text(l.section,
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                       ]),
                     ),
                     TextButton(
@@ -154,7 +154,7 @@ class _MediaEditScreenState extends State<MediaEditScreen> {
                 label: const Text('Link to Record'),
                 style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.primaryTextOffWhite,
-                    side: const BorderSide(color: Colors.white24),
+                    side: BorderSide(color: AppColors.cardBorder),
                     minimumSize: const Size(0, 44)),
               ),
             ),

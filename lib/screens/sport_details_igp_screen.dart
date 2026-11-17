@@ -276,10 +276,10 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 ),
                 const SizedBox(height: 12),
                 ListTile(
-                  leading: const UlvenikIcon(UlvenikIcons.edit,
+                  leading: UlvenikIcon(UlvenikIcons.edit,
                     color: AppColors.primaryTextOffWhite,
                   ),
-                  title: const Text(
+                  title: Text(
                     'Edit Sport',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -301,7 +301,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   ),
                   title: Text(
                     sport.isArchived ? 'Restore Sport' : 'Archive Sport',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Inter',
@@ -363,7 +363,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'CREATE SPORT SKILL',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -436,7 +436,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryForestGreen,
-                        foregroundColor: AppColors.primaryTextOffWhite,
+                        foregroundColor: AppColors.onForestGreen,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -528,7 +528,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'RECORD TRAINING SESSION',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -584,7 +584,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Session Duration',
                         style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
@@ -630,7 +630,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryForestGreen,
-                        foregroundColor: AppColors.primaryTextOffWhite,
+                        foregroundColor: AppColors.onForestGreen,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -712,7 +712,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'ADD UPCOMING COMPETITION',
                 style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -744,7 +744,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryTextOffWhite,
-                        side: const BorderSide(color: AppColors.cardBorder),
+                        side: BorderSide(color: AppColors.cardBorder),
                         minimumSize: const Size.fromHeight(45),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -775,7 +775,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryForestGreen,
-                        foregroundColor: AppColors.primaryTextOffWhite,
+                        foregroundColor: AppColors.onForestGreen,
                         elevation: 0,
                         minimumSize: const Size.fromHeight(45),
                         shape: RoundedRectangleBorder(
@@ -859,7 +859,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'ADD QUALIFICATION OR AWARD',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -923,7 +923,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryForestGreen,
-                        foregroundColor: AppColors.primaryTextOffWhite,
+                        foregroundColor: AppColors.onForestGreen,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -1003,7 +1003,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
             children: [
               Text(
                 _notesText.isEmpty ? 'ADD SPORT NOTE' : 'EDIT SPORT NOTES',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -1015,7 +1015,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
               TextField(
                 controller: ctrl,
                 maxLines: 4,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
                   fontSize: 13.5,
                   height: 1.45,
@@ -1023,7 +1023,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 ),
                 decoration: InputDecoration(
                   hintText: 'Add any additional notes about this sport…',
-                  hintStyle: const TextStyle(
+                  hintStyle: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 13.5,
                     fontFamily: 'Inter',
@@ -1032,12 +1032,12 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   fillColor: AppColors.backgroundObsidian,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: AppColors.cardBorder),
+                    borderSide: BorderSide(color: AppColors.cardBorder),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide:
-                        const BorderSide(color: AppColors.primaryForestGreen),
+                        BorderSide(color: AppColors.primaryForestGreen),
                   ),
                 ),
               ),
@@ -1048,7 +1048,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -1088,14 +1088,14 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
     return TextField(
       controller: controller,
       keyboardType: keyboardType,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.primaryTextOffWhite,
         fontSize: 14,
         fontFamily: 'Inter',
       ),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 13.5,
           fontFamily: 'Inter',
@@ -1109,11 +1109,11 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.cardBorder),
+          borderSide: BorderSide(color: AppColors.cardBorder),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+          borderSide: BorderSide(color: AppColors.primaryForestGreen),
         ),
       ),
     );
@@ -1149,18 +1149,18 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
           backgroundColor: AppColors.cardsCarbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: AppColors.cardBorder),
+            side: BorderSide(color: AppColors.cardBorder),
           ),
           title: Text(
             'Delete ${sport.name}?',
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 17,
               fontWeight: FontWeight.w700,
               fontFamily: 'Inter',
             ),
           ),
-          content: const Text(
+          content: Text(
             'This removes the sport workspace from your active Sport Pack list. Past timeline logs remain preserved.',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -1172,7 +1172,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text(
+              child: Text(
                 'Cancel',
                 style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -1381,7 +1381,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                           onTap: _openEditNotesDialog,
                           child: Text(
                             _notesText.isEmpty ? 'Add Note' : 'Edit',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.primaryForestGreen,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -1408,7 +1408,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Text(
                                 'No notes added',
                                 style: TextStyle(
@@ -1452,7 +1452,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                           ),
                           child: Text(
                             _notesText,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 13.5,
                               height: 1.5,
@@ -1483,7 +1483,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
     return Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -1497,13 +1497,13 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 Navigator.of(context).pop();
               }
             },
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
             tooltip: 'Back',
           ),
-          const Expanded(
+          Expanded(
             child: Center(
               child: Text(
                 'Sport Details',
@@ -1518,7 +1518,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
           ),
           IconButton(
             onPressed: () => _openOverflowMenu(sport),
-            icon: const UlvenikIcon(UlvenikIcons.more,
+            icon: UlvenikIcon(UlvenikIcons.more,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
@@ -1532,7 +1532,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
   Widget _buildSectionLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.secondaryTextStoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -1571,7 +1571,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 alignment: Alignment.center,
                 child: Text(
                   badgeCode,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
@@ -1586,7 +1586,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   children: [
                     Text(
                       sport.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
@@ -1596,7 +1596,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                     const SizedBox(height: 4),
                     Text(
                       '$orgShort  •  $levelText',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 13.5,
                         fontFamily: 'Inter',
@@ -1642,7 +1642,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
               children: [
                 Text(
                   '${sport.sessionsCount} Sessions',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 12.5,
                     fontWeight: FontWeight.w600,
@@ -1660,7 +1660,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 ),
                 Text(
                   'Last: ${sport.lastTrained}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12.5,
                     fontFamily: 'Inter',
@@ -1686,7 +1686,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryForestGreen,
-                foregroundColor: AppColors.primaryTextOffWhite,
+                foregroundColor: AppColors.onForestGreen,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -1753,7 +1753,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
         children: [
           Text(
             left,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 13.5,
               fontFamily: 'Inter',
@@ -1761,7 +1761,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
           ),
           Text(
             right,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 13.8,
               fontWeight: FontWeight.w700,
@@ -1789,7 +1789,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
               children: [
                 TextSpan(
                   text: '$leftNum ',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -1798,7 +1798,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 ),
                 TextSpan(
                   text: leftLabel,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 13.2,
                     fontFamily: 'Inter',
@@ -1812,7 +1812,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
               children: [
                 TextSpan(
                   text: '$rightNum ',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -1821,7 +1821,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                 ),
                 TextSpan(
                   text: rightLabel,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 13.2,
                     fontFamily: 'Inter',
@@ -1871,7 +1871,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                           children: [
                             Text(
                               sk.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
@@ -1881,7 +1881,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                             const SizedBox(height: 4),
                             Text(
                               '${sk.exercises} Exercises · ${sk.sessions} Sessions · Last: ${sk.lastTrained}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.secondaryTextStoneGrey,
                                 fontSize: 12.5,
                                 fontFamily: 'Inter',
@@ -1890,7 +1890,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                           ],
                         ),
                       ),
-                      const UlvenikIcon(UlvenikIcons.details,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 19,
                       ),
@@ -1973,7 +1973,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                             children: [
                               Text(
                                 comp.title,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 14.8,
                                   fontWeight: FontWeight.w700,
@@ -2004,7 +2004,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                           const SizedBox(height: 5),
                           Text(
                             '${comp.date} · $shortLocation',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 12.5,
                               fontFamily: 'Inter',
@@ -2013,7 +2013,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                         ],
                       ),
                     ),
-                    const UlvenikIcon(UlvenikIcons.details,
+                    UlvenikIcon(UlvenikIcons.details,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 19,
                     ),
@@ -2065,7 +2065,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   Expanded(
                     child: Text(
                       g.$1,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 14.5,
                         fontWeight: FontWeight.w600,
@@ -2087,7 +2087,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
               const SizedBox(height: 4),
               Text(
                 g.$2,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 12,
                   fontFamily: 'Inter',
@@ -2106,7 +2106,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
               const SizedBox(height: 6),
               Text(
                 g.$4,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 11.5,
                   fontFamily: 'Inter',
@@ -2152,7 +2152,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.emoji_events_outlined,
+                      Icon(Icons.emoji_events_outlined,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 16,
                       ),
@@ -2161,7 +2161,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                         child: Text(
                           q.title,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 14.5,
                             fontWeight: FontWeight.w700,
@@ -2182,7 +2182,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                         ),
                         child: Text(
                           q.sportTag,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.infoAlpineBlue,
                             fontSize: 10.5,
                             fontWeight: FontWeight.w700,
@@ -2193,14 +2193,14 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                       const Spacer(),
                       Text(
                         q.date,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 12.5,
                           fontFamily: 'Inter',
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const UlvenikIcon(UlvenikIcons.details,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 17,
                       ),
@@ -2304,7 +2304,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                         child: Text(
                           '${activePoint.trialName} · ${activePoint.total}/300',
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 13.5,
                             fontWeight: FontWeight.w700,
@@ -2316,7 +2316,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                         GestureDetector(
                           onTap: () =>
                               setState(() => _selectedPhaseIndex = -1),
-                          child: const Text(
+                          child: Text(
                             'All Sections',
                             style: TextStyle(
                               color: AppColors.infoAlpineBlue,
@@ -2359,7 +2359,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                                   child: Center(
                                     child: Text(
                                       '${(entry.$3 * _chartAnim.value).round()}',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: AppColors.primaryTextOffWhite,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700,
@@ -2372,7 +2372,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                               const SizedBox(height: 6),
                               Text(
                                 entry.$1,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -2381,7 +2381,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                               ),
                               Text(
                                 entry.$2,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
                                   fontSize: 11,
                                   fontFamily: 'Inter',
@@ -2396,7 +2396,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                   const SizedBox(height: 16),
                   Container(height: 1, color: AppColors.cardBorder),
                   const SizedBox(height: 12),
-                  const Text(
+                  Text(
                     'Score Progression · Tap any trial bar to inspect phases',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -2512,7 +2512,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
         children: [
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 23,
               fontWeight: FontWeight.w700,
@@ -2522,7 +2522,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
           const SizedBox(height: 5),
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 12.8,
               fontFamily: 'Inter',
@@ -2587,7 +2587,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                       Expanded(
                         child: Text(
                           item.$2,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 14.5,
                             fontWeight: FontWeight.w600,
@@ -2595,7 +2595,7 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                           ),
                         ),
                       ),
-                      const UlvenikIcon(UlvenikIcons.details,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 19,
                       ),

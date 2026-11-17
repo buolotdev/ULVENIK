@@ -176,7 +176,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
         ];
         return Container(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
             borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
             border: Border(
@@ -202,7 +202,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                   ),
                 ),
                 const SizedBox(height: 18),
-                const Text(
+                Text(
                   'Upcoming Languages',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -212,7 +212,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Tap any language below to receive a notification as soon as its pack launches.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -227,7 +227,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                     dense: true,
                     title: Text(
                       item.$1,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 14.5,
                         fontWeight: FontWeight.w600,
@@ -236,13 +236,13 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                     ),
                     subtitle: Text(
                       item.$2,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12,
                         color: AppColors.secondaryTextStoneGrey,
                       ),
                     ),
-                    trailing: const UlvenikIcon(UlvenikIcons.notifications,
+                    trailing: UlvenikIcon(UlvenikIcons.notifications,
                       color: AppColors.primaryForestGreen,
                       size: 20,
                     ),
@@ -315,14 +315,14 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
           IconButton(
             onPressed: () =>
                 Navigator.of(context).maybePop(_currentLanguage.nativeTitle),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
             visualDensity: VisualDensity.compact,
           ),
           const SizedBox(width: 2),
-          const Expanded(
+          Expanded(
             child: Text(
               'Language',
               style: TextStyle(
@@ -361,7 +361,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -389,7 +389,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(top: 3),
                 child: Icon(Icons.language_rounded,
                   size: 21,
@@ -403,7 +403,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                   children: [
                     Text(
                       current.nativeTitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -416,7 +416,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                       _appliedUseDeviceLanguage
                           ? '${current.interfaceLabel} · Device Auto'
                           : current.interfaceLabel,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         color: AppColors.secondaryTextStoneGrey,
@@ -438,7 +438,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                     color: Colors.white.withValues(alpha: 0.08),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   'CURRENT',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -478,7 +478,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                   const SizedBox(height: 3),
                   Text(
                     selected.sampleNavPreview,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 12.5,
                       color: AppColors.primaryTextOffWhite,
@@ -505,12 +505,12 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
         ),
         child: Row(
           children: [
-            const Icon(Icons.smartphone_rounded,
+            Icon(Icons.smartphone_rounded,
               size: 20,
               color: AppColors.secondaryTextStoneGrey,
             ),
             const SizedBox(width: 14),
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -563,7 +563,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search,
+          UlvenikIcon(UlvenikIcons.search,
             size: 19,
             color: AppColors.secondaryTextStoneGrey,
           ),
@@ -574,12 +574,12 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
               focusNode: _searchFocusNode,
               onChanged: (v) => setState(() => _searchQuery = v),
               cursorColor: AppColors.primaryForestGreen,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 14.5,
                 color: AppColors.primaryTextOffWhite,
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 isDense: true,
                 border: InputBorder.none,
                 hintText: 'Search languages',
@@ -601,7 +601,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                 });
               },
               behavior: HitTestBehavior.opaque,
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.all(4),
                 child: Icon(Icons.close_rounded,
                   size: 17,
@@ -632,7 +632,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                 child: Text(
                   'No supported languages matching "${_searchQuery.trim()}"',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 14,
                     color: AppColors.secondaryTextStoneGrey,
@@ -650,7 +650,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
             Container(height: 1, color: AppColors.cardBorder),
             InkWell(
               onTap: _showComingSoonSheet,
-              child: const SizedBox(
+              child: SizedBox(
                 width: double.infinity,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
@@ -703,7 +703,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                           children: [
                             Text(
                               option.nativeTitle,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
@@ -713,7 +713,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                             const SizedBox(height: 3),
                             Text(
                               option.englishSubtitle,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 12.5,
                                 color: AppColors.secondaryTextStoneGrey,
@@ -723,7 +723,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
                         ),
                       ),
                       if (isSelected)
-                        const Icon(Icons.check_rounded,
+                        Icon(Icons.check_rounded,
                           size: 19,
                           color: AppColors.primaryForestGreen,
                         ),
@@ -741,7 +741,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
   Widget _buildBottomApplyDock() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           top: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -778,7 +778,7 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
             ),
           ),
           const SizedBox(height: 10),
-          const Text(
+          Text(
             'User-created content will not be translated.',
             textAlign: TextAlign.center,
             style: TextStyle(

@@ -81,8 +81,8 @@ class _SupportFormScreenState extends State<_SupportFormScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.cardsCarbon,
-        title: const Text('Couldn’t send', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
-        content: const Text(
+        title: Text('Couldn’t send', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
+        content: Text(
             'This version of Ulvenik can’t send messages to support yet, so nothing was sent. What you wrote has been kept.',
             style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4)),
         actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('OK'))],
@@ -100,7 +100,7 @@ class _SupportFormScreenState extends State<_SupportFormScreen> {
           context: context,
           builder: (ctx) => AlertDialog(
             backgroundColor: AppColors.cardsCarbon,
-            title: const Text('Discard changes?', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
+            title: Text('Discard changes?', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
             actions: [
               TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Keep Editing')),
               TextButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Discard Changes')),
@@ -116,7 +116,7 @@ class _SupportFormScreenState extends State<_SupportFormScreen> {
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           children: [
-            Text(widget.intro, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4)),
+            Text(widget.intro, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4)),
             for (final f in widget.fields) ...[
               FieldLabel(f.label, required: f.required),
               if (f.options != null)
@@ -141,7 +141,7 @@ class _SupportFormScreenState extends State<_SupportFormScreen> {
                   minLines: f.lines,
                   maxLines: f.lines == 1 ? 1 : f.lines + 3,
                   onChanged: (_) => setState(() => _errors.remove(f.key)),
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                   decoration: healthDecoration(f.hint, error: _errors.contains(f.key) ? 'This field is required.' : null),
                 ),
             ],
@@ -158,7 +158,7 @@ class _SupportFormScreenState extends State<_SupportFormScreen> {
                   label: const Text('Add Attachment'),
                   style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryTextOffWhite,
-                      side: const BorderSide(color: Colors.white24),
+                      side: BorderSide(color: AppColors.cardBorder),
                       minimumSize: const Size(0, 44)),
                 ),
               ),
@@ -168,9 +168,9 @@ class _SupportFormScreenState extends State<_SupportFormScreen> {
                   child: Wrap(spacing: 8, runSpacing: 6, children: [
                     for (final n in _files)
                       InputChip(
-                        label: Text(n, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                        label: Text(n, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                         backgroundColor: AppColors.cardsCarbon,
-                        side: const BorderSide(color: Colors.white12),
+                        side: BorderSide(color: AppColors.cardBorder),
                         deleteIconColor: AppColors.secondaryTextStoneGrey,
                         onDeleted: () => setState(() => _files = [..._files]..remove(n)),
                       ),
@@ -183,7 +183,7 @@ class _SupportFormScreenState extends State<_SupportFormScreen> {
                 controller: _email,
                 keyboardType: TextInputType.emailAddress,
                 onChanged: (_) => _emailError == null ? null : setState(() => _emailError = null),
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                 decoration: healthDecoration('Enter your email address', error: _emailError),
               ),
             ],

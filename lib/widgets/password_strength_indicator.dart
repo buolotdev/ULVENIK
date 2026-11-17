@@ -15,7 +15,7 @@ class PasswordStrengthIndicator extends StatelessWidget {
 
   static const Color mutedRed = Color(0xFFC75D5D);
   static const Color amberOrange = Color(0xFFD99B4B);
-  static const Color sageGreen = AppColors.secondarySage; // #7A8F7A
+  static Color get sageGreen => AppColors.secondarySage; // #7A8F7A
 
   static PasswordStrength evaluate(String password) {
     if (password.isEmpty) return PasswordStrength.empty;
@@ -196,7 +196,7 @@ class _CheckItem extends StatelessWidget {
             ),
           ),
           child: met
-              ? const Center(
+              ? Center(
                   child: Icon(Icons.check_rounded,
                     size: 11,
                     color: AppColors.secondarySage,

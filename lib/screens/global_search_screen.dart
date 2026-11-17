@@ -506,7 +506,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
       builder: (sheetCtx) {
         return Container(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
             borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
             border: Border(
@@ -548,7 +548,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                       ),
                       child: Text(
                         item.dogName,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 11,
                           fontWeight: FontWeight.w500,
@@ -559,7 +559,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                     const Spacer(),
                     IconButton(
                       onPressed: () => Navigator.of(sheetCtx).pop(),
-                      icon: const Icon(Icons.close_rounded,
+                      icon: Icon(Icons.close_rounded,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 20,
                       ),
@@ -570,7 +570,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                 const SizedBox(height: 8),
                 Text(
                   item.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 19,
                     fontWeight: FontWeight.w700,
@@ -580,7 +580,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                 const SizedBox(height: 4),
                 Text(
                   item.subtitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     color: AppColors.secondaryTextStoneGrey,
@@ -600,7 +600,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                     children: [
                       Text(
                         item.summary,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 13.5,
                           height: 1.45,
@@ -618,7 +618,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                           Expanded(
                             child: Text(
                               item.metricLine,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -642,7 +642,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -791,7 +791,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
               ),
               child: Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.search,
+                  UlvenikIcon(UlvenikIcons.search,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 20,
                   ),
@@ -804,13 +804,13 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                       onSubmitted: _recordSearchTerm,
                       cursorColor: AppColors.primaryForestGreen,
                       cursorWidth: 1.8,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                       ),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         isDense: true,
                         border: InputBorder.none,
                         hintText: 'Search dogs, training, health, media...',
@@ -837,7 +837,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                         _searchFocusNode.requestFocus();
                       },
                       behavior: HitTestBehavior.opaque,
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(4),
                         child: Icon(Icons.close_rounded,
                           color: AppColors.secondaryTextStoneGrey,
@@ -853,7 +853,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
           GestureDetector(
             onTap: () => Navigator.of(context).maybePop(),
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 2),
               child: Text(
                 'Cancel',
@@ -897,7 +897,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                 GestureDetector(
                   onTap: _clearAllFilters,
                   behavior: HitTestBehavior.opaque,
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 4),
                     child: Text(
                       'Clear All',
@@ -945,7 +945,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
           children: [
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 13,
@@ -953,7 +953,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
               ),
             ),
             const SizedBox(width: 7),
-            const Icon(Icons.close_rounded,
+            Icon(Icons.close_rounded,
               size: 14,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -1073,7 +1073,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
         if (_recentSearches.isNotEmpty) ...[
           Row(
             children: [
-              const Text(
+              Text(
                 'RECENT SEARCHES',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -1086,7 +1086,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
               const Spacer(),
               GestureDetector(
                 onTap: () => setState(() => _recentSearches.clear()),
-                child: const Text(
+                child: Text(
                   'Clear All',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1125,7 +1125,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                       ),
                       child: Row(
                         children: [
-                          const UlvenikIcon(UlvenikIcons.history,
+                          UlvenikIcon(UlvenikIcons.history,
                             size: 18,
                             color: AppColors.secondaryTextStoneGrey,
                           ),
@@ -1133,7 +1133,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                           Expanded(
                             child: Text(
                               _recentSearches[i],
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 14.5,
                                 fontWeight: FontWeight.w500,
@@ -1148,7 +1148,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                               });
                             },
                             behavior: HitTestBehavior.opaque,
-                            child: const Padding(
+                            child: Padding(
                               padding: EdgeInsets.all(4),
                               child: Icon(Icons.close_rounded,
                                 size: 16,
@@ -1166,7 +1166,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
           ),
           const SizedBox(height: 24),
         ],
-        const Text(
+        Text(
           'SEARCH ACROSS WORKSPACE',
           style: TextStyle(
             fontFamily: 'Inter',
@@ -1268,7 +1268,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                 children: [
                   Text(
                     label,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 13.5,
                       fontWeight: FontWeight.w600,
@@ -1278,7 +1278,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                   const SizedBox(height: 2),
                   Text(
                     count,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 11.5,
                       color: AppColors.secondaryTextStoneGrey,
@@ -1310,7 +1310,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                   shape: BoxShape.circle,
                   border: Border.all(color: AppColors.cardBorder),
                 ),
-                child: const Icon(Icons.search_off_rounded,
+                child: Icon(Icons.search_off_rounded,
                   color: AppColors.secondaryTextStoneGrey,
                   size: 26,
                 ),
@@ -1319,7 +1319,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
               Text(
                 'No matches for "${_query.trim()}"',
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -1327,7 +1327,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                 ),
               ),
               const SizedBox(height: 6),
-              const Text(
+              Text(
                 'Try clearing active scope filters or searching for Recall, Murphy, IGP, or Vaccination.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -1348,7 +1348,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                     _isInitialFigmaPreset = true;
                   });
                 },
-                child: const Text(
+                child: Text(
                   'Reset to Recall Search',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -1388,7 +1388,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
           padding: const EdgeInsets.only(left: 2, bottom: 10),
           child: Text(
             _sectionHeaderTitle(scope),
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 11,
               fontWeight: FontWeight.w500,
@@ -1463,7 +1463,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
                       item.subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -1476,7 +1476,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
               const SizedBox(width: 10),
               _buildResultBadge(item),
               const SizedBox(width: 10),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 size: 18,
                 color: AppColors.secondaryTextStoneGrey,
               ),
@@ -1526,33 +1526,33 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
           child: CustomPaint(painter: _ConcentricTargetPainter()),
         );
       case _SearchScope.dogs:
-        return const UlvenikIcon(UlvenikIcons.dogs,
+        return UlvenikIcon(UlvenikIcons.dogs,
           size: 20,
           color: AppColors.secondaryTextStoneGrey,
         );
       case _SearchScope.health:
-        return const UlvenikIcon(UlvenikIcons.health,
+        return UlvenikIcon(UlvenikIcons.health,
           size: 20,
           color: AppColors.secondaryTextStoneGrey,
         );
       case _SearchScope.timeline:
-        return const UlvenikIcon(UlvenikIcons.history,
+        return UlvenikIcon(UlvenikIcons.history,
           size: 20,
           color: AppColors.secondaryTextStoneGrey,
         );
       case _SearchScope.competitions:
-        return const Icon(Icons.emoji_events_outlined,
+        return Icon(Icons.emoji_events_outlined,
           size: 20,
           color: AppColors.secondaryTextStoneGrey,
         );
       case _SearchScope.clients:
-        return const Icon(Icons.person_outline_rounded,
+        return Icon(Icons.person_outline_rounded,
           size: 20,
           color: AppColors.secondaryTextStoneGrey,
         );
       case _SearchScope.media:
       case _SearchScope.all:
-        return const Icon(Icons.insert_drive_file_outlined,
+        return Icon(Icons.insert_drive_file_outlined,
           size: 20,
           color: AppColors.secondaryTextStoneGrey,
         );
@@ -1560,7 +1560,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
   }
 
   Widget _buildHighlightedTitle(String title, String query) {
-    const baseStyle = TextStyle(
+    final baseStyle = TextStyle(
       fontFamily: 'Inter',
       fontSize: 15.5,
       fontWeight: FontWeight.w500,
@@ -1610,7 +1610,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
               ),
               child: Text(
                 match,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 15.5,
                   fontWeight: FontWeight.w600,
@@ -1662,7 +1662,7 @@ class _GlobalSearchScreenState extends State<GlobalSearchScreen> {
       ),
       child: Text(
         item.badge,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 10.5,
           fontWeight: FontWeight.w500,

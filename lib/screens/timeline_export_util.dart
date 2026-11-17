@@ -112,11 +112,11 @@ Future<void> runExport(
     barrierDismissible: false,
     builder: (ctx) => AlertDialog(
       backgroundColor: AppColors.cardsCarbon,
-      title: const Text('Preparing Your Export', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
+      title: Text('Preparing Your Export', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
       content: Row(children: [
-        const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primaryForestGreen)),
+        SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primaryForestGreen)),
         const SizedBox(width: 14),
-        Expanded(child: Text(preparing, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5))),
+        Expanded(child: Text(preparing, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5))),
       ]),
       actions: [
         TextButton(
@@ -139,8 +139,8 @@ Future<void> runExport(
         context: context,
         builder: (ctx) => AlertDialog(
           backgroundColor: AppColors.cardsCarbon,
-          title: const Text('Couldn’t Create Export', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
-          content: const Text('Please try again. Your selected events and export settings have been kept.',
+          title: Text('Couldn’t Create Export', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
+          content: Text('Please try again. Your selected events and export settings have been kept.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
           actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('OK'))],
         ),
@@ -155,8 +155,8 @@ Future<void> runExport(
     context: context,
     builder: (ctx) => AlertDialog(
       backgroundColor: AppColors.cardsCarbon,
-      title: const Text('Export Ready', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
-      content: Text(fileName, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+      title: Text('Export Ready', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
+      content: Text(fileName, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
       actions: [
         TextButton(
           onPressed: () async {

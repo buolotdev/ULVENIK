@@ -57,13 +57,13 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   color: AppColors.primaryForestGreen.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.archive_outlined,
+                child: Icon(Icons.archive_outlined,
                   color: AppColors.primaryForestGreen,
                   size: 24,
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Archive Exercise?',
                 style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
@@ -72,7 +72,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'This exercise will be removed from your active exercises. Your training history will be preserved, and you can restore it at any time.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -92,7 +92,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     elevation: 0,
@@ -108,10 +108,10 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   onPressed: () => Navigator.pop(ctx),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14),
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
-                  child: const Text('Cancel',
+                  child: Text('Cancel',
                       style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500)),
                 ),
               ),
@@ -157,7 +157,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'This exercise will be permanently deleted. Your previous training sessions and their records will remain intact.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -172,7 +172,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 decoration: BoxDecoration(
                   color: AppColors.backgroundObsidian,
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.white12),
+                  border: Border.all(color: AppColors.cardBorder),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,18 +193,18 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(left: 24),
                       child: Text(
                         'The exercise and its description',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Divider(color: Colors.white12, height: 1),
+                      child: Divider(color: AppColors.cardBorder, height: 1),
                     ),
-                    const Row(
+                    Row(
                       children: [
                         UlvenikIcon(UlvenikIcons.completed, size: 16, color: AppColors.primaryForestGreen),
                         SizedBox(width: 8),
@@ -220,7 +220,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(left: 24),
                       child: Text(
                         'Past session records\nHistorical chart data',
@@ -257,10 +257,10 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   onPressed: () => Navigator.pop(ctx),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14),
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
-                  child: const Text('Cancel',
+                  child: Text('Cancel',
                       style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500)),
                 ),
               ),
@@ -298,7 +298,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     ),
                   ),
                 ),
-                const Text(
+                Text(
                   'Update Goal Progress',
                   style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
@@ -307,7 +307,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'Update your dog’s progress based on your own assessment.',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -319,11 +319,11 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Progress',
+                    Text('Progress',
                         style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
                     Text(
                       '${(tempVal * 100).round()}%',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryForestGreen,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -357,7 +357,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       elevation: 0,
@@ -400,10 +400,10 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)),
                   ),
                 ),
-                const Text('Success Rate',
+                Text('Success Rate',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'Enter your own assessment for this session, from 0 to 100.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
                 ),
@@ -412,17 +412,17 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   controller: ctrl,
                   autofocus: true,
                   keyboardType: TextInputType.number,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16),
                   decoration: InputDecoration(
                     suffixText: '%',
                     errorText: error,
                     filled: true,
                     fillColor: AppColors.backgroundObsidian,
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Colors.white12)),
+                        borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: AppColors.cardBorder)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+                        borderSide: BorderSide(color: AppColors.primaryForestGreen)),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -441,7 +441,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       elevation: 0,
@@ -471,8 +471,8 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
-                title: const Text('Edit Exercise', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                leading: UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
+                title: Text('Edit Exercise', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () async {
                   Navigator.pop(ctx);
                   final renamed = await Navigator.push<String>(
@@ -489,8 +489,8 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.archive_outlined, color: AppColors.primaryForestGreen),
-                title: const Text('Archive Exercise', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                leading: Icon(Icons.archive_outlined, color: AppColors.primaryForestGreen),
+                title: Text('Archive Exercise', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   _showArchiveDialog();
@@ -520,17 +520,17 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryForestGreen),
+          icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryForestGreen),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'Exercise Details',
           style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+            icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
             onPressed: _showMoreMenu,
           ),
         ],
@@ -565,7 +565,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
           Image.network(
             'https://lh3.googleusercontent.com/aida-public/AB6AXuBueCszLZ4HtZ9M8HO3ajK-D7RVLePGO2p2cqumBTDbbBUi4X_X1He-g6FrOROixcqUzW7MapbW9AlSSQHDVNujmiZLFIysng7iR2whfwOa0cP64tvjziDDCtwFCI59RLZ37QWpxecCzsOz4CZrdSkyIMJrTm_UmC93oAkUWWqXdEC4fvZs2aHZtNQl8nwfLJ4r2Ank5s9fc4RBlO-Zto84JCiTghI0CUn3E-M4TSO3O_t_l1Ybw6c',
             fit: BoxFit.cover,
-            errorBuilder: (_, _, _) => const ColoredBox(color: AppColors.cardsCarbon),
+            errorBuilder: (_, _, _) => ColoredBox(color: AppColors.cardsCarbon),
           ),
           Container(
             decoration: BoxDecoration(
@@ -594,7 +594,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
         children: [
           Text(
             _name,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 28,
               fontWeight: FontWeight.w700,
@@ -605,7 +605,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
             const SizedBox(height: 8),
             Text(
               widget.description,
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45),
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45),
             ),
           ],
         ],
@@ -625,7 +625,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
           label: const Text('Record Session', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primaryForestGreen,
-            foregroundColor: AppColors.primaryTextOffWhite,
+            foregroundColor: AppColors.onForestGreen,
             elevation: 0,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
@@ -641,7 +641,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Linked Skill',
             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
           ),
@@ -658,7 +658,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
               decoration: BoxDecoration(
                 color: AppColors.cardsCarbon,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white12),
+                border: Border.all(color: AppColors.cardBorder),
               ),
               child: Row(
                 children: [
@@ -668,9 +668,9 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     decoration: BoxDecoration(
                       color: const Color(0xFF191c1b),
                       borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: Colors.white12),
+                      border: Border.all(color: AppColors.cardBorder),
                     ),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.all(11),
                       child: UlvenikIcon(UlvenikIcons.skills, color: AppColors.secondarySage),
                     ),
@@ -682,18 +682,18 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                       children: [
                         Text(
                           widget.skillName,
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(height: 2),
                         Text(
                           'View ${widget.skillName}',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
                         ),
                       ],
                     ),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                 ],
               ),
             ),
@@ -713,13 +713,13 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Active Goal',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
               ),
               GestureDetector(
                 onTap: _updateGoalProgress,
-                child: const Row(
+                child: Row(
                   children: [
                     UlvenikIcon(UlvenikIcons.edit, size: 14, color: AppColors.secondarySage),
                     SizedBox(width: 4),
@@ -740,7 +740,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
               decoration: BoxDecoration(
                 color: AppColors.cardsCarbon,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.white12),
+                border: Border.all(color: AppColors.cardBorder),
               ),
               child: Column(
                 children: [
@@ -748,7 +748,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: Text(
                           'Emergency Recall at 50m with distraction',
                           style: TextStyle(
@@ -763,7 +763,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                           border: Border.all(color: AppColors.primaryForestGreen.withValues(alpha: 0.3)),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Text(
+                        child: Text(
                           'ACTIVE',
                           style: TextStyle(
                             color: AppColors.primaryForestGreen,
@@ -786,7 +786,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: Text(
                           'Started 12 Jun',
                           style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
@@ -794,7 +794,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                       ),
                       Text(
                         '${(_goalProgress * 100).round()}% COMPLETE',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
@@ -822,7 +822,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
         children: [
           Text(
             _showAll ? 'All Sessions' : 'Recent Sessions',
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
           for (final s in shown) ...[
@@ -835,7 +835,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 onPressed: () => setState(() => _showAll = !_showAll),
                 child: Text(
                   _showAll ? 'Show Fewer' : 'View All Sessions',
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: AppColors.primaryForestGreen, fontSize: 14, fontWeight: FontWeight.w600),
                 ),
               ),
@@ -853,7 +853,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: AppColors.cardBorder),
         ),
         child: Row(
           children: [
@@ -863,19 +863,19 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
               decoration: BoxDecoration(
                 color: const Color(0xFF323533),
                 borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: Colors.white12),
+                border: Border.all(color: AppColors.cardBorder),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(s.month,
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 1.0)),
                   Text(s.day,
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 ],
               ),
@@ -886,15 +886,15 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(s.title,
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 4),
                   Text('Success Rate: ${s.rate}%',
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+            UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
           ],
         ),
       ),

@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.only(bottom: 8),
         child: Text(
           text,
-          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, fontWeight: FontWeight.w500),
+          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, fontWeight: FontWeight.w500),
         ),
       );
 
@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: IconButton(
                   tooltip: 'Back',
                   onPressed: () => Navigator.of(context).maybePop(),
-                  icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 22),
+                  icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 22),
                 ),
               ),
             ),
@@ -160,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       const Center(child: UlvenikLogo.full(width: 150)),
                       const SizedBox(height: 28),
-                      const Text(
+                      Text(
                         'Welcome back',
                         style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
@@ -170,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 6),
-                      const Text(
+                      Text(
                         'Sign in to your Ulvenik account.',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 15.5),
                       ),
@@ -183,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textInputAction: TextInputAction.next,
                         autofillHints: const [AutofillHints.email],
                         autocorrect: false,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite),
                         onChanged: (_) {
                           if (_emailError != null) setState(() => _emailError = null);
                         },
@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscureText: _obscurePassword,
                         textInputAction: TextInputAction.done,
                         autofillHints: const [AutofillHints.password],
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite),
                         onChanged: (_) {
                           if (_passwordError != null) setState(() => _passwordError = null);
                         },
@@ -237,13 +237,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: _isLoading ? null : _handleSignIn,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primaryForestGreen,
-                            foregroundColor: AppColors.primaryTextOffWhite,
+                            foregroundColor: AppColors.onForestGreen,
                             disabledBackgroundColor: AppColors.primaryForestGreen.withValues(alpha: 0.7),
                             elevation: 0,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                           ),
                           child: _isLoading
-                              ? const SizedBox(
+                              ? SizedBox(
                                   width: 22,
                                   height: 22,
                                   child: CircularProgressIndicator(strokeWidth: 2.4, color: AppColors.primaryTextOffWhite),
@@ -256,7 +256,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Row(
                         children: [
                           Expanded(child: Container(height: 1, color: Colors.white.withValues(alpha: 0.08))),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(horizontal: 14),
                             child: Text('or', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
                           ),
@@ -283,7 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: WrapAlignment.center,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
-                          const Text('New to Ulvenik?', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14.5)),
+                          Text('New to Ulvenik?', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14.5)),
                           TextButton(
                             onPressed: () => _push(const RegisterScreen()),
                             style: TextButton.styleFrom(
@@ -326,7 +326,7 @@ class _ProviderButton extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.primaryTextOffWhite,
           backgroundColor: AppColors.cardsCarbon,
-          side: const BorderSide(color: Colors.white12),
+          side: BorderSide(color: AppColors.cardBorder),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ),
         child: Row(

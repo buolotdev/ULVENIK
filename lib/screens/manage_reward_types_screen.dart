@@ -53,9 +53,9 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
           backgroundColor: AppColors.cardsCarbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: AppColors.cardBorder),
+            side: BorderSide(color: AppColors.cardBorder),
           ),
-          title: const Text(
+          title: Text(
             'Delete Reward Type?',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -68,7 +68,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
             linkedCount > 0
                 ? '"${type.name}" currently has ${linkedCount == 1 ? '1 reward' : '$linkedCount rewards'}. Deleting it will remove it from your Rewards filter options.'
                 : 'Remove "${type.name}" from your reward types?',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 14,
               color: AppColors.secondaryTextStoneGrey,
@@ -78,7 +78,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(ctx).pop(false),
-              child: const Text(
+              child: Text(
                 'Cancel',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -100,7 +100,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
                     type: SnackbarType.info,
                   );
                 },
-                child: const Text(
+                child: Text(
                   'Archive Instead',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -166,7 +166,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
                   children: [
                     _buildInfoCallout(),
                     const SizedBox(height: 24),
-                    const Text(
+                    Text(
                       'MY REWARD TYPES',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -209,7 +209,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
                       },
                     ),
                     const SizedBox(height: 12),
-                    const Center(
+                    Center(
                       child: Text(
                         'Drag to reorder. Types appear as filter options on your\nRewards list.',
                         textAlign: TextAlign.center,
@@ -249,7 +249,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
               child: GestureDetector(
                 onTap: () => Navigator.of(context).maybePop(),
                 behavior: HitTestBehavior.opaque,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 2),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -273,7 +273,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
                 ),
               ),
             ),
-            const Text(
+            Text(
               'Reward Types',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -288,7 +288,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
               child: GestureDetector(
                 onTap: () => _openTypeEditorSheet(),
                 behavior: HitTestBehavior.opaque,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 2),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -329,7 +329,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
           width: 1,
         ),
       ),
-      child: const Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -403,7 +403,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
                       child: Text(
                         type.name,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -423,7 +423,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
                           color: Colors.white.withValues(alpha: 0.07),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Text(
+                        child: Text(
                           'ARCHIVED',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -441,7 +441,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
               const SizedBox(width: 8),
               Text(
                 countText,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
@@ -469,7 +469,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
               GestureDetector(
                 onTap: () => _confirmDeleteType(type),
                 behavior: HitTestBehavior.opaque,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(4),
                   child: Icon(Icons.delete_outline_rounded,
                     size: 19,
@@ -496,7 +496,7 @@ class _ManageRewardTypesScreenState extends State<ManageRewardTypesScreen> {
           width: double.infinity,
           height: 54,
           alignment: Alignment.center,
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               UlvenikIcon(UlvenikIcons.add,
@@ -602,7 +602,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
     return Padding(
       padding: EdgeInsets.only(bottom: bottomInset),
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
           border: Border(
@@ -635,7 +635,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                     Expanded(
                       child: Text(
                         isEditing ? 'Edit Reward Type' : 'Add Reward Type',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -645,7 +645,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                     ),
                     GestureDetector(
                       onTap: () => Navigator.of(context).maybePop(),
-                      child: const Icon(Icons.close_rounded,
+                      child: Icon(Icons.close_rounded,
                         size: 20,
                         color: AppColors.secondaryTextStoneGrey,
                       ),
@@ -653,7 +653,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                   ],
                 ),
                 const SizedBox(height: 22),
-                const Text(
+                Text(
                   'TYPE NAME',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -672,7 +672,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                       setState(() => _errorText = null);
                     }
                   },
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -689,13 +689,13 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                     ),
                     errorText: _errorText,
                     contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                    enabledBorder: const UnderlineInputBorder(
+                    enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.primaryForestGreen,
                         width: 1.2,
                       ),
                     ),
-                    focusedBorder: const UnderlineInputBorder(
+                    focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.primaryForestGreen,
                         width: 1.6,
@@ -704,7 +704,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                   ),
                 ),
                 const SizedBox(height: 22),
-                const Text(
+                Text(
                   'CATEGORY ICON',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -786,7 +786,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                     ),
                     child: Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -828,7 +828,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                     onPressed: _handleSave,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
@@ -857,7 +857,7 @@ class _RewardTypeEditorSheetState extends State<_RewardTypeEditorSheet> {
                         borderRadius: BorderRadius.circular(14),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Cancel',
                       style: TextStyle(
                         fontFamily: 'Inter',

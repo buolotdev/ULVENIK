@@ -49,7 +49,7 @@ class SCSessionDetailsScreen extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'More',
-              icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
               onPressed: () => showModalBottomSheet<void>(
                 context: context,
                 backgroundColor: AppColors.cardsCarbon,
@@ -59,8 +59,8 @@ class SCSessionDetailsScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
-                        leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
-                        title: const Text('Edit Session', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        leading: UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
+                        title: Text('Edit Session', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           Navigator.push(
@@ -71,7 +71,7 @@ class SCSessionDetailsScreen extends StatelessWidget {
                         },
                       ),
                       ListTile(
-                        title: const Text('Save as Template', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text('Save as Template', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           Navigator.push(
@@ -114,15 +114,15 @@ class SCSessionDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
             children: [
               Text(s.name,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
               const SizedBox(height: 6),
               Text('${fmtDate(s.at)} · ${fmtTime(s.at)}',
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
               if (s.durationMinutes != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 2),
                   child: Text('Duration: ${scDuration(s.durationMinutes!)}',
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
                 ),
               const SizedBox(height: 22),
               section(
@@ -134,10 +134,10 @@ class SCSessionDetailsScreen extends StatelessWidget {
                       child: HealthCard(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                           Text(e.activityName,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                           if (e.values.isEmpty)
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(top: 4),
                               child: Text('No measurements recorded',
                                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
@@ -149,10 +149,10 @@ class SCSessionDetailsScreen extends StatelessWidget {
                                 child: Row(children: [
                                   Expanded(
                                     child: Text(m.label,
-                                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+                                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
                                   ),
                                   Text(scFormatValue(e.values[m]!),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           color: AppColors.primaryTextOffWhite, fontSize: 14.5, fontWeight: FontWeight.w600)),
                                 ]),
                               ),
@@ -176,5 +176,5 @@ class SCSessionDetailsScreen extends StatelessWidget {
     );
   }
 
-  static const _body = TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.45);
+  static TextStyle get _body => TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.45);
 }

@@ -200,24 +200,24 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             ListTile(
-              leading: const UlvenikIcon(UlvenikIcons.skills, size: 22, color: AppColors.primaryTextOffWhite),
-              title: const Text('Manage Skills', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              leading: UlvenikIcon(UlvenikIcons.skills, size: 22, color: AppColors.primaryTextOffWhite),
+              title: Text('Manage Skills', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () {
                 Navigator.pop(ctx);
                 _showManage(exercises: false);
               },
             ),
             ListTile(
-              leading: const UlvenikIcon(UlvenikIcons.exercises, size: 22, color: AppColors.primaryTextOffWhite),
-              title: const Text('Manage Exercises', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              leading: UlvenikIcon(UlvenikIcons.exercises, size: 22, color: AppColors.primaryTextOffWhite),
+              title: Text('Manage Exercises', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () {
                 Navigator.pop(ctx);
                 _showManage(exercises: true);
               },
             ),
             ListTile(
-              leading: const UlvenikIcon(UlvenikIcons.sort, size: 22, color: AppColors.primaryTextOffWhite),
-              title: const Text('Sort Skills', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              leading: UlvenikIcon(UlvenikIcons.sort, size: 22, color: AppColors.primaryTextOffWhite),
+              title: Text('Sort Skills', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () {
                 Navigator.pop(ctx);
                 _showSort();
@@ -238,15 +238,15 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Sort Skills',
+            Text('Sort Skills',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 4),
-            const Text('Changes the display order only.',
+            Text('Changes the display order only.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
             for (var i = 0; i < _sortLabels.length; i++)
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(_sortLabels[i], style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text(_sortLabels[i], style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 trailing: _sort == i ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                 onTap: () {
                   setState(() {
@@ -279,22 +279,22 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
             children: [
               Text(exercises ? 'Manage Exercises' : 'Manage Skills',
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 4),
               Text(
                 exercises
                     ? '${_dog.name}\'s exercises, grouped by skill. Open a skill to add or edit them.'
                     : 'Open a skill to edit, archive or delete it.',
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
               ),
               const SizedBox(height: 8),
               for (final s in skills) ...[
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text(s.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                  title: Text(s.name, style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
                   subtitle: Text('${s.exercises} ${s.exercises == 1 ? 'Exercise' : 'Exercises'}',
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
-                  trailing: const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  trailing: UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
                   onTap: () {
                     Navigator.pop(ctx);
                     Navigator.push(context, MaterialPageRoute(builder: (_) => SkillDetailsScreen(skillName: s.name, dogName: _dog.name)));
@@ -304,7 +304,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                   for (final e in TrainingSessionStore.exercisesForSkill(s.name))
                     Padding(
                       padding: const EdgeInsets.only(left: 12, bottom: 6),
-                      child: Text('• $e', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                      child: Text('• $e', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                     ),
               ],
             ],
@@ -366,7 +366,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                       borderRadius: BorderRadius.circular(2)),
                 ),
               ),
-              const Text('Select dog',
+              Text('Select dog',
                   style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 18,
@@ -376,16 +376,16 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                     contentPadding: EdgeInsets.zero,
                     leading: _dogAvatar(d.name, 40),
                     title: Text(d.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 15,
                             fontWeight: FontWeight.w500)),
                     subtitle: Text(d.breed,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 12)),
                     trailing: d.name == _dog.name
-                        ? const Icon(Icons.check,
+                        ? Icon(Icons.check,
                             color: AppColors.primaryForestGreen)
                         : null,
                     onTap: () {
@@ -468,7 +468,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
         label: const Text('Add Skill', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primaryForestGreen,
-          foregroundColor: AppColors.primaryTextOffWhite,
+          foregroundColor: AppColors.onForestGreen,
           elevation: 0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
@@ -479,7 +479,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
   Widget _buildTopBar(double topSafe) {
     return Container(
       padding: EdgeInsets.only(top: topSafe),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(bottom: BorderSide(color: AppColors.cardBorder)),
       ),
@@ -491,7 +491,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.back,
+                icon: UlvenikIcon(UlvenikIcons.back,
                     color: AppColors.secondaryTextStoneGrey, size: 28),
                 onPressed: () => Navigator.of(context).maybePop(),
               ),
@@ -502,7 +502,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                       ? _Dog(_dog.name, _dog.breed, false)
                       : _Dog(_dog.name, _dog.breed, true);
                 }),
-                child: const Text('Skills & Exercises',
+                child: Text('Skills & Exercises',
                     style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 20,
@@ -511,7 +511,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
               ),
               IconButton(
                 tooltip: 'Skill options',
-                icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                icon: UlvenikIcon(UlvenikIcons.overflowMenu,
                     color: AppColors.secondaryTextStoneGrey),
                 onPressed: _openSkillOptions,
               ),
@@ -529,7 +529,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       decoration: BoxDecoration(
         color: AppColors.secondarySage.withValues(alpha: 0.2),
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: Center(
         child: Text(name.isEmpty ? '?' : name[0],
@@ -552,7 +552,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: Row(
             children: [
@@ -564,19 +564,19 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                   children: [
                     Text(_dog.name,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 14,
                             fontWeight: FontWeight.w600)),
                     Text(_dog.breed,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 12)),
                   ],
                 ),
               ),
-              const Icon(Icons.unfold_more,
+              Icon(Icons.unfold_more,
                   color: AppColors.secondaryTextStoneGrey),
             ],
           ),
@@ -599,14 +599,14 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
               onTap: onTap,
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: Colors.white12)),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.cardBorder)),
                 child: Column(children: [
                   UlvenikIcon(icon, size: 22, color: AppColors.secondarySage),
                   const SizedBox(height: 8),
                   Text(value,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
                   const SizedBox(height: 2),
-                  Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                  Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                 ]),
               ),
             ),
@@ -630,11 +630,11 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search,
+          UlvenikIcon(UlvenikIcons.search,
               color: AppColors.secondaryTextStoneGrey, size: 22),
           const SizedBox(width: 10),
           Expanded(
@@ -642,9 +642,9 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
               controller: _search,
               enabled: _hasData,
               cursorColor: AppColors.primaryForestGreen,
-              style: const TextStyle(
+              style: TextStyle(
                   color: AppColors.primaryTextOffWhite, fontSize: 14),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Search skills and exercises...',
                 hintStyle: TextStyle(
                     color: AppColors.secondaryTextStoneGrey, fontSize: 14),
@@ -660,7 +660,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
           if (_query.isNotEmpty)
             GestureDetector(
               onTap: _search.clear,
-              child: const Icon(Icons.close,
+              child: Icon(Icons.close,
                   size: 18, color: AppColors.secondaryTextStoneGrey),
             ),
         ],
@@ -725,7 +725,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
           decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -741,7 +741,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                         Flexible(
                           child: Text(s.name,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600)),
@@ -759,21 +759,21 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                           ),
                         ],
                         const Spacer(),
-                        const UlvenikIcon(UlvenikIcons.details,
+                        UlvenikIcon(UlvenikIcons.details,
                             size: 20,
                             color: AppColors.secondaryTextStoneGrey),
                       ],
                     ),
                     const SizedBox(height: 4),
                     Text('${s.exercises} ${s.exercises == 1 ? 'Exercise' : 'Exercises'}',
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 13)),
                     // Only when a qualifying session exists; no placeholder wording.
                     if (s.sessions > 0 && s.lastTrained.isNotEmpty) ...[
                       const SizedBox(height: 2),
                       Text(s.lastTrained,
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 13)),
                     ],
@@ -798,7 +798,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       height: 64,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(7),
@@ -817,7 +817,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: Column(
         children: [
@@ -827,19 +827,19 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
             decoration: BoxDecoration(
               color: AppColors.backgroundObsidian,
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
             ),
-            child: const UlvenikIcon(UlvenikIcons.skills,
+            child: UlvenikIcon(UlvenikIcons.skills,
                 size: 30, color: AppColors.primaryForestGreen),
           ),
           const SizedBox(height: 20),
-          const Text('No Skills Yet',
+          Text('No Skills Yet',
               style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
                   fontSize: 22,
                   fontWeight: FontWeight.w600)),
           const SizedBox(height: 10),
-          const Text(
+          Text(
             "Create your dog’s skills, add exercises and track their progress over time.",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -856,7 +856,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
               child: InkWell(
                 borderRadius: BorderRadius.circular(12),
                 onTap: _openCreateSkill,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -892,7 +892,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
               size: 40,
               color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.5)),
           const SizedBox(height: 12),
-          const Text('No skills match your filters',
+          Text('No skills match your filters',
               style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
           const SizedBox(height: 8),
@@ -901,7 +901,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
               _filter = 0;
               _search.clear();
             }),
-            child: const Text('Clear Filters',
+            child: Text('Clear Filters',
                 style: TextStyle(color: AppColors.primaryForestGreen)),
           ),
         ],

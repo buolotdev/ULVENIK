@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/app_settings.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
@@ -101,10 +102,10 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                   size: 24,
                 ),
               ),
-              const Text('Discard Changes?',
+              Text('Discard Changes?',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite)),
               const SizedBox(height: 8),
-              const Text('You have unsaved changes to this exercise. If you leave now, your changes won’t be saved.',
+              Text('You have unsaved changes to this exercise. If you leave now, your changes won’t be saved.',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14, color: AppColors.secondaryTextStoneGrey, height: 1.4)),
               const SizedBox(height: 24),
@@ -114,7 +115,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                   onPressed: () => Navigator.pop(ctx),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     elevation: 0,
@@ -136,7 +137,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
-                      side: const BorderSide(color: Colors.white12),
+                      side: BorderSide(color: AppColors.cardBorder),
                     ),
                   ),
                   child: const Text('Discard Changes',
@@ -152,10 +153,10 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: AppSettings.instance.isDark ? Brightness.light : Brightness.dark,
+      statusBarBrightness: AppSettings.instance.isDark ? Brightness.dark : Brightness.light,
     ));
 
     final topSafe = MediaQuery.of(context).padding.top;
@@ -168,7 +169,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
           // ── Top bar ──
           Container(
             padding: EdgeInsets.only(top: topSafe),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: AppColors.backgroundObsidian,
               border: Border(bottom: BorderSide(color: AppColors.cardBorder)),
             ),
@@ -183,11 +184,11 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                       alignment: Alignment.centerLeft,
                       child: GestureDetector(
                         onTap: _handleCancel,
-                        child: const Text('Cancel',
+                        child: Text('Cancel',
                             style: TextStyle(color: AppColors.primaryForestGreen, fontSize: 15, fontWeight: FontWeight.w500)),
                       ),
                     ),
-                    const Text('New Exercise',
+                    Text('New Exercise',
                         style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                   ],
                 ),
@@ -213,7 +214,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                           color: AppColors.primaryForestGreen.withValues(alpha: 0.18),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const UlvenikIcon(UlvenikIcons.skills, size: 20, color: AppColors.primaryTextOffWhite),
+                        child: UlvenikIcon(UlvenikIcons.skills, size: 20, color: AppColors.primaryTextOffWhite),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
@@ -221,10 +222,10 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(widget.parentSkill,
-                                style: const TextStyle(fontSize: 15, color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                                style: TextStyle(fontSize: 15, color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
                             const SizedBox(height: 2),
                             Text('This exercise belongs to ${widget.parentSkill}.',
-                                style: const TextStyle(fontSize: 12.5, color: AppColors.secondaryTextStoneGrey, height: 1.4)),
+                                style: TextStyle(fontSize: 12.5, color: AppColors.secondaryTextStoneGrey, height: 1.4)),
                           ],
                         ),
                       ),
@@ -268,7 +269,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                             height: 48,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Colors.white12),
+                              border: Border.all(color: AppColors.cardBorder),
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(7),
@@ -289,11 +290,11 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Using ${widget.parentSkill}\u2019s photo',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontSize: 13, fontWeight: FontWeight.w600,
                                         color: AppColors.primaryTextOffWhite)),
                                 const SizedBox(height: 2),
-                                const Text('Automatically uses the skill\u2019s photo.',
+                                Text('Automatically uses the skill\u2019s photo.',
                                     style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                               ],
                             ),
@@ -315,9 +316,9 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.white24),
+                              border: Border.all(color: AppColors.cardBorder),
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(Icons.add_photo_alternate_outlined, size: 18, color: AppColors.primaryTextOffWhite),
@@ -348,9 +349,9 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const UlvenikIcon(UlvenikIcons.save, color: AppColors.primaryTextOffWhite, size: 20),
+                          UlvenikIcon(UlvenikIcons.save, color: AppColors.primaryTextOffWhite, size: 20),
                           const SizedBox(width: 8),
-                          const Text('Save Exercise',
+                          Text('Save Exercise',
                               style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 16,
@@ -374,7 +375,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
   Widget _sectionLabel(String text) => Padding(
         padding: const EdgeInsets.only(left: 2, bottom: 8),
         child: Text(text,
-            style: const TextStyle(
+            style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey, fontSize: 11,
                 fontWeight: FontWeight.w700, letterSpacing: 0.6)),
       );
@@ -385,7 +386,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: AppColors.cardBorder),
         ),
         child: child,
       );
@@ -395,9 +396,9 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(text,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
         if (optional)
-          const Text('Optional', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+          Text('Optional', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
       ],
     );
   }
@@ -412,7 +413,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
       controller: controller,
       maxLines: maxLines,
       cursorColor: AppColors.primaryForestGreen,
-      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
       decoration: InputDecoration(
         errorText: error,
         errorStyle: const TextStyle(color: Color(0xFFE08A8A), fontSize: 12.5),
@@ -425,21 +426,21 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
           borderSide: const BorderSide(color: Color(0xFFB04A4A)),
         ),
         hintText: hint,
-        hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+        hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
         filled: true,
         fillColor: AppColors.backgroundObsidian,
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.white12),
+          borderSide: BorderSide(color: AppColors.cardBorder),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.white12),
+          borderSide: BorderSide(color: AppColors.cardBorder),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+          borderSide: BorderSide(color: AppColors.primaryForestGreen),
         ),
         isDense: true,
       ),

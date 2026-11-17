@@ -19,15 +19,15 @@ class ClientDogsScreen extends StatefulWidget {
 }
 
 class _ClientDogsScreenState extends State<ClientDogsScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _cardBg => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _greenAccent = Color(0xFF479A7B);
   static const Color _mintBright = Color(0xFFB1F0D6);
-  static const Color _sage = AppColors.secondarySage; // #7A8F7A
-  static const Color _textPrimary = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _textSecondary = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _border = AppColors.cardBorder;
+  static Color get _sage => AppColors.secondarySage; // #7A8F7A
+  static Color get _textPrimary => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _border => AppColors.cardBorder;
 
   void _openDogDetails(TrainerClient client, TrainerClientDog dog) {
     Navigator.of(context).push(
@@ -75,7 +75,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Add Client Dog',
                 style: TextStyle(
                   color: _textPrimary,
@@ -87,45 +87,45 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
               const SizedBox(height: 14),
               TextField(
                 controller: nameCtrl,
-                style: const TextStyle(color: _textPrimary, fontSize: 13.5),
+                style: TextStyle(color: _textPrimary, fontSize: 13.5),
                 decoration: InputDecoration(
                   labelText: 'Dog Name',
-                  labelStyle: const TextStyle(color: _textSecondary, fontSize: 12),
+                  labelStyle: TextStyle(color: _textSecondary, fontSize: 12),
                   filled: true,
                   fillColor: const Color(0xFF21272A),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _border),
+                    borderSide: BorderSide(color: _border),
                   ),
                 ),
               ),
               const SizedBox(height: 12),
               TextField(
                 controller: breedCtrl,
-                style: const TextStyle(color: _textPrimary, fontSize: 13.5),
+                style: TextStyle(color: _textPrimary, fontSize: 13.5),
                 decoration: InputDecoration(
                   labelText: 'Breed',
-                  labelStyle: const TextStyle(color: _textSecondary, fontSize: 12),
+                  labelStyle: TextStyle(color: _textSecondary, fontSize: 12),
                   filled: true,
                   fillColor: const Color(0xFF21272A),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _border),
+                    borderSide: BorderSide(color: _border),
                   ),
                 ),
               ),
               const SizedBox(height: 12),
               TextField(
                 controller: ageCtrl,
-                style: const TextStyle(color: _textPrimary, fontSize: 13.5),
+                style: TextStyle(color: _textPrimary, fontSize: 13.5),
                 decoration: InputDecoration(
                   labelText: 'Age / Life Stage',
-                  labelStyle: const TextStyle(color: _textSecondary, fontSize: 12),
+                  labelStyle: TextStyle(color: _textSecondary, fontSize: 12),
                   filled: true,
                   fillColor: const Color(0xFF21272A),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: _border),
+                    borderSide: BorderSide(color: _border),
                   ),
                 ),
               ),
@@ -257,7 +257,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
   Widget _buildTopBar(String title, TrainerClient client) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _bg,
         border: Border(bottom: BorderSide(color: _border, width: 1)),
       ),
@@ -267,7 +267,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 26,
             ),
@@ -276,7 +276,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
             child: Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
@@ -289,7 +289,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
             tooltip: 'Add Dog',
             visualDensity: VisualDensity.compact,
             onPressed: () => _showAddDogSheet(client),
-            icon: const UlvenikIcon(UlvenikIcons.add,
+            icon: UlvenikIcon(UlvenikIcons.add,
               color: _textSecondary,
               size: 24,
             ),
@@ -305,14 +305,14 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
       children: [
         Text(
           '$count ${count == 1 ? 'Dog' : 'Dogs'}',
-          style: const TextStyle(
+          style: TextStyle(
             color: _textSecondary,
             fontSize: 13,
             fontWeight: FontWeight.w500,
             fontFamily: 'Inter',
           ),
         ),
-        const Text(
+        Text(
           'ACTIVE IN WORKSPACE',
           style: TextStyle(
             color: _textSecondary,
@@ -368,7 +368,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                   children: [
                     Text(
                       dog.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textPrimary,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -396,7 +396,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                           const SizedBox(width: 5),
                           Text(
                             ageText,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _textSecondary,
                               fontSize: 11.5,
                               fontFamily: 'Inter',
@@ -412,7 +412,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                   children: [
                     Text(
                       dog.breed,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textSecondary,
                         fontSize: 13,
                         fontFamily: 'Inter',
@@ -446,7 +446,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                     const SizedBox(width: 5),
                     Text(
                       streakText,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textPrimary,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -454,26 +454,26 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    const Text('•', style: TextStyle(color: _textSecondary, fontSize: 12)),
+                    Text('•', style: TextStyle(color: _textSecondary, fontSize: 12)),
                     const SizedBox(width: 10),
-                    const UlvenikIcon(UlvenikIcons.trainingTime, color: _sage, size: 13),
+                    UlvenikIcon(UlvenikIcons.trainingTime, color: _sage, size: 13),
                     const SizedBox(width: 4),
                     Text(
                       lastActivity,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textSecondary,
                         fontSize: 12,
                         fontFamily: 'Inter',
                       ),
                     ),
                     const SizedBox(width: 10),
-                    const Text('•', style: TextStyle(color: _textSecondary, fontSize: 12)),
+                    Text('•', style: TextStyle(color: _textSecondary, fontSize: 12)),
                     const SizedBox(width: 10),
-                    const Icon(Icons.flag_outlined, color: _sage, size: 13),
+                    Icon(Icons.flag_outlined, color: _sage, size: 13),
                     const SizedBox(width: 4),
                     Text(
                       goalsText,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textSecondary,
                         fontSize: 12,
                         fontFamily: 'Inter',
@@ -495,7 +495,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text(
                           'SHARED WITH OWNER',
                           style: TextStyle(
@@ -541,7 +541,7 @@ class _ClientDogsScreenState extends State<ClientDogsScreen> {
             ),
           ),
           const SizedBox(width: 10),
-          const Expanded(
+          Expanded(
             child: Text(
               'Homework overdue — Murphy',
               style: TextStyle(

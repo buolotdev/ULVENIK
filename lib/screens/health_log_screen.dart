@@ -548,13 +548,13 @@ class _HealthLogScreenState extends State<HealthLogScreen> {
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(_title(l),
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
               const SizedBox(height: 2),
               Text(fmtDate(l.date) + (first == null ? '' : ' · $first'),
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             ]),
           ),
-          const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+          UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
         ]),
       ),
     );
@@ -668,9 +668,9 @@ class _LogDetailState extends State<_LogDetail> {
     Widget row(String k, String v) => Padding(
           padding: const EdgeInsets.only(bottom: 14),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(k, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+            Text(k, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             const SizedBox(height: 3),
-            Text(v, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, height: 1.4)),
+            Text(v, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, height: 1.4)),
           ]),
         );
 
@@ -726,7 +726,7 @@ class _LogDetailState extends State<_LogDetail> {
                   onPressed: () => _dose(l, 'Given'),
                   style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryTextOffWhite,
-                      side: const BorderSide(color: Colors.white24),
+                      side: BorderSide(color: AppColors.cardBorder),
                       minimumSize: const Size(0, 46)),
                   child: const Text('Given'),
                 ),
@@ -737,7 +737,7 @@ class _LogDetailState extends State<_LogDetail> {
                   onPressed: () => _dose(l, 'Skipped'),
                   style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryTextOffWhite,
-                      side: const BorderSide(color: Colors.white24),
+                      side: BorderSide(color: AppColors.cardBorder),
                       minimumSize: const Size(0, 46)),
                   child: const Text('Skipped'),
                 ),
@@ -753,11 +753,11 @@ class _LogDetailState extends State<_LogDetail> {
                     Expanded(
                       child: Text(
                         '${fmtDate(DateTime.parse(d.split('|').first))} · ${fmtTime(DateTime.parse(d.split('|').first))}',
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                       ),
                     ),
                     Text(d.split('|').last,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
                   ]),
                 ),
@@ -960,7 +960,7 @@ class _LogFormState extends State<_LogForm> {
             l.title.isNotEmpty ? l.title : fmtDate(l.date),
         ];
         return options.isEmpty
-            ? const Text('Nothing to link yet.',
+            ? Text('Nothing to link yet.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13))
             : ChoiceRow(
                 options: options,
@@ -976,7 +976,7 @@ class _LogFormState extends State<_LogForm> {
             label: const Text('Add File'),
             style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.primaryTextOffWhite,
-                side: const BorderSide(color: Colors.white24),
+                side: BorderSide(color: AppColors.cardBorder),
                 minimumSize: const Size(0, 44)),
           ),
           if (names.isNotEmpty)
@@ -985,9 +985,9 @@ class _LogFormState extends State<_LogForm> {
               child: Wrap(spacing: 8, runSpacing: 6, children: [
                 for (final n in names)
                   InputChip(
-                    label: Text(n, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                    label: Text(n, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                     backgroundColor: AppColors.cardsCarbon,
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                     deleteIconColor: AppColors.secondaryTextStoneGrey,
                     onDeleted: () => setState(() => _other[f.label] = (names..remove(n)).join('|')),
                   ),
@@ -1006,7 +1006,7 @@ class _LogFormState extends State<_LogForm> {
           minLines: f.type == LogFieldType.multiline ? 3 : 1,
           maxLines: f.type == LogFieldType.multiline ? 5 : 1,
           onChanged: (_) => _errors.contains(f.label) ? setState(() => _errors.remove(f.label)) : null,
-          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
           decoration: healthDecoration(f.hint.isEmpty ? 'Add ${f.label.toLowerCase()}' : f.hint, error: err),
         );
     }
@@ -1027,7 +1027,7 @@ class _LogFormState extends State<_LogForm> {
             TextField(
               controller: _name,
               onChanged: (_) => _nameError == null ? null : setState(() => _nameError = null),
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
               decoration: healthDecoration('Enter ${cfg.nameLabel!.toLowerCase()}', error: _nameError),
             ),
           ],
@@ -1042,9 +1042,9 @@ class _LogFormState extends State<_LogForm> {
             SwitchListTile(
               contentPadding: EdgeInsets.zero,
               activeThumbColor: AppColors.primaryForestGreen,
-              title: const Text('Add a reminder',
+              title: Text('Add a reminder',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
-              subtitle: const Text('Creates a Health Reminder linked to this record.',
+              subtitle: Text('Creates a Health Reminder linked to this record.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               value: _remind,
               onChanged: (v) => setState(() => _remind = v),
@@ -1055,7 +1055,7 @@ class _LogFormState extends State<_LogForm> {
             controller: _notes,
             minLines: 3,
             maxLines: 5,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add notes...'),
           ),
         ],

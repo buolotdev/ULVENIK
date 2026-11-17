@@ -64,7 +64,7 @@ class _SCActivityFormScreenState extends State<SCActivityFormScreen> {
           TextField(
             controller: _name,
             onChanged: (_) => _error == null ? null : setState(() => _error = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('e.g. Cavaletti', error: _error),
           ),
           const FieldLabel('Description'),
@@ -72,11 +72,11 @@ class _SCActivityFormScreenState extends State<SCActivityFormScreen> {
             controller: _desc,
             minLines: 3,
             maxLines: 5,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Describe this activity...'),
           ),
           const FieldLabel('Measurements'),
-          const Text('Choose what you want to record for this activity. All are optional.',
+          Text('Choose what you want to record for this activity. All are optional.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4)),
           const SizedBox(height: 10),
           for (final m in SCMeasure.values) ...[
@@ -88,7 +88,7 @@ class _SCActivityFormScreenState extends State<SCActivityFormScreen> {
                   controlAffinity: ListTileControlAffinity.leading,
                   activeColor: AppColors.primaryForestGreen,
                   checkColor: AppColors.primaryTextOffWhite,
-                  title: Text(m.label, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
+                  title: Text(m.label, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
                   value: _measures.contains(m),
                   onChanged: (v) => setState(() => v == true ? _measures.add(m) : _measures.remove(m)),
                 ),
@@ -96,7 +96,7 @@ class _SCActivityFormScreenState extends State<SCActivityFormScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 0, 0, 12),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      const Text('Unit',
+                      Text('Unit',
                           style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                       const SizedBox(height: 6),
                       ChoiceRow(

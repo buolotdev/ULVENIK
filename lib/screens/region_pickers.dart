@@ -59,20 +59,20 @@ class _CountryPickerScreenState extends State<CountryPickerScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
         children: [
-          const Text('Changing your country won’t change your language, units or time zone.',
+          Text('Changing your country won’t change your language, units or time zone.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4)),
           const SizedBox(height: 12),
-          TextField(controller: _q, style: const TextStyle(color: AppColors.primaryTextOffWhite), decoration: healthDecoration('Search countries and regions...')),
+          TextField(controller: _q, style: TextStyle(color: AppColors.primaryTextOffWhite), decoration: healthDecoration('Search countries and regions...')),
           const SizedBox(height: 8),
           if (list.isEmpty)
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(vertical: 24),
               child: Center(child: Text('No matching countries or regions.', style: TextStyle(color: AppColors.secondaryTextStoneGrey))),
             ),
           for (final c in list)
             ListTile(
               contentPadding: EdgeInsets.zero,
-              title: Text(c, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+              title: Text(c, style: TextStyle(color: AppColors.primaryTextOffWhite)),
               trailing: c == widget.current ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
               onTap: () => Navigator.pop(context, c),
             ),
@@ -150,10 +150,10 @@ class _TimeZonePickerScreenState extends State<TimeZonePickerScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
         children: [
-          TextField(controller: _q, style: const TextStyle(color: AppColors.primaryTextOffWhite), decoration: healthDecoration('Search city, region or zone...')),
+          TextField(controller: _q, style: TextStyle(color: AppColors.primaryTextOffWhite), decoration: healthDecoration('Search city, region or zone...')),
           const SizedBox(height: 8),
           if (list.isEmpty)
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(vertical: 24),
               child: Center(child: Text('No matching time zones.', style: TextStyle(color: AppColors.secondaryTextStoneGrey))),
             ),
@@ -162,8 +162,8 @@ class _TimeZonePickerScreenState extends State<TimeZonePickerScreen> {
               final i = zoneInfo(z);
               return ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(z.replaceAll('_', ' '), style: const TextStyle(color: AppColors.primaryTextOffWhite)),
-                subtitle: i == null ? null : Text('${i.offset} · ${i.clock}', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                title: Text(z.replaceAll('_', ' '), style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                subtitle: i == null ? null : Text('${i.offset} · ${i.clock}', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                 trailing: z == widget.current ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                 onTap: () => Navigator.pop(context, z),
               );

@@ -205,14 +205,14 @@ class _HomepageScreenState extends State<HomepageScreen> {
               const _SheetHandle(),
               Text(
                 quickLog ? 'Quick Log' : 'Start Session',
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 4),
               Text(
                 quickLog
                     ? 'Record a session you have already completed. No timer needed.'
                     : 'Choose the type of session to record.',
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
               ),
               const SizedBox(height: 12),
               _SheetOption(
@@ -263,10 +263,10 @@ class _HomepageScreenState extends State<HomepageScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const _SheetHandle(),
-              const Text('Add to Schedule',
+              Text('Add to Schedule',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 4),
-              const Text('Plan a session or set a reminder.',
+              Text('Plan a session or set a reminder.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
               const SizedBox(height: 12),
               for (final opt in const [
@@ -354,9 +354,9 @@ class _HomepageScreenState extends State<HomepageScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppColors.primaryForestGreen.withValues(alpha: 0.25),
-                    border: Border.all(color: Colors.white24),
+                    border: Border.all(color: AppColors.cardBorder),
                   ),
-                  child: const Text(
+                  child: Text(
                     _initials,
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600),
                   ),
@@ -377,13 +377,13 @@ class _HomepageScreenState extends State<HomepageScreen> {
           onDoubleTap: () => setState(() => _hasData = !_hasData),
           child: Text(
             _longDate(_now),
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500),
           ),
         ),
         const SizedBox(height: 6),
         Text(
           HomeGreetings.current(firstName: _firstName),
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.primaryTextOffWhite,
             fontSize: 26,
             fontWeight: FontWeight.w700,
@@ -450,7 +450,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                       SizedBox(width: 6),
                       Text('Completed', style: TextStyle(color: Color(0xFF6FBF8E), fontSize: 12, fontWeight: FontWeight.w600)),
                     ])
-                  : const Text('Planned', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                  : Text('Planned', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             ),
             const SizedBox(height: 8),
           ],
@@ -470,7 +470,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
             tooltip: 'Add to Schedule',
             onPressed: _openAddToSchedule,
             constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-            icon: const UlvenikIcon(UlvenikIcons.add, size: 22, color: AppColors.primaryTextOffWhite),
+            icon: UlvenikIcon(UlvenikIcons.add, size: 22, color: AppColors.primaryTextOffWhite),
           ),
         ),
         if (items.isEmpty)
@@ -493,8 +493,8 @@ class _HomepageScreenState extends State<HomepageScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(_relativeDay(u.when),
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5, fontWeight: FontWeight.w600)),
-                  Text(_time(u.when), style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5, fontWeight: FontWeight.w600)),
+                  Text(_time(u.when), style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                 ],
               ),
             ),
@@ -530,7 +530,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                 _relativeDay(s.when),
                 if (s.duration != null) _duration(s.duration!),
               ].join(' · '),
-              trailing: const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+              trailing: UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
             ),
             const SizedBox(height: 8),
           ],
@@ -610,7 +610,7 @@ class _SectionHeader extends StatelessWidget {
           children: [
             Expanded(
               child: Text(title,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             ),
             ?trailing,
           ],
@@ -656,7 +656,7 @@ class _ActionCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -665,7 +665,7 @@ class _ActionCard extends StatelessWidget {
               const SizedBox(height: 10),
               Text(title,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, fontWeight: FontWeight.w600)),
             ],
           ),
         ),
@@ -688,7 +688,7 @@ class _EmptyCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: Column(
         children: [
@@ -696,12 +696,12 @@ class _EmptyCard extends StatelessWidget {
           const SizedBox(height: 12),
           Text(message,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500)),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w500)),
           if (submessage != null) ...[
             const SizedBox(height: 4),
             Text(submessage!,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
           ],
         ],
       ),
@@ -729,7 +729,7 @@ class _ListCard extends StatelessWidget {
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: Row(
             children: [
@@ -742,9 +742,9 @@ class _ListCard extends StatelessWidget {
                     Text(title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600)),
                     const SizedBox(height: 3),
-                    Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                    Text(subtitle, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                   ],
                 ),
               ),
@@ -786,7 +786,7 @@ class _DogThumb extends StatelessWidget {
     final fallback = Container(
       color: AppColors.primaryForestGreen.withValues(alpha: 0.2),
       alignment: Alignment.center,
-      child: const UlvenikIcon(UlvenikIcons.dogs, size: 20, color: AppColors.secondarySage),
+      child: UlvenikIcon(UlvenikIcons.dogs, size: 20, color: AppColors.secondarySage),
     );
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -813,16 +813,16 @@ class _StatTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(value,
               maxLines: 1,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
           const SizedBox(height: 4),
-          Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12, height: 1.25)),
+          Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12, height: 1.25)),
         ],
       ),
     );
@@ -857,9 +857,9 @@ class _SheetOption extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: _IconBox(icon: icon),
-      title: Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
-      subtitle: Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
-      trailing: const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+      title: Text(title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+      subtitle: Text(subtitle, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+      trailing: UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
       onTap: onTap,
     );
   }

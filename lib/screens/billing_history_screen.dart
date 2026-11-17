@@ -54,14 +54,14 @@ class BillingHistoryScreen extends StatefulWidget {
 }
 
 class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian;
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
-  static const Color _sage = AppColors.secondarySage;
-  static const Color _alpineBlue = AppColors.infoAlpineBlue;
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
-  static const Color _cardBorder = AppColors.cardBorder;
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   String get _userSubscriptionLabel {
     final override = widget.subscriptionPlan?.trim();
@@ -245,7 +245,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                             behavior: HitTestBehavior.opaque,
                             child: Text(
                               '${transactions.length} SHOWN · RESET',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
@@ -275,7 +275,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(12, 12, 16, 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -290,7 +290,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
               }
             },
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(6),
               child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
@@ -299,7 +299,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
             ),
           ),
           const SizedBox(width: 6),
-          const Expanded(
+          Expanded(
             child: Text(
               'Billing History',
               style: TextStyle(
@@ -337,7 +337,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                     child: Container(
                       width: 7,
                       height: 7,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: _forest,
                         shape: BoxShape.circle,
                       ),
@@ -372,7 +372,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'FILTER TRANSACTIONS',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -389,7 +389,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                             _selectedStatus = 'All';
                           });
                         },
-                        child: const Text(
+                        child: Text(
                           'Reset',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -402,7 +402,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  const Text(
+                  Text(
                     'Billing Year',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -425,7 +425,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                     ],
                   ),
                   const SizedBox(height: 14),
-                  const Text(
+                  Text(
                     'Payment Status',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -498,7 +498,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
       padding: const EdgeInsets.only(left: 4),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -565,7 +565,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
             children: [
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -576,7 +576,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
               const SizedBox(height: 5),
               Text(
                 value,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -648,7 +648,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                         Flexible(
                           child: Text(
                             tx.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 15.5,
                               fontWeight: FontWeight.w600,
@@ -659,7 +659,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                         ),
                         if (isDownloaded) ...[
                           const SizedBox(width: 6),
-                          const Icon(Icons.download_done_rounded,
+                          Icon(Icons.download_done_rounded,
                             color: _forest,
                             size: 14,
                           ),
@@ -669,7 +669,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                     const SizedBox(height: 4),
                     Text(
                       '${tx.dateLabel} · ${tx.platform}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -686,7 +686,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                 children: [
                   Text(
                     tx.amountLabel,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 15.5,
                       fontWeight: FontWeight.w600,
@@ -743,12 +743,12 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
       ),
       child: Column(
         children: [
-          const UlvenikIcon(UlvenikIcons.training,
+          UlvenikIcon(UlvenikIcons.training,
             color: _stoneGrey,
             size: 32,
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'No matching transactions',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -761,7 +761,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
           Text(
             'No $_selectedStatus invoices found for $_selectedYear.',
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 13,
               color: _stoneGrey,
@@ -775,7 +775,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                 _selectedStatus = 'All';
               });
             },
-            child: const Text(
+            child: Text(
               'Reset Filters',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -855,7 +855,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                             children: [
                               Text(
                                 tx.title,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 17,
                                   fontWeight: FontWeight.w700,
@@ -865,7 +865,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                               const SizedBox(height: 2),
                               Text(
                                 'Receipt · ${tx.invoiceCode}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 12.5,
                                   color: _stoneGrey,
@@ -938,7 +938,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
+                              Text(
                                 'Total Amount',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
@@ -949,7 +949,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                               ),
                               Text(
                                 tx.amountLabel,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
@@ -997,7 +997,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                                 );
                               },
                         icon: isGeneratingPdf
-                            ? const SizedBox(
+                            ? SizedBox(
                                 width: 16,
                                 height: 16,
                                 child: CircularProgressIndicator(
@@ -1032,7 +1032,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                           child: OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
                               foregroundColor: _offWhite,
-                              side: const BorderSide(color: _cardBorder),
+                              side: BorderSide(color: _cardBorder),
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -1067,7 +1067,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                           child: OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
                               foregroundColor: _offWhite,
-                              side: const BorderSide(color: _cardBorder),
+                              side: BorderSide(color: _cardBorder),
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -1112,7 +1112,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 13,
             color: _stoneGrey,
@@ -1120,7 +1120,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
         ),
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 13,
             fontWeight: FontWeight.w500,
@@ -1217,7 +1217,7 @@ class _AnnualSpendSheetContentState extends State<_AnnualSpendSheetContent>
               ),
             ),
             const SizedBox(height: 18),
-            const Text(
+            Text(
               'Account Billing Overview',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -1229,7 +1229,7 @@ class _AnnualSpendSheetContentState extends State<_AnnualSpendSheetContent>
             const SizedBox(height: 4),
             Text(
               '${activeMonth.$1} 2025: ${activeMonth.$3}',
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 13,
                 color: AppColors.secondaryTextStoneGrey,
@@ -1315,7 +1315,7 @@ class _AnnualSpendSheetContentState extends State<_AnnualSpendSheetContent>
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryForestGreen,
-                  foregroundColor: AppColors.primaryTextOffWhite,
+                  foregroundColor: AppColors.onForestGreen,
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),

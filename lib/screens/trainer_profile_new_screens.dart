@@ -28,13 +28,13 @@ Future<void> _pickImage(BuildContext context, {required bool cover}) async {
     builder: (ctx) => SafeArea(
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(
-          leading: const Icon(Icons.photo_camera_outlined, color: AppColors.primaryTextOffWhite),
-          title: const Text('Take Photo', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+          leading: Icon(Icons.photo_camera_outlined, color: AppColors.primaryTextOffWhite),
+          title: Text('Take Photo', style: TextStyle(color: AppColors.primaryTextOffWhite)),
           onTap: () => Navigator.pop(ctx, ImageSource.camera),
         ),
         ListTile(
-          leading: const Icon(Icons.photo_library_outlined, color: AppColors.primaryTextOffWhite),
-          title: const Text('Choose from Library', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+          leading: Icon(Icons.photo_library_outlined, color: AppColors.primaryTextOffWhite),
+          title: Text('Choose from Library', style: TextStyle(color: AppColors.primaryTextOffWhite)),
           onTap: () => Navigator.pop(ctx, ImageSource.gallery),
         ),
       ]),
@@ -81,15 +81,15 @@ class TrainerProfileScreen extends StatelessWidget {
                 Row(children: [
                   Expanded(
                     child: Text(title,
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
                   ),
                   TextButton(
                     onPressed: onAdd,
-                    child: Text(addLabel, style: const TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
+                    child: Text(addLabel, style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                   ),
                 ]),
                 if (rows.isEmpty && empty != null)
-                  Text(empty, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+                  Text(empty, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
                 ...rows,
               ]),
             );
@@ -99,7 +99,7 @@ class TrainerProfileScreen extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'Edit Trainer Profile',
-              icon: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
               onPressed: () => _go(context, const EditTrainerProfileScreen()),
             ),
           ],
@@ -113,8 +113,8 @@ class TrainerProfileScreen extends StatelessWidget {
                     height: 120,
                     width: double.infinity,
                     child: p.coverPath.isNotEmpty
-                        ? Image.file(File(p.coverPath), fit: BoxFit.cover, errorBuilder: (_, _, _) => const ColoredBox(color: AppColors.cardsCarbon))
-                        : const ColoredBox(color: AppColors.cardsCarbon),
+                        ? Image.file(File(p.coverPath), fit: BoxFit.cover, errorBuilder: (_, _, _) => ColoredBox(color: AppColors.cardsCarbon))
+                        : ColoredBox(color: AppColors.cardsCarbon),
                   ),
                 ),
                 Positioned(
@@ -137,29 +137,29 @@ class TrainerProfileScreen extends StatelessWidget {
                       width: 64,
                       height: 64,
                       child: p.photoPath.isNotEmpty
-                          ? Image.file(File(p.photoPath), fit: BoxFit.cover, errorBuilder: (_, _, _) => const ColoredBox(color: AppColors.cardsCarbon))
-                          : const ColoredBox(color: AppColors.cardsCarbon, child: Icon(Icons.add_a_photo_outlined, color: AppColors.secondarySage)),
+                          ? Image.file(File(p.photoPath), fit: BoxFit.cover, errorBuilder: (_, _, _) => ColoredBox(color: AppColors.cardsCarbon))
+                          : ColoredBox(color: AppColors.cardsCarbon, child: Icon(Icons.add_a_photo_outlined, color: AppColors.secondarySage)),
                     ),
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Expanded(
+                Expanded(
                   child: Text('Business photo', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                 ),
               ]),
               const SizedBox(height: 12),
               Text(p.businessName.isEmpty ? 'Add your business name' : p.businessName,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
               if (name.isNotEmpty)
-                Text(name, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                Text(name, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
               const SizedBox(height: 14),
               Row(children: [
                 Expanded(
                   child: HealthCard(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      const Text('Active clients', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                      Text('Active clients', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                       Text('${clients.length}',
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
                     ]),
                   ),
                 ),
@@ -167,25 +167,25 @@ class TrainerProfileScreen extends StatelessWidget {
                 Expanded(
                   child: HealthCard(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      const Text('Client dogs', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                      Text('Client dogs', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                       Text('$dogs',
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w700)),
                     ]),
                   ),
                 ),
               ]),
               const SizedBox(height: 22),
               section('Bio', p.bio.isEmpty ? 'Add Bio' : 'Edit Bio', () => _go(context, const EditBioScreen()),
-                  [if (p.bio.isNotEmpty) Text(p.bio, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.45))],
+                  [if (p.bio.isNotEmpty) Text(p.bio, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, height: 1.45))],
                   empty: 'No bio yet.'),
               section('Expertise', 'Edit Expertise', () => _go(context, const EditExpertiseScreen()), [
                 if (p.expertise.isNotEmpty)
                   Wrap(spacing: 8, runSpacing: 6, children: [
                     for (final e in p.expertise)
                       Chip(
-                        label: Text(e, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                        label: Text(e, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                         backgroundColor: AppColors.cardsCarbon,
-                        side: const BorderSide(color: Colors.white12),
+                        side: BorderSide(color: AppColors.cardBorder),
                       ),
                   ]),
               ], empty: 'No expertise added yet.'),
@@ -194,7 +194,7 @@ class TrainerProfileScreen extends StatelessWidget {
                   if (r.$2.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6),
-                      child: Text('${r.$1}: ${r.$2}', style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+                      child: Text('${r.$1}: ${r.$2}', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
                     ),
               ], empty: 'No contact details yet.'),
               section('Qualifications', 'Add Qualification', () => _go(context, const QualificationFormScreen()), [
@@ -205,16 +205,16 @@ class TrainerProfileScreen extends StatelessWidget {
                       onTap: () => _go(context, QualificationFormScreen(index: i)),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Text(p.qualifications[i]['title'] ?? '',
-                            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                         if ((p.qualifications[i]['org'] ?? '').isNotEmpty)
-                          Text(p.qualifications[i]['org']!, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          Text(p.qualifications[i]['org']!, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                         Text(
                           [
                             if ((p.qualifications[i]['awarded'] ?? '').isNotEmpty) 'Awarded ${p.qualifications[i]['awarded']}',
                             if (p.qualifications[i]['expires'] == 'none') 'Does not expire'
                             else if ((p.qualifications[i]['expires'] ?? '').isNotEmpty) 'Expires ${p.qualifications[i]['expires']}',
                           ].join(' · '),
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
                         ),
                       ]),
                     ),
@@ -228,9 +228,9 @@ class TrainerProfileScreen extends StatelessWidget {
                       onTap: () => _go(context, ServiceFormScreen(index: i)),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Text(p.services[i]['name'] ?? '',
-                            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                         if ((p.services[i]['description'] ?? '').isNotEmpty)
-                          Text(p.services[i]['description']!, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          Text(p.services[i]['description']!, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                         Text(
                           [
                             if ((p.services[i]['duration'] ?? '').isNotEmpty) '${p.services[i]['duration']} min',
@@ -238,13 +238,13 @@ class TrainerProfileScreen extends StatelessWidget {
                             else if ((p.services[i]['amount'] ?? '').isNotEmpty)
                               '${p.services[i]['currency'] ?? ''} ${p.services[i]['amount']}${(p.services[i]['basis'] ?? '').isEmpty ? '' : ' per ${p.services[i]['basis']}'}',
                           ].join(' · '),
-                          style: const TextStyle(color: AppColors.secondarySage, fontSize: 12.5),
+                          style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5),
                         ),
                       ]),
                     ),
                   ),
               ], empty: 'No services added yet.'),
-              const Text('What you add here is for you and your clients. It isn’t a public directory listing.',
+              Text('What you add here is for you and your clients. It isn’t a public directory listing.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, height: 1.4)),
             ],
           ),
@@ -286,7 +286,7 @@ class _FormShellState extends State<_FormShell> {
           context: context,
           builder: (ctx) => AlertDialog(
             backgroundColor: AppColors.cardsCarbon,
-            title: const Text('Discard changes?', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
+            title: Text('Discard changes?', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17)),
             actions: [
               TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Keep Editing')),
               TextButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Discard Changes')),
@@ -327,7 +327,7 @@ TextField _tf(TextEditingController c, String hint, {int lines = 1, String? erro
       minLines: lines,
       maxLines: lines == 1 ? 1 : lines + 4,
       keyboardType: type,
-      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
       decoration: healthDecoration(hint, error: error),
     );
 
@@ -407,16 +407,16 @@ class _EditExpertiseScreenState extends State<EditExpertiseScreen> {
                 _input.clear();
                 refresh();
               },
-              child: const Text('Add', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
+              child: Text('Add', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
             ),
           ]),
           const SizedBox(height: 10),
           Wrap(spacing: 8, runSpacing: 6, children: [
             for (final t in _tags)
               InputChip(
-                label: Text(t, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+                label: Text(t, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
                 backgroundColor: AppColors.cardsCarbon,
-                side: const BorderSide(color: Colors.white12),
+                side: BorderSide(color: AppColors.cardBorder),
                 deleteIconColor: AppColors.secondaryTextStoneGrey,
                 onDeleted: () {
                   _tags = [..._tags]..remove(t);
@@ -535,7 +535,7 @@ class _EditTrainerProfileScreenState extends State<EditTrainerProfileScreen> {
           _tf(_biz, 'Enter your business name'),
           const FieldLabel('Trainer name'),
           _tf(_name, AppSettings.instance.displayName.isEmpty ? 'Enter your professional name' : AppSettings.instance.displayName),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(top: 6),
             child: Text('Leave blank to use the name from My Profile.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
           ),
@@ -619,7 +619,7 @@ class _QualificationFormScreenState extends State<QualificationFormScreen> {
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
             activeThumbColor: AppColors.primaryForestGreen,
-            title: const Text('Does not expire', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            title: Text('Does not expire', style: TextStyle(color: AppColors.primaryTextOffWhite)),
             value: _noExpiry,
             onChanged: (v) {
               _noExpiry = v;
@@ -712,7 +712,7 @@ class _ServiceFormScreenState extends State<ServiceFormScreen> {
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
             activeThumbColor: AppColors.primaryForestGreen,
-            title: const Text('Price on enquiry', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            title: Text('Price on enquiry', style: TextStyle(color: AppColors.primaryTextOffWhite)),
             value: _enquiry,
             onChanged: (v) {
               _enquiry = v;

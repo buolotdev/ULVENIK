@@ -129,7 +129,7 @@ class _MySportsScreenState extends State<MySportsScreen>
   }
 
   Color _segmentColorForIndex(int index) {
-    const palette = [
+    final palette = [
       AppColors.primaryForestGreen,
       AppColors.infoAlpineBlue,
       AppColors.secondarySage,
@@ -170,7 +170,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'FILTER & SORT SPORTS',
                           style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
@@ -189,7 +189,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                             });
                             setModalState(() {});
                           },
-                          child: const Text(
+                          child: Text(
                             'Reset',
                             style: TextStyle(
                               color: AppColors.infoAlpineBlue,
@@ -202,7 +202,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                       ],
                     ),
                     const SizedBox(height: 14),
-                    const Text(
+                    Text(
                       'Status',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -245,7 +245,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                       ],
                     ),
                     const SizedBox(height: 18),
-                    const Text(
+                    Text(
                       'Sort Order',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -300,7 +300,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryForestGreen,
-                          foregroundColor: AppColors.primaryTextOffWhite,
+                          foregroundColor: AppColors.onForestGreen,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -389,7 +389,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                 const SizedBox(height: 16),
                 Text(
                   '${sport.name.toUpperCase()} OPTIONS',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
@@ -403,7 +403,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                   leading: const Icon(Icons.open_in_new_rounded,
                     color: Color(0xFF95D3BB),
                   ),
-                  title: const Text(
+                  title: Text(
                     'Open Sport Details',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -432,7 +432,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                   ),
                   title: Text(
                     sport.isArchived ? 'Restore to Active Sports' : 'Archive Sport',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 14.5,
                       fontWeight: FontWeight.w600,
@@ -487,13 +487,13 @@ class _MySportsScreenState extends State<MySportsScreen>
                               color: AppColors.primaryForestGreen.withValues(alpha: 0.3),
                             ),
                           ),
-                          child: const Icon(Icons.emoji_events_outlined,
+                          child: Icon(Icons.emoji_events_outlined,
                             size: 32,
                             color: AppColors.primaryForestGreen,
                           ),
                         ),
                         const SizedBox(height: 20),
-                        const Text(
+                        Text(
                           'Sport Pack Required',
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -503,7 +503,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Text(
+                        Text(
                           'This area is available exclusively to Sport Pack subscribers. Manage competition entries, trials, sport skills, qualifications, and performance metrics.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -524,7 +524,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primaryForestGreen,
-                            foregroundColor: AppColors.primaryTextOffWhite,
+                            foregroundColor: AppColors.onForestGreen,
                             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -570,7 +570,7 @@ class _MySportsScreenState extends State<MySportsScreen>
       floatingActionButton: FloatingActionButton(
         heroTag: 'my_sports_fab',
         backgroundColor: AppColors.primaryForestGreen,
-        foregroundColor: AppColors.primaryTextOffWhite,
+        foregroundColor: AppColors.onForestGreen,
         elevation: 4,
         shape: const CircleBorder(),
         onPressed: () {
@@ -625,7 +625,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                                   : (_statusFilter == 1
                                       ? 'Showing Active · Show All'
                                       : 'Showing Archived · Show All'),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.infoAlpineBlue,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -660,7 +660,7 @@ class _MySportsScreenState extends State<MySportsScreen>
     return Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 6),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -674,14 +674,14 @@ class _MySportsScreenState extends State<MySportsScreen>
                 Navigator.of(context).pop();
               }
             },
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
             tooltip: 'Back',
           ),
           const SizedBox(width: 76),
-          const Expanded(
+          Expanded(
             child: Center(
               child: Text(
                 'Sport',
@@ -735,7 +735,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                 ),
               );
             },
-            icon: const UlvenikIcon(UlvenikIcons.add,
+            icon: UlvenikIcon(UlvenikIcons.add,
               color: AppColors.secondaryTextStoneGrey,
               size: 23,
             ),
@@ -749,7 +749,7 @@ class _MySportsScreenState extends State<MySportsScreen>
   Widget _buildSearchField() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -759,19 +759,19 @@ class _MySportsScreenState extends State<MySportsScreen>
         controller: _searchController,
         autofocus: true,
         onChanged: (value) => setState(() => _searchQuery = value),
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.primaryTextOffWhite,
           fontSize: 14,
           fontFamily: 'Inter',
         ),
         decoration: InputDecoration(
           hintText: 'Search by sport, organisation, or level...',
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 13.5,
             fontFamily: 'Inter',
           ),
-          prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+          prefixIcon: UlvenikIcon(UlvenikIcons.search,
             color: AppColors.secondaryTextStoneGrey,
             size: 19,
           ),
@@ -784,11 +784,11 @@ class _MySportsScreenState extends State<MySportsScreen>
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.cardBorder),
+            borderSide: BorderSide(color: AppColors.cardBorder),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+            borderSide: BorderSide(color: AppColors.primaryForestGreen),
           ),
         ),
       ),
@@ -798,7 +798,7 @@ class _MySportsScreenState extends State<MySportsScreen>
   Widget _buildSectionLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.secondaryTextStoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -941,7 +941,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                       selectedSport != null
                           ? '${selectedSport.name}: ${selectedSport.sessionsCount} sessions (${((selectedSport.sessionsCount / totalSessions) * 100).round()}%)'
                           : 'Session Share · Tap bar segment to focus',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 11.5,
                         fontFamily: 'Inter',
@@ -951,7 +951,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                       GestureDetector(
                         onTap: () =>
                             setState(() => _selectedBarSportId = null),
-                        child: const Text(
+                        child: Text(
                           'All',
                           style: TextStyle(
                             color: AppColors.infoAlpineBlue,
@@ -1039,7 +1039,7 @@ class _MySportsScreenState extends State<MySportsScreen>
             const SizedBox(height: 4),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 12,
                 height: 1.3,
@@ -1098,7 +1098,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                     alignment: Alignment.center,
                     child: Text(
                       initial,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
@@ -1113,7 +1113,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                         Flexible(
                           child: Text(
                             sport.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
                               fontSize: 18.5,
                               fontWeight: FontWeight.w700,
@@ -1132,7 +1132,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                               color: Colors.white.withValues(alpha: 0.07),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Text(
+                            child: Text(
                               'ARCHIVED',
                               style: TextStyle(
                                 color: AppColors.secondaryTextStoneGrey,
@@ -1159,7 +1159,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                       ),
                       child: Text(
                         sport.tag.toUpperCase(),
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.infoAlpineBlue,
                           fontSize: 11.5,
                           fontWeight: FontWeight.w700,
@@ -1174,7 +1174,7 @@ class _MySportsScreenState extends State<MySportsScreen>
               const SizedBox(height: 14),
               Text(
                 sport.organisation,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13.5,
                   fontFamily: 'Inter',
@@ -1183,7 +1183,7 @@ class _MySportsScreenState extends State<MySportsScreen>
               const SizedBox(height: 5),
               Text(
                 levelText,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13.5,
                   fontFamily: 'Inter',
@@ -1236,7 +1236,7 @@ class _MySportsScreenState extends State<MySportsScreen>
               const SizedBox(height: 12),
               Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.trainingTime,
+                  UlvenikIcon(UlvenikIcons.trainingTime,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 15,
                   ),
@@ -1244,14 +1244,14 @@ class _MySportsScreenState extends State<MySportsScreen>
                   Expanded(
                     child: Text(
                       'Last active: ${sport.lastTrained}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 12.8,
                         fontFamily: 'Inter',
                       ),
                     ),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details,
+                  UlvenikIcon(UlvenikIcons.details,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 19,
                   ),
@@ -1273,7 +1273,7 @@ class _MySportsScreenState extends State<MySportsScreen>
       children: [
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.primaryTextOffWhite,
             fontSize: 16,
             fontWeight: FontWeight.w700,
@@ -1284,7 +1284,7 @@ class _MySportsScreenState extends State<MySportsScreen>
         Text(
           label,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 11.5,
             fontFamily: 'Inter',
@@ -1318,7 +1318,7 @@ class _MySportsScreenState extends State<MySportsScreen>
             isArchivedView
                 ? 'No Archived Sports Yet'
                 : 'No Matching Sports Found',
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 15,
               fontWeight: FontWeight.w600,
@@ -1331,7 +1331,7 @@ class _MySportsScreenState extends State<MySportsScreen>
                 ? 'Tap any sport badge pill (e.g. PSA) or long-press a sport card to archive or restore it.'
                 : 'Adjust your search query or reset filters to view all sports.',
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 12.8,
               height: 1.4,

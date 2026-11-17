@@ -3,28 +3,31 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppTheme {
-  static ThemeData get darkTheme {
+  /// Rebuilds for the brightness that is current right now; call it again
+  /// (the app does, from its root widget) whenever the saved theme changes.
+  static ThemeData themeFor(Brightness brightness) {
+    final isDark = brightness == Brightness.dark;
     final textTheme = GoogleFonts.interTextTheme().apply(
       bodyColor: AppColors.primaryTextOffWhite,
       displayColor: AppColors.primaryTextOffWhite,
     );
 
     return ThemeData(
-      brightness: Brightness.dark,
+      brightness: brightness,
       scaffoldBackgroundColor: AppColors.backgroundObsidian,
       primaryColor: AppColors.primaryForestGreen,
-      colorScheme: const ColorScheme.dark(
+      colorScheme: (isDark ? const ColorScheme.dark() : const ColorScheme.light()).copyWith(
         primary: AppColors.primaryForestGreen,
         secondary: AppColors.secondarySage,
         surface: AppColors.cardsCarbon,
         error: AppColors.errorDestructive,
-        onPrimary: AppColors.primaryTextOffWhite,
-        onSecondary: AppColors.primaryTextOffWhite,
+        onPrimary: const Color(0xFFF5F6F2), // white text on the green accent, both themes
+        onSecondary: const Color(0xFFF5F6F2),
         onSurface: AppColors.primaryTextOffWhite,
         onError: AppColors.primaryTextOffWhite,
       ),
       textTheme: textTheme,
-      cardTheme: const CardThemeData(
+      cardTheme: CardThemeData(
         color: AppColors.cardsCarbon,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)), // 16-20px based on docs
@@ -40,9 +43,9 @@ class AppTheme {
         focusedErrorBorder: InputBorder.none,
         filled: false,
       ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: AppColors.primaryForestGreen,
-        foregroundColor: AppColors.primaryTextOffWhite,
+        foregroundColor: AppColors.onForestGreen,
         elevation: 0,
         focusElevation: 0,
         hoverElevation: 0,
@@ -52,7 +55,7 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primaryForestGreen,
-          foregroundColor: AppColors.primaryTextOffWhite,
+          foregroundColor: AppColors.onForestGreen,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

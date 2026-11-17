@@ -84,7 +84,7 @@ class DogRewardProfile {
   final String breed;
   final String sportBadge;
 
-  const DogRewardProfile({
+  DogRewardProfile({
     required this.id,
     required this.initials,
     required this.name,
@@ -97,7 +97,7 @@ class RewardsStore extends ChangeNotifier {
   RewardsStore._internal();
   static final RewardsStore instance = RewardsStore._internal();
 
-  final List<DogRewardProfile> dogs = const [
+  final List<DogRewardProfile> dogs = [
     DogRewardProfile(
       id: 'rook',
       initials: 'RK',
@@ -327,18 +327,19 @@ class RewardsStore extends ChangeNotifier {
 
 class RewardGlyphIcon extends StatelessWidget {
   final RewardIconKind kind;
-  final Color color;
+  final Color? color;
   final double size;
 
-  const RewardGlyphIcon({
+  RewardGlyphIcon({
     super.key,
     required this.kind,
-    this.color = AppColors.secondarySage,
+    this.color,
     this.size = 22,
   });
 
   @override
   Widget build(BuildContext context) {
+    final color = this.color ?? AppColors.secondarySage;
     switch (kind) {
       case RewardIconKind.warmFood:
         return SizedBox(
@@ -626,7 +627,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'SELECT WORKING DOG',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -671,7 +672,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                             Expanded(
                               child: Text(
                                 '${dog.name} · ${dog.breed}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -681,7 +682,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                             ),
                             Text(
                               dog.sportBadge,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 10.5,
                                 fontWeight: FontWeight.w700,
@@ -711,9 +712,9 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
           backgroundColor: AppColors.cardsCarbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: AppColors.cardBorder),
+            side: BorderSide(color: AppColors.cardBorder),
           ),
-          title: const Text(
+          title: Text(
             'Delete Reward?',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -724,7 +725,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
           ),
           content: Text(
             'Are you sure you want to permanently delete "${reward.name}" from ${_store.selectedDog.name}\'s rewards? This action cannot be undone.',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 14,
               color: AppColors.secondaryTextStoneGrey,
@@ -734,7 +735,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
           actions: [
             TextButton(
               onPressed: () => Navigator.of(ctx).pop(false),
-              child: const Text(
+              child: Text(
                 'Cancel',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -872,7 +873,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                       ),
                     ],
                   ),
-                  child: const Center(
+                  child: Center(
                     child: UlvenikIcon(UlvenikIcons.add,
                       color: AppColors.primaryTextOffWhite,
                       size: 26,
@@ -902,7 +903,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
               child: GestureDetector(
                 onTap: () => Navigator.of(context).maybePop(),
                 behavior: HitTestBehavior.opaque,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 6, horizontal: 2),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -926,7 +927,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                 ),
               ),
             ),
-            const Text(
+            Text(
               'Rewards Management',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -972,7 +973,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Row(
           children: [
-            const UlvenikIcon(UlvenikIcons.search,
+            UlvenikIcon(UlvenikIcons.search,
               size: 18,
               color: AppColors.secondaryTextStoneGrey,
             ),
@@ -982,12 +983,12 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                 controller: _searchController,
                 autofocus: true,
                 onChanged: (_) => setState(() {}),
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14,
                   color: AppColors.primaryTextOffWhite,
                 ),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Search rewards or notes...',
                   hintStyle: TextStyle(
                     fontFamily: 'Inter',
@@ -1005,7 +1006,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                   _searchController.clear();
                   setState(() {});
                 },
-                child: const Icon(Icons.cancel_rounded,
+                child: Icon(Icons.cancel_rounded,
                   size: 16,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
@@ -1064,14 +1065,14 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                   children: [
                     TextSpan(
                       text: dog.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
                         color: AppColors.primaryTextOffWhite,
                       ),
                     ),
-                    const TextSpan(
+                    TextSpan(
                       text: '  ·  ',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -1082,7 +1083,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                     ),
                     TextSpan(
                       text: dog.breed,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -1097,14 +1098,14 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const UlvenikIcon(UlvenikIcons.completed,
+                UlvenikIcon(UlvenikIcons.completed,
                   size: 16,
                   color: AppColors.secondaryTextStoneGrey,
                 ),
                 const SizedBox(width: 5),
                 Text(
                   dog.sportBadge,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 11,
                     fontWeight: FontWeight.w700,
@@ -1124,7 +1125,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
+        Text(
           'REWARD TYPES',
           style: TextStyle(
             fontFamily: 'Inter',
@@ -1137,7 +1138,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
         GestureDetector(
           onTap: _handleOpenManageTypes,
           behavior: HitTestBehavior.opaque,
-          child: const Padding(
+          child: Padding(
             padding: EdgeInsets.symmetric(vertical: 2),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -1201,7 +1202,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                     width: 1,
                   ),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     UlvenikIcon(UlvenikIcons.add,
@@ -1273,7 +1274,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
+        Text(
           'MY REWARDS',
           style: TextStyle(
             fontFamily: 'Inter',
@@ -1329,7 +1330,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -1425,7 +1426,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                         const SizedBox(width: 5),
                         Text(
                           '${t.name} ($count)',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 11.5,
                             color: AppColors.secondaryTextStoneGrey,
@@ -1484,7 +1485,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                     children: [
                       Text(
                         reward.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -1503,7 +1504,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                         ),
                         child: Text(
                           badgeText,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 10,
                             fontWeight: FontWeight.w700,
@@ -1518,7 +1519,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                     const SizedBox(height: 5),
                     Text(
                       reward.notes,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -1537,7 +1538,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                 GestureDetector(
                   onTap: () => _handleOpenEditReward(reward),
                   behavior: HitTestBehavior.opaque,
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.all(6),
                     child: UlvenikIcon(UlvenikIcons.edit,
                       size: 18,
@@ -1549,7 +1550,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                 GestureDetector(
                   onTap: () => _confirmDeleteReward(reward),
                   behavior: HitTestBehavior.opaque,
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.all(6),
                     child: Icon(Icons.delete_outline_rounded,
                       size: 18,
@@ -1575,12 +1576,12 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
       ),
       child: Column(
         children: [
-          const Icon(Icons.sports_baseball_outlined,
+          Icon(Icons.sports_baseball_outlined,
             size: 32,
             color: AppColors.secondarySage,
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'No matching rewards',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -1590,7 +1591,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
             ),
           ),
           const SizedBox(height: 6),
-          const Text(
+          Text(
             'Try selecting another reward type chip or tap + to add a new reinforcer.',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1608,7 +1609,7 @@ class _RewardsManagementScreenState extends State<RewardsManagementScreen>
                 _searchController.clear();
               });
             },
-            child: const Text(
+            child: Text(
               'Show All Rewards',
               style: TextStyle(
                 fontFamily: 'Inter',

@@ -85,14 +85,14 @@ class SportStatisticsScreen extends StatefulWidget {
 
 class _SportStatisticsScreenState extends State<SportStatisticsScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _card = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _card => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
-  static const Color _offWhite = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _stone = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _border = AppColors.cardBorder; // rgba(255,255,255,0.08)
+  static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
+  static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _stone => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _border => AppColors.cardBorder; // rgba(255,255,255,0.08)
 
   static const List<String> _periods = [
     'Last 30 Days',
@@ -554,14 +554,14 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _stone,
               size: 28,
             ),
             splashRadius: 22,
             tooltip: 'Back',
           ),
-          const Expanded(
+          Expanded(
             child: Text(
               'Sport Statistics',
               maxLines: 1,
@@ -603,7 +603,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
           ),
           IconButton(
             onPressed: _openExportShareSheet,
-            icon: const Icon(Icons.ios_share_rounded,
+            icon: Icon(Icons.ios_share_rounded,
               color: _stone,
               size: 21,
             ),
@@ -677,7 +677,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
           Expanded(
             child: Text(
               parts.join('  ·  '),
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 12.5,
                 fontWeight: FontWeight.w500,
@@ -712,7 +712,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stone,
         fontSize: 11.5,
         fontWeight: FontWeight.w600,
@@ -837,7 +837,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                 children: [
                   Text(
                     value,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
@@ -859,7 +859,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
               const SizedBox(height: 12),
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stone,
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
@@ -937,7 +937,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                 _showHoursLineMode
                     ? 'MONTHLY TRAINING HOURS'
                     : 'MONTHLY SESSION VOLUME',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stone,
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -1002,7 +1002,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                     child: Text(
                       '${selectedPoint.month} 2026: ${selectedPoint.sessions} sessions · ${selectedPoint.hours}h  '
                       '(IGP ${selectedPoint.igpSessions} · Agility ${selectedPoint.agilitySessions} · PSA ${selectedPoint.psaSessions})',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 11.8,
                         fontWeight: FontWeight.w500,
@@ -1012,7 +1012,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                   ),
                   GestureDetector(
                     onTap: () => setState(() => _touchedMonthIndex = null),
-                    child: const Icon(Icons.close_rounded,
+                    child: Icon(Icons.close_rounded,
                       color: _stone,
                       size: 15,
                     ),
@@ -1072,7 +1072,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
           top,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stone,
             fontSize: 13,
             fontWeight: FontWeight.w500,
@@ -1085,7 +1085,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
           bottom,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stone,
             fontSize: 13,
             fontWeight: FontWeight.w400,
@@ -1139,7 +1139,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                     Expanded(
                       child: Text(
                         '$skillsCount Skills',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -1153,7 +1153,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                     Expanded(
                       child: Text(
                         '$exercisesCount Exercises',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -1177,13 +1177,13 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: _forest,
                           shape: BoxShape.circle,
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Text(
+                      Text(
                         'Skills with Training:  ',
                         style: TextStyle(
                           color: _stone,
@@ -1193,7 +1193,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                       ),
                       Text(
                         '$withTraining',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 13.5,
                           fontWeight: FontWeight.w700,
@@ -1214,7 +1214,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Text(
+                      Text(
                         'Without Training:  ',
                         style: TextStyle(
                           color: _stone,
@@ -1224,7 +1224,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                       ),
                       Text(
                         '$withoutTraining',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 13.5,
                           fontWeight: FontWeight.w700,
@@ -1345,7 +1345,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                     children: [
                       Text(
                         item.value,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -1358,7 +1358,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                         item.label,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stone,
                           fontSize: 11.8,
                           fontWeight: FontWeight.w400,
@@ -1409,7 +1409,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Date Range & Sport Scope',
                       style: TextStyle(
                         color: _offWhite,
@@ -1419,7 +1419,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'SPORT',
                       style: TextStyle(
                         color: _stone,
@@ -1469,7 +1469,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                       }).toList(),
                     ),
                     const SizedBox(height: 18),
-                    const Text(
+                    Text(
                       'CUSTOM CALENDAR WINDOW',
                       style: TextStyle(
                         color: _stone,
@@ -1492,7 +1492,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                           ),
                           builder: (context, child) => Theme(
                             data: ThemeData.dark().copyWith(
-                              colorScheme: const ColorScheme.dark(
+                              colorScheme: ColorScheme.dark(
                                 primary: _forest,
                                 onPrimary: _offWhite,
                                 surface: _card,
@@ -1525,7 +1525,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                       },
                       style: OutlinedButton.styleFrom(
                         foregroundColor: _offWhite,
-                        side: const BorderSide(color: _border),
+                        side: BorderSide(color: _border),
                         backgroundColor: _bg,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 14,
@@ -1617,7 +1617,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Share or Export Sport Statistics',
                   style: TextStyle(
                     color: _offWhite,
@@ -1629,7 +1629,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                 const SizedBox(height: 4),
                 Text(
                   '$_selectedSport · $_selectedPeriod (${snap.trainingSessions} sessions, ${snap.trainingHours}h)',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stone,
                     fontSize: 12.5,
                     fontFamily: 'Inter',
@@ -1716,7 +1716,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -1726,7 +1726,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stone,
                       fontSize: 12,
                       fontFamily: 'Inter',
@@ -1735,7 +1735,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details, color: _stone, size: 20),
+            UlvenikIcon(UlvenikIcons.details, color: _stone, size: 20),
           ],
         ),
       ),
@@ -1782,7 +1782,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
@@ -1865,7 +1865,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
             Expanded(
               child: Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -1875,7 +1875,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
             ),
             Text(
               unit == 'h' ? '${value}h ($pct%)' : '$value $unit ($pct%)',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stone,
                 fontSize: 12.5,
                 fontWeight: FontWeight.w600,
@@ -1927,7 +1927,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                 const SizedBox(height: 16),
                 Text(
                   'Skills Coverage (${snap.skillsWithTraining}/${snap.activeSkills} Active)',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -1937,7 +1937,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
                 const SizedBox(height: 6),
                 Text(
                   '${snap.activeExercises} exercises tracked across active sports.',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stone,
                     fontSize: 12.5,
                     fontFamily: 'Inter',
@@ -2039,7 +2039,7 @@ class _SportStatisticsScreenState extends State<SportStatisticsScreen>
               children: [
                 Text(
                   name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 13.2,
                     fontWeight: FontWeight.w600,
@@ -2089,10 +2089,10 @@ class _MonthlyVolumeChartPainter extends CustomPainter {
     required this.hoursLineMode,
   });
 
-  static const Color _forest = AppColors.primaryForestGreen;
+  static Color get _forest => AppColors.primaryForestGreen;
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _stone = AppColors.secondaryTextStoneGrey;
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
+  static Color get _stone => AppColors.secondaryTextStoneGrey;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
 
   @override
   void paint(Canvas canvas, Size size) {

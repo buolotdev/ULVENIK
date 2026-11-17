@@ -340,14 +340,14 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.of(context).maybePop(_currentCountry.name),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
             visualDensity: VisualDensity.compact,
           ),
           const SizedBox(width: 2),
-          const Expanded(
+          Expanded(
             child: Text(
               'Country or Region',
               style: TextStyle(
@@ -386,7 +386,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -421,7 +421,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                   children: [
                     Text(
                       current.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 19,
                         fontWeight: FontWeight.w700,
@@ -431,7 +431,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                     const SizedBox(height: 3),
                     Text(
                       current.regionSubtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
                         color: AppColors.secondaryTextStoneGrey,
@@ -454,7 +454,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                     width: 1,
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   'CURRENT',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -488,7 +488,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                       children: [
                         Text(
                           'Previewing ${selected.name} (${selected.code})',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 12.5,
                             fontWeight: FontWeight.w600,
@@ -498,7 +498,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                         const SizedBox(height: 2),
                         Text(
                           selected.registryPreview,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 11.5,
                             color: AppColors.secondaryTextStoneGrey,
@@ -532,7 +532,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search,
+          UlvenikIcon(UlvenikIcons.search,
             size: 19,
             color: AppColors.secondaryTextStoneGrey,
           ),
@@ -543,12 +543,12 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
               focusNode: _searchFocusNode,
               onChanged: (val) => setState(() => _searchQuery = val),
               cursorColor: AppColors.primaryForestGreen,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 14.5,
                 color: AppColors.primaryTextOffWhite,
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 isDense: true,
                 border: InputBorder.none,
                 hintText: 'Search countries or regions',
@@ -570,7 +570,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                 });
               },
               behavior: HitTestBehavior.opaque,
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.all(4),
                 child: Icon(Icons.close_rounded,
                   size: 17,
@@ -608,7 +608,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                   children: [
                     const _StGeorgeCrossFlag(),
                     const SizedBox(width: 10),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Device Region detected: United Kingdom',
                         style: TextStyle(
@@ -641,14 +641,14 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
         ),
         child: Column(
           children: [
-            const Icon(Icons.public_off_rounded,
+            Icon(Icons.public_off_rounded,
               color: AppColors.secondaryTextStoneGrey,
               size: 26,
             ),
             const SizedBox(height: 10),
             Text(
               'No countries matching "${_searchQuery.trim()}"',
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 14.5,
                 fontWeight: FontWeight.w600,
@@ -732,7 +732,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                           children: [
                             Text(
                               entry.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
@@ -742,7 +742,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                             const SizedBox(height: 2),
                             Text(
                               entry.code,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 12,
                                 color: AppColors.secondaryTextStoneGrey,
@@ -752,7 +752,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
                         ),
                       ),
                       if (isSelected)
-                        const Icon(Icons.check_rounded,
+                        Icon(Icons.check_rounded,
                           size: 19,
                           color: AppColors.primaryForestGreen,
                         ),
@@ -814,7 +814,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
   Widget _buildBottomContinueDock() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           top: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -851,7 +851,7 @@ class _CountryRegionScreenState extends State<CountryRegionScreen> {
             ),
           ),
           const SizedBox(height: 10),
-          const Text(
+          Text(
             'Changing country will not affect your language, units, or time zone.',
             textAlign: TextAlign.center,
             style: TextStyle(

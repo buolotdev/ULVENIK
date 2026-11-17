@@ -36,7 +36,7 @@ class SportItemsScreen extends StatelessWidget {
             child: ConstrainedBox(
               constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.75),
               child: ListView(shrinkWrap: true, padding: const EdgeInsets.fromLTRB(20, 20, 20, 16), children: [
-                const Text('Link Training skills',
+                Text('Link Training skills',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 8),
                 for (final n in options)
@@ -45,7 +45,7 @@ class SportItemsScreen extends StatelessWidget {
                     controlAffinity: ListTileControlAffinity.leading,
                     activeColor: AppColors.primaryForestGreen,
                     checkColor: AppColors.primaryTextOffWhite,
-                    title: Text(n, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                    title: Text(n, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                     value: draft.contains(n),
                     onChanged: (v) => setSheet(() => v == true ? draft.add(n) : draft.remove(n)),
                   ),
@@ -95,17 +95,17 @@ class SportItemsScreen extends StatelessWidget {
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(i.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                       if (i.linked)
-                        const Text('Linked from Training', style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5)),
+                        Text('Linked from Training', style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5)),
                       if (i.description.trim().isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.only(top: 2),
                           child: Text(i.description,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                         ),
                     ]),
                   ),
@@ -115,11 +115,11 @@ class SportItemsScreen extends StatelessWidget {
                         store.setItemArchived(dogName, i.id, false);
                         AppSnackbar.show(context, message: '${i.kindLabel} restored', type: SnackbarType.success);
                       },
-                      child: const Text('Restore',
+                      child: Text('Restore',
                           style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                     )
                   else
-                    const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                    UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                 ]),
               ),
             );
@@ -131,7 +131,7 @@ class SportItemsScreen extends StatelessWidget {
               : [
                   IconButton(
                     tooltip: 'More',
-                    icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+                    icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
                     onPressed: () => showModalBottomSheet<void>(
                       context: context,
                       backgroundColor: AppColors.cardsCarbon,
@@ -141,14 +141,14 @@ class SportItemsScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           child: Column(mainAxisSize: MainAxisSize.min, children: [
                             ListTile(
-                              title: const Text('Link a Training skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                              title: Text('Link a Training skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                               onTap: () {
                                 Navigator.pop(ctx);
                                 _linkCore(context);
                               },
                             ),
                             ListTile(
-                              title: const Text('Archived Skills & Exercises',
+                              title: Text('Archived Skills & Exercises',
                                   style: TextStyle(color: AppColors.primaryTextOffWhite)),
                               onTap: () {
                                 Navigator.pop(ctx);
@@ -173,7 +173,7 @@ class SportItemsScreen extends StatelessWidget {
                       onPressed: () => _add(context, SportItemKind.exercise),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryTextOffWhite,
-                        side: const BorderSide(color: Colors.white24),
+                        side: BorderSide(color: AppColors.cardBorder),
                         minimumSize: const Size(0, 52),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
@@ -188,7 +188,7 @@ class SportItemsScreen extends StatelessWidget {
                         onPressed: () => _add(context, SportItemKind.skill),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryForestGreen,
-                          foregroundColor: AppColors.primaryTextOffWhite,
+                          foregroundColor: AppColors.onForestGreen,
                           elevation: 0,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
@@ -281,13 +281,13 @@ class _SportItemFormScreenState extends State<SportItemFormScreen> {
           const FieldLabel('Sport'),
           HealthCard(
             child: Text(sport?.name ?? 'Sport',
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
           ),
           FieldLabel('$_noun Name', required: true),
           TextField(
             controller: _name,
             onChanged: (_) => _error == null ? null : setState(() => _error = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Enter ${_noun.toLowerCase()} name', error: _error),
           ),
           const FieldLabel('Description'),
@@ -295,7 +295,7 @@ class _SportItemFormScreenState extends State<SportItemFormScreen> {
             controller: _desc,
             minLines: 3,
             maxLines: 5,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Describe this ${_noun.toLowerCase()}...'),
           ),
         ],
@@ -326,7 +326,7 @@ class SportItemDetailsScreen extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'More',
-              icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
               onPressed: () => showModalBottomSheet<void>(
                 context: context,
                 backgroundColor: AppColors.cardsCarbon,
@@ -336,8 +336,8 @@ class SportItemDetailsScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
-                        leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
-                        title: Text('Edit ${i.kindLabel}', style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                        leading: UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
+                        title: Text('Edit ${i.kindLabel}', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           Navigator.push(
@@ -349,7 +349,7 @@ class SportItemDetailsScreen extends StatelessWidget {
                         },
                       ),
                       ListTile(
-                        title: Text('Archive ${i.kindLabel}', style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text('Archive ${i.kindLabel}', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           store.setItemArchived(dogName, i.id, true);
@@ -381,11 +381,11 @@ class SportItemDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
             children: [
               Text(i.name,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 26, fontWeight: FontWeight.w700)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 26, fontWeight: FontWeight.w700)),
               if (i.description.trim().isNotEmpty) ...[
                 const SizedBox(height: 8),
                 Text(i.description,
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
               ],
               const SizedBox(height: 20),
               PrimaryButton(
@@ -416,13 +416,13 @@ class SportItemDetailsScreen extends StatelessWidget {
                       Expanded(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                           Text(s.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                           Text(fmtDate(s.at),
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                         ]),
                       ),
-                      const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                      UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                     ]),
                   ),
                   const SizedBox(height: 10),

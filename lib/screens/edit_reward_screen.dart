@@ -153,9 +153,9 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
           backgroundColor: AppColors.cardsCarbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: AppColors.cardBorder),
+            side: BorderSide(color: AppColors.cardBorder),
           ),
-          title: const Text(
+          title: Text(
             'Delete Reward?',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -166,7 +166,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
           ),
           content: Text(
             'Are you sure you want to permanently delete "${_targetReward.name}"? This action cannot be undone.',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 14,
               color: AppColors.secondaryTextStoneGrey,
@@ -176,7 +176,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(ctx).pop(false),
-              child: const Text(
+              child: Text(
                 'Cancel',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -230,7 +230,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
       padding: EdgeInsets.only(bottom: bottomInset),
       child: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
           border: Border(
@@ -264,7 +264,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Edit Reward',
                         style: TextStyle(
@@ -279,7 +279,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                     GestureDetector(
                       onTap: () => Navigator.of(context).maybePop(),
                       behavior: HitTestBehavior.opaque,
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(4),
                         child: Icon(
                           Icons.close_rounded,
@@ -293,7 +293,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                 const SizedBox(height: 4),
                 Text(
                   'Rewards are personal to $dogName.',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
@@ -303,7 +303,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                 const SizedBox(height: 24),
 
                 // REWARD NAME
-                const Text(
+                Text(
                   'REWARD NAME',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -321,7 +321,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                       setState(() => _nameError = null);
                     }
                   },
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -338,13 +338,13 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                     ),
                     errorText: _nameError,
                     contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                    enabledBorder: const UnderlineInputBorder(
+                    enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.primaryForestGreen,
                         width: 1.2,
                       ),
                     ),
-                    focusedBorder: const UnderlineInputBorder(
+                    focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.primaryForestGreen,
                         width: 1.6,
@@ -355,7 +355,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                 const SizedBox(height: 24),
 
                 // REWARD TYPE
-                const Text(
+                Text(
                   'REWARD TYPE',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -366,7 +366,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Select from your types or create a new one.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -423,12 +423,12 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                             controller: _newTypeController,
                             autofocus: true,
                             onSubmitted: (_) => _handleCreateNewType(),
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 14,
                               color: AppColors.primaryTextOffWhite,
                             ),
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               hintText: 'New type name...',
                               hintStyle: TextStyle(
                                 fontFamily: 'Inter',
@@ -452,7 +452,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                               color: AppColors.primaryForestGreen,
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Text(
+                            child: Text(
                               'Add',
                               style: TextStyle(
                                 fontFamily: 'Inter',
@@ -471,7 +471,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                 const SizedBox(height: 24),
 
                 // DESCRIPTION
-                const Text(
+                Text(
                   'DESCRIPTION',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -482,7 +482,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Optional. Enter your own notes about this reward.',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -496,7 +496,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                   controller: _descController,
                   minLines: 2,
                   maxLines: 3,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
@@ -518,7 +518,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                         width: 1,
                       ),
                     ),
-                    focusedBorder: const UnderlineInputBorder(
+                    focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.primaryForestGreen,
                         width: 1.4,
@@ -537,7 +537,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                     onPressed: _handleSaveChanges,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
@@ -568,7 +568,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                         borderRadius: BorderRadius.circular(14),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Cancel',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -586,7 +586,7 @@ class _EditRewardSheetState extends State<EditRewardSheet> {
                   child: GestureDetector(
                     onTap: _handleDeleteReward,
                     behavior: HitTestBehavior.opaque,
-                    child: const Padding(
+                    child: Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       child: Row(
@@ -667,7 +667,7 @@ class _EditRewardTypePill extends StatelessWidget {
             ),
             if (isSelected) ...[
               const SizedBox(width: 6),
-              const Icon(Icons.check_rounded,
+              Icon(Icons.check_rounded,
                 size: 14,
                 color: AppColors.primaryForestGreen,
               ),
@@ -692,7 +692,7 @@ class _EditDashedNewTypePill extends StatelessWidget {
         painter: _EditDashedBorderPainter(
           color: Colors.white.withValues(alpha: 0.18),
         ),
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8.5),
           child: Row(
             mainAxisSize: MainAxisSize.min,

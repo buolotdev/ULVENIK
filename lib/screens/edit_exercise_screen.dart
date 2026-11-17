@@ -59,7 +59,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
   }
 
   Widget _label(String t) => Text(t,
-      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600));
+      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, fontWeight: FontWeight.w600));
 
   Widget _field(TextEditingController c, String hint, {int maxLines = 1, String? error}) => TextField(
         controller: c,
@@ -68,19 +68,19 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
         onChanged: (_) {
           if (_nameError != null) setState(() => _nameError = null);
         },
-        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+          hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
           errorText: error,
           errorStyle: const TextStyle(color: Color(0xFFE08A8A), fontSize: 12.5),
           filled: true,
           fillColor: AppColors.cardsCarbon,
           contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Colors.white12)),
+              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: AppColors.cardBorder)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: AppColors.primaryForestGreen)),
           errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: Color(0xFF8B3A3A))),
           focusedErrorBorder: OutlineInputBorder(
@@ -97,11 +97,11 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: const Text('Edit Exercise',
+        title: Text('Edit Exercise',
             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         leading: IconButton(
           tooltip: 'Back',
-          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+          icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -124,17 +124,17 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
             decoration: BoxDecoration(
               color: AppColors.cardsCarbon,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
             ),
             child: Row(children: [
-              const UlvenikIcon(UlvenikIcons.skills, size: 20, color: AppColors.secondarySage),
+              UlvenikIcon(UlvenikIcons.skills, size: 20, color: AppColors.secondarySage),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(widget.skillName,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                   Text('This exercise belongs to ${widget.skillName}.',
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                 ]),
               ),
             ]),
@@ -147,7 +147,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
             decoration: BoxDecoration(
               color: AppColors.cardsCarbon,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
             ),
             child: Row(children: [
               ClipRRect(
@@ -159,8 +159,8 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                       ? Image(
                           image: _picked ?? const NetworkImage(_customImage),
                           fit: BoxFit.cover,
-                          errorBuilder: (_, _, _) => const ColoredBox(color: AppColors.backgroundObsidian))
-                      : const ColoredBox(
+                          errorBuilder: (_, _, _) => ColoredBox(color: AppColors.backgroundObsidian))
+                      : ColoredBox(
                           color: AppColors.backgroundObsidian,
                           child: Icon(Icons.image_outlined, color: AppColors.secondaryTextStoneGrey)),
                 ),
@@ -169,7 +169,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(_hasCustomImage ? 'Custom photo' : 'Using ${widget.skillName}’s photo',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 6),
                   Wrap(spacing: 8, runSpacing: 4, children: [
                     OutlinedButton(
@@ -184,7 +184,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                       },
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryTextOffWhite,
-                        side: const BorderSide(color: Colors.white24),
+                        side: BorderSide(color: AppColors.cardBorder),
                         minimumSize: const Size(0, 36),
                       ),
                       child: const Text('Choose Different Photo', style: TextStyle(fontSize: 12.5)),
@@ -220,7 +220,7 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
               label: const Text('Save Changes', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryForestGreen,
-                foregroundColor: AppColors.primaryTextOffWhite,
+                foregroundColor: AppColors.onForestGreen,
                 elevation: 0,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),

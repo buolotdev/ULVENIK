@@ -79,14 +79,14 @@ class _AppLockGateState extends State<AppLockGate> with WidgetsBindingObserver {
             color: AppColors.backgroundObsidian,
             alignment: Alignment.center,
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              const Icon(Icons.lock_outline, size: 44, color: AppColors.secondarySage),
+              Icon(Icons.lock_outline, size: 44, color: AppColors.secondarySage),
               const SizedBox(height: 14),
-              const Text('Ulvenik is locked',
+              Text('Ulvenik is locked',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600, decoration: TextDecoration.none)),
               const SizedBox(height: 18),
               ElevatedButton(
                 onPressed: _unlock,
-                style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryForestGreen, foregroundColor: AppColors.primaryTextOffWhite),
+                style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryForestGreen, foregroundColor: AppColors.onForestGreen),
                 child: const Text('Unlock'),
               ),
             ]),
@@ -118,8 +118,8 @@ class AppLockScreen extends StatelessWidget {
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   activeThumbColor: AppColors.primaryForestGreen,
-                  title: const Text('App Lock', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
-                  subtitle: const Text('Use your device authentication to unlock Ulvenik.',
+                  title: Text('App Lock', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
+                  subtitle: Text('Use your device authentication to unlock Ulvenik.',
                       style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                   value: s.appLock,
                   onChanged: (!available && !s.appLock)
@@ -135,7 +135,7 @@ class AppLockScreen extends StatelessWidget {
                         },
                 ),
                 if (snap.connectionState == ConnectionState.done && !available)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 8),
                     child: Text(
                       'This device has no screen lock or biometrics set up. Set one up in your device settings to use App Lock.',
@@ -143,7 +143,7 @@ class AppLockScreen extends StatelessWidget {
                     ),
                   ),
                 const SizedBox(height: 14),
-                const Text(
+                Text(
                   'App Lock stays on this device. It doesn’t replace signing in to your account, and it never deletes drafts or records.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, height: 1.4),
                 ),

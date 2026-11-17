@@ -89,14 +89,14 @@ class DocumentViewerScreen extends StatefulWidget {
 }
 
 class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
-  static const Color _obsidian = AppColors.backgroundObsidian;
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
   static const Color _stoneGrey = Color(0xFF8E9598);
-  static const Color _cardBorder = AppColors.cardBorder;
-  static const Color _favGold = AppColors.favouriteGold;
-  static const Color _alpineBlue = AppColors.infoAlpineBlue;
+  static Color get _cardBorder => AppColors.cardBorder;
+  static Color get _favGold => AppColors.favouriteGold;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
 
   late final PageController _pageController;
   final TransformationController _zoomController = TransformationController();
@@ -536,9 +536,9 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: const BorderSide(color: _cardBorder),
+          side: BorderSide(color: _cardBorder),
         ),
-        title: const Text(
+        title: Text(
           'Edit Document Notes',
           style: TextStyle(
             color: _offWhite,
@@ -550,7 +550,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         content: TextField(
           controller: controller,
           maxLines: 4,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 13.5,
             fontFamily: 'Inter',
@@ -562,15 +562,15 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
             hintStyle: const TextStyle(color: _stoneGrey),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: _cardBorder),
+              borderSide: BorderSide(color: _cardBorder),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: _cardBorder),
+              borderSide: BorderSide(color: _cardBorder),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: _forest),
+              borderSide: BorderSide(color: _forest),
             ),
           ),
         ),
@@ -630,7 +630,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       Expanded(
                         child: Text(
                           '${_currentDoc.headerTitle} · Page ${page.pageNumber}/${_currentDoc.pages.length}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -640,12 +640,12 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       ),
                       IconButton(
                         onPressed: () => Navigator.pop(ctx),
-                        icon: const Icon(Icons.close, color: _offWhite),
+                        icon: Icon(Icons.close, color: _offWhite),
                       ),
                     ],
                   ),
                 ),
-                const Divider(color: _cardBorder, height: 1),
+                Divider(color: _cardBorder, height: 1),
                 Expanded(
                   child: InteractiveViewer(
                     minScale: 1.0,
@@ -711,7 +711,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       children: [
                         Text(
                           _currentDoc.linkedRecordTitle,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 15.5,
                             fontWeight: FontWeight.w600,
@@ -758,7 +758,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                               ),
                               Text(
                                 m.value,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 12.5,
                                   fontWeight: FontWeight.w600,
@@ -822,8 +822,8 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const UlvenikIcon(UlvenikIcons.search, color: _offWhite),
-                title: const Text(
+                leading: UlvenikIcon(UlvenikIcons.search, color: _offWhite),
+                title: Text(
                   'Search in Document',
                   style: TextStyle(color: _offWhite, fontFamily: 'Inter'),
                 ),
@@ -843,7 +843,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                   _isCurrentPageBookmarked
                       ? 'Remove Bookmark (Page ${_pageIndex + 1})'
                       : 'Bookmark Page ${_pageIndex + 1}',
-                  style: const TextStyle(color: _offWhite, fontFamily: 'Inter'),
+                  style: TextStyle(color: _offWhite, fontFamily: 'Inter'),
                 ),
                 subtitle: docBookmarks.isEmpty
                     ? null
@@ -861,8 +861,8 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 },
               ),
               ListTile(
-                leading: const UlvenikIcon(UlvenikIcons.edit, color: _offWhite),
-                title: const Text(
+                leading: UlvenikIcon(UlvenikIcons.edit, color: _offWhite),
+                title: Text(
                   'Edit Notes',
                   style: TextStyle(color: _offWhite, fontFamily: 'Inter'),
                 ),
@@ -872,8 +872,8 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.print_outlined, color: _offWhite),
-                title: const Text(
+                leading: Icon(Icons.print_outlined, color: _offWhite),
+                title: Text(
                   'Export & Print Certified PDF',
                   style: TextStyle(color: _offWhite, fontFamily: 'Inter'),
                 ),
@@ -900,9 +900,9 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         backgroundColor: _carbon,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: const BorderSide(color: _cardBorder),
+          side: BorderSide(color: _cardBorder),
         ),
-        title: const Text(
+        title: Text(
           'Delete Document?',
           style: TextStyle(
             color: _offWhite,
@@ -1027,7 +1027,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
 
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -1046,7 +1046,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
               children: [
                 IconButton(
                   onPressed: () => Navigator.maybePop(context),
-                  icon: const UlvenikIcon(UlvenikIcons.back,
+                  icon: UlvenikIcon(UlvenikIcons.back,
                     color: _offWhite,
                     size: 28,
                   ),
@@ -1057,7 +1057,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                     textAlign: TextAlign.center,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 15.5,
                       fontWeight: FontWeight.w600,
@@ -1084,7 +1084,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 IconButton(
                   tooltip: 'More options',
                   onPressed: _showMoreMenu,
-                  icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                  icon: UlvenikIcon(UlvenikIcons.overflowMenu,
                     color: _offWhite,
                     size: 21,
                   ),
@@ -1175,14 +1175,14 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.zoom_in_rounded,
+                              Icon(Icons.zoom_in_rounded,
                                 color: _offWhite,
                                 size: 13,
                               ),
                               const SizedBox(width: 3),
                               Text(
                                 '${(_zoomLevel * 100).round()}%',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
@@ -1236,7 +1236,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                     ),
                     child: Text(
                       '${_pageIndex + 1} of $totalPages',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 11.5,
                         fontWeight: FontWeight.w600,
@@ -1396,7 +1396,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
             const Divider(color: Color(0xFFD6DDD8), height: 12),
             Row(
               children: [
-                const UlvenikIcon(UlvenikIcons.completed,
+                UlvenikIcon(UlvenikIcons.completed,
                   size: 12,
                   color: _forest,
                 ),
@@ -1467,7 +1467,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
     final quickTerms = ['Cleared', 'Hip', '58 bpm', 'Rabies', '96 / 100'];
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _carbon,
         border: Border(bottom: BorderSide(color: _cardBorder)),
       ),
@@ -1491,7 +1491,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                         _goToPage(m.first.pageIndex);
                       }
                     },
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 13,
                       fontFamily: 'Inter',
@@ -1525,15 +1525,15 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       contentPadding: const EdgeInsets.symmetric(vertical: 0),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: _cardBorder),
+                        borderSide: BorderSide(color: _cardBorder),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: _cardBorder),
+                        borderSide: BorderSide(color: _cardBorder),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: _forest),
+                        borderSide: BorderSide(color: _forest),
                       ),
                     ),
                   ),
@@ -1672,7 +1672,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                       ),
                       if (isBookmarked) ...[
                         const SizedBox(width: 4),
-                        const Icon(Icons.bookmark_rounded,
+                        Icon(Icons.bookmark_rounded,
                           size: 13,
                           color: _favGold,
                         ),
@@ -1702,7 +1702,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         children: [
           Text(
             _currentDoc.cardTitle,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 17.5,
               fontWeight: FontWeight.w700,
@@ -1735,7 +1735,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
             ],
           ),
           const SizedBox(height: 14),
-          const Divider(color: _cardBorder, height: 1),
+          Divider(color: _cardBorder, height: 1),
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1755,7 +1755,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                     color: _alpineBlue.withValues(alpha: 0.9),
                   ),
                   const SizedBox(width: 4),
-                  const Text(
+                  Text(
                     'Verified PDF',
                     style: TextStyle(
                       color: _alpineBlue,
@@ -1790,7 +1790,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         const SizedBox(height: 4),
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 14,
             fontWeight: FontWeight.w500,
@@ -1945,7 +1945,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 children: [
                   Text(
                     _currentDoc.linkedRecordTitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -1985,7 +1985,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
       ),
       child: Text(
         _currentDoc.notes,
-        style: const TextStyle(
+        style: TextStyle(
           color: _offWhite,
           fontSize: 13.5,
           height: 1.5,
@@ -2102,7 +2102,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                     doc.headerTitle,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 10.5,
                       fontWeight: FontWeight.w600,

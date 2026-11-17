@@ -381,7 +381,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Select Country',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -391,7 +391,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close,
+                      icon: Icon(Icons.close,
                         color: AppColors.secondaryTextStoneGrey,
                       ),
                       onPressed: () => Navigator.pop(ctx),
@@ -404,7 +404,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                     shrinkWrap: true,
                     itemCount: _countries.length,
                     separatorBuilder: (_, index) =>
-                        const Divider(color: AppColors.cardBorder, height: 1),
+                        Divider(color: AppColors.cardBorder, height: 1),
                     itemBuilder: (context, i) {
                       final country = _countries[i];
                       final isSelected = country == _selectedCountry;
@@ -424,7 +424,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                           ),
                         ),
                         trailing: isSelected
-                            ? const UlvenikIcon(UlvenikIcons.completed,
+                            ? UlvenikIcon(UlvenikIcons.completed,
                                 color: AppColors.primaryForestGreen,
                                 size: 20,
                               )
@@ -472,7 +472,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Change Client Photo',
                   style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
@@ -483,10 +483,10 @@ class _EditClientScreenState extends State<EditClientScreen> {
                 ),
                 const SizedBox(height: 20),
                 ListTile(
-                  leading: const Icon(Icons.camera_alt_outlined,
+                  leading: Icon(Icons.camera_alt_outlined,
                     color: AppColors.primaryForestGreen,
                   ),
-                  title: const Text(
+                  title: Text(
                     'Take Photo',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -501,10 +501,10 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.photo_library_outlined,
+                  leading: Icon(Icons.photo_library_outlined,
                     color: AppColors.infoAlpineBlue,
                   ),
-                  title: const Text(
+                  title: Text(
                     'Choose from Gallery',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -519,10 +519,10 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.delete_outline,
+                  leading: Icon(Icons.delete_outline,
                     color: AppColors.errorDestructive,
                   ),
-                  title: const Text(
+                  title: Text(
                     'Remove Photo',
                     style: TextStyle(
                       color: AppColors.errorDestructive,
@@ -547,7 +547,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
   void _onSavePressed() {
     if (_firstNameCtrl.text.trim().isEmpty || _lastNameCtrl.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           backgroundColor: AppColors.errorDestructive,
           content: Text('Please enter first and last name.'),
         ),
@@ -594,7 +594,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
           backgroundColor: AppColors.cardsCarbon,
           content: Text(
             'Client profile for "$_clientFullName" updated successfully.',
-            style: const TextStyle(color: AppColors.primaryTextOffWhite),
+            style: TextStyle(color: AppColors.primaryTextOffWhite),
           ),
         ),
       );
@@ -611,7 +611,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Text(
+          title: Text(
             'Discard Changes?',
             style: TextStyle(
               color: AppColors.primaryTextOffWhite,
@@ -619,7 +619,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
               fontFamily: 'Inter',
             ),
           ),
-          content: const Text(
+          content: Text(
             'Any unsaved modifications to this client profile will be lost.',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -630,7 +630,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text(
+              child: Text(
                 'Keep Editing',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey),
               ),
@@ -661,7 +661,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
         elevation: 0,
         leading: TextButton(
           onPressed: _onCancelPressed,
-          child: const Text(
+          child: Text(
             'Cancel',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -673,7 +673,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
         ),
         leadingWidth: 80,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Edit Client',
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,
@@ -686,7 +686,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
           TextButton(
             onPressed: _isSaving ? null : _onSavePressed,
             child: _isSaving
-                ? const SizedBox(
+                ? SizedBox(
                     width: 18,
                     height: 18,
                     child: CircularProgressIndicator(
@@ -694,7 +694,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       color: AppColors.primaryForestGreen,
                     ),
                   )
-                : const Text(
+                : Text(
                     'Save',
                     style: TextStyle(
                       color: AppColors.primaryForestGreen,
@@ -731,7 +731,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                         child: Center(
                           child: Text(
                             _clientInitials,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
                               fontSize: 26,
                               fontWeight: FontWeight.w700,
@@ -756,7 +756,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                                 width: 1.5,
                               ),
                             ),
-                            child: const Icon(Icons.camera_alt_rounded,
+                            child: Icon(Icons.camera_alt_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 15,
                             ),
@@ -768,7 +768,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   const SizedBox(height: 12),
                   Text(
                     _clientFullName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -792,7 +792,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                         Container(
                           width: 6,
                           height: 6,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             color: AppColors.primaryForestGreen,
                             shape: BoxShape.circle,
                           ),
@@ -800,7 +800,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                         const SizedBox(width: 6),
                         Text(
                           '${_status.label} CLIENT',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryForestGreen,
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
@@ -833,13 +833,13 @@ class _EditClientScreenState extends State<EditClientScreen> {
                     icon: Icons.person_outline_rounded,
                     onChanged: (_) => setState(() {}),
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 20),
+                  Divider(color: AppColors.cardBorder, height: 20),
                   _buildInputField(
                     label: 'Last Name *',
                     controller: _lastNameCtrl,
                     onChanged: (_) => setState(() {}),
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 20),
+                  Divider(color: AppColors.cardBorder, height: 20),
                   _buildInputField(
                     label: 'Preferred Name (optional)',
                     controller: _preferredNameCtrl,
@@ -867,7 +867,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                     icon: Icons.mail_outline_rounded,
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 20),
+                  Divider(color: AppColors.cardBorder, height: 20),
                   _buildInputField(
                     label: 'Mobile Number',
                     controller: _mobileCtrl,
@@ -877,7 +877,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                     icon: Icons.phone_outlined,
                     keyboardType: TextInputType.phone,
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 20),
+                  Divider(color: AppColors.cardBorder, height: 20),
                   _buildInputField(
                     label: 'Alternative Number (optional)',
                     controller: _altNumberCtrl,
@@ -910,12 +910,12 @@ class _EditClientScreenState extends State<EditClientScreen> {
                     label: 'Address Line 1',
                     controller: _addr1Ctrl,
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 20),
+                  Divider(color: AppColors.cardBorder, height: 20),
                   _buildInputField(
                     label: 'Address Line 2 (optional)',
                     controller: _addr2Ctrl,
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 20),
+                  Divider(color: AppColors.cardBorder, height: 20),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -934,7 +934,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       ),
                     ],
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 20),
+                  Divider(color: AppColors.cardBorder, height: 20),
                   InkWell(
                     onTap: _showCountryPicker,
                     borderRadius: BorderRadius.circular(8),
@@ -946,7 +946,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Country',
                                 style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
@@ -957,7 +957,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                               const SizedBox(height: 4),
                               Text(
                                 _selectedCountry,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
@@ -966,7 +966,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                               ),
                             ],
                           ),
-                          const UlvenikIcon(UlvenikIcons.details,
+                          UlvenikIcon(UlvenikIcons.details,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 20,
                           ),
@@ -998,7 +998,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   TextField(
                     controller: _notesCtrl,
                     maxLines: 4,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 14,
                       height: 1.45,
@@ -1010,7 +1010,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  const Text(
+                  Text(
                     'These notes are only visible to you. The client cannot see them.',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -1026,7 +1026,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: AppColors.cardBorder),
                     ),
-                    child: const Row(
+                    child: Row(
                       children: [
                         Icon(Icons.info_outline_rounded,
                           color: AppColors.infoAlpineBlue,
@@ -1116,7 +1116,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                     }).toList(),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
+                  Text(
                     'Changes take effect immediately after saving.',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -1154,7 +1154,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       });
                     },
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 1),
+                  Divider(color: AppColors.cardBorder, height: 1),
                   _buildToggleRow(
                     title: 'Add Training Sessions',
                     value: _permAddTraining,
@@ -1166,7 +1166,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       });
                     },
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 1),
+                  Divider(color: AppColors.cardBorder, height: 1),
                   _buildToggleRow(
                     title: 'Edit Training Sessions',
                     subtitle: 'Allows modifying existing session records',
@@ -1179,7 +1179,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       });
                     },
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 1),
+                  Divider(color: AppColors.cardBorder, height: 1),
                   _buildToggleRow(
                     title: 'View Health',
                     value: _permViewHealth,
@@ -1191,7 +1191,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       });
                     },
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 1),
+                  Divider(color: AppColors.cardBorder, height: 1),
                   _buildToggleRow(
                     title: 'Edit Health',
                     subtitle: 'Allows editing health records',
@@ -1204,7 +1204,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       });
                     },
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 1),
+                  Divider(color: AppColors.cardBorder, height: 1),
                   _buildToggleRow(
                     title: 'Create Goals',
                     value: _permCreateGoals,
@@ -1216,7 +1216,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       });
                     },
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 1),
+                  Divider(color: AppColors.cardBorder, height: 1),
                   _buildToggleRow(
                     title: 'Upload Videos',
                     value: _permUploadVideos,
@@ -1228,7 +1228,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       });
                     },
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 1),
+                  Divider(color: AppColors.cardBorder, height: 1),
                   _buildToggleRow(
                     title: 'View Reports',
                     value: _permViewReports,
@@ -1240,7 +1240,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                       });
                     },
                   ),
-                  const Divider(color: AppColors.cardBorder, height: 1),
+                  Divider(color: AppColors.cardBorder, height: 1),
                   _buildToggleRow(
                     title: 'Export Reports',
                     value: _permExportReports,
@@ -1320,7 +1320,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   const SizedBox(height: 12),
                   Text(
                     _status.description,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                       fontFamily: 'Inter',
@@ -1368,7 +1368,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
             Center(
               child: TextButton(
                 onPressed: _onCancelPressed,
-                child: const Text(
+                child: Text(
                   'Cancel',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -1397,7 +1397,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryForestGreen,
               fontSize: 12,
               fontWeight: FontWeight.w700,
@@ -1409,7 +1409,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
             const SizedBox(height: 2),
             Text(
               subtitle,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 12,
                 fontFamily: 'Inter',
@@ -1430,7 +1430,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryForestGreen,
               fontSize: 12,
               fontWeight: FontWeight.w700,
@@ -1445,7 +1445,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
               const SizedBox(width: 4),
               Text(
                 badgeText,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 11,
                   fontFamily: 'Inter',
@@ -1478,7 +1478,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
             ],
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -1492,7 +1492,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
           controller: controller,
           keyboardType: keyboardType,
           onChanged: onChanged,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.primaryTextOffWhite,
             fontSize: 15,
             fontWeight: FontWeight.w500,
@@ -1509,7 +1509,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
               fontFamily: 'Inter',
             ),
             helperText: helperText,
-            helperStyle: const TextStyle(
+            helperStyle: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 11,
               fontFamily: 'Inter',
@@ -1541,7 +1541,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -1552,7 +1552,7 @@ class _EditClientScreenState extends State<EditClientScreen> {
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 11,
                       fontFamily: 'Inter',

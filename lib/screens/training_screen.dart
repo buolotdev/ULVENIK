@@ -1233,17 +1233,17 @@ class _TrainingScreenState extends State<TrainingScreen> {
             shrinkWrap: true,
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
             children: [
-              const Text('Choose a Draft',
+              Text('Choose a Draft',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               for (final d in drafts)
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const UlvenikIcon(UlvenikIcons.play, size: 22, color: AppColors.secondarySage),
-                  title: Text(d.title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                  leading: UlvenikIcon(UlvenikIcons.play, size: 22, color: AppColors.secondarySage),
+                  title: Text(d.title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
                   subtitle: Text('${d.dogName} · ${_cardMeta(d).split(' · ').skip(1).take(2).join(' · ')}',
-                      style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
-                  trailing: const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+                      style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  trailing: UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
                   onTap: () {
                     Navigator.pop(ctx);
                     _openDraft(d);
@@ -1265,13 +1265,13 @@ class _TrainingScreenState extends State<TrainingScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Select Time Period',
+            Text('Select Time Period',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             for (final p in _TrainingPeriod.values)
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(_periodLabel(p), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
+                title: Text(_periodLabel(p), style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
                 trailing: _period == p ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                 onTap: () {
                   setState(() => _period = p);
@@ -1370,12 +1370,12 @@ class _TrainingScreenState extends State<TrainingScreen> {
             child: GestureDetector(
               onDoubleTap: () => setState(() => _hasData = !_hasData),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
-                const Text('Training Sessions',
+                Text('Training Sessions',
                     style: TextStyle(
                         color: AppColors.primaryTextOffWhite, fontSize: 28, fontWeight: FontWeight.w700, letterSpacing: -0.5)),
                 const SizedBox(height: 2),
                 Text(_selectedFilter == 'All Dogs' ? 'Across all dogs' : _selectedFilter,
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 15)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 15)),
               ]),
             ),
           ),
@@ -1389,14 +1389,14 @@ class _TrainingScreenState extends State<TrainingScreen> {
       height: 48,
       child: TextField(
         controller: _searchController,
-        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
         decoration: InputDecoration(
           hintText: 'Search sessions, dogs or skills...',
-          hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14.5),
+          hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14.5),
           filled: true,
           fillColor: AppColors.cardsCarbon,
           contentPadding: EdgeInsets.zero,
-          prefixIcon: const Padding(
+          prefixIcon: Padding(
             padding: EdgeInsets.symmetric(horizontal: 14),
             child: UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
           ),
@@ -1405,13 +1405,13 @@ class _TrainingScreenState extends State<TrainingScreen> {
               ? null
               : IconButton(
                   tooltip: 'Clear search',
-                  icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                  icon: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                   onPressed: _searchController.clear,
                 ),
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Colors.white12)),
+              borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: AppColors.cardBorder)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+              borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: AppColors.primaryForestGreen)),
         ),
       ),
     );
@@ -1437,15 +1437,15 @@ class _TrainingScreenState extends State<TrainingScreen> {
             border: Border.all(color: isLifetime ? Colors.white12 : AppColors.primaryForestGreen),
           ),
           child: Row(mainAxisSize: MainAxisSize.min, children: [
-            const UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
+            UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(width: 6),
             Text('Date Range · ${_periodLabel(_period)}',
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
             if (!isLifetime)
               InkWell(
                 customBorder: const CircleBorder(),
                 onTap: () => setState(() => _period = _TrainingPeriod.lifetime),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(4),
                   child: Icon(Icons.close, size: 15, color: AppColors.secondaryTextStoneGrey),
                 ),
@@ -1458,7 +1458,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   Widget _buildSessionListHeader() {
     return Row(children: [
-      const Expanded(
+      Expanded(
         child: Text('Recent Sessions',
             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w600)),
       ),
@@ -1467,10 +1467,10 @@ class _TrainingScreenState extends State<TrainingScreen> {
         icon: AnimatedRotation(
           turns: _sortNewest ? 0 : 0.5,
           duration: const Duration(milliseconds: 250),
-          child: const UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
+          child: UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
         ),
         label: Text(_sortNewest ? 'Newest First' : 'Oldest First',
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
       ),
     ]);
   }
@@ -1480,7 +1480,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 36),
         child: Column(children: [
-          const Text('No sessions match your search or filters.',
+          Text('No sessions match your search or filters.',
               textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
           const SizedBox(height: 8),
           TextButton(
@@ -1489,7 +1489,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
               _period = _TrainingPeriod.lifetime;
               _searchController.clear();
             }),
-            child: const Text('Clear Filters', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            child: Text('Clear Filters', style: TextStyle(color: AppColors.primaryTextOffWhite)),
           ),
         ]),
       );
@@ -1510,12 +1510,12 @@ class _TrainingScreenState extends State<TrainingScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 40),
       child: Column(children: [
-        const UlvenikIcon(UlvenikIcons.training, size: 36, color: AppColors.secondarySage),
+        UlvenikIcon(UlvenikIcons.training, size: 36, color: AppColors.secondarySage),
         const SizedBox(height: 16),
-        const Text('No sessions yet',
+        Text('No sessions yet',
             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         const SizedBox(height: 8),
-        const Text("Record your first session to start building your dog's training history.",
+        Text("Record your first session to start building your dog's training history.",
             textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.5)),
       ]),
     );
@@ -1550,7 +1550,7 @@ class _ActionRow extends StatelessWidget {
             Flexible(
               child: Text(label,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 17, fontWeight: FontWeight.w600)),
             ),
           ]),
         ),
@@ -1602,17 +1602,17 @@ class _SessionCard extends StatelessWidget {
           onTap: onTap,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: Colors.white12)),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.cardBorder)),
             child: Row(children: [
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(title,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15.5, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15.5, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 4),
-                  Text(meta, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                  Text(meta, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                 ]),
               ),
-              const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+              UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
             ]),
           ),
         ),
@@ -1732,7 +1732,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
           decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           padding: EdgeInsets.only(
             top: 12,
@@ -1757,7 +1757,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'New Training Session',
                   style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
@@ -1766,7 +1766,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'Select the dog for this session',
                   style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey, fontSize: 14),
@@ -1822,7 +1822,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                             children: [
                               Text(
                                 dog['name'] as String,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
@@ -1830,7 +1830,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                               ),
                               Text(
                                 dog['breed'] as String,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
                                   fontSize: 12,
                                 ),
@@ -1839,7 +1839,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                           ),
                           const Spacer(),
                           if (isSelected)
-                            const UlvenikIcon(UlvenikIcons.completed,
+                            UlvenikIcon(UlvenikIcons.completed,
                                 color: AppColors.primaryForestGreen, size: 20),
                         ],
                       ),
@@ -1886,7 +1886,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                       backgroundColor: AppColors.primaryForestGreen,
                       disabledBackgroundColor:
                           AppColors.primaryForestGreen.withValues(alpha: 0.3),
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12)),

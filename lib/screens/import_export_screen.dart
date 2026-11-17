@@ -381,7 +381,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               const SizedBox(height: 16),
 
-              const Text(
+              Text(
 
                 'Select Canine Athlete',
 
@@ -527,7 +527,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                                 '${dog.breed}, ${dog.age}',
 
-                                style: const TextStyle(
+                                style: TextStyle(
 
                                   color: AppColors.secondaryTextStoneGrey,
 
@@ -621,7 +621,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               const SizedBox(height: 16),
 
-              const Row(
+              Row(
 
                 children: [
 
@@ -651,7 +651,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               const SizedBox(height: 6),
 
-              const Text(
+              Text(
 
                 'Supported file formats: .CSV (Spreadsheets), .JSON (Data exports), and .ULV encrypted backup archives.',
 
@@ -781,7 +781,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                     title,
 
-                    style: const TextStyle(
+                    style: TextStyle(
 
                       color: AppColors.primaryTextOffWhite,
 
@@ -797,7 +797,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                     desc,
 
-                    style: const TextStyle(
+                    style: TextStyle(
 
                       color: AppColors.secondaryTextStoneGrey,
 
@@ -813,7 +813,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
             ),
 
-            const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 18),
+            UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 18),
 
           ],
 
@@ -861,13 +861,13 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                 'Parsing $filename...',
 
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600),
 
               ),
 
               const SizedBox(height: 6),
 
-              const Text(
+              Text(
 
                 'Validating cryptographic integrity & dog profile compatibility...',
 
@@ -1027,7 +1027,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                     'Export ${_dog.name}\'s Records',
 
-                    style: const TextStyle(
+                    style: TextStyle(
 
                       color: AppColors.primaryTextOffWhite,
 
@@ -1091,9 +1091,9 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                       children: [
 
-                        const Text('Total Selected Records:', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                        Text('Total Selected Records:', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
 
-                        Text('$count entries', style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+                        Text('$count entries', style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
 
                       ],
 
@@ -1107,7 +1107,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                       children: [
 
-                        const Text('Estimated File Size:', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                        Text('Estimated File Size:', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
 
                         Text(
 
@@ -1123,7 +1123,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                     const SizedBox(height: 6),
 
-                    const Row(
+                    Row(
 
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -1235,7 +1235,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               const SizedBox(height: 20),
 
-              const Text(
+              Text(
 
                 'Creating Encrypted Backup...',
 
@@ -1251,7 +1251,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                 textAlign: TextAlign.center,
 
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
 
               ),
 
@@ -1369,7 +1369,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               const SizedBox(height: 16),
 
-              const Text(
+              Text(
 
                 'Restore Backup Archive',
 
@@ -1387,7 +1387,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               const SizedBox(height: 6),
 
-              const Text(
+              Text(
 
                 'Select a verified cryptographic snapshot to restore state:',
 
@@ -1495,7 +1495,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                   title,
 
-                  style: const TextStyle(
+                  style: TextStyle(
 
                     color: AppColors.primaryTextOffWhite,
 
@@ -1511,7 +1511,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                   '$size • $date',
 
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
 
                 ),
 
@@ -1565,7 +1565,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
 
-        title: const Row(
+        title: Row(
 
           children: [
 
@@ -1583,7 +1583,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
           'Restoring this backup ($label) will replace $dogName\'s current health records with the data saved in this backup file.\n\nAny records added or modified since this backup was created will be permanently overwritten.\n\nAre you sure you want to proceed with restoring this backup?',
 
-          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.45),
+          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.45),
 
         ),
 
@@ -1593,7 +1593,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
             onPressed: () => Navigator.pop(diagCtx),
 
-            child: const Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
 
           ),
 
@@ -1651,7 +1651,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
 
-        title: const Row(
+        title: Row(
 
           children: [
 
@@ -1665,7 +1665,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
         ),
 
-        content: const Text(
+        content: Text(
 
           'Your canine records, vet discharge notes, surgical histories, and biometric charts are encrypted locally on your device with AES-256 before any backup is generated.\n\nOnly your device holds the private keys, ensuring complete privacy from third parties while allowing seamless exports to certified veterinary clinics.',
 
@@ -1765,13 +1765,13 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
       leading: IconButton(
 
-        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+        icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
 
         onPressed: () => Navigator.of(context).maybePop(),
 
       ),
 
-      title: const Text(
+      title: Text(
 
         'IMPORT & EXPORT',
 
@@ -1823,7 +1823,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
           tooltip: 'Health Settings',
 
-          icon: const Icon(Icons.settings_outlined, color: AppColors.secondaryTextStoneGrey),
+          icon: Icon(Icons.settings_outlined, color: AppColors.secondaryTextStoneGrey),
 
           onPressed: () => Navigator.push(
 
@@ -1925,7 +1925,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                       _dog.name,
 
-                      style: const TextStyle(
+                      style: TextStyle(
 
                         color: AppColors.primaryTextOffWhite,
 
@@ -1943,7 +1943,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                       _isEmpty ? 'Selected Profile' : '${_dog.breed}, ${_dog.age}',
 
-                      style: const TextStyle(
+                      style: TextStyle(
 
                         color: AppColors.secondaryTextStoneGrey,
 
@@ -2231,7 +2231,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
         title,
 
-        style: const TextStyle(
+        style: TextStyle(
 
           color: AppColors.secondaryTextStoneGrey,
 
@@ -2315,7 +2315,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
             title,
 
-            style: const TextStyle(
+            style: TextStyle(
 
               color: AppColors.primaryTextOffWhite,
 
@@ -2333,7 +2333,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
             RichText(
 
-              text: const TextSpan(
+              text: TextSpan(
 
                 text: 'Last backup: ',
 
@@ -2361,7 +2361,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               subtitle,
 
-              style: const TextStyle(
+              style: TextStyle(
 
                 color: AppColors.secondaryTextStoneGrey,
 
@@ -2481,7 +2481,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                   crossAxisAlignment: CrossAxisAlignment.start,
 
-                  children: const [
+                  children: [
 
                     Text(
 
@@ -2607,7 +2607,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                         getTooltipColor: (_) => const Color(0xFF272B29),
 
-                        tooltipBorder: const BorderSide(color: Colors.white12),
+                        tooltipBorder: BorderSide(color: AppColors.cardBorder),
 
                         getTooltipItems: (touchedSpots) {
 
@@ -2627,7 +2627,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                                   text: '${point.sizeMb} MB (${point.recordCount} records)',
 
-                                  style: const TextStyle(
+                                  style: TextStyle(
 
                                     color: AppColors.primaryTextOffWhite,
 
@@ -2709,7 +2709,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                             '${val.toStringAsFixed(1)}M',
 
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10),
 
                           ),
 
@@ -2885,7 +2885,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               _lastBackupDate,
 
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
 
             ),
 
@@ -2907,7 +2907,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               '${_backupSizeMb.toStringAsFixed(1)} MB',
 
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
 
             ),
 
@@ -2979,7 +2979,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                 label,
 
-                style: const TextStyle(
+                style: TextStyle(
 
                   color: AppColors.secondaryTextStoneGrey,
 
@@ -3063,7 +3063,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                     ),
 
-                    child: const Column(
+                    child: Column(
 
                       crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -3127,11 +3127,11 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                     children: [
 
-                      const UlvenikIcon(UlvenikIcons.history, color: AppColors.secondaryTextStoneGrey, size: 22),
+                      UlvenikIcon(UlvenikIcons.history, color: AppColors.secondaryTextStoneGrey, size: 22),
 
                       const SizedBox(height: 8),
 
-                      const Text(
+                      Text(
 
                         'Restore Backup',
 
@@ -3141,7 +3141,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                       const SizedBox(height: 2),
 
-                      const Text(
+                      Text(
 
                         'No backups available',
 
@@ -3241,7 +3241,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                 children: [
 
-                  const Text('Encryption', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                  Text('Encryption', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
 
                   Row(
 
@@ -3293,7 +3293,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
             ),
 
-            child: const Icon(Icons.cloud_off_outlined, color: AppColors.secondaryTextStoneGrey, size: 36),
+            child: Icon(Icons.cloud_off_outlined, color: AppColors.secondaryTextStoneGrey, size: 36),
 
           ),
 
@@ -3301,7 +3301,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
         const SizedBox(height: 18),
 
-        const Text(
+        Text(
 
           'No Backup Available',
 
@@ -3331,7 +3331,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
             textAlign: TextAlign.center,
 
-            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.45),
+            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.45),
 
           ),
 
@@ -3387,7 +3387,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               onTap: _triggerBackupNow,
 
-              child: const Center(
+              child: Center(
 
                 child: Text(
 
@@ -3803,7 +3803,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
               onTap: _triggerExport,
 
-              child: const Center(
+              child: Center(
 
                 child: Text(
 
@@ -3847,9 +3847,9 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
       children: [
 
-        Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+        Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
 
-        Text(value, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
+        Text(value, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13)),
 
       ],
 
@@ -3893,7 +3893,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                 title,
 
-                style: const TextStyle(
+                style: TextStyle(
 
                   color: AppColors.primaryTextOffWhite,
 

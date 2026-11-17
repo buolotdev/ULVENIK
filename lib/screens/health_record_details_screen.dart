@@ -36,7 +36,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       builder: (dialogCtx) => AlertDialog(
         backgroundColor: AppColors.cardsCarbon,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text(
+        title: Text(
           'Delete Record?',
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,
@@ -48,7 +48,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
           _activeType == 'medication'
               ? 'Are you sure you want to delete this medication record? All doses, reminders and history will be permanently deleted.'
               : 'Are you sure you want to delete this health record? All updates and timeline history will be permanently deleted.',
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 13,
             height: 1.4,
@@ -57,7 +57,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogCtx).pop(),
-            child: const Text(
+            child: Text(
               'Cancel',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey),
             ),
@@ -91,10 +91,10 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
         backgroundColor: AppColors.backgroundObsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
+          icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
+        title: Text(
           'Health Record',
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,
@@ -105,7 +105,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
         centerTitle: true,
         actions: [
           PopupMenuButton<String>(
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey),
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondaryTextStoneGrey),
             color: AppColors.cardsCarbon,
             onSelected: (val) {
               if (val == 'switch') {
@@ -123,7 +123,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 value: 'switch',
                 child: Text(
                   isMed ? 'View Injury Record (Image 4)' : 'View Medication Record (Image 5)',
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
                 ),
               ),
               const PopupMenuItem(
@@ -206,7 +206,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 11,
           fontWeight: FontWeight.w700,
@@ -226,7 +226,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -235,7 +235,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
                   UlvenikIcon(UlvenikIcons.health, color: AppColors.secondaryTextStoneGrey, size: 16),
                   SizedBox(width: 6),
@@ -285,7 +285,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'Left Paw Laceration',
             style: TextStyle(
               color: AppColors.primaryTextOffWhite,
@@ -294,7 +294,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             ),
           ),
           const SizedBox(height: 8),
-          const Row(
+          Row(
             children: [
               UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 14),
               SizedBox(width: 4),
@@ -312,7 +312,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'Last updated today',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -321,7 +321,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -363,7 +363,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -373,25 +373,25 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             title: 'Affected Area',
             value: 'Left front paw',
           ),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           _buildInfoRow(
             icon: Icons.warning_amber_rounded,
             title: 'Severity',
             value: 'Moderate',
           ),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const UlvenikIcon(UlvenikIcons.training, color: AppColors.secondaryTextStoneGrey, size: 20),
+                UlvenikIcon(UlvenikIcons.training, color: AppColors.secondaryTextStoneGrey, size: 20),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Symptoms',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500),
                       ),
@@ -411,14 +411,14 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
               ],
             ),
           ),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           _buildInfoRow(
             icon: Icons.monitor_heart_outlined,
             title: 'Recovery Status',
             value: 'Ongoing - Week 2',
           ),
-          const Divider(color: Colors.white12, height: 1),
-          const Padding(
+          Divider(color: AppColors.cardBorder, height: 1),
+          Padding(
             padding: EdgeInsets.all(16),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -452,10 +452,10 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: const Text(
+      child: Text(
         'Koda caught paw on fence post during agility run. Cleaned with saline and applied sterile bandage. Keeping him off it for 3 days minimum. Monitored for signs of infection. Swelling seems to be going down today.',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -471,7 +471,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -483,10 +483,10 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
               color: Color(0xFF1d201f),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.photo_camera_outlined, color: AppColors.secondaryTextStoneGrey),
+            child: Icon(Icons.photo_camera_outlined, color: AppColors.secondaryTextStoneGrey),
           ),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'No Attachments',
             style: TextStyle(
               color: AppColors.primaryTextOffWhite,
@@ -495,7 +495,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             ),
           ),
           const SizedBox(height: 4),
-          const Text(
+          Text(
             'No photos, videos or documents\nlinked to this record.',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -528,7 +528,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
@@ -573,7 +573,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -582,7 +582,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
                   UlvenikIcon(UlvenikIcons.health, color: AppColors.secondaryTextStoneGrey, size: 16),
                   SizedBox(width: 6),
@@ -632,7 +632,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'Metacam 1.5mg — Daily',
             style: TextStyle(
               color: AppColors.primaryTextOffWhite,
@@ -641,7 +641,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             ),
           ),
           const SizedBox(height: 8),
-          const Row(
+          Row(
             children: [
               UlvenikIcon(UlvenikIcons.calendar, color: AppColors.secondaryTextStoneGrey, size: 14),
               SizedBox(width: 4),
@@ -659,7 +659,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             ],
           ),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'Last updated 3 days ago',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -668,7 +668,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -713,7 +713,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -723,37 +723,37 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             title: 'Medication Name',
             value: 'Metacam',
           ),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           _buildInfoRow(
             icon: Icons.science_outlined,
             title: 'Dosage',
             value: '1.5mg',
           ),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           _buildInfoRow(
             icon: Icons.repeat_outlined,
             title: 'Frequency',
             value: 'Once daily',
           ),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           _buildInfoRow(
             icon: Icons.event_available_outlined,
             title: 'Start Date',
             value: '01 Feb 2025',
           ),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           _buildInfoRow(
             icon: Icons.event_busy_outlined,
             title: 'End Date',
             value: endDateDisplay,
           ),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           _buildInfoRow(
             icon: Icons.person_outline,
             title: 'Veterinarian',
             value: 'Dr. Sarah Holt',
           ),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           _buildInfoRow(
             icon: Icons.info_outline,
             title: 'Instructions',
@@ -769,10 +769,10 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: const Text(
+      child: Text(
         'Started Metacam following soft tissue inflammation diagnosis in left shoulder. Dog is responding well, showing increased mobility after 2 days of treatment. Will monitor for any gastrointestinal side effects.',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -788,7 +788,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -805,7 +805,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 ),
               ),
               const SizedBox(width: 12),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -841,7 +841,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -857,7 +857,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 ),
               ),
               const SizedBox(width: 12),
-              const Text(
+              Text(
                 'Medication Review',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
               ),
@@ -875,7 +875,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 ),
               ),
               const SizedBox(width: 12),
-              const Text(
+              Text(
                 'Follow-up Vet Appointment',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
               ),
@@ -891,7 +891,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
@@ -930,7 +930,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -940,7 +940,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Left Shoulder Inflammation',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
                 ),
@@ -948,10 +948,10 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: AppColors.backgroundObsidian,
-                    border: Border.all(color: Colors.white12),
+                    border: Border.all(color: AppColors.cardBorder),
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Injury',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
                   ),
@@ -959,13 +959,13 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
               ],
             ),
           ),
-          const Divider(color: Colors.white12, height: 1),
+          Divider(color: AppColors.cardBorder, height: 1),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Shoulder Assessment',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500),
                 ),
@@ -973,10 +973,10 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: AppColors.backgroundObsidian,
-                    border: Border.all(color: Colors.white12),
+                    border: Border.all(color: AppColors.cardBorder),
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Vet Visit',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
                   ),
@@ -1042,12 +1042,12 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
             children: [
               Text(
                 title,
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),
               Text(
                 value,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
               ),
             ],
           ),
@@ -1061,12 +1061,12 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
         label,
-        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12),
+        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12),
       ),
     );
   }
@@ -1123,7 +1123,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 14,
                     ),
@@ -1131,7 +1131,7 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                   const SizedBox(height: 2),
                   Text(
                     time,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),

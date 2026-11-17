@@ -30,14 +30,14 @@ Widget _selector(String value, VoidCallback onTap) => OutlinedButton(
       onPressed: onTap,
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.primaryTextOffWhite,
-        side: const BorderSide(color: Colors.white12),
+        side: BorderSide(color: AppColors.cardBorder),
         backgroundColor: AppColors.cardsCarbon,
         alignment: Alignment.centerLeft,
         minimumSize: const Size(double.infinity, 46),
       ),
       child: Row(children: [
         Expanded(child: Text(value)),
-        const Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey),
+        Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey),
       ]),
     );
 
@@ -57,14 +57,14 @@ Future<void> _exportChoice(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(
-            title: const Text('PDF Document', style: TextStyle(color: AppColors.primaryTextOffWhite)),
-            subtitle: const Text('A formatted summary for reading, printing and sharing',
+            title: Text('PDF Document', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            subtitle: Text('A formatted summary for reading, printing and sharing',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             onTap: () => Navigator.pop(ctx, true),
           ),
           ListTile(
-            title: const Text('CSV Spreadsheet', style: TextStyle(color: AppColors.primaryTextOffWhite)),
-            subtitle: const Text('Figures for Excel or Google Sheets',
+            title: Text('CSV Spreadsheet', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            subtitle: Text('Figures for Excel or Google Sheets',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             onTap: () => Navigator.pop(ctx, false),
           ),
@@ -156,10 +156,10 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen> {
       body = Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         HealthCard(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Total Recorded Events', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+            Text('Total Recorded Events', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             const SizedBox(height: 6),
             Text('${ev.length}',
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 30, fontWeight: FontWeight.w700)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 30, fontWeight: FontWeight.w700)),
           ]),
         ),
         const SizedBox(height: 18),
@@ -172,8 +172,8 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen> {
               child: Row(children: [
                 Icon(timelineCategoryIcon(c), size: 20, color: AppColors.secondarySage),
                 const SizedBox(width: 12),
-                Expanded(child: Text(c, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15))),
-                Text('${cats[c]}', style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                Expanded(child: Text(c, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15))),
+                Text('${cats[c]}', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
               ]),
             ),
           ),
@@ -202,7 +202,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen> {
                       reservedSize: 28,
                       interval: maxV > 6 ? (maxV / 4).ceilToDouble() : 1,
                       getTitlesWidget: (v, m) => v == v.roundToDouble()
-                          ? Text('${v.round()}', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10))
+                          ? Text('${v.round()}', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10))
                           : const SizedBox.shrink(),
                     ),
                   ),
@@ -216,7 +216,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen> {
                         if (i < 0 || i >= b.length) return const SizedBox.shrink();
                         return Padding(
                           padding: const EdgeInsets.only(top: 6),
-                          child: Text(b[i].$1, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
+                          child: Text(b[i].$1, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10)),
                         );
                       },
                     ),
@@ -231,7 +231,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen> {
                   touchTooltipData: BarTouchTooltipData(
                     getTooltipColor: (_) => AppColors.backgroundObsidian,
                     getTooltipItem: (g, gi, r, ri) => BarTooltipItem('${b[gi].$2}\n${b[gi].$3}',
-                        const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
+                        TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12, fontWeight: FontWeight.w600)),
                   ),
                 ),
                 barGroups: [
@@ -250,7 +250,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 8, left: 8),
                 child: Text('${b[_selected!].$2}: ${b[_selected!].$3} ${b[_selected!].$3 == 1 ? 'event' : 'events'}',
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
               ),
           ]),
         ),
@@ -261,7 +261,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen> {
       title: 'Statistics',
       bottom: ev.isEmpty
           ? Text(everything.isEmpty ? '' : 'No records to export.',
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5))
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5))
           : PrimaryButton(
               label: 'Export Statistics',
               onPressed: () => _exportChoice(
@@ -290,7 +290,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen> {
             },
           ),
           const SizedBox(height: 10),
-          const Text('This shows what you recorded, not a measure of training progress.',
+          Text('This shows what you recorded, not a measure of training progress.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4)),
           const SizedBox(height: 12),
           _selector(_period.label, () async {
@@ -368,7 +368,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen> {
                   ]),
                   Padding(
                     padding: const EdgeInsets.only(top: 6),
-                    child: Text('${_days(r)} days', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                    child: Text('${_days(r)} days', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                   ),
                 ],
               );
@@ -377,7 +377,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen> {
             child: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
-                const Text('Compare Dates',
+                Text('Compare Dates',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 10),
                 Wrap(spacing: 8, runSpacing: 8, children: [
@@ -388,8 +388,8 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen> {
                       b = (DateTime(n.year, n.month - 2), DateTime(n.year, n.month - 1, 0));
                     }),
                     backgroundColor: AppColors.backgroundObsidian,
-                    side: const BorderSide(color: Colors.white12),
-                    labelStyle: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5),
+                    side: BorderSide(color: AppColors.cardBorder),
+                    labelStyle: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5),
                   ),
                   ActionChip(
                     label: const Text('Last Week vs Previous Week'),
@@ -399,19 +399,19 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen> {
                       b = (monday.subtract(const Duration(days: 14)), monday.subtract(const Duration(days: 8)));
                     }),
                     backgroundColor: AppColors.backgroundObsidian,
-                    side: const BorderSide(color: Colors.white12),
-                    labelStyle: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5),
+                    side: BorderSide(color: AppColors.cardBorder),
+                    labelStyle: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5),
                   ),
                 ]),
                 range('First Date Range', a, (r) => a = r),
                 range('Second Date Range', b, (r) => b = r),
                 if (overlap)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: Text('These ranges overlap.', style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5)),
                   ),
                 if (_days(a) != _days(b))
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 4),
                     child: Text('The ranges are different lengths.', style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5)),
                   ),
@@ -427,7 +427,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen> {
                       onPressed: () => Navigator.pop(ctx),
                       style: OutlinedButton.styleFrom(
                           foregroundColor: AppColors.primaryTextOffWhite,
-                          side: const BorderSide(color: Colors.white24),
+                          side: BorderSide(color: AppColors.cardBorder),
                           minimumSize: const Size(0, 50)),
                       child: const Text('Cancel'),
                     ),
@@ -479,12 +479,12 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen> {
           child: HealthCard(
             onTap: _changeDates,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+              Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
               const SizedBox(height: 4),
-              Text(_range(r), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
-              Text('${_days(r)} days', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+              Text(_range(r), style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+              Text('${_days(r)} days', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
               const SizedBox(height: 6),
-              const Text('Change dates', style: TextStyle(color: AppColors.primaryForestGreen, fontSize: 12.5, fontWeight: FontWeight.w600)),
+              Text('Change dates', style: TextStyle(color: AppColors.primaryForestGreen, fontSize: 12.5, fontWeight: FontWeight.w600)),
             ]),
           ),
         );
@@ -529,21 +529,21 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(h,
                         textAlign: TextAlign.right,
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11.5)),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11.5)),
                   ),
               ]),
               for (final r in rows)
                 TableRow(children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 9),
-                    child: Text(r.$1, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5)),
+                    child: Text(r.$1, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5)),
                   ),
                   for (final v in ['${r.$2}', '${r.$3}', diff(r.$2 - r.$3)])
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 9),
                       child: Text(v,
                           textAlign: TextAlign.right,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5, fontWeight: FontWeight.w600)),
                     ),
                 ]),
             ],
@@ -581,9 +581,9 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen> {
             },
           ),
           const SizedBox(height: 14),
-          const Text('Recorded Activity Comparison',
+          Text('Recorded Activity Comparison',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
-          const Text('Compare what you recorded in two periods.',
+          Text('Compare what you recorded in two periods.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
           const SizedBox(height: 12),
           Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -600,7 +600,7 @@ class _TimelineCompareScreenState extends State<TimelineCompareScreen> {
                 _a = _b;
                 _b = t;
               }),
-              child: const Text('Swap Dates', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
+              child: Text('Swap Dates', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
             ),
           ),
           _selector(_category, () async {
@@ -661,7 +661,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
         onTap: () => openEvent(context, e),
         trailing: IconButton(
           tooltip: 'Share This Memory',
-          icon: const Icon(Icons.ios_share, size: 20, color: AppColors.secondaryTextStoneGrey),
+          icon: Icon(Icons.ios_share, size: 20, color: AppColors.secondaryTextStoneGrey),
           onPressed: () => showMemoryCard(context, e, ago),
         ),
       );
@@ -688,7 +688,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               },
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white12),
+                  side: BorderSide(color: AppColors.cardBorder),
                   backgroundColor: AppColors.cardsCarbon,
                   minimumSize: const Size(0, 46)),
               child: Text(_category, overflow: TextOverflow.ellipsis),
@@ -706,18 +706,18 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
                       child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        const Text('Browse Memories by Year',
+                        Text('Browse Memories by Year',
                             style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                         ListTile(
                           contentPadding: EdgeInsets.zero,
-                          title: const Text('All Years', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                          title: Text('All Years', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                           trailing: _year == null ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                           onTap: () => Navigator.pop(ctx, 0),
                         ),
                         for (final y in years)
                           ListTile(
                             contentPadding: EdgeInsets.zero,
-                            title: Text('$y', style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                            title: Text('$y', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                             trailing: _year == y ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                             onTap: () => Navigator.pop(ctx, y),
                           ),
@@ -729,7 +729,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               },
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white12),
+                  side: BorderSide(color: AppColors.cardBorder),
                   backgroundColor: AppColors.cardsCarbon,
                   minimumSize: const Size(0, 46)),
               child: Text(_year == null ? 'All Years' : '$_year'),
@@ -826,12 +826,12 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Add Record',
+            Text('Add Record',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             for (final t in ['Training Session', 'S&C Session', 'Health Record', 'Milestone', 'Competition'])
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(t, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text(t, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () => Navigator.pop(ctx, t),
               ),
           ]),
@@ -877,8 +877,8 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen> {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text('${d.day}', style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5)),
-              Text(n == 0 ? ' ' : '$n', style: const TextStyle(color: AppColors.secondarySage, fontSize: 11, fontWeight: FontWeight.w700)),
+              Text('${d.day}', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13.5)),
+              Text(n == 0 ? ' ' : '$n', style: TextStyle(color: AppColors.secondarySage, fontSize: 11, fontWeight: FontWeight.w700)),
             ]),
           ),
         ),
@@ -898,7 +898,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen> {
       actions: [
         IconButton(
           tooltip: 'Search',
-          icon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite),
+          icon: UlvenikIcon(UlvenikIcons.search, color: AppColors.primaryTextOffWhite),
           onPressed: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => TimelineCalendarSearchScreen(dog: _dog, category: _category)),
@@ -928,7 +928,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen> {
               onPressed: () => setState(() => _selected = today),
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   minimumSize: const Size(0, 46)),
               child: const Text('Today'),
             ),
@@ -939,17 +939,17 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen> {
           Row(children: [
             IconButton(
               tooltip: 'Previous',
-              icon: const Icon(Icons.chevron_left, color: AppColors.secondaryTextStoneGrey),
+              icon: Icon(Icons.chevron_left, color: AppColors.secondaryTextStoneGrey),
               onPressed: () => _shift(-1),
             ),
             Expanded(
               child: Text(heading,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
             ),
             IconButton(
               tooltip: 'Next',
-              icon: const Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
+              icon: Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey),
               onPressed: () => _shift(1),
             ),
           ]),
@@ -961,7 +961,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen> {
               childAspectRatio: 0.95,
               children: [
                 for (final d in ['M', 'T', 'W', 'T', 'F', 'S', 'S'])
-                  Center(child: Text(d, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11))),
+                  Center(child: Text(d, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11))),
                 for (var i = 0; i < first.weekday - 1; i++) const SizedBox.shrink(),
                 for (var d = 1; d <= daysInMonth; d++) dayCell(DateTime(_selected.year, _selected.month, d)),
               ],
@@ -977,7 +977,7 @@ class _TimelineCalendarScreenState extends State<TimelineCalendarScreen> {
               alignment: Alignment.centerLeft,
               child: TextButton(
                 onPressed: () => setState(() => _view = 'Day'),
-                child: const Text('View Day', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
+                child: Text('View Day', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
               ),
             ),
           if (dayEvents.isEmpty)
@@ -1066,13 +1066,13 @@ class _TimelineCalendarSearchScreenState extends State<TimelineCalendarSearchScr
           autofocus: true,
           textInputAction: TextInputAction.search,
           onSubmitted: _submit,
-          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15),
+          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15),
           decoration: healthDecoration('Search records...').copyWith(
             suffixIcon: _ctrl.text.isEmpty
                 ? null
                 : IconButton(
                     tooltip: 'Clear',
-                    icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                    icon: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                     onPressed: _ctrl.clear,
                   ),
           ),
@@ -1088,27 +1088,27 @@ class _TimelineCalendarSearchScreenState extends State<TimelineCalendarSearchScr
           }),
           const SizedBox(height: 14),
           if (q.isEmpty) ...[
-            const Text('Search your dog’s records by title, notes or attachment name.',
+            Text('Search your dog’s records by title, notes or attachment name.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
             if (_recents.isNotEmpty) ...[
               const SizedBox(height: 16),
               Row(children: [
-                const Expanded(
+                Expanded(
                   child: Text('Recent',
                       style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                 ),
                 TextButton(
                   onPressed: () => setState(_recents.clear),
-                  child: const Text('Clear All', style: TextStyle(color: AppColors.primaryForestGreen)),
+                  child: Text('Clear All', style: TextStyle(color: AppColors.primaryForestGreen)),
                 ),
               ]),
               for (final r in _recents)
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text(r, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                  title: Text(r, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                   trailing: IconButton(
                     tooltip: 'Remove',
-                    icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                    icon: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                     onPressed: () => setState(() => _recents.remove(r)),
                   ),
                   onTap: () => _ctrl.text = r,
@@ -1118,16 +1118,16 @@ class _TimelineCalendarSearchScreenState extends State<TimelineCalendarSearchScr
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),
               child: Column(children: [
-                const Text('No Matching Records',
+                Text('No Matching Records',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 4),
-                const Text('Try another search term, or change the query or scope.',
+                Text('Try another search term, or change the query or scope.',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
                 if (_category != kAllCategories)
                   TextButton(
                     onPressed: () => setState(() => _category = kAllCategories),
-                    child: const Text('Clear Category Filter',
+                    child: Text('Clear Category Filter',
                         style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                   ),
               ]),
@@ -1162,7 +1162,7 @@ Future<void> showMemoryCard(BuildContext context, TimelineEvent e, int yearsAgo)
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text('Save Memory Card',
+          Text('Save Memory Card',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           const SizedBox(height: 12),
           RepaintBoundary(
@@ -1177,22 +1177,22 @@ Future<void> showMemoryCard(BuildContext context, TimelineEvent e, int yearsAgo)
               ),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(yearsAgo == 1 ? '1 year ago' : '$yearsAgo years ago',
-                    style: const TextStyle(color: AppColors.secondarySage, fontSize: 13, fontWeight: FontWeight.w700)),
+                    style: TextStyle(color: AppColors.secondarySage, fontSize: 13, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 10),
                 Text(e.title,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 6),
                 Text('${e.dog} · ${fmtDate(e.at)}',
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
                 if (e.notes.trim().isNotEmpty) ...[
                   const SizedBox(height: 12),
                   Text(e.notes.trim(),
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, height: 1.4)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, height: 1.4)),
                 ],
                 const SizedBox(height: 18),
-                const Text('Ulvenik',
+                Text('Ulvenik',
                     style: TextStyle(color: AppColors.secondarySage, fontSize: 14, fontWeight: FontWeight.w700, letterSpacing: 1)),
               ]),
             ),

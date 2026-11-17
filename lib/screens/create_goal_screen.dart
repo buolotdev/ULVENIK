@@ -129,7 +129,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
       lastDate: DateTime(now.year + 10),
       builder: (ctx, child) => Theme(
         data: Theme.of(ctx).copyWith(
-          colorScheme: const ColorScheme.dark(
+          colorScheme: ColorScheme.dark(
             primary: AppColors.primaryForestGreen,
             surface: AppColors.cardsCarbon,
             onSurface: AppColors.primaryTextOffWhite,
@@ -169,17 +169,17 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text('Link records for ${_dog.name}',
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                       const SizedBox(height: 4),
-                      const Text('Linking alone does not add progress. Only qualifying recorded sessions count.',
+                      Text('Linking alone does not add progress. Only qualifying recorded sessions count.',
                           style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                       const SizedBox(height: 12),
                       TextField(
                         onChanged: (v) => setSheet(() => query = v),
-                        style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                        style: TextStyle(color: AppColors.primaryTextOffWhite),
                         decoration: InputDecoration(
                           hintText: 'Search your records',
-                          prefixIcon: const Padding(
+                          prefixIcon: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 12),
                             child: UlvenikIcon(UlvenikIcons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
                           ),
@@ -201,7 +201,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                             Padding(
                               padding: const EdgeInsets.only(top: 12, bottom: 2),
                               child: Text(entry.key,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
                             ),
                             for (final r in entry.value.where((r) => q.isEmpty || r.toLowerCase().contains(q)))
@@ -209,7 +209,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                                 contentPadding: EdgeInsets.zero,
                                 activeColor: AppColors.primaryForestGreen,
                                 value: draft.contains('$r (${_singular(entry.key)})'),
-                                title: Text(r, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                                title: Text(r, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                                 onChanged: (v) => setSheet(() {
                                   final key = '$r (${_singular(entry.key)})';
                                   v == true ? draft.add(key) : draft.remove(key);
@@ -218,8 +218,8 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                           ],
                         TextButton.icon(
                           onPressed: () => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const AddSkillScreen())),
-                          icon: const UlvenikIcon(UlvenikIcons.add, size: 18, color: AppColors.primaryTextOffWhite),
-                          label: const Text('Create a new skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                          icon: UlvenikIcon(UlvenikIcons.add, size: 18, color: AppColors.primaryTextOffWhite),
+                          label: Text('Create a new skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         ),
                         const SizedBox(height: 12),
                       ],
@@ -240,7 +240,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryForestGreen,
-                          foregroundColor: AppColors.primaryTextOffWhite,
+                          foregroundColor: AppColors.onForestGreen,
                           elevation: 0,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
@@ -322,11 +322,11 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
         centerTitle: true,
         leading: IconButton(
           tooltip: 'Back',
-          icon: const UlvenikIcon(UlvenikIcons.back, size: 22, color: AppColors.primaryTextOffWhite),
+          icon: UlvenikIcon(UlvenikIcons.back, size: 22, color: AppColors.primaryTextOffWhite),
           onPressed: () => Navigator.maybePop(context),
         ),
         title: Text(_isEdit ? 'Edit Goal' : 'Create Goal',
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
@@ -343,7 +343,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.white12),
+                  border: Border.all(color: AppColors.cardBorder),
                 ),
                 child: Row(children: [
                   DogSquarePhoto(dog: _dog, size: 40),
@@ -351,12 +351,12 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(_dog.name,
-                          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                       Text(_dog.isClient ? 'Client Dog' : 'My Dog',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                     ]),
                   ),
-                  if (!_isEdit) const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+                  if (!_isEdit) Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
                 ]),
               ),
             ),
@@ -402,7 +402,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
             ]),
             const SizedBox(height: 12),
             if (_openEnded)
-              const Text('No numerical target. Add progress notes and mark the goal complete when you decide.',
+              Text('No numerical target. Add progress notes and mark the goal complete when you decide.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4))
             else ...[
               Wrap(spacing: 8, runSpacing: 8, children: [
@@ -428,9 +428,9 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
               Wrap(spacing: 8, runSpacing: 8, children: [
                 for (final r in _linked)
                   InputChip(
-                    label: Text(r, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                    label: Text(r, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                     backgroundColor: AppColors.backgroundObsidian,
-                    side: const BorderSide(color: Colors.white24),
+                    side: BorderSide(color: AppColors.cardBorder),
                     deleteIconColor: AppColors.secondaryTextStoneGrey,
                     onDeleted: () => setState(() => _linked.remove(r)),
                   ),
@@ -443,7 +443,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                 onPressed: _openLinkRecords,
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
                 child: Text(_linked.isEmpty ? 'Link a Record' : 'Edit linked records'),
@@ -468,25 +468,25 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                   ? null
                   : IconButton(
                       tooltip: 'Clear due date',
-                      icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                      icon: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                       onPressed: () => setState(() {
                         _dueDate = null;
                         _reminder = false;
                       }),
                     ),
             ),
-            const Divider(color: Colors.white12, height: 1),
+            Divider(color: AppColors.cardBorder, height: 1),
             Row(children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(vertical: 14),
                 child: UlvenikIcon(UlvenikIcons.notifications, size: 20, color: AppColors.secondaryTextStoneGrey),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  const Text('Reminder', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
+                  Text('Reminder', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14)),
                   if (_dueDate == null)
-                    const Text('Set a due date to add a reminder.',
+                    Text('Set a due date to add a reminder.',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                 ]),
               ),
@@ -520,7 +520,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
               onPressed: _canSave ? _save : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryForestGreen,
-                foregroundColor: AppColors.primaryTextOffWhite,
+                foregroundColor: AppColors.onForestGreen,
                 disabledBackgroundColor: AppColors.primaryForestGreen.withValues(alpha: 0.35),
                 disabledForegroundColor: AppColors.primaryTextOffWhite.withValues(alpha: 0.6),
                 elevation: 0,
@@ -545,11 +545,11 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
             borderRadius: BorderRadius.circular(14),
           ),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            Text(label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
+            Text(label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
             child,
           ]),
@@ -561,7 +561,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
         maxLines: maxLines,
         minLines: 1,
         keyboardType: keyboard,
-        style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15),
+        style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15),
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.7)),
@@ -570,7 +570,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
           contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+              borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: AppColors.primaryForestGreen)),
         ),
       );
 }
@@ -640,9 +640,9 @@ class _RadioRow extends StatelessWidget {
           child: Row(children: [
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, fontWeight: FontWeight.w600)),
+                Text(title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 2),
-                Text(subtitle, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, height: 1.35)),
+                Text(subtitle, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5, height: 1.35)),
               ]),
             ),
             const SizedBox(width: 8),
@@ -672,9 +672,9 @@ class _SettingRow extends StatelessWidget {
         child: Row(children: [
           UlvenikIcon(icon, size: 20, color: AppColors.secondaryTextStoneGrey),
           const SizedBox(width: 12),
-          Expanded(child: Text(label, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14))),
-          Text(value, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
-          trailing ?? const SizedBox(width: 48, height: 48, child: Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey)),
+          Expanded(child: Text(label, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14))),
+          Text(value, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+          trailing ?? SizedBox(width: 48, height: 48, child: Icon(Icons.chevron_right, color: AppColors.secondaryTextStoneGrey)),
         ]),
       ),
     );

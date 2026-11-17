@@ -71,9 +71,9 @@ class _SCSessionsHistoryScreenState extends State<SCSessionsHistoryScreen> {
               children: [
                 TextField(
                   controller: _search,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                   decoration: healthDecoration('Search sessions...').copyWith(
-                    prefixIcon: const Padding(
+                    prefixIcon: Padding(
                       padding: EdgeInsets.all(12),
                       child: UlvenikIcon(UlvenikIcons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
                     ),
@@ -95,10 +95,10 @@ class _SCSessionsHistoryScreenState extends State<SCSessionsHistoryScreen> {
                         border: Border.all(color: _period == 'Lifetime' ? Colors.white12 : AppColors.primaryForestGreen),
                       ),
                       child: Row(mainAxisSize: MainAxisSize.min, children: [
-                        const UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
+                        UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
                         const SizedBox(width: 6),
                         Text('Date Range · $_period',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
                       ]),
                     ),
@@ -108,15 +108,15 @@ class _SCSessionsHistoryScreenState extends State<SCSessionsHistoryScreen> {
                     icon: AnimatedRotation(
                       turns: _newest ? 0 : 0.5,
                       duration: const Duration(milliseconds: 250),
-                      child: const UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
+                      child: UlvenikIcon(UlvenikIcons.sort, size: 16, color: AppColors.secondaryTextStoneGrey),
                     ),
                     label: Text(_newest ? 'Newest First' : 'Oldest First',
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
                   ),
                 ]),
                 const SizedBox(height: 8),
                 if (list.isEmpty)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 32),
                     child: Center(
                       child: Text('No sessions match your search or date range.',
@@ -134,16 +134,16 @@ class _SCSessionsHistoryScreenState extends State<SCSessionsHistoryScreen> {
                       Expanded(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                           Text(s.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 3),
                           Text(
                             fmtDate(s.at) + (s.durationMinutes == null ? '' : ' · ${scDuration(s.durationMinutes!)}'),
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
                           ),
                         ]),
                       ),
-                      const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                      UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                     ]),
                   ),
                   const SizedBox(height: 10),

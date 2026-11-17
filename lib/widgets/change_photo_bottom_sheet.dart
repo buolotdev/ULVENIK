@@ -134,7 +134,7 @@ class ChangePhotoBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
         border: Border(
@@ -159,7 +159,7 @@ class ChangePhotoBottomSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 18),
-              const Text(
+              Text(
                 'Profile Photo',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -173,7 +173,7 @@ class ChangePhotoBottomSheet extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 hasActivePhoto ? 'CURRENT ACTIVE' : 'NO PHOTO SET',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -257,7 +257,7 @@ class ChangePhotoBottomSheet extends StatelessWidget {
                   : Center(
                       child: Text(
                         initials,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 20,
                           fontWeight: FontWeight.w500,

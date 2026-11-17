@@ -20,24 +20,24 @@ Widget _cardFor(BuildContext context, Competition c, VoidCallback onTap, {Widget
     child: HealthCard(
       onTap: onTap,
       child: Row(children: [
-        const UlvenikIcon(UlvenikIcons.completed, size: 22, color: AppColors.secondarySage),
+        UlvenikIcon(UlvenikIcons.completed, size: 22, color: AppColors.secondarySage),
         const SizedBox(width: 14),
         Expanded(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(c.name,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15.5, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15.5, fontWeight: FontWeight.w600)),
             const SizedBox(height: 2),
             Text(parts.join(' · '),
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             if (history && outcome.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 3),
                 child: Text(outcome,
-                    style: const TextStyle(color: AppColors.secondarySage, fontSize: 12.5, fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: AppColors.secondarySage, fontSize: 12.5, fontWeight: FontWeight.w600)),
               ),
           ]),
         ),
-        trailing ?? const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+        trailing ?? UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
       ]),
     ),
   );
@@ -75,7 +75,7 @@ class CompetitionsScreen extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'More',
-              icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
               onPressed: () => showModalBottomSheet<void>(
                 context: context,
                 backgroundColor: AppColors.cardsCarbon,
@@ -85,7 +85,7 @@ class CompetitionsScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
-                        title: const Text('Archived Competitions', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text('Archived Competitions', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           Navigator.push(
@@ -170,7 +170,7 @@ class ArchivedCompetitionsScreen extends StatelessWidget {
                             store.touch();
                             AppSnackbar.show(context, message: 'Competition restored', type: SnackbarType.success);
                           },
-                          child: const Text('Restore',
+                          child: Text('Restore',
                               style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                         ),
                       ),
@@ -201,9 +201,9 @@ class CompetitionDetailsScreen extends StatelessWidget {
             : Padding(
                 padding: const EdgeInsets.only(bottom: 14),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(k, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  Text(k, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                   const SizedBox(height: 3),
-                  Text(v, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, height: 1.4)),
+                  Text(v, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, height: 1.4)),
                 ]),
               );
 
@@ -212,7 +212,7 @@ class CompetitionDetailsScreen extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'More',
-              icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
               onPressed: () => showModalBottomSheet<void>(
                 context: context,
                 backgroundColor: AppColors.cardsCarbon,
@@ -222,8 +222,8 @@ class CompetitionDetailsScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
-                        leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
-                        title: const Text('Edit Competition', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        leading: UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
+                        title: Text('Edit Competition', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           Navigator.push(
@@ -233,7 +233,7 @@ class CompetitionDetailsScreen extends StatelessWidget {
                         },
                       ),
                       ListTile(
-                        title: const Text('Archive Competition', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text('Archive Competition', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           c.archived = true;
@@ -267,15 +267,15 @@ class CompetitionDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
             children: [
               Text(c.name,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 24, fontWeight: FontWeight.w700)),
               if (c.needsReview) ...[
                 const SizedBox(height: 14),
                 HealthCard(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    const Text('Did this competition take place?',
+                    Text('Did this competition take place?',
                         style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                     const SizedBox(height: 4),
-                    const Text('The date has passed, but it is still marked Upcoming.',
+                    Text('The date has passed, but it is still marked Upcoming.',
                         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                     const SizedBox(height: 10),
                     Wrap(spacing: 8, children: [
@@ -288,8 +288,8 @@ class CompetitionDetailsScreen extends StatelessWidget {
                             store.touch();
                           },
                           backgroundColor: AppColors.backgroundObsidian,
-                          side: const BorderSide(color: Colors.white12),
-                          labelStyle: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
+                          side: BorderSide(color: AppColors.cardBorder),
+                          labelStyle: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13),
                         ),
                     ]),
                   ]),
@@ -436,7 +436,7 @@ class _CompetitionFormScreenState extends State<CompetitionFormScreen> {
           onChanged: (_) => error == null ? null : setState(() {
             _nameError = null;
           }),
-          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
           decoration: healthDecoration(hint, error: error),
         ),
       ]);
@@ -460,7 +460,7 @@ class _CompetitionFormScreenState extends State<CompetitionFormScreen> {
                   context, MaterialPageRoute(builder: (_) => SportFormScreen(dogName: widget.dogName))),
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   minimumSize: const Size(0, 46)),
               child: const Text('Add Sport'),
             )
@@ -497,7 +497,7 @@ class _CompetitionFormScreenState extends State<CompetitionFormScreen> {
             }),
           ),
           if (_status != 'Upcoming')
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(top: 6),
               child: Text('Reminders are only kept for upcoming competitions.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
@@ -517,7 +517,7 @@ class _CompetitionFormScreenState extends State<CompetitionFormScreen> {
                 Expanded(
                   child: TextField(
                     controller: _custom[i].label,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                     decoration: healthDecoration('Label'),
                   ),
                 ),
@@ -525,13 +525,13 @@ class _CompetitionFormScreenState extends State<CompetitionFormScreen> {
                 Expanded(
                   child: TextField(
                     controller: _custom[i].value,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                     decoration: healthDecoration('Result'),
                   ),
                 ),
                 IconButton(
                   tooltip: 'Remove',
-                  icon: const Icon(Icons.close, size: 20, color: AppColors.secondaryTextStoneGrey),
+                  icon: Icon(Icons.close, size: 20, color: AppColors.secondaryTextStoneGrey),
                   onPressed: () => setState(() {
                     final r = _custom.removeAt(i);
                     r.label.dispose();
@@ -548,7 +548,7 @@ class _CompetitionFormScreenState extends State<CompetitionFormScreen> {
               label: const Text('Add Result Field'),
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   minimumSize: const Size(0, 44)),
             ),
           ),
@@ -562,7 +562,7 @@ class _CompetitionFormScreenState extends State<CompetitionFormScreen> {
               label: const Text('Add File'),
               style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   minimumSize: const Size(0, 44)),
             ),
           ),
@@ -572,9 +572,9 @@ class _CompetitionFormScreenState extends State<CompetitionFormScreen> {
               child: Wrap(spacing: 8, runSpacing: 6, children: [
                 for (final n in _files)
                   InputChip(
-                    label: Text(n, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                    label: Text(n, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                     backgroundColor: AppColors.cardsCarbon,
-                    side: const BorderSide(color: Colors.white12),
+                    side: BorderSide(color: AppColors.cardBorder),
                     deleteIconColor: AppColors.secondaryTextStoneGrey,
                     onDeleted: () => setState(() => _files = [..._files]..remove(n)),
                   ),
@@ -585,8 +585,8 @@ class _CompetitionFormScreenState extends State<CompetitionFormScreen> {
             SwitchListTile(
               contentPadding: EdgeInsets.zero,
               activeThumbColor: AppColors.primaryForestGreen,
-              title: const Text('Reminder', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
-              subtitle: const Text('Device alerts need notification permission and are optional.',
+              title: Text('Reminder', style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+              subtitle: Text('Device alerts need notification permission and are optional.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               value: _remind,
               onChanged: (v) => setState(() => _remind = v),

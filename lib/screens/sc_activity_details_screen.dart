@@ -25,10 +25,10 @@ class SCActivityDetailsScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Text('Archive Activity?',
+            Text('Archive Activity?',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'This activity will be removed from your active library. Your session history, measurements and statistics will be preserved, and you can restore it at any time.',
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4),
@@ -41,8 +41,8 @@ class SCActivityDetailsScreen extends StatelessWidget {
               child: OutlinedButton(
                 onPressed: () => Navigator.pop(ctx, false),
                 style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14), side: const BorderSide(color: Colors.white12)),
-                child: const Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                    padding: const EdgeInsets.symmetric(vertical: 14), side: BorderSide(color: AppColors.cardBorder)),
+                child: Text('Cancel', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               ),
             ),
           ]),
@@ -81,7 +81,7 @@ class SCActivityDetailsScreen extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'More',
-              icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
               onPressed: () => showModalBottomSheet<void>(
                 context: context,
                 backgroundColor: AppColors.cardsCarbon,
@@ -91,8 +91,8 @@ class SCActivityDetailsScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       ListTile(
-                        leading: const UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
-                        title: const Text('Edit Activity', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        leading: UlvenikIcon(UlvenikIcons.edit, color: AppColors.primaryTextOffWhite),
+                        title: Text('Edit Activity', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           Navigator.push(
@@ -102,7 +102,7 @@ class SCActivityDetailsScreen extends StatelessWidget {
                         },
                       ),
                       ListTile(
-                        title: const Text('Archive Activity', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text('Archive Activity', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           _archive(context, a);
@@ -126,11 +126,11 @@ class SCActivityDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
             children: [
               Text(a.name,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 26, fontWeight: FontWeight.w700)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 26, fontWeight: FontWeight.w700)),
               if (a.description.trim().isNotEmpty) ...[
                 const SizedBox(height: 8),
                 Text(a.description,
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
               ],
               if (a.measures.isNotEmpty) ...[
                 const SizedBox(height: 14),
@@ -142,11 +142,11 @@ class SCActivityDetailsScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: AppColors.cardsCarbon,
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Colors.white12),
+                          border: Border.all(color: AppColors.cardBorder),
                         ),
                         child: Text(
                           (a.units[m] ?? '').isEmpty ? m.label : '${m.label} (${a.units[m]})',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
                         ),
                       ),
                 ]),
@@ -179,11 +179,11 @@ class SCActivityDetailsScreen extends StatelessWidget {
                       Expanded(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                           Text(s.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 2),
                           Text(fmtDate(s.at),
-                              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                           Builder(builder: (_) {
                             final e = s.entries.firstWhere((x) => x.activityId == a.id);
                             if (e.values.isEmpty) return const SizedBox.shrink();
@@ -194,13 +194,13 @@ class SCActivityDetailsScreen extends StatelessWidget {
                                   for (final m in SCMeasure.values)
                                     if (e.values.containsKey(m)) '${m.label}: ${scFormatValue(e.values[m]!)}',
                                 ].join(' · '),
-                                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
+                                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5),
                               ),
                             );
                           }),
                         ]),
                       ),
-                      const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                      UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                     ]),
                   ),
                   const SizedBox(height: 10),

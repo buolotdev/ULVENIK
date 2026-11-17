@@ -656,7 +656,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'SELECT ACTIVE DOG',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -711,7 +711,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                                 children: [
                                   Text(
                                     dog.name,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: AppColors.primaryTextOffWhite,
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
@@ -721,7 +721,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                                   const SizedBox(height: 2),
                                   Text(
                                     '${dog.breed} · ${dog.totalSports} sports',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: AppColors.secondaryTextStoneGrey,
                                       fontSize: 12.5,
                                       fontFamily: 'Inter',
@@ -775,7 +775,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'SPORT PACK ACTIONS',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -891,7 +891,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 14.5,
                         fontWeight: FontWeight.w600,
@@ -901,7 +901,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                     const SizedBox(height: 2),
                     Text(
                       subtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 12,
                         fontFamily: 'Inter',
@@ -910,7 +910,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 20,
               ),
@@ -972,7 +972,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                         children: [
                           Text(
                             item.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.primaryTextOffWhite,
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -984,7 +984,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                             children: [
                               Text(
                                 '${item.kind}  ·  ',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
                                   fontSize: 13,
                                   fontFamily: 'Inter',
@@ -993,7 +993,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                               _buildSportPill(item.sportTag),
                               Text(
                                 '  ·  ${item.date}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
                                   fontSize: 13,
                                   fontFamily: 'Inter',
@@ -1021,7 +1021,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                       if (item.organisation != null) ...[
                         Text(
                           'Awarding Body: ${item.organisation}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 13.5,
                             fontWeight: FontWeight.w600,
@@ -1032,7 +1032,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                       ],
                       Text(
                         item.scoreSummary,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 13,
                           height: 1.4,
@@ -1049,7 +1049,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -1108,13 +1108,13 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                               color: AppColors.primaryForestGreen.withValues(alpha: 0.3),
                             ),
                           ),
-                          child: const Icon(Icons.emoji_events_outlined,
+                          child: Icon(Icons.emoji_events_outlined,
                             size: 32,
                             color: AppColors.primaryForestGreen,
                           ),
                         ),
                         const SizedBox(height: 20),
-                        const Text(
+                        Text(
                           'Sport Pack Required',
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -1124,7 +1124,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Text(
+                        Text(
                           'This area is available exclusively to Sport Pack subscribers. Manage competition entries, trials, sport skills, qualifications, and performance metrics.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -1145,7 +1145,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primaryForestGreen,
-                            foregroundColor: AppColors.primaryTextOffWhite,
+                            foregroundColor: AppColors.onForestGreen,
                             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -1203,7 +1203,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
       bottomNavigationBar: const UlvenikBottomNav(activeTab: UlvenikNavTab.dogs),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryForestGreen,
-        foregroundColor: AppColors.primaryTextOffWhite,
+        foregroundColor: AppColors.onForestGreen,
         elevation: 4,
         shape: const CircleBorder(),
         onPressed: _openQuickActionsMenu,
@@ -1313,7 +1313,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
     return Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -1327,14 +1327,14 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                 Navigator.of(context).pop();
               }
             },
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: AppColors.secondaryTextStoneGrey,
               size: 22,
             ),
             tooltip: 'Back',
           ),
           const SizedBox(width: 36),
-          const Expanded(
+          Expanded(
             child: Center(
               child: Text(
                 'Sport',
@@ -1375,7 +1375,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                 ),
               );
             },
-            icon: const UlvenikIcon(UlvenikIcons.add,
+            icon: UlvenikIcon(UlvenikIcons.add,
               color: AppColors.secondaryTextStoneGrey,
               size: 24,
             ),
@@ -1389,7 +1389,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
   Widget _buildSearchField() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -1399,19 +1399,19 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
         controller: _searchController,
         autofocus: true,
         onChanged: (v) => setState(() => _query = v),
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.primaryTextOffWhite,
           fontSize: 14,
           fontFamily: 'Inter',
         ),
         decoration: InputDecoration(
           hintText: 'Filter sports, trials, qualifications...',
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 13.5,
             fontFamily: 'Inter',
           ),
-          prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+          prefixIcon: UlvenikIcon(UlvenikIcons.search,
             color: AppColors.secondaryTextStoneGrey,
             size: 19,
           ),
@@ -1424,11 +1424,11 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.cardBorder),
+            borderSide: BorderSide(color: AppColors.cardBorder),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+            borderSide: BorderSide(color: AppColors.primaryForestGreen),
           ),
         ),
       ),
@@ -1438,7 +1438,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
   Widget _buildSectionLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.secondaryTextStoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -1466,7 +1466,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
               children: [
                 Text(
                   actionText,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.infoAlpineBlue,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -1474,7 +1474,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ),
                 ),
                 const SizedBox(width: 2),
-                const UlvenikIcon(UlvenikIcons.details,
+                UlvenikIcon(UlvenikIcons.details,
                   color: AppColors.infoAlpineBlue,
                   size: 16,
                 ),
@@ -1501,7 +1501,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
       alignment: Alignment.center,
       child: Text(
         name.substring(0, 1).toUpperCase(),
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 15,
           fontWeight: FontWeight.w600,
@@ -1534,7 +1534,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   children: [
                     Text(
                       dog.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -1544,7 +1544,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                     const SizedBox(height: 2),
                     Text(
                       dog.breed,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 13,
                         fontFamily: 'Inter',
@@ -1553,7 +1553,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 22,
               ),
@@ -1704,7 +1704,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
           children: [
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -1714,7 +1714,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
             const SizedBox(height: 4),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
                 fontSize: 12.5,
                 height: 1.3,
@@ -1736,7 +1736,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
       ),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.infoAlpineBlue,
           fontSize: 11.5,
           fontWeight: FontWeight.w600,
@@ -1774,7 +1774,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   Expanded(
                     child: Text(
                       sport.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
@@ -1784,7 +1784,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ),
                   _buildSportPill(sport.tag),
                   const SizedBox(width: 8),
-                  const UlvenikIcon(UlvenikIcons.details,
+                  UlvenikIcon(UlvenikIcons.details,
                     color: AppColors.secondaryTextStoneGrey,
                     size: 20,
                   ),
@@ -1793,7 +1793,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
               const SizedBox(height: 4),
               Text(
                 sport.organisation,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13,
                   fontFamily: 'Inter',
@@ -1802,7 +1802,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
               const SizedBox(height: 10),
               Text(
                 '${sport.skillsCount} Skills  ·  ${sport.sessionsCount} Sessions  ·  ${sport.competitionsCount} Competitions  ·\nLast: ${sport.lastTrained}',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 12.8,
                   height: 1.45,
@@ -1815,14 +1815,14 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    const UlvenikIcon(UlvenikIcons.calendar,
+                    UlvenikIcon(UlvenikIcons.calendar,
                       size: 13.5,
                       color: AppColors.secondaryTextStoneGrey,
                     ),
                     const SizedBox(width: 7),
                     Text(
                       'Next: ${sport.nextCompetitionDate}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 12.5,
                         fontFamily: 'Inter',
@@ -1877,7 +1877,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                             children: [
                               Text(
                                 comp.title,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 15.5,
                                   fontWeight: FontWeight.w600,
@@ -1893,7 +1893,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                                   _buildSportPill(comp.sportTag),
                                   Text(
                                     '${comp.date}  ·  ${comp.location}',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: AppColors.secondaryTextStoneGrey,
                                       fontSize: 12.8,
                                       fontFamily: 'Inter',
@@ -1917,7 +1917,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                           ),
                           child: Text(
                             comp.status,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 11.5,
                               fontWeight: FontWeight.w500,
@@ -1926,7 +1926,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                           ),
                         ),
                         const SizedBox(width: 6),
-                        const UlvenikIcon(UlvenikIcons.details,
+                        UlvenikIcon(UlvenikIcons.details,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 20,
                         ),
@@ -1982,7 +1982,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                           item.title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 13.8,
                             fontWeight: FontWeight.w500,
@@ -1995,7 +1995,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                       const SizedBox(width: 8),
                       Text(
                         item.timeAgo,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 12,
                           fontFamily: 'Inter',
@@ -2052,7 +2052,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   children: [
                     Text(
                       qual.title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 15.5,
                         fontWeight: FontWeight.w700,
@@ -2067,7 +2067,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                       children: [
                         Text(
                           '${qual.kind}  ·',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 12.5,
                             fontFamily: 'Inter',
@@ -2078,7 +2078,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                           qual.organisation != null
                               ? '·  ${qual.date}  ·  ${qual.organisation}'
                               : '·  ${qual.date}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 12.5,
                             fontFamily: 'Inter',
@@ -2089,7 +2089,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 20,
               ),
@@ -2112,7 +2112,7 @@ class _SportPackOverviewScreenState extends State<SportPackOverviewScreen>
       ),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 13,
           fontFamily: 'Inter',

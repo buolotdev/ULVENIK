@@ -193,11 +193,11 @@ class _RegisterScreenState extends State<RegisterScreen>
       fillColor: AppColors.cardsCarbon,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.white12),
+        borderSide: BorderSide(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(12),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+        borderSide: BorderSide(color: AppColors.primaryForestGreen),
         borderRadius: BorderRadius.circular(12),
       ),
     );
@@ -245,7 +245,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                             shape: BoxShape.circle,
                           ),
                           alignment: Alignment.center,
-                          child: const UlvenikIcon(UlvenikIcons.back,
+                          child: UlvenikIcon(UlvenikIcons.back,
                             color: AppColors.secondaryTextStoneGrey,
                             size: 20,
                           ),
@@ -294,7 +294,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                               Text(
                                 'Start building your training journey.',
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
                                   fontSize: 15,
                                 ),
@@ -314,7 +314,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                               // Full Name
                               TextFormField(
                                 controller: _nameController,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 15,
                                 ),
@@ -326,7 +326,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                               TextFormField(
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 15,
                                 ),
@@ -339,7 +339,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 controller: _passwordController,
                                 focusNode: _passwordFocus,
                                 obscureText: _obscurePassword,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 15,
                                 ),
@@ -368,7 +368,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                               TextFormField(
                                 controller: _confirmPasswordController,
                                 obscureText: _obscureConfirmPassword,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 15,
                                 ),
@@ -424,7 +424,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 ),
                                 Expanded(
                                   child: RichText(
-                                    text: const TextSpan(
+                                    text: TextSpan(
                                       style: TextStyle(
                                         color: AppColors.secondaryTextStoneGrey,
                                         fontSize: 13,
@@ -465,7 +465,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                             onPressed: _handleRegister,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primaryForestGreen,
-                              foregroundColor: AppColors.primaryTextOffWhite,
+                              foregroundColor: AppColors.onForestGreen,
                               padding: const EdgeInsets.symmetric(vertical: 18),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -489,7 +489,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                           4,
                           Row(
                             children: [
-                              const Expanded(child: Divider(color: Colors.white12)),
+                              Expanded(child: Divider(color: AppColors.cardBorder)),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 16),
                                 child: Text(
@@ -500,7 +500,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                   ),
                                 ),
                               ),
-                              const Expanded(child: Divider(color: Colors.white12)),
+                              Expanded(child: Divider(color: AppColors.cardBorder)),
                             ],
                           ),
                         ),
@@ -530,7 +530,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                   padding: const EdgeInsets.symmetric(vertical: 20),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
-                                    side: const BorderSide(color: Colors.white12),
+                                    side: BorderSide(color: AppColors.cardBorder),
                                   ),
                                   elevation: 0,
                                 ),
@@ -553,7 +553,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                   padding: const EdgeInsets.symmetric(vertical: 20),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
-                                    side: const BorderSide(color: Colors.white12),
+                                    side: BorderSide(color: AppColors.cardBorder),
                                   ),
                                   elevation: 0,
                                 ),
@@ -566,7 +566,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    Text(
                                       'Already have an account? ',
                                       style: TextStyle(
                                         color: AppColors.secondaryTextStoneGrey,
@@ -575,7 +575,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                     ),
                                     GestureDetector(
                                       onTap: () => Navigator.of(context).pop(),
-                                      child: const Text(
+                                      child: Text(
                                         'Log In',
                                         style: TextStyle(
                                           color: AppColors.primaryForestGreen,

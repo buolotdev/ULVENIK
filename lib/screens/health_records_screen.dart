@@ -35,10 +35,10 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         backgroundColor: AppColors.backgroundObsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondarySage, size: 28),
+          icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondarySage, size: 28),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
+        title: Text(
           'Health Records',
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,
@@ -55,11 +55,11 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           ),
           IconButton(
             tooltip: 'Health Archive',
-            icon: const Icon(Icons.inventory_2_outlined, color: AppColors.secondarySage),
+            icon: Icon(Icons.inventory_2_outlined, color: AppColors.secondarySage),
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthArchiveScreen())),
           ),
           IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondarySage),
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.secondarySage),
             onPressed: () {
               setState(() {
                 _isEmpty = !_isEmpty;
@@ -165,7 +165,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColors.cardsCarbon,
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: AppColors.cardBorder),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -193,7 +193,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 children: [
                   Text(
                     _selectedDog,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -202,7 +202,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                   const SizedBox(height: 2),
                   Text(
                     _selectedDog == 'Koda' ? 'Siberian Husky · 3y 2m' : 'Belgian Malinois · 3 Years',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -210,7 +210,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
+            Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey),
           ],
         ),
       ),
@@ -222,7 +222,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(12),
       ),
       child: GridView.count(
@@ -265,7 +265,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
             children: [
               Text(
                 label.toUpperCase(),
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
@@ -277,7 +277,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
               const SizedBox(height: 2),
               Text(
                 value,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -296,26 +296,26 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
     return TextField(
       controller: _searchController,
       onChanged: (val) => setState(() {}),
-      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
       decoration: InputDecoration(
         hintText: 'Search records...',
-        hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
-        prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey),
+        hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
+        prefixIcon: UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey),
         suffixIcon: _searchController.text.isNotEmpty 
             ? IconButton(
-                icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                 onPressed: () {
                   _searchController.clear();
                   setState(() {});
                 },
               )
-            : const Icon(Icons.mic, color: AppColors.secondaryTextStoneGrey),
+            : Icon(Icons.mic, color: AppColors.secondaryTextStoneGrey),
         filled: true,
         fillColor: AppColors.cardsCarbon,
         contentPadding: const EdgeInsets.symmetric(vertical: 10),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
-          borderSide: const BorderSide(color: Colors.white12),
+          borderSide: BorderSide(color: AppColors.cardBorder),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
@@ -363,7 +363,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                 _activeFilters.remove(label);
               });
             },
-            child: const Icon(Icons.close, size: 16, color: AppColors.secondarySage),
+            child: Icon(Icons.close, size: 16, color: AppColors.secondarySage),
           ),
         ],
       ),
@@ -429,7 +429,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Material(
@@ -460,7 +460,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         children: [
                           Text(
                             category,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 11,
                               fontWeight: FontWeight.w700,
@@ -488,7 +488,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                       const SizedBox(height: 4),
                       Text(
                         title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -498,7 +498,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         const SizedBox(height: 2),
                         Text(
                           subtitle,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 12,
                           ),
@@ -508,11 +508,11 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Icon(Icons.attachment, size: 14, color: AppColors.secondaryTextStoneGrey),
+                            Icon(Icons.attachment, size: 14, color: AppColors.secondaryTextStoneGrey),
                             const SizedBox(width: 4),
                             Text(
                               '$attachments attachments',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.secondaryTextStoneGrey,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w500,
@@ -525,7 +525,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Align(
+                Align(
                   alignment: Alignment.center,
                   child: Padding(
                     padding: EdgeInsets.only(top: 16),
@@ -603,7 +603,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
         borderRadius: BorderRadius.circular(12),
       ),
       child: GridView.count(
@@ -633,7 +633,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
         const SizedBox(height: 8),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.primaryTextOffWhite,
             fontSize: 13,
             fontWeight: FontWeight.w400,
@@ -654,14 +654,14 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.cardsCarbon,
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: const Center(
             child: UlvenikIcon(UlvenikIcons.health, color: Color(0xFF95d3bb), size: 32),
           ),
         ),
         const SizedBox(height: 24),
-        const Text(
+        Text(
           'No Health Records Yet',
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,

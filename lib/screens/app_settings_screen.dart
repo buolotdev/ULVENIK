@@ -202,7 +202,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -290,7 +290,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         setModalState(() {});
                       },
                     ),
-                  const Divider(height: 20, color: AppColors.cardBorder),
+                  Divider(height: 20, color: AppColors.cardBorder),
                   _buildSwitchTile(
                     label: 'Reduce Motion',
                     subtitle: 'Minimise non-essential UI transitions',
@@ -572,7 +572,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                               children: [
                                 Text(
                                   device.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 14,
@@ -582,7 +582,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                                 const SizedBox(height: 2),
                                 Text(
                                   device.details,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12,
@@ -764,14 +764,14 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 TextField(
                   controller: msgCtrl,
                   maxLines: 4,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 14,
                   ),
                   decoration: InputDecoration(
                     hintText: hint,
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       fontFamily: 'Inter',
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 13.5,
@@ -780,11 +780,11 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     fillColor: AppColors.backgroundObsidian,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: AppColors.cardBorder),
+                      borderSide: BorderSide(color: AppColors.cardBorder),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: AppColors.cardBorder),
+                      borderSide: BorderSide(color: AppColors.cardBorder),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -819,7 +819,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -862,7 +862,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 isLegal
                     ? 'Your training logs, dog health records, and client workspace data remain encrypted in transit and at rest. Ulvenik never sells personal or canine telemetry data.'
                     : 'Ulvenik is crafted for handlers, sport dog competitors, and professional trainers to track training progression, canine conditioning, and health history.',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13.5,
@@ -929,13 +929,13 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 child: OutlinedButton(
                   onPressed: () => Navigator.of(sheetCtx).pop(),
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.cardBorder),
+                    side: BorderSide(color: AppColors.cardBorder),
                     padding: const EdgeInsets.symmetric(vertical: 13),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Cancel',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -972,7 +972,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     padding: const EdgeInsets.symmetric(vertical: 13),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -1012,13 +1012,13 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 child: OutlinedButton(
                   onPressed: () => Navigator.of(sheetCtx).pop(),
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.cardBorder),
+                    side: BorderSide(color: AppColors.cardBorder),
                     padding: const EdgeInsets.symmetric(vertical: 13),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Cancel',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -1086,13 +1086,13 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 child: OutlinedButton(
                   onPressed: () => Navigator.of(sheetCtx).pop(),
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.cardBorder),
+                    side: BorderSide(color: AppColors.cardBorder),
                     padding: const EdgeInsets.symmetric(vertical: 13),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Stay Signed In',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -1186,7 +1186,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.backgroundObsidian,
             border: Border(
               bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -1202,14 +1202,14 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   children: [
                     IconButton(
                       onPressed: () => Navigator.of(context).maybePop(),
-                      icon: const UlvenikIcon(UlvenikIcons.back,
+                      icon: UlvenikIcon(UlvenikIcons.back,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 26,
                       ),
                       tooltip: 'Back',
                     ),
                     const SizedBox(width: 4),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'Settings',
                         style: TextStyle(
@@ -1266,7 +1266,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 ),
                 child: Row(
                   children: [
-                    const UlvenikIcon(UlvenikIcons.search,
+                    UlvenikIcon(UlvenikIcons.search,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 18,
                     ),
@@ -1276,13 +1276,13 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         controller: _searchController,
                         focusNode: _searchFocusNode,
                         onChanged: (val) => setState(() => _searchQuery = val),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 14,
                         ),
                         cursorColor: _mint,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           hintText: 'Search Settings...',
                           hintStyle: TextStyle(
                             fontFamily: 'Inter',
@@ -1303,7 +1303,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                             _searchQuery = '';
                           });
                         },
-                        child: const Icon(Icons.close_rounded,
+                        child: Icon(Icons.close_rounded,
                           color: AppColors.secondaryTextStoneGrey,
                           size: 18,
                         ),
@@ -1576,7 +1576,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 alignment: Alignment.center,
                 child: Text(
                   _initials,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 16,
@@ -1591,7 +1591,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   children: [
                     Text(
                       _userName,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 18,
@@ -1602,7 +1602,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     const SizedBox(height: 3),
                     Text(
                       _userEmail,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 13.5,
@@ -1637,7 +1637,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   ],
                 ),
               ),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 20,
               ),
@@ -1653,7 +1653,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       padding: const EdgeInsets.only(left: 4),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontFamily: 'Inter',
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 11,
@@ -1676,7 +1676,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       child: Column(
         children: [
           for (int i = 0; i < rows.length; i++) ...[
-            if (i > 0) const Divider(height: 1, color: AppColors.cardBorder),
+            if (i > 0) Divider(height: 1, color: AppColors.cardBorder),
             rows[i],
           ],
         ],
@@ -1723,7 +1723,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                       const SizedBox(height: 3),
                       Text(
                         subtitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 13,
@@ -1735,7 +1735,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 ),
               ),
               const SizedBox(width: 8),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 19,
               ),
@@ -1753,7 +1753,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
     required Widget child,
   }) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
         border: Border(
@@ -1785,7 +1785,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   Expanded(
                     child: Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 18,
@@ -1795,7 +1795,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(sheetCtx).pop(),
-                    icon: const Icon(Icons.close_rounded,
+                    icon: Icon(Icons.close_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -1804,7 +1804,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
               ),
               Text(
                 subtitle,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13,
@@ -1829,7 +1829,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 12,
@@ -1839,7 +1839,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
         const SizedBox(height: 6),
         TextField(
           controller: controller,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             color: AppColors.primaryTextOffWhite,
             fontSize: 14,
@@ -1851,11 +1851,11 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: AppColors.cardBorder),
+              borderSide: BorderSide(color: AppColors.cardBorder),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: AppColors.cardBorder),
+              borderSide: BorderSide(color: AppColors.cardBorder),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -1919,7 +1919,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 14.5,
@@ -1929,7 +1929,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12.5,
@@ -1960,7 +1960,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 12,
@@ -2073,7 +2073,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
     ];
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
         border: Border(
@@ -2102,7 +2102,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
               const SizedBox(height: 16),
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
                       'Storage & Sync',
                       style: TextStyle(
@@ -2115,7 +2115,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.close_rounded,
+                    icon: Icon(Icons.close_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 20,
                     ),
@@ -2124,7 +2124,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
               ),
               Text(
                 '${widget.usedGb.toStringAsFixed(1)} GB of 10 GB ${widget.subscriptionLabel} Cloud · Last synced $_syncedLabel',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13,
@@ -2219,7 +2219,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
               const SizedBox(height: 16),
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -2273,7 +2273,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
                           widget.onSyncNow();
                         },
                   icon: _syncing
-                      ? const SizedBox(
+                      ? SizedBox(
                           width: 16,
                           height: 16,
                           child: CircularProgressIndicator(
@@ -2292,7 +2292,7 @@ class _StorageSyncSheetBodyState extends State<_StorageSyncSheetBody>
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     padding: const EdgeInsets.symmetric(vertical: 13),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),

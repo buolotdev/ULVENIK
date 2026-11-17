@@ -69,14 +69,14 @@ class TrainerReportsScreen extends StatefulWidget {
 }
 
 class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _cardBg => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _mintBright = Color(0xFF95D3BB);
-  static const Color _sage = AppColors.secondarySage;
-  static const Color _textPrimary = AppColors.primaryTextOffWhite;
-  static const Color _textSecondary = AppColors.secondaryTextStoneGrey;
-  static const Color _border = AppColors.cardBorder;
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _textPrimary => AppColors.primaryTextOffWhite;
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey;
+  static Color get _border => AppColors.cardBorder;
   static const Color _copyTileBg = Color(0xFF21313B);
   static const Color _copyAccent = Color(0xFF6BA6C9);
   static const Color _deleteTileBg = Color(0xFF3A2122);
@@ -220,9 +220,9 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
           backgroundColor: _cardBg,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: const BorderSide(color: _border),
+            side: BorderSide(color: _border),
           ),
-          title: const Text(
+          title: Text(
             'Delete Report?',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -233,7 +233,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
           ),
           content: Text(
             'Are you sure you want to permanently delete "${report.title}"? This action cannot be undone.',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               color: _textSecondary,
               fontSize: 14,
@@ -243,7 +243,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(ctx).pop(false),
-              child: const Text(
+              child: Text(
                 'Cancel',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -323,7 +323,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Filter Trainer Reports',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -352,7 +352,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Text(
+                    Text(
                       'SHARING STATUS',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -405,7 +405,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                       }).toList(),
                     ),
                     const SizedBox(height: 18),
-                    const Text(
+                    Text(
                       'REPORT TYPE',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -518,7 +518,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                     const SizedBox(height: 16),
                     Text(
                       report.title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: _textPrimary,
                         fontSize: 17,
@@ -528,7 +528,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                     const SizedBox(height: 8),
                     Text(
                       '${report.dogBadgeLabel} · Created ${report.createdDate} · ${report.dateRange}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: _textSecondary,
                         fontSize: 12.5,
@@ -537,7 +537,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                     const SizedBox(height: 4),
                     Text(
                       '${report.reportType} · ${report.fileSizeMb} · PDF',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: _sage,
                         fontSize: 12.5,
@@ -548,7 +548,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                     SwitchListTile.adaptive(
                       contentPadding: EdgeInsets.zero,
                       activeTrackColor: _forest,
-                      title: const Text(
+                      title: Text(
                         'Shared with Client',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -561,7 +561,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                         report.isShared
                             ? 'Client currently has access to this PDF report'
                             : 'Private to trainer workspace until shared',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           color: _textSecondary,
                           fontSize: 12.5,
@@ -580,7 +580,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                           child: OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
                               foregroundColor: _textPrimary,
-                              side: const BorderSide(color: _border),
+                              side: BorderSide(color: _border),
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -702,7 +702,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
+                      Text(
                         'New Trainer Report',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -714,7 +714,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                       const SizedBox(height: 14),
                       TextField(
                         controller: titleCtrl,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           color: _textPrimary,
                           fontSize: 14.5,
@@ -722,7 +722,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                         decoration: InputDecoration(
                           labelText: 'Report Title',
                           hintText: 'e.g. Monthly Training Progress Report',
-                          labelStyle: const TextStyle(color: _textSecondary),
+                          labelStyle: TextStyle(color: _textSecondary),
                           hintStyle: TextStyle(
                             color: _textSecondary.withValues(alpha: 0.55),
                           ),
@@ -730,20 +730,20 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                           fillColor: _bg,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _border),
+                            borderSide: BorderSide(color: _border),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: _forest),
+                            borderSide: BorderSide(color: _forest),
                           ),
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
+                      Text(
                         'REPORT TYPE',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -791,7 +791,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                         }).toList(),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
+                      Text(
                         'DOGS INCLUDED',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -840,7 +840,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                       SwitchListTile.adaptive(
                         contentPadding: EdgeInsets.zero,
                         activeTrackColor: _forest,
-                        title: const Text(
+                        title: Text(
                           'Share with Client Immediately',
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -940,7 +940,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildTopBar(),
-            const Divider(color: _border, height: 1),
+            Divider(color: _border, height: 1),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(16, 14, 16, 100),
@@ -950,7 +950,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'REPORTS',
                         style: TextStyle(
                           fontFamily: 'Inter',
@@ -1014,7 +1014,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
               child: InkWell(
                 onTap: () => Navigator.of(context).maybePop(),
                 borderRadius: BorderRadius.circular(10),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -1038,7 +1038,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                 ),
               ),
             ),
-            const Text(
+            Text(
               'Trainer Reports',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -1056,7 +1056,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                   IconButton(
                     onPressed: () => _searchFocusNode.requestFocus(),
                     visualDensity: VisualDensity.compact,
-                    icon: const UlvenikIcon(UlvenikIcons.search,
+                    icon: UlvenikIcon(UlvenikIcons.search,
                       color: _textSecondary,
                       size: 21,
                     ),
@@ -1089,7 +1089,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search,
+          UlvenikIcon(UlvenikIcons.search,
             size: 18,
             color: _textSecondary,
           ),
@@ -1099,12 +1099,12 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
               controller: _searchController,
               focusNode: _searchFocusNode,
               onChanged: (_) => setState(() {}),
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 14,
                 color: _textPrimary,
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Search reports...',
                 hintStyle: TextStyle(
                   fontFamily: 'Inter',
@@ -1122,7 +1122,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
               _searchFocusNode.unfocus();
               setState(() {});
             },
-            child: const Text(
+            child: Text(
               'Cancel',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -1282,7 +1282,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                     report.title,
                     maxLines: isSwiped ? 2 : 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       color: _textPrimary,
                       fontSize: 16,
@@ -1300,7 +1300,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                       });
                     },
                     behavior: HitTestBehavior.opaque,
-                    child: const UlvenikIcon(UlvenikIcons.details,
+                    child: UlvenikIcon(UlvenikIcons.details,
                       color: _textSecondary,
                       size: 19,
                     ),
@@ -1323,7 +1323,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                   ),
                   child: Text(
                     report.dogBadgeLabel,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       color: _textSecondary,
                       fontSize: 10.5,
@@ -1344,7 +1344,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                     isSwiped
                         ? 'Created ${report.createdDate}\n${report.dateRange}'
                         : 'Created ${report.createdDate} · ${report.dateRange}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       color: _textSecondary,
                       fontSize: 12.5,
@@ -1364,7 +1364,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            const Divider(color: _border, height: 1),
+            Divider(color: _border, height: 1),
             const SizedBox(height: 11),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1372,7 +1372,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
                 if (!isSwiped) _buildShareStatusPill(report.isShared),
                 Text(
                   '${report.fileSizeMb} · PDF',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     color: _textSecondary,
                     fontSize: 12,
@@ -1421,12 +1421,12 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
       ),
       child: Column(
         children: [
-          const UlvenikIcon(UlvenikIcons.training,
+          UlvenikIcon(UlvenikIcons.training,
             color: _sage,
             size: 32,
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'No matching reports',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -1436,7 +1436,7 @@ class _TrainerReportsScreenState extends State<TrainerReportsScreen> {
             ),
           ),
           const SizedBox(height: 6),
-          const Text(
+          Text(
             'Adjust your search or filters, or tap + to generate a new client PDF report.',
             textAlign: TextAlign.center,
             style: TextStyle(

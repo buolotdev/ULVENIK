@@ -235,10 +235,10 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
       elevation: 0,
       scrolledUnderElevation: 0,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 24),
+        icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.secondaryTextStoneGrey, size: 24),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      title: const Text(
+      title: Text(
         'Weight Tracker',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -272,7 +272,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
         // Filter button
         IconButton(
           tooltip: 'Filters & Units',
-          icon: const Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
+          icon: Icon(Icons.filter_list, color: AppColors.secondaryTextStoneGrey, size: 24),
           onPressed: _showFilterModal,
         ),
         // Add button
@@ -355,9 +355,9 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.monitor_weight_outlined, color: AppColors.secondaryTextStoneGrey, size: 16),
+              Icon(Icons.monitor_weight_outlined, color: AppColors.secondaryTextStoneGrey, size: 16),
               const SizedBox(width: 6),
-              const Text(
+              Text(
                 'Current Weight',
                 style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -384,7 +384,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
               const SizedBox(width: 8),
               Text(
                 _weightUnit,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -405,7 +405,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Icon(Icons.flag_outlined, color: AppColors.secondaryTextStoneGrey, size: 14),
                         SizedBox(width: 4),
                         Text(
@@ -422,7 +422,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     const SizedBox(height: 6),
                     Text(
                       '— $_weightUnit',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -437,7 +437,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Icon(Icons.trending_flat, color: AppColors.secondaryTextStoneGrey, size: 14),
                         SizedBox(width: 4),
                         Text(
@@ -452,7 +452,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                       ],
                     ),
                     const SizedBox(height: 6),
-                    const Text(
+                    Text(
                       '—',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -487,7 +487,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
           ),
         ),
         const SizedBox(height: 20),
-        const Text(
+        Text(
           'No Weight Records Yet',
           style: TextStyle(
             color: AppColors.primaryTextOffWhite,
@@ -501,7 +501,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
           child: Text(
             'Start tracking ${_activeDog.name}’s weight to monitor changes and build a clear picture of their weight over time.',
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 14,
               height: 1.5,
@@ -601,7 +601,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                 children: [
                   Text(
                     _activeDog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -610,7 +610,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   const SizedBox(height: 2),
                   Text(
                     '${_activeDog.breed} · ${_activeDog.age}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 13,
                     ),
@@ -618,7 +618,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 24),
+            Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 24),
           ],
         ),
       ),
@@ -649,7 +649,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   children: [
                     Text(
                       _formatWeight(_currentWeight, includeUnit: false),
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
@@ -659,7 +659,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     const SizedBox(width: 6),
                     Text(
                       _weightUnit,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -794,7 +794,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -952,7 +952,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'WEIGHT OVER TIME',
                 style: TextStyle(
                   color: AppColors.secondaryTextStoneGrey,
@@ -962,7 +962,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                 ),
               ),
               Row(
-                children: const [
+                children: [
                   Text(
                     'Trend',
                     style: TextStyle(
@@ -1155,7 +1155,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                           children: [
                             Text(
                               _formatDateShort(activeRecord.dateTime).toUpperCase(),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.secondaryTextStoneGrey,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
@@ -1165,7 +1165,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                             const SizedBox(height: 3),
                             Text(
                               _formatWeight(activeRecord.weightKg),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 17,
                                 fontWeight: FontWeight.w700,
@@ -1193,7 +1193,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                               onTap: () => _showEntryDetailsModal(activeRecord),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   Text(
                                     'View Entry',
                                     style: TextStyle(
@@ -1312,7 +1312,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'HISTORY',
           style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
@@ -1388,7 +1388,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                 children: [
                   Text(
                     _formatWeight(rec.weightKg),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
@@ -1397,7 +1397,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   const SizedBox(height: 2),
                   Text(
                     _formatDateTime(rec.dateTime),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -1423,7 +1423,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
               ),
             ),
             const SizedBox(width: 8),
-            const UlvenikIcon(UlvenikIcons.details,
+            UlvenikIcon(UlvenikIcons.details,
               color: AppColors.secondaryTextStoneGrey,
               size: 20,
             ),
@@ -1455,7 +1455,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Select Dog',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -1464,7 +1464,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1518,7 +1518,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                               children: [
                                 Text(
                                   dog.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -1526,7 +1526,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                                 ),
                                 Text(
                                   '${dog.breed} · Target ${_formatWeight(dog.targetWeightKg)}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12,
                                   ),
@@ -1583,14 +1583,14 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                       children: [
                         Text(
                           'Add Weight for ${_activeDog.name}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                          icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -1606,7 +1606,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                       ),
                       child: Column(
                         children: [
-                          const Text(
+                          Text(
                             'WEIGHT VALUE',
                             style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
@@ -1623,7 +1623,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                                 style: IconButton.styleFrom(
                                   backgroundColor: Colors.white.withValues(alpha: 0.08),
                                 ),
-                                icon: const Icon(Icons.remove, color: AppColors.primaryTextOffWhite),
+                                icon: Icon(Icons.remove, color: AppColors.primaryTextOffWhite),
                                 onPressed: () {
                                   setModalState(() {
                                     tempWeight = (tempWeight - 0.1).clamp(5.0, 90.0);
@@ -1633,7 +1633,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                               const SizedBox(width: 20),
                               Text(
                                 '${tempWeight.toStringAsFixed(1)} $_weightUnit',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 28,
                                   fontWeight: FontWeight.w700,
@@ -1644,7 +1644,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                                 style: IconButton.styleFrom(
                                   backgroundColor: Colors.white.withValues(alpha: 0.08),
                                 ),
-                                icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
+                                icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
                                 onPressed: () {
                                   setModalState(() {
                                     tempWeight = (tempWeight + 0.1).clamp(5.0, 90.0);
@@ -1658,7 +1658,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     ),
                     const SizedBox(height: 16),
                     // BCS selector
-                    const Text(
+                    Text(
                       'BODY CONDITION SCORE (1-9)',
                       style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
@@ -1698,10 +1698,10 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     // Notes field
                     TextField(
                       controller: noteController,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                       decoration: InputDecoration(
                         hintText: 'Notes (e.g. Weigh-in before breakfast)',
-                        hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                        hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                         filled: true,
                         fillColor: AppColors.cardsCarbon,
                         border: OutlineInputBorder(
@@ -1790,7 +1790,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Weight Entry Details',
                     style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
@@ -1799,7 +1799,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                    icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -1819,7 +1819,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                       children: [
                         Text(
                           _formatWeight(record.weightKg),
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 26,
                             fontWeight: FontWeight.w700,
@@ -1877,18 +1877,18 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                           builder: (dialogCtx) => AlertDialog(
                             backgroundColor: AppColors.cardsCarbon,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                            title: const Text(
+                            title: Text(
                               'Delete Weight Entry?',
                               style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600, fontSize: 18),
                             ),
-                            content: const Text(
+                            content: Text(
                               'Are you sure you want to delete this weight entry? This action cannot be undone.',
                               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, height: 1.4),
                             ),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(dialogCtx),
-                                child: const Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
+                                child: Text('Cancel', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
                               ),
                               ElevatedButton(
                                 onPressed: () {
@@ -1946,14 +1946,14 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
         ),
         const SizedBox(width: 16),
         Flexible(
           child: Text(
             value,
             textAlign: TextAlign.right,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -1993,7 +1993,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Edit Weight Entry',
                         style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
@@ -2002,7 +2002,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
@@ -2020,7 +2020,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                       children: [
                         IconButton.filledTonal(
                           style: IconButton.styleFrom(backgroundColor: Colors.white.withValues(alpha: 0.08)),
-                          icon: const Icon(Icons.remove, color: AppColors.primaryTextOffWhite),
+                          icon: Icon(Icons.remove, color: AppColors.primaryTextOffWhite),
                           onPressed: () {
                             setModalState(() {
                               tempWeight = (tempWeight - 0.1).clamp(5.0, 90.0);
@@ -2030,7 +2030,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                         const SizedBox(width: 20),
                         Text(
                           '${tempWeight.toStringAsFixed(1)} $_weightUnit',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 28,
                             fontWeight: FontWeight.w700,
@@ -2039,7 +2039,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                         const SizedBox(width: 20),
                         IconButton.filledTonal(
                           style: IconButton.styleFrom(backgroundColor: Colors.white.withValues(alpha: 0.08)),
-                          icon: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
+                          icon: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
                           onPressed: () {
                             setModalState(() {
                               tempWeight = (tempWeight + 0.1).clamp(5.0, 90.0);
@@ -2052,7 +2052,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   const SizedBox(height: 16),
                   TextField(
                     controller: noteController,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
                     decoration: InputDecoration(
                       hintText: 'Notes',
                       filled: true,
@@ -2108,7 +2108,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Weight Preferences',
                         style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
@@ -2117,14 +2117,14 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
+                        icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey, size: 20),
                         onPressed: () => Navigator.pop(ctx),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
                   // Units toggle
-                  const Text(
+                  Text(
                     'MEASUREMENT UNIT',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -2199,7 +2199,7 @@ class _WeightTrackerScreenState extends State<WeightTrackerScreen> {
                   ),
                   const SizedBox(height: 20),
                   // Sort Order toggle
-                  const Text(
+                  Text(
                     'HISTORY SORTING',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,

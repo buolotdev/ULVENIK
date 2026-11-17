@@ -100,12 +100,12 @@ class HomeWidgetPanel extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
-              Text(sub, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+              Text(title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+              Text(sub, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             ]),
           ),
         );
-    Widget empty(String t) => Text(t, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5));
+    Widget empty(String t) => Text(t, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5));
 
     final rows = <Widget>[];
     switch (cfg.type) {
@@ -164,7 +164,7 @@ class HomeWidgetPanel extends StatelessWidget {
                   width: 64,
                   height: 64,
                   child: type == MediaType.photo && i.path != null
-                      ? Image.file(File(i.path!), fit: BoxFit.cover, cacheWidth: 200, errorBuilder: (_, _, _) => const ColoredBox(color: AppColors.backgroundObsidian))
+                      ? Image.file(File(i.path!), fit: BoxFit.cover, cacheWidth: 200, errorBuilder: (_, _, _) => ColoredBox(color: AppColors.backgroundObsidian))
                       : const ColoredBox(color: Color(0xFF232625), child: Icon(Icons.play_arrow, color: Colors.white70)),
                 ),
               ),
@@ -173,7 +173,7 @@ class HomeWidgetPanel extends StatelessWidget {
     }
     return HealthCard(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(_label(cfg.type), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+        Text(_label(cfg.type), style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
         const SizedBox(height: 4),
         ...rows,
       ]),
@@ -218,17 +218,17 @@ class HomeWidgetsScreen extends StatelessWidget {
             if (items.isNotEmpty)
               TextButton(
                 onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EditHomeLayoutScreen())),
-                child: const Text('Edit Layout', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
+                child: Text('Edit Layout', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
               ),
           ],
           body: ListView(
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
             children: [
-              const Text('Choose which panels appear on your Home page.',
+              Text('Choose which panels appear on your Home page.',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
               const SizedBox(height: 14),
               if (items.isEmpty)
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(bottom: 14),
                   child: Text('No Home Widgets Added. Choose optional widgets to personalise your Home page.',
                       style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4)),
@@ -240,8 +240,8 @@ class HomeWidgetsScreen extends StatelessWidget {
                     child: Row(children: [
                       Expanded(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          Text(e.value, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
-                          Text(_widgetBlurb[e.key]!, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          Text(e.value, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                          Text(_widgetBlurb[e.key]!, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                         ]),
                       ),
                       OutlinedButton(
@@ -291,7 +291,7 @@ class _ConfigureSheetState extends State<_ConfigureSheet> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(_label(widget.type), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+          Text(_label(widget.type), style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           const SectionLabel('Widget Size'),
           ChoiceRow(options: const ['Small', 'Medium', 'Large'], value: _size, onChanged: (v) => setState(() => _size = v)),
           const SectionLabel('Dogs'),
@@ -308,7 +308,7 @@ class _ConfigureSheetState extends State<_ConfigureSheet> {
               child: OutlinedButton(
                 onPressed: () => Navigator.pop(context),
                 style: OutlinedButton.styleFrom(
-                    foregroundColor: AppColors.primaryTextOffWhite, side: const BorderSide(color: Colors.white24), minimumSize: const Size(0, 50)),
+                    foregroundColor: AppColors.primaryTextOffWhite, side: BorderSide(color: AppColors.cardBorder), minimumSize: const Size(0, 50)),
                 child: const Text('Cancel'),
               ),
             ),
@@ -356,7 +356,7 @@ class _EditHomeLayoutScreenState extends State<EditHomeLayoutScreen> {
             onPressed: () => Navigator.pop(context),
             style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.primaryTextOffWhite,
-                side: const BorderSide(color: Colors.white24),
+                side: BorderSide(color: AppColors.cardBorder),
                 minimumSize: const Size(0, 52),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
             child: const Text('Cancel'),
@@ -376,7 +376,7 @@ class _EditHomeLayoutScreenState extends State<EditHomeLayoutScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
         children: [
-          const Text('Move your Home widgets up or down, or remove them from Home.',
+          Text('Move your Home widgets up or down, or remove them from Home.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
           const SizedBox(height: 12),
           for (var i = 0; i < _draft.length; i++)
@@ -385,7 +385,7 @@ class _EditHomeLayoutScreenState extends State<EditHomeLayoutScreen> {
               child: HealthCard(
                 padding: const EdgeInsets.fromLTRB(14, 6, 4, 6),
                 child: Row(children: [
-                  Expanded(child: Text(_label(_draft[i].type), style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15))),
+                  Expanded(child: Text(_label(_draft[i].type), style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15))),
                   IconButton(
                     tooltip: 'Move Up',
                     icon: const Icon(Icons.arrow_upward, size: 20),
@@ -420,7 +420,7 @@ class _EditHomeLayoutScreenState extends State<EditHomeLayoutScreen> {
               ),
             ),
           if (_draft.isEmpty)
-            const Text('No Home Widgets Added.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+            Text('No Home Widgets Added.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
           if (_draft.isNotEmpty)
             TextButton(
               onPressed: () async {
@@ -429,7 +429,7 @@ class _EditHomeLayoutScreenState extends State<EditHomeLayoutScreen> {
                     message: 'This removes all optional widgets from Home when you save. Your records and the required Home sections are not affected.');
                 if (ok) setState(() => _draft = []);
               },
-              child: const Text('Reset Home Layout', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
+              child: Text('Reset Home Layout', style: TextStyle(color: AppColors.secondaryTextStoneGrey)),
             ),
         ],
       ),

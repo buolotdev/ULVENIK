@@ -311,7 +311,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(ctx).size.height * 0.84,
               ),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.cardsCarbon,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
                 border: Border(
@@ -350,7 +350,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                                   children: [
                                     Text(
                                       'Version ${release.version}',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Inter',
                                         color: AppColors.primaryTextOffWhite,
                                         fontSize: 19,
@@ -366,7 +366,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                                 const SizedBox(height: 2),
                                 Text(
                                   'Released ${release.date}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Inter',
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12,
@@ -399,14 +399,14 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                               );
                             },
                             tooltip: 'Copy release notes',
-                            icon: const Icon(Icons.copy_rounded,
+                            icon: Icon(Icons.copy_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 19,
                             ),
                           ),
                           IconButton(
                             onPressed: () => Navigator.of(sheetCtx).pop(),
-                            icon: const Icon(Icons.close_rounded,
+                            icon: Icon(Icons.close_rounded,
                               color: AppColors.secondaryTextStoneGrey,
                               size: 21,
                             ),
@@ -414,7 +414,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                         ],
                       ),
                     ),
-                    const Divider(height: 1, color: AppColors.cardBorder),
+                    Divider(height: 1, color: AppColors.cardBorder),
                     Flexible(
                       child: SingleChildScrollView(
                         padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
@@ -423,7 +423,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                           children: [
                             Text(
                               release.summary,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: AppColors.secondaryTextStoneGrey,
                                 fontSize: 14,
@@ -433,11 +433,11 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                             const SizedBox(height: 18),
                             ...release.sections.map(_buildCategorySection),
                             const SizedBox(height: 8),
-                            const Divider(
+                            Divider(
                               height: 24,
                               color: AppColors.cardBorder,
                             ),
-                            const Text(
+                            Text(
                               'FEEDBACK & ACKNOWLEDGEMENT',
                               style: TextStyle(
                                 fontFamily: 'Inter',
@@ -613,7 +613,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56),
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.backgroundObsidian,
             border: Border(
               bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -629,14 +629,14 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                   children: [
                     IconButton(
                       onPressed: () => Navigator.of(context).maybePop(),
-                      icon: const UlvenikIcon(UlvenikIcons.back,
+                      icon: UlvenikIcon(UlvenikIcons.back,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 26,
                       ),
                       tooltip: 'Back',
                     ),
                     const SizedBox(width: 2),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         "What's New",
                         style: TextStyle(
@@ -683,7 +683,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'LATEST RELEASE',
                     style: TextStyle(
                       fontFamily: 'Inter',
@@ -757,7 +757,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'PREVIOUS RELEASES',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -800,12 +800,12 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                 ),
                 child: Column(
                   children: [
-                    const Icon(Icons.manage_search_rounded,
+                    Icon(Icons.manage_search_rounded,
                       color: AppColors.secondaryTextStoneGrey,
                       size: 30,
                     ),
                     const SizedBox(height: 10),
-                    const Text(
+                    Text(
                       'No matching release notes found',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -815,7 +815,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    const Text(
+                    Text(
                       'Try searching a different version number or feature keyword.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -835,7 +835,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                 ),
               ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'YOUR VERSION',
               style: TextStyle(
                 fontFamily: 'Inter',
@@ -881,7 +881,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
               Expanded(
                 child: Text(
                   'Version ${_latestRelease.version}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 20,
@@ -892,7 +892,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
               ),
               Text(
                 _latestRelease.date,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 13,
@@ -904,7 +904,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
           const SizedBox(height: 14),
           Text(
             _latestRelease.summary,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 14,
@@ -931,7 +931,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
             ),
           ],
           const SizedBox(height: 18),
-          const Divider(height: 1, color: AppColors.cardBorder),
+          Divider(height: 1, color: AppColors.cardBorder),
           const SizedBox(height: 16),
           InkWell(
             onTap: () => _openReleaseDetailsSheet(_latestRelease),
@@ -983,7 +983,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search,
+          UlvenikIcon(UlvenikIcons.search,
             color: AppColors.secondaryTextStoneGrey,
             size: 18,
           ),
@@ -997,13 +997,13 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                   _searchQuery = value;
                 });
               },
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Inter',
                 color: AppColors.primaryTextOffWhite,
                 fontSize: 14,
               ),
               cursorColor: _mint,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Search Release Notes',
                 hintStyle: TextStyle(
                   fontFamily: 'Inter',
@@ -1025,7 +1025,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                   _searchQuery = '';
                 });
               },
-              child: const Icon(Icons.close_rounded,
+              child: Icon(Icons.close_rounded,
                 color: AppColors.secondaryTextStoneGrey,
                 size: 18,
               ),
@@ -1068,7 +1068,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                       Expanded(
                         child: Text(
                           'Version ${entry.version}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Inter',
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 17,
@@ -1079,7 +1079,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                       ),
                       Text(
                         entry.date,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           color: AppColors.secondaryTextStoneGrey,
                           fontSize: 13,
@@ -1098,7 +1098,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                   const SizedBox(height: 10),
                   Text(
                     entry.summary,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 13.5,
@@ -1107,7 +1107,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                   ),
                   if (isExpanded && sections.isNotEmpty) ...[
                     const SizedBox(height: 16),
-                    const Divider(height: 1, color: AppColors.cardBorder),
+                    Divider(height: 1, color: AppColors.cardBorder),
                     const SizedBox(height: 16),
                     ...sections.map(_buildCategorySection),
                     if (reaction != null)
@@ -1149,7 +1149,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
               const SizedBox(width: 6),
               Text(
                 section.title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Inter',
                   color: AppColors.secondaryTextStoneGrey,
                   fontSize: 12,
@@ -1166,7 +1166,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 7),
                     child: SizedBox(
                       width: 4,
@@ -1183,7 +1183,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
                   Expanded(
                     child: Text(
                       item,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 14,
@@ -1215,7 +1215,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
                   'Installed Version',
                   style: TextStyle(
@@ -1236,12 +1236,12 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
               ],
             ),
           ),
-          const Divider(height: 1, color: AppColors.cardBorder),
+          Divider(height: 1, color: AppColors.cardBorder),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
                   'Latest Version',
                   style: TextStyle(
@@ -1262,7 +1262,7 @@ class _WhatsNewScreenState extends State<WhatsNewScreen> {
               ],
             ),
           ),
-          const Divider(height: 1, color: AppColors.cardBorder),
+          Divider(height: 1, color: AppColors.cardBorder),
           InkWell(
             onTap: _checkForUpdates,
             child: Container(

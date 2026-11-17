@@ -106,11 +106,11 @@ class _TimelineSmartCollectionsScreenState extends State<TimelineSmartCollection
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(title, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+            Text(title, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             for (final o in options)
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(o, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text(o, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 trailing: o == current ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                 onTap: () => Navigator.pop(ctx, o),
               ),
@@ -166,15 +166,15 @@ class _TimelineSmartCollectionsScreenState extends State<TimelineSmartCollection
               Expanded(
                 child: Row(children: [
                   Flexible(
-                    child: Text(d.name, overflow: TextOverflow.ellipsis, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
+                    child: Text(d.name, overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15)),
                   ),
                   if (d.pinned)
-                    const Padding(padding: EdgeInsets.only(left: 6), child: Icon(Icons.push_pin_outlined, size: 15, color: AppColors.primaryForestGreen)),
+                    Padding(padding: EdgeInsets.only(left: 6), child: Icon(Icons.push_pin_outlined, size: 15, color: AppColors.primaryForestGreen)),
                 ]),
               ),
-              Text('${counts[d.key]}', style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+              Text('${counts[d.key]}', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
               const SizedBox(width: 6),
-              const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+              UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
             ]),
           ),
         );
@@ -184,14 +184,14 @@ class _TimelineSmartCollectionsScreenState extends State<TimelineSmartCollection
       actions: [
         IconButton(
           tooltip: 'More',
-          icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+          icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
           onPressed: () => showModalBottomSheet<void>(
             context: context,
             backgroundColor: AppColors.cardsCarbon,
             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
             builder: (ctx) => SafeArea(
               child: ListTile(
-                title: const Text('Archived Collections', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('Archived Collections', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 onTap: () {
                   Navigator.pop(ctx);
                   Navigator.push(context, MaterialPageRoute(builder: (_) => const ArchivedCollectionsScreen()));
@@ -212,7 +212,7 @@ class _TimelineSmartCollectionsScreenState extends State<TimelineSmartCollection
             },
           ),
           const SizedBox(height: 6),
-          const Text('Find groups of records using saved filters.',
+          Text('Find groups of records using saved filters.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
           const SizedBox(height: 12),
           if (noHistory)
@@ -233,7 +233,7 @@ class _TimelineSmartCollectionsScreenState extends State<TimelineSmartCollection
                   onPressed: () => _pick('Sort Collections', const ['Grouped', 'Most Events', 'Pinned First'], _sort, (v) => _sort = v),
                   style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryTextOffWhite,
-                      side: const BorderSide(color: Colors.white12),
+                      side: BorderSide(color: AppColors.cardBorder),
                       backgroundColor: AppColors.cardsCarbon,
                       minimumSize: const Size(0, 44)),
                   child: Text(_sort, overflow: TextOverflow.ellipsis),
@@ -246,7 +246,7 @@ class _TimelineSmartCollectionsScreenState extends State<TimelineSmartCollection
                       const ['All Collections', 'My Collections', 'By Date', 'With Attachments', 'Training', 'S&C', 'Health'], _type, (v) => _type = v),
                   style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryTextOffWhite,
-                      side: const BorderSide(color: Colors.white12),
+                      side: BorderSide(color: AppColors.cardBorder),
                       backgroundColor: AppColors.cardsCarbon,
                       minimumSize: const Size(0, 44)),
                   child: Text(_type, overflow: TextOverflow.ellipsis),
@@ -257,24 +257,24 @@ class _TimelineSmartCollectionsScreenState extends State<TimelineSmartCollection
               alignment: Alignment.centerRight,
               child: TextButton.icon(
                 onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CreateCollectionScreen(dog: _dog))),
-                icon: const UlvenikIcon(UlvenikIcons.add, size: 16, color: AppColors.primaryForestGreen),
-                label: const Text('Create Collection', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
+                icon: UlvenikIcon(UlvenikIcons.add, size: 16, color: AppColors.primaryForestGreen),
+                label: Text('Create Collection', style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
               ),
             ),
             if (list.isEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: Column(children: [
-                  const Text('No Matching Collections',
+                  Text('No Matching Collections',
                       style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                  const Text('Try another search or collection type.',
+                  Text('Try another search or collection type.',
                       style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
                   TextButton(
                     onPressed: () {
                       _search.clear();
                       setState(() => _type = 'All Collections');
                     },
-                    child: const Text('Clear Search and Filters', style: TextStyle(color: AppColors.primaryForestGreen)),
+                    child: Text('Clear Search and Filters', style: TextStyle(color: AppColors.primaryForestGreen)),
                   ),
                 ]),
               )
@@ -288,7 +288,7 @@ class _TimelineSmartCollectionsScreenState extends State<TimelineSmartCollection
             else
               for (final d in list) row(d),
             if (grouped && !defs.any((d) => d.group == 'My Collections') && _type == 'All Collections' && q.isEmpty)
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(top: 6),
                 child: Text('No Custom Collections Yet. Create one to group records your own way.',
                     style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
@@ -322,7 +322,7 @@ class SmartCollectionDetailScreen extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'More',
-              icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
               onPressed: () => showModalBottomSheet<void>(
                 context: context,
                 backgroundColor: AppColors.cardsCarbon,
@@ -330,7 +330,7 @@ class SmartCollectionDetailScreen extends StatelessWidget {
                 builder: (ctx) => SafeArea(
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     ListTile(
-                      title: Text(d.pinned ? 'Unpin Collection' : 'Pin Collection', style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                      title: Text(d.pinned ? 'Unpin Collection' : 'Pin Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                       onTap: () {
                         Navigator.pop(ctx);
                         if (d.custom != null) {
@@ -343,7 +343,7 @@ class SmartCollectionDetailScreen extends StatelessWidget {
                     ),
                     if (d.custom != null)
                       ListTile(
-                        title: const Text('Archive Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                        title: Text('Archive Collection', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                         onTap: () {
                           Navigator.pop(ctx);
                           d.custom!
@@ -364,15 +364,15 @@ class SmartCollectionDetailScreen extends StatelessWidget {
               HealthCard(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('${matches.length} matching ${matches.length == 1 ? 'record' : 'records'}',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 4),
-                  Text(d.rule, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
-                  Text(dog == kAllDogs ? 'All Dogs' : dog, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+                  Text(d.rule, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
+                  Text(dog == kAllDogs ? 'All Dogs' : dog, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
                 ]),
               ),
               const SectionLabel('Matching Records'),
               if (matches.isEmpty)
-                const Text('No Matching Records', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
+                Text('No Matching Records', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
               for (final e in matches) TimelineEventCard(event: e, showDog: dog == kAllDogs, onTap: () => openEvent(context, e)),
             ],
           ),
@@ -428,7 +428,7 @@ class _CreateCollectionScreenState extends State<CreateCollectionScreen> {
             onPressed: () => Navigator.pop(context),
             style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.primaryTextOffWhite,
-                side: const BorderSide(color: Colors.white24),
+                side: BorderSide(color: AppColors.cardBorder),
                 minimumSize: const Size(0, 52),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
             child: const Text('Cancel'),
@@ -465,15 +465,15 @@ class _CreateCollectionScreenState extends State<CreateCollectionScreen> {
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
-          const Text('Save filters to group matching Timeline records automatically.',
+          Text('Save filters to group matching Timeline records automatically.',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5, height: 1.4)),
           const FieldLabel('Dog'),
-          HealthCard(child: Text(widget.dog == kAllDogs ? 'All Dogs' : widget.dog, style: const TextStyle(color: AppColors.primaryTextOffWhite))),
+          HealthCard(child: Text(widget.dog == kAllDogs ? 'All Dogs' : widget.dog, style: TextStyle(color: AppColors.primaryTextOffWhite))),
           const FieldLabel('Collection name', required: true),
           TextField(
             controller: _name,
             onChanged: (_) => setState(() => _nameError = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('e.g. Training with Videos', error: _nameError),
           ),
           const FieldLabel('Record type'),
@@ -489,8 +489,8 @@ class _CreateCollectionScreenState extends State<CreateCollectionScreen> {
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
             activeThumbColor: AppColors.primaryForestGreen,
-            title: const Text('With photos or videos', style: TextStyle(color: AppColors.primaryTextOffWhite)),
-            subtitle: const Text('Only include records with at least one photo or video.',
+            title: Text('With photos or videos', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+            subtitle: Text('Only include records with at least one photo or video.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             value: _media,
             onChanged: (v) => setState(() => _media = v),
@@ -501,10 +501,10 @@ class _CreateCollectionScreenState extends State<CreateCollectionScreen> {
               controller: _min,
               keyboardType: TextInputType.number,
               onChanged: (_) => setState(() => _minError = null),
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
               decoration: healthDecoration('Minutes', error: _minError),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(top: 6),
               child: Text('Leave blank for any duration.', style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             ),
@@ -512,10 +512,10 @@ class _CreateCollectionScreenState extends State<CreateCollectionScreen> {
           const SizedBox(height: 18),
           HealthCard(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(d.rule, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
+              Text(d.rule, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
               const SizedBox(height: 4),
               Text('$count matching ${count == 1 ? 'record' : 'records'} now',
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13)),
             ]),
           ),
         ],
@@ -556,8 +556,8 @@ class ArchivedCollectionsScreen extends StatelessWidget {
                           child: Row(children: [
                             Expanded(
                               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text(c.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
-                                Text(c.rule, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                                Text(c.name, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                                Text(c.rule, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                               ]),
                             ),
                             TextButton(
@@ -565,7 +565,7 @@ class ArchivedCollectionsScreen extends StatelessWidget {
                                 c.archived = false; // restored unpinned, same definition
                                 st.saveCollection(c);
                               },
-                              child: const Text('Restore Collection',
+                              child: Text('Restore Collection',
                                   style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600, fontSize: 13)),
                             ),
                           ]),

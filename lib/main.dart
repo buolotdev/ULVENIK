@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       builder: (context, _) => MaterialApp(
         title: 'Ulvenik',
         debugShowCheckedModeBanner: false,
-        theme: AppTheme.darkTheme,
+        theme: AppTheme.themeFor(AppSettings.instance.isDark ? Brightness.dark : Brightness.light),
         builder: (context, child) {
           final mq = MediaQuery.of(context);
           final s = AppSettings.instance;

@@ -29,12 +29,12 @@ Future<String?> showPeriodSheet(BuildContext context, String current) {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text('Select Time Period',
+          Text('Select Time Period',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           for (final p in kPeriods)
             ListTile(
               contentPadding: EdgeInsets.zero,
-              title: Text(p, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+              title: Text(p, style: TextStyle(color: AppColors.primaryTextOffWhite)),
               trailing: p == current ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
               onTap: () => Navigator.pop(ctx, p),
             ),

@@ -48,10 +48,10 @@ class HealthRemindersListScreen extends StatelessWidget {
                               decoration: r.completed ? TextDecoration.lineThrough : null)),
                       const SizedBox(height: 2),
                       Text('${r.type.label} · ${reminderWhen(r)}${r.repeat == 'None' ? '' : ' · ${r.repeat}'}',
-                          style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                     ]),
                   ),
-                  const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
+                  UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey),
                 ]),
               ),
             );
@@ -82,7 +82,7 @@ class HealthRemindersListScreen extends StatelessWidget {
                   children: [
                     const SectionLabel('Upcoming Reminders'),
                     if (up.isEmpty)
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(bottom: 14),
                         child: Text('Nothing upcoming.',
                             style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13.5)),
@@ -195,13 +195,13 @@ class _HealthReminderFormState extends State<HealthReminderForm> {
         if (editing)
           PopupMenuButton<String>(
             color: AppColors.cardsCarbon,
-            icon: const UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
+            icon: UlvenikIcon(UlvenikIcons.more, color: AppColors.primaryTextOffWhite),
             onSelected: (v) => v == 'done' ? _complete() : _delete(),
             itemBuilder: (_) => [
               PopupMenuItem(
                   value: 'done',
                   child: Text(widget.entry!.completed ? 'Mark as Upcoming' : 'Mark as Completed',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite))),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite))),
               const PopupMenuItem(
                   value: 'delete', child: Text('Delete Reminder', style: TextStyle(color: Color(0xFFFFB4AB)))),
             ],
@@ -216,7 +216,7 @@ class _HealthReminderFormState extends State<HealthReminderForm> {
           TextField(
             controller: _title,
             onChanged: (_) => _titleError == null ? null : setState(() => _titleError = null),
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('e.g. Booster vaccination', error: _titleError),
           ),
           const FieldLabel('Date', required: true),
@@ -253,7 +253,7 @@ class _HealthReminderFormState extends State<HealthReminderForm> {
                 if (_time != null)
                   GestureDetector(
                     onTap: () => setState(() => _time = null),
-                    child: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                    child: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                   ),
               ]),
             ),
@@ -267,7 +267,7 @@ class _HealthReminderFormState extends State<HealthReminderForm> {
           const FieldLabel('Linked Health Record'),
           TextField(
             controller: _linked,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('e.g. Booster vaccination record'),
           ),
           const FieldLabel('Notes'),
@@ -275,16 +275,16 @@ class _HealthReminderFormState extends State<HealthReminderForm> {
             controller: _notes,
             minLines: 3,
             maxLines: 5,
-            style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+            style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
             decoration: healthDecoration('Add notes...'),
           ),
           const SizedBox(height: 14),
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
             activeThumbColor: AppColors.primaryForestGreen,
-            title: const Text('Notifications',
+            title: Text('Notifications',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5)),
-            subtitle: const Text('Device alerts need notification permission and are optional.',
+            subtitle: Text('Device alerts need notification permission and are optional.',
                 style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             value: _notifyOn,
             onChanged: (v) => setState(() => _notifyOn = v),

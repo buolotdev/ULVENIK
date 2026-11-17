@@ -44,17 +44,17 @@ class ClientDogProfileScreen extends StatefulWidget {
 
 class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _cardBg => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _greenAccent = Color(0xFF479A7B);
   static const Color _mintBright = Color(0xFFB1F0D6);
-  static const Color _sage = AppColors.secondarySage; // #7A8F7A
-  static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
+  static Color get _sage => AppColors.secondarySage; // #7A8F7A
+  static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
   static const Color _destructiveText = Color(0xFFA84C4C);
-  static const Color _textPrimary = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _textSecondary = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _border = AppColors.cardBorder;
+  static Color get _textPrimary => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _border => AppColors.cardBorder;
 
   late final AnimationController _animController;
   late final Animation<double> _curvedAnim;
@@ -180,7 +180,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
               const SizedBox(height: 16),
               Text(
                 'Edit ${dog.name}\'s Profile',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _textPrimary,
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
@@ -265,21 +265,21 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
   Widget _buildSheetInput(String label, TextEditingController ctrl) {
     return TextField(
       controller: ctrl,
-      style: const TextStyle(color: _textPrimary, fontSize: 13.5),
+      style: TextStyle(color: _textPrimary, fontSize: 13.5),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: _textSecondary, fontSize: 12),
+        labelStyle: TextStyle(color: _textSecondary, fontSize: 12),
         filled: true,
         fillColor: const Color(0xFF22272A),
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: _border),
+          borderSide: BorderSide(color: _border),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: _border),
+          borderSide: BorderSide(color: _border),
         ),
       ),
     );
@@ -400,7 +400,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                     IconButton(
                       tooltip: 'Back',
                       onPressed: () => Navigator.of(context).maybePop(),
-                      icon: const UlvenikIcon(UlvenikIcons.back,
+                      icon: UlvenikIcon(UlvenikIcons.back,
                         color: _textPrimary,
                         size: 26,
                       ),
@@ -409,7 +409,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                       child: Text(
                         dog.name,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textPrimary,
                           fontSize: 16.5,
                           fontWeight: FontWeight.w700,
@@ -420,7 +420,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                     IconButton(
                       tooltip: 'More Options',
                       onPressed: () => _showTopContextualSheet(client, dog),
-                      icon: const UlvenikIcon(UlvenikIcons.overflowMenu,
+                      icon: UlvenikIcon(UlvenikIcons.overflowMenu,
                         color: _textPrimary,
                         size: 21,
                       ),
@@ -443,7 +443,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                     Expanded(
                       child: Text(
                         dog.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textPrimary,
                           fontSize: 28,
                           fontWeight: FontWeight.w700,
@@ -477,7 +477,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                           const SizedBox(width: 5),
                           Text(
                             _selectedAccessLevel,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _textSecondary,
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
@@ -493,7 +493,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                 const SizedBox(height: 6),
                 Text(
                   '$displayBreed · $displayAge · $displaySex',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textSecondary,
                     fontSize: 13.5,
                     fontFamily: 'Inter',
@@ -511,7 +511,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                   },
                   child: Text(
                     'Owner: ${client.fullName}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _sage,
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
@@ -617,7 +617,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: _textSecondary,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -634,7 +634,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             Text(
               'OVERVIEW',
               style: TextStyle(
@@ -713,7 +713,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                   ],
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Training Streak',
                   style: TextStyle(
                     color: _textSecondary,
@@ -741,7 +741,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             'Training Streak',
                             style: TextStyle(
@@ -779,7 +779,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _textSecondary,
             fontSize: 12,
             fontFamily: 'Inter',
@@ -788,7 +788,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         const SizedBox(height: 4),
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             color: _textPrimary,
             fontSize: 15,
             fontWeight: FontWeight.w700,
@@ -874,7 +874,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             const SizedBox(height: 10),
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 21,
                 fontWeight: FontWeight.w700,
@@ -1027,7 +1027,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                             const SizedBox(height: 7),
                             Text(
                               item.$2,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _textPrimary,
                                 fontSize: 11.5,
                                 fontWeight: FontWeight.w600,
@@ -1116,7 +1116,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                         children: [
                           Text(
                             item.$3,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _textPrimary,
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
@@ -1126,7 +1126,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                           const SizedBox(height: 3),
                           Text(
                             item.$4,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _textSecondary,
                               fontSize: 12,
                               fontFamily: 'Inter',
@@ -1135,7 +1135,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                         ],
                       ),
                     ),
-                    const UlvenikIcon(UlvenikIcons.details,
+                    UlvenikIcon(UlvenikIcons.details,
                       color: _textSecondary,
                       size: 18,
                     ),
@@ -1155,7 +1155,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
                   'View All Activity',
                   style: TextStyle(
@@ -1213,7 +1213,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                         Expanded(
                           child: Text(
                             goal.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _textPrimary,
                               fontSize: 14.5,
                               fontWeight: FontWeight.w700,
@@ -1221,7 +1221,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                             ),
                           ),
                         ),
-                        const UlvenikIcon(UlvenikIcons.details,
+                        UlvenikIcon(UlvenikIcons.details,
                           color: _textSecondary,
                           size: 18,
                         ),
@@ -1275,7 +1275,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                     children: [
                       Text(
                         '$pctInt% complete',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textSecondary,
                           fontSize: 12,
                           fontFamily: 'Inter',
@@ -1283,7 +1283,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                       ),
                       Text(
                         goal.dueDate,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textSecondary,
                           fontSize: 12,
                           fontFamily: 'Inter',
@@ -1306,7 +1306,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
                   'View All Goals',
                   style: TextStyle(
@@ -1371,7 +1371,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
                   'View All Videos',
                   style: TextStyle(
@@ -1500,7 +1500,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                       title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textPrimary,
                         fontSize: 13.5,
                         fontWeight: FontWeight.w700,
@@ -1510,7 +1510,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                     const SizedBox(height: 3),
                     Text(
                       subtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _textSecondary,
                         fontSize: 11.5,
                         fontFamily: 'Inter',
@@ -1583,7 +1583,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
+                                  Text(
                                     'Health & Safety',
                                     style: TextStyle(
                                       color: _textPrimary,
@@ -1625,7 +1625,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(Icons.info_outline_rounded,
+                            Icon(Icons.info_outline_rounded,
                               color: _alpineBlue,
                               size: 18,
                             ),
@@ -1691,7 +1691,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                         width: double.infinity,
                         child: OutlinedButton.icon(
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: _forest),
+                            side: BorderSide(color: _forest),
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -1755,7 +1755,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Edit Health & Safety Info',
                       style: TextStyle(
                         color: _textPrimary,
@@ -1765,7 +1765,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: _textSecondary),
+                      icon: Icon(Icons.close, color: _textSecondary),
                       onPressed: () => Navigator.pop(ctx),
                     ),
                   ],
@@ -1839,7 +1839,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _textSecondary,
             fontSize: 12.5,
             fontWeight: FontWeight.w500,
@@ -1850,7 +1850,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         TextField(
           controller: controller,
           maxLines: maxLines,
-          style: const TextStyle(
+          style: TextStyle(
             color: _textPrimary,
             fontSize: 14,
             fontFamily: 'Inter',
@@ -1861,15 +1861,15 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: _border),
+              borderSide: BorderSide(color: _border),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: _border),
+              borderSide: BorderSide(color: _border),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: _forest),
+              borderSide: BorderSide(color: _forest),
             ),
           ),
         ),
@@ -1912,7 +1912,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
           const SizedBox(height: 6),
           Text(
             content.isEmpty ? 'None recorded' : content,
-            style: const TextStyle(
+            style: TextStyle(
               color: _textPrimary,
               fontSize: 13.5,
               height: 1.4,
@@ -1934,7 +1934,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             _buildSectionHeader('HEALTH SUMMARY'),
             Text(
               'SHARED BY ${client.firstName.toUpperCase()}',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _sage,
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
@@ -1991,7 +1991,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             onTap: () => _openHealthSafetySheet(client),
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
                   'View Shared Health Information',
                   style: TextStyle(
@@ -2027,7 +2027,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: _textSecondary,
               fontSize: 13.5,
               fontFamily: 'Inter',
@@ -2065,12 +2065,12 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             children: [
               Row(
                 children: [
-                  const Icon(Icons.lock_open_rounded,
+                  Icon(Icons.lock_open_rounded,
                     color: _sage,
                     size: 16,
                   ),
                   const SizedBox(width: 8),
-                  const Expanded(
+                  Expanded(
                     child: Text(
                       'Access Level',
                       style: TextStyle(
@@ -2083,7 +2083,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                   ),
                   Text(
                     'Granted by ${client.firstName}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _sage,
                       fontSize: 11.5,
                       fontFamily: 'Inter',
@@ -2129,7 +2129,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                 }).toList(),
               ),
               const SizedBox(height: 14),
-              const Text(
+              Text(
                 'Editing is enabled by the dog owner. Changes to permissions must be configured from the owner\'s account.',
                 style: TextStyle(
                   color: _textSecondary,
@@ -2151,7 +2151,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(top: 1),
                       child: Icon(Icons.info_outline_rounded,
                         color: _alpineBlue,
@@ -2162,7 +2162,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
                     Expanded(
                       child: Text(
                         _accessPermissionSummary(client),
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textSecondary,
                           fontSize: 12,
                           height: 1.45,
@@ -2191,7 +2191,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text(
                   'View Detailed Permissions',
                   style: TextStyle(
@@ -2335,7 +2335,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
               ),
             ),
             if (showChevron)
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                 color: _textSecondary,
                 size: 18,
               ),
@@ -2362,7 +2362,7 @@ class _HeroTagChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 10,
           fontWeight: FontWeight.w700,

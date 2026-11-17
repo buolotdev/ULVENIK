@@ -39,14 +39,14 @@ Future<TlPeriod?> showTlPeriodSheet(BuildContext context, TlPeriod current) asyn
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text('Select Time Period',
+          Text('Select Time Period',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           for (final p in [...kPeriods, 'Custom'])
             ListTile(
               contentPadding: EdgeInsets.zero,
-              title: Text(p, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+              title: Text(p, style: TextStyle(color: AppColors.primaryTextOffWhite)),
               subtitle: p == 'Custom' && current.kind == 'Custom'
-                  ? Text(current.label, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12))
+                  ? Text(current.label, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12))
                   : null,
               trailing: p == current.kind ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
               onTap: () => Navigator.pop(ctx, p),
@@ -74,7 +74,7 @@ Future<TlPeriod?> showCustomRangeSheet(BuildContext context, TlPeriod? initial) 
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Custom Dates',
+            Text('Custom Dates',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const FieldLabel('Start Date', required: true),
             DateField(value: from, onChanged: (d) => setSheet(() => from = d), allowFuture: false),
@@ -92,7 +92,7 @@ Future<TlPeriod?> showCustomRangeSheet(BuildContext context, TlPeriod? initial) 
                   onPressed: () => Navigator.pop(ctx),
                   style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryTextOffWhite,
-                      side: const BorderSide(color: Colors.white24),
+                      side: BorderSide(color: AppColors.cardBorder),
                       minimumSize: const Size(0, 50)),
                   child: const Text('Cancel'),
                 ),
@@ -130,12 +130,12 @@ Future<String?> showCategorySheet(BuildContext context, String current, {List<St
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Select Category',
+            Text('Select Category',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             for (final c in [kAllCategories, ...(categories ?? kTimelineCategories)])
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(c, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text(c, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 trailing: c == current ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                 onTap: () => Navigator.pop(ctx, c),
               ),
@@ -155,20 +155,20 @@ Future<String?> showDogSheet(BuildContext context, String current, {bool allowAl
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Switch Dog',
+            Text('Switch Dog',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             if (allowAll)
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('All Dogs', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                title: Text('All Dogs', style: TextStyle(color: AppColors.primaryTextOffWhite)),
                 trailing: current == kAllDogs ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                 onTap: () => Navigator.pop(ctx, kAllDogs),
               ),
             for (final d in SampleData.myDogs)
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(d.name, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
-                subtitle: Text(d.details, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                title: Text(d.name, style: TextStyle(color: AppColors.primaryTextOffWhite)),
+                subtitle: Text(d.details, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
                 trailing: current == d.name ? const Icon(Icons.check, color: Color(0xFF6FBF8E)) : null,
                 onTap: () => Navigator.pop(ctx, d.name),
               ),
@@ -199,7 +199,7 @@ class TimelineDogHeader extends StatelessWidget {
                   color: AppColors.cardsCarbon,
                   child: Center(
                     child: Text(all ? 'All' : dog.isEmpty ? '?' : dog[0],
-                        style: const TextStyle(color: AppColors.secondarySage, fontWeight: FontWeight.w700)),
+                        style: TextStyle(color: AppColors.secondarySage, fontWeight: FontWeight.w700)),
                   ),
                 )
               : Image(image: info!.photoProvider!,
@@ -208,7 +208,7 @@ class TimelineDogHeader extends StatelessWidget {
                       color: AppColors.cardsCarbon,
                       child: Center(
                           child: Text(dog[0],
-                              style: const TextStyle(color: AppColors.secondarySage, fontWeight: FontWeight.w700))))),
+                              style: TextStyle(color: AppColors.secondarySage, fontWeight: FontWeight.w700))))),
         ),
       ),
       const SizedBox(width: 12),
@@ -217,17 +217,17 @@ class TimelineDogHeader extends StatelessWidget {
           Text(all ? 'All Dogs' : dog,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
           if (info != null)
             Text(info.details,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
         ]),
       ),
       TextButton(
         onPressed: onSwitch,
-        child: const Text('Switch Dog',
+        child: Text('Switch Dog',
             style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
       ),
     ]);
@@ -268,15 +268,15 @@ class TimelineEventCard extends StatelessWidget {
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(e.title,
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
               const SizedBox(height: 2),
               Text([e.typeLabel, if (showDog) e.dog].join(' · '),
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
-              Text(when, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+              Text(when, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               if (e.detail.isNotEmpty)
-                Text(e.detail, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                Text(e.detail, style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
               if (extraLine != null)
-                Text(extraLine!, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                Text(extraLine!, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             ]),
           ),
           ?trailing,
@@ -317,9 +317,9 @@ String? dogScope(String dog) => dog == kAllDogs ? null : dog;
 
 Widget searchField(TextEditingController c, String hint) => TextField(
       controller: c,
-      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
       decoration: healthDecoration(hint).copyWith(
-        prefixIcon: const Padding(
+        prefixIcon: Padding(
           padding: EdgeInsets.all(12),
           child: UlvenikIcon(UlvenikIcons.search, size: 20, color: AppColors.secondaryTextStoneGrey),
         ),
@@ -327,7 +327,7 @@ Widget searchField(TextEditingController c, String hint) => TextField(
             ? null
             : IconButton(
                 tooltip: 'Clear search',
-                icon: const Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
+                icon: Icon(Icons.close, size: 18, color: AppColors.secondaryTextStoneGrey),
                 onPressed: c.clear,
               ),
       ),

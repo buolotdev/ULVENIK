@@ -125,7 +125,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'SPORT PHOTO / EMBLEM',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -155,7 +155,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
                     ),
                     title: Text(
                       opt.$2,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -377,7 +377,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
     return Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           bottom: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -389,7 +389,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
           GestureDetector(
             onTap: _handleCancel,
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
               child: Text(
                 'Cancel',
@@ -404,7 +404,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
           ),
           Text(
             _isEditing ? 'Edit Sport' : 'Create Sport',
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 19,
               fontWeight: FontWeight.w700,
@@ -420,7 +420,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
   Widget _buildSectionLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.secondaryTextStoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w600,
@@ -433,7 +433,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
   Widget _buildFieldLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: AppColors.secondaryTextStoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
@@ -501,12 +501,12 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
           TextField(
             controller: _nameController,
             onChanged: (_) => setState(() {}),
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 16,
               fontFamily: 'Inter',
             ),
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: 'e.g. IGP, Agility, Mondioring',
               hintStyle: TextStyle(
                 color: AppColors.secondaryTextStoneGrey,
@@ -534,7 +534,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
             controller: _descriptionController,
             maxLines: 3,
             minLines: 2,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 15,
               height: 1.4,
@@ -554,7 +554,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
                       AppColors.secondaryTextStoneGrey.withValues(alpha: 0.35),
                 ),
               ),
-              focusedBorder: const UnderlineInputBorder(
+              focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.primaryForestGreen,
                   width: 1.4,
@@ -582,7 +582,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
           _buildFieldLabel('ORGANISATION'),
           TextField(
             controller: _organisationController,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 15,
               fontFamily: 'Inter',
@@ -601,7 +601,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
                       AppColors.secondaryTextStoneGrey.withValues(alpha: 0.35),
                 ),
               ),
-              focusedBorder: const UnderlineInputBorder(
+              focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.primaryForestGreen,
                   width: 1.4,
@@ -613,7 +613,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
           _buildFieldLabel('CURRENT LEVEL'),
           TextField(
             controller: _levelController,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 15,
               fontFamily: 'Inter',
@@ -632,7 +632,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
                       AppColors.secondaryTextStoneGrey.withValues(alpha: 0.35),
                 ),
               ),
-              focusedBorder: const UnderlineInputBorder(
+              focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
                   color: AppColors.primaryForestGreen,
                   width: 1.4,
@@ -658,7 +658,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
         controller: _notesController,
         maxLines: 4,
         minLines: 4,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.primaryTextOffWhite,
           fontSize: 14.5,
           height: 1.45,
@@ -678,7 +678,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
               color: AppColors.secondaryTextStoneGrey.withValues(alpha: 0.35),
             ),
           ),
-          focusedBorder: const UnderlineInputBorder(
+          focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
               color: AppColors.primaryForestGreen,
               width: 1.4,
@@ -692,7 +692,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
   Widget _buildBottomActionFooter() {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.backgroundObsidian,
         border: Border(
           top: BorderSide(color: AppColors.cardBorder, width: 1),
@@ -735,7 +735,7 @@ class _CreateSportScreenState extends State<CreateSportScreen> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryForestGreen,
-                  foregroundColor: AppColors.primaryTextOffWhite,
+                  foregroundColor: AppColors.onForestGreen,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),

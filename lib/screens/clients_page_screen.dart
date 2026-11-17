@@ -17,20 +17,20 @@ class ClientsPageScreen extends StatefulWidget {
 }
 
 class _ClientsPageScreenState extends State<ClientsPageScreen> {
-  static const Color _bg = AppColors.backgroundObsidian; // #121212
-  static const Color _cardBg = AppColors.cardsCarbon; // #1C1C1C
-  static const Color _forest = AppColors.primaryForestGreen; // #2F5D50
+  static Color get _bg => AppColors.backgroundObsidian; // #121212
+  static Color get _cardBg => AppColors.cardsCarbon; // #1C1C1C
+  static Color get _forest => AppColors.primaryForestGreen; // #2F5D50
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _sage = Color(0xFFB6CCB5);
-  static const Color _sageIcon = AppColors.secondarySage; // #7A8F7A
-  static const Color _alpineBlue = AppColors.infoAlpineBlue; // #5D8FAF
-  static const Color _gold = AppColors.favouriteGold; // #B8920A
+  static Color get _sageIcon => AppColors.secondarySage; // #7A8F7A
+  static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
+  static Color get _gold => AppColors.favouriteGold; // #B8920A
   static const Color _terracotta = Color(0xFF8D504A);
   static const Color _charcoalEdit = Color(0xFF323533);
   static const Color _inactivePillBg = Color(0xFF272B29);
-  static const Color _textPrimary = AppColors.primaryTextOffWhite; // #F5F6F2
-  static const Color _textSecondary = AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _border = AppColors.cardBorder;
+  static Color get _textPrimary => AppColors.primaryTextOffWhite; // #F5F6F2
+  static Color get _textSecondary => AppColors.secondaryTextStoneGrey; // #A7B0AB
+  static Color get _border => AppColors.cardBorder;
 
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
@@ -112,11 +112,11 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             backgroundColor: _cardBg,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
-              side: const BorderSide(color: _border),
+              side: BorderSide(color: _border),
             ),
             title: Text(
               'Archive ${client.fullName}?',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
@@ -125,7 +125,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             ),
             content: Text(
               'Are you sure you want to archive ${client.fullName}? Their profile, dogs and session history will be moved to archived clients and can be restored at any time.',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textSecondary,
                 fontSize: 13.5,
                 height: 1.45,
@@ -135,7 +135,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: const Text(
+                child: Text(
                   'Cancel',
                   style: TextStyle(color: _textSecondary, fontFamily: 'Inter'),
                 ),
@@ -300,7 +300,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Filter Clients',
                           style: TextStyle(
                             color: _textPrimary,
@@ -368,7 +368,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                     SwitchListTile.adaptive(
                       contentPadding: EdgeInsets.zero,
                       activeTrackColor: _forest,
-                      title: const Text(
+                      title: Text(
                         'Include Archived Clients',
                         style: TextStyle(
                           color: _textPrimary,
@@ -376,7 +376,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      subtitle: const Text(
+                      subtitle: Text(
                         'Show former or archived client profiles in directory',
                         style: TextStyle(color: _textSecondary, fontSize: 12),
                       ),
@@ -442,7 +442,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Sort Clients By',
                   style: TextStyle(
                     color: _textPrimary,
@@ -508,11 +508,11 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 ),
                 const SizedBox(height: 10),
                 ListTile(
-                  leading: const Icon(Icons.visibility_outlined,
+                  leading: Icon(Icons.visibility_outlined,
                       color: _textPrimary),
                   title: Text(
                     'View ${client.fullName}',
-                    style: const TextStyle(color: _textPrimary),
+                    style: TextStyle(color: _textPrimary),
                   ),
                   onTap: () {
                     Navigator.pop(ctx);
@@ -521,7 +521,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 ),
                 ListTile(
                   leading: const UlvenikIcon(UlvenikIcons.edit, color: _mint),
-                  title: const Text(
+                  title: Text(
                     'Edit Client Details',
                     style: TextStyle(color: _textPrimary),
                   ),
@@ -537,7 +537,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   ),
                   title: Text(
                     isFav ? 'Remove from Favourites' : 'Mark as Favourite',
-                    style: const TextStyle(color: _textPrimary),
+                    style: TextStyle(color: _textPrimary),
                   ),
                   onTap: () {
                     Navigator.pop(ctx);
@@ -551,9 +551,9 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.sticky_note_2_outlined,
+                  leading: Icon(Icons.sticky_note_2_outlined,
                       color: _textSecondary),
-                  title: const Text(
+                  title: Text(
                     'Open Client Notes',
                     style: TextStyle(color: _textPrimary),
                   ),
@@ -656,7 +656,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
 
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _bg,
         border: Border(
           bottom: BorderSide(color: _border, width: 1),
@@ -668,12 +668,12 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             tooltip: 'Back',
             visualDensity: VisualDensity.compact,
             onPressed: () => Navigator.of(context).maybePop(),
-            icon: const UlvenikIcon(UlvenikIcons.back,
+            icon: UlvenikIcon(UlvenikIcons.back,
               color: _textSecondary,
               size: 26,
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Center(
               child: Padding(
                 padding: EdgeInsets.only(left: 28),
@@ -694,7 +694,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             tooltip: 'Search clients',
             visualDensity: VisualDensity.compact,
             onPressed: () => _searchFocusNode.requestFocus(),
-            icon: const UlvenikIcon(UlvenikIcons.search,
+            icon: UlvenikIcon(UlvenikIcons.search,
               color: _textSecondary,
               size: 21,
             ),
@@ -706,7 +706,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(Icons.tune_rounded,
+                Icon(Icons.tune_rounded,
                   color: _textSecondary,
                   size: 21,
                 ),
@@ -719,13 +719,13 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                         horizontal: 4.5,
                         vertical: 1,
                       ),
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: _forest,
                         shape: BoxShape.circle,
                       ),
                       child: Text(
                         '$badgeCount',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textPrimary,
                           fontSize: 9.5,
                           fontWeight: FontWeight.w700,
@@ -741,7 +741,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             tooltip: 'Sort clients',
             visualDensity: VisualDensity.compact,
             onPressed: _showSortBottomSheet,
-            icon: const UlvenikIcon(UlvenikIcons.sort,
+            icon: UlvenikIcon(UlvenikIcons.sort,
               color: _textSecondary,
               size: 21,
             ),
@@ -750,7 +750,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             tooltip: 'Add Client',
             visualDensity: VisualDensity.compact,
             onPressed: _openAddClient,
-            icon: const UlvenikIcon(UlvenikIcons.add,
+            icon: UlvenikIcon(UlvenikIcons.add,
               color: _textSecondary,
               size: 23,
             ),
@@ -770,19 +770,19 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: _textSecondary, size: 19),
+          UlvenikIcon(UlvenikIcons.search, color: _textSecondary, size: 19),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
               controller: _searchController,
               focusNode: _searchFocusNode,
               onChanged: (_) => setState(() {}),
-              style: const TextStyle(
+              style: TextStyle(
                 color: _textPrimary,
                 fontSize: 14,
                 fontFamily: 'Inter',
               ),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 isDense: true,
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(vertical: 10),
@@ -804,7 +804,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 _searchFocusNode.unfocus();
               }
             },
-            child: const Icon(Icons.close_rounded,
+            child: Icon(Icons.close_rounded,
               color: _textSecondary,
               size: 18,
             ),
@@ -881,7 +881,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
       children: [
         Text(
           '$count ${count == 1 ? 'Client' : 'Clients'}',
-          style: const TextStyle(
+          style: TextStyle(
             color: _textSecondary,
             fontSize: 13,
             fontWeight: FontWeight.w500,
@@ -898,13 +898,13 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 fontFamily: 'Inter',
               ),
               children: [
-                const TextSpan(
+                TextSpan(
                   text: 'Sorted by: ',
                   style: TextStyle(color: _textSecondary),
                 ),
                 TextSpan(
                   text: _sortBy,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textPrimary,
                     fontWeight: FontWeight.w700,
                   ),
@@ -1085,7 +1085,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                         ),
                         alignment: Alignment.center,
                         child: isInactive
-                            ? const Icon(Icons.person_outline_rounded,
+                            ? Icon(Icons.person_outline_rounded,
                                 color: _textSecondary,
                                 size: 22,
                               )
@@ -1111,7 +1111,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                               shape: BoxShape.circle,
                               border: Border.all(color: _border),
                             ),
-                            child: const Icon(Icons.star_rounded,
+                            child: Icon(Icons.star_rounded,
                               color: _gold,
                               size: 11.5,
                             ),
@@ -1127,7 +1127,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                     children: [
                       Text(
                         client.fullName,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _textPrimary,
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
@@ -1148,7 +1148,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                               dogSummary,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _textSecondary,
                                 fontSize: 13,
                                 fontFamily: 'Inter',
@@ -1163,7 +1163,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 GestureDetector(
                   onTap: () => _showClientMoreMenu(client),
                   behavior: HitTestBehavior.opaque,
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.only(left: 8, bottom: 8),
                     child: UlvenikIcon(UlvenikIcons.more,
                       color: _textSecondary,
@@ -1174,7 +1174,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
               ],
             ),
             const SizedBox(height: 14),
-            const Divider(color: _border, height: 1),
+            Divider(color: _border, height: 1),
             const SizedBox(height: 12),
             Row(
               children: [
@@ -1188,7 +1188,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: isInactive
-                      ? const Text(
+                      ? Text(
                           'No upcoming session',
                           style: TextStyle(
                             color: _textSecondary,
@@ -1205,13 +1205,13 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                               fontFamily: 'Inter',
                             ),
                             children: [
-                              const TextSpan(
+                              TextSpan(
                                 text: 'Next Session · ',
                                 style: TextStyle(color: _textSecondary),
                               ),
                               TextSpan(
                                 text: client.nextSessionLabel,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _textPrimary,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -1225,14 +1225,14 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
             const SizedBox(height: 7),
             Row(
               children: [
-                const UlvenikIcon(UlvenikIcons.trainingTime,
+                UlvenikIcon(UlvenikIcons.trainingTime,
                   color: _sageIcon,
                   size: 14,
                 ),
                 const SizedBox(width: 8),
                 Text(
                   'Last Active · ${client.lastActivityLabel}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textSecondary,
                     fontSize: 12.5,
                     fontFamily: 'Inter',
@@ -1310,7 +1310,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
       ),
       child: Text(
         upper == 'PAUSED' ? 'INACTIVE' : upper,
-        style: const TextStyle(
+        style: TextStyle(
           color: _textSecondary,
           fontSize: 10,
           fontWeight: FontWeight.w700,
@@ -1335,7 +1335,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
           Container(
             width: 5.5,
             height: 5.5,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: _alpineBlue,
               shape: BoxShape.circle,
             ),
@@ -1380,7 +1380,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
   Widget _buildSpecEmptyReferenceHeader() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: const [
+      children: [
         Text(
           'DIRECTORY REFERENCE (EMPTY STATE)',
           style: TextStyle(
@@ -1443,7 +1443,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                 const SizedBox(height: 18),
                 Text(
                   isSpecReference ? 'No Clients Yet' : 'No Matching Clients',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textPrimary,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -1456,7 +1456,7 @@ class _ClientsPageScreenState extends State<ClientsPageScreen> {
                       ? 'Add your first client to start managing their dogs, sessions, goals and progress.'
                       : 'No clients match your current search or filter chips. Add a new client or reset filters.',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _textSecondary,
                     fontSize: 13,
                     height: 1.5,

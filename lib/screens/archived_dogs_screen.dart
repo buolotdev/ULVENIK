@@ -39,7 +39,7 @@ class ArchivedDogsScreen extends StatelessWidget {
                               width: 48,
                               height: 48,
                               child: d.photoProvider == null
-                                  ? const ColoredBox(
+                                  ? ColoredBox(
                                       color: AppColors.cardsCarbon,
                                       child: Center(
                                           child: UlvenikIcon(UlvenikIcons.dogs, size: 20, color: AppColors.secondarySage)),
@@ -51,11 +51,11 @@ class ArchivedDogsScreen extends StatelessWidget {
                           Expanded(
                             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                               Text(d.name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
                               const SizedBox(height: 2),
                               Text(d.details,
-                                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
                             ]),
                           ),
                           TextButton(
@@ -63,7 +63,7 @@ class ArchivedDogsScreen extends StatelessWidget {
                               store.setArchived(d, false);
                               AppSnackbar.show(context, message: '${d.name} restored', type: SnackbarType.success);
                             },
-                            child: const Text('Restore',
+                            child: Text('Restore',
                                 style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                           ),
                         ]),

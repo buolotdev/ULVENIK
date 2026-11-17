@@ -121,13 +121,13 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
         elevation: 0,
         leading: IconButton(
           tooltip: 'Back',
-          icon: const UlvenikIcon(UlvenikIcons.back, size: 22, color: AppColors.primaryTextOffWhite),
+          icon: UlvenikIcon(UlvenikIcons.back, size: 22, color: AppColors.primaryTextOffWhite),
           onPressed: () => Navigator.maybePop(context),
         ),
         centerTitle: true,
         title: GestureDetector(
           onDoubleTap: () => setState(() => _hasData = !_hasData), // demo toggle
-          child: const Text('Goals',
+          child: Text('Goals',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
         ),
       ),
@@ -143,7 +143,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
         tooltip: 'Create Goal',
         backgroundColor: AppColors.primaryForestGreen,
         onPressed: _openCreate,
-        child: const UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
+        child: UlvenikIcon(UlvenikIcons.add, color: AppColors.primaryTextOffWhite),
       ),
     );
   }
@@ -174,22 +174,22 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
         child: TextField(
           controller: _searchController,
           onChanged: (v) => setState(() => _query = v),
-          style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
+          style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14),
           decoration: InputDecoration(
             hintText: 'Search goals',
-            hintStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
+            hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
             filled: true,
             fillColor: AppColors.cardsCarbon,
             contentPadding: EdgeInsets.zero,
-            prefixIcon: const Padding(
+            prefixIcon: Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
               child: UlvenikIcon(UlvenikIcons.search, color: AppColors.secondaryTextStoneGrey, size: 20),
             ),
             prefixIconConstraints: const BoxConstraints(minWidth: 44),
             enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Colors.white12)),
+                borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: AppColors.cardBorder)),
             focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: AppColors.primaryForestGreen)),
+                borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: AppColors.primaryForestGreen)),
           ),
         ),
       ),
@@ -199,7 +199,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
         child: Row(children: [
           Expanded(
             child: Text(_listHeading,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
           ),
           if (_filter != null)
             TextButton(
@@ -211,7 +211,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
       ),
       const SizedBox(height: 8),
       if (goals.isEmpty)
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(vertical: 32),
           child: Text('No goals match.',
               textAlign: TextAlign.center, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14)),
@@ -234,17 +234,17 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.cardsCarbon,
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
-          child: const UlvenikIcon(UlvenikIcons.goals, color: AppColors.secondarySage, size: 32),
+          child: UlvenikIcon(UlvenikIcons.goals, color: AppColors.secondarySage, size: 32),
         ),
       ),
       const SizedBox(height: 20),
-      const Text('Set your first goal',
+      Text('Set your first goal',
           textAlign: TextAlign.center,
           style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 20, fontWeight: FontWeight.w700)),
       const SizedBox(height: 10),
-      const Text(
+      Text(
         'Create goals for training, S&C and health, and track your progress over time.',
         textAlign: TextAlign.center,
         style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.4),
@@ -256,7 +256,7 @@ class _GoalsListScreenState extends State<GoalsListScreen> {
           onPressed: _openCreate,
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primaryForestGreen,
-            foregroundColor: AppColors.primaryTextOffWhite,
+            foregroundColor: AppColors.onForestGreen,
             elevation: 0,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
@@ -311,7 +311,7 @@ class _DogSelectorCard extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: Row(children: [
             DogSquarePhoto(dog: dog),
@@ -319,14 +319,14 @@ class _DogSelectorCard extends StatelessWidget {
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(dog.name,
-                    style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
-                Text(dog.breed, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                    style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 16, fontWeight: FontWeight.w600)),
+                Text(dog.breed, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               ]),
             ),
-            const Text('Switch Dog',
+            Text('Switch Dog',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 13, fontWeight: FontWeight.w500)),
             const SizedBox(width: 4),
-            const Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
+            Icon(Icons.expand_more, color: AppColors.secondaryTextStoneGrey, size: 20),
           ]),
         ),
       ),
@@ -346,15 +346,15 @@ class DogPickerSheet extends StatelessWidget {
     Widget tile(DogInfo d) => ListTile(
           contentPadding: EdgeInsets.zero,
           leading: DogSquarePhoto(dog: d, size: 40),
-          title: Text(d.name, style: const TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
+          title: Text(d.name, style: TextStyle(color: AppColors.primaryTextOffWhite, fontWeight: FontWeight.w600)),
           subtitle: Text('${d.breed} · ${d.isClient ? 'Client Dog' : 'My Dog'}',
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
-          trailing: d.name == selected ? const Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+          trailing: d.name == selected ? Icon(Icons.check, color: AppColors.primaryForestGreen) : null,
           onTap: () => onSelected(d),
         );
     Widget label(String t) => Padding(
           padding: const EdgeInsets.only(top: 12, bottom: 4),
-          child: Text(t, style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
+          child: Text(t, style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13, fontWeight: FontWeight.w600)),
         );
     return SafeArea(
       child: ConstrainedBox(
@@ -370,7 +370,7 @@ class DogPickerSheet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const Text('Select Dog',
+            Text('Select Dog',
                 style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             label('My Dogs'),
             for (final d in SampleData.myDogs) tile(d),
@@ -411,11 +411,11 @@ class _SummaryCard extends StatelessWidget {
             ),
             child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text('$count',
-                  style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 22, fontWeight: FontWeight.w600)),
               const SizedBox(height: 4),
               Text(label,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
+                  style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             ]),
           ),
         ),
@@ -457,7 +457,7 @@ class _GoalCard extends StatelessWidget {
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(goal.title,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 4),
                   Text(meta,
                       style: TextStyle(
@@ -469,17 +469,17 @@ class _GoalCard extends StatelessWidget {
               if (completed)
                 const UlvenikIcon(UlvenikIcons.completed, size: 20, color: Color(0xFF6FBF8E))
               else
-                const UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
+                UlvenikIcon(UlvenikIcons.details, size: 18, color: AppColors.secondaryTextStoneGrey),
             ]),
             if (goal.isMeasurable) ...[
               const SizedBox(height: 14),
               Row(children: [
                 Expanded(
                   child: Text('${_fmt(goal.current)} / ${_fmt(goal.targetValue!)} ${goal.targetUnit}',
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 12.5)),
                 ),
                 Text('${(goal.progress! * 100).round()}%',
-                    style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               ]),
               const SizedBox(height: 8),
               AnimatedProgressBar(
@@ -490,7 +490,7 @@ class _GoalCard extends StatelessWidget {
               ),
             ] else if (!completed) ...[
               const SizedBox(height: 10),
-              const Text('Open-ended goal · no numerical target',
+              Text('Open-ended goal · no numerical target',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
             ],
           ]),

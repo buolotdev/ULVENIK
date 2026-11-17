@@ -130,7 +130,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                         shape: BoxShape.circle,
                       ),
                       alignment: Alignment.center,
-                      child: const UlvenikIcon(UlvenikIcons.back,
+                      child: UlvenikIcon(UlvenikIcons.back,
                         color: AppColors.secondaryTextStoneGrey,
                         size: 20,
                       ),
@@ -175,7 +175,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                           Text(
                             "Enter the email address linked to your Ulvenik account and we'll send you a secure password reset link.",
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.secondaryTextStoneGrey,
                               fontSize: 15,
                               height: 1.5,
@@ -195,7 +195,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                         decoration: BoxDecoration(
                           color: AppColors.cardsCarbon,
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: Colors.white12),
+                          border: Border.all(color: AppColors.cardBorder),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -212,7 +212,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                             TextFormField(
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primaryTextOffWhite,
                                 fontSize: 15,
                               ),
@@ -226,11 +226,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                 fillColor: AppColors.backgroundObsidian,
                                 contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white12),
+                                  borderSide: BorderSide(color: AppColors.cardBorder),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: AppColors.primaryForestGreen),
+                                  borderSide: BorderSide(color: AppColors.primaryForestGreen),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
@@ -242,7 +242,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                               onPressed: _handleSendReset,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primaryForestGreen,
-                                foregroundColor: AppColors.primaryTextOffWhite,
+                                foregroundColor: AppColors.onForestGreen,
                                 padding: const EdgeInsets.symmetric(vertical: 18),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),

@@ -26,7 +26,7 @@ Future<bool> showAddToCollectionSheet(BuildContext context, String dog, List<Med
             child: ConstrainedBox(
               constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.8),
               child: ListView(shrinkWrap: true, padding: const EdgeInsets.fromLTRB(20, 20, 20, 16), children: [
-                const Text('Add to Collection',
+                Text('Add to Collection',
                     style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 8),
                 for (final c in cols)
@@ -35,7 +35,7 @@ Future<bool> showAddToCollectionSheet(BuildContext context, String dog, List<Med
                     controlAffinity: ListTileControlAffinity.leading,
                     activeColor: AppColors.primaryForestGreen,
                     checkColor: AppColors.primaryTextOffWhite,
-                    title: Text(c.name, style: const TextStyle(color: AppColors.primaryTextOffWhite)),
+                    title: Text(c.name, style: TextStyle(color: AppColors.primaryTextOffWhite)),
                     value: chosen.contains(c.id),
                     onChanged: (v) => setSheet(() => v == true ? chosen.add(c.id) : chosen.remove(c.id)),
                   ),
@@ -44,7 +44,7 @@ Future<bool> showAddToCollectionSheet(BuildContext context, String dog, List<Med
                   Expanded(
                     child: TextField(
                       controller: nameCtrl,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14.5),
                       decoration: healthDecoration('New collection name'),
                     ),
                   ),
@@ -57,7 +57,7 @@ Future<bool> showAddToCollectionSheet(BuildContext context, String dog, List<Med
                       nameCtrl.clear();
                       setSheet(() => chosen.add(c.id));
                     },
-                    child: const Text('Create',
+                    child: Text('Create',
                         style: TextStyle(color: AppColors.primaryForestGreen, fontWeight: FontWeight.w600)),
                   ),
                 ]),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/app_settings.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
@@ -105,7 +106,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                     ),
                   ),
                 ),
-                const Text(
+                Text(
                   'Update Goal Progress',
                   style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
@@ -114,7 +115,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text(
+                Text(
                   'Update your dog\'s progress based on your own assessment.',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -126,7 +127,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Progress',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -145,7 +146,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         child: Text(
                           '${(tempVal * 100).round()}%',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -181,7 +182,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryForestGreen,
-                      foregroundColor: AppColors.primaryTextOffWhite,
+                      foregroundColor: AppColors.onForestGreen,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       elevation: 0,
@@ -204,12 +205,12 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.cardsCarbon,
-        title: const Text('Exact progress', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+        title: Text('Exact progress', style: TextStyle(color: AppColors.primaryTextOffWhite)),
         content: TextField(
           controller: ctrl,
           autofocus: true,
           keyboardType: TextInputType.number,
-          style: const TextStyle(color: AppColors.primaryTextOffWhite),
+          style: TextStyle(color: AppColors.primaryTextOffWhite),
           decoration: const InputDecoration(suffixText: '%', hintText: '0-100'),
         ),
         actions: [
@@ -236,9 +237,9 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             ListTile(
-              leading: const UlvenikIcon(UlvenikIcons.edit, size: 22, color: AppColors.primaryTextOffWhite),
-              title: const Text('Edit Skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
-              subtitle: const Text('Name, description, photo and notes',
+              leading: UlvenikIcon(UlvenikIcons.edit, size: 22, color: AppColors.primaryTextOffWhite),
+              title: Text('Edit Skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              subtitle: Text('Name, description, photo and notes',
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12.5)),
               onTap: () {
                 Navigator.pop(ctx);
@@ -247,7 +248,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             ),
             ListTile(
               leading: const SizedBox(width: 22),
-              title: const Text('Archive Skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
+              title: Text('Archive Skill', style: TextStyle(color: AppColors.primaryTextOffWhite)),
               onTap: () {
                 Navigator.pop(ctx);
                 _confirm(
@@ -298,11 +299,11 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Text(title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
+                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
             Text(message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14, height: 1.45)),
             const SizedBox(height: 22),
             SizedBox(
               height: 50,
@@ -328,7 +329,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 onPressed: () => Navigator.pop(ctx),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.primaryTextOffWhite,
-                  side: const BorderSide(color: Colors.white24),
+                  side: BorderSide(color: AppColors.cardBorder),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
                 child: const Text('Cancel'),
@@ -353,7 +354,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
             child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-              const Text('Skill notes',
+              Text('Skill notes',
                   style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 18, fontWeight: FontWeight.w600)),
               const SizedBox(height: 12),
               TextField(
@@ -361,7 +362,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 autofocus: true,
                 minLines: 3,
                 maxLines: 8,
-                style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                style: TextStyle(color: AppColors.primaryTextOffWhite),
                 decoration: InputDecoration(
                   hintText: 'Add training cues, observations or reminders...',
                   filled: true,
@@ -376,7 +377,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                   onPressed: () => Navigator.pop(ctx, ctrl.text.trim()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryForestGreen,
-                    foregroundColor: AppColors.primaryTextOffWhite,
+                    foregroundColor: AppColors.onForestGreen,
                     elevation: 0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   ),
@@ -419,10 +420,10 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: AppSettings.instance.isDark ? Brightness.light : Brightness.dark,
+      statusBarBrightness: AppSettings.instance.isDark ? Brightness.dark : Brightness.light,
     ));
 
     return Scaffold(
@@ -462,7 +463,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             child: CroppedCover(
               image: const NetworkImage(_coverUrl),
               crop: _coverCrop,
-              placeholder: const ColoredBox(color: AppColors.cardsCarbon),
+              placeholder: ColoredBox(color: AppColors.cardsCarbon),
             ),
           ),
           // Bottom-up gradient fading into app background
@@ -487,7 +488,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             top: topSafe + 4,
             left: 4,
             child: IconButton(
-              icon: const UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.back, color: AppColors.primaryTextOffWhite),
               onPressed: () => Navigator.pop(context),
             ),
           ),
@@ -496,7 +497,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             right: 4,
             child: IconButton(
               tooltip: 'Skill options',
-              icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
+              icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: AppColors.primaryTextOffWhite),
               onPressed: _openSkillMenu,
             ),
           ),
@@ -508,7 +509,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               shape: const CircleBorder(),
               child: IconButton(
                 tooltip: 'Edit cover photo',
-                icon: const UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.primaryTextOffWhite),
+                icon: UlvenikIcon(UlvenikIcons.edit, size: 18, color: AppColors.primaryTextOffWhite),
                 onPressed: _editCover,
               ),
             ),
@@ -526,7 +527,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                   style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Returning immediately to the handler upon command, regardless of distractions. Essential for safety and advanced off-lead work.',
                   style: TextStyle(fontSize: 14, color: AppColors.secondaryTextStoneGrey, height: 1.4),
                 ),
@@ -571,7 +572,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -631,7 +632,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             decoration: BoxDecoration(
               color: AppColors.cardsCarbon,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
             ),
             child: Column(
               children: [
@@ -639,7 +640,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -656,7 +657,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(color: AppColors.primaryForestGreen.withValues(alpha: 0.3)),
                       ),
-                      child: const Text('ACTIVE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.primaryForestGreen)),
+                      child: Text('ACTIVE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.primaryForestGreen)),
                     ),
                   ],
                 ),
@@ -666,8 +667,8 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('PROGRESS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
-                    AnimatedPercentText(value: _goalProgress, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.primaryForestGreen)),
+                    Text('PROGRESS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
+                    AnimatedPercentText(value: _goalProgress, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.primaryForestGreen)),
                   ],
                 ),
               ],
@@ -702,8 +703,8 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               const Text('Exercises', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
               TextButton.icon(
                 onPressed: () => _openAddExercise(context),
-                icon: const UlvenikIcon(UlvenikIcons.add, size: 16, color: AppColors.primaryForestGreen),
-                label: const Text('Add', style: TextStyle(color: AppColors.primaryForestGreen, fontSize: 13, fontWeight: FontWeight.w500)),
+                icon: UlvenikIcon(UlvenikIcons.add, size: 16, color: AppColors.primaryForestGreen),
+                label: Text('Add', style: TextStyle(color: AppColors.primaryForestGreen, fontSize: 13, fontWeight: FontWeight.w500)),
                 style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
               ),
             ],
@@ -736,7 +737,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -747,10 +748,10 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 children: [
                   Text(title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
                   const SizedBox(height: 2),
-                  Text(subtitle, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
+                  Text(subtitle, style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                 ],
               ),
-              const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
+              UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
             ],
           ),
         ),
@@ -785,7 +786,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -794,14 +795,14 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(sess.date, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
+                  Text(sess.date, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: AppColors.secondaryTextStoneGrey)),
                   Row(mainAxisSize: MainAxisSize.min, children: [
                     SessionRatingBadge(
                       rating: sess.rating,
                       onTap: () => _editSessionRating(sess),
                     ),
                     const SizedBox(width: 6),
-                    const UlvenikIcon(UlvenikIcons.details, size: 16, color: AppColors.secondaryTextStoneGrey),
+                    UlvenikIcon(UlvenikIcons.details, size: 16, color: AppColors.secondaryTextStoneGrey),
                   ]),
                 ],
               ),
@@ -810,13 +811,13 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               const SizedBox(height: 4),
               Row(
                 children: [
-                  const UlvenikIcon(UlvenikIcons.trainingTime, size: 14, color: AppColors.secondaryTextStoneGrey),
+                  UlvenikIcon(UlvenikIcons.trainingTime, size: 14, color: AppColors.secondaryTextStoneGrey),
                   const SizedBox(width: 4),
-                  Text(sess.time, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
+                  Text(sess.time, style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                   const SizedBox(width: 16),
-                  const Icon(Icons.park_outlined, size: 14, color: AppColors.secondaryTextStoneGrey),
+                  Icon(Icons.park_outlined, size: 14, color: AppColors.secondaryTextStoneGrey),
                   const SizedBox(width: 4),
-                  Text(sess.location, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
+                  Text(sess.location, style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                 ],
               ),
             ],
@@ -870,7 +871,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
         height: 120,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: AppColors.cardBorder),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(7),
@@ -888,7 +889,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.cardsCarbon.withValues(alpha: 0.8),
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white12),
+                        border: Border.all(color: AppColors.cardBorder),
                       ),
                       child: const UlvenikIcon(UlvenikIcons.play, color: Colors.white, size: 18),
                     ),
@@ -913,8 +914,8 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               const Text('Notes', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
               TextButton.icon(
                 onPressed: _editNotes,
-                icon: const UlvenikIcon(UlvenikIcons.edit, size: 16, color: AppColors.secondarySage),
-                label: const Text('Edit', style: TextStyle(color: AppColors.secondarySage, fontSize: 13, fontWeight: FontWeight.w500)),
+                icon: UlvenikIcon(UlvenikIcons.edit, size: 16, color: AppColors.secondarySage),
+                label: Text('Edit', style: TextStyle(color: AppColors.secondarySage, fontSize: 13, fontWeight: FontWeight.w500)),
                 style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
               ),
             ],
@@ -925,11 +926,11 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
             decoration: BoxDecoration(
               color: AppColors.cardsCarbon,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
             ),
             child: Text(
               _notes.isEmpty ? 'No notes yet' : _notes,
-              style: const TextStyle(fontSize: 14, color: AppColors.secondaryTextStoneGrey, height: 1.5),
+              style: TextStyle(fontSize: 14, color: AppColors.secondaryTextStoneGrey, height: 1.5),
             ),
           ),
         ],
@@ -991,7 +992,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                   const SizedBox(height: 4),
                   Text(title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
                   const SizedBox(height: 4),
-                  Text(desc, style: const TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
+                  Text(desc, style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                 ],
               ),
             ),

@@ -30,13 +30,13 @@ class RestorePurchasesScreen extends StatefulWidget {
 
 class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
     with SingleTickerProviderStateMixin {
-  static const Color _obsidian = AppColors.backgroundObsidian;
-  static const Color _carbon = AppColors.cardsCarbon;
-  static const Color _forest = AppColors.primaryForestGreen;
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _forest => AppColors.primaryForestGreen;
   static const Color _sageMint = Color(0xFFB6CCB5);
-  static const Color _offWhite = AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = AppColors.secondaryTextStoneGrey;
-  static const Color _cardBorder = AppColors.cardBorder;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   late final AnimationController _spinController;
 
@@ -156,7 +156,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(14, 12, 16, 16),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           bottom: BorderSide(color: _cardBorder, width: 1),
@@ -171,7 +171,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
               }
             },
             behavior: HitTestBehavior.opaque,
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(6),
               child: UlvenikIcon(UlvenikIcons.back,
                 color: _stoneGrey,
@@ -180,7 +180,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
             ),
           ),
           const SizedBox(width: 10),
-          const Expanded(
+          Expanded(
             child: Text(
               'Restore Purchases',
               style: TextStyle(
@@ -241,7 +241,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
         Text(
           title,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 22,
             fontWeight: FontWeight.w700,
@@ -253,7 +253,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
         Text(
           subtitle,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 14,
             fontWeight: FontWeight.w400,
@@ -277,7 +277,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'WHAT THIS DOES',
             style: TextStyle(
               fontFamily: 'Inter',
@@ -290,7 +290,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
           const SizedBox(height: 8),
           Text(
             'Checks your $_platform account for an existing Ulvenik membership. You will not be charged.',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -311,13 +311,13 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                     value: value,
                     minHeight: 5,
                     backgroundColor: Colors.white10,
-                    valueColor: const AlwaysStoppedAnimation<Color>(_forest),
+                    valueColor: AlwaysStoppedAnimation<Color>(_forest),
                   );
                 },
               ),
             ),
           ],
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 18),
             child: Divider(height: 1, thickness: 1, color: _cardBorder),
           ),
@@ -330,7 +330,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'PURCHASE PLATFORM',
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -343,7 +343,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                     const SizedBox(height: 6),
                     Text(
                       _platform,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
@@ -360,7 +360,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
               ],
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 18),
             child: Divider(height: 1, thickness: 1, color: _cardBorder),
           ),
@@ -368,7 +368,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
             _phase == _RestorePhase.completed
                 ? 'RESTORED ENTITLEMENTS'
                 : 'ITEMS THAT CAN BE RESTORED',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 11,
               fontWeight: FontWeight.w600,
@@ -417,7 +417,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                   const SizedBox(height: 2),
                   Text(
                     item.detailAfterRestore,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 12,
                       color: _stoneGrey,
@@ -437,7 +437,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                   color: _forest.withValues(alpha: 0.38),
                 ),
               ),
-              child: const Text(
+              child: Text(
                 'RESTORED',
                 style: TextStyle(
                   fontFamily: 'Inter',
@@ -465,7 +465,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
           borderRadius: BorderRadius.circular(14),
           border: Border.all(color: _cardBorder),
         ),
-        child: const Row(
+        child: Row(
           children: [
             Icon(Icons.support_agent_rounded, color: _sageMint, size: 19),
             SizedBox(width: 12),
@@ -493,7 +493,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _obsidian,
         border: Border(
           top: BorderSide(color: _cardBorder, width: 1),
@@ -520,7 +520,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (isScanning) ...[
-                    const SizedBox(
+                    SizedBox(
                       width: 17,
                       height: 17,
                       child: CircularProgressIndicator(
@@ -536,7 +536,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                         : _phase == _RestorePhase.completed
                             ? 'Scan Again'
                             : 'Restore Purchases',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -551,7 +551,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
           GestureDetector(
             onTap: _openSupportTroubleshootSheet,
             behavior: HitTestBehavior.opaque,
-            child: const Text(
+            child: Text(
               "You won't be charged. Expired subscriptions cannot be\nrestored.",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -597,7 +597,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Select Purchase Platform',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -616,7 +616,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                     contentPadding: EdgeInsets.zero,
                     title: Text(
                       p,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
@@ -677,7 +677,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                 const SizedBox(height: 16),
                 Text(
                   item.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -687,7 +687,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                 const SizedBox(height: 4),
                 Text(
                   '${item.detailAfterRestore} · $_platform',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 13,
                     color: _stoneGrey,
@@ -707,7 +707,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                     children: [
                       Text(
                         'Token: ${item.receiptToken}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
@@ -728,7 +728,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                             type: SnackbarType.info,
                           );
                         },
-                        child: const Icon(Icons.copy_rounded,
+                        child: Icon(Icons.copy_rounded,
                           color: _forest,
                           size: 18,
                         ),
@@ -771,7 +771,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
+                Text(
                   'Purchase Recovery Help',
                   style: TextStyle(
                     fontFamily: 'Inter',
@@ -781,7 +781,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   '• Confirm you are signed into the same Apple ID used during purchase.\n'
                   '• Family Sharing add-on Packs must be restored from the primary organizer account.\n'
                   '• Expired trials or refunded packs cannot be restored automatically.',
@@ -799,7 +799,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                           foregroundColor: _offWhite,
-                          side: const BorderSide(color: _cardBorder),
+                          side: BorderSide(color: _cardBorder),
                           padding: const EdgeInsets.symmetric(vertical: 13),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),

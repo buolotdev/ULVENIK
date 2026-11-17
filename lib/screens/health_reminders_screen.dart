@@ -422,7 +422,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
             Expanded(
               child: Text(
                 item.isCompleted ? 'Marked "${item.title}" completed' : 'Moved back to active',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -466,7 +466,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   const SizedBox(width: 10),
                   Text(
                     'Snooze Reminder',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -477,7 +477,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               const SizedBox(height: 6),
               Text(
                 item.title,
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
               ),
               const SizedBox(height: 20),
               _buildSnoozeOption('1 Hour', 'Remind in 60 minutes', () {
@@ -532,7 +532,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -540,7 +540,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   ),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -548,7 +548,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
+            UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 20),
           ],
         ),
       ),
@@ -615,7 +615,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Create Health Reminder',
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -624,7 +624,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
+                          icon: Icon(Icons.close, color: AppColors.secondaryTextStoneGrey),
                           onPressed: () => Navigator.pop(modalCtx),
                         ),
                       ],
@@ -633,10 +633,10 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                     // Title field
                     TextField(
                       controller: titleCtrl,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite),
                       decoration: InputDecoration(
                         labelText: 'Reminder Name',
-                        labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                        labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                         hintText: 'e.g. Antibiotic Dose, Vet Follow-up',
                         hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.3)),
                         filled: true,
@@ -649,7 +649,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                     ),
                     const SizedBox(height: 14),
                     // Category selector pills
-                    const Text(
+                    Text(
                       'CATEGORY',
                       style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
@@ -709,7 +709,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                                   Expanded(
                                     child: Text(
                                       '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: AppColors.primaryTextOffWhite,
                                         fontSize: 13,
                                       ),
@@ -744,7 +744,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                                   Expanded(
                                     child: Text(
                                       pickedTime.format(context),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: AppColors.primaryTextOffWhite,
                                         fontSize: 13,
                                       ),
@@ -762,7 +762,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Repeat Frequency',
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -792,11 +792,11 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                     // Notes
                     TextField(
                       controller: noteCtrl,
-                      style: const TextStyle(color: AppColors.primaryTextOffWhite),
+                      style: TextStyle(color: AppColors.primaryTextOffWhite),
                       maxLines: 2,
                       decoration: InputDecoration(
                         labelText: 'Instructions / Notes (Optional)',
-                        labelStyle: const TextStyle(color: AppColors.secondaryTextStoneGrey),
+                        labelStyle: TextStyle(color: AppColors.secondaryTextStoneGrey),
                         filled: true,
                         fillColor: const Color(0xFF111412),
                         border: OutlineInputBorder(
@@ -892,7 +892,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Select Dog Profile',
                 style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
@@ -969,7 +969,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                               ),
                               Text(
                                 '${dog.breed} · ${dog.age}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
                                   fontSize: 12,
                                 ),
@@ -1025,15 +1025,15 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
           ? TextField(
               controller: _searchController,
               focusNode: _searchFocus,
-              style: const TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15),
-              decoration: const InputDecoration(
+              style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15),
+              decoration: InputDecoration(
                 hintText: 'Search reminders, meds, vaccines...',
                 hintStyle: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
                 border: InputBorder.none,
               ),
               onChanged: (val) => setState(() => _searchQuery = val),
             )
-          : const Text(
+          : Text(
               'Health Reminders',
               style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
@@ -1170,7 +1170,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 children: [
                   Text(
                     _dog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.primaryTextOffWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -1178,7 +1178,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   ),
                   Text(
                     '${_dog.breed} · ${_dog.age}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -1204,7 +1204,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'REMINDER SUMMARY',
             style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
@@ -1288,7 +1288,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12,
                   ),
@@ -1427,7 +1427,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -1487,7 +1487,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                     barTouchData: BarTouchData(
                       touchTooltipData: BarTouchTooltipData(
                         getTooltipColor: (_) => const Color(0xFF272B29),
-                        tooltipBorder: const BorderSide(color: Colors.white12),
+                        tooltipBorder: BorderSide(color: AppColors.cardBorder),
                         getTooltipItem: (group, groupIndex, rod, rodIndex) {
                           final point = _adherenceData[group.x.toInt()];
                           return BarTooltipItem(
@@ -1496,7 +1496,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                             children: [
                               TextSpan(
                                 text: '${point.completedCount} of ${point.totalScheduled} Completed\n',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.primaryTextOffWhite,
                                   fontSize: 11,
                                   fontWeight: FontWeight.w500,
@@ -1608,7 +1608,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'AUGUST 2026',
           style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
@@ -1694,9 +1694,9 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
         ),
         child: Column(
           children: [
-            const Icon(Icons.filter_list_off, color: AppColors.secondaryTextStoneGrey, size: 36),
+            Icon(Icons.filter_list_off, color: AppColors.secondaryTextStoneGrey, size: 36),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'No matching reminders',
               style: TextStyle(
                 color: AppColors.primaryTextOffWhite,
@@ -1708,7 +1708,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
             Text(
               'Try changing your filter "$_selectedFilter" or search query.',
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
+              style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
             ),
           ],
         ),
@@ -1765,7 +1765,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
             onTap: () => setState(() => _completedExpanded = !_completedExpanded),
             child: Row(
               children: [
-                const Text(
+                Text(
                   'COMPLETED',
                   style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
@@ -1829,7 +1829,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
           ),
           child: Text(
             '$count',
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.primaryTextOffWhite,
               fontSize: 10,
               fontWeight: FontWeight.bold,
@@ -1875,7 +1875,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                               children: [
                                 Text(
                                   item.title,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w700,
@@ -1884,7 +1884,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                                 const SizedBox(height: 3),
                                 Text(
                                   item.timingText,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.secondaryTextStoneGrey,
                                     fontSize: 12,
                                   ),
@@ -1993,7 +1993,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               children: [
                 Text(
                   item.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
@@ -2002,7 +2002,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 const SizedBox(height: 3),
                 Text(
                   item.timingText,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12,
                   ),
@@ -2070,7 +2070,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               children: [
                 Text(
                   item.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
@@ -2079,7 +2079,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 const SizedBox(height: 3),
                 Text(
                   item.timingText,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12,
                   ),
@@ -2138,7 +2138,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 shape: BoxShape.circle,
                 color: _forest,
               ),
-              child: const Icon(Icons.check, color: AppColors.primaryTextOffWhite, size: 14),
+              child: Icon(Icons.check, color: AppColors.primaryTextOffWhite, size: 14),
             ),
           ),
           const SizedBox(width: 12),
@@ -2148,7 +2148,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               children: [
                 Text(
                   item.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 15,
                     decoration: TextDecoration.lineThrough,
@@ -2158,7 +2158,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 const SizedBox(height: 3),
                 Text(
                   item.timingText,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.secondaryTextStoneGrey,
                     fontSize: 12,
                   ),
@@ -2210,14 +2210,14 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                       const SizedBox(width: 8),
                       Text(
                         _dog.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey, size: 16),
+                      Icon(Icons.keyboard_arrow_down, color: AppColors.secondaryTextStoneGrey, size: 16),
                     ],
                   ),
                 ),
@@ -2238,11 +2238,11 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                         color: _forest,
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: const Icon(Icons.format_list_bulleted, size: 16, color: AppColors.primaryTextOffWhite),
+                      child: Icon(Icons.format_list_bulleted, size: 16, color: AppColors.primaryTextOffWhite),
                     ),
                     Container(
                       padding: const EdgeInsets.all(4),
-                      child: const UlvenikIcon(UlvenikIcons.calendar, size: 16, color: AppColors.secondaryTextStoneGrey),
+                      child: UlvenikIcon(UlvenikIcons.calendar, size: 16, color: AppColors.secondaryTextStoneGrey),
                     ),
                   ],
                 ),
@@ -2304,7 +2304,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
           const SizedBox(height: 24),
 
           // Headline & description
-          const Text(
+          Text(
             'No Health Reminders',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -2314,7 +2314,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
             ),
           ),
           const SizedBox(height: 10),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               'Keep track of upcoming medications, vaccinations, appointments and other health reminders in one place.',
@@ -2371,7 +2371,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.secondaryTextStoneGrey,
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -2435,7 +2435,7 @@ class _ChartLegend extends StatelessWidget {
         const SizedBox(width: 4),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.secondaryTextStoneGrey,
             fontSize: 10,
           ),

@@ -166,7 +166,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
             Expanded(
               child: Text(
                 'Settings saved successfully for ${_dog.name}',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -204,7 +204,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Configure Health Settings For',
                 style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
@@ -262,7 +262,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                               ),
                               Text(
                                 '${dog.breed} · ${dog.age}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.secondaryTextStoneGrey,
                                   fontSize: 12,
                                 ),
@@ -308,7 +308,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Select Weight Unit',
                 style: TextStyle(
                   color: AppColors.primaryTextOffWhite,
@@ -378,7 +378,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
                       fontSize: 12,
                     ),
@@ -442,7 +442,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
         icon: const UlvenikIcon(UlvenikIcons.back, color: _sage),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
-      title: const Text(
+      title: Text(
         'Health Settings',
         style: TextStyle(
           color: AppColors.primaryTextOffWhite,
@@ -525,7 +525,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                       children: [
                         Text(
                           _dog.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -534,7 +534,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                         const SizedBox(height: 2),
                         Text(
                           '${_dog.breed} · ${_dog.age}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.secondaryTextStoneGrey,
                             fontSize: 12,
                           ),
@@ -556,7 +556,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                 top: BorderSide(color: Colors.white.withValues(alpha: 0.08)),
               ),
             ),
-            child: const Text(
+            child: Text(
               'Settings apply to this dog only',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -576,7 +576,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
       padding: const EdgeInsets.only(left: 4),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.secondaryTextStoneGrey,
           fontSize: 11,
           fontWeight: FontWeight.w700,
@@ -606,7 +606,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Weight Unit',
                       style: TextStyle(
                         color: AppColors.primaryTextOffWhite,
@@ -617,7 +617,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                     const SizedBox(height: 2),
                     Text(
                       _weightUnit == 'kg' ? 'Kilograms (kg)' : 'Pounds (lbs)',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.secondaryTextStoneGrey,
                         fontSize: 13,
                       ),
@@ -669,7 +669,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'IDEAL BODY CONDITION CORRIDOR',
                     style: TextStyle(
                       color: AppColors.secondaryTextStoneGrey,
@@ -683,7 +683,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                     children: [
                       Text(
                         'Target: ${_targetWeight.toStringAsFixed(1)} $unit',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -748,7 +748,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                       handleBuiltInTouches: true,
                       touchTooltipData: LineTouchTooltipData(
                         getTooltipColor: (_) => const Color(0xFF272B29),
-                        tooltipBorder: const BorderSide(color: Colors.white12),
+                        tooltipBorder: BorderSide(color: AppColors.cardBorder),
                         getTooltipItems: (touchedSpots) {
                           return touchedSpots.map((spot) {
                             final month = ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'][spot.spotIndex];
@@ -758,7 +758,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                               children: [
                                 TextSpan(
                                   text: '${spot.y.toStringAsFixed(1)} $unit',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: AppColors.primaryTextOffWhite,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
@@ -801,7 +801,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                           interval: unit == 'lbs' ? 4 : 2,
                           getTitlesWidget: (val, meta) => Text(
                             '${val.toInt()}$unit',
-                            style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10),
+                            style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10),
                           ),
                         ),
                       ),
@@ -874,11 +874,11 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
             children: [
               Text(
                 'Min Safe: ${minSafe.toStringAsFixed(1)}$unit',
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
               ),
               Text(
                 'Max Healthy: ${maxSafe.toStringAsFixed(1)}$unit',
-                style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
+                style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 11),
               ),
             ],
           ),
@@ -902,11 +902,11 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
             activeTrackColor: _forest,
             inactiveTrackColor: const Color(0xFF272B29),
             secondary: const UlvenikIcon(UlvenikIcons.notifications, color: _sage, size: 22),
-            title: const Text(
+            title: Text(
               'Health Notifications',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),
             ),
-            subtitle: const Text(
+            subtitle: Text(
               'Turn health reminders and notifications on or off',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
             ),
@@ -931,7 +931,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Default Reminder Time',
                           style: TextStyle(
                             color: AppColors.primaryTextOffWhite,
@@ -940,7 +940,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                           ),
                         ),
                         const SizedBox(height: 2),
-                        const Text(
+                        Text(
                           'Preferred default time for Health reminders',
                           style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
                         ),
@@ -970,7 +970,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Medication Advance Alert',
                         style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
@@ -981,7 +981,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                       const SizedBox(height: 2),
                       Text(
                         _medLeadTime,
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                       ),
                     ],
                   ),
@@ -1020,7 +1020,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Vaccine Expiry Warning',
                         style: TextStyle(
                           color: AppColors.primaryTextOffWhite,
@@ -1031,7 +1031,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                       const SizedBox(height: 2),
                       Text(
                         _vaxWarningLead,
-                        style: const TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
+                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 13),
                       ),
                     ],
                   ),
@@ -1064,11 +1064,11 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
             activeTrackColor: _forest,
             inactiveTrackColor: const Color(0xFF272B29),
             secondary: const Icon(Icons.nightlight_round_outlined, color: _sage, size: 22),
-            title: const Text(
+            title: Text(
               'Quiet Hours (10 PM - 7 AM)',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),
             ),
-            subtitle: const Text(
+            subtitle: Text(
               'Mute non-urgent health alarms at night',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
             ),
@@ -1086,11 +1086,11 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
             activeTrackColor: _forest,
             inactiveTrackColor: const Color(0xFF272B29),
             secondary: const Icon(Icons.volume_up_outlined, color: _sage, size: 22),
-            title: const Text(
+            title: Text(
               'Audible Health Chimes',
               style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 15, fontWeight: FontWeight.w500),
             ),
-            subtitle: const Text(
+            subtitle: Text(
               'Play custom Nordic chime for dosage alarms',
               style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12),
             ),

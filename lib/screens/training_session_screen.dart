@@ -271,7 +271,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       AppSnackbar.show(context, message: msg, type: type);
 
   ThemeData get _pickerTheme => ThemeData.dark().copyWith(
-        colorScheme: const ColorScheme.dark(
+        colorScheme: ColorScheme.dark(
           primary: AppColors.primaryForestGreen,
           surface: AppColors.cardsCarbon,
           onSurface: AppColors.primaryTextOffWhite,
@@ -334,7 +334,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
         backgroundColor: AppColors.cardsCarbon,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(color: Colors.white12),
+          side: BorderSide(color: AppColors.cardBorder),
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -355,7 +355,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                 decoration: BoxDecoration(
                   color: AppColors.backgroundObsidian,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.white12),
+                  border: Border.all(color: AppColors.cardBorder),
                 ),
                 child: TextField(
                   controller: ctrl,
@@ -448,7 +448,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                             title: Text(o,
                                 style: _ts(15, AppColors.primaryTextOffWhite)),
                             trailing: o == current
-                                ? const Icon(Icons.check,
+                                ? Icon(Icons.check,
                                     color: AppColors.primaryForestGreen)
                                 : null,
                             onTap: () => Navigator.pop(c, o),
@@ -481,7 +481,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
         backgroundColor: AppColors.cardsCarbon,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
-            side: const BorderSide(color: Colors.white12)),
+            side: BorderSide(color: AppColors.cardBorder)),
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -497,7 +497,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                 decoration: BoxDecoration(
                   color: AppColors.backgroundObsidian,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.white12),
+                  border: Border.all(color: AppColors.cardBorder),
                 ),
                 child: TextField(
                   controller: ctrl,
@@ -598,11 +598,11 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.backgroundObsidian,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.white12),
+                        border: Border.all(color: AppColors.cardBorder),
                       ),
                       child: Row(
                         children: [
-                          const UlvenikIcon(UlvenikIcons.skills,
+                          UlvenikIcon(UlvenikIcons.skills,
                               size: 18,
                               color: AppColors.secondaryTextStoneGrey),
                           const SizedBox(width: 10),
@@ -678,7 +678,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 if (alreadyInSession) ...[
-                                  const Icon(Icons.check,
+                                  Icon(Icons.check,
                                       size: 14,
                                       color: AppColors.primaryForestGreen),
                                   const SizedBox(width: 5),
@@ -846,7 +846,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.backgroundObsidian,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.white12),
+                        border: Border.all(color: AppColors.cardBorder),
                       ),
                       child: TextField(
                         controller: nameCtrl,
@@ -873,7 +873,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.backgroundObsidian,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.white12),
+                        border: Border.all(color: AppColors.cardBorder),
                       ),
                       child: Row(
                         children: [
@@ -919,7 +919,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                           IconButton(
                             tooltip: 'Increase repetitions',
                             onPressed: () => setSheet(() => reps++),
-                            icon: const UlvenikIcon(UlvenikIcons.add,
+                            icon: UlvenikIcon(UlvenikIcons.add,
                               color: AppColors.primaryForestGreen,
                               size: 22,
                             ),
@@ -939,7 +939,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                           backgroundColor: AppColors.primaryForestGreen,
                           disabledBackgroundColor: AppColors.primaryForestGreen
                               .withValues(alpha: 0.3),
-                          foregroundColor: AppColors.primaryTextOffWhite,
+                          foregroundColor: AppColors.onForestGreen,
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12)),
@@ -1221,11 +1221,11 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             Image(
               image: _headerImage!,
               fit: BoxFit.cover,
-              errorBuilder: (c, e, s) => const ColoredBox(color: AppColors.backgroundObsidian),
+              errorBuilder: (c, e, s) => ColoredBox(color: AppColors.backgroundObsidian),
             ),
           if (_headerImage != null)
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -1259,7 +1259,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
   Widget _circleBtn(IconData icon, VoidCallback onTap) {
     return Material(
       color: AppColors.cardsCarbon.withValues(alpha: 0.85),
-      shape: const CircleBorder(side: BorderSide(color: Colors.white12)),
+      shape: CircleBorder(side: BorderSide(color: AppColors.cardBorder)),
       child: InkWell(
         customBorder: const CircleBorder(),
         onTap: onTap,
@@ -1292,7 +1292,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             decoration: BoxDecoration(
               color: AppColors.primaryForestGreen,
               borderRadius: BorderRadius.circular(4),
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: AppColors.cardBorder),
             ),
             child: Text(_isEditing ? 'EDITING' : 'COMPLETED',
                 style: _ts(11, const Color(0xFFAAE9D0), FontWeight.w700)
@@ -1333,7 +1333,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
         const SizedBox(height: 6),
         Row(
           children: [
-            const UlvenikIcon(UlvenikIcons.calendar,
+            UlvenikIcon(UlvenikIcons.calendar,
                 size: 14, color: AppColors.secondaryTextStoneGrey),
             const SizedBox(width: 6),
             Flexible(
@@ -1349,7 +1349,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
           decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: Wrap(
             spacing: 14,
@@ -1569,7 +1569,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                 padding: const EdgeInsets.fromLTRB(16, 14, 10, 14),
                 child: Row(
                   children: [
-                    const UlvenikIcon(UlvenikIcons.skills,
+                    UlvenikIcon(UlvenikIcons.skills,
                         color: AppColors.primaryForestGreen, size: 20),
                     const SizedBox(width: 10),
                     Expanded(
@@ -1617,7 +1617,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                     ),
                     IconButton(
                       tooltip: 'Remove Skill',
-                      icon: const Icon(Icons.delete_outline,
+                      icon: Icon(Icons.delete_outline,
                           size: 19, color: AppColors.secondaryTextStoneGrey),
                       onPressed: () {
                         setState(() => _skills.remove(skill));
@@ -1627,7 +1627,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                     AnimatedRotation(
                       turns: skill.open ? 0.5 : 0,
                       duration: const Duration(milliseconds: 220),
-                      child: const Icon(Icons.expand_more,
+                      child: Icon(Icons.expand_more,
                           color: AppColors.secondaryTextStoneGrey),
                     ),
                     const SizedBox(width: 4),
@@ -1653,7 +1653,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                               decoration: BoxDecoration(
                                 color: AppColors.backgroundObsidian,
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.white12),
+                                border: Border.all(color: AppColors.cardBorder),
                               ),
                               child: Row(
                                 children: [
@@ -1693,7 +1693,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                                       color: AppColors.cardsCarbon,
                                       borderRadius: BorderRadius.circular(8),
                                       border:
-                                          Border.all(color: Colors.white12),
+                                          Border.all(color: AppColors.cardBorder),
                                     ),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
@@ -1739,7 +1739,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                                               _persistToStore();
                                             }
                                           },
-                                          child: const Padding(
+                                          child: Padding(
                                             padding: EdgeInsets.all(4),
                                             child: UlvenikIcon(UlvenikIcons.add,
                                               size: 14,
@@ -1754,7 +1754,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                                   IconButton(
                                     tooltip: 'Remove Exercise',
                                     visualDensity: VisualDensity.compact,
-                                    icon: const Icon(Icons.close,
+                                    icon: Icon(Icons.close,
                                         size: 18,
                                         color:
                                             AppColors.secondaryTextStoneGrey),
@@ -1906,7 +1906,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                 decoration: BoxDecoration(
                   color: AppColors.backgroundObsidian,
                   borderRadius: BorderRadius.circular(9999),
-                  border: Border.all(color: Colors.white12),
+                  border: Border.all(color: AppColors.cardBorder),
                 ),
                 child: Text(i, style: _ts(12.5, AppColors.primaryTextOffWhite)),
               ),
@@ -1936,7 +1936,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
               children: [
                 Row(
                   children: [
-                    const UlvenikIcon(UlvenikIcons.skills,
+                    UlvenikIcon(UlvenikIcons.skills,
                         color: AppColors.primaryForestGreen, size: 22),
                     const SizedBox(width: 12),
                     Expanded(
@@ -1949,7 +1949,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                     AnimatedRotation(
                       turns: skill.open ? 0.5 : 0,
                       duration: const Duration(milliseconds: 220),
-                      child: const Icon(Icons.expand_more,
+                      child: Icon(Icons.expand_more,
                           color: AppColors.secondaryTextStoneGrey),
                     ),
                   ],
@@ -1971,7 +1971,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                                         Container(
                                           width: 5,
                                           height: 5,
-                                          decoration: const BoxDecoration(
+                                          decoration: BoxDecoration(
                                             color: AppColors.primaryForestGreen,
                                             shape: BoxShape.circle,
                                           ),
@@ -2046,7 +2046,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                             fit: BoxFit.cover,
                             errorBuilder: (c, e, s) => Container(
                               color: AppColors.cardsCarbon,
-                              child: const Icon(Icons.image_outlined,
+                              child: Icon(Icons.image_outlined,
                                   color: AppColors.secondaryTextStoneGrey),
                             ),
                           ),
@@ -2060,7 +2060,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                                   color: Colors.black54,
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: const Icon(Icons.videocam,
+                                child: Icon(Icons.videocam,
                                     size: 12,
                                     color: AppColors.primaryTextOffWhite),
                               ),
@@ -2080,7 +2080,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                     decoration: BoxDecoration(
                       color: AppColors.cardsCarbon,
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.white12),
+                      border: Border.all(color: AppColors.cardBorder),
                     ),
                     child: Center(
                       child: Text('+$hidden more',
@@ -2106,7 +2106,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       decoration: BoxDecoration(
         color: AppColors.cardsCarbon,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: AppColors.cardBorder),
       ),
       child: child,
     );
@@ -2121,7 +2121,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
         decoration: BoxDecoration(
           color: AppColors.backgroundObsidian,
           borderRadius: BorderRadius.circular(4),
-          border: Border.all(color: Colors.white12),
+          border: Border.all(color: AppColors.cardBorder),
         ),
         child: Text(t, style: _ts(11, AppColors.secondaryTextStoneGrey)),
       );
@@ -2156,7 +2156,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
             ),
             if (chevron) ...[
               const SizedBox(width: 4),
-              const UlvenikIcon(UlvenikIcons.details,
+              UlvenikIcon(UlvenikIcons.details,
                   size: 18, color: AppColors.secondaryTextStoneGrey),
             ],
           ],
@@ -2207,7 +2207,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white12),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -2240,7 +2240,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white24),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -2274,7 +2274,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
           padding: EdgeInsets.symmetric(vertical: compact ? 12 : 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white24),
+            border: Border.all(color: AppColors.cardBorder),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
