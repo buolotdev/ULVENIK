@@ -37,7 +37,7 @@ class _TimelineStatisticsScreenState extends State<TimelineStatisticsScreen>
   static Color get _obsidian => AppColors.backgroundObsidian;
   static Color get _carbon => AppColors.cardsCarbon;
   static Color get _carbonBorder => AppColors.cardBorder;
-  static const Color _cardBadgeBg = Color(0xFF272B29);
+  static Color get _cardBadgeBg => AppColors.cardsCarbon;
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _forestGreen = Color(0xFF2F5D50);
   static Color get _whiteText => AppColors.primaryTextOffWhite;

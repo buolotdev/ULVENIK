@@ -60,19 +60,19 @@ class TimelineMemoriesScreen extends StatefulWidget {
 }
 
 class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const Color _iconBoxBg = Color(0xFF0C0F0D);
   static const Color _forest = Color(0xFF2F5D50);
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _sage = Color(0xFFB6CCB5);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _gold = Color(0xFFB8920A);
   static const Color _bronze = Color(0xFFB4823C);
   static const Color _healthRed = Color(0xFFA84646);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
-  static const Color _cardBorder = Color(0x14FFFFFF);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _cardBorder => AppColors.cardBorder;
 
   // Curated decorative hero image bank (rotates per Handover rule)
   static const List<String> _heroImageBank = [
@@ -369,10 +369,10 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
       scrolledUnderElevation: 0,
       centerTitle: true,
       leading: IconButton(
-        icon: const UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 26),
+        icon: UlvenikIcon(UlvenikIcons.back, color: _stoneGrey, size: 26),
         onPressed: () => Navigator.maybePop(context),
       ),
-      title: const Text(
+      title: Text(
         'Timeline Memories',
         style: TextStyle(
           color: _offWhite,
@@ -384,15 +384,15 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
       actions: [
         IconButton(
           tooltip: 'Filter & Display Options',
-          icon: const Icon(Icons.tune, color: _stoneGrey, size: 20),
+          icon: Icon(Icons.tune, color: _stoneGrey, size: 20),
           onPressed: _showFilterCategoriesSheet,
         ),
         PopupMenuButton<String>(
-          icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 20),
+          icon: UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 20),
           color: _carbon,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
-            side: const BorderSide(color: _cardBorder),
+            side: BorderSide(color: _cardBorder),
           ),
           onSelected: (val) {
             if (val == 'toggle_state') {
@@ -429,24 +429,24 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 _isEmptyState
                     ? 'Switch to Populated State'
                     : 'Switch to Empty State',
-                style: const TextStyle(color: _offWhite, fontSize: 13),
+                style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
             PopupMenuItem(
               value: 'sport_pack',
               child: Text(
                 _hasSportPack ? 'Disable Sport Pack' : 'Enable Sport Pack',
-                style: const TextStyle(color: _offWhite, fontSize: 13),
+                style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'rotate_hero',
               child: Text(
                 'Cycle Anniversary Cover Photo',
                 style: TextStyle(color: _offWhite, fontSize: 13),
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'reset_filters',
               child: Text(
                 'Reset Category & Year Filters',
@@ -466,7 +466,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
   Widget _buildActiveFilterBanner() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _carbon,
         border: Border(bottom: BorderSide(color: _cardBorder)),
       ),
@@ -480,7 +480,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 if (_selectedCategory != 'All') 'Category: $_selectedCategory',
                 if (_selectedYear != null) 'Year: $_selectedYear',
               ].join(' · '),
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
@@ -528,14 +528,14 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: const Color(0x18FFFFFF)),
               ),
-              child: const Icon(Icons.history_toggle_off,
+              child: Icon(Icons.history_toggle_off,
                 color: _sage,
                 size: 32,
               ),
             ),
           ),
           const SizedBox(height: 28),
-          const Text(
+          Text(
             'No Memories Yet',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -546,7 +546,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
             ),
           ),
           const SizedBox(height: 12),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 18),
             child: Text(
               "As your dog's journey grows,\nmemorable moments and anniversaries\nwill appear here automatically.",
@@ -604,10 +604,10 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.auto_awesome_outlined,
+                    Icon(Icons.auto_awesome_outlined,
                         color: _sage, size: 15),
                     const SizedBox(width: 8),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'MILESTONE ENGINE',
                         style: TextStyle(
@@ -638,7 +638,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'Memories and milestones are generated automatically from your recorded Timeline data — including dates, anniversaries, session counts, completed goals, and recorded events.',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -737,7 +737,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                             _expandThisMonth
                                 ? 'Show fewer this month'
                                 : '+ $hiddenMonthCount more this month',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -780,7 +780,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
             const SizedBox(height: 18),
           ],
           if (y2024.isNotEmpty || all2023.isNotEmpty || all2022.isNotEmpty) ...[
-            const Text(
+            Text(
               'PREVIOUS YEARS',
               style: TextStyle(
                 color: _stoneGrey,
@@ -791,7 +791,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
             ),
             const SizedBox(height: 12),
             if (y2024.isNotEmpty) ...[
-              const Text(
+              Text(
                 '2024',
                 style: TextStyle(
                   color: _offWhite,
@@ -804,7 +804,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               const SizedBox(height: 10),
             ],
             if (all2023.isNotEmpty) ...[
-              const Text(
+              Text(
                 '2023',
                 style: TextStyle(
                   color: _offWhite,
@@ -823,7 +823,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               const SizedBox(height: 10),
             ],
             if (all2022.isNotEmpty) ...[
-              const Text(
+              Text(
                 '2022',
                 style: TextStyle(
                   color: _offWhite,
@@ -912,7 +912,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      const Text(
+                      Text(
                         "Murphy's First Off-Lead Recall Session",
                         style: TextStyle(
                           color: _offWhite,
@@ -922,7 +922,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                         ),
                       ),
                       const SizedBox(height: 6),
-                      const Text(
+                      Text(
                         '14 Sep 2025 · Riverside Trail',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -940,7 +940,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Session notes: Murphy completed three off-lead recalls at Riverside Trail (45 mins). Maintained recall response around bird distractions.',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -1020,7 +1020,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
       children: [
         Text(
           leftLabel,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 11,
             fontWeight: FontWeight.w700,
@@ -1029,7 +1029,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
         ),
         Text(
           rightCount,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 11,
             fontWeight: FontWeight.w600,
@@ -1096,7 +1096,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                       Row(
                         children: [
                           if (item.isMilestoneHeaderIcon)
-                            const Icon(Icons.emoji_events_outlined,
+                            Icon(Icons.emoji_events_outlined,
                                 color: _stoneGrey, size: 12)
                           else ...[
                             Container(
@@ -1110,7 +1110,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                             const SizedBox(width: 6),
                             Text(
                               item.category,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
@@ -1127,7 +1127,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                         item.title,
                         maxLines: item.dateLabel == null ? 2 : 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
@@ -1137,7 +1137,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                         const SizedBox(height: 3),
                         Text(
                           item.dateLabel!,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 11.5,
                           ),
@@ -1148,7 +1148,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                         item.subtitle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stoneGrey,
                           fontSize: 12,
                         ),
@@ -1215,7 +1215,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
           onTap: onTap,
           child: Text(
             expanded ? 'Show fewer from $year' : '+ More from $year',
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -1231,7 +1231,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
         _isEmptyState ? _stoneGrey.withValues(alpha: 0.55) : _stoneGrey;
     return Container(
       height: 48,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0xFF14181B),
         border: Border(
           top: BorderSide(color: _cardBorder, width: 1),
@@ -1334,7 +1334,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Filter Memory Categories',
                 style: TextStyle(
                   color: _offWhite,
@@ -1402,7 +1402,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Browse Memories by Year',
                 style: TextStyle(
                   color: _offWhite,
@@ -1511,7 +1511,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
             ),
             Text(
               item.title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -1520,16 +1520,16 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
             if (item.dateLabel != null) ...[
               const SizedBox(height: 4),
               Text(item.dateLabel!,
-                  style: const TextStyle(color: _stoneGrey, fontSize: 13)),
+                  style: TextStyle(color: _stoneGrey, fontSize: 13)),
             ],
             const SizedBox(height: 8),
             Text(item.subtitle,
-                style: const TextStyle(color: _stoneGrey, fontSize: 14)),
+                style: TextStyle(color: _stoneGrey, fontSize: 14)),
             const SizedBox(height: 16),
             TextField(
               controller: noteCtrl,
-              style: const TextStyle(color: _offWhite, fontSize: 14),
-              decoration: const InputDecoration(
+              style: TextStyle(color: _offWhite, fontSize: 14),
+              decoration: InputDecoration(
                 labelText: 'Personal reflection note',
                 labelStyle: TextStyle(color: _stoneGrey, fontSize: 12),
                 enabledBorder: UnderlineInputBorder(
@@ -1610,7 +1610,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Share Anniversary Memory',
                 style: TextStyle(
                   color: _offWhite,
@@ -1622,7 +1622,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.link, color: _mint),
-                title: const Text('Copy Memory Card Link',
+                title: Text('Copy Memory Card Link',
                     style: TextStyle(color: _offWhite, fontSize: 14)),
                 onTap: () {
                   Navigator.pop(ctx);
@@ -1634,7 +1634,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.download_outlined, color: _mint),
-                title: const Text('Save Story Card to Device',
+                title: Text('Save Story Card to Device',
                     style: TextStyle(color: _offWhite, fontSize: 14)),
                 onTap: () {
                   Navigator.pop(ctx);

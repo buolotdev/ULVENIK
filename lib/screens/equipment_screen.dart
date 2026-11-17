@@ -51,14 +51,14 @@ class EquipmentScreen extends StatefulWidget {
 
 class _EquipmentScreenState extends State<EquipmentScreen> {
   // Theme Color Palette
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _surfaceHigh = Color(0xFF272B29);
-  static const _surfaceVariant = Color(0xFF323533);
+  static Color get _surfaceVariant => AppColors.cardsCarbon;
   static const _mint = Color(0xFF95D3BB);
   static const _forest = Color(0xFF2F5D50);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
   static const _outline = Color(0xFF89938E);
 
   static final _hairlineSide =
@@ -326,7 +326,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'SORT EQUIPMENT',
               style: TextStyle(
                 color: _stoneGrey,
@@ -404,7 +404,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'FILTER BY CATEGORY',
               style: TextStyle(
                 color: _stoneGrey,
@@ -501,7 +501,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                         children: [
                           Text(
                             item.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -511,7 +511,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                             const SizedBox(height: 2),
                             Text(
                               item.subtitle!,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 13,
                                 fontStyle: FontStyle.italic,
@@ -568,7 +568,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     children: [
                       Column(
                         children: [
-                          const Text(
+                          Text(
                             'TOTAL USED',
                             style: TextStyle(
                               color: _stoneGrey,
@@ -580,7 +580,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                           const SizedBox(height: 4),
                           Text(
                             '${item.usedCount} times',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -595,7 +595,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                       ),
                       Column(
                         children: [
-                          const Text(
+                          Text(
                             'LAST USED',
                             style: TextStyle(
                               color: _stoneGrey,
@@ -624,7 +624,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   children: [
                     Icon(Icons.sync_alt, size: 12, color: _mint.withValues(alpha: 0.8)),
                     const SizedBox(width: 5),
-                    const Text(
+                    Text(
                       'Shared across Training, S&C and Sport sessions',
                       style: TextStyle(
                         color: _stoneGrey,
@@ -637,7 +637,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 const SizedBox(height: 16),
 
                 if (item.notes != null) ...[
-                  const Text(
+                  Text(
                     'SPECIFICATIONS & NOTES',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -649,7 +649,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   const SizedBox(height: 6),
                   Text(
                     item.notes!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 13,
                       height: 1.45,
@@ -674,7 +674,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                           Navigator.pop(ctx);
                           _showEditEquipmentDialog(item);
                         },
-                        child: const Text('Edit Details', style: TextStyle(color: _offWhite)),
+                        child: Text('Edit Details', style: TextStyle(color: _offWhite)),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -757,7 +757,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'ADD NEW EQUIPMENT',
                     style: TextStyle(
                       color: _offWhite,
@@ -768,19 +768,19 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   const SizedBox(height: 16),
 
                   // Equipment Name Field
-                  const Text(
+                  Text(
                     'Equipment Name *',
                     style: TextStyle(color: _stoneGrey, fontSize: 12),
                   ),
                   const SizedBox(height: 6),
                   TextField(
                     controller: nameCtrl,
-                    style: const TextStyle(color: _offWhite),
+                    style: TextStyle(color: _offWhite),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: _obsidian,
                       hintText: 'e.g. Weighted Pulling Harness',
-                      hintStyle: const TextStyle(color: _stoneGrey),
+                      hintStyle: TextStyle(color: _stoneGrey),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: _hairlineSide,
@@ -799,19 +799,19 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   const SizedBox(height: 14),
 
                   // Subtitle / Brief Description
-                  const Text(
+                  Text(
                     'Short Description / Model',
                     style: TextStyle(color: _stoneGrey, fontSize: 12),
                   ),
                   const SizedBox(height: 6),
                   TextField(
                     controller: subtitleCtrl,
-                    style: const TextStyle(color: _offWhite),
+                    style: TextStyle(color: _offWhite),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: _obsidian,
                       hintText: 'e.g. 5kg professional conditioning vest',
-                      hintStyle: const TextStyle(color: _stoneGrey),
+                      hintStyle: TextStyle(color: _stoneGrey),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: _hairlineSide,
@@ -830,7 +830,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   const SizedBox(height: 14),
 
                   // Category Picker
-                  const Text(
+                  Text(
                     'Category',
                     style: TextStyle(color: _stoneGrey, fontSize: 12),
                   ),
@@ -848,7 +848,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                         dropdownColor: _carbon,
                         isExpanded: true,
                         icon: const Icon(Icons.keyboard_arrow_down, color: _mint),
-                        style: const TextStyle(color: _offWhite, fontSize: 14),
+                        style: TextStyle(color: _offWhite, fontSize: 14),
                         items: [
                           'Harnesses & Vests',
                           'Leads & Lines',
@@ -873,7 +873,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   const SizedBox(height: 14),
 
                   // Notes / Specs
-                  const Text(
+                  Text(
                     'Detailed Specifications (Optional)',
                     style: TextStyle(color: _stoneGrey, fontSize: 12),
                   ),
@@ -881,12 +881,12 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   TextField(
                     controller: notesCtrl,
                     maxLines: 2,
-                    style: const TextStyle(color: _offWhite),
+                    style: TextStyle(color: _offWhite),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: _obsidian,
                       hintText: 'Material, dimensions, weight capacity, maintenance...',
-                      hintStyle: const TextStyle(color: _stoneGrey),
+                      hintStyle: TextStyle(color: _stoneGrey),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: _hairlineSide,
@@ -916,7 +916,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                           setSheetState(() => isFavorite = val ?? false);
                         },
                       ),
-                      const Text(
+                      Text(
                         'Mark as favorite gear',
                         style: TextStyle(color: _offWhite, fontSize: 13),
                       ),
@@ -1024,7 +1024,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'EDIT EQUIPMENT',
               style: TextStyle(
                 color: _offWhite,
@@ -1035,24 +1035,24 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
             const SizedBox(height: 16),
             TextField(
               controller: nameCtrl,
-              style: const TextStyle(color: _offWhite),
+              style: TextStyle(color: _offWhite),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: _obsidian,
                 labelText: 'Name',
-                labelStyle: const TextStyle(color: _stoneGrey),
+                labelStyle: TextStyle(color: _stoneGrey),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: _hairlineSide),
               ),
             ),
             const SizedBox(height: 12),
             TextField(
               controller: subtitleCtrl,
-              style: const TextStyle(color: _offWhite),
+              style: TextStyle(color: _offWhite),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: _obsidian,
                 labelText: 'Subtitle',
-                labelStyle: const TextStyle(color: _stoneGrey),
+                labelStyle: TextStyle(color: _stoneGrey),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: _hairlineSide),
               ),
             ),
@@ -1060,12 +1060,12 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
             TextField(
               controller: notesCtrl,
               maxLines: 2,
-              style: const TextStyle(color: _offWhite),
+              style: TextStyle(color: _offWhite),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: _obsidian,
                 labelText: 'Specifications & Notes',
-                labelStyle: const TextStyle(color: _stoneGrey),
+                labelStyle: TextStyle(color: _stoneGrey),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: _hairlineSide),
               ),
             ),
@@ -1143,7 +1143,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         ),
         title: GestureDetector(
           onDoubleTap: _toggleState,
-          child: const Text(
+          child: Text(
             'Equipment',
             style: TextStyle(
               color: _offWhite,
@@ -1198,12 +1198,12 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     const SizedBox(width: 10),
                     Text(
                       _isEmpty ? 'Switch to Populated State' : 'Switch to Empty State',
-                      style: const TextStyle(color: _offWhite, fontSize: 13),
+                      style: TextStyle(color: _offWhite, fontSize: 13),
                     ),
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'add',
                 child: Row(
                   children: [
@@ -1213,7 +1213,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'sort',
                 child: Row(
                   children: [
@@ -1223,7 +1223,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'filter',
                 child: Row(
                   children: [
@@ -1233,7 +1233,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'export',
                 child: Row(
                   children: [
@@ -1309,15 +1309,15 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
       ),
       child: TextField(
         controller: _searchCtrl,
-        style: const TextStyle(color: _offWhite, fontSize: 14),
+        style: TextStyle(color: _offWhite, fontSize: 14),
         cursorColor: _mint,
         decoration: InputDecoration(
           hintText: 'Search equipment...',
-          hintStyle: const TextStyle(color: _stoneGrey, fontSize: 14),
-          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
+          hintStyle: TextStyle(color: _stoneGrey, fontSize: 14),
+          prefixIcon: UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
+                  icon: Icon(Icons.close, color: _stoneGrey, size: 18),
                   onPressed: () {
                     _searchCtrl.clear();
                   },
@@ -1355,7 +1355,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
+                        Text(
                           'EQUIPMENT',
                           style: TextStyle(
                             color: _stoneGrey,
@@ -1374,7 +1374,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                           ),
                           child: Text(
                             '$count',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
@@ -1403,11 +1403,11 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 15),
+                                UlvenikIcon(UlvenikIcons.sort, color: _stoneGrey, size: 15),
                                 const SizedBox(width: 4),
                                 Text(
                                   _currentSort,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _stoneGrey,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
@@ -1554,7 +1554,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 borderRadius: BorderRadius.circular(9999),
                 border: _hairlineBorder,
               ),
-              child: const Text(
+              child: Text(
                 'Active',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -1567,7 +1567,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         ),
 
         // 0 items
-        const Text(
+        Text(
           '0 items',
           style: TextStyle(
             color: _stoneGrey,
@@ -1591,16 +1591,16 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.search_off, color: _stoneGrey, size: 48),
+            Icon(Icons.search_off, color: _stoneGrey, size: 48),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'No equipment found',
               style: TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 4),
             Text(
               'No gear matches "$_searchQuery"',
-              style: const TextStyle(color: _stoneGrey, fontSize: 13),
+              style: TextStyle(color: _stoneGrey, fontSize: 13),
             ),
           ],
         ),
@@ -1659,7 +1659,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 children: [
                   Text(
                     item.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -1671,7 +1671,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     const SizedBox(height: 2),
                     Text(
                       item.subtitle!,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 12,
                         fontStyle: FontStyle.italic,
@@ -1752,7 +1752,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         const SizedBox(height: 28),
 
         // Title
-        const Text(
+        Text(
           'No Equipment Yet',
           style: TextStyle(
             color: _offWhite,
@@ -1765,7 +1765,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         const SizedBox(height: 10),
 
         // Description
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
             'Create your first equipment item to start building your Equipment Library and keep track of what you use across your dog’s training.',
@@ -1793,7 +1793,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
               ),
             ),
             onPressed: _showAddEquipmentDialog,
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 UlvenikIcon(UlvenikIcons.add, size: 18, color: _offWhite),

@@ -94,7 +94,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
   static Color get _gold => AppColors.favouriteGold; // #B8920A
   static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
   static Color get _stone => AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _muted = Color(0xFF6E7772);
+  static Color get _muted => AppColors.secondaryTextStoneGrey;
   static Color get _border => AppColors.cardBorder;
   static const Color _underline = Color(0x2EFFFFFF);
 
@@ -394,7 +394,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                         const SizedBox(height: 10),
                         _buildFaultsPenaltiesCard(),
                         const SizedBox(height: 7),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.only(left: 2),
                           child: Text(
                             'All fields optional.',
@@ -783,7 +783,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _muted,
             fontSize: 10.5,
             fontWeight: FontWeight.w600,
@@ -804,7 +804,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           decoration: InputDecoration(
             isDense: true,
             hintText: hint,
-            hintStyle: const TextStyle(
+            hintStyle: TextStyle(
               color: _muted,
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -852,7 +852,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           const SizedBox(height: 12),
           Row(
             children: [
-              const Icon(Icons.tag_rounded, color: _muted, size: 16),
+              Icon(Icons.tag_rounded, color: _muted, size: 16),
               const SizedBox(width: 8),
               Text(
                 'Percentage',
@@ -885,7 +885,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             ],
           ),
           const SizedBox(height: 10),
-          const Text(
+          Text(
             'Calculated automatically from Total ÷ Maximum Score',
             style: TextStyle(
               color: _muted,
@@ -979,7 +979,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             decoration: InputDecoration(
               isDense: true,
               hintText: hint,
-              hintStyle: const TextStyle(
+              hintStyle: TextStyle(
                 color: _muted,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -1075,7 +1075,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                             });
                             _animController.forward(from: 0.3);
                           },
-                          child: const Icon(Icons.close_rounded,
+                          child: Icon(Icons.close_rounded,
                             color: _muted,
                             size: 16,
                           ),
@@ -1406,7 +1406,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
             decoration: InputDecoration(
               isDense: true,
               hintText: hint,
-              hintStyle: const TextStyle(
+              hintStyle: TextStyle(
                 color: _muted,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -1477,7 +1477,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                     const SizedBox(width: 8),
                     GestureDetector(
                       onTap: () => setState(() => _awards.removeAt(i)),
-                      child: const Icon(Icons.close_rounded,
+                      child: Icon(Icons.close_rounded,
                         color: _muted,
                         size: 15,
                       ),
@@ -1554,13 +1554,13 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                               removed.dispose();
                             });
                           },
-                          child: const Icon(Icons.close_rounded,
+                          child: Icon(Icons.close_rounded,
                             color: _muted,
                             size: 16,
                           ),
                         )
                       else
-                        const Icon(Icons.close_rounded,
+                        Icon(Icons.close_rounded,
                           color: _muted,
                           size: 16,
                         ),
@@ -1697,7 +1697,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
           const SizedBox(height: 8),
           Text(
             '$len / 2000',
-            style: const TextStyle(
+            style: TextStyle(
               color: _muted,
               fontSize: 11.5,
               fontFamily: 'Inter',
@@ -1883,7 +1883,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _muted,
                       fontSize: 12,
                       fontFamily: 'Inter',
@@ -2007,7 +2007,7 @@ class _CompetitionResultsScreenState extends State<CompetitionResultsScreen>
                     ),
                     decoration: InputDecoration(
                       hintText: 'Or type custom award / title...',
-                      hintStyle: const TextStyle(color: _muted, fontSize: 13.5),
+                      hintStyle: TextStyle(color: _muted, fontSize: 13.5),
                       filled: true,
                       fillColor: _bg,
                       border: OutlineInputBorder(

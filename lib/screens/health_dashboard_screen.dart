@@ -51,14 +51,14 @@ class HealthDashboardScreen extends StatefulWidget {
 class _HealthDashboardScreenState extends State<HealthDashboardScreen>
     with SingleTickerProviderStateMixin {
   // Theme Colors
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _surfaceHigh = Color(0xFF272B29);
   static const _surfaceDeep = Color(0xFF15181A);
   static const _mint = Color(0xFF95D3BB);
   static const _forest = Color(0xFF2F5D50);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _muted = Color(0xFFA7B0AB);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _muted => AppColors.secondaryTextStoneGrey;
   static const _error = Color(0xFFFFB4AB);
   static const _amber = Color(0xFFF59E0B);
 
@@ -162,7 +162,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Switch Canine Athlete',
                 style: TextStyle(
                   color: _offWhite,
@@ -195,7 +195,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                     ),
                     subtitle: Text(
                       '${d.breed} · ${d.age}',
-                      style: const TextStyle(color: _muted, fontSize: 12),
+                      style: TextStyle(color: _muted, fontSize: 12),
                     ),
                     trailing: isSelected
                         ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
@@ -207,7 +207,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                                   color: Colors.white.withValues(alpha: 0.05),
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: const Text('No Records', style: TextStyle(color: _muted, fontSize: 10)),
+                                child: Text('No Records', style: TextStyle(color: _muted, fontSize: 10)),
                               )),
                     onTap: () {
                       Navigator.pop(ctx);
@@ -268,7 +268,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                   ),
                   const Spacer(),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _muted, size: 20),
+                    icon: Icon(Icons.close, color: _muted, size: 20),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -276,12 +276,12 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
               const SizedBox(height: 10),
               Text(
                 title,
-                style: const TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.w600),
+                style: TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 4),
               Text(
                 subtitle,
-                style: const TextStyle(color: _muted, fontSize: 13),
+                style: TextStyle(color: _muted, fontSize: 13),
               ),
               const SizedBox(height: 20),
               Row(
@@ -304,7 +304,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: _carbon,
-                            content: Text('Dismissed alert "$title"', style: const TextStyle(color: _offWhite)),
+                            content: Text('Dismissed alert "$title"', style: TextStyle(color: _offWhite)),
                             duration: const Duration(seconds: 2),
                           ),
                         );
@@ -314,7 +314,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                       ),
-                      child: const Text('Dismiss', style: TextStyle(color: _muted)),
+                      child: Text('Dismiss', style: TextStyle(color: _muted)),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -358,10 +358,10 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
         backgroundColor: _obsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: _muted, size: 28),
+          icon: UlvenikIcon(UlvenikIcons.back, color: _muted, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: const Text(
+        title: Text(
           'Health Dashboard',
           style: TextStyle(
             color: _offWhite,
@@ -374,7 +374,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
         actions: [
           IconButton(
             tooltip: 'Search Records',
-            icon: const UlvenikIcon(UlvenikIcons.search, color: _muted),
+            icon: UlvenikIcon(UlvenikIcons.search, color: _muted),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -401,7 +401,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
           ),
           IconButton(
             tooltip: 'Options',
-            icon: const UlvenikIcon(UlvenikIcons.more, color: _muted),
+            icon: UlvenikIcon(UlvenikIcons.more, color: _muted),
             onPressed: _showDogSelectorSheet,
           ),
         ],
@@ -458,7 +458,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                       context,
                       MaterialPageRoute(builder: (_) => const AddHealthRecordScreen()),
                     ),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -522,7 +522,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 children: [
                   Text(
                     _dog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
@@ -531,7 +531,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                   const SizedBox(height: 2),
                   Text(
                     '${_dog.breed} · ${_dog.age}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _muted,
                       fontSize: 12,
                     ),
@@ -539,7 +539,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: _muted, size: 22),
+            Icon(Icons.expand_more, color: _muted, size: 22),
           ],
         ),
       ),
@@ -744,7 +744,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                           : (_selectedGraphMetric == 'Weight'
                               ? '27.4 kg · Target Stability 98%'
                               : '94 Activity Score · High Stamina'),
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -753,7 +753,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 2),
-                    const Text(
+                    Text(
                       'Past 6 Months Biometric Tracking',
                       style: TextStyle(color: _muted, fontSize: 11),
                     ),
@@ -817,7 +817,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                               children: [
                                 TextSpan(
                                   text: valStr,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 11,
                                     fontWeight: FontWeight.w500,
@@ -858,7 +858,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                           interval: isWeight ? 1.0 : 10.0,
                           getTitlesWidget: (val, meta) => Text(
                             isWeight ? '${val.toStringAsFixed(0)}k' : '${val.toInt()}',
-                            style: const TextStyle(color: _muted, fontSize: 10),
+                            style: TextStyle(color: _muted, fontSize: 10),
                           ),
                         ),
                       ),
@@ -1096,7 +1096,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                           const SizedBox(height: 2),
                           Text(
                             title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
@@ -1106,7 +1106,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                             const SizedBox(height: 2),
                             Text(
                               subtitle,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _muted,
                                 fontSize: 11,
                               ),
@@ -1115,7 +1115,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                         ],
                       ),
                     ),
-                    const UlvenikIcon(UlvenikIcons.details, color: _muted, size: 20),
+                    UlvenikIcon(UlvenikIcons.details, color: _muted, size: 20),
                   ],
                 ),
               ),
@@ -1148,7 +1148,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 child: const Icon(Icons.favorite_outline, color: _mint, size: 34),
               ),
               const SizedBox(height: 18),
-              const Text(
+              Text(
                 'Welcome to Health',
                 style: TextStyle(
                   color: _offWhite,
@@ -1159,7 +1159,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
               const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: const Text(
+                child: Text(
                   'Start building your dog’s health history by keeping their important health records together in one place.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -1196,7 +1196,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                       context,
                       MaterialPageRoute(builder: (_) => const AddHealthRecordScreen()),
                     ),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 14),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -1292,7 +1292,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(color: _muted, fontSize: 12, fontWeight: FontWeight.w500),
+          style: TextStyle(color: _muted, fontSize: 12, fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 6),
         Container(
@@ -1342,17 +1342,17 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600),
+                    style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(color: _muted, fontSize: 11),
+                    style: TextStyle(color: _muted, fontSize: 11),
                   ),
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details, color: _muted, size: 20),
+            UlvenikIcon(UlvenikIcons.details, color: _muted, size: 20),
           ],
         ),
       ),

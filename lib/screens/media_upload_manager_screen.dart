@@ -54,7 +54,7 @@ class _MediaUploadManagerScreenState extends State<MediaUploadManagerScreen>
   static Color get _cardBorder => AppColors.cardBorder;
   static Color get _destructive => AppColors.errorDestructive; // #8B3A3A
   static const Color _iconBoxBg = Color(0xFF0C0F0D);
-  static const Color _trackBg = Color(0xFF323533);
+  static Color get _trackBg => AppColors.cardsCarbon;
 
   late final AnimationController _pulseController;
   Timer? _uploadTicker;

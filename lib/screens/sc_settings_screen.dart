@@ -16,10 +16,10 @@ class SCSettingsScreen extends StatefulWidget {
 class _SCSettingsScreenState extends State<SCSettingsScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens ──────────────────────────────────────────────────────────
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _checkboxBlue = Color(0xFF1A73E8);
   static const Color _errorRed = Color(0xFFCC5050);
@@ -197,7 +197,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     'SELECT DEFAULT ACTIVITY',
@@ -286,7 +286,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     'DEFAULT ACTIVITY SORT ORDER',
@@ -375,7 +375,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     'DEFAULT FILTER',
@@ -465,7 +465,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     'DEFAULT STATISTICS DATE RANGE',
@@ -536,7 +536,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
           children: [
             const Icon(Icons.warning_amber_rounded, color: _errorRed, size: 24),
             const SizedBox(width: 10),
-            const Expanded(
+            Expanded(
               child: Text(
                 'Reset S & C Settings?',
                 style: TextStyle(
@@ -548,14 +548,14 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
             ),
           ],
         ),
-        content: const Text(
+        content: Text(
           'This will restore all Strength & Conditioning preferences to their default settings.\n\nYour sessions, activities, and templates are never affected.',
           style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: _stoneGrey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -613,11 +613,11 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
           bottom: BorderSide(color: Color(0x14FFFFFF), width: 1),
         ),
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 20),
+          icon: UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 20),
           tooltip: 'Back',
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: const Text(
+        title: Text(
           'S & C Settings',
           style: TextStyle(
             color: _offWhite,
@@ -881,7 +881,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
               ),
             ),
             const SizedBox(height: 12),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'Resets module preferences only. Your sessions, activities and templates are never affected.',
@@ -907,7 +907,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
       padding: const EdgeInsets.symmetric(horizontal: 4),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           color: _stoneGrey,
           fontSize: 11,
           fontWeight: FontWeight.w700,
@@ -936,7 +936,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -945,14 +945,14 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
             ),
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
               ),
             ),
             const SizedBox(width: 4),
-            const UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 16),
+            UlvenikIcon(UlvenikIcons.details, color: _stoneGrey, size: 16),
           ],
         ),
       ),
@@ -988,7 +988,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -998,7 +998,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                     const SizedBox(height: 3),
                     Text(
                       subtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -1051,7 +1051,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                 ],
               ),
               IconButton(
-                icon: const Icon(Icons.replay, color: _stoneGrey, size: 18),
+                icon: Icon(Icons.replay, color: _stoneGrey, size: 18),
                 tooltip: 'Replay Animation',
                 onPressed: () {
                   _chartAnimController.reset();
@@ -1061,7 +1061,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
             ],
           ),
           const SizedBox(height: 4),
-          const Text(
+          Text(
             'Preview how training volume curves render on your dashboard with current preferences.',
             style: TextStyle(color: _stoneGrey, fontSize: 12, height: 1.3),
           ),
@@ -1107,7 +1107,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                           interval: 15,
                           getTitlesWidget: (val, meta) => Text(
                             '${val.toInt()}k',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 10,
                             ),
@@ -1134,7 +1134,7 @@ class _SCSettingsScreenState extends State<SCSettingsScreen>
                                 padding: const EdgeInsets.only(top: 6),
                                 child: Text(
                                   days[idx],
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _stoneGrey,
                                     fontSize: 10,
                                   ),

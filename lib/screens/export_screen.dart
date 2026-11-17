@@ -57,14 +57,14 @@ class ExportScreen extends StatefulWidget {
 class _ExportScreenState extends State<ExportScreen>
     with SingleTickerProviderStateMixin {
   // ─── Theme Colors (Faithful to Figma & Ulvenik Design Tokens) ───────────────
-  static const _obsidian = Color(0xFF121212);
+  static Color get _obsidian => AppColors.backgroundObsidian;
   static const _surface = Color(0xFF111412);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _surfaceHigh = Color(0xFF272B29);
   static const _forest = Color(0xFF2F5D50);
   static const _mint = Color(0xFF95D3BB);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
   static const _errorRed = Color(0xFFFFB4AB);
 
   static final _hairlineBorder =
@@ -291,14 +291,14 @@ class _ExportScreenState extends State<ExportScreen>
       builder: (context, child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(
+            colorScheme: ColorScheme.dark(
               primary: _forest,
               onPrimary: _offWhite,
               surface: _carbon,
               onSurface: _offWhite,
               secondary: _mint,
             ),
-            dialogTheme: const DialogThemeData(
+            dialogTheme: DialogThemeData(
               backgroundColor: _carbon,
             ),
           ),
@@ -400,7 +400,7 @@ class _ExportScreenState extends State<ExportScreen>
             const SizedBox(height: 18),
             Text(
               item.fileName,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
@@ -409,20 +409,20 @@ class _ExportScreenState extends State<ExportScreen>
             const SizedBox(height: 4),
             Text(
               '${item.dateLabel} · ${item.fileSize} · ${item.sessionCount} Sessions',
-              style: const TextStyle(color: _stoneGrey, fontSize: 12),
+              style: TextStyle(color: _stoneGrey, fontSize: 12),
             ),
             const SizedBox(height: 20),
             ListTile(
               leading: const Icon(Icons.share_outlined, color: _mint),
-              title: const Text('Share File', style: TextStyle(color: _offWhite)),
+              title: Text('Share File', style: TextStyle(color: _offWhite)),
               contentPadding: EdgeInsets.zero,
               onTap: () {
                 Navigator.pop(ctx);
               },
             ),
             ListTile(
-              leading: const Icon(Icons.download_outlined, color: _offWhite),
-              title: const Text('Save to Local Storage', style: TextStyle(color: _offWhite)),
+              leading: Icon(Icons.download_outlined, color: _offWhite),
+              title: Text('Save to Local Storage', style: TextStyle(color: _offWhite)),
               contentPadding: EdgeInsets.zero,
               onTap: () {
                 Navigator.pop(ctx);
@@ -469,7 +469,7 @@ class _ExportScreenState extends State<ExportScreen>
           onDoubleTap: () {
             setState(() => _isEmptyState = !_isEmptyState);
           },
-          child: const Text(
+          child: Text(
             'Export',
             style: TextStyle(
               color: _offWhite,
@@ -495,7 +495,7 @@ class _ExportScreenState extends State<ExportScreen>
             },
           ),
           PopupMenuButton<String>(
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey),
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey),
             tooltip: 'Options',
             color: _carbon,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -546,12 +546,12 @@ class _ExportScreenState extends State<ExportScreen>
                       _isEmptyState
                           ? 'View Configured State'
                           : 'View Empty State',
-                      style: const TextStyle(color: _offWhite, fontSize: 13),
+                      style: TextStyle(color: _offWhite, fontSize: 13),
                     ),
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'reset',
                 child: Row(
                   children: [
@@ -659,7 +659,7 @@ class _ExportScreenState extends State<ExportScreen>
         const SizedBox(height: 12),
         _buildFileNameInputConfigured(),
         const SizedBox(height: 6),
-        const Text(
+        Text(
           'Tap to rename before exporting',
           style: TextStyle(color: _stoneGrey, fontSize: 12),
         ),
@@ -887,7 +887,7 @@ class _ExportScreenState extends State<ExportScreen>
                             : Border.all(color: AppColors.cardBorder, width: 1),
                       ),
                       child: isChecked
-                          ? const Icon(Icons.check, size: 14, color: _offWhite)
+                          ? Icon(Icons.check, size: 14, color: _offWhite)
                           : null,
                     ),
                     const SizedBox(width: 8),
@@ -935,7 +935,7 @@ class _ExportScreenState extends State<ExportScreen>
                 children: [
                   const UlvenikIcon(UlvenikIcons.progress, color: _mint, size: 18),
                   const SizedBox(width: 8),
-                  const Text(
+                  Text(
                     'EXPORT DATA PREVIEW',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -967,7 +967,7 @@ class _ExportScreenState extends State<ExportScreen>
           const SizedBox(height: 12),
           Text(
             'Interactive telemetry over $_selectedDateRange. Tap any bar to view details.',
-            style: const TextStyle(color: _stoneGrey, fontSize: 12),
+            style: TextStyle(color: _stoneGrey, fontSize: 12),
           ),
           const SizedBox(height: 16),
 
@@ -1071,7 +1071,7 @@ class _ExportScreenState extends State<ExportScreen>
             children: [
               Text(
                 'Estimated payload size: ~${_exportFormatConfigured == "PDF" ? "2.4 MB" : (_exportFormatConfigured == "CSV" ? "540 KB" : "1.2 MB")}',
-                style: const TextStyle(color: _stoneGrey, fontSize: 11),
+                style: TextStyle(color: _stoneGrey, fontSize: 11),
               ),
               const Row(
                 children: [
@@ -1180,7 +1180,7 @@ class _ExportScreenState extends State<ExportScreen>
                         const SizedBox(height: 3),
                         Text(
                           item['desc'] as String,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12,
                           ),
@@ -1206,7 +1206,7 @@ class _ExportScreenState extends State<ExportScreen>
       ),
       child: TextField(
         controller: _fileNameConfiguredController,
-        style: const TextStyle(
+        style: TextStyle(
           color: _offWhite,
           fontSize: 14,
           fontWeight: FontWeight.w500,
@@ -1220,7 +1220,7 @@ class _ExportScreenState extends State<ExportScreen>
           hintText: 'Enter a file name...',
           hintStyle: TextStyle(color: _stoneGrey.withValues(alpha: 0.5)),
           suffixIcon: IconButton(
-            icon: const UlvenikIcon(UlvenikIcons.edit, color: _stoneGrey, size: 20),
+            icon: UlvenikIcon(UlvenikIcons.edit, color: _stoneGrey, size: 20),
             tooltip: 'Rename',
             onPressed: () {
               FocusScope.of(context).requestFocus(FocusNode());
@@ -1243,7 +1243,7 @@ class _ExportScreenState extends State<ExportScreen>
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         onPressed: _triggerExportGeneration,
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.ios_share, size: 20, color: _offWhite),
@@ -1305,7 +1305,7 @@ class _ExportScreenState extends State<ExportScreen>
                   children: [
                     Text(
                       item.fileName,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -1316,7 +1316,7 @@ class _ExportScreenState extends State<ExportScreen>
                     const SizedBox(height: 3),
                     Text(
                       '${item.dateLabel} · ${item.fileSize}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _stoneGrey,
                         fontSize: 12,
                       ),
@@ -1327,12 +1327,12 @@ class _ExportScreenState extends State<ExportScreen>
 
               // Action: Re-download / Options
               IconButton(
-                icon: const Icon(Icons.refresh, color: _stoneGrey),
+                icon: Icon(Icons.refresh, color: _stoneGrey),
                 tooltip: 'Re-export',
                 onPressed: () => _handleReDownload(item),
               ),
               IconButton(
-                icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 18),
+                icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 18),
                 tooltip: 'More actions',
                 onPressed: () => _showItemOptions(item),
               ),
@@ -1435,7 +1435,7 @@ class _ExportScreenState extends State<ExportScreen>
                               : Border.all(color: AppColors.cardBorder, width: 1),
                         ),
                         child: isChecked
-                            ? const Icon(Icons.check, size: 14, color: _offWhite)
+                            ? Icon(Icons.check, size: 14, color: _offWhite)
                             : null,
                       ),
                       const SizedBox(width: 12),
@@ -1542,7 +1542,7 @@ class _ExportScreenState extends State<ExportScreen>
           ),
           child: TextField(
             controller: _fileNameEmptyController,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 14,
               fontWeight: FontWeight.w500,
@@ -1643,7 +1643,7 @@ class _ExportScreenState extends State<ExportScreen>
             ),
           ),
           const SizedBox(height: 18),
-          const Text(
+          Text(
             'No Exports Yet',
             style: TextStyle(
               color: _offWhite,
@@ -1652,7 +1652,7 @@ class _ExportScreenState extends State<ExportScreen>
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             'You haven\'t generated any exports yet.\nSelect options above to create your first data file.',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1671,7 +1671,7 @@ class _ExportScreenState extends State<ExportScreen>
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,

@@ -73,14 +73,14 @@ class _StrengthConditioningDashboardScreenState
     extends State<StrengthConditioningDashboardScreen>
     with SingleTickerProviderStateMixin {
   // Theme Constants
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _surfaceHigh = Color(0xFF272B29);
   static const _surfaceDeep = Color(0xFF15181A);
   static const _mint = Color(0xFF95D3BB);
   static const _forest = Color(0xFF2F5D50);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _muted = Color(0xFFA7B0AB);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _muted => AppColors.secondaryTextStoneGrey;
 
   static final _hairlineBorder =
       Border.all(color: Colors.white.withValues(alpha: 0.08));
@@ -224,7 +224,7 @@ class _StrengthConditioningDashboardScreenState
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Switch Athlete Profile',
                 style: TextStyle(
                   color: _offWhite,
@@ -259,7 +259,7 @@ class _StrengthConditioningDashboardScreenState
                     ),
                     subtitle: Text(
                       '${d.breed} · ${d.age}',
-                      style: const TextStyle(color: _muted, fontSize: 12),
+                      style: TextStyle(color: _muted, fontSize: 12),
                     ),
                     trailing: isSelected
                         ? const UlvenikIcon(UlvenikIcons.completed, color: _mint, size: 20)
@@ -272,7 +272,7 @@ class _StrengthConditioningDashboardScreenState
                                   color: Colors.white.withValues(alpha: 0.05),
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: const Text('No Activities',
+                                child: Text('No Activities',
                                     style: TextStyle(
                                         color: _muted, fontSize: 10)),
                               )),
@@ -343,14 +343,14 @@ class _StrengthConditioningDashboardScreenState
                   const Spacer(),
                   Text(
                     'Last: ${activity.lastTrained}',
-                    style: const TextStyle(color: _muted, fontSize: 12),
+                    style: TextStyle(color: _muted, fontSize: 12),
                   ),
                 ],
               ),
               const SizedBox(height: 12),
               Text(
                 activity.name,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
@@ -430,7 +430,7 @@ class _StrengthConditioningDashboardScreenState
                             borderRadius: BorderRadius.circular(8)),
                       ),
                       child:
-                          const Text('Close', style: TextStyle(color: _muted)),
+                          Text('Close', style: TextStyle(color: _muted)),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -468,14 +468,14 @@ class _StrengthConditioningDashboardScreenState
       children: [
         Text(
           label,
-          style: const TextStyle(color: _muted, fontSize: 13),
+          style: TextStyle(color: _muted, fontSize: 13),
         ),
         const SizedBox(width: 12),
         Flexible(
           child: Text(
             value,
             textAlign: TextAlign.end,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 13,
               fontWeight: FontWeight.w600,
@@ -538,10 +538,10 @@ class _StrengthConditioningDashboardScreenState
         backgroundColor: _obsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: _muted),
+          icon: UlvenikIcon(UlvenikIcons.back, color: _muted),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: const Text(
+        title: Text(
           'Strength & Conditioning',
           style: TextStyle(
             color: _offWhite,
@@ -554,7 +554,7 @@ class _StrengthConditioningDashboardScreenState
         actions: [
           IconButton(
             tooltip: 'Search Activities',
-            icon: const UlvenikIcon(UlvenikIcons.search, color: _muted),
+            icon: UlvenikIcon(UlvenikIcons.search, color: _muted),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -615,7 +615,7 @@ class _StrengthConditioningDashboardScreenState
           ),
           PopupMenuButton<String>(
             tooltip: 'Options',
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _muted),
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: _muted),
             color: _carbon,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             onSelected: (val) {
@@ -652,7 +652,7 @@ class _StrengthConditioningDashboardScreenState
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'dog',
                 child: Row(
                   children: [
@@ -662,7 +662,7 @@ class _StrengthConditioningDashboardScreenState
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'export',
                 child: Row(
                   children: [
@@ -672,7 +672,7 @@ class _StrengthConditioningDashboardScreenState
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'archive',
                 child: Row(
                   children: [
@@ -753,7 +753,7 @@ class _StrengthConditioningDashboardScreenState
                 children: [
                   Text(
                     _dog.name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -763,7 +763,7 @@ class _StrengthConditioningDashboardScreenState
                     _isEmpty
                         ? 'Active Profile'
                         : '${_dog.breed} · ${_dog.age}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _muted,
                       fontSize: 11,
                     ),
@@ -771,7 +771,7 @@ class _StrengthConditioningDashboardScreenState
                 ],
               ),
             ),
-            const Icon(Icons.expand_more, color: _muted, size: 20),
+            Icon(Icons.expand_more, color: _muted, size: 20),
           ],
         ),
       ),
@@ -861,7 +861,7 @@ class _StrengthConditioningDashboardScreenState
       padding: const EdgeInsets.only(left: 2),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           color: _muted,
           fontSize: 11,
           fontWeight: FontWeight.w700,
@@ -941,14 +941,14 @@ class _StrengthConditioningDashboardScreenState
               const SizedBox(width: 6),
               Text(
                 label,
-                style: const TextStyle(color: _muted, fontSize: 12),
+                style: TextStyle(color: _muted, fontSize: 12),
               ),
             ],
           ),
           const SizedBox(height: 6),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -984,7 +984,7 @@ class _StrengthConditioningDashboardScreenState
                       _graphMetric == 'Duration'
                           ? '4h 35m Total Weekly Conditioning'
                           : '1,480 Total Load Points',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -993,7 +993,7 @@ class _StrengthConditioningDashboardScreenState
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 2),
-                    const Text(
+                    Text(
                       'Mon · 12 Oct — Sun · 18 Oct',
                       style: TextStyle(color: _muted, fontSize: 11),
                     ),
@@ -1055,7 +1055,7 @@ class _StrengthConditioningDashboardScreenState
                                   text: isDuration
                                       ? '${pt.minutes} min conditioning'
                                       : '${pt.loadPoints} load points',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 11,
                                     fontWeight: FontWeight.w500,
@@ -1102,7 +1102,7 @@ class _StrengthConditioningDashboardScreenState
                                 ? '${val.toInt()}m'
                                 : '${val.toInt()}',
                             style:
-                                const TextStyle(color: _muted, fontSize: 10),
+                                TextStyle(color: _muted, fontSize: 10),
                           ),
                         ),
                       ),
@@ -1254,7 +1254,7 @@ class _StrengthConditioningDashboardScreenState
                             children: [
                               Text(
                                 act.name,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,
@@ -1265,7 +1265,7 @@ class _StrengthConditioningDashboardScreenState
                               const SizedBox(height: 2),
                               Text(
                                 '${act.sessionCount} Sessions',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _muted,
                                   fontSize: 11,
                                 ),
@@ -1274,7 +1274,7 @@ class _StrengthConditioningDashboardScreenState
                           ),
                           Text(
                             'Last: ${act.lastTrained}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _muted,
                               fontSize: 11,
                             ),
@@ -1338,7 +1338,7 @@ class _StrengthConditioningDashboardScreenState
         ),
         const SizedBox(height: 18),
 
-        const Text(
+        Text(
           'No Activities Yet',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -1348,7 +1348,7 @@ class _StrengthConditioningDashboardScreenState
           ),
         ),
         const SizedBox(height: 8),
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             'Create your first Strength & Conditioning activity to start building your dog’s activity library and recording their S&C sessions.',
@@ -1387,7 +1387,7 @@ class _StrengthConditioningDashboardScreenState
             child: InkWell(
               borderRadius: BorderRadius.circular(8),
               onTap: _openCreateActivityScreen,
-              child: const Center(
+              child: Center(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -1421,7 +1421,7 @@ class _StrengthConditioningDashboardScreenState
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _muted,
             fontSize: 11,
             fontWeight: FontWeight.w700,
@@ -1441,7 +1441,7 @@ class _StrengthConditioningDashboardScreenState
         else
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 20,
               fontWeight: FontWeight.w600,

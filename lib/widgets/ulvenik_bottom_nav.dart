@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import 'ulvenik_icon.dart';
 import '../screens/homepage_screen.dart';
 import '../screens/main_layout.dart';
@@ -24,10 +25,10 @@ class UlvenikBottomNav extends StatelessWidget {
 
   static WidgetBuilder? globalMoreScreenBuilder;
 
-  static const Color _bg = Color(0xFF121212);
-  static const Color _border = Color(0x14FFFFFF);
+  static Color get _bg => AppColors.backgroundObsidian;
+  static Color get _border => AppColors.cardBorder;
   static const Color _mint = Color(0xFF95D3BB);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class UlvenikBottomNav extends StatelessWidget {
     }
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _bg,
         border: Border(
           top: BorderSide(color: _border, width: 1),

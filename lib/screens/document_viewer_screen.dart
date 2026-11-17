@@ -93,7 +93,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
   static Color get _carbon => AppColors.cardsCarbon;
   static Color get _forest => AppColors.primaryForestGreen;
   static Color get _offWhite => AppColors.primaryTextOffWhite;
-  static const Color _stoneGrey = Color(0xFF8E9598);
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
   static Color get _cardBorder => AppColors.cardBorder;
   static Color get _favGold => AppColors.favouriteGold;
   static Color get _alpineBlue => AppColors.infoAlpineBlue;
@@ -559,7 +559,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
             filled: true,
             fillColor: _obsidian,
             hintText: 'Add clinical or handler notes...',
-            hintStyle: const TextStyle(color: _stoneGrey),
+            hintStyle: TextStyle(color: _stoneGrey),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(color: _cardBorder),
@@ -577,7 +577,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text(
+            child: Text(
               'Cancel',
               style: TextStyle(color: _stoneGrey, fontFamily: 'Inter'),
             ),
@@ -721,7 +721,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                         const SizedBox(height: 3),
                         Text(
                           _currentDoc.linkedRecordSub,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _stoneGrey,
                             fontSize: 12.5,
                             fontFamily: 'Inter',
@@ -750,7 +750,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                             children: [
                               Text(
                                 m.key,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 12.5,
                                   fontFamily: 'Inter',
@@ -849,7 +849,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                     ? null
                     : Text(
                         'Bookmarked pages: ${docBookmarks.map((p) => p + 1).join(', ')}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stoneGrey,
                           fontSize: 12,
                           fontFamily: 'Inter',
@@ -913,7 +913,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         ),
         content: Text(
           'Remove "${_currentDoc.headerTitle}" from Media Library? Linked clinical metrics remain intact.',
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 13.5,
             fontFamily: 'Inter',
@@ -922,7 +922,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text(
+            child: Text(
               'Cancel',
               style: TextStyle(color: _stoneGrey, fontFamily: 'Inter'),
             ),
@@ -1498,12 +1498,12 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                     ),
                     decoration: InputDecoration(
                       hintText: 'Find text across all pages...',
-                      hintStyle: const TextStyle(
+                      hintStyle: TextStyle(
                         color: _stoneGrey,
                         fontSize: 12.5,
                         fontFamily: 'Inter',
                       ),
-                      prefixIcon: const UlvenikIcon(UlvenikIcons.search,
+                      prefixIcon: UlvenikIcon(UlvenikIcons.search,
                         color: _stoneGrey,
                         size: 18,
                       ),
@@ -1514,7 +1514,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                                 _searchController.clear();
                                 setState(() => _searchQuery = '');
                               },
-                              icon: const Icon(Icons.close_rounded,
+                              icon: Icon(Icons.close_rounded,
                                 color: _stoneGrey,
                                 size: 16,
                               ),
@@ -1546,7 +1546,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                     : (matches.isEmpty
                           ? '0 hits'
                           : '${_activeMatchCursor + 1}/${matches.length}'),
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -1742,7 +1742,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
             children: [
               Text(
                 _currentDoc.formatAndSize,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 12.5,
                   fontFamily: 'Inter',
@@ -1779,7 +1779,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 10.5,
             fontWeight: FontWeight.w600,
@@ -1896,7 +1896,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
             const SizedBox(height: 5),
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
@@ -1912,7 +1912,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
   Widget _buildSectionLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
+      style: TextStyle(
         color: _stoneGrey,
         fontSize: 11,
         fontWeight: FontWeight.w700,
@@ -1934,7 +1934,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
         ),
         child: Row(
           children: [
-            const UlvenikIcon(UlvenikIcons.training,
+            UlvenikIcon(UlvenikIcons.training,
               color: _stoneGrey,
               size: 22,
             ),
@@ -1955,7 +1955,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                   const SizedBox(height: 3),
                   Text(
                     _currentDoc.linkedRecordSub,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 12.5,
                       fontFamily: 'Inter',
@@ -1964,7 +1964,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                 ],
               ),
             ),
-            const UlvenikIcon(UlvenikIcons.details,
+            UlvenikIcon(UlvenikIcons.details,
               color: _stoneGrey,
               size: 20,
             ),
@@ -2113,7 +2113,7 @@ class _DocumentViewerScreenState extends State<DocumentViewerScreen> {
                   const SizedBox(height: 4),
                   Text(
                     doc.shortDate,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 10,
                       fontFamily: 'Inter',

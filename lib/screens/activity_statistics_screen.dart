@@ -33,13 +33,13 @@ class ActivityStatisticsScreen extends StatefulWidget {
 class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
     with SingleTickerProviderStateMixin {
   // Theme Color Palette
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _surfaceHigh = Color(0xFF272B29);
   static const _mint = Color(0xFF95D3BB);
   static const _forest = Color(0xFF2F5D50);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
 
   static final _hairlineSide =
       BorderSide(color: Colors.white.withValues(alpha: 0.08));
@@ -278,7 +278,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
               children: [
                 Text(
                   title.toUpperCase(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -306,7 +306,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
             const SizedBox(height: 10),
             Text(
               val,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 28,
                 fontWeight: FontWeight.w700,
@@ -315,7 +315,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
             const SizedBox(height: 6),
             Text(
               subtitle,
-              style: const TextStyle(color: _stoneGrey, fontSize: 13),
+              style: TextStyle(color: _stoneGrey, fontSize: 13),
             ),
             const SizedBox(height: 24),
             SizedBox(
@@ -362,7 +362,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
         scrolledUnderElevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
+          icon: UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
           onPressed: () => Navigator.of(context).maybePop(),
           tooltip: 'Back',
         ),
@@ -371,7 +371,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 'Activity Statistics',
                 style: TextStyle(
                   color: _offWhite,
@@ -382,7 +382,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
               if (_isEmpty)
                 Text(
                   widget.activityName,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -405,7 +405,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
             onPressed: _toggleState,
           ),
           PopupMenuButton<String>(
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 22),
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 22),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -456,12 +456,12 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                       _isEmpty
                           ? 'View Populated State'
                           : 'View Empty State',
-                      style: const TextStyle(color: _offWhite),
+                      style: TextStyle(color: _offWhite),
                     ),
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'insights',
                 child: Row(
                   children: [
@@ -471,7 +471,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'record',
                 child: Row(
                   children: [
@@ -481,7 +481,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'export',
                 child: Row(
                   children: [
@@ -491,7 +491,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'share',
                 child: Row(
                   children: [
@@ -525,7 +525,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
         // 1. Header Section
         Text(
           widget.activityName,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 28,
             fontWeight: FontWeight.w700,
@@ -533,7 +533,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
           ),
         ),
         const SizedBox(height: 2),
-        const Text(
+        Text(
           'Performance & Trends',
           style: TextStyle(
             color: _stoneGrey,
@@ -617,7 +617,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'OVERVIEW',
             style: TextStyle(
               color: _stoneGrey,
@@ -731,10 +731,11 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
   Widget _buildOverviewMetricItem({
     required String title,
     required String value,
-    Color valueColor = _offWhite,
+    Color? valueColor,
     double valueSize = 22,
     required VoidCallback onTap,
   }) {
+    valueColor ??= _offWhite;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
@@ -755,7 +756,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
             const SizedBox(height: 3),
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 13,
                 fontWeight: FontWeight.w400,
@@ -789,7 +790,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'ACTIVITY TREND',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -957,7 +958,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                             final tooltipStr = _getTooltipValue(spot.spotIndex);
                             return LineTooltipItem(
                               tooltipStr,
-                              const TextStyle(
+                              TextStyle(
                                 color: _offWhite,
                                 fontSize: 11,
                                 fontWeight: FontWeight.w600,
@@ -995,29 +996,29 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                               if (_selectedInterval == 'Y') {
                                 if (val == 0 || val == 20 || val == 40) {
                                   return Text('${val.toInt()}',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           color: _stoneGrey, fontSize: 10));
                                 }
                               } else {
                                 if (val == 0 || val == 5 || val == 10 || val == 15) {
                                   return Text('${val.toInt()}',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           color: _stoneGrey, fontSize: 10));
                                 }
                               }
                             } else {
                               if (val == 0) {
-                                return const Text('0',
+                                return Text('0',
                                     style: TextStyle(
                                         color: _stoneGrey, fontSize: 10));
                               }
                               if (val == 1000 || val == 10000) {
-                                return const Text('1k',
+                                return Text('1k',
                                     style: TextStyle(
                                         color: _stoneGrey, fontSize: 10));
                               }
                               if (val == 2000 || val == 20000) {
-                                return const Text('2k',
+                                return Text('2k',
                                     style: TextStyle(
                                         color: _stoneGrey, fontSize: 10));
                               }
@@ -1183,7 +1184,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
         const SizedBox(height: 20),
 
         // 4. Headline
-        const Text(
+        Text(
           'No Statistics Available',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -1197,7 +1198,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
         // 5. Explanatory Subtitle
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: const Text(
+          child: Text(
             'Complete your first session to begin generating statistics for this activity.',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -1256,7 +1257,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
             children: [
               Text(
                 leftTitle,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -1281,7 +1282,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
             children: [
               Text(
                 rightTitle,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,

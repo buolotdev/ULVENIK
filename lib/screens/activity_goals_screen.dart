@@ -28,12 +28,12 @@ class ActivityGoalsScreen extends StatefulWidget {
 class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
     with SingleTickerProviderStateMixin {
   // Theme Color Palette
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _mint = Color(0xFF95D3BB);
   static const _forest = Color(0xFF2F5D50);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
 
   static final _hairlineSide =
       BorderSide(color: Colors.white.withValues(alpha: 0.08));
@@ -181,7 +181,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Create New Goal',
                 style: TextStyle(
                   color: _offWhite,
@@ -192,17 +192,17 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
               const SizedBox(height: 4),
               Text(
                 'Track performance targets for ${widget.activityName}',
-                style: const TextStyle(color: _stoneGrey, fontSize: 13),
+                style: TextStyle(color: _stoneGrey, fontSize: 13),
               ),
               const SizedBox(height: 18),
 
               // Title Field
               TextField(
                 controller: titleCtrl,
-                style: const TextStyle(color: _offWhite, fontSize: 15),
+                style: TextStyle(color: _offWhite, fontSize: 15),
                 decoration: InputDecoration(
                   labelText: 'Goal Title',
-                  labelStyle: const TextStyle(color: _stoneGrey),
+                  labelStyle: TextStyle(color: _stoneGrey),
                   hintText: 'e.g. Reach 45-Minute Continuous Swim',
                   hintStyle: TextStyle(color: _stoneGrey.withValues(alpha: 0.5)),
                   filled: true,
@@ -222,10 +222,10 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                     child: TextField(
                       controller: targetCtrl,
                       keyboardType: TextInputType.number,
-                      style: const TextStyle(color: _offWhite, fontSize: 15),
+                      style: TextStyle(color: _offWhite, fontSize: 15),
                       decoration: InputDecoration(
                         labelText: 'Target Number',
-                        labelStyle: const TextStyle(color: _stoneGrey),
+                        labelStyle: TextStyle(color: _stoneGrey),
                         filled: true,
                         fillColor: _obsidian,
                         border: OutlineInputBorder(
@@ -248,7 +248,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                         child: DropdownButton<String>(
                           value: selectedUnit,
                           dropdownColor: _carbon,
-                          style: const TextStyle(color: _offWhite, fontSize: 14),
+                          style: TextStyle(color: _offWhite, fontSize: 14),
                           items: const [
                             DropdownMenuItem(
                                 value: 'Sessions', child: Text('Sessions')),
@@ -296,7 +296,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
                           UlvenikIcon(UlvenikIcons.calendar,
                               color: _stoneGrey, size: 16),
@@ -308,7 +308,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                       Text(
                         '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
                         style:
-                            const TextStyle(color: _offWhite, fontWeight: FontWeight.w600),
+                            TextStyle(color: _offWhite, fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
@@ -409,7 +409,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                 Expanded(
                   child: Text(
                     goal.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -421,7 +421,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
             ),
             const SizedBox(height: 6),
             Text(goal.targetDate,
-                style: const TextStyle(color: _stoneGrey, fontSize: 13)),
+                style: TextStyle(color: _stoneGrey, fontSize: 13)),
             const SizedBox(height: 20),
 
             // Progress Summary Box
@@ -438,12 +438,12 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('CURRENT PROGRESS',
+                      Text('CURRENT PROGRESS',
                           style: TextStyle(color: _stoneGrey, fontSize: 11)),
                       const SizedBox(height: 2),
                       Text(
                         '${goal.current} / ${goal.target} ${goal.unit}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -562,14 +562,14 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                 children: [
                   Text(
                     'COMPLETED GOALS (${_completedGoals.length})',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _stoneGrey),
+                    icon: Icon(Icons.close, color: _stoneGrey),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -595,7 +595,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                               children: [
                                 Text(
                                   cg.title,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -603,7 +603,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                                 ),
                                 Text(
                                   cg.date,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _stoneGrey,
                                     fontSize: 12,
                                   ),
@@ -616,7 +616,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                             children: [
                               Text(
                                 cg.achievement,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,
@@ -656,7 +656,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         scrolledUnderElevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
+          icon: UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
           onPressed: () => Navigator.of(context).maybePop(),
           tooltip: 'Back',
         ),
@@ -665,7 +665,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 'Activity Goals',
                 style: TextStyle(
                   color: _offWhite,
@@ -675,7 +675,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
               ),
               Text(
                 widget.activityName,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
@@ -698,7 +698,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
             onPressed: _toggleState,
           ),
           PopupMenuButton<String>(
-            icon: const UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 22),
+            icon: UlvenikIcon(UlvenikIcons.more, color: _stoneGrey, size: 22),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -733,12 +733,12 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                     const SizedBox(width: 10),
                     Text(
                       _isEmpty ? 'View Populated State' : 'View Empty State',
-                      style: const TextStyle(color: _offWhite),
+                      style: TextStyle(color: _offWhite),
                     ),
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'insights',
                 child: Row(
                   children: [
@@ -748,7 +748,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'create',
                 child: Row(
                   children: [
@@ -794,7 +794,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         const SizedBox(height: 24),
 
         // 2. Active Goals Section Header
-        const Text(
+        Text(
           'ACTIVE GOALS',
           style: TextStyle(
             color: _stoneGrey,
@@ -813,7 +813,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         const SizedBox(height: 16),
 
         // 4. Completed Goals Section Header
-        const Text(
+        Text(
           'COMPLETED GOALS',
           style: TextStyle(
             color: _stoneGrey,
@@ -908,7 +908,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         Text(
           label,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 10,
             fontWeight: FontWeight.w700,
@@ -953,7 +953,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                     children: [
                       Text(
                         goal.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -962,7 +962,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                       const SizedBox(height: 3),
                       Text(
                         goal.targetDate,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _stoneGrey,
                           fontSize: 12,
                         ),
@@ -1010,7 +1010,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'PROGRESS',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -1021,7 +1021,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                 ),
                 Text(
                   '${goal.current} / ${goal.target} ${goal.unit}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -1087,7 +1087,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                         children: [
                           Text(
                             cg.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -1109,7 +1109,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
                       children: [
                         Text(
                           cg.achievement,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
@@ -1141,7 +1141,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         borderRadius: BorderRadius.circular(9999),
         border: Border.all(color: _stoneGrey.withValues(alpha: 0.4)),
       ),
-      child: const Text(
+      child: Text(
         'COMPLETED',
         style: TextStyle(
           color: _stoneGrey,
@@ -1221,7 +1221,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         const SizedBox(height: 22),
 
         // 3. Headline
-        const Text(
+        Text(
           'No Goals Created',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -1233,7 +1233,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         const SizedBox(height: 10),
 
         // 4. Subtitle Description
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
             'Set your first goal for this activity and track your progress over time.',
@@ -1285,7 +1285,7 @@ class _ActivityGoalsScreenState extends State<ActivityGoalsScreen>
         Text(
           title,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             color: _stoneGrey,
             fontSize: 10,
             fontWeight: FontWeight.w700,

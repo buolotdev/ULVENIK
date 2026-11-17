@@ -58,12 +58,12 @@ class SessionDetailsScreen extends StatefulWidget {
 
 class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
   // Theme Color Palette
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _mint = Color(0xFF95D3BB);
   static const _forest = Color(0xFF2F5D50);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
   static const _errorRed = Color(0xFFFF5449);
 
   static final _hairlineSide =
@@ -191,7 +191,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           borderRadius: BorderRadius.circular(16),
           side: _hairlineSide,
         ),
-        title: const Text(
+        title: Text(
           'Delete Session?',
           style: TextStyle(
             color: _offWhite,
@@ -199,14 +199,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             fontWeight: FontWeight.w700,
           ),
         ),
-        content: const Text(
+        content: Text(
           'Are you sure you want to delete this recorded training session? This will remove all associated metrics and personal records.',
           style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.45),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: _stoneGrey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -272,7 +272,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
               children: [
                 Text(
                   title.toUpperCase(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -300,7 +300,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             const SizedBox(height: 10),
             Text(
               val,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 28,
                 fontWeight: FontWeight.w700,
@@ -309,7 +309,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             const SizedBox(height: 6),
             Text(
               subtitle,
-              style: const TextStyle(color: _stoneGrey, fontSize: 13),
+              style: TextStyle(color: _stoneGrey, fontSize: 13),
             ),
             const SizedBox(height: 20),
             Row(
@@ -358,12 +358,12 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
         ),
         title: Text(
           'Edit $metricName',
-          style: const TextStyle(color: _offWhite, fontSize: 17),
+          style: TextStyle(color: _offWhite, fontSize: 17),
         ),
         content: TextField(
           controller: ctrl,
           autofocus: true,
-          style: const TextStyle(color: _offWhite, fontSize: 16),
+          style: TextStyle(color: _offWhite, fontSize: 16),
           decoration: InputDecoration(
             filled: true,
             fillColor: _obsidian,
@@ -376,7 +376,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: _stoneGrey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -450,13 +450,13 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   children: [
                     Text(
                       name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'High-Performance Conditioning Gear',
                       style: TextStyle(color: _stoneGrey, fontSize: 12),
                     ),
@@ -467,7 +467,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             const SizedBox(height: 16),
             Text(
               desc,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 13,
                 height: 1.45,
@@ -536,7 +536,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'SESSION MEDIA (9 ITEMS)',
                     style: TextStyle(
                       color: _offWhite,
@@ -545,7 +545,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: _stoneGrey),
+                    icon: Icon(Icons.close, color: _stoneGrey),
                     onPressed: () => Navigator.pop(ctx),
                   ),
                 ],
@@ -578,7 +578,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) => Container(
                                 color: _carbon,
-                                child: const Icon(Icons.photo, color: _stoneGrey),
+                                child: Icon(Icons.photo, color: _stoneGrey),
                               ),
                             ),
                             if (item.isVideo)
@@ -620,11 +620,11 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
         scrolledUnderElevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
+          icon: UlvenikIcon(UlvenikIcons.back, color: _offWhite, size: 24),
           onPressed: () => Navigator.of(context).maybePop(),
           tooltip: 'Back',
         ),
-        title: const Text(
+        title: Text(
           'TRAINING SESSION',
           style: TextStyle(
             color: _offWhite,
@@ -635,7 +635,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
         ),
         actions: [
           PopupMenuButton<String>(
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 22),
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 22),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -688,7 +688,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
               if (val == 'delete') _confirmDeleteSession();
             },
             itemBuilder: (context) => [
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'templates',
                 child: Row(
                   children: [
@@ -698,7 +698,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'equipment',
                 child: Row(
                   children: [
@@ -708,7 +708,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'insights',
                 child: Row(
                   children: [
@@ -718,7 +718,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'stats',
                 child: Row(
                   children: [
@@ -728,7 +728,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'edit',
                 child: Row(
                   children: [
@@ -738,7 +738,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'share',
                 child: Row(
                   children: [
@@ -748,7 +748,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'duplicate',
                 child: Row(
                   children: [
@@ -758,7 +758,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'export',
                 child: Row(
                   children: [
@@ -848,7 +848,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           Text(
             widget.sessionTitle,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 22,
               fontWeight: FontWeight.w700,
@@ -861,7 +861,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           Text(
             widget.dateSubtitle,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -877,7 +877,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
               const SizedBox(width: 8),
               Text(
                 widget.durationText,
-                style: const TextStyle(
+                style: TextStyle(
                   color: _offWhite,
                   fontSize: 32,
                   fontWeight: FontWeight.w700,
@@ -939,7 +939,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'ACTIVITY',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -953,14 +953,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                     children: [
                       Text(
                         widget.sessionTitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const UlvenikIcon(UlvenikIcons.details,
+                      UlvenikIcon(UlvenikIcons.details,
                         color: _stoneGrey,
                         size: 18,
                       ),
@@ -983,7 +983,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -992,7 +992,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           ),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 14,
               fontWeight: FontWeight.w500,
@@ -1091,7 +1091,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           children: [
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
@@ -1101,7 +1101,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             const SizedBox(height: 6),
             Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -1132,7 +1132,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'NOTES',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -1161,7 +1161,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           const SizedBox(height: 10),
           Text(
             _currentNotes,
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 14,
               fontStyle: FontStyle.italic,
@@ -1183,14 +1183,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           borderRadius: BorderRadius.circular(16),
           side: _hairlineSide,
         ),
-        title: const Text(
+        title: Text(
           'Edit Session Notes',
           style: TextStyle(color: _offWhite, fontSize: 17),
         ),
         content: TextField(
           controller: ctrl,
           maxLines: 5,
-          style: const TextStyle(color: _offWhite, fontSize: 14),
+          style: TextStyle(color: _offWhite, fontSize: 14),
           decoration: InputDecoration(
             filled: true,
             fillColor: _obsidian,
@@ -1203,7 +1203,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: _stoneGrey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -1245,7 +1245,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'EQUIPMENT',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -1314,14 +1314,14 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
           children: [
             Row(
               children: [
-                const Icon(Icons.construction,
+                Icon(Icons.construction,
                   color: _stoneGrey,
                   size: 20,
                 ),
                 const SizedBox(width: 12),
                 Text(
                   name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -1329,7 +1329,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 ),
               ],
             ),
-            const UlvenikIcon(UlvenikIcons.details,
+            UlvenikIcon(UlvenikIcons.details,
               color: _stoneGrey,
               size: 18,
             ),
@@ -1350,7 +1350,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'MEDIA',
               style: TextStyle(
                 color: _stoneGrey,
@@ -1405,7 +1405,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Container(
                         color: _carbon,
-                        child: const Icon(Icons.photo, color: _stoneGrey),
+                        child: Icon(Icons.photo, color: _stoneGrey),
                       ),
                     ),
                     if (item.isVideo)

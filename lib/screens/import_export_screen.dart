@@ -93,9 +93,9 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
   static const _forest = Color(0xFF2F5D50);
 
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _carbon => AppColors.cardsCarbon;
 
-  static const _obsidian = Color(0xFF121212);
+  static Color get _obsidian => AppColors.backgroundObsidian;
 
   static const _surfaceHigh = Color(0xFF272B29);
 

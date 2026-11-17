@@ -54,15 +54,15 @@ class ActivityDetailsScreen extends StatefulWidget {
 class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
     with SingleTickerProviderStateMixin {
   // Scandinavian Theme Palette
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _surfaceHigh = Color(0xFF272B29);
-  static const _surfaceContainer = Color(0xFF1D201F);
+  static Color get _surfaceContainer => AppColors.cardsCarbon;
   static const _mint = Color(0xFF95D3BB);
   static const _forest = Color(0xFF2F5D50);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _muted = Color(0xFFA7B0AB);
-  static const _sage = Color(0xFF7A8F7A);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _muted => AppColors.secondaryTextStoneGrey;
+  static Color get _sage => AppColors.secondarySage;
 
   static final _hairlineSide =
       BorderSide(color: Colors.white.withValues(alpha: 0.08));
@@ -227,7 +227,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Edit Activity Details',
               style: TextStyle(
                 color: _offWhite,
@@ -238,10 +238,10 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
             const SizedBox(height: 16),
             TextField(
               controller: nameCtrl,
-              style: const TextStyle(color: _offWhite, fontSize: 14),
+              style: TextStyle(color: _offWhite, fontSize: 14),
               decoration: InputDecoration(
                 labelText: 'Activity Name',
-                labelStyle: const TextStyle(color: _muted),
+                labelStyle: TextStyle(color: _muted),
                 filled: true,
                 fillColor: _surfaceHigh,
                 border: OutlineInputBorder(
@@ -253,10 +253,10 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
             const SizedBox(height: 12),
             TextField(
               controller: descCtrl,
-              style: const TextStyle(color: _offWhite, fontSize: 14),
+              style: TextStyle(color: _offWhite, fontSize: 14),
               decoration: InputDecoration(
                 labelText: 'Description',
-                labelStyle: const TextStyle(color: _muted),
+                labelStyle: TextStyle(color: _muted),
                 filled: true,
                 fillColor: _surfaceHigh,
                 border: OutlineInputBorder(
@@ -304,12 +304,12 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
         backgroundColor: _obsidian,
         elevation: 0,
         leading: IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.back, color: _sage),
+          icon: UlvenikIcon(UlvenikIcons.back, color: _sage),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         title: Text(
           _isEmpty ? 'ULVENIK' : _act.name,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -335,7 +335,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
             },
           ),
           PopupMenuButton<String>(
-            icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _sage),
+            icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: _sage),
             color: _carbon,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -407,7 +407,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                 value: 'toggle',
                 child: Text(
                   _isEmpty ? 'View Populated State' : 'View Empty State',
-                  style: const TextStyle(color: _offWhite, fontSize: 13),
+                  style: TextStyle(color: _offWhite, fontSize: 13),
                 ),
               ),
               const PopupMenuItem(
@@ -425,7 +425,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                 child: Text('Session Templates',
                     style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600)),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'equipment',
                 child: Text('Equipment Inventory',
                     style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -435,22 +435,22 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                 child: Text('Activity Insights',
                     style: TextStyle(color: _mint, fontSize: 13, fontWeight: FontWeight.w600)),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'goals',
                 child: Text('Activity Goals',
                     style: TextStyle(color: _offWhite, fontSize: 13)),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'stats',
                 child: Text('Activity Statistics',
                     style: TextStyle(color: _offWhite, fontSize: 13)),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'record',
                 child: Text('Record Session',
                     style: TextStyle(color: _offWhite, fontSize: 13)),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'edit',
                 child: Text('Edit Activity',
                     style: TextStyle(color: _offWhite, fontSize: 13)),
@@ -535,7 +535,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                         Expanded(
                           child: Text(
                             _act.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
@@ -544,7 +544,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                           ),
                         ),
                         if (!_isEmpty)
-                          const Text(
+                          Text(
                             '12 Jan 2026',
                             style: TextStyle(
                               color: _muted,
@@ -556,7 +556,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                     const SizedBox(height: 4),
                     Text(
                       _act.description,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _muted,
                         fontSize: 14,
                         fontStyle: FontStyle.italic,
@@ -565,7 +565,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                     ),
                     if (_isEmpty) ...[
                       const SizedBox(height: 6),
-                      const Text(
+                      Text(
                         'Created 12 Jan 2026',
                         style: TextStyle(
                           color: _muted,
@@ -584,7 +584,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
 
           // Sub-meta indicators
           if (_isEmpty)
-            const Text(
+            Text(
               '0 Sessions',
               style: TextStyle(
                 color: _muted,
@@ -600,16 +600,16 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
               children: [
                 Text(
                   '${_act.sessionCount} Sessions',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const Text('•', style: TextStyle(color: _muted)),
+                Text('•', style: TextStyle(color: _muted)),
                 Text(
                   'Last: ${_act.lastTrained}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _muted,
                     fontSize: 13,
                   ),
@@ -628,7 +628,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'QUICK STATISTICS',
           style: TextStyle(
             color: _muted,
@@ -679,7 +679,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: _muted,
             fontSize: 12,
           ),
@@ -722,7 +722,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -805,7 +805,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                             if (val == 0) return const SizedBox.shrink();
                             return Text(
                               '${val.toInt()}m',
-                              style: const TextStyle(color: _muted, fontSize: 10),
+                              style: TextStyle(color: _muted, fontSize: 10),
                             );
                           },
                         ),
@@ -823,7 +823,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                                 padding: const EdgeInsets.only(top: 6),
                                 child: Text(
                                   dates[idx],
-                                  style: const TextStyle(color: _muted, fontSize: 10),
+                                  style: TextStyle(color: _muted, fontSize: 10),
                                 ),
                               );
                             }
@@ -847,8 +847,8 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                             final durStr = hours > 0 ? '${hours}h ${rem}m' : '${rem}m';
                             return LineTooltipItem(
                               '$durStr\n',
-                              const TextStyle(color: _mint, fontWeight: FontWeight.w700),
-                              children: const [
+                              TextStyle(color: _mint, fontWeight: FontWeight.w700),
+                              children: [
                                 TextSpan(
                                   text: 'Swim Training',
                                   style: TextStyle(color: _offWhite, fontSize: 11),
@@ -911,7 +911,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'RECENT SESSIONS',
               style: TextStyle(
                 color: _muted,
@@ -1005,7 +1005,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) =>
-                                              const Icon(Icons.pool,
+                                              Icon(Icons.pool,
                                         color: _sage,
                                         size: 22,
                                       ),
@@ -1014,7 +1014,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                                   Container(color: Colors.black26),
                                 ],
                               )
-                            : const Center(
+                            : Center(
                                 child: Icon(Icons.pool,
                                   color: _sage,
                                   size: 22,
@@ -1032,7 +1032,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                               children: [
                                 Text(
                                   '${sess.date} • ${sess.duration}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _muted,
                                     fontSize: 13,
                                   ),
@@ -1045,7 +1045,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                             const SizedBox(height: 3),
                             Text(
                               sess.notes,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _muted,
                                 fontSize: 13,
                                 fontStyle: FontStyle.italic,
@@ -1057,14 +1057,14 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                               const SizedBox(height: 4),
                               Row(
                                 children: [
-                                  const Icon(Icons.photo_camera,
+                                  Icon(Icons.photo_camera,
                                     color: _sage,
                                     size: 13,
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
                                     '${sess.photoCount} Photo${sess.photoCount > 1 ? 's' : ''}',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _sage,
                                       fontSize: 12,
                                     ),
@@ -1076,7 +1076,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const UlvenikIcon(UlvenikIcons.details, color: _sage, size: 20),
+                      UlvenikIcon(UlvenikIcons.details, color: _sage, size: 20),
                     ],
                   ),
                 ),
@@ -1111,7 +1111,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
+          Text(
             'No Sessions Recorded',
             style: TextStyle(
               color: _offWhite,
@@ -1121,7 +1121,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen>
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),
-          const Text(
+          Text(
             "This activity hasn’t been used yet. Record your first session to start building its training history.",
             style: TextStyle(
               color: _muted,

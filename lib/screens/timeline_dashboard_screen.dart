@@ -72,15 +72,15 @@ class TimelineDashboardScreen extends StatefulWidget {
 class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
     with SingleTickerProviderStateMixin {
   // ─── Design Tokens ──────────────────────────────────────────────────────────
-  static const Color _obsidian = Color(0xFF121212);
-  static const Color _carbon = Color(0xFF1C1C1C);
-  static const Color _surfaceVariant = Color(0xFF323533);
-  static const Color _surfaceContainer = Color(0xFF1D201F);
-  static const Color _offWhite = Color(0xFFF5F6F2);
-  static const Color _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _surfaceVariant => AppColors.cardsCarbon;
+  static Color get _surfaceContainer => AppColors.cardsCarbon;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
   static const Color _mint = Color(0xFF95D3BB);
   static const Color _forest = Color(0xFF2F5D50);
-  static const Color _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const Color _error = Color(0xFFFFB4AB);
   static const Color _tertiary = Color(0xFFFFB4AC);
   static const Color _secondary = Color(0xFFB6CCB5);
@@ -163,7 +163,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
   void _initSampleEvents() {
     _allEvents = [
       // TODAY
-      const DashboardEventItem(
+      DashboardEventItem(
         id: 'ev-dash-1',
         title: 'Obedience — Heel Work & Recall',
         timeLabel: '02:30 PM',
@@ -237,7 +237,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
         subtitle: '3 Photos added',
         photoUrl: _agilityPhotoUrl,
       ),
-      const DashboardEventItem(
+      DashboardEventItem(
         id: 'ev-dash-7',
         title: 'Bite Work & Engagement',
         timeLabel: '08:00 AM',
@@ -432,7 +432,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'TIMELINE FILTERS',
                           style: TextStyle(
                             color: _stoneGrey,
@@ -463,7 +463,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                     const SizedBox(height: 12),
 
                     // Categories
-                    const Text('EVENT CATEGORIES',
+                    Text('EVENT CATEGORIES',
                         style: TextStyle(
                             color: _offWhite,
                             fontSize: 13,
@@ -563,7 +563,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                     const SizedBox(height: 16),
 
                     // Date Period
-                    const Text('DATE PERIOD',
+                    Text('DATE PERIOD',
                         style: TextStyle(
                             color: _offWhite,
                             fontSize: 13,
@@ -602,7 +602,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Row(
+                            Row(
                               children: [
                                 Icon(Icons.photo_outlined, color: _mint, size: 18),
                                 SizedBox(width: 8),
@@ -739,7 +739,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ),
               ),
               const SizedBox(height: 16),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'SELECT DOG TIMELINE DASHBOARD',
@@ -757,12 +757,12 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                   radius: 18,
                   backgroundImage: const NetworkImage(_atlasAvatarUrl),
                 ),
-                title: const Text('Atlas',
+                title: Text('Atlas',
                     style: TextStyle(
                         color: _offWhite,
                         fontWeight: FontWeight.w700,
                         fontSize: 15)),
-                subtitle: const Text('Belgian Malinois · 3 yrs (847 Events — Populated State)',
+                subtitle: Text('Belgian Malinois · 3 yrs (847 Events — Populated State)',
                     style: TextStyle(color: _stoneGrey, fontSize: 12)),
                 trailing: _selectedDog == 'Atlas'
                     ? const Icon(Icons.check, color: _mint, size: 20)
@@ -780,12 +780,12 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                       style: TextStyle(
                           color: _mint, fontWeight: FontWeight.w700)),
                 ),
-                title: const Text('Nova',
+                title: Text('Nova',
                     style: TextStyle(
                         color: _offWhite,
                         fontWeight: FontWeight.w700,
                         fontSize: 15)),
-                subtitle: const Text('German Shepherd Puppy · 6 mos (0 Events — Empty State)',
+                subtitle: Text('German Shepherd Puppy · 6 mos (0 Events — Empty State)',
                     style: TextStyle(color: _stoneGrey, fontSize: 12)),
                 trailing: _selectedDog == 'Nova'
                     ? const Icon(Icons.check, color: _mint, size: 20)
@@ -854,7 +854,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                       ),
                       Text(
                         item.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -871,7 +871,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                   ),
                   child: Text(
                     item.timeLabel,
-                    style: const TextStyle(color: _stoneGrey, fontSize: 11),
+                    style: TextStyle(color: _stoneGrey, fontSize: 11),
                   ),
                 ),
               ],
@@ -880,11 +880,11 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
             if (item.location != null) ...[
               Row(
                 children: [
-                  const Icon(Icons.location_on, color: _stoneGrey, size: 16),
+                  Icon(Icons.location_on, color: _stoneGrey, size: 16),
                   const SizedBox(width: 6),
                   Text(
                     item.location!,
-                    style: const TextStyle(color: _offWhite, fontSize: 13),
+                    style: TextStyle(color: _offWhite, fontSize: 13),
                   ),
                 ],
               ),
@@ -893,7 +893,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
             if (item.subtitle != null) ...[
               Text(
                 item.subtitle!,
-                style: const TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
+                style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.4),
               ),
               const SizedBox(height: 14),
             ],
@@ -1024,7 +1024,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'QUICK RECORD EVENT',
                         style: TextStyle(
                           color: _stoneGrey,
@@ -1034,7 +1034,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
+                        icon: Icon(Icons.close, color: _stoneGrey, size: 20),
                         onPressed: () => Navigator.pop(modalCtx),
                       ),
                     ],
@@ -1051,14 +1051,14 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                         color: _alpineBlue.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.exercises, color: _alpineBlue),
+                      child: UlvenikIcon(UlvenikIcons.exercises, color: _alpineBlue),
                     ),
-                    title: const Text('Training Session',
+                    title: Text('Training Session',
                         style: TextStyle(
                             color: _offWhite, fontWeight: FontWeight.w600, fontSize: 15)),
-                    subtitle: const Text('Launch interactive session recorder with skills & drills',
+                    subtitle: Text('Launch interactive session recorder with skills & drills',
                         style: TextStyle(color: _stoneGrey, fontSize: 12)),
-                    trailing: const UlvenikIcon(UlvenikIcons.details, color: _alpineBlue, size: 14),
+                    trailing: UlvenikIcon(UlvenikIcons.details, color: _alpineBlue, size: 14),
                     onTap: () {
                       Navigator.pop(modalCtx);
                       Navigator.push(
@@ -1086,10 +1086,10 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                       ),
                       child: const Icon(Icons.scale, color: _error),
                     ),
-                    title: const Text('Health & Weight Record',
+                    title: Text('Health & Weight Record',
                         style: TextStyle(
                             color: _offWhite, fontWeight: FontWeight.w600, fontSize: 15)),
-                    subtitle: const Text('Open Weight & Body Condition Tracker dashboard',
+                    subtitle: Text('Open Weight & Body Condition Tracker dashboard',
                         style: TextStyle(color: _stoneGrey, fontSize: 12)),
                     trailing: const UlvenikIcon(UlvenikIcons.details, color: _error, size: 14),
                     onTap: () {
@@ -1116,10 +1116,10 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                       ),
                       child: const Icon(Icons.local_fire_department, color: _tertiary),
                     ),
-                    title: const Text('Strength & Conditioning',
+                    title: Text('Strength & Conditioning',
                         style: TextStyle(
                             color: _offWhite, fontWeight: FontWeight.w600, fontSize: 15)),
-                    subtitle: const Text('Resistance, treadmill, sprint intervals & recovery hub',
+                    subtitle: Text('Resistance, treadmill, sprint intervals & recovery hub',
                         style: TextStyle(color: _stoneGrey, fontSize: 12)),
                     trailing: const UlvenikIcon(UlvenikIcons.details, color: _tertiary, size: 14),
                     onTap: () {
@@ -1155,12 +1155,12 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                     ),
                     child: TextField(
                       controller: customTitleCtrl,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 13,
                         decoration: TextDecoration.none,
                       ),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         hintText: 'Enter custom event title...',
                         hintStyle: TextStyle(
                           color: _stoneGrey,
@@ -1321,13 +1321,13 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
           controller: _searchController,
           focusNode: _searchFocusNode,
           autofocus: true,
-          style: const TextStyle(
+          style: TextStyle(
             color: _offWhite,
             fontSize: 14,
             decoration: TextDecoration.none,
           ),
           onChanged: (val) => setState(() => _searchQuery = val.trim()),
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             hintText: 'Search events by name, location...',
             hintStyle: TextStyle(
               color: _stoneGrey,
@@ -1345,7 +1345,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
         actions: [
           if (_searchQuery.isNotEmpty)
             IconButton(
-              icon: const Icon(Icons.close, color: _stoneGrey, size: 20),
+              icon: Icon(Icons.close, color: _stoneGrey, size: 20),
               onPressed: () {
                 _searchController.clear();
                 setState(() => _searchQuery = '');
@@ -1397,13 +1397,13 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               children: [
                 Text(
                   _selectedDog,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const Text(
+                Text(
                   'Timeline',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -1418,7 +1418,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
       ),
       actions: [
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 22),
           tooltip: 'Search Events',
           onPressed: () {
             Navigator.push(
@@ -1456,7 +1456,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
           onPressed: _openTimelineFiltersScreen,
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.calendar, color: _stoneGrey, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.calendar, color: _stoneGrey, size: 22),
           tooltip: 'Timeline Calendar',
           onPressed: () {
             Navigator.push(
@@ -1468,7 +1468,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
           },
         ),
         IconButton(
-          icon: const UlvenikIcon(UlvenikIcons.progress, color: _stoneGrey, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.progress, color: _stoneGrey, size: 22),
           tooltip: 'Timeline Statistics',
           onPressed: () {
             Navigator.push(
@@ -1480,7 +1480,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
           },
         ),
         PopupMenuButton<String>(
-          icon: const UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 22),
+          icon: UlvenikIcon(UlvenikIcons.overflowMenu, color: _stoneGrey, size: 22),
           color: _carbon,
           onSelected: (val) {
             if (val == 'toggle_state') {
@@ -1552,7 +1552,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
             }
           },
           itemBuilder: (ctx) => [
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'timeline_favourites',
               child: Row(
                 children: [
@@ -1563,7 +1563,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'timeline_archive',
               child: Row(
                 children: [
@@ -1574,7 +1574,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'timeline_settings',
               child: Row(
                 children: [
@@ -1585,7 +1585,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'timeline_insights',
               child: Row(
                 children: [
@@ -1596,7 +1596,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'timeline_statistics',
               child: Row(
                 children: [
@@ -1607,7 +1607,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'timeline_calendar',
               child: Row(
                 children: [
@@ -1618,7 +1618,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'timeline_search',
               child: Row(
                 children: [
@@ -1629,7 +1629,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'timeline_filters',
               child: Row(
                 children: [
@@ -1640,7 +1640,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'event_details',
               child: Row(
                 children: [
@@ -1665,7 +1665,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                     _isEmptyState
                         ? 'Switch to Populated State'
                         : 'Switch to Empty State',
-                    style: const TextStyle(color: _offWhite, fontSize: 13),
+                    style: TextStyle(color: _offWhite, fontSize: 13),
                   ),
                 ],
               ),
@@ -1682,12 +1682,12 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                   const SizedBox(width: 8),
                   Text(
                     _showAnimatedGraph ? 'Hide Trend Chart' : 'Show Trend Chart',
-                    style: const TextStyle(color: _offWhite, fontSize: 13),
+                    style: TextStyle(color: _offWhite, fontSize: 13),
                   ),
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'switch_dog',
               child: Row(
                 children: [
@@ -1697,7 +1697,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'record',
               child: Row(
                 children: [
@@ -1761,11 +1761,11 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               padding: const EdgeInsets.symmetric(vertical: 40),
               child: Column(
                 children: [
-                  const Icon(Icons.filter_alt_off, color: _stoneGrey, size: 36),
+                  Icon(Icons.filter_alt_off, color: _stoneGrey, size: 36),
                   const SizedBox(height: 10),
                   Text(
                     'No events found matching "$_selectedFilter"',
-                    style: const TextStyle(color: _stoneGrey, fontSize: 14),
+                    style: TextStyle(color: _stoneGrey, fontSize: 14),
                   ),
                   const SizedBox(height: 10),
                   TextButton(
@@ -1813,14 +1813,14 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                   children: [
                     Text(
                       _selectedDog,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: _offWhite,
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 2),
-                    const Text(
+                    Text(
                       'Belgian Malinois · 3 yrs',
                       style: TextStyle(
                         color: _stoneGrey,
@@ -1966,7 +1966,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
             Text(
               label,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 10,
                 fontWeight: FontWeight.w700,
@@ -2012,7 +2012,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ],
               ),
               IconButton(
-                icon: const Icon(Icons.refresh, color: _stoneGrey, size: 16),
+                icon: Icon(Icons.refresh, color: _stoneGrey, size: 16),
                 tooltip: 'Replay Animation',
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
@@ -2108,7 +2108,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                             if (i >= 0 && i < days.length) {
                               return Text(
                                 days[i],
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 10,
                                 ),
@@ -2234,19 +2234,19 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
       ),
       child: Row(
         children: [
-          const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 18),
+          UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: TextField(
               controller: _searchController,
               focusNode: _searchFocusNode,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _offWhite,
                 fontSize: 13,
                 decoration: TextDecoration.none,
               ),
               onChanged: (val) => setState(() => _searchQuery = val.trim()),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Search timeline events...',
                 hintStyle: TextStyle(
                   color: _stoneGrey,
@@ -2271,7 +2271,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 _searchController.clear();
                 setState(() => _searchQuery = '');
               },
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 6),
                 child: Icon(Icons.close, color: _stoneGrey, size: 16),
               ),
@@ -2433,7 +2433,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                   const SizedBox(width: 12),
                   Text(
                     dateTitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
@@ -2543,7 +2543,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                             ),
                             child: Text(
                               item.timeLabel,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
@@ -2565,7 +2565,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                               children: [
                                 Text(
                                   item.title,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _offWhite,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -2576,7 +2576,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                                   const SizedBox(height: 4),
                                   Text(
                                     item.subtitle!,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: _stoneGrey,
                                       fontSize: 11,
                                     ),
@@ -2600,7 +2600,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                     ] else ...[
                       Text(
                         item.title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _offWhite,
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -2611,11 +2611,11 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                         const SizedBox(height: 4),
                         Row(
                           children: [
-                            const Icon(Icons.location_on, color: _stoneGrey, size: 13),
+                            Icon(Icons.location_on, color: _stoneGrey, size: 13),
                             const SizedBox(width: 3),
                             Text(
                               item.location!,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: _stoneGrey,
                                 fontSize: 12,
                               ),
@@ -2641,7 +2641,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                                 item.subtitle ?? '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 11,
                                 ),
@@ -2702,7 +2702,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Recent Activity',
               style: TextStyle(
                 color: _offWhite,
@@ -2712,7 +2712,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
             ),
             InkWell(
               onTap: _showFilterBottomSheet,
-              child: const Row(
+              child: Row(
                 children: [
                   Text(
                     'All Types',
@@ -2759,7 +2759,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
               const SizedBox(height: 24),
 
               // Empty State Headline
-              const Text(
+              Text(
                 'No Timeline Events Yet',
                 style: TextStyle(
                   color: _offWhite,
@@ -2769,7 +2769,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 "Every journey starts somewhere. Record a training session, health check, or milestone to build your dog's story.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -2874,7 +2874,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
   Widget _buildBottomNav() {
     return Container(
       height: 64,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: _carbon,
         border: Border(top: BorderSide(color: Color(0x14FFFFFF))),
       ),

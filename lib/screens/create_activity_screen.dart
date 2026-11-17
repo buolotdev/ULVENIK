@@ -13,18 +13,18 @@ class CreateActivityScreen extends StatefulWidget {
 
 class _CreateActivityScreenState extends State<CreateActivityScreen> {
   // Scandinavian Obsidian / Carbon Dark Palette
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
-  static const _surfaceContainer = Color(0xFF1D201F);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
+  static Color get _surfaceContainer => AppColors.cardsCarbon;
   static const _surfaceHigh = Color(0xFF272B29);
   static const _forestGreen = Color(0xFF2F5D50);
   static const _mint = Color(0xFF95D3BB);
-  static const _sage = Color(0xFFB6CCB5);
-  static const _alpineBlue = Color(0xFF5D8FAF);
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _alpineBlue => AppColors.infoAlpineBlue;
   static const _amber = Color(0xFFD97706);
   static const _errorMuted = Color(0xFF8B3A3A);
-  static const _stoneGrey = Color(0xFFA7B0AB);
-  static const _offWhite = Color(0xFFF5F6F2);
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
 
   static final _hairlineBorder =
       Border.all(color: Colors.white.withValues(alpha: 0.08));
@@ -45,7 +45,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
   final List<CustomActivityMetric> _customMetrics = [];
 
   // Standard Swatches from Figma
-  final List<Color> _swatches = const [
+  final List<Color> _swatches = [
     _forestGreen,
     _sage,
     _alpineBlue,
@@ -185,12 +185,12 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: const UlvenikIcon(UlvenikIcons.back, color: _sage, size: 24),
+                    icon: UlvenikIcon(UlvenikIcons.back, color: _sage, size: 24),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     onPressed: () => Navigator.of(context).maybePop(),
                   ),
-                  const Text(
+                  Text(
                     'Create Activity',
                     style: TextStyle(
                       color: _offWhite,
@@ -200,7 +200,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.refresh, color: _stoneGrey, size: 20),
+                    icon: Icon(Icons.refresh, color: _stoneGrey, size: 20),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     tooltip: 'Reset form',
@@ -276,7 +276,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Activity Name',
           style: TextStyle(
             color: _offWhite,
@@ -295,7 +295,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
           child: TextField(
             controller: _nameController,
             maxLength: 100,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -303,7 +303,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
             decoration: InputDecoration(
               counterText: '',
               hintText: 'Enter activity name',
-              hintStyle: const TextStyle(
+              hintStyle: TextStyle(
                 color: _stoneGrey,
                 fontSize: 14,
                 fontStyle: FontStyle.italic,
@@ -319,7 +319,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
               ),
               suffixIcon: _nameController.text.isNotEmpty
                   ? IconButton(
-                      icon: const Icon(Icons.close, size: 16, color: _stoneGrey),
+                      icon: Icon(Icons.close, size: 16, color: _stoneGrey),
                       onPressed: () => _nameController.clear(),
                     )
                   : null,
@@ -330,7 +330,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'A short, memorable name',
               style: TextStyle(
                 color: _stoneGrey,
@@ -340,7 +340,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
             ),
             Text(
               '$currentLength/100',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
@@ -361,7 +361,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             text: 'Description ',
             style: TextStyle(
               color: _offWhite,
@@ -392,7 +392,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
             controller: _descController,
             maxLines: 4,
             maxLength: 500,
-            style: const TextStyle(
+            style: TextStyle(
               color: _offWhite,
               fontSize: 14,
               fontWeight: FontWeight.w400,
@@ -400,7 +400,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
             decoration: InputDecoration(
               counterText: '',
               hintText: 'Add a description for this activity',
-              hintStyle: const TextStyle(
+              hintStyle: TextStyle(
                 color: _stoneGrey,
                 fontSize: 14,
                 fontStyle: FontStyle.italic,
@@ -419,7 +419,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
           alignment: Alignment.centerRight,
           child: Text(
             '$currentLength/500',
-            style: const TextStyle(
+            style: TextStyle(
               color: _stoneGrey,
               fontSize: 12,
               fontWeight: FontWeight.w400,
@@ -452,7 +452,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Activity Icon',
           style: TextStyle(
             color: _offWhite,
@@ -481,15 +481,15 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                 ),
                 child: Row(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: UlvenikIcon(UlvenikIcons.search, size: 18, color: _stoneGrey),
                     ),
                     Expanded(
                       child: TextField(
                         controller: _iconSearchController,
-                        style: const TextStyle(color: _offWhite, fontSize: 13),
-                        decoration: const InputDecoration(
+                        style: TextStyle(color: _offWhite, fontSize: 13),
+                        decoration: InputDecoration(
                           hintText: 'Search icons...',
                           hintStyle: TextStyle(color: _stoneGrey, fontSize: 13),
                           border: InputBorder.none,
@@ -500,7 +500,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                     ),
                     if (_iconSearchController.text.isNotEmpty)
                       IconButton(
-                        icon: const Icon(Icons.close, size: 16, color: _stoneGrey),
+                        icon: Icon(Icons.close, size: 16, color: _stoneGrey),
                         onPressed: () => _iconSearchController.clear(),
                       ),
                   ],
@@ -511,7 +511,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
               // Recently Used Header
               Text(
                 _iconSearchQuery.isEmpty ? 'RECENTLY USED' : 'SEARCH RESULTS',
-                style: const TextStyle(
+                style: TextStyle(
                   color: _stoneGrey,
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
@@ -566,7 +566,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
               InkWell(
                 onTap: _showAllIconsBottomSheet,
                 borderRadius: BorderRadius.circular(6),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 2),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -599,7 +599,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Activity Colour',
           style: TextStyle(
             color: _offWhite,
@@ -652,7 +652,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                             : null,
                       ),
                       child: isSelected
-                          ? const Center(
+                          ? Center(
                               child: Icon(Icons.check,
                                 size: 18,
                                 color: _offWhite,
@@ -669,7 +669,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
               InkWell(
                 onTap: _showCustomColorPickerBottomSheet,
                 borderRadius: BorderRadius.circular(6),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 2),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -708,7 +708,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Custom Metrics (Optional)',
               style: TextStyle(
                 color: _offWhite,
@@ -728,7 +728,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
           ],
         ),
         const SizedBox(height: 6),
-        const Text(
+        Text(
           'Create whatever you want to track for this particular activity (e.g. Distance — metres, Load — kg, Incline — %).',
           style: TextStyle(
             color: _stoneGrey,
@@ -749,7 +749,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (_customMetrics.isEmpty) ...[
-                const Center(
+                Center(
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 8),
                     child: Text(
@@ -791,7 +791,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                         Expanded(
                           child: Text(
                             '${metric.name} — ${metric.unit}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -799,7 +799,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close,
+                          icon: Icon(Icons.close,
                               size: 18, color: _stoneGrey),
                           tooltip: 'Remove metric',
                           padding: EdgeInsets.zero,
@@ -893,7 +893,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Add Custom Metric',
                         style: TextStyle(
                           color: _offWhite,
@@ -902,7 +902,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.close, color: _stoneGrey),
+                        icon: Icon(Icons.close, color: _stoneGrey),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
                         onPressed: () => Navigator.pop(ctx),
@@ -910,7 +910,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                     ],
                   ),
                   const SizedBox(height: 6),
-                  const Text(
+                  Text(
                     'Define the metric name and unit you want to track for this activity.',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -921,7 +921,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                   const SizedBox(height: 18),
 
                   // Metric Name Field
-                  const Text(
+                  Text(
                     'Metric Name',
                     style: TextStyle(
                       color: _offWhite,
@@ -932,10 +932,10 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                   const SizedBox(height: 8),
                   TextField(
                     controller: nameCtrl,
-                    style: const TextStyle(color: _offWhite, fontSize: 14),
+                    style: TextStyle(color: _offWhite, fontSize: 14),
                     decoration: InputDecoration(
                       hintText: 'e.g. Distance, Load, Speed, Incline',
-                      hintStyle: const TextStyle(color: _stoneGrey, fontSize: 13),
+                      hintStyle: TextStyle(color: _stoneGrey, fontSize: 13),
                       filled: true,
                       fillColor: _surfaceHigh,
                       contentPadding:
@@ -987,7 +987,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                   const SizedBox(height: 18),
 
                   // Metric Unit Field
-                  const Text(
+                  Text(
                     'Unit',
                     style: TextStyle(
                       color: _offWhite,
@@ -998,10 +998,10 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                   const SizedBox(height: 8),
                   TextField(
                     controller: unitCtrl,
-                    style: const TextStyle(color: _offWhite, fontSize: 14),
+                    style: TextStyle(color: _offWhite, fontSize: 14),
                     decoration: InputDecoration(
                       hintText: 'e.g. metres, mph, %, cm, kg, reps',
-                      hintStyle: const TextStyle(color: _stoneGrey, fontSize: 13),
+                      hintStyle: TextStyle(color: _stoneGrey, fontSize: 13),
                       filled: true,
                       fillColor: _surfaceHigh,
                       contentPadding:
@@ -1031,7 +1031,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                           padding: const EdgeInsets.only(right: 8),
                           child: ActionChip(
                             label: Text(suggestion),
-                            labelStyle: const TextStyle(
+                            labelStyle: TextStyle(
                               color: _sage,
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -1145,7 +1145,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                 size: 22,
               ),
               const SizedBox(width: 12),
-              const Text(
+              Text(
                 'Add to Favourites',
                 style: TextStyle(
                   color: _offWhite,
@@ -1271,7 +1271,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'Select Activity Icon',
                     style: TextStyle(
                       color: _offWhite,
@@ -1290,8 +1290,8 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                       border: _hairlineBorder,
                     ),
                     child: TextField(
-                      style: const TextStyle(color: _offWhite, fontSize: 13),
-                      decoration: const InputDecoration(
+                      style: TextStyle(color: _offWhite, fontSize: 13),
+                      decoration: InputDecoration(
                         prefixIcon:
                             UlvenikIcon(UlvenikIcons.search, size: 18, color: _stoneGrey),
                         hintText: 'Search canine exercise icons...',
@@ -1411,7 +1411,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Choose Custom Colour',
                 style: TextStyle(
                   color: _offWhite,
@@ -1420,7 +1420,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'Select an athletic accent colour for charts, badges, and activity logs',
                 style: TextStyle(
                   color: _stoneGrey,
@@ -1465,7 +1465,7 @@ class _CreateActivityScreenState extends State<CreateActivityScreen> {
                             : null,
                       ),
                       child: isSelected
-                          ? const Center(
+                          ? Center(
                               child: Icon(Icons.check,
                                 color: _offWhite,
                                 size: 20,

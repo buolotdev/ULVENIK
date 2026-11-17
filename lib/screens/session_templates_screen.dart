@@ -57,14 +57,14 @@ class SessionTemplatesScreen extends StatefulWidget {
 
 class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
   // Scandinavian Obsidian / Carbon Dark Theme
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _surfaceHigh = Color(0xFF272B29);
-  static const _surfaceVariant = Color(0xFF323533);
+  static Color get _surfaceVariant => AppColors.cardsCarbon;
   static const _mint = Color(0xFF95D3BB);
   static const _forest = Color(0xFF2F5D50);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _stoneGrey = Color(0xFFA7B0AB);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
 
   static final _hairlineSide =
       BorderSide(color: Colors.white.withValues(alpha: 0.08));
@@ -299,7 +299,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'SORT TEMPLATES',
               style: TextStyle(
                 color: _stoneGrey,
@@ -378,7 +378,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'FILTER BY ACTIVITY',
                   style: TextStyle(
                     color: _stoneGrey,
@@ -492,7 +492,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                         children: [
                           Text(
                             item.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _offWhite,
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -505,7 +505,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                               const SizedBox(width: 6),
                               Text(
                                 item.activityName,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500,
@@ -546,16 +546,16 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('Target Duration', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                          Text('Target Duration', style: TextStyle(color: _stoneGrey, fontSize: 13)),
                           Text('${item.durationMinutes} minutes',
-                              style: const TextStyle(color: _offWhite, fontWeight: FontWeight.w600)),
+                              style: TextStyle(color: _offWhite, fontWeight: FontWeight.w600)),
                         ],
                       ),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('Lifetime Usage', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                          Text('Lifetime Usage', style: TextStyle(color: _stoneGrey, fontSize: 13)),
                           Text('${item.usedCount} times',
                               style: const TextStyle(color: _mint, fontWeight: FontWeight.w600)),
                         ],
@@ -564,12 +564,12 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text('Default Equipment', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                          Text('Default Equipment', style: TextStyle(color: _stoneGrey, fontSize: 13)),
                           Expanded(
                             child: Text(
                               item.equipment,
                               textAlign: TextAlign.end,
-                              style: const TextStyle(color: _offWhite, fontWeight: FontWeight.w600),
+                              style: TextStyle(color: _offWhite, fontWeight: FontWeight.w600),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -581,7 +581,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Custom Metrics', style: TextStyle(color: _stoneGrey, fontSize: 13)),
+                            Text('Custom Metrics', style: TextStyle(color: _stoneGrey, fontSize: 13)),
                             const SizedBox(width: 12),
                             Expanded(
                               child: Text(
@@ -599,7 +599,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 const SizedBox(height: 16),
 
                 if (item.notes != null) ...[
-                  const Text(
+                  Text(
                     'PRESCRIPTION & NOTES',
                     style: TextStyle(
                       color: _stoneGrey,
@@ -611,7 +611,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   const SizedBox(height: 6),
                   Text(
                     item.notes!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 13,
                       height: 1.45,
@@ -634,7 +634,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                           Navigator.pop(ctx);
                           _showEditTemplateDialog(item);
                         },
-                        child: const Text('Edit Template', style: TextStyle(color: _offWhite)),
+                        child: Text('Edit Template', style: TextStyle(color: _offWhite)),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -710,7 +710,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
+                  Text(
                     'CREATE SESSION TEMPLATE',
                     style: TextStyle(
                       color: _offWhite,
@@ -721,16 +721,16 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   const SizedBox(height: 16),
 
                   // Template Title
-                  const Text('Template Title *', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  Text('Template Title *', style: TextStyle(color: _stoneGrey, fontSize: 12)),
                   const SizedBox(height: 6),
                   TextField(
                     controller: titleCtrl,
-                    style: const TextStyle(color: _offWhite),
+                    style: TextStyle(color: _offWhite),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: _obsidian,
                       hintText: 'e.g. Hill Sprints Power Block',
-                      hintStyle: const TextStyle(color: _stoneGrey),
+                      hintStyle: TextStyle(color: _stoneGrey),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: _hairlineSide),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                     ),
@@ -738,7 +738,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   const SizedBox(height: 14),
 
                   // Activity Selection
-                  const Text('Activity *', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  Text('Activity *', style: TextStyle(color: _stoneGrey, fontSize: 12)),
                   const SizedBox(height: 6),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -753,7 +753,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                         dropdownColor: _carbon,
                         isExpanded: true,
                         icon: const Icon(Icons.keyboard_arrow_down, color: _mint),
-                        style: const TextStyle(color: _offWhite, fontSize: 14),
+                        style: TextStyle(color: _offWhite, fontSize: 14),
                         items: [
                           'Treadmill Running',
                           'Agility Ladder',
@@ -771,17 +771,17 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   const SizedBox(height: 14),
 
                   // Target Duration
-                  const Text('Target Duration (Minutes)', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  Text('Target Duration (Minutes)', style: TextStyle(color: _stoneGrey, fontSize: 12)),
                   const SizedBox(height: 6),
                   TextField(
                     controller: durationCtrl,
                     keyboardType: TextInputType.number,
-                    style: const TextStyle(color: _offWhite),
+                    style: TextStyle(color: _offWhite),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: _obsidian,
                       hintText: '20',
-                      hintStyle: const TextStyle(color: _stoneGrey),
+                      hintStyle: TextStyle(color: _stoneGrey),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: _hairlineSide),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                     ),
@@ -789,16 +789,16 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   const SizedBox(height: 14),
 
                   // Equipment
-                  const Text('Prescribed Gear / Equipment', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  Text('Prescribed Gear / Equipment', style: TextStyle(color: _stoneGrey, fontSize: 12)),
                   const SizedBox(height: 6),
                   TextField(
                     controller: equipCtrl,
-                    style: const TextStyle(color: _offWhite),
+                    style: TextStyle(color: _offWhite),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: _obsidian,
                       hintText: 'e.g. Tactical Harness & Drag Sled',
-                      hintStyle: const TextStyle(color: _stoneGrey),
+                      hintStyle: TextStyle(color: _stoneGrey),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: _hairlineSide),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                     ),
@@ -806,17 +806,17 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   const SizedBox(height: 14),
 
                   // Notes
-                  const Text('Workout Protocol / Notes', style: TextStyle(color: _stoneGrey, fontSize: 12)),
+                  Text('Workout Protocol / Notes', style: TextStyle(color: _stoneGrey, fontSize: 12)),
                   const SizedBox(height: 6),
                   TextField(
                     controller: notesCtrl,
                     maxLines: 2,
-                    style: const TextStyle(color: _offWhite),
+                    style: TextStyle(color: _offWhite),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: _obsidian,
                       hintText: 'Reps, rest periods, pace instructions...',
-                      hintStyle: const TextStyle(color: _stoneGrey),
+                      hintStyle: TextStyle(color: _stoneGrey),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: _hairlineSide),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                     ),
@@ -833,7 +833,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                         side: _hairlineSide,
                         onChanged: (val) => setSheetState(() => isFavorite = val ?? false),
                       ),
-                      const Text('Mark as favorite template', style: TextStyle(color: _offWhite, fontSize: 13)),
+                      Text('Mark as favorite template', style: TextStyle(color: _offWhite, fontSize: 13)),
                     ],
                   ),
                   const SizedBox(height: 18),
@@ -921,16 +921,16 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Text('EDIT TEMPLATE', style: TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.w700)),
+            Text('EDIT TEMPLATE', style: TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.w700)),
             const SizedBox(height: 16),
             TextField(
               controller: titleCtrl,
-              style: const TextStyle(color: _offWhite),
+              style: TextStyle(color: _offWhite),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: _obsidian,
                 labelText: 'Template Title',
-                labelStyle: const TextStyle(color: _stoneGrey),
+                labelStyle: TextStyle(color: _stoneGrey),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: _hairlineSide),
               ),
             ),
@@ -938,12 +938,12 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             TextField(
               controller: notesCtrl,
               maxLines: 2,
-              style: const TextStyle(color: _offWhite),
+              style: TextStyle(color: _offWhite),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: _obsidian,
                 labelText: 'Protocol & Notes',
-                labelStyle: const TextStyle(color: _stoneGrey),
+                labelStyle: TextStyle(color: _stoneGrey),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: _hairlineSide),
               ),
             ),
@@ -1007,7 +1007,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         ),
         title: GestureDetector(
           onDoubleTap: _toggleState,
-          child: const Text(
+          child: Text(
             'Session Templates',
             style: TextStyle(
               color: _offWhite,
@@ -1068,12 +1068,12 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                     const SizedBox(width: 10),
                     Text(
                       _isEmpty ? 'Switch to Populated State' : 'Switch to Empty State',
-                      style: const TextStyle(color: _offWhite, fontSize: 13),
+                      style: TextStyle(color: _offWhite, fontSize: 13),
                     ),
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'create',
                 child: Row(
                   children: [
@@ -1083,7 +1083,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'sort',
                 child: Row(
                   children: [
@@ -1093,7 +1093,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'filter',
                 child: Row(
                   children: [
@@ -1103,7 +1103,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'export',
                 child: Row(
                   children: [
@@ -1123,7 +1123,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'settings',
                 child: Row(
                   children: [
@@ -1187,22 +1187,22 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
       ),
       child: TextField(
         controller: _searchCtrl,
-        style: const TextStyle(color: _offWhite, fontSize: 14),
+        style: TextStyle(color: _offWhite, fontSize: 14),
         cursorColor: _mint,
         decoration: InputDecoration(
           hintText: 'Search templates...',
-          hintStyle: const TextStyle(color: _stoneGrey, fontSize: 14),
-          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
+          hintStyle: TextStyle(color: _stoneGrey, fontSize: 14),
+          prefixIcon: UlvenikIcon(UlvenikIcons.search, color: _stoneGrey, size: 20),
           suffixIcon: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (_searchQuery.isNotEmpty)
                 IconButton(
-                  icon: const Icon(Icons.close, color: _stoneGrey, size: 18),
+                  icon: Icon(Icons.close, color: _stoneGrey, size: 18),
                   onPressed: () => _searchCtrl.clear(),
                 ),
               IconButton(
-                icon: const Icon(Icons.mic_none, color: _stoneGrey, size: 20),
+                icon: Icon(Icons.mic_none, color: _stoneGrey, size: 20),
                 tooltip: 'Voice Search',
                 onPressed: () {},
               ),
@@ -1240,7 +1240,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
+                        Text(
                           'TEMPLATES',
                           style: TextStyle(
                             color: _stoneGrey,
@@ -1259,7 +1259,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                           ),
                           child: Text(
                             '$count ${count == 1 ? "template" : "templates"}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: _stoneGrey,
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
@@ -1290,14 +1290,14 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                               children: [
                                 Text(
                                   'Sort: $_currentSort',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: _stoneGrey,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 const SizedBox(width: 3),
-                                const Icon(Icons.arrow_drop_down, color: _stoneGrey, size: 16),
+                                Icon(Icons.arrow_drop_down, color: _stoneGrey, size: 16),
                               ],
                             ),
                           ),
@@ -1409,16 +1409,16 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.search_off, color: _stoneGrey, size: 48),
+            Icon(Icons.search_off, color: _stoneGrey, size: 48),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               'No templates match search',
               style: TextStyle(color: _offWhite, fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 4),
             Text(
               'No template found for "$_searchQuery"',
-              style: const TextStyle(color: _stoneGrey, fontSize: 13),
+              style: TextStyle(color: _stoneGrey, fontSize: 13),
             ),
           ],
         ),
@@ -1454,7 +1454,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             // Row 1: Document icon + Title + Star
             Row(
               children: [
-                const UlvenikIcon(UlvenikIcons.training,
+                UlvenikIcon(UlvenikIcons.training,
                   color: _stoneGrey,
                   size: 20,
                 ),
@@ -1462,7 +1462,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                 Expanded(
                   child: Text(
                     item.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
@@ -1501,7 +1501,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   const SizedBox(width: 6),
                   Text(
                     item.activityName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -1541,7 +1541,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
             // Row 3: Usage metadata
             Text(
               'Used ${item.usedCount} ${item.usedCount == 1 ? "time" : "times"} · Last used ${item.lastUsed}',
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 12,
               ),
@@ -1562,7 +1562,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                   ),
                 ),
                 onPressed: () => _startSessionWithTemplate(item),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     UlvenikIcon(UlvenikIcons.play, size: 18, color: _offWhite),
@@ -1614,7 +1614,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         const SizedBox(height: 28),
 
         // Title
-        const Text(
+        Text(
           'No Templates Yet',
           style: TextStyle(
             color: _offWhite,
@@ -1627,7 +1627,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
         const SizedBox(height: 10),
 
         // Description
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
             'Create your first template to quickly set up Strength & Conditioning sessions you use regularly.',
@@ -1655,7 +1655,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
               ),
             ),
             onPressed: _showCreateTemplateDialog,
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 UlvenikIcon(UlvenikIcons.add, size: 18, color: _offWhite),

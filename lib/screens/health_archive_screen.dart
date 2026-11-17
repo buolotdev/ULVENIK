@@ -138,9 +138,9 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
   // Scandinavian Theme Palette
 
-  static const _obsidian = Color(0xFF121212);
+  static Color get _obsidian => AppColors.backgroundObsidian;
 
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _carbon => AppColors.cardsCarbon;
 
   static const _surfaceHigh = Color(0xFF272B29);
 
@@ -150,11 +150,11 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
   static const _forest = Color(0xFF2F5D50);
 
-  static const _sage = Color(0xFF7A8F7A);
+  static Color get _sage => AppColors.secondarySage;
 
-  static const _offWhite = Color(0xFFF5F6F2);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
 
-  static const _muted = Color(0xFFA7B0AB);
+  static Color get _muted => AppColors.secondaryTextStoneGrey;
 
 
 
@@ -636,7 +636,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                   const SizedBox(width: 12),
 
-                  const Expanded(
+                  Expanded(
 
                     child: Text(
 
@@ -686,7 +686,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                       record.title,
 
-                      style: const TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600),
+                      style: TextStyle(color: _offWhite, fontSize: 14, fontWeight: FontWeight.w600),
 
                     ),
 
@@ -696,7 +696,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                       '${record.category} • Archived on ${record.dateArchived} • ${record.sizeMb} MB',
 
-                      style: const TextStyle(color: _muted, fontSize: 12),
+                      style: TextStyle(color: _muted, fontSize: 12),
 
                     ),
 
@@ -712,7 +712,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                 'This record will be moved back into its relevant active Health section (${record.category}) rather than duplicated, and will reappear in your dog\'s active health records.',
 
-                style: const TextStyle(color: _muted, fontSize: 13, height: 1.45),
+                style: TextStyle(color: _muted, fontSize: 13, height: 1.45),
 
               ),
 
@@ -738,7 +738,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                       ),
 
-                      child: const Text('Cancel', style: TextStyle(color: _muted, fontSize: 13)),
+                      child: Text('Cancel', style: TextStyle(color: _muted, fontSize: 13)),
 
                     ),
 
@@ -824,7 +824,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                                         'Restored "${record.title}"',
 
-                                        style: const TextStyle(color: _offWhite, fontSize: 13),
+                                        style: TextStyle(color: _offWhite, fontSize: 13),
 
                                         overflow: TextOverflow.ellipsis,
 
@@ -866,7 +866,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                           },
 
-                          child: const Padding(
+                          child: Padding(
 
                             padding: EdgeInsets.symmetric(vertical: 13),
 
@@ -1006,7 +1006,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     'Archived ${record.dateArchived}',
 
-                    style: const TextStyle(color: _muted, fontSize: 12),
+                    style: TextStyle(color: _muted, fontSize: 12),
 
                   ),
 
@@ -1020,7 +1020,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                 record.title,
 
-                style: const TextStyle(
+                style: TextStyle(
 
                   color: _offWhite,
 
@@ -1066,7 +1066,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                   children: [
 
-                    const Text('ARCHIVED CLINICAL NOTES', style: TextStyle(color: _muted, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.8)),
+                    Text('ARCHIVED CLINICAL NOTES', style: TextStyle(color: _muted, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.8)),
 
                     const SizedBox(height: 6),
 
@@ -1074,7 +1074,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                       record.notes,
 
-                      style: const TextStyle(color: _offWhite, fontSize: 13, height: 1.5),
+                      style: TextStyle(color: _offWhite, fontSize: 13, height: 1.5),
 
                     ),
 
@@ -1096,7 +1096,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     children: [
 
-                      const Icon(Icons.attach_file, color: _muted, size: 16),
+                      Icon(Icons.attach_file, color: _muted, size: 16),
 
                       const SizedBox(width: 4),
 
@@ -1108,7 +1108,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                             : 'No attachments',
 
-                        style: const TextStyle(color: _muted, fontSize: 12),
+                        style: TextStyle(color: _muted, fontSize: 12),
 
                       ),
 
@@ -1228,7 +1228,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
               const SizedBox(height: 16),
 
-              const Text(
+              Text(
 
                 'Select Canine Athlete',
 
@@ -1294,7 +1294,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                       '${dog.breed} • ${dog.age}',
 
-                      style: const TextStyle(color: _muted, fontSize: 12),
+                      style: TextStyle(color: _muted, fontSize: 12),
 
                     ),
 
@@ -1318,7 +1318,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                                 ),
 
-                                child: const Text('No Archive', style: TextStyle(color: _muted, fontSize: 10)),
+                                child: Text('No Archive', style: TextStyle(color: _muted, fontSize: 10)),
 
                               )),
 
@@ -1444,7 +1444,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                   const SizedBox(height: 16),
 
-                  const Text(
+                  Text(
 
                     'Archive Filter & Sort',
 
@@ -1454,7 +1454,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                   const SizedBox(height: 16),
 
-                  const Text('SORT ORDER', style: TextStyle(color: _muted, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.8)),
+                  Text('SORT ORDER', style: TextStyle(color: _muted, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.8)),
 
                   const SizedBox(height: 8),
 
@@ -1506,7 +1506,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                   const SizedBox(height: 18),
 
-                  const Text('CATEGORIES', style: TextStyle(color: _muted, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.8)),
+                  Text('CATEGORIES', style: TextStyle(color: _muted, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.8)),
 
                   const SizedBox(height: 8),
 
@@ -1604,7 +1604,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                           },
 
-                          child: const Text('Reset All', style: TextStyle(color: _muted)),
+                          child: Text('Reset All', style: TextStyle(color: _muted)),
 
                         ),
 
@@ -1672,13 +1672,13 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
         leading: IconButton(
 
-          icon: const UlvenikIcon(UlvenikIcons.back, color: _sage),
+          icon: UlvenikIcon(UlvenikIcons.back, color: _sage),
 
           onPressed: () => Navigator.of(context).maybePop(),
 
         ),
 
-        title: const Text(
+        title: Text(
 
           'Health Archive',
 
@@ -1704,7 +1704,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
             tooltip: 'Search Records',
 
-            icon: const UlvenikIcon(UlvenikIcons.search, color: _sage),
+            icon: UlvenikIcon(UlvenikIcons.search, color: _sage),
 
             onPressed: () {
 
@@ -1732,7 +1732,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
             tooltip: 'Filter & Sort',
 
-            icon: const Icon(Icons.tune, color: _sage),
+            icon: Icon(Icons.tune, color: _sage),
 
             onPressed: _showSortFilterSheet,
 
@@ -1992,7 +1992,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     _currentDog.name,
 
-                    style: const TextStyle(
+                    style: TextStyle(
 
                       color: _offWhite,
 
@@ -2010,7 +2010,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     '${_currentDog.breed} • ${_currentDog.age}',
 
-                    style: const TextStyle(
+                    style: TextStyle(
 
                       color: _muted,
 
@@ -2026,7 +2026,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
             ),
 
-            const Icon(Icons.expand_more, color: _sage, size: 22),
+            Icon(Icons.expand_more, color: _sage, size: 22),
 
           ],
 
@@ -2201,7 +2201,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
               'ARCHIVED RECORDS (${filtered.length})',
 
-              style: const TextStyle(
+              style: TextStyle(
 
                 color: _muted,
 
@@ -2227,7 +2227,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     'Sort: $_selectedSort',
 
-                    style: const TextStyle(
+                    style: TextStyle(
 
                       color: _muted,
 
@@ -2241,7 +2241,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                   const SizedBox(width: 2),
 
-                  const Icon(Icons.arrow_drop_down, color: _muted, size: 16),
+                  Icon(Icons.arrow_drop_down, color: _muted, size: 16),
 
                 ],
 
@@ -2279,11 +2279,11 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
               children: [
 
-                const Icon(Icons.search_off, color: _muted, size: 36),
+                Icon(Icons.search_off, color: _muted, size: 36),
 
                 const SizedBox(height: 12),
 
-                const Text(
+                Text(
 
                   'No Records Match Filters',
 
@@ -2293,7 +2293,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                 const SizedBox(height: 6),
 
-                const Text(
+                Text(
 
                   'Try clearing active filters or searching a different term.',
 
@@ -2393,7 +2393,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
               label,
 
-              style: const TextStyle(
+              style: TextStyle(
 
                 color: _muted,
 
@@ -2413,7 +2413,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
               value,
 
-              style: const TextStyle(
+              style: TextStyle(
 
                 color: _offWhite,
 
@@ -2481,7 +2481,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                   children: [
 
-                    const Text(
+                    Text(
 
                       'ARCHIVE RETENTION & GROWTH',
 
@@ -2513,7 +2513,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                           : '12.7 MB Retained Cloud Storage',
 
-                      style: const TextStyle(
+                      style: TextStyle(
 
                         color: _offWhite,
 
@@ -2639,7 +2639,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                                       : '${pt.sizeMb} MB stored',
 
-                                  style: const TextStyle(
+                                  style: TextStyle(
 
                                     color: _offWhite,
 
@@ -2721,7 +2721,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                             isRecords ? '${val.toInt()}' : '${val.toInt()}M',
 
-                            style: const TextStyle(color: _muted, fontSize: 10),
+                            style: TextStyle(color: _muted, fontSize: 10),
 
                           ),
 
@@ -2943,7 +2943,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
         controller: _searchController,
 
-        style: const TextStyle(color: _offWhite, fontSize: 13),
+        style: TextStyle(color: _offWhite, fontSize: 13),
 
         onChanged: (val) => setState(() => _searchQuery = val),
 
@@ -2951,15 +2951,15 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
           hintText: 'Search archived records...',
 
-          hintStyle: const TextStyle(color: _muted, fontSize: 13),
+          hintStyle: TextStyle(color: _muted, fontSize: 13),
 
-          prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _muted, size: 20),
+          prefixIcon: UlvenikIcon(UlvenikIcons.search, color: _muted, size: 20),
 
           suffixIcon: _searchQuery.isNotEmpty
 
               ? IconButton(
 
-                  icon: const Icon(Icons.clear, color: _muted, size: 16),
+                  icon: Icon(Icons.clear, color: _muted, size: 16),
 
                   onPressed: () {
 
@@ -3033,7 +3033,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                       cat,
 
-                      style: const TextStyle(
+                      style: TextStyle(
 
                         color: _offWhite,
 
@@ -3051,7 +3051,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                       onTap: () => setState(() => _selectedCategories.remove(cat)),
 
-                      child: const Icon(Icons.close, color: _sage, size: 14),
+                      child: Icon(Icons.close, color: _sage, size: 14),
 
                     ),
 
@@ -3087,7 +3087,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
               ),
 
-              child: const Row(
+              child: Row(
 
                 mainAxisSize: MainAxisSize.min,
 
@@ -3221,7 +3221,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                               'Archived ${record.dateArchived}',
 
-                              style: const TextStyle(
+                              style: TextStyle(
 
                                 color: _muted,
 
@@ -3241,7 +3241,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                           record.title,
 
-                          style: const TextStyle(
+                          style: TextStyle(
 
                             color: _offWhite,
 
@@ -3341,7 +3341,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
                     borderRadius: BorderRadius.circular(6),
 
-                    child: const Padding(
+                    child: Padding(
 
                       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
 
@@ -3427,7 +3427,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
 
-          child: const Row(
+          child: Row(
 
             children: [
 
@@ -3481,7 +3481,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
         const SizedBox(height: 18),
 
-        const Text(
+        Text(
 
           'No Archived Records',
 
@@ -3501,7 +3501,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
         const SizedBox(height: 8),
 
-        const Padding(
+        Padding(
 
           padding: EdgeInsets.symmetric(horizontal: 24),
 
@@ -3597,7 +3597,7 @@ class _HealthArchiveScreenState extends State<HealthArchiveScreen>
 
               },
 
-              child: const Center(
+              child: Center(
 
                 child: Row(
 

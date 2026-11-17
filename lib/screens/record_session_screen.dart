@@ -29,14 +29,14 @@ class RecordSessionScreen extends StatefulWidget {
 
 class _RecordSessionScreenState extends State<RecordSessionScreen> {
   // Scandinavian Obsidian / Carbon Dark Theme
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _surfaceHigh = Color(0xFF272B29);
   static const _forestGreen = Color(0xFF2F5D50);
   static const _mint = Color(0xFF95D3BB);
-  static const _sage = Color(0xFFB6CCB5);
-  static const _stoneGrey = Color(0xFFA7B0AB);
-  static const _offWhite = Color(0xFFF5F6F2);
+  static Color get _sage => AppColors.secondarySage;
+  static Color get _stoneGrey => AppColors.secondaryTextStoneGrey;
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
   static const _outline = Color(0xFF89938E);
   static const _outlineVariant = Color(0xFF404944);
 
@@ -206,13 +206,13 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
       builder: (context, child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(
+            colorScheme: ColorScheme.dark(
               primary: _forestGreen,
               onPrimary: _offWhite,
               surface: _carbon,
               onSurface: _offWhite,
             ),
-            dialogTheme: const DialogThemeData(
+            dialogTheme: DialogThemeData(
               backgroundColor: _carbon,
             ),
           ),
@@ -232,13 +232,13 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
       builder: (context, child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(
+            colorScheme: ColorScheme.dark(
               primary: _forestGreen,
               onPrimary: _offWhite,
               surface: _carbon,
               onSurface: _offWhite,
             ),
-            dialogTheme: const DialogThemeData(
+            dialogTheme: DialogThemeData(
               backgroundColor: _carbon,
             ),
           ),
@@ -258,13 +258,13 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
       builder: (context, child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(
+            colorScheme: ColorScheme.dark(
               primary: _forestGreen,
               onPrimary: _offWhite,
               surface: _carbon,
               onSurface: _offWhite,
             ),
-            dialogTheme: const DialogThemeData(
+            dialogTheme: DialogThemeData(
               backgroundColor: _carbon,
             ),
           ),
@@ -325,18 +325,18 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
           borderRadius: BorderRadius.circular(14),
           side: _hairlineSide,
         ),
-        title: const Text(
+        title: Text(
           'Discard Session?',
           style: TextStyle(color: _offWhite, fontSize: 18, fontWeight: FontWeight.w700),
         ),
-        content: const Text(
+        content: Text(
           'Are you sure you want to discard this recorded training session? Unsaved metrics will be lost.',
           style: TextStyle(color: _stoneGrey, fontSize: 13, height: 1.45),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Keep Editing', style: TextStyle(color: _sage)),
+            child: Text('Keep Editing', style: TextStyle(color: _sage)),
           ),
           TextButton(
             onPressed: () {
@@ -383,7 +383,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Select Activity',
                   style: TextStyle(
                     color: _offWhite,
@@ -483,7 +483,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                             children: [
                               Text(
                                 act['name'] as String,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -491,7 +491,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                               ),
                               Text(
                                 act['category'] as String,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _stoneGrey,
                                   fontSize: 12,
                                 ),
@@ -526,16 +526,16 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
           side: _hairlineSide,
         ),
         title: Text('Record $title ($unit)',
-            style: const TextStyle(
+            style: TextStyle(
                 color: _offWhite, fontSize: 17, fontWeight: FontWeight.w700)),
         content: TextField(
           controller: ctrl,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           autofocus: true,
-          style: const TextStyle(color: _offWhite, fontSize: 18),
+          style: TextStyle(color: _offWhite, fontSize: 18),
           decoration: InputDecoration(
             suffixText: unit,
-            suffixStyle: const TextStyle(color: _stoneGrey),
+            suffixStyle: TextStyle(color: _stoneGrey),
             filled: true,
             fillColor: _obsidian,
             border: OutlineInputBorder(
@@ -547,7 +547,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel', style: TextStyle(color: _stoneGrey)),
+            child: Text('Cancel', style: TextStyle(color: _stoneGrey)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -595,7 +595,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
               type: SnackbarType.info,
             );
           },
-          child: const Text(
+          child: Text(
             'RECORD S&C SESSION',
             style: TextStyle(
               color: _offWhite,
@@ -739,7 +739,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                 children: [
                   Text(
                     _activityName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _offWhite,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -748,7 +748,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   const SizedBox(height: 2),
                   Text(
                     _category,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: _stoneGrey,
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -799,7 +799,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Row(
+                        Row(
                           children: [
                             UlvenikIcon(UlvenikIcons.calendar,
                                 color: _outline, size: 18),
@@ -815,7 +815,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                           children: [
                             Text(
                               _formattedDate,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: _offWhite, fontSize: 14),
                             ),
                             const SizedBox(width: 4),
@@ -837,7 +837,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Row(
+                        Row(
                           children: [
                             UlvenikIcon(UlvenikIcons.trainingTime, color: _outline, size: 18),
                             SizedBox(width: 8),
@@ -852,7 +852,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                           children: [
                             Text(
                               _formatTimeOfDay(_startTime),
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: _offWhite, fontSize: 14),
                             ),
                             const SizedBox(width: 4),
@@ -874,7 +874,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Row(
+                        Row(
                           children: [
                             Icon(Icons.update, color: _outline, size: 18),
                             SizedBox(width: 8),
@@ -889,7 +889,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                           children: [
                             Text(
                               _formatTimeOfDay(_endTime),
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: _offWhite, fontSize: 14),
                             ),
                             const SizedBox(width: 4),
@@ -917,7 +917,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
             child: Text(
               'SESSION DURATION: $_durationMinutes min',
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
@@ -945,7 +945,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
@@ -1028,7 +1028,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Intensity',
             style: TextStyle(
               color: _stoneGrey,
@@ -1110,7 +1110,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
           children: [
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 color: _stoneGrey,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -1123,7 +1123,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
               children: [
                 Text(
                   value,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _offWhite,
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
@@ -1132,7 +1132,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                 const SizedBox(width: 4),
                 Text(
                   unit,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: _stoneGrey,
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
@@ -1168,7 +1168,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
                   UlvenikIcon(UlvenikIcons.edit, size: 16, color: _stoneGrey),
                   SizedBox(width: 6),
@@ -1184,7 +1184,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
               ),
               Text(
                 '$count/5000',
-                style: const TextStyle(color: _stoneGrey, fontSize: 12),
+                style: TextStyle(color: _stoneGrey, fontSize: 12),
               ),
             ],
           ),
@@ -1193,7 +1193,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
             controller: _notesController,
             maxLines: 4,
             maxLength: 5000,
-            style: const TextStyle(color: _offWhite, fontSize: 14),
+            style: TextStyle(color: _offWhite, fontSize: 14),
             decoration: const InputDecoration(
               counterText: '',
               hintText: 'Add details about performance, mood, or conditions...',
@@ -1224,7 +1224,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   child: Row(
                     children: [
@@ -1241,10 +1241,10 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.camera_alt_outlined, color: _mint),
-                  title: const Text('Capture with Camera',
+                  title: Text('Capture with Camera',
                       style: TextStyle(
                           color: _offWhite, fontWeight: FontWeight.w600)),
-                  subtitle: const Text('Take a photo using device camera',
+                  subtitle: Text('Take a photo using device camera',
                       style: TextStyle(color: _stoneGrey, fontSize: 12)),
                   onTap: () {
                     Navigator.pop(ctx);
@@ -1266,11 +1266,11 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.photo_library_outlined, color: _sage),
-                  title: const Text('Choose from Library',
+                  leading: Icon(Icons.photo_library_outlined, color: _sage),
+                  title: Text('Choose from Library',
                       style: TextStyle(
                           color: _offWhite, fontWeight: FontWeight.w600)),
-                  subtitle: const Text('Select existing photo from device library',
+                  subtitle: Text('Select existing photo from device library',
                       style: TextStyle(color: _stoneGrey, fontSize: 12)),
                   onTap: () {
                     Navigator.pop(ctx);
@@ -1313,7 +1313,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   child: Row(
                     children: [
@@ -1330,10 +1330,10 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.videocam_outlined, color: _mint),
-                  title: const Text('Record with Camera',
+                  title: Text('Record with Camera',
                       style: TextStyle(
                           color: _offWhite, fontWeight: FontWeight.w600)),
-                  subtitle: const Text('Record video clip using device camera',
+                  subtitle: Text('Record video clip using device camera',
                       style: TextStyle(color: _stoneGrey, fontSize: 12)),
                   onTap: () {
                     Navigator.pop(ctx);
@@ -1355,11 +1355,11 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.video_library_outlined, color: _sage),
-                  title: const Text('Choose from Library',
+                  leading: Icon(Icons.video_library_outlined, color: _sage),
+                  title: Text('Choose from Library',
                       style: TextStyle(
                           color: _offWhite, fontWeight: FontWeight.w600)),
-                  subtitle: const Text('Select existing video from device library',
+                  subtitle: Text('Select existing video from device library',
                       style: TextStyle(color: _stoneGrey, fontSize: 12)),
                   onTap: () {
                     Navigator.pop(ctx);
@@ -1392,7 +1392,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'MEDIA',
           style: TextStyle(
             color: _stoneGrey,
@@ -1498,7 +1498,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                                   color: Colors.black54,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(Icons.close,
+                                child: Icon(Icons.close,
                                     size: 14, color: _offWhite),
                               ),
                             ),
@@ -1522,7 +1522,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'ACTIVITY',
           style: TextStyle(
             color: _stoneGrey,
@@ -1563,7 +1563,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                   ),
                 ),
                 const SizedBox(width: 14),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1613,7 +1613,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'DATE & TIME',
           style: TextStyle(
             color: _stoneGrey,
@@ -1635,7 +1635,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
               // Row 1: Today
               InkWell(
                 onTap: _pickDate,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 6),
                   child: Row(
                     children: [
@@ -1658,7 +1658,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
               // Row 2: 08:00 | 45 min
               InkWell(
                 onTap: _pickStartTime,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 6),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1700,7 +1700,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
@@ -1731,7 +1731,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
             borderRadius: BorderRadius.circular(8),
             border: _hairlineBorder,
           ),
-          child: const Column(
+          child: Column(
             children: [
               Icon(Icons.tune, color: _outlineVariant, size: 28),
               SizedBox(height: 10),
@@ -1774,7 +1774,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (_hasActivity) ...[
-            const Text(
+            Text(
               'Draft saved automatically',
               style: TextStyle(
                 color: _stoneGrey,

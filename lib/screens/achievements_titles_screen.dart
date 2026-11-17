@@ -63,7 +63,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
   static Color get _alpineBlue => AppColors.infoAlpineBlue; // #5D8FAF
   static Color get _offWhite => AppColors.primaryTextOffWhite; // #F5F6F2
   static Color get _stone => AppColors.secondaryTextStoneGrey; // #A7B0AB
-  static const Color _muted = Color(0xFF7B8580);
+  static Color get _muted => AppColors.secondaryTextStoneGrey;
   static Color get _border => AppColors.cardBorder; // rgba(255,255,255,0.08)
 
   late final AnimationController _animController;
@@ -925,7 +925,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                     children: [
                       Text(
                         item.dateLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: _muted,
                           fontSize: 12,
                           fontFamily: 'Inter',
@@ -1624,7 +1624,7 @@ class _AchievementsTitlesScreenState extends State<AchievementsTitlesScreen>
                           labelText: 'Title / Achievement Name *',
                           hintText: 'e.g. FH2, Nordic Champion, Clean Sweep',
                           labelStyle: TextStyle(color: _stone),
-                          hintStyle: const TextStyle(color: _muted),
+                          hintStyle: TextStyle(color: _muted),
                           filled: true,
                           fillColor: _bg,
                           border: OutlineInputBorder(

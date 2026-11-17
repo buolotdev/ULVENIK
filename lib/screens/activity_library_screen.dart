@@ -107,14 +107,14 @@ class ActivityLibraryScreen extends StatefulWidget {
 class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
     with SingleTickerProviderStateMixin {
   // Theme Palette
-  static const _obsidian = Color(0xFF121212);
-  static const _carbon = Color(0xFF1C1C1C);
+  static Color get _obsidian => AppColors.backgroundObsidian;
+  static Color get _carbon => AppColors.cardsCarbon;
   static const _surfaceHigh = Color(0xFF272B29);
-  static const _surfaceContainer = Color(0xFF1D201F);
+  static Color get _surfaceContainer => AppColors.cardsCarbon;
   static const _mint = Color(0xFF95D3BB);
   static const _forest = Color(0xFF2F5D50);
-  static const _offWhite = Color(0xFFF5F6F2);
-  static const _muted = Color(0xFFA7B0AB);
+  static Color get _offWhite => AppColors.primaryTextOffWhite;
+  static Color get _muted => AppColors.secondaryTextStoneGrey;
   static const _textVariant = Color(0xFFBFC9C3);
 
   static final _hairlineBorder =
@@ -418,7 +418,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Filter by Category',
               style: TextStyle(
                 color: _offWhite,
@@ -471,7 +471,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
           icon: const UlvenikIcon(UlvenikIcons.back, color: _mint),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        title: const Text(
+        title: Text(
           'ACTIVITY LIBRARY',
           style: TextStyle(
             color: _offWhite,
@@ -548,7 +548,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
               ),
             ),
             const SizedBox(height: 24),
-            const Text(
+            Text(
               'No Activities Created',
               style: TextStyle(
                 color: _offWhite,
@@ -558,7 +558,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
-            const Text(
+            Text(
               "Create your first Strength & Conditioning activity to start building your dog’s personalised activity library.",
               style: TextStyle(
                 color: _muted,
@@ -662,14 +662,14 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
       ),
       child: TextField(
         controller: _searchController,
-        style: const TextStyle(color: _offWhite, fontSize: 14),
+        style: TextStyle(color: _offWhite, fontSize: 14),
         decoration: InputDecoration(
           hintText: 'Search activities...',
-          hintStyle: const TextStyle(color: _muted, fontSize: 14),
+          hintStyle: TextStyle(color: _muted, fontSize: 14),
           prefixIcon: const UlvenikIcon(UlvenikIcons.search, color: _mint, size: 20),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.clear, color: _muted, size: 18),
+                  icon: Icon(Icons.clear, color: _muted, size: 18),
                   onPressed: () => _searchController.clear(),
                 )
               : null,
@@ -779,7 +779,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -853,7 +853,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                             children: [
                               TextSpan(
                                 text: '${rod.toY.round()} sessions',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 11,
                                 ),
@@ -887,7 +887,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                             if (val % 20 == 0 && val > 0) {
                               return Text(
                                 '${val.toInt()}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: _muted, fontSize: 10),
                               );
                             }
@@ -978,7 +978,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         color: _muted,
         fontSize: 11,
         fontWeight: FontWeight.w700,
@@ -1038,7 +1038,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                             Expanded(
                               child: Text(
                                 act.name,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: _offWhite,
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
@@ -1058,7 +1058,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                         ),
                         Text(
                           act.description,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _muted,
                             fontSize: 13,
                           ),
@@ -1099,7 +1099,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
+        Text(
           'ALL ACTIVITIES',
           style: TextStyle(
             color: _muted,
@@ -1110,7 +1110,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
         ),
         Text(
           '$count Activities',
-          style: const TextStyle(
+          style: TextStyle(
             color: _muted,
             fontSize: 12,
           ),
@@ -1128,7 +1128,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
           borderRadius: BorderRadius.circular(12),
           border: _hairlineBorder,
         ),
-        child: const Center(
+        child: Center(
           child: Text(
             'No activities match your filters',
             style: TextStyle(color: _muted, fontSize: 13),
@@ -1182,7 +1182,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                       children: [
                         Text(
                           act.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: _offWhite,
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
@@ -1223,7 +1223,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                     ),
                   ),
                   const SizedBox(width: 2),
-                  const UlvenikIcon(UlvenikIcons.details,
+                  UlvenikIcon(UlvenikIcons.details,
                     color: _muted,
                     size: 18,
                   ),
