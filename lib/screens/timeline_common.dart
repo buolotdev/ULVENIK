@@ -194,7 +194,7 @@ class TimelineDogHeader extends StatelessWidget {
         child: SizedBox(
           width: 44,
           height: 44,
-          child: info?.photoUrl == null
+          child: info?.photoProvider == null
               ? ColoredBox(
                   color: AppColors.cardsCarbon,
                   child: Center(
@@ -202,7 +202,7 @@ class TimelineDogHeader extends StatelessWidget {
                         style: const TextStyle(color: AppColors.secondarySage, fontWeight: FontWeight.w700)),
                   ),
                 )
-              : Image.network(info!.photoUrl!,
+              : Image(image: info!.photoProvider!,
                   fit: BoxFit.cover,
                   errorBuilder: (_, _, _) => ColoredBox(
                       color: AppColors.cardsCarbon,

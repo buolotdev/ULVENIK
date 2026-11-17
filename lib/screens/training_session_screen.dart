@@ -102,9 +102,9 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
   /// Header image precedence (Bottom Nav Training p5): first linked skill
   /// with an image → the dog's profile photo → no banner. Skills have no
   /// images in this build, so the dog photo is used when one exists.
-  String? get _headerImage {
+  ImageProvider? get _headerImage {
     final dogs = SampleData.dogs.where((d) => d.name == widget.session.dogName);
-    return dogs.isEmpty ? null : dogs.first.photoUrl;
+    return dogs.isEmpty ? null : dogs.first.photoProvider;
   }
 
   static const List<String> _mediaUrls = [
@@ -161,9 +161,9 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     'Socialisation',
     'Club Night',
   ];
-
-
-
+
+
+
 
   late TrainingSession _savedSnapshot;
   late SessionStatus _status;
@@ -1010,7 +1010,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
     });
     if (_isDraft && !widget.isNewSession) _persistToStore();
   }
-
+
 
   void _saveDraft() {
     _persistToStore(overrideStatus: SessionStatus.draft);
@@ -1218,8 +1218,8 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
         fit: StackFit.expand,
         children: [
           if (_headerImage != null)
-            Image.network(
-              _headerImage!,
+            Image(
+              image: _headerImage!,
               fit: BoxFit.cover,
               errorBuilder: (c, e, s) => const ColoredBox(color: AppColors.backgroundObsidian),
             ),
@@ -2095,7 +2095,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       ],
     );
   }
-
+
 
   // ── Small building blocks ─────────────────────────────────────────────────
 

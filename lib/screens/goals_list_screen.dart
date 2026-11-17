@@ -286,9 +286,9 @@ class DogSquarePhoto extends StatelessWidget {
       child: SizedBox(
         width: size,
         height: size,
-        child: dog.photoUrl == null
+        child: dog.photoProvider == null
             ? placeholder
-            : Image.network(dog.photoUrl!, fit: BoxFit.cover, errorBuilder: (_, _, _) => placeholder),
+            : Image(image: dog.photoProvider!, fit: BoxFit.cover, errorBuilder: (_, _, _) => placeholder),
       ),
     );
   }

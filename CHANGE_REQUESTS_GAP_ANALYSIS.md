@@ -137,7 +137,13 @@ Still app-wide but not done: removing the intermediate dashboards on the dog-pro
 
 ## ✅ Done — data now survives a restart
 - Health (weights, body condition, reminders, all category records), S&C, Sport (sports, skills / exercises, sessions, competitions), Media (items, collections, favourites, record links rebuilt from saved keys) and Timeline (favourites, archive, milestones) now save to the device after every change and load at app start (`lib/data/persist.dart`; writes are queued so the newest data always wins). IDs are time-based so they can't clash after a restart. The old Health demo data (Murphy / Bella) was removed.
-- **Still not saved**: Training sessions, skills, goals and dogs (they are the app's built-in demo data with their own stores), Trainer / settings already were. Media only stores each file's path: if the system clears a temporary copy, that file shows as unavailable. Nothing syncs between devices.
+- **Still not saved**: Training sessions and skills (they are the app's built-in demo data with their own stores); Goals, Dogs, Trainer / settings already were. Media only stores each file's path: if the system clears a temporary copy, that file shows as unavailable. Nothing syncs between devices.
+
+## ✅ Done — Dogs now a real persisted data model
+- New `DogsStore` (`lib/data/dogs_store.dart`), same pattern as `GoalsStore`: seeded once from the existing sample dogs, then every change (a chosen cover photo and its saved framing, Archive Dog, Delete Dog) writes to the device and survives a restart. `SampleData.dogs` / `myDogs` / `clientDogs` / `dogNamed` now delegate to it (archived dogs excluded, same as other stores' archive lists).
+- Dog Profile's ⋮ menu **Archive Dog** and **Delete Dog** actually archive/delete the saved dog and return to the Dogs list, instead of the "not saved in this build" message. The Edit Cover Photo flow now saves the picked photo (by path, like the My Profile photo) and its crop/zoom framing to the same record, so reopening the profile shows the same photo and framing.
+- Updated every screen that rendered `dog.photoUrl` directly (My Dogs cards, Goals' dog switcher, Timeline's dog avatar, the Training session header image) to use the new `dog.photoProvider`, so a user-picked photo displays everywhere a seeded one used to.
+- **Still open**: no Create Dog Profile / Add Dog screen yet (unchanged from before); nothing restores an archived dog from the UI yet (no Archived Dogs screen, matching how this was already flagged for Sport/S&C's own archive screens elsewhere in this doc).
 
 ## ✅ Done — remaining Timeline items
 - **Competition status** (Upcoming / Completed / Withdrawn / Cancelled, saved): a past date alone never marks it completed — a still-Upcoming past competition shows "Did this competition take place?"; reminders only for Upcoming.

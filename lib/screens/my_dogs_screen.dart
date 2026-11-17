@@ -643,9 +643,9 @@ class _ListDogCard extends StatelessWidget {
                 child: SizedBox(
                   width: 76,
                   height: 76,
-                  child: dog.photoUrl == null
+                  child: dog.photoProvider == null
                       ? _pawPlaceholder()
-                      : Image.network(dog.photoUrl!, fit: BoxFit.cover, errorBuilder: (_, _, _) => _pawPlaceholder()),
+                      : Image(image: dog.photoProvider!, fit: BoxFit.cover, errorBuilder: (_, _, _) => _pawPlaceholder()),
                 ),
               ),
               const SizedBox(width: 14),
@@ -693,9 +693,9 @@ class _WideDogCard extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                dog.photoUrl == null
+                dog.photoProvider == null
                     ? _pawPlaceholder(size: 44)
-                    : Image.network(dog.photoUrl!, fit: BoxFit.cover, errorBuilder: (_, _, _) => _pawPlaceholder(size: 44)),
+                    : Image(image: dog.photoProvider!, fit: BoxFit.cover, errorBuilder: (_, _, _) => _pawPlaceholder(size: 44)),
                 const DecoratedBox(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(

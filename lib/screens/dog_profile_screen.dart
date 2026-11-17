@@ -72,7 +72,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
   ];
 
   bool _hasData = true; // demo toggle: double-tap the dog's name
-  CoverCrop _coverCrop = CoverCrop.none;
+  CoverCrop get _coverCrop => CoverCrop(scale: _dog.coverCrop.scale, dx: _dog.coverCrop.dx, dy: _dog.coverCrop.dy);
 
   static const _months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -156,15 +156,14 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
   }
 
   // ── Header actions ──────────────────────────────────────────────────────
-  ImageProvider? _pickedCover;
-
   Future<void> _editCover() async {
-    if (_pickedCover == null && _dog.photoUrl == null) {
-      final img = await pickPhoto(context);
-      if (img == null || !mounted) return;
-      setState(() => _pickedCover = img);
+    if (_dog.photoProvider == null) {
+      final path = await pickPhotoPath(context);
+      if (path == null || !mounted) return;
+      DogsStore.instance.setPhoto(_dog, path);
+      setState(() {});
     }
-    final source = _pickedCover ?? NetworkImage(_dog.photoUrl!);
+    final source = _dog.photoProvider!;
     final result = await Navigator.push<CoverCrop>(
       context,
       MaterialPageRoute(
@@ -176,7 +175,8 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
       ),
     );
     if (result != null && mounted) {
-      setState(() => _coverCrop = result);
+      DogsStore.instance.setCoverCrop(_dog, DogCoverCrop(scale: result.scale, dx: result.dx, dy: result.dy));
+      setState(() {});
       AppSnackbar.show(context, message: 'Cover photo updated', type: SnackbarType.success);
     }
   }
@@ -210,6 +210,10 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                   message: '${_dog.name} will be hidden from your active dogs. All records are kept.',
                   action: 'Archive Dog',
                   destructive: false,
+                  onConfirm: () {
+                    DogsStore.instance.setArchived(_dog, true);
+                    Navigator.pop(context);
+                  },
                 );
               },
             ),
@@ -223,6 +227,10 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                   message: 'This permanently deletes ${_dog.name}\'s profile. This cannot be undone.',
                   action: 'Delete Dog',
                   destructive: true,
+                  onConfirm: () {
+                    DogsStore.instance.delete(_dog.id);
+                    Navigator.pop(context);
+                  },
                 );
               },
             ),
@@ -232,7 +240,13 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
     );
   }
 
-  void _confirm({required String title, required String message, required String action, required bool destructive}) {
+  void _confirm({
+    required String title,
+    required String message,
+    required String action,
+    required bool destructive,
+    required VoidCallback onConfirm,
+  }) {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: AppColors.cardsCarbon,
@@ -254,8 +268,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pop(ctx);
-                  AppSnackbar.show(context,
-                      message: 'Not saved: dog records are not connected in this build.', type: SnackbarType.info);
+                  onConfirm();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: destructive ? const Color(0xD98B3A3A) : AppColors.primaryForestGreen,
@@ -341,7 +354,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
         collapseMode: CollapseMode.pin,
         background: Stack(fit: StackFit.expand, children: [
           CroppedCover(
-            image: _pickedCover ?? (_dog.photoUrl == null ? null : NetworkImage(_dog.photoUrl!)),
+            image: _dog.photoProvider,
             crop: _coverCrop,
             placeholder: placeholder,
           ),

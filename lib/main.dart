@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data/app_settings.dart';
+import 'data/dogs_store.dart';
 import 'data/goals_store.dart';
 import 'data/health_store.dart';
 import 'data/item_library.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
   await AppSettings.instance.load();
   await ItemLibraryStore.instance.load();
   await TrainerStore.instance.load();
+  await DogsStore.instance.load();
   await GoalsStore.instance.load();
   await TrainingSessionStore.load();
   await HealthStore.instance.load();
