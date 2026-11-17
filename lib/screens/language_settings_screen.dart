@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/app_settings.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
@@ -85,6 +86,17 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
   @override
   void initState() {
     super.initState();
+    final saved = AppSettings.instance.language;
+    if (saved == 'Use device language') {
+      _useDeviceLanguage = true;
+      _appliedUseDeviceLanguage = true;
+    } else {
+      final match = _languages.where((l) => l.nativeTitle == saved).firstOrNull;
+      if (match != null) {
+        _currentLanguageCode = match.code;
+        _selectedLanguageCode = match.code;
+      }
+    }
     _searchFocusNode.addListener(() {
       if (mounted) setState(() {});
     });
@@ -150,14 +162,15 @@ class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
       _currentLanguageCode = _selectedLanguageCode;
       _appliedUseDeviceLanguage = _useDeviceLanguage;
     });
+    AppSettings.instance.setLanguage(_appliedUseDeviceLanguage ? 'Use device language' : _currentLanguage.nativeTitle);
 
     AppSnackbar.show(
       context,
-      title: 'Language Applied',
+      title: 'Language Saved',
       message: _appliedUseDeviceLanguage
-          ? 'Following device language (${_currentLanguage.nativeTitle}).'
-          : 'Ulvenik interface updated to ${_currentLanguage.nativeTitle}.',
-      type: SnackbarType.success,
+          ? 'Will follow this device\'s language once translations are added. The interface stays in English for now.'
+          : 'Saved ${_currentLanguage.nativeTitle} as your preference. Ulvenik isn\'t translated yet, so the interface stays in English in this build.',
+      type: SnackbarType.info,
     );
   }
 

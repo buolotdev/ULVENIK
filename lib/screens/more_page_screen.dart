@@ -1,3 +1,4 @@
+import '../data/app_settings.dart';
 import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
@@ -29,7 +30,9 @@ import 'profile_page_screen.dart';
 import 'report_bug_screen.dart';
 import 'rewards_management_screen.dart';
 import 'sport_pack_overview_screen.dart';
+import 'app_lock.dart';
 import 'certificates_documents_screen.dart';
+import 'signed_in_devices_screen.dart';
 import 'storage_management_screen.dart';
 import 'subscription_details_screen.dart';
 import 'terms_conditions_screen.dart';
@@ -37,6 +40,7 @@ import 'timezone_settings_screen.dart';
 import 'trainer_dashboard_screen.dart';
 import 'trainer_reports_screen.dart';
 import 'trainer_workspace_settings_screen.dart';
+import 'two_factor_setup_screen.dart';
 import 'whats_new_screen.dart';
 
 class MorePageScreen extends StatefulWidget {
@@ -76,7 +80,6 @@ class _MorePageScreenState extends State<MorePageScreen> {
   bool _notificationsEnabled = false;
   bool _emailVerified = false;
   String _syncStatusLabel = 'Fully Synced';
-  bool _biometricLock = true;
 
   @override
   void initState() {
@@ -1217,75 +1220,64 @@ class _MorePageScreenState extends State<MorePageScreen> {
                               ],
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              setState(() => _emailVerified = !_emailVerified);
-                              setSheetState(() {});
-                              AppSnackbar.show(
-                                context,
-                                title: _emailVerified
-                                    ? 'Email Verified'
-                                    : 'Verification Reset',
-                                message: _emailVerified
-                                    ? '$_userEmail is now marked verified.'
-                                    : 'Email marked unverified for testing.',
-                                type: _emailVerified
-                                    ? SnackbarType.success
-                                    : SnackbarType.warning,
-                              );
-                            },
-                            child: Text(
-                              _emailVerified ? 'Reset' : 'Verify Now',
-                              style: const TextStyle(
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
-                                color: _forest,
+                          if (!_emailVerified)
+                            TextButton(
+                              onPressed: () {
+                                AppSnackbar.show(
+                                  context,
+                                  title: 'Not available yet',
+                                  message: 'Email verification isn\'t available in this build yet.',
+                                  type: SnackbarType.info,
+                                );
+                              },
+                              child: const Text(
+                                'Verify Now',
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600,
+                                  color: _forest,
+                                ),
                               ),
                             ),
-                          ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 8,
+                    _buildMenuRow(
+                      iconWidget: Icon(Icons.fingerprint_rounded, color: _stoneGrey, size: 20),
+                      title: 'App Lock',
+                      trailingBadge: _buildStatusPill(
+                        label: AppSettings.instance.appLock ? 'On' : 'Off',
+                        isAlert: false,
                       ),
-                      decoration: BoxDecoration(
-                        color: _obsidian,
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: _cardBorder),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.fingerprint_rounded,
-                            color: _stoneGrey,
-                            size: 22,
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Text(
-                              'Biometric App Lock',
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: _offWhite,
-                              ),
-                            ),
-                          ),
-                          Switch(
-                            value: _biometricLock,
-                            activeThumbColor: _offWhite,
-                            activeTrackColor: _forest,
-                            onChanged: (val) {
-                              setState(() => _biometricLock = val);
-                              setSheetState(() {});
-                            },
-                          ),
-                        ],
-                      ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => const AppLockScreen()),
+                        );
+                      },
+                    ),
+                    _buildDivider(),
+                    _buildMenuRow(
+                      iconWidget: Icon(Icons.verified_user_outlined, color: _stoneGrey, size: 20),
+                      title: 'Two-Factor Authentication',
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => const TwoFactorSetupScreen()),
+                        );
+                      },
+                    ),
+                    _buildDivider(),
+                    _buildMenuRow(
+                      iconWidget: Icon(Icons.devices_outlined, color: _stoneGrey, size: 20),
+                      title: 'Signed-in Devices',
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => const SignedInDevicesScreen()),
+                        );
+                      },
                     ),
                   ],
                 ),

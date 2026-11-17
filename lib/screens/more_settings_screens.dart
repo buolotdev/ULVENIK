@@ -6,6 +6,7 @@ import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/health_ui.dart';
 import '../widgets/ulvenik_icon.dart';
+import 'language_settings_screen.dart';
 import 'region_pickers.dart';
 
 Future<bool> _confirmDiscard(BuildContext context) async {
@@ -485,6 +486,20 @@ class _RegionalPreferencesScreenState extends State<RegionalPreferencesScreen> {
                   alignment: Alignment.centerLeft,
                   minimumSize: const Size(double.infinity, 46)),
               child: Text(_country.isEmpty ? 'Select a country or region' : _country),
+            ),
+            const SectionLabel('Language'),
+            OutlinedButton(
+              onPressed: () async {
+                await Navigator.push(context, MaterialPageRoute(builder: (_) => const LanguageSettingsScreen()));
+                if (mounted) setState(() {});
+              },
+              style: OutlinedButton.styleFrom(
+                  foregroundColor: AppColors.primaryTextOffWhite,
+                  side: BorderSide(color: AppColors.cardBorder),
+                  backgroundColor: AppColors.cardsCarbon,
+                  alignment: Alignment.centerLeft,
+                  minimumSize: const Size(double.infinity, 46)),
+              child: Text(_s.language),
             ),
             const SectionLabel('Time zone'),
             SwitchListTile(

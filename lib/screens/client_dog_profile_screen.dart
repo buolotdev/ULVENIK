@@ -5,13 +5,14 @@ import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
 import 'client_permissions_screen.dart';
 import 'client_profile_screen.dart';
+import 'dog_media_library.dart';
 import 'goals_list_screen.dart';
-import 'media_library_screen.dart';
 import 'record_session_screen.dart';
-import 'strength_conditioning_dashboard_screen.dart';
+import 'sc_tab.dart';
+import 'statistics_tab.dart';
 import 'timeline_screen.dart';
 import 'trainer_dashboard_screen.dart';
-import 'trainer_workspace_settings_screen.dart';
+import 'trainer_report_screen.dart';
 import 'video_viewer_screen.dart';
 
 class _DogGoalItem {
@@ -921,7 +922,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => const StrengthConditioningDashboardScreen(),
+              builder: (_) => SCTab(dogName: dog.name),
             ),
           );
         }
@@ -946,7 +947,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         'Goals',
         () {
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => const GoalsListScreen()),
+            MaterialPageRoute(builder: (_) => GoalsListScreen(dogName: dog.name)),
           );
         }
       ),
@@ -956,7 +957,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (_) => const TrainerWorkspaceSettingsScreen(),
+              builder: (_) => StatisticsTab(hasData: true, dogName: dog.name),
             ),
           );
         }
@@ -966,7 +967,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         'Videos',
         () {
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => const MediaLibraryScreen()),
+            MaterialPageRoute(builder: (_) => DogMediaLibrary(dogName: dog.name)),
           );
         }
       ),
@@ -974,11 +975,10 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
         Icons.description_outlined,
         'Reports',
         () {
-          AppSnackbar.show(
-            context,
-            title: 'Report Generated',
-            message: 'Compiled ${dog.name}\'s Trainer Evaluation PDF.',
-            type: SnackbarType.success,
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => TrainerClientReportScreen(clientId: client.id),
+            ),
           );
         }
       ),
@@ -1366,7 +1366,7 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
           child: GestureDetector(
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const MediaLibraryScreen()),
+                MaterialPageRoute(builder: (_) => DogMediaLibrary(dogName: dog.name)),
               );
             },
             child: Row(
@@ -2261,12 +2261,10 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
             showChevron: true,
             onTap: () {
               closeIfNeeded();
-              AppSnackbar.show(
-                context,
-                title: 'Progress Report Shared',
-                message:
-                    'Sent ${dog.name}\'s progress summary to ${client.fullName}.',
-                type: SnackbarType.success,
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => TrainerClientReportScreen(clientId: client.id),
+                ),
               );
             },
           ),
@@ -2278,8 +2276,8 @@ class _ClientDogProfileScreenState extends State<ClientDogProfileScreen>
               closeIfNeeded();
               AppSnackbar.show(
                 context,
-                title: 'Dog Records Exported',
-                message: 'Downloaded ${dog.name}\'s training & S&C archive.',
+                title: 'Not available yet',
+                message: 'Exporting ${dog.name}\'s records isn\'t available in this build yet.',
                 type: SnackbarType.info,
               );
             },

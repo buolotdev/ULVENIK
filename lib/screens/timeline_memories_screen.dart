@@ -1,5 +1,6 @@
 import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
@@ -1624,11 +1625,17 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 leading: const Icon(Icons.link, color: _mint),
                 title: Text('Copy Memory Card Link',
                     style: TextStyle(color: _offWhite, fontSize: 14)),
-                onTap: () {
+                onTap: () async {
                   Navigator.pop(ctx);
-                  AppSnackbar.show(context,
-                      message: 'Memory link copied to clipboard',
-                      type: SnackbarType.success);
+                  // Copies this app link. It opens once sharing is connected
+                  // to a backend; nothing is published.
+                  await Clipboard.setData(ClipboardData(
+                      text: 'ulvenik://memories/${DateTime.now().toIso8601String().split('T').first}'));
+                  if (mounted) {
+                    AppSnackbar.show(context,
+                        message: 'Memory link copied to clipboard',
+                        type: SnackbarType.success);
+                  }
                 },
               ),
               ListTile(
@@ -1639,8 +1646,8 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 onTap: () {
                   Navigator.pop(ctx);
                   AppSnackbar.show(context,
-                      message: 'Anniversary card exported to Photos',
-                      type: SnackbarType.success);
+                      message: 'Saving a story card isn\'t available in this build yet.',
+                      type: SnackbarType.info);
                 },
               ),
             ],

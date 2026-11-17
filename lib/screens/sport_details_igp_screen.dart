@@ -4,6 +4,7 @@ import '../widgets/ulvenik_icon.dart';
 import '../theme/app_colors.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/ulvenik_bottom_nav.dart';
+import 'achievements_titles_screen.dart';
 import 'competition_details_screen.dart';
 import 'competitions_overview_screen.dart';
 import 'create_sport_screen.dart';
@@ -1352,6 +1353,37 @@ class _SportDetailsIgpScreenState extends State<SportDetailsIgpScreen>
                             fontWeight: FontWeight.w600,
                             fontFamily: 'Inter',
                           ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 18),
+                    _buildSectionLabel('ACHIEVEMENTS & TITLES'),
+                    const SizedBox(height: 8),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(14),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const AchievementsTitlesScreen()),
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                        decoration: BoxDecoration(
+                          color: AppColors.cardsCarbon,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: AppColors.cardBorder),
+                        ),
+                        child: Row(
+                          children: [
+                            UlvenikIcon(UlvenikIcons.rewards, color: AppColors.favouriteGold, size: 22),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                'Titles, qualifications, awards & personal bests',
+                                style: TextStyle(color: AppColors.primaryTextOffWhite, fontSize: 14, fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            UlvenikIcon(UlvenikIcons.details, color: AppColors.secondaryTextStoneGrey, size: 18),
+                          ],
                         ),
                       ),
                     ),
