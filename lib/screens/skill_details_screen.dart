@@ -101,7 +101,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                     height: 4,
                     margin: const EdgeInsets.only(bottom: 16),
                     decoration: BoxDecoration(
-                      color: Colors.white24,
+                      color: AppColors.cardBorder,
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -159,7 +159,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     activeTrackColor: AppColors.primaryForestGreen,
-                    inactiveTrackColor: Colors.white12,
+                    inactiveTrackColor: AppColors.cardBorder,
                     thumbColor: AppColors.primaryForestGreen,
                     overlayColor: AppColors.primaryForestGreen.withValues(alpha: 0.2),
                   ),
@@ -524,7 +524,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               children: [
                 Text(
                   widget.skillName,
-                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: AppColors.primaryTextOffWhite, letterSpacing: -0.5),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -590,7 +590,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               const SizedBox(height: 8),
               Text(
                 label,
-                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white),
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.primaryTextOffWhite),
               ),
             ],
           ),
@@ -608,7 +608,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Current Goal', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+              Text('Current Goal', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite)),
               InkWell(
                 borderRadius: BorderRadius.circular(8),
                 onTap: _showProgressDialog,
@@ -644,7 +644,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Reliable Off-Lead Recall', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+                          Text('Reliable Off-Lead Recall', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite)),
                           SizedBox(height: 4),
                           Text('Target: 95% success', style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                         ],
@@ -700,7 +700,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Exercises', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+              Text('Exercises', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite)),
               TextButton.icon(
                 onPressed: () => _openAddExercise(context),
                 icon: UlvenikIcon(UlvenikIcons.add, size: 16, color: AppColors.primaryForestGreen),
@@ -746,7 +746,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+                  Text(title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.primaryTextOffWhite)),
                   const SizedBox(height: 2),
                   Text(subtitle, style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                 ],
@@ -765,7 +765,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Recent Sessions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+          Text('Recent Sessions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite)),
           const SizedBox(height: 12),
           ..._sessions.map((sess) => Padding(
                 padding: const EdgeInsets.only(bottom: 12),
@@ -807,7 +807,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 ],
               ),
               const SizedBox(height: 8),
-              Text(sess.title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+              Text(sess.title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.primaryTextOffWhite)),
               const SizedBox(height: 4),
               Row(
                 children: [
@@ -834,7 +834,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(children: [
-            const Expanded(child: Text('Media', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white))),
+            Expanded(child: Text('Media', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite))),
             TextButton(
               onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MediaLibraryScreen())),
               style: TextButton.styleFrom(foregroundColor: AppColors.primaryTextOffWhite.withValues(alpha: 0.85)),
@@ -891,7 +891,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: AppColors.cardBorder),
                       ),
-                      child: const UlvenikIcon(UlvenikIcons.play, color: Colors.white, size: 18),
+                      child: UlvenikIcon(UlvenikIcons.play, color: AppColors.primaryTextOffWhite, size: 18),
                     ),
                   ),
                 ),
@@ -911,7 +911,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Notes', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+              Text('Notes', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite)),
               TextButton.icon(
                 onPressed: _editNotes,
                 icon: UlvenikIcon(UlvenikIcons.edit, size: 16, color: AppColors.secondarySage),
@@ -944,7 +944,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Skill History', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white)),
+          Text('Skill History', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryTextOffWhite)),
           const SizedBox(height: 16),
           _timelineItem('TODAY', AppColors.primaryForestGreen, 'Training Session', 'Practiced whistle recall in the woods. Solid response.'),
           _timelineItem('15 JULY 2026', AppColors.secondarySage, 'Goal Updated', 'Target adjusted to 95% success rate.'),
@@ -975,7 +975,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 Expanded(
                   child: Container(
                     width: 1,
-                    color: Colors.white12,
+                    color: AppColors.cardBorder,
                     margin: const EdgeInsets.symmetric(vertical: 4),
                   ),
                 ),
@@ -990,7 +990,7 @@ class _SkillDetailsScreenState extends State<SkillDetailsScreen> {
                 children: [
                   Text(date, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: color)),
                   const SizedBox(height: 4),
-                  Text(title, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+                  Text(title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.primaryTextOffWhite)),
                   const SizedBox(height: 4),
                   Text(desc, style: TextStyle(fontSize: 12, color: AppColors.secondaryTextStoneGrey)),
                 ],

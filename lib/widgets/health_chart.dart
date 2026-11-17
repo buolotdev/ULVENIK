@@ -71,7 +71,7 @@ class TrendChart extends StatelessWidget {
         gridData: FlGridData(
           show: !compact,
           drawVerticalLine: false,
-          getDrawingHorizontalLine: (_) => const FlLine(color: Colors.white10, strokeWidth: 1),
+          getDrawingHorizontalLine: (_) => FlLine(color: AppColors.cardBorder, strokeWidth: 1),
         ),
         borderData: FlBorderData(show: false),
         titlesData: FlTitlesData(

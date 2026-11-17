@@ -187,7 +187,7 @@ class _SCAnalyticsState extends State<SCAnalytics> {
                   gridData: FlGridData(
                     drawVerticalLine: false,
                     horizontalInterval: 1,
-                    getDrawingHorizontalLine: (_) => const FlLine(color: Colors.white10, strokeWidth: 1),
+                    getDrawingHorizontalLine: (_) => FlLine(color: AppColors.cardBorder, strokeWidth: 1),
                   ),
                   borderData: FlBorderData(show: false),
                   titlesData: FlTitlesData(

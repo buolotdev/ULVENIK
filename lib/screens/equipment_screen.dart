@@ -1,3 +1,4 @@
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
@@ -319,7 +320,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -397,7 +398,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -472,7 +473,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     width: 36,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: Colors.white24,
+                      color: AppColors.cardBorder,
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -750,7 +751,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                       width: 36,
                       height: 4,
                       decoration: BoxDecoration(
-                        color: Colors.white24,
+                        color: AppColors.cardBorder,
                         borderRadius: BorderRadius.circular(2),
                       ),
                     ),
@@ -1017,7 +1018,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),

@@ -1,3 +1,4 @@
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -422,7 +423,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                         width: 38,
                         height: 4,
                         decoration: BoxDecoration(
-                          color: Colors.white24,
+                          color: AppColors.cardBorder,
                           borderRadius: BorderRadius.circular(2),
                         ),
                       ),
@@ -732,7 +733,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                   width: 38,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -820,7 +821,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                 width: 38,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -1014,7 +1015,7 @@ class _TimelineDashboardScreenState extends State<TimelineDashboardScreen>
                       width: 38,
                       height: 4,
                       decoration: BoxDecoration(
-                        color: Colors.white24,
+                        color: AppColors.cardBorder,
                         borderRadius: BorderRadius.circular(2),
                       ),
                     ),

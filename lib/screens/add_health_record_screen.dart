@@ -587,7 +587,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
                     color: selected ? Colors.white : AppColors.secondaryTextStoneGrey,
                     fontSize: 11,
                   ),
-                  side: BorderSide(color: selected ? const Color(0xFF95d3bb) : Colors.white12),
+                  side: BorderSide(color: selected ? const Color(0xFF95d3bb) : AppColors.cardBorder),
                 );
               }).toList(),
             ),
@@ -618,7 +618,7 @@ class _AddHealthRecordScreenState extends State<AddHealthRecordScreen> {
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            side: BorderSide(color: _isFormValid ? Colors.transparent : Colors.white12),
+            side: BorderSide(color: _isFormValid ? Colors.transparent : AppColors.cardBorder),
           ),
           elevation: 0,
         ),

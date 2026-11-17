@@ -198,7 +198,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                   width: 36,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -302,7 +302,7 @@ class _HealthSettingsScreenState extends State<HealthSettingsScreen>
                   width: 36,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),

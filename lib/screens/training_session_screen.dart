@@ -469,7 +469,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
           height: 4,
           margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
-              color: Colors.white24, borderRadius: BorderRadius.circular(2)),
+              color: AppColors.cardBorder, borderRadius: BorderRadius.circular(2)),
         ),
       );
 
@@ -671,7 +671,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                               border: Border.all(
                                 color: alreadyInSession
                                     ? AppColors.primaryForestGreen
-                                    : Colors.white12,
+                                    : AppColors.cardBorder,
                               ),
                             ),
                             child: Row(
@@ -820,7 +820,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                                 border: Border.all(
                                   color: selected
                                       ? AppColors.primaryForestGreen
-                                      : Colors.white12,
+                                      : AppColors.cardBorder,
                                 ),
                               ),
                               child: Text(
@@ -903,7 +903,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                             icon: Icon(Icons.remove_circle_outline,
                               color: reps > 1
                                   ? AppColors.primaryTextOffWhite
-                                  : Colors.white24,
+                                  : AppColors.cardBorder,
                               size: 22,
                             ),
                           ),
@@ -1716,7 +1716,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
                                               color: ex.repetitions > 1
                                                   ? AppColors
                                                       .secondaryTextStoneGrey
-                                                  : Colors.white24,
+                                                  : AppColors.cardBorder,
                                             ),
                                           ),
                                         ),
@@ -2139,7 +2139,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
         decoration: BoxDecoration(
           border: last
               ? null
-              : const Border(bottom: BorderSide(color: Colors.white10)),
+              : Border(bottom: BorderSide(color: AppColors.cardBorder)),
         ),
         child: Row(
           children: [
@@ -2172,7 +2172,7 @@ class _TrainingSessionScreenState extends State<TrainingSessionScreen> {
       decoration: BoxDecoration(
         border: last
             ? null
-            : const Border(bottom: BorderSide(color: Colors.white10)),
+            : Border(bottom: BorderSide(color: AppColors.cardBorder)),
       ),
       child: Row(
         children: [

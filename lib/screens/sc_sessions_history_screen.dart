@@ -92,7 +92,7 @@ class _SCSessionsHistoryScreenState extends State<SCSessionsHistoryScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.cardsCarbon,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: _period == 'Lifetime' ? Colors.white12 : AppColors.primaryForestGreen),
+                        border: Border.all(color: _period == 'Lifetime' ? AppColors.cardBorder : AppColors.primaryForestGreen),
                       ),
                       child: Row(mainAxisSize: MainAxisSize.min, children: [
                         UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),

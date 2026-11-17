@@ -107,7 +107,7 @@ class _MoreHubScreenState extends State<MoreHubScreen> {
             child: Column(children: [
               for (var i = 0; i < rows.length; i++) ...[
                 rows[i],
-                if (i < rows.length - 1) const Divider(height: 1, color: Colors.white10),
+                if (i < rows.length - 1) Divider(height: 1, color: AppColors.cardBorder),
               ],
             ]),
           ),
@@ -258,9 +258,9 @@ class _HelpSupportScreen extends StatelessWidget {
             ),
             child: Column(children: [
               moreRow(icon: Icons.menu_book_outlined, title: 'Help Centre', onTap: () => go(const HelpCentreScreen())),
-              const Divider(height: 1, color: Colors.white10),
+              Divider(height: 1, color: AppColors.cardBorder),
               moreRow(icon: Icons.mail_outline, title: 'Contact Support', onTap: () => go(const ContactSupportForm())),
-              const Divider(height: 1, color: Colors.white10),
+              Divider(height: 1, color: AppColors.cardBorder),
               moreRow(icon: Icons.bug_report_outlined, title: 'Report a Bug', onTap: () => go(const ReportBugForm())),
             ]),
           ),

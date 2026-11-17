@@ -595,7 +595,7 @@ class _Choice extends StatelessWidget {
           decoration: BoxDecoration(
             color: selected ? AppColors.primaryForestGreen : Colors.transparent,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white24),
+            border: Border.all(color: selected ? AppColors.primaryForestGreen : AppColors.cardBorder),
           ),
           child: Row(mainAxisSize: MainAxisSize.min, children: [
             if (icon != null) ...[
@@ -635,7 +635,7 @@ class _RadioRow extends StatelessWidget {
           decoration: BoxDecoration(
             color: selected ? AppColors.primaryForestGreen.withValues(alpha: 0.15) : AppColors.backgroundObsidian,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white12),
+            border: Border.all(color: selected ? AppColors.primaryForestGreen : AppColors.cardBorder),
           ),
           child: Row(children: [
             Expanded(

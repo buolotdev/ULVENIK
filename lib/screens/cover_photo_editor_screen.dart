@@ -132,7 +132,7 @@ class _CoverPhotoEditorScreenState extends State<CoverPhotoEditorScreen> {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: Colors.white38),
+                        border: Border.all(color: AppColors.secondaryTextStoneGrey),
                       ),
                     ),
                   ),

@@ -412,7 +412,7 @@ class _ActivityLibraryScreenState extends State<ActivityLibraryScreen>
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),

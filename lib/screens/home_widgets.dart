@@ -165,7 +165,7 @@ class HomeWidgetPanel extends StatelessWidget {
                   height: 64,
                   child: type == MediaType.photo && i.path != null
                       ? Image.file(File(i.path!), fit: BoxFit.cover, cacheWidth: 200, errorBuilder: (_, _, _) => ColoredBox(color: AppColors.backgroundObsidian))
-                      : const ColoredBox(color: Color(0xFF232625), child: Icon(Icons.play_arrow, color: Colors.white70)),
+                      : ColoredBox(color: Color(0xFF232625), child: Icon(Icons.play_arrow, color: AppColors.secondaryTextStoneGrey)),
                 ),
               ),
           ]));
@@ -254,7 +254,7 @@ class HomeWidgetsScreen extends StatelessWidget {
                         ),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: store.byType(e.key) == null ? AppColors.primaryForestGreen : AppColors.secondaryTextStoneGrey,
-                          side: BorderSide(color: store.byType(e.key) == null ? AppColors.primaryForestGreen : Colors.white24),
+                          side: BorderSide(color: store.byType(e.key) == null ? AppColors.primaryForestGreen : AppColors.cardBorder),
                         ),
                         child: Text(store.byType(e.key) == null ? 'Add to Home' : 'Added to Home', style: const TextStyle(fontSize: 12.5)),
                       ),

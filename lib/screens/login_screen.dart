@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
       fillColor: AppColors.cardsCarbon,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 17),
       suffixIcon: suffix,
-      enabledBorder: border(Colors.white12),
+      enabledBorder: border(AppColors.cardBorder),
       focusedBorder: border(AppColors.primaryForestGreen),
       errorBorder: border(const Color(0xFF8B3A3A)),
       focusedErrorBorder: border(const Color(0xFFB04A4A)),
@@ -336,7 +336,7 @@ class _ProviderButton extends StatelessWidget {
               asset,
               width: 20,
               height: 20,
-              colorFilter: tintWhite ? const ColorFilter.mode(Colors.white, BlendMode.srcIn) : null,
+              colorFilter: tintWhite ? ColorFilter.mode(AppColors.primaryTextOffWhite, BlendMode.srcIn) : null,
             ),
             const SizedBox(width: 12),
             Flexible(

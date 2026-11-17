@@ -839,7 +839,7 @@ class _SheetHandle extends StatelessWidget {
         width: 36,
         height: 4,
         margin: const EdgeInsets.only(bottom: 16),
-        decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)),
+        decoration: BoxDecoration(color: AppColors.cardBorder, borderRadius: BorderRadius.circular(2)),
       ),
     );
   }

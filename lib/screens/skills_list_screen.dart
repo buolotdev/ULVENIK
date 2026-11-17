@@ -362,7 +362,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                   height: 4,
                   margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
-                      color: Colors.white24,
+                      color: AppColors.cardBorder,
                       borderRadius: BorderRadius.circular(2)),
                 ),
               ),
@@ -691,7 +691,7 @@ class _SkillsListScreenState extends State<SkillsListScreen> {
                 border: Border.all(
                     color: active
                         ? AppColors.primaryForestGreen
-                        : Colors.white12),
+                        : AppColors.cardBorder),
               ),
               child: Text(_filters[i],
                   style: TextStyle(

@@ -412,7 +412,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                                     border: Border.all(
                                       color: _termsAccepted
                                           ? AppColors.primaryForestGreen
-                                          : Colors.white24,
+                                          : AppColors.cardBorder,
                                       width: 1.5,
                                     ),
                                     borderRadius: BorderRadius.circular(4),

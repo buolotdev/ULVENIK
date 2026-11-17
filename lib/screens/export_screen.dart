@@ -392,7 +392,7 @@ class _ExportScreenState extends State<ExportScreen>
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -729,7 +729,7 @@ class _ExportScreenState extends State<ExportScreen>
                           height: 20,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white24, width: 1.5),
+                            border: Border.all(color: AppColors.cardBorder, width: 1.5),
                           ),
                         ),
                 ],
@@ -774,7 +774,7 @@ class _ExportScreenState extends State<ExportScreen>
                           height: 20,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white24, width: 1.5),
+                            border: Border.all(color: AppColors.cardBorder, width: 1.5),
                           ),
                         ),
                 ],
@@ -884,7 +884,7 @@ class _ExportScreenState extends State<ExportScreen>
                         borderRadius: BorderRadius.circular(4),
                         border: isChecked
                             ? Border.all(color: _mint, width: 1)
-                            : Border.all(color: Colors.white24, width: 1),
+                            : Border.all(color: AppColors.cardBorder, width: 1),
                       ),
                       child: isChecked
                           ? const Icon(Icons.check, size: 14, color: _offWhite)
@@ -1148,7 +1148,7 @@ class _ExportScreenState extends State<ExportScreen>
                         color: isSelected ? _forest : Colors.transparent,
                         border: isSelected
                             ? Border.all(color: _mint, width: 1.5)
-                            : Border.all(color: Colors.white24, width: 1.5),
+                            : Border.all(color: AppColors.cardBorder, width: 1.5),
                       ),
                       child: isSelected
                           ? Center(
@@ -1432,7 +1432,7 @@ class _ExportScreenState extends State<ExportScreen>
                           borderRadius: BorderRadius.circular(4),
                           border: isChecked
                               ? Border.all(color: _mint, width: 1)
-                              : Border.all(color: Colors.white24, width: 1),
+                              : Border.all(color: AppColors.cardBorder, width: 1),
                         ),
                         child: isChecked
                             ? const Icon(Icons.check, size: 14, color: _offWhite)
@@ -1498,7 +1498,7 @@ class _ExportScreenState extends State<ExportScreen>
                           color: isSelected ? _forest : Colors.transparent,
                           border: isSelected
                               ? Border.all(color: _mint, width: 1.5)
-                              : Border.all(color: Colors.white24, width: 1.5),
+                              : Border.all(color: AppColors.cardBorder, width: 1.5),
                         ),
                         child: isSelected
                             ? Center(
@@ -1749,7 +1749,7 @@ class _ExportProgressModalState extends State<_ExportProgressModal> {
             width: 36,
             height: 4,
             decoration: BoxDecoration(
-              color: Colors.white24,
+              color: AppColors.cardBorder,
               borderRadius: BorderRadius.circular(2),
             ),
           ),

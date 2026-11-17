@@ -1091,13 +1091,13 @@ class _HealthRecordDetailsScreenState extends State<HealthRecordDetailsScreen> {
                   Positioned(
                     top: 0,
                     bottom: 24,
-                    child: Container(width: 1, color: Colors.white12),
+                    child: Container(width: 1, color: AppColors.cardBorder),
                   ),
                 if (!isLast)
                   Positioned(
                     top: 24,
                     bottom: 0,
-                    child: Container(width: 1, color: Colors.white12),
+                    child: Container(width: 1, color: AppColors.cardBorder),
                   ),
                 Positioned(
                   top: 18,

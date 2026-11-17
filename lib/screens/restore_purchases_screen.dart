@@ -310,7 +310,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                   return LinearProgressIndicator(
                     value: value,
                     minHeight: 5,
-                    backgroundColor: Colors.white10,
+                    backgroundColor: AppColors.cardBorder,
                     valueColor: AlwaysStoppedAnimation<Color>(_forest),
                   );
                 },
@@ -591,7 +591,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                     width: 38,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: Colors.white24,
+                      color: AppColors.cardBorder,
                       borderRadius: BorderRadius.circular(99),
                     ),
                   ),
@@ -669,7 +669,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                     width: 38,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: Colors.white24,
+                      color: AppColors.cardBorder,
                       borderRadius: BorderRadius.circular(99),
                     ),
                   ),
@@ -765,7 +765,7 @@ class _RestorePurchasesScreenState extends State<RestorePurchasesScreen>
                     width: 38,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: Colors.white24,
+                      color: AppColors.cardBorder,
                       borderRadius: BorderRadius.circular(99),
                     ),
                   ),

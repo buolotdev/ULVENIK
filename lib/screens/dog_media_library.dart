@@ -312,7 +312,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
               width: 34,
               height: 34,
               decoration: const BoxDecoration(color: Colors.black45, shape: BoxShape.circle),
-              child: const Icon(Icons.play_arrow, color: Colors.white70, size: 22),
+              child: Icon(Icons.play_arrow, color: AppColors.secondaryTextStoneGrey, size: 22),
             ),
           ),
         ]);
@@ -351,7 +351,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: selected ? AppColors.primaryForestGreen : Colors.black45,
-                  border: Border.all(color: Colors.white70, width: 1.5),
+                  border: Border.all(color: AppColors.secondaryTextStoneGrey, width: 1.5),
                 ),
                 child: selected ? const Icon(Icons.check, size: 14, color: Colors.white) : null,
               ),
@@ -690,7 +690,7 @@ class _DogMediaLibraryState extends State<DogMediaLibrary> {
               style: OutlinedButton.styleFrom(
                 padding: EdgeInsets.zero,
                 backgroundColor: AppColors.cardsCarbon,
-                side: BorderSide(color: _filters.active ? AppColors.primaryForestGreen : Colors.white12),
+                side: BorderSide(color: _filters.active ? AppColors.primaryForestGreen : AppColors.cardBorder),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               ),
               child: Icon(Icons.tune,

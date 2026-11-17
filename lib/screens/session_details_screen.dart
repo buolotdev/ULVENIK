@@ -1,3 +1,4 @@
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/session_rating.dart';
 import '../widgets/ulvenik_icon.dart';
@@ -260,7 +261,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -426,7 +427,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -526,7 +527,7 @@ class _SessionDetailsScreenState extends State<SessionDetailsScreen> {
                   width: 36,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -1552,7 +1553,7 @@ class _MediaLightboxViewerState extends State<_MediaLightboxViewer> {
         ),
         title: Text(
           '${_currentIndex + 1} of ${widget.items.length}',
-          style: const TextStyle(color: Colors.white70, fontSize: 14),
+          style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 14),
         ),
         centerTitle: true,
       ),
@@ -1622,8 +1623,8 @@ class _MediaLightboxViewerState extends State<_MediaLightboxViewer> {
             child: Text(
               currentItem.caption,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white70,
+              style: TextStyle(
+                color: AppColors.secondaryTextStoneGrey,
                 fontSize: 13,
                 height: 1.4,
               ),

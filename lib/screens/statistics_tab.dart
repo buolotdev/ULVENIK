@@ -639,7 +639,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                     _selectedDay = null;
                   }),
           icon: Icon(Icons.chevron_right,
-              color: isCurrent ? Colors.white24 : AppColors.primaryTextOffWhite),
+              color: isCurrent ? AppColors.cardBorder : AppColors.primaryTextOffWhite),
         ),
       ]),
       const SizedBox(height: 6),
@@ -681,7 +681,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                         ),
                         child: Text('$dayNum',
                             style: TextStyle(
-                              color: future ? Colors.white30 : AppColors.primaryTextOffWhite,
+                              color: future ? AppColors.secondaryTextStoneGrey : AppColors.primaryTextOffWhite,
                               fontSize: 12.5,
                               fontWeight: FontWeight.w500,
                             )),

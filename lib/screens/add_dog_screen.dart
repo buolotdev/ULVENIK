@@ -136,7 +136,7 @@ class _AddDogScreenState extends State<AddDogScreen> {
                     decoration: BoxDecoration(
                       color: _sex == s ? AppColors.primaryForestGreen.withValues(alpha: 0.18) : AppColors.cardsCarbon,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: _sex == s ? AppColors.primaryForestGreen : Colors.white12),
+                      border: Border.all(color: _sex == s ? AppColors.primaryForestGreen : AppColors.cardBorder),
                     ),
                     child: Text(s,
                         style: TextStyle(
@@ -161,7 +161,7 @@ class _AddDogScreenState extends State<AddDogScreen> {
                       decoration: BoxDecoration(
                         color: _isClient == c ? AppColors.primaryForestGreen.withValues(alpha: 0.18) : AppColors.cardsCarbon,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: _isClient == c ? AppColors.primaryForestGreen : Colors.white12),
+                        border: Border.all(color: _isClient == c ? AppColors.primaryForestGreen : AppColors.cardBorder),
                       ),
                       child: Text(c ? 'Client Dog' : 'My Dog',
                           style: TextStyle(

@@ -1097,7 +1097,7 @@ class _TwoFactorSetupScreenState extends State<TwoFactorSetupScreen> {
                 ? AppColors.primaryForestGreen.withValues(alpha: 0.25)
                 : (isActive ? AppColors.primaryForestGreen : Colors.transparent),
             border: Border.all(
-              color: isActive ? AppColors.primaryForestGreen : Colors.white24,
+              color: isActive ? AppColors.primaryForestGreen : AppColors.cardBorder,
               width: 2,
             ),
           ),

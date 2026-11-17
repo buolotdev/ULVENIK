@@ -236,7 +236,7 @@ class _ProviderButton extends StatelessWidget {
               asset,
               width: 20,
               height: 20,
-              colorFilter: tintWhite ? const ColorFilter.mode(Colors.white, BlendMode.srcIn) : null,
+              colorFilter: tintWhite ? ColorFilter.mode(AppColors.primaryTextOffWhite, BlendMode.srcIn) : null,
             ),
             const SizedBox(width: 10),
             Flexible(

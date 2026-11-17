@@ -1568,7 +1568,7 @@ class _SubscriptionDetailsScreenState extends State<SubscriptionDetailsScreen> {
         width: 38,
         height: 4,
         decoration: BoxDecoration(
-          color: Colors.white24,
+          color: AppColors.cardBorder,
           borderRadius: BorderRadius.circular(99),
         ),
       ),
@@ -1656,7 +1656,7 @@ class _EntitlementQuotaHelpSheetState extends State<_EntitlementQuotaHelpSheet>
                 width: 38,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(99),
                 ),
               ),
@@ -1736,7 +1736,7 @@ class _EntitlementQuotaHelpSheetState extends State<_EntitlementQuotaHelpSheet>
                                 child: LinearProgressIndicator(
                                   value: _quotas[i].$2 * t,
                                   minHeight: 6,
-                                  backgroundColor: Colors.white10,
+                                  backgroundColor: AppColors.cardBorder,
                                   valueColor: AlwaysStoppedAnimation(
                                     AppColors.primaryForestGreen,
                                   ),

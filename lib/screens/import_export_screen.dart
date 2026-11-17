@@ -369,7 +369,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                   decoration: BoxDecoration(
 
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
 
                     borderRadius: BorderRadius.circular(2),
 
@@ -501,17 +501,17 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                                       decoration: BoxDecoration(
 
-                                        color: Colors.white12,
+                                        color: AppColors.cardBorder,
 
                                         borderRadius: BorderRadius.circular(4),
 
                                       ),
 
-                                      child: const Text(
+                                      child: Text(
 
                                         'NO BACKUP',
 
-                                        style: TextStyle(color: Colors.white70, fontSize: 10),
+                                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10),
 
                                       ),
 
@@ -609,7 +609,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                   decoration: BoxDecoration(
 
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
 
                     borderRadius: BorderRadius.circular(2),
 
@@ -1005,7 +1005,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                   decoration: BoxDecoration(
 
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
 
                     borderRadius: BorderRadius.circular(2),
 
@@ -1357,7 +1357,7 @@ class _ImportExportScreenState extends State<ImportExportScreen>
 
                   decoration: BoxDecoration(
 
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
 
                     borderRadius: BorderRadius.circular(2),
 

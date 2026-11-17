@@ -453,7 +453,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
         unselectedLabelColor: AppColors.secondaryTextStoneGrey,
         labelStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         unselectedLabelStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-        dividerColor: Colors.white12,
+        dividerColor: AppColors.cardBorder,
         tabs: [for (final t in _tabs) Tab(text: t)],
       ),
     );
@@ -743,7 +743,7 @@ class _DogProfileScreenState extends State<DogProfileScreen> with SingleTickerPr
                   style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 12)),
             ]),
           ),
-          Container(width: 1, height: 34, color: Colors.white12, margin: const EdgeInsets.symmetric(horizontal: 12)),
+          Container(width: 1, height: 34, color: AppColors.cardBorder, margin: const EdgeInsets.symmetric(horizontal: 12)),
           UlvenikIcon(_iconFor(u.category), size: 18, color: AppColors.secondaryTextStoneGrey),
           const SizedBox(width: 10),
           Expanded(
@@ -1191,7 +1191,7 @@ class _Toggle extends StatelessWidget {
           decoration: BoxDecoration(
             color: selected ? AppColors.primaryForestGreen : AppColors.backgroundObsidian,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white12),
+            border: Border.all(color: selected ? AppColors.primaryForestGreen : AppColors.cardBorder),
           ),
           child: Text(label,
               textAlign: TextAlign.center,

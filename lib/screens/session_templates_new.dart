@@ -425,7 +425,7 @@ class _SessionTemplatesScreenState extends State<SessionTemplatesScreen> {
                       onPressed: _filters,
                       style: OutlinedButton.styleFrom(
                           foregroundColor: AppColors.primaryTextOffWhite,
-                          side: BorderSide(color: (_activity != null || _favOnly) ? AppColors.primaryForestGreen : Colors.white12),
+                          side: BorderSide(color: (_activity != null || _favOnly) ? AppColors.primaryForestGreen : AppColors.cardBorder),
                           backgroundColor: AppColors.cardsCarbon,
                           minimumSize: const Size(0, 44)),
                       child: const Text('Filters'),

@@ -366,7 +366,7 @@ class DogPickerSheet extends StatelessWidget {
             Center(
               child: Container(
                 width: 36, height: 4,
-                decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)),
+                decoration: BoxDecoration(color: AppColors.cardBorder, borderRadius: BorderRadius.circular(2)),
               ),
             ),
             const SizedBox(height: 16),
@@ -407,7 +407,7 @@ class _SummaryCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white12, width: selected ? 1.5 : 1),
+              border: Border.all(color: selected ? AppColors.primaryForestGreen : AppColors.cardBorder, width: selected ? 1.5 : 1),
             ),
             child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text('$count',
@@ -450,7 +450,7 @@ class _GoalCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: overdue ? const Color(0x668B3A3A) : Colors.white12),
+            border: Border.all(color: overdue ? const Color(0x668B3A3A) : AppColors.cardBorder),
           ),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Row(crossAxisAlignment: CrossAxisAlignment.start, children: [

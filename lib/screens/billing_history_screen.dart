@@ -830,7 +830,7 @@ class _BillingHistoryScreenState extends State<BillingHistoryScreen> {
                         width: 38,
                         height: 4,
                         decoration: BoxDecoration(
-                          color: Colors.white24,
+                          color: AppColors.cardBorder,
                           borderRadius: BorderRadius.circular(99),
                         ),
                       ),
@@ -1211,7 +1211,7 @@ class _AnnualSpendSheetContentState extends State<_AnnualSpendSheetContent>
                 width: 38,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(99),
                 ),
               ),

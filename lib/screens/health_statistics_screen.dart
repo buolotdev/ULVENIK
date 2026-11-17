@@ -1711,7 +1711,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                         decoration: BoxDecoration(
                           color: isSel ? _forest : AppColors.backgroundObsidian,
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: isSel ? _forest : Colors.white10),
+                          border: Border.all(color: isSel ? _forest : AppColors.cardBorder),
                         ),
                         child: Text(
                           _timeframeLabels[i],
@@ -1816,7 +1816,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                   decoration: BoxDecoration(
                     color: AppColors.backgroundObsidian,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.white10),
+                    border: Border.all(color: AppColors.cardBorder),
                   ),
                   child: Row(
                     children: [
@@ -1914,7 +1914,7 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
         decoration: BoxDecoration(
           color: AppColors.backgroundObsidian,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.white10),
+          border: Border.all(color: AppColors.cardBorder),
         ),
         child: Row(
           children: [

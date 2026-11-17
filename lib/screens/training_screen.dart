@@ -1434,7 +1434,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
           decoration: BoxDecoration(
             color: AppColors.cardsCarbon,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: isLifetime ? Colors.white12 : AppColors.primaryForestGreen),
+            border: Border.all(color: isLifetime ? AppColors.cardBorder : AppColors.primaryForestGreen),
           ),
           child: Row(mainAxisSize: MainAxisSize.min, children: [
             UlvenikIcon(UlvenikIcons.calendar, size: 15, color: AppColors.secondaryTextStoneGrey),
@@ -1542,7 +1542,7 @@ class _ActionRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: primary ? AppColors.primaryForestGreen : Colors.white12),
+            border: Border.all(color: primary ? AppColors.primaryForestGreen : AppColors.cardBorder),
           ),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             UlvenikIcon(icon, size: 24, color: primary ? AppColors.primaryTextOffWhite : const Color(0xFF6FBF8E)),
@@ -1574,7 +1574,7 @@ class _Pill extends StatelessWidget {
           decoration: BoxDecoration(
             color: selected ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white12),
+            border: Border.all(color: selected ? AppColors.primaryForestGreen : AppColors.cardBorder),
           ),
           child: Text(label,
               style: TextStyle(
@@ -1751,7 +1751,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                     width: 40,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: Colors.white24,
+                      color: AppColors.cardBorder,
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -1791,7 +1791,7 @@ class _NewSessionSheetState extends State<_NewSessionSheet> {
                         border: Border.all(
                           color: isSelected
                               ? AppColors.primaryForestGreen
-                              : Colors.white12,
+                              : AppColors.cardBorder,
                           width: isSelected ? 1.5 : 1,
                         ),
                       ),

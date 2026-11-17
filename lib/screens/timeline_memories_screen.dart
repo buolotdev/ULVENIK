@@ -1,3 +1,4 @@
+import '../theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
 import '../widgets/custom_snackbar.dart';
@@ -1327,7 +1328,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                   width: 38,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -1395,7 +1396,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                   width: 38,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -1471,7 +1472,7 @@ class _TimelineMemoriesScreenState extends State<TimelineMemoriesScreen> {
                 width: 38,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),

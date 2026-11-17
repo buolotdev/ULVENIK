@@ -276,7 +276,7 @@ class _VideoPageState extends State<_VideoPage> {
           c,
           allowScrubbing: true,
           colors: VideoProgressColors(
-              playedColor: AppColors.primaryForestGreen, bufferedColor: Colors.white24, backgroundColor: Colors.white12),
+              playedColor: AppColors.primaryForestGreen, bufferedColor: AppColors.cardBorder, backgroundColor: AppColors.cardBorder),
         ),
       ),
     ]);

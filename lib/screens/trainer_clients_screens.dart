@@ -235,7 +235,7 @@ class _TrainerClientsScreenState extends State<TrainerClientsScreen> {
                       style: OutlinedButton.styleFrom(
                         padding: EdgeInsets.zero,
                         backgroundColor: AppColors.cardsCarbon,
-                        side: BorderSide(color: _filters.active ? AppColors.primaryForestGreen : Colors.white12),
+                        side: BorderSide(color: _filters.active ? AppColors.primaryForestGreen : AppColors.cardBorder),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
                       child: Icon(Icons.tune,

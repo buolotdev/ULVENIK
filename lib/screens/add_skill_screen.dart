@@ -71,7 +71,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
                 width: 36, height: 4,
                 margin: const EdgeInsets.only(bottom: 20),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -485,7 +485,7 @@ class _AddSkillScreenState extends State<AddSkillScreen> {
             border: Border.all(
               color: isPrimary
                   ? AppColors.primaryForestGreen.withValues(alpha: 0.5)
-                  : Colors.white24,
+                  : AppColors.cardBorder,
             ),
           ),
           child: Row(

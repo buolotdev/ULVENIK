@@ -2189,14 +2189,14 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                     child: Column(
                       children: [
                         _buildDetailRow('Surgery Date', _formatDate(p.date)),
-                        const Divider(color: Colors.white10),
+                        Divider(color: AppColors.cardBorder),
                         _buildDetailRow('Hospital / Practice', p.practice),
-                        const Divider(color: Colors.white10),
+                        Divider(color: AppColors.cardBorder),
                         _buildDetailRow('Primary Surgeon', p.surgeon),
-                        const Divider(color: Colors.white10),
+                        Divider(color: AppColors.cardBorder),
                         _buildDetailRow('Indication / Reason', p.reason),
                         if (p.followUpDate != null) ...[
-                          const Divider(color: Colors.white10),
+                          Divider(color: AppColors.cardBorder),
                           _buildDetailRow('Next Follow-up', _formatDate(p.followUpDate!)),
                         ],
                       ],
@@ -2412,7 +2412,7 @@ class _SurgeryProceduresScreenState extends State<SurgeryProceduresScreen>
                         decoration: BoxDecoration(
                           color: isSel ? _forest : AppColors.backgroundObsidian,
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: isSel ? _forest : Colors.white10),
+                          border: Border.all(color: isSel ? _forest : AppColors.cardBorder),
                         ),
                         child: Text(
                           _filterLabels[i],

@@ -467,7 +467,7 @@ class _GoalDetailsScreenState extends State<GoalDetailsScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
         decoration: BoxDecoration(
           color: filled ? AppColors.primaryForestGreen : Colors.transparent,
-          border: Border.all(color: filled ? AppColors.primaryForestGreen : Colors.white24),
+          border: Border.all(color: filled ? AppColors.primaryForestGreen : AppColors.cardBorder),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(text,

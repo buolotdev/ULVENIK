@@ -293,7 +293,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     height: 4,
                     margin: const EdgeInsets.only(bottom: 16),
                     decoration: BoxDecoration(
-                      color: Colors.white24,
+                      color: AppColors.cardBorder,
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -334,7 +334,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     activeTrackColor: AppColors.primaryForestGreen,
-                    inactiveTrackColor: Colors.white12,
+                    inactiveTrackColor: AppColors.cardBorder,
                     thumbColor: AppColors.primaryForestGreen,
                     overlayColor: AppColors.primaryForestGreen.withValues(alpha: 0.2),
                   ),
@@ -397,7 +397,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                     width: 36,
                     height: 4,
                     margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)),
+                    decoration: BoxDecoration(color: AppColors.cardBorder, borderRadius: BorderRadius.circular(2)),
                   ),
                 ),
                 Text('Success Rate',

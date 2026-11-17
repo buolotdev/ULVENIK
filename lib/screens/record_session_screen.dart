@@ -1,3 +1,4 @@
+import '../theme/app_colors.dart';
 import 'activity_library_screen.dart';
 import 'package:flutter/material.dart';
 import '../widgets/session_rating.dart';
@@ -373,7 +374,7 @@ class _RecordSessionScreenState extends State<RecordSessionScreen> {
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),

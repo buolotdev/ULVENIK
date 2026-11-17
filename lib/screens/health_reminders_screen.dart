@@ -454,7 +454,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   width: 36,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -606,7 +606,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                         width: 36,
                         height: 4,
                         decoration: BoxDecoration(
-                          color: Colors.white24,
+                          color: AppColors.cardBorder,
                           borderRadius: BorderRadius.circular(2),
                         ),
                       ),
@@ -886,7 +886,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                   width: 36,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: AppColors.cardBorder,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -956,12 +956,12 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                                     Container(
                                       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                       decoration: BoxDecoration(
-                                        color: Colors.white12,
+                                        color: AppColors.cardBorder,
                                         borderRadius: BorderRadius.circular(4),
                                       ),
-                                      child: const Text(
+                                      child: Text(
                                         'NO DATA',
-                                        style: TextStyle(color: Colors.white70, fontSize: 10),
+                                        style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10),
                                       ),
                                     ),
                                   ],
@@ -1778,12 +1778,12 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
                   decoration: BoxDecoration(
-                    color: Colors.white12,
+                    color: AppColors.cardBorder,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
                     '${completedList.length}',
-                    style: const TextStyle(color: Colors.white70, fontSize: 10, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: AppColors.secondaryTextStoneGrey, fontSize: 10, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Spacer(),
@@ -2059,7 +2059,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
               margin: const EdgeInsets.only(top: 2),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white24, width: 1.5),
+                border: Border.all(color: AppColors.cardBorder, width: 1.5),
               ),
             ),
           ),
@@ -2152,7 +2152,7 @@ class _HealthRemindersScreenState extends State<HealthRemindersScreen>
                     color: AppColors.primaryTextOffWhite,
                     fontSize: 15,
                     decoration: TextDecoration.lineThrough,
-                    decorationColor: Colors.white38,
+                    decorationColor: AppColors.secondaryTextStoneGrey,
                   ),
                 ),
                 const SizedBox(height: 3),

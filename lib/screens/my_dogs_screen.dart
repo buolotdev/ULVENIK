@@ -146,7 +146,7 @@ class _MyDogsScreenState extends State<MyDogsScreen> {
                     Center(
                       child: Container(
                         width: 36, height: 4,
-                        decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)),
+                        decoration: BoxDecoration(color: AppColors.cardBorder, borderRadius: BorderRadius.circular(2)),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -533,7 +533,7 @@ class _GroupPill extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
           color: selected ? AppColors.primaryForestGreen : AppColors.cardsCarbon,
-          border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white12),
+          border: Border.all(color: selected ? AppColors.primaryForestGreen : AppColors.cardBorder),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -572,7 +572,7 @@ class _SquareButton extends StatelessWidget {
             height: 44,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: primary ? AppColors.primaryForestGreen : Colors.white12),
+              border: Border.all(color: primary ? AppColors.primaryForestGreen : AppColors.cardBorder),
             ),
             child: Stack(
               alignment: Alignment.center,
@@ -613,7 +613,7 @@ class _Chip extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected ? AppColors.primaryForestGreen : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: selected ? AppColors.primaryForestGreen : Colors.white24),
+          border: Border.all(color: selected ? AppColors.primaryForestGreen : AppColors.cardBorder),
         ),
         child: Text(label,
             style: TextStyle(

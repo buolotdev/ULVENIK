@@ -1,3 +1,4 @@
+import '../theme/app_colors.dart';
 import 'activity_library_screen.dart';
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
@@ -266,7 +267,7 @@ class _ActivityStatisticsScreenState extends State<ActivityStatisticsScreen>
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),

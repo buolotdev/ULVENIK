@@ -23,7 +23,7 @@ class AnimatedProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = this.color ?? AppColors.primaryForestGreen;
-    final backgroundColor = this.backgroundColor ?? Colors.white12;
+    final backgroundColor = this.backgroundColor ?? AppColors.cardBorder;
     final total = duration + delay;
     final delayFraction = delay.inMilliseconds / total.inMilliseconds;
     return TweenAnimationBuilder<double>(

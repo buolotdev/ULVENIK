@@ -85,7 +85,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                 width: 36, height: 4,
                 margin: const EdgeInsets.only(bottom: 20),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.cardBorder,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -277,9 +277,9 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
                                 image: _customPhoto ?? NetworkImage(_inheritedImage),
                                 fit: BoxFit.cover,
                                 errorBuilder: (_, _, _) => Container(
-                                  color: Colors.white10,
+                                  color: AppColors.cardBorder,
                                   alignment: Alignment.center,
-                                  child: const UlvenikIcon(UlvenikIcons.exercises, size: 20, color: Colors.white38),
+                                  child: UlvenikIcon(UlvenikIcons.exercises, size: 20, color: AppColors.secondaryTextStoneGrey),
                                 ),
                               ),
                             ),
