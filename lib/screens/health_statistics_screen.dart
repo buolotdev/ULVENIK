@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
+import '../widgets/health_ui.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/app_colors.dart';
 import 'weight_tracker_screen.dart';
@@ -599,9 +600,9 @@ class _HealthStatisticsScreenState extends State<HealthStatisticsScreen>
                             color: AppColors.primaryTextOffWhite,
                           ),
                           children: [
-                            TextSpan(text: activeSpot.weightKg.toStringAsFixed(1)),
+                            TextSpan(text: fmtKg(toPrefWeight(activeSpot.weightKg))),
                             TextSpan(
-                              text: 'kg',
+                              text: prefWeightUnit(),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,

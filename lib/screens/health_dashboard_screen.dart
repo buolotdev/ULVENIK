@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/ulvenik_icon.dart';
+import '../widgets/health_ui.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'add_health_record_screen.dart';
 import 'weight_tracker_screen.dart';
@@ -809,7 +810,7 @@ class _HealthDashboardScreenState extends State<HealthDashboardScreen>
                             if (idx < 0 || idx >= _trendData.length) return null;
                             final pt = _trendData[idx];
                             final valStr = isWeight
-                                ? '${pt.weightKg} kg'
+                                ? '${fmtKg(toPrefWeight(pt.weightKg))} ${prefWeightUnit()}'
                                 : (isVitality ? '${pt.vitality.toInt()} pts' : '${pt.activityScore.toInt()} score');
                             return LineTooltipItem(
                               '${pt.label} 2026\n',

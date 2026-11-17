@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/ulvenik_icon.dart';
+import '../widgets/health_ui.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../theme/app_colors.dart';
 
@@ -762,7 +763,7 @@ class _HealthReportsTimelineScreenState
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
-                              isWeight ? '${activePoint.weightKg.toStringAsFixed(1)} kg' : '${activePoint.eventCount} Events',
+                              isWeight ? '${fmtKg(toPrefWeight(activePoint.weightKg))} ${prefWeightUnit()}' : '${activePoint.eventCount} Events',
                               style: TextStyle(
                                 color: isWeight ? _mint : const Color(0xFF5D8FAF),
                                 fontSize: 11,
